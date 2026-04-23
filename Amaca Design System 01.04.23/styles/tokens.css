@@ -1,0 +1,184 @@
+/* =========================================================
+   AMACA DESIGN SYSTEM — TOKENS
+   Derived from angelomacaione.com
+   ========================================================= */
+
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-LightItalic.otf") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Italic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-MediumItalic.otf") format("opentype");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-BoldItalic.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Black.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-BlackItalic.otf") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+
+:root{
+  /* — NEUTRALS (obsidian-to-bone scale) — */
+  --obsidian-950: #07090B;      /* page */
+  --obsidian-900: #0B0E12;      /* surface */
+  --obsidian-850: #10141A;      /* elevated */
+  --obsidian-800: #161B22;      /* card */
+  --obsidian-700: #1E242D;      /* border strong */
+  --obsidian-600: #2A313B;      /* border */
+  --obsidian-500: #3A4451;      /* muted edge */
+  --obsidian-400: #5B6573;      /* disabled text */
+  --obsidian-300: #8A94A3;      /* secondary text */
+  --obsidian-200: #B8C0CB;      /* tertiary text */
+  --obsidian-100: #E3E7EC;      /* primary text on dark */
+  --obsidian-050: #F4F6F8;      /* bone */
+
+  /* — BRAND (primary accent: magenta F051D5) — */
+  --magenta-100: #FFE3F8;
+  --magenta-200: #FFB5EC;
+  --magenta-300: #FF85DF;
+  --magenta-400: #F868D8;
+  --magenta-500: #F051D5;       /* primary brand */
+  --magenta-600: #C93BB0;
+  --magenta-700: #9A2D87;
+  --magenta-800: #66195A;
+
+  /* — SECONDARY (electric cyan) — */
+  --secondary-100: #CCFFFC;
+  --secondary-200: #80FFF8;
+  --secondary-300: #33FFF5;
+  --secondary-400: #00FFF2;
+  --secondary-500: #00FFF2;
+  --secondary-600: #00CCC2;
+  --secondary-700: #009992;
+
+  /* — TERTIARY (petrol teal) — */
+  --tertiary-100: #CEEAF1;
+  --tertiary-200: #8FCFDE;
+  --tertiary-300: #4FA9BF;
+  --tertiary-400: #1F85A0;
+  --tertiary-500: #0C6078;
+  --tertiary-600: #084C61;
+  --tertiary-700: #06384A;
+
+  /* legacy cube colors kept for the logo glow only */
+  --cube-cyan:   #2CE3D0;
+  --cube-mint:   #3AFFC7;
+  --cube-aqua:   #1FD6F2;
+
+  /* — SEMANTIC — */
+  --success:     #3AFFC7;
+  --warning:     #F6C65B;
+  --danger:      #FF5B5B;
+  --info:        #5CC8FF;
+
+  /* — GRADIENTS — */
+  --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
+  --grad-signal: linear-gradient(90deg, #F051D5 0%, #FF85DF 100%);
+  --grad-fog:    radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),
+                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%);
+
+  /* — TYPE — */
+  --font-sans:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* type scale — perfect-fourth on small / modular on large */
+  --t-micro:   10px;
+  --t-caption: 12px;
+  --t-small:   13px;
+  --t-body:    15px;
+  --t-lead:    18px;
+  --t-h6:      20px;
+  --t-h5:      24px;
+  --t-h4:      30px;
+  --t-h3:      38px;
+  --t-h2:      52px;
+  --t-h1:      76px;
+  --t-display: 112px;
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.45;
+  --lh-loose:   1.65;
+
+  --tr-tight:   -0.04em;
+  --tr-snug:    -0.02em;
+  --tr-normal:   0em;
+  --tr-wide:    0.04em;
+  --tr-mono:    0.06em;
+
+  /* — SPACING (4px base) — */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* — RADIUS — */
+  --r-none: 0;
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 24px;
+  --r-full: 999px;
+
+  /* — SHADOW — */
+  --sh-0: none;
+  --sh-1: 0 1px 0 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.4);
+  --sh-2: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 4px 12px rgba(0,0,0,0.5);
+  --sh-3: 0 1px 0 0 rgba(255,255,255,0.05) inset, 0 12px 32px rgba(0,0,0,0.55);
+  --sh-4: 0 1px 0 0 rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.6);
+  --sh-glow: 0 0 0 1px rgba(240,81,213,0.35), 0 0 24px rgba(240,81,213,0.25);
+  --sh-glow-soft: 0 0 40px rgba(240,81,213,0.12);
+
+  /* — MOTION (Framer-aligned: soft, bouncy, confident) — */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);     /* Framer default ease-out */
+  --ease-accel:    cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-decel:    cubic-bezier(0.16, 1, 0.3, 1);      /* expo-out */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* elastic overshoot */
+  --d-instant: 100ms;
+  --d-quick:   200ms;
+  --d-base:    350ms;
+  --d-slow:    600ms;
+  --d-scene:   900ms;
+
+  /* — LAYOUT — */
+  --sidebar-w: 260px;
+  --content-max: 1180px;
+  --gutter: 24px;
+}
+
+/* =========================================================
+   GLOBAL RESET + BASE
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{color-scheme:dark}
+body{
+  font-family:var(--font-sans);
+  font-size:var(--t-body);
+  line-height:var(--lh-normal);
+  color:var(--obsidian-100);
+  background:var(--obsidian-950);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"ss01","ss02","cv11";
+}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
+a:hover{color:var(--magenta-300)}
+::selection{background:var(--magenta-500);color:#fff}
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:4px;border:2px solid var(--obsidian-950)}
+::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}
