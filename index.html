@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Amaca — Design System</title>
 
-<link rel="stylesheet" href="styles/tokens.css?v=13">
-<link rel="stylesheet" href="styles/components.css?v=13">
+<link rel="stylesheet" href="styles/tokens.css?v=24">
+<link rel="stylesheet" href="styles/components.css?v=24">
 <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
@@ -33,7 +33,7 @@
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">v1.0 · Design System</span>
+        <span class="meta">v1.1 · Design System</span>
       </div>
     </div>
 
@@ -74,10 +74,14 @@
       <div>Build 2026.04 · Angelo Macaione</div>
     </div>
   </aside>
+  <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
 
   <!-- ============ MAIN ============ -->
   <main class="main" id="main-content">
     <div class="topbar">
+      <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="menu-toggle-bars"><span></span><span></span><span></span></span>
+      </button>
       <div class="breadcrumb">
         <span>Amaca DS</span>
         <span class="sep">/</span>
@@ -100,10 +104,10 @@
             Amaca is the personal design system of Angelo Macaione — an operating toolkit for case studies, portfolio work, and product explorations. Built editorial-first, engineered underneath. Dark by default, precise by habit.
           </p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">1.0.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">1.1.4</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
-            <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Cube Cyan</span></div>
+            <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
             <div class="mk"><span class="k">Updated</span><span class="v">Apr 22, 2026</span></div>
           </div>
         </div>
@@ -598,10 +602,17 @@
                 </div>
               </div>
               <div class="field">
-                <label class="label">Status</label>
-                <select class="select">
-                  <option>Draft</option><option>In review</option><option>Published</option>
-                </select>
+                <label class="label" id="status-label">Status</label>
+                <div class="select-wrap" data-select>
+                  <button type="button" class="select select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="status-label">
+                    <span class="select-value">Draft</span>
+                  </button>
+                  <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
+                    <li class="select-option" role="option" aria-selected="true" data-value="Draft">Draft</li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="In review">In review</li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Published">Published</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6)">
@@ -637,19 +648,19 @@
           <div class="grid grid-3">
             <div class="card">
               <div class="card-header" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
-              <div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);margin:var(--s-2) 0 var(--s-5);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Embargo</span></div>
-              <div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);margin:var(--s-2) 0 var(--s-5);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Fleet telemetry for industrial robotics. Details under NDA until Q3.</p>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
-              <div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));margin:var(--s-2) 0 var(--s-5);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Field · observability app</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">On-call dashboards for a SaaS infra company.</p>
             </div>
@@ -690,18 +701,18 @@
         <div class="page-header">
           <div class="page-eyebrow">§ 11 · Components / Badges &amp; Status</div>
           <h1 class="page-title">Small labels, <span class="accent">loud signals.</span></h1>
-          <p class="page-lede">Always mono, always uppercase, always paired with a dot when live. Badges are feedback; they're never content.</p>
+          <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they're never content.</p>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 11.1</span></div>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
-            <span class="badge"><span class="dot"></span>Default</span>
+            <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
-            <span class="badge badge-warn"><span class="dot"></span>In review</span>
-            <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
-            <span class="badge badge-info"><span class="dot"></span>Reading now</span>
+            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>In review</span>
+            <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
+            <span class="badge badge-info" style="background-color: rgba(92, 200, 255, 0.008); opacity: 1"><span class="dot"></span>Reading now</span>
             <span class="badge badge-solid">Featured</span>
           </div>
         </div>
@@ -754,13 +765,19 @@
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Tabs</h2><span class="subsection-num">§ 12.3</span></div>
           <div class="card" style="padding:0">
-            <div style="display:flex;border-bottom:1px solid var(--obsidian-800);padding:0 var(--s-4)">
-              <div style="padding:14px 16px;font-size:14px;font-weight:600;color:var(--obsidian-100);border-bottom:2px solid var(--magenta-500);margin-bottom:-1px">Overview</div>
-              <div style="padding:14px 16px;font-size:14px;color:var(--obsidian-300);cursor:pointer">Process</div>
-              <div style="padding:14px 16px;font-size:14px;color:var(--obsidian-300);cursor:pointer">Outcome</div>
-              <div style="padding:14px 16px;font-size:14px;color:var(--obsidian-300);cursor:pointer">Reflection</div>
+            <div class="tabs" role="tablist" data-tabs>
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="cs-overview">Overview</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="cs-process">Process</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="cs-outcome">Outcome</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="cs-reflection">Reflection</button>
+              <span class="tab-indicator" aria-hidden="true"></span>
             </div>
-            <div style="padding:var(--s-6);color:var(--obsidian-300);font-size:14px;line-height:1.7">Tab content sits in the active panel. Indicator is a 2px cyan underline overlapping the border. Inactive tabs stay at tertiary weight.</div>
+            <div class="tab-panels">
+              <div class="tab-panel active" role="tabpanel" id="cs-overview">Tab content sits in the active panel. Indicator is a 2px magenta underline that slides between tabs. Inactive tabs stay at tertiary weight.</div>
+              <div class="tab-panel" role="tabpanel" id="cs-process">The process panel. Three months of in-vehicle observation, instrumentation of the legacy HMI, and correlation with eye-tracking data before a single screen was drawn.</div>
+              <div class="tab-panel" role="tabpanel" id="cs-outcome">The outcome panel. −41% task time, +12pt retention, 94% token adoption across 7 surfaces in 18 months.</div>
+              <div class="tab-panel" role="tabpanel" id="cs-reflection">The reflection panel. Under‑invested in the companion mobile app for the first 6 months. Correcting course late cost us a quarter of rework.</div>
+            </div>
           </div>
         </div>
       </section>
@@ -849,14 +866,17 @@
                   <text x="0" y="30">EMEA</text><text x="0" y="70">AMER</text><text x="0" y="110">APAC</text><text x="0" y="150">LATAM</text>
                 </g>
                 <g>
-                  <rect x="60" y="18" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h x="60" y="18" width="282" height="14" rx="2" fill="url(#bargrad)"/>
-                  <rect x="60" y="58" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h x="60" y="58" width="220" height="14" rx="2" fill="#F051D5" opacity="0.9"/>
-                  <rect x="60" y="98" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h x="60" y="98" width="180" height="14" rx="2" fill="#F051D5" opacity="0.7"/>
-                  <rect x="60" y="138" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h x="60" y="138" width="90" height="14" rx="2" fill="#F051D5" opacity="0.45"/>
+                  <rect x="60" y="18" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="91" x="60" y="18" width="282" height="14" rx="2" fill="url(#bargrad)"/>
+                  <rect x="60" y="58" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="71" x="60" y="58" width="220" height="14" rx="2" fill="#F051D5" opacity="0.9"/>
+                  <rect x="60" y="98" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="58" x="60" y="98" width="180" height="14" rx="2" fill="#F051D5" opacity="0.7"/>
+                  <rect x="60" y="138" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="29" x="60" y="138" width="90" height="14" rx="2" fill="#F051D5" opacity="0.45"/>
                 </g>
                 <defs><linearGradient id="bargrad"><stop offset="0" stop-color="#F051D5"/><stop offset="1" stop-color="#FF85DF"/></linearGradient></defs>
                 <g font-family="Satoshi" font-size="10" fill="#E3E7EC" letter-spacing="1">
-                  <text x="346" y="30">91%</text><text x="284" y="70">71%</text><text x="244" y="110">58%</text><text x="154" y="150">29%</text>
+                  <text data-bar-label data-bar-pct="91" x="346" y="30">91%</text>
+                  <text data-bar-label data-bar-pct="71" x="284" y="70">71%</text>
+                  <text data-bar-label data-bar-pct="58" x="244" y="110">58%</text>
+                  <text data-bar-label data-bar-pct="29" x="154" y="150">29%</text>
                 </g>
               </svg>
             </div>
@@ -887,7 +907,64 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 13.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 13.3</span></div>
+          <div class="grid grid-2">
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
+              <div class="pie-wrap">
+                <svg data-fade-chart class="pie" viewBox="0 0 220 220" aria-label="Traffic sources donut chart">
+                  <g transform="translate(110 110)">
+                    <!-- track -->
+                    <circle r="80" fill="none" stroke="#161B22" stroke-width="26"/>
+                    <!-- slices: ring segments with 2px rounded corners, ~3px circumference gap -->
+                    <path data-pie-slice data-pie-pct="48" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#F051D5"/>
+                    <path data-pie-slice data-pie-pct="27" data-pie-start="48" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#FF85DF"/>
+                    <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#5CC8FF"/>
+                    <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#0C6078"/>
+                  </g>
+                  <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
+                    <text data-pie-total data-count-to="12.4" data-decimals="1" x="110" y="108" font-size="34" font-weight="700" fill="#E3E7EC" letter-spacing="-1">0.0</text>
+                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#8A94A3" letter-spacing="1.5">VISITS · K</text>
+                  </g>
+                </svg>
+                <ul class="pie-legend">
+                  <li data-fade><span class="sw" style="background:#F051D5"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#FF85DF"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#5CC8FF"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#0C6078"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Adoption · Q1–Q4</span><span class="s" data-fade>Tokens shipped</span></div>
+              <div class="pie-wrap">
+                <svg data-fade-chart class="pie" viewBox="0 0 220 220" aria-label="Adoption donut chart">
+                  <g transform="translate(110 110)">
+                    <circle r="80" fill="none" stroke="#161B22" stroke-width="26"/>
+                    <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#F051D5"/>
+                    <path data-pie-slice data-pie-pct="32" data-pie-start="38" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#C93BB0"/>
+                    <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#9A2D87"/>
+                    <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#66195A"/>
+                  </g>
+                  <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
+                    <text data-pie-total data-count-to="274" x="110" y="108" font-size="34" font-weight="700" fill="#E3E7EC" letter-spacing="-1">0</text>
+                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#8A94A3" letter-spacing="1.5">TOKENS</text>
+                  </g>
+                </svg>
+                <ul class="pie-legend">
+                  <li data-fade><span class="sw" style="background:#F051D5"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#C93BB0"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#9A2D87"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
+                  <li data-fade><span class="sw" style="background:#66195A"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 13.4</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
@@ -990,7 +1067,13 @@
           <div class="eyebrow">02 · Process</div>
           <h3>Measure twice, cut once.</h3>
           <p>Three months of in-vehicle observation before a single screen was drawn. We instrumented the legacy HMI and logged every interaction over a 6-week period, then correlated with eye-tracking data from our research partners.</p>
-          <div class="cs-img">Fig. 01 · In-vehicle observation · 6 weeks, 42 participants</div>
+          <div class="cs-img" role="button" tabindex="0" aria-label="Expand figure: Fig. 01 · In-vehicle observation · 6 weeks, 42 participants" data-lightbox>
+            <span class="cs-img-caption">Fig. 01 · In-vehicle observation · 6 weeks, 42 participants</span>
+            <span class="cs-img-hint" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+              Click to expand
+            </span>
+          </div>
           <p>The map that came back was unambiguous: 73% of distracted-driving events clustered around three flows. Those three became our design targets.</p>
         </div>
 
@@ -1021,11 +1104,52 @@
   </main>
 </div>
 
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded figure" aria-hidden="true">
+  <div class="lightbox-content" id="lightbox-content">
+    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <span id="lightbox-caption"></span>
+  </div>
+</div>
+
 <script>
 // --- sidebar nav routing ---
 const navItems = document.querySelectorAll('.nav-item');
 const sections = document.querySelectorAll('.section');
 const crumb = document.getElementById('crumb');
+const sidebar = document.querySelector('.sidebar');
+const sidebarScrim = document.getElementById('sidebar-scrim');
+const menuToggle = document.getElementById('menu-toggle');
+
+function closeSidebar(){
+  if(!sidebar) return;
+  sidebar.classList.remove('open');
+  if(sidebarScrim) sidebarScrim.classList.remove('open');
+  if(menuToggle) menuToggle.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+}
+function openSidebar(){
+  if(!sidebar) return;
+  sidebar.classList.add('open');
+  if(sidebarScrim) sidebarScrim.classList.add('open');
+  if(menuToggle) menuToggle.setAttribute('aria-expanded','true');
+  document.body.style.overflow = 'hidden';
+}
+if(menuToggle){
+  menuToggle.addEventListener('click', function(){
+    if(sidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+  });
+}
+if(sidebarScrim) sidebarScrim.addEventListener('click', closeSidebar);
+document.addEventListener('keydown', function(e){
+  if(e.key==='Escape' && sidebar && sidebar.classList.contains('open')) closeSidebar();
+});
+// if viewport grows back to desktop, ensure drawer state is reset
+window.addEventListener('resize', function(){
+  if(window.innerWidth > 860) closeSidebar();
+});
 
 function go(target){
   navItems.forEach(n => n.classList.toggle('active', n.dataset.target === target));
@@ -1034,6 +1158,8 @@ function go(target){
   if(activeNav && crumb) crumb.textContent = activeNav.textContent.trim().replace(/^\d+\s*/, '');
   try{ localStorage.setItem('amaca-ds-section', target); }catch(e){}
   window.scrollTo({top:0, behavior:'instant'});
+  // close mobile drawer after navigation
+  if(window.innerWidth <= 860) closeSidebar();
 }
 
 navItems.forEach(n => n.addEventListener('click', () => go(n.dataset.target)));
@@ -1215,6 +1341,69 @@ new MutationObserver(muts => {
     setTimeout(() => clearInterval(t), 3000);
   }
 
+  // Builds a ring-segment path: an annular arc from startDeg to endDeg (clockwise),
+  // with all 4 corners rounded at radius `cr`. The ring sits between inner radius
+  // `r - sw/2` and outer radius `r + sw/2`. Angles are CSS-like (0° = 12 o'clock,
+  // increasing clockwise). Returns empty string for degenerate spans.
+  function ringSegmentPath(r, sw, startDeg, endDeg, cr){
+    const span = endDeg - startDeg;
+    if (span <= 0.01) return '';
+    const rOuter = r + sw/2;
+    const rInner = r - sw/2;
+    // Clamp corner radius: can't exceed half the ring thickness, nor the arc chord.
+    const maxByThickness = sw / 2;
+    // Minimum arc length (at inner radius) needed for two corners to meet.
+    const maxByArc = (span * Math.PI / 180) * rInner / 2;
+    const c = Math.max(0, Math.min(cr, maxByThickness, maxByArc));
+
+    // Angular offset at outer/inner edge that the rounded corner consumes.
+    const aOuter = (c / rOuter) * 180 / Math.PI;
+    const aInner = (c / rInner) * 180 / Math.PI;
+
+    const toRad = d => (d - 90) * Math.PI / 180; // -90 so 0° = 12 o'clock
+    const pt = (radius, deg) => {
+      const a = toRad(deg);
+      return [Math.cos(a) * radius, Math.sin(a) * radius];
+    };
+
+    // Six points defining the rounded ring segment (O = outer edge, I = inner edge):
+    //   O1 — start of outer arc (after top-left corner)
+    //   O2 — end of outer arc   (before top-right corner)
+    //   TR — outer edge of top-right corner start (straight edge, outer end)
+    //   I2 — start of inner arc (after bottom-right corner, going backwards)
+    //   I1 — end of inner arc   (before bottom-left corner)
+    //   TL — outer edge of top-left corner end   (straight edge, outer end)
+    const [O1x, O1y] = pt(rOuter, startDeg + aOuter);
+    const [O2x, O2y] = pt(rOuter, endDeg   - aOuter);
+    const [I2x, I2y] = pt(rInner, endDeg   - aInner);
+    const [I1x, I1y] = pt(rInner, startDeg + aInner);
+
+    // Corner end/start points on the straight (radial) edges, offset by `c` radially.
+    const eStart = pt(rOuter - c, startDeg); // top-left corner: straight-edge start
+    const sEnd   = pt(rOuter - c, endDeg);   // top-right corner: straight-edge end
+    const eInner = pt(rInner + c, startDeg); // bottom-left corner: straight-edge end
+    const sInnerEnd = pt(rInner + c, endDeg);// bottom-right corner: straight-edge start
+
+    const largeOuter = (endDeg - aOuter) - (startDeg + aOuter) > 180 ? 1 : 0;
+    const largeInner = (endDeg - aInner) - (startDeg + aInner) > 180 ? 1 : 0;
+
+    // Path: move to O1, arc outer to O2, corner arc to sEnd, line to sInnerEnd,
+    // corner arc to I2, arc inner (reverse) to I1, corner arc to eInner,
+    // line to eStart, corner arc back to O1.
+    return [
+      `M ${O1x.toFixed(3)} ${O1y.toFixed(3)}`,
+      `A ${rOuter} ${rOuter} 0 ${largeOuter} 1 ${O2x.toFixed(3)} ${O2y.toFixed(3)}`,
+      `A ${c} ${c} 0 0 1 ${sEnd[0].toFixed(3)} ${sEnd[1].toFixed(3)}`,
+      `L ${sInnerEnd[0].toFixed(3)} ${sInnerEnd[1].toFixed(3)}`,
+      `A ${c} ${c} 0 0 1 ${I2x.toFixed(3)} ${I2y.toFixed(3)}`,
+      `A ${rInner} ${rInner} 0 ${largeInner} 0 ${I1x.toFixed(3)} ${I1y.toFixed(3)}`,
+      `A ${c} ${c} 0 0 1 ${eInner[0].toFixed(3)} ${eInner[1].toFixed(3)}`,
+      `L ${eStart[0].toFixed(3)} ${eStart[1].toFixed(3)}`,
+      `A ${c} ${c} 0 0 1 ${O1x.toFixed(3)} ${O1y.toFixed(3)}`,
+      'Z'
+    ].join(' ');
+  }
+
   function setupPathLens(root){
     root.querySelectorAll('[data-line-draw]').forEach(p => {
       if (!p._len){
@@ -1228,12 +1417,36 @@ new MutationObserver(muts => {
 
   function captureBarGeom(root){
     root.querySelectorAll('[data-bar-h]').forEach(r => {
-      if (r._w == null) r._w = +r.getAttribute('width');
+      if (r._w == null){
+        r._w = +r.getAttribute('width');
+        r._x = +r.getAttribute('x');
+        r._pct = +r.getAttribute('data-bar-pct') || 0;
+        // find matching label by data-bar-pct
+        const pct = r.getAttribute('data-bar-pct');
+        if(pct){
+          const label = root.querySelector('[data-bar-label][data-bar-pct="' + pct + '"]');
+          if(label){
+            r._label = label;
+            if(label._xEnd == null) label._xEnd = +label.getAttribute('x');
+          }
+        }
+      }
     });
     root.querySelectorAll('[data-bar-v]').forEach(r => {
       if (r._h == null){
         r._h = +r.getAttribute('height');
         r._y = +r.getAttribute('y');
+      }
+    });
+    root.querySelectorAll('[data-pie-slice]').forEach(c => {
+      if (c._init == null){
+        c._init = true;
+        c._pct = +c.getAttribute('data-pie-pct') || 0;
+        c._startPct = +c.getAttribute('data-pie-start') || 0;
+        c._gapPct = +c.getAttribute('data-pie-gap') || 0;    // gap in % of full circle
+        c._corner = +c.getAttribute('data-pie-corner') || 0; // rounded-corner radius in px
+        c._radius = +c.getAttribute('data-pie-radius') || 80;
+        c._sw = +c.getAttribute('data-pie-sw') || 26;
       }
     });
   }
@@ -1247,10 +1460,24 @@ new MutationObserver(muts => {
     root.querySelectorAll('[data-baseline-clip]').forEach(r => r.setAttribute('width', 0));
     root.querySelectorAll('[data-area-fade]').forEach(a => { a.style.opacity = '0'; });
     root.querySelectorAll('[data-line-dots] [data-dot]').forEach(c => c.setAttribute('r', 0));
-    root.querySelectorAll('[data-bar-h]').forEach(r => r.setAttribute('width', '0'));
+    root.querySelectorAll('[data-bar-h]').forEach(r => {
+      r.setAttribute('width', '0');
+      if(r._label){
+        // park the label just past the bar's origin (x + 4 padding)
+        r._label.setAttribute('x', r._x + 4);
+        r._label.textContent = '0%';
+        r._label.style.opacity = '0';
+      }
+    });
     root.querySelectorAll('[data-bar-v]').forEach(r => {
       r.setAttribute('height', '0');
       r.setAttribute('y', r._y + r._h);
+    });
+    root.querySelectorAll('[data-pie-slice]').forEach(c => {
+      c.setAttribute('d', '');
+    });
+    root.querySelectorAll('[data-pct-count]').forEach(el => {
+      el.textContent = '0%';
     });
     void root.offsetWidth;
   }
@@ -1301,9 +1528,18 @@ new MutationObserver(muts => {
     });
 
     root.querySelectorAll('[data-bar-h]').forEach((r, i) => {
-      animate(0, r._w, {
+      animate(0, 1, {
         duration: 0.9, ease: decel, delay: 0.7 + i * 0.1,
-        onUpdate: v => r.setAttribute('width', v.toFixed(1))
+        onUpdate: t => {
+          const w = r._w * t;
+          r.setAttribute('width', w.toFixed(1));
+          if(r._label){
+            r._label.style.opacity = '1';
+            // keep label glued to the bar's right edge with a 4px lead
+            r._label.setAttribute('x', (r._x + w + 4).toFixed(1));
+            r._label.textContent = Math.round(r._pct * t) + '%';
+          }
+        }
       });
     });
 
@@ -1317,7 +1553,49 @@ new MutationObserver(muts => {
         }
       });
     });
+
+    // pie / donut slices: draw around the ring with per-slice stagger.
+    // Each slice is a rounded ring-segment <path>; we animate by sweeping the
+    // end angle from the slice start to its target, rebuilding `d` each frame.
+    const pieSvgs = root.querySelectorAll('.pie');
+    pieSvgs.forEach(svg => {
+      const slices = svg.querySelectorAll('[data-pie-slice]');
+      slices.forEach((c, i) => {
+        const startDeg = c._startPct * 3.6 + c._gapPct / 2;
+        const endDeg   = (c._startPct + c._pct) * 3.6 - c._gapPct / 2;
+        animate(startDeg, endDeg, {
+          duration: 0.75, ease: decel, delay: 0.6 + i * 0.14,
+          onUpdate: v => {
+            c.setAttribute('d', ringSegmentPath(c._radius, c._sw, startDeg, v, c._corner));
+          }
+        });
+      });
+      // legend percentages count up in lockstep with their matching slice
+      const wrap = svg.closest('.pie-wrap');
+      if (wrap){
+        const pcts = wrap.querySelectorAll('.pie-legend [data-pct-count]');
+        pcts.forEach((el, i) => {
+          const target = +el.getAttribute('data-pct-count');
+          animate(0, target, {
+            duration: 0.75, ease: decel, delay: 0.6 + i * 0.14,
+            onUpdate: v => { el.textContent = Math.round(v) + '%'; }
+          });
+        });
+      }
+    });
+
+    // animate center totals with data-count-to if present
+    root.querySelectorAll('[data-pie-total][data-count-to]').forEach(t => {
+      const target = +t.getAttribute('data-count-to');
+      const decimals = +(t.getAttribute('data-decimals') || 0);
+      animate(0, target, {
+        duration: 1.2, ease: decel, delay: 0.7,
+        onUpdate: v => { t.textContent = v.toFixed(decimals); }
+      });
+    });
+
   }
+
 
   waitForMotion(M => {
     // Initial auto-play: all subsections at once when scrolled into view
@@ -1339,6 +1617,159 @@ new MutationObserver(muts => {
       const scope = btn.closest('.subsection') || viz;
       run(M, scope);
     });
+  });
+})();
+</script>
+<script>
+// --- custom select dropdowns ---
+(function(){
+  document.querySelectorAll('[data-select]').forEach(function(wrap){
+    const trigger = wrap.querySelector('.select-trigger');
+    const menu = wrap.querySelector('.select-menu');
+    const value = wrap.querySelector('.select-value');
+    const opts = wrap.querySelectorAll('.select-option');
+    function close(){
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded','false');
+    }
+    function open(){
+      // close any other open selects
+      document.querySelectorAll('[data-select] .select-menu:not([hidden])').forEach(function(m){
+        if(m!==menu){ m.hidden = true; m.closest('[data-select]').querySelector('.select-trigger').setAttribute('aria-expanded','false'); }
+      });
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded','true');
+    }
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(menu.hidden) open(); else close();
+    });
+    opts.forEach(function(opt){
+      opt.addEventListener('click', function(e){
+        e.stopPropagation();
+        opts.forEach(function(o){ o.setAttribute('aria-selected','false'); });
+        opt.setAttribute('aria-selected','true');
+        value.textContent = opt.dataset.value || opt.textContent;
+        close();
+      });
+    });
+    trigger.addEventListener('keydown', function(e){
+      if(e.key==='Enter' || e.key===' ' || e.key==='ArrowDown'){ e.preventDefault(); open(); menu.querySelector('.select-option').focus(); }
+    });
+    menu.addEventListener('keydown', function(e){
+      const items = Array.from(opts);
+      const i = items.indexOf(document.activeElement);
+      if(e.key==='ArrowDown'){ e.preventDefault(); items[Math.min(i+1,items.length-1)].focus(); }
+      else if(e.key==='ArrowUp'){ e.preventDefault(); items[Math.max(i-1,0)].focus(); }
+      else if(e.key==='Escape'){ close(); trigger.focus(); }
+      else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); document.activeElement.click(); trigger.focus(); }
+    });
+    opts.forEach(function(o){ o.tabIndex = -1; });
+  });
+  document.addEventListener('click', function(){
+    document.querySelectorAll('[data-select] .select-menu:not([hidden])').forEach(function(m){
+      m.hidden = true;
+      m.closest('[data-select]').querySelector('.select-trigger').setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+<script>
+// --- tabs: click to switch + animated sliding underline + panel crossfade ---
+(function(){
+  document.querySelectorAll('[data-tabs]').forEach(function(tablist){
+    const tabs = Array.from(tablist.querySelectorAll('.tab'));
+    const indicator = tablist.querySelector('.tab-indicator');
+    const panelsWrap = tablist.parentElement.querySelector('.tab-panels');
+    const panels = panelsWrap ? Array.from(panelsWrap.querySelectorAll('.tab-panel')) : [];
+
+    function moveIndicator(tab){
+      if(!indicator) return;
+      const rect = tab.getBoundingClientRect();
+      const parentRect = tablist.getBoundingClientRect();
+      const x = rect.left - parentRect.left;
+      indicator.style.width = rect.width + 'px';
+      indicator.style.transform = 'translateX(' + x + 'px)';
+    }
+
+    function activate(tab){
+      tabs.forEach(function(t){
+        t.classList.toggle('active', t===tab);
+        t.setAttribute('aria-selected', t===tab ? 'true' : 'false');
+      });
+      moveIndicator(tab);
+      const target = tab.dataset.panel;
+      panels.forEach(function(p){
+        const isActive = p.id === target;
+        if(isActive){
+          p.classList.add('active');
+          // trigger transition
+          requestAnimationFrame(function(){ p.classList.add('is-in'); });
+        } else {
+          p.classList.remove('is-in');
+          p.classList.remove('active');
+        }
+      });
+    }
+
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){ activate(tab); });
+    });
+
+    // initial indicator position + panel fade-in
+    const initial = tabs.find(function(t){ return t.classList.contains('active'); }) || tabs[0];
+    if(initial){
+      // wait a frame so layout is measured correctly
+      requestAnimationFrame(function(){
+        moveIndicator(initial);
+        const target = initial.dataset.panel;
+        const p = panels.find(function(x){ return x.id===target; });
+        if(p){ p.classList.add('active'); requestAnimationFrame(function(){ p.classList.add('is-in'); }); }
+      });
+    }
+
+    // keep indicator aligned on resize
+    window.addEventListener('resize', function(){
+      const active = tabs.find(function(t){ return t.classList.contains('active'); });
+      if(active) moveIndicator(active);
+    });
+  });
+})();
+</script>
+<script>
+// --- lightbox for figures ---
+(function(){
+  const lb = document.getElementById('lightbox');
+  const caption = document.getElementById('lightbox-caption');
+  const closeBtn = document.getElementById('lightbox-close');
+  if(!lb) return;
+  let lastFocused = null;
+
+  function open(el){
+    const text = (el.querySelector('.cs-img-caption')?.textContent || el.textContent || '').trim();
+    caption.textContent = text;
+    lastFocused = document.activeElement;
+    lb.classList.add('open');
+    lb.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+  function close(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  document.querySelectorAll('[data-lightbox]').forEach(el => {
+    el.addEventListener('click', () => open(el));
+    el.addEventListener('keydown', e => {
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(el); }
+    });
+  });
+  closeBtn.addEventListener('click', close);
+  lb.addEventListener('click', e => { if(e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if(e.key==='Escape' && lb.classList.contains('open')) close();
   });
 })();
 </script>
