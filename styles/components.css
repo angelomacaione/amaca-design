@@ -199,6 +199,24 @@
   transition:border-color var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
 }
 .card:hover{border-color:var(--obsidian-700)}
+.card-media{
+  margin:var(--s-2) 0 var(--s-5);
+  border-radius:var(--r-md);
+  overflow:hidden;
+}
+.card-media > *{
+  transition:transform 480ms var(--ease-decel);
+  will-change:transform;
+  margin:0 !important;
+}
+.card:hover .card-media > *,
+.card:focus-within .card-media > *{
+  transform:scale(1.05);
+}
+@media (prefers-reduced-motion: reduce){
+  .card-media > *{transition:none}
+  .card:hover .card-media > *{transform:none}
+}
 .card-header{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:var(--s-4);
@@ -342,6 +360,39 @@
   outline:none;transition:all var(--d-quick) var(--ease-standard);
   width:100%;
 }
+.select{
+  appearance:none;-webkit-appearance:none;-moz-appearance:none;
+  padding-right:36px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A94A3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  background-size:12px 12px;
+}
+.select-wrap{position:relative;width:100%}
+.select-trigger{
+  display:flex;align-items:center;justify-content:flex-start;
+  text-align:left;cursor:pointer;
+  width:100%;
+}
+.select-trigger[aria-expanded="true"]{border-color:var(--magenta-500);box-shadow:0 0 0 3px rgba(240,81,213,0.15)}
+.select-value{flex:1;color:var(--obsidian-100)}
+.select-menu{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;
+  margin:0;padding:4px;list-style:none;
+  background:var(--obsidian-850);
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md);
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  z-index:20;max-height:240px;overflow:auto;
+}
+.select-menu[hidden]{display:none}
+.select-option{
+  padding:8px 10px;border-radius:calc(var(--r-md) - 2px);
+  font-family:var(--font-sans);font-size:14px;color:var(--obsidian-100);
+  cursor:pointer;transition:background var(--d-quick) var(--ease-standard);
+}
+.select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
+.select-option[aria-selected="true"]{color:var(--magenta-400)}
 .input:focus,.textarea:focus,.select:focus{border-color:var(--magenta-500);box-shadow:0 0 0 3px rgba(240,81,213,0.15)}
 .input::placeholder{color:var(--obsidian-400)}
 .input-wrap{position:relative}
@@ -366,7 +417,7 @@
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--font-sans);font-size:13px;letter-spacing:var(--tr-snug);
   padding:10px 18px;border-radius:var(--r-md);
-  border:1px solid var(--tertiary-400);color:#fff;background:var(--tertiary-500);
+  border:1px solid rgba(12,96,120,0.4);color:var(--tertiary-300);background:rgba(12,96,120,0.12);
   font-weight:500;
 }
 .badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
@@ -455,6 +506,7 @@
   color:var(--obsidian-100);max-width:52ch;margin:var(--s-8) 0;
 }
 .cs-img{
+  position:relative;
   aspect-ratio:16/9;
   background:
     linear-gradient(135deg, rgba(0,229,209,0.04), rgba(248,104,216,0.02)),
@@ -464,6 +516,133 @@
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);
   margin:var(--s-6) 0;
+  cursor:zoom-in;
+  overflow:hidden;
+  transition:border-color 240ms var(--ease-standard), box-shadow 420ms var(--ease-decel);
+}
+.cs-img:hover,
+.cs-img:focus-visible{
+  border-color:var(--magenta-500);
+  box-shadow:0 12px 48px rgba(240,81,213,0.18), 0 0 0 1px rgba(240,81,213,0.2);
+  outline:none;
+}
+.cs-img-caption{
+  display:inline-block;
+  transition:transform 420ms var(--ease-decel);
+  will-change:transform;
+}
+.cs-img:hover .cs-img-caption,
+.cs-img:focus-visible .cs-img-caption{
+  transform:scale(1.06);
+}
+.cs-img-hint{
+  position:absolute;
+  top:var(--s-3);right:var(--s-3);
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 10px;
+  background:rgba(7,9,11,0.7);
+  backdrop-filter:blur(8px);
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md);
+  font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);
+  color:var(--obsidian-200);
+  opacity:0;transform:translateY(-4px);
+  transition:opacity 240ms var(--ease-standard), transform 240ms var(--ease-standard);
+  pointer-events:none;
+}
+.cs-img:hover .cs-img-hint,
+.cs-img:focus-visible .cs-img-hint{
+  opacity:1;transform:translateY(0);
+}
+
+/* ─────────── PIE / DONUT CHART ─────────── */
+.pie-wrap{
+  display:grid;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap:var(--s-6);
+  align-items:center;
+  margin-top:var(--s-4);
+}
+.pie{
+  width:100%;max-width:220px;
+  height:auto;
+  margin-inline:auto;
+  display:block;
+}
+.pie-legend{
+  list-style:none;margin:0;padding:0;
+  display:flex;flex-direction:column;gap:var(--s-2);
+}
+.pie-legend li{
+  display:grid;
+  grid-template-columns:12px 1fr auto;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid var(--obsidian-800);
+  border-radius:var(--r-md);
+  background:var(--obsidian-850);
+  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+}
+.pie-legend li:hover{border-color:var(--obsidian-700);background:var(--obsidian-800)}
+.pie-legend .sw{
+  width:10px;height:10px;border-radius:3px;
+}
+.pie-legend .lbl{
+  font-size:13px;color:var(--obsidian-100);letter-spacing:var(--tr-snug);
+}
+.pie-legend .pct{
+  font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300);letter-spacing:var(--tr-mono);
+}
+@media (max-width: 720px){
+  .pie-wrap{grid-template-columns:1fr;gap:var(--s-5)}
+}
+
+/* ─────────── LIGHTBOX ─────────── */
+.lightbox{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  padding:var(--s-8);
+  background:rgba(7,9,11,0.85);
+  backdrop-filter:blur(12px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 240ms var(--ease-standard);
+}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox-content{
+  position:relative;
+  width:100%;max-width:1400px;
+  aspect-ratio:16/9;
+  max-height:calc(100vh - var(--s-20));
+  background:
+    linear-gradient(135deg, rgba(0,229,209,0.04), rgba(248,104,216,0.02)),
+    repeating-linear-gradient(45deg, transparent 0, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
+    var(--obsidian-850);
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-lg);
+  box-shadow:0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(240,81,213,0.1);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:13px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200);
+  transform:scale(0.96);
+  transition:transform 320ms var(--ease-decel);
+}
+.lightbox.open .lightbox-content{transform:scale(1)}
+.lightbox-close{
+  position:absolute;top:var(--s-3);right:var(--s-3);
+  width:36px;height:36px;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md);
+  background:rgba(7,9,11,0.7);backdrop-filter:blur(8px);
+  color:var(--obsidian-100);
+  cursor:pointer;
+  transition:border-color 200ms var(--ease-standard), background 200ms var(--ease-standard);
+}
+.lightbox-close:hover{border-color:var(--magenta-500);background:rgba(240,81,213,0.1)}
+@media (prefers-reduced-motion: reduce){
+  .cs-img,.cs-img-caption,.cs-img-hint,.lightbox,.lightbox-content{transition:none}
+  .cs-img:hover .cs-img-caption,.cs-img:focus-visible .cs-img-caption{transform:none}
 }
 
 /* ─────────── GRID OVERLAY DEMO ─────────── */
@@ -529,4 +708,146 @@
 [data-fade].is-in{opacity:1;transform:translateY(0)}
 @media (prefers-reduced-motion: reduce){
   [data-fade]{opacity:1;transform:none;transition:none}
+}
+
+/* ─────────── TABS ─────────── */
+.tabs{
+  position:relative;display:flex;
+  border-bottom:1px solid var(--obsidian-800);
+  padding:0 var(--s-4);
+}
+.tab{
+  background:none;border:0;cursor:pointer;
+  padding:14px 16px;
+  font-family:var(--font-sans);font-size:14px;font-weight:500;
+  color:var(--obsidian-300);
+  transition:color var(--d-quick) var(--ease-standard);
+  position:relative;z-index:1;
+}
+.tab:hover{color:var(--obsidian-100)}
+.tab.active{color:var(--obsidian-100);font-weight:600}
+.tab-indicator{
+  position:absolute;left:0;bottom:-1px;
+  height:2px;width:0;
+  background:var(--magenta-500);
+  transition:transform 420ms var(--ease-decel), width 420ms var(--ease-decel);
+  pointer-events:none;
+  will-change:transform,width;
+}
+.tab-panels{position:relative}
+.tab-panel{
+  display:none;
+  padding:var(--s-6);
+  color:var(--obsidian-300);font-size:14px;line-height:1.7;
+  opacity:0;transform:translateY(6px);
+  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+}
+.tab-panel.active{display:block}
+.tab-panel.is-in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){
+  .tab-indicator{transition:none}
+  .tab-panel{transition:none;opacity:1;transform:none}
+}
+
+/* =========================================================
+   MOBILE — sidebar becomes a drawer, hamburger in topbar
+   ========================================================= */
+
+/* hamburger (hidden on desktop) */
+.menu-toggle{
+  display:none;
+  width:40px;height:40px;
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md);
+  background:var(--obsidian-850);
+  padding:0;
+  align-items:center;justify-content:center;
+  color:var(--obsidian-100);
+  cursor:pointer;
+  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+  flex:0 0 auto;
+}
+.menu-toggle:hover{border-color:var(--magenta-500)}
+.menu-toggle-bars{
+  display:inline-flex;flex-direction:column;gap:4px;
+  width:18px;
+}
+.menu-toggle-bars span{
+  display:block;height:2px;background:currentColor;border-radius:1px;
+  transition:transform var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard);
+  transform-origin:center;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars span:nth-child(2){opacity:0}
+.menu-toggle[aria-expanded="true"] .menu-toggle-bars span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* scrim */
+.sidebar-scrim{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(7,9,11,0.6);
+  backdrop-filter:blur(4px);
+  z-index:15;
+  opacity:0;
+  transition:opacity var(--d-quick) var(--ease-standard);
+}
+.sidebar-scrim.open{display:block;opacity:1}
+
+@media (max-width: 860px){
+  .app{grid-template-columns: 1fr}
+
+  .menu-toggle{display:inline-flex}
+
+  .sidebar{
+    position:fixed;top:0;left:0;
+    width:min(86vw, 320px);
+    height:100vh;
+    transform:translateX(-100%);
+    transition:transform var(--d-base) var(--ease-decel);
+    z-index:20;
+    border-right:1px solid var(--obsidian-800);
+    box-shadow:8px 0 32px rgba(0,0,0,0.4);
+  }
+  .sidebar.open{transform:translateX(0)}
+  .nav-item.active::after{display:none}
+
+  .topbar{
+    padding: var(--s-3) var(--s-5);
+    gap: var(--s-3);
+  }
+  .topbar-actions{display:none}
+
+  .content{
+    padding: var(--s-8) var(--s-5) var(--s-16);
+  }
+
+  /* collapse grids */
+  .grid-2, .grid-3, .grid-4, .grid-6{grid-template-columns:1fr}
+
+  /* typography scale down */
+  .page-title{font-size:clamp(40px, 9vw, 64px);max-width:none}
+  .page-lede{font-size:clamp(16px, 3.6vw, 20px)}
+  .page-header{margin-bottom:var(--s-10)}
+  .subsection{margin-bottom:var(--s-12)}
+  .subsection-title{font-size:clamp(22px, 5vw, 30px)}
+
+  /* page-meta becomes wrap */
+  .page-meta{flex-wrap:wrap;gap:var(--s-4)}
+
+  /* tables & horizontal-scroll rescues */
+  .table{font-size:12px}
+  .table th,.table td{padding:var(--s-2) var(--s-3)}
+
+  /* tabs don't overflow */
+  .tabs{overflow-x:auto;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{white-space:nowrap}
+}
+
+@media (max-width: 480px){
+  .topbar .breadcrumb{font-size:10px}
+  .topbar .breadcrumb span:not(.active):not(.sep){display:none}
+  .topbar .breadcrumb .sep{display:none}
+  .content{padding: var(--s-6) var(--s-4) var(--s-12)}
+  .card{padding:var(--s-5)}
 }
