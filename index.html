@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Amaca — Design System</title>
 
-<link rel="stylesheet" href="styles/tokens.css?v=24">
-<link rel="stylesheet" href="styles/components.css?v=24">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+<link rel="stylesheet" href="styles/tokens.css?v=25">
+<link rel="stylesheet" href="styles/components.css?v=33">
 <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
@@ -14,8 +19,19 @@
 [data-fade].is-in{opacity:1;transform:translateY(0)}
 [data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity 800ms cubic-bezier(0.16,1,0.3,1), transform 800ms cubic-bezier(0.16,1,0.3,1)}
 [data-fade-chart].is-in{opacity:1;transform:translateY(0) scale(1)}
+.gantt-diamond[data-fade]{opacity:0;transform:scale(0);transform-origin:center;transition:opacity 500ms cubic-bezier(0.34,1.56,0.64,1), transform 500ms cubic-bezier(0.34,1.56,0.64,1)}
+.gantt-diamond[data-fade].is-in{opacity:1;transform:scale(1)}
+html{scroll-behavior:smooth}
+.section[id]{scroll-margin-top:96px}
 @media (prefers-reduced-motion: reduce){
-  [data-fade],[data-fade-chart]{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  [data-fade],[data-fade-chart],.gantt-diamond[data-fade]{opacity:1;transform:none;transition:none}
+}
+.motion-card{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+.motion-card .motion-chart{width:100%;max-width:320px;aspect-ratio:1/1;justify-self:center;align-self:center}
+@media (max-width: 720px){
+  .motion-card{grid-template-columns:1fr !important}
+  .motion-card .motion-chart{max-width:240px}
 }
 </style>
 <script type="module">
@@ -33,40 +49,48 @@
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">v1.1 · Design System</span>
+        <span class="meta">v1.2.5 · Design System</span>
       </div>
     </div>
 
     <div class="nav-group">
       <div class="nav-label">Start</div>
-      <button type="button" class="nav-item active" aria-current="page" data-target="overview"><span class="num">00</span> Overview</button>
-      <button type="button" class="nav-item" data-target="principles"><span class="num">01</span> Principles</button>
+      <a class="nav-item active" href="#overview" data-target="overview" aria-current="page"><span class="num">01</span> Overview</a>
+      <a class="nav-item" href="#principles" data-target="principles"><span class="num">02</span> Principles</a>
+      <a class="nav-item" href="#documentation" data-target="documentation"><span class="num">03</span> Documentation</a>
     </div>
 
     <div class="nav-group">
       <div class="nav-label">Foundations</div>
-      <button type="button" class="nav-item" data-target="color"><span class="num">02</span> Color</button>
-      <button type="button" class="nav-item" data-target="type"><span class="num">03</span> Typography</button>
-      <button type="button" class="nav-item" data-target="spacing"><span class="num">04</span> Spacing</button>
-      <button type="button" class="nav-item" data-target="radius"><span class="num">05</span> Radius &amp; Shadow</button>
-      <button type="button" class="nav-item" data-target="motion"><span class="num">06</span> Motion</button>
-      <button type="button" class="nav-item" data-target="grid"><span class="num">07</span> Grid &amp; Layout</button>
+      <a class="nav-item" href="#color" data-target="color"><span class="num">04</span> Color</a>
+      <a class="nav-item" href="#type" data-target="type"><span class="num">05</span> Typography</a>
+      <a class="nav-item" href="#spacing" data-target="spacing"><span class="num">06</span> Spacing</a>
+      <a class="nav-item" href="#radius" data-target="radius"><span class="num">07</span> Radius &amp; Shadow</a>
+      <a class="nav-item" href="#motion" data-target="motion"><span class="num">08</span> Motion</a>
+      <a class="nav-item" href="#grid" data-target="grid"><span class="num">09</span> Grid &amp; Layout</a>
     </div>
 
     <div class="nav-group">
       <div class="nav-label">Components</div>
-      <button type="button" class="nav-item" data-target="buttons"><span class="num">08</span> Buttons</button>
-      <button type="button" class="nav-item" data-target="inputs"><span class="num">09</span> Inputs &amp; Forms</button>
-      <button type="button" class="nav-item" data-target="cards"><span class="num">10</span> Cards</button>
-      <button type="button" class="nav-item" data-target="badges"><span class="num">11</span> Badges &amp; Status</button>
-      <button type="button" class="nav-item" data-target="nav"><span class="num">12</span> Navigation</button>
+      <a class="nav-item" href="#buttons" data-target="buttons"><span class="num">10</span> Buttons</a>
+      <a class="nav-item" href="#inputs" data-target="inputs"><span class="num">11</span> Inputs &amp; Forms</a>
+      <a class="nav-item" href="#cards" data-target="cards"><span class="num">12</span> Cards</a>
+      <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges &amp; Status</a>
+      <a class="nav-item" href="#nav" data-target="nav"><span class="num">14</span> Navigation</a>
+      <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">15</span> Accordion</a>
     </div>
 
     <div class="nav-group">
       <div class="nav-label">Applied</div>
-      <button type="button" class="nav-item" data-target="dataviz"><span class="num">13</span> Data Viz</button>
-      <button type="button" class="nav-item" data-target="voice"><span class="num">14</span> Voice &amp; Tone</button>
-      <button type="button" class="nav-item" data-target="casestudy"><span class="num">15</span> Case Study</button>
+      <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">16</span> Data Viz</a>
+      <a class="nav-item" href="#voice" data-target="voice"><span class="num">17</span> Voice &amp; Tone</a>
+      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">18</span> Accessibility</a>
+      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">19</span> Case Study</a>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Meta</div>
+      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">20</span> Changelog</a>
     </div>
 
     <div class="sidebar-footer">
@@ -88,8 +112,6 @@
         <span id="crumb" class="active">Overview</span>
       </div>
       <div class="topbar-actions">
-        <span>Search</span>
-        <span class="kbd">⌘</span><span class="kbd">K</span>
       </div>
     </div>
 
@@ -101,37 +123,40 @@
           <div class="page-eyebrow">The System · 2026.04</div>
           <h1 class="page-title">Design products that <span class="accent">reshape the future</span>.</h1>
           <p class="page-lede">
-            Amaca is the personal design system of Angelo Macaione — an operating toolkit for case studies, portfolio work, and product explorations. Built editorial-first, engineered underneath. Dark by default, precise by habit.
+            Motion-first. AI-readable. Built in the open.
+          </p>
+          <p class="page-lede">
+            Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years. It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.
           </p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">1.1.4</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">1.2.5</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Apr 22, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Apr 28, 2026</span></div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head">
-            <h2 class="subsection-title">At a glance</h2>
-            <span class="subsection-num">§ 00.1</span>
+            <h2 class="subsection-title">What's inside</h2>
+            <span class="subsection-num">§ 01.1</span>
           </div>
           <div class="grid grid-3">
             <div class="card">
               <div class="card-header"><span>01 · Foundations</span><span>06</span></div>
               <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">Hard tokens</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">Color, type, spacing, radius, shadow, motion. One pass, zero drift.</p>
+              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">The tokens everything else is built from. Color, type, spacing, motion, and the rules that hold them together.</p>
             </div>
             <div class="card">
-              <div class="card-header"><span>02 · Components</span><span>05</span></div>
+              <div class="card-header"><span>02 · Components</span><span>06</span></div>
               <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">Build blocks</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">Buttons, inputs, cards, badges, navigation — all the primitives for product work.</p>
+              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">The primitives I reach for when designing a product surface. Buttons, forms, cards, and the patterns that emerge from them.</p>
             </div>
             <div class="card">
-              <div class="card-header"><span>03 · Applied</span><span>03</span></div>
+              <div class="card-header"><span>03 · Applied</span><span>04</span></div>
               <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">In practice</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">Data viz, voice, and a worked case study template using every primitive in the kit.</p>
+              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">How the system performs in practice. Data viz, voice, accessibility, and a worked case study template using every primitive in the kit.</p>
             </div>
           </div>
         </div>
@@ -139,7 +164,7 @@
         <div class="subsection">
           <div class="subsection-head">
             <h2 class="subsection-title">The mark</h2>
-            <span class="subsection-num">§ 00.2</span>
+            <span class="subsection-num">§ 01.2</span>
           </div>
           <div class="grid grid-2" style="gap:var(--s-6);align-items:stretch">
             <div class="card" style="display:flex;align-items:center;justify-content:center;padding:var(--s-16);background:radial-gradient(400px 300px at 50% 50%, rgba(240,81,213,0.08), transparent 70%), var(--obsidian-900)">
@@ -147,12 +172,9 @@
             </div>
             <div class="card" style="display:flex;flex-direction:column;justify-content:center">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:12px">The symbol</div>
-              <h3 style="font-size:28px;margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:1.2">Three isometric cubes forming a triangle.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-4);font-size:14px">Each cube is a product. The triangle is a system — components snapping together into something larger. The cyan-to-mint gradient is signal: alive, in motion, in the present tense.</p>
-              <div style="display:flex;gap:var(--s-2);margin-top:var(--s-2)">
-                <span class="badge badge-brand"><span class="dot"></span>Primary mark</span>
-                <span class="badge">Isometric · 30°</span>
-              </div>
+              <h3 style="font-size:28px;margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:1.2">Three isometric cubes forming a triangle, in motion.</h3>
+              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-4);font-size:14px">Each cube is a product. The triangle is a system — components snapping together, breaking apart, reassembling. The motion is intrinsic, not applied:
+the mark is a Lottie, a JSON file describing every rotation and every transition. The logo follows the same logic as the system itself — written, not decorated.</p>
             </div>
           </div>
         </div>
@@ -161,41 +183,42 @@
       <!-- ============ PRINCIPLES ============ -->
       <section class="section" id="principles">
         <div class="page-header">
-          <div class="page-eyebrow">§ 01 · Principles</div>
+          <div class="page-eyebrow">§ 02 · Principles</div>
           <h1 class="page-title">Five rules. <span class="accent">No exceptions.</span></h1>
-          <p class="page-lede">Principles are not decorations. They're forcing functions. Each one should make some designs impossible.</p>
+          <p class="page-lede">These are the principles I keep returning to. They're not absolute — design systems live in tension between rules and exceptions — but they're the questions I ask first when something feels off.</p>
         </div>
 
         <div class="grid grid-2" style="gap:var(--s-6)">
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">01 · CLARITY BEFORE CLEVERNESS</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">The obvious answer, made inevitable.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.</p>
+            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">The obvious answer, on purpose.</h3>
+            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
+</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">02 · EVIDENCE OVER OPINION</div>
             <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Every decision shows its work.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Case studies document the path, not just the destination. Data, sketches, dead ends — all of it stays in the file.</p>
+            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Case studies document the path, not just the destination. Sketches, data, dead ends — the version that didn't ship is part of the file too.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">03 · PRECISION IS A FEELING</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">4px grid. 240ms ease. Always.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed.</p>
+            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Rigor the eye picks up before the mind does.</h3>
+            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">04 · QUIET, THEN LOUD</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Restraint makes accents work.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">90% of the surface is neutral. The magenta only shows up when it matters — and then it matters a lot.</p>
+            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Restraint is what makes accents land.Restraint is what makes accents land.</h3>
+            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
           </div>
-          <div class="card" style="padding:var(--s-8);grid-column:1 / -1;display:grid;grid-template-columns:1fr auto;gap:var(--s-8);align-items:center">
+          <div class="card motion-card" style="grid-column:1 / -1;padding:var(--s-8);display:grid;gap:var(--s-8);align-items:center">
             <div>
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
               <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Interfaces are not static. Neither is this document.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-3);font-size:14px">Ten years of motion work taught me one thing: an idle interface lies about itself. The way something arrives, settles, responds — that is the design, not the decoration of it.</p>
+              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-3);font-size:14px">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
               <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Every surface in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
             </div>
-            <div aria-hidden="true" style="width:180px;height:180px;position:relative;display:grid;place-items:center">
-              <svg viewBox="0 0 160 160" style="width:100%;height:100%">
+            <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
+              <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
                 <defs>
                   <linearGradient id="princ-decel" x1="0" y1="1" x2="1" y2="0">
                     <stop offset="0%" stop-color="#F051D5" stop-opacity="0.3"/>
@@ -205,11 +228,103 @@
                 <rect x="20" y="20" width="120" height="120" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1" rx="2"/>
                 <line x1="20" y1="140" x2="140" y2="140" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
                 <line x1="20" y1="20" x2="20" y2="140" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
-                <path d="M20,140 C20,140 56,20 140,20" stroke="url(#princ-decel)" stroke-width="2.5" fill="none" data-princ-curve/>
-                <circle r="5" fill="#F051D5" data-princ-dot><animateMotion dur="2.4s" repeatCount="indefinite" keyTimes="0;1" keySplines="0.16 1 0.3 1" calcMode="spline" path="M20,140 C20,140 56,20 140,20"/></circle>
-                <text x="22" y="156" fill="#5B6573" font-family="Satoshi" font-size="9" letter-spacing="1">TIME</text>
-                <text x="8" y="30" fill="#5B6573" font-family="Satoshi" font-size="9" letter-spacing="1" transform="rotate(-90 8 30)">VALUE</text>
+                <path id="princ-decel-path" d="M20,140 C20,140 56,20 140,20" stroke="url(#princ-decel)" stroke-width="2.5" fill="none" data-princ-curve/>
+                <circle r="5" fill="#F051D5" data-princ-dot>
+                  <animateMotion dur="2.4s" repeatCount="indefinite" keyTimes="0;0.7;1" keySplines="0.16 1 0.3 1;0 0 1 1" calcMode="spline" keyPoints="0;1;0">
+                    <mpath href="#princ-decel-path"/>
+                  </animateMotion>
+                </circle>
+                <text x="67" y="156" fill="#5B6573" font-family="Satoshi" font-size="9" letter-spacing="1">TIME</text>
+                <text x="8" y="98" fill="#5B6573" font-family="Satoshi" font-size="9" letter-spacing="1" transform="rotate(-90 8 98)">VALUE</text>
               </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ DOCUMENTATION ============ -->
+      <section class="section" id="documentation">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 03 · Meta / Documentation</div>
+          <h1 class="page-title">The whole system, <span class="accent">packaged for machines.</span></h1>
+          <p class="page-lede">A single Markdown file containing every token, component spec, principle, and rule. Built to feed into LLMs as context for AI-assisted design — paste it into the system prompt and the output speaks the same language as the rest of the work. Updated alongside the system; every release ships a fresh spec.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Download</h2><span class="subsection-num">§ 03.1</span></div>
+          <p class="subsection-desc">One file. Drop it into Claude, ChatGPT, Cursor, or any model that takes a system prompt — and your output starts speaking Amaca.</p>
+
+          <div class="card" style="padding:var(--s-8);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-6);align-items:center">
+            <div aria-hidden="true" style="width:88px;height:108px;border-radius:var(--r-2);border:1px solid var(--obsidian-700);background:linear-gradient(180deg,#10141A 0%,#07090B 100%);position:relative;display:grid;place-items:center;flex-shrink:0">
+              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">.MD</span>
+              <span style="position:absolute;top:8px;right:8px;width:14px;height:14px;border-top:1px solid var(--obsidian-600);border-right:1px solid var(--obsidian-600);background:linear-gradient(225deg, var(--obsidian-700) 50%, transparent 50%)"></span>
+              <span style="position:absolute;bottom:10px;left:10px;right:10px;height:1px;background:var(--obsidian-700)"></span>
+              <span style="position:absolute;bottom:16px;left:10px;right:18px;height:1px;background:var(--obsidian-700)"></span>
+              <span style="position:absolute;bottom:22px;left:10px;right:14px;height:1px;background:var(--obsidian-700)"></span>
+            </div>
+            <div style="min-width:0">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-2)">SPEC · v1.2.5</div>
+              <h3 style="font-size:22px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.25">design.md</h3>
+              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Tokens, components, principles, motion specs and a11y rules — flat Markdown, ~40 KB. Last updated 2026-04-27.</p>
+            </div>
+            <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md" data-download-md="DESIGN.md" style="white-space:nowrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </a>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">How to use</h2><span class="subsection-num">§ 03.2</span></div>
+          <p class="subsection-desc">Three workflows. Pick whichever your tool supports — the file is identical.</p>
+          <div class="grid grid-3" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6)">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">01 · SYSTEM PROMPT</div>
+              <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Paste it whole.</h3>
+              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Drop the contents into the system prompt of Claude, ChatGPT, or any chat model. Every reply will respect the tokens, copy voice, and component vocabulary.</p>
+            </div>
+            <div class="card" style="padding:var(--s-6)">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">02 · PROJECT CONTEXT</div>
+              <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Add to the IDE.</h3>
+              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">In Cursor, Windsurf, or Claude Code, save the file at the repo root as <code>design.md</code>. The agent picks it up as project context and uses the system tokens automatically.</p>
+            </div>
+            <div class="card" style="padding:var(--s-6)">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">03 · ATTACH PER TASK</div>
+              <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">One-off generations.</h3>
+              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Attach the file inline when you want a single screen, component, or copy block in the Amaca voice. No persistent setup needed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">What's inside</h2><span class="subsection-num">§ 03.3</span></div>
+          <table class="table">
+            <thead><tr><th style="width:30%">Block</th><th>Contents</th></tr></thead>
+            <tbody>
+              <tr><td><code>## Principles</code></td><td class="muted">The five rules. Verbatim from § 02.</td></tr>
+              <tr><td><code>## Tokens · color</code></td><td class="muted">Every named hex, scale step, gradient, and the 85/10/5 proportion law.</td></tr>
+              <tr><td><code>## Tokens · type</code></td><td class="muted">Display through caption — size, weight, leading, tracking. Family fallbacks.</td></tr>
+              <tr><td><code>## Tokens · spacing &amp; radius</code></td><td class="muted">The 4-px scale, radius steps, shadow specs.</td></tr>
+              <tr><td><code>## Tokens · motion</code></td><td class="muted">Durations, easings, the single curve everything rides on.</td></tr>
+              <tr><td><code>## Components</code></td><td class="muted">Buttons, inputs, cards, badges, navigation, accordion — props, states, do/don't.</td></tr>
+              <tr><td><code>## Voice</code></td><td class="muted">Editorial direction. Word lists. Phrasing examples.</td></tr>
+              <tr><td><code>## Accessibility</code></td><td class="muted">Color pairs with ratios, focus rules, reduced-motion contracts.</td></tr>
+              <tr><td><code>## Changelog</code></td><td class="muted">Every release, top to bottom. Same as § 20.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Versioning &amp; license</h2><span class="subsection-num">§ 03.4</span></div>
+          <p class="subsection-desc">The spec ships with the system. Every release tags a fresh <code>design.md</code>.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6)">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
+              <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Pinned to the system release. <code>v1.2.5</code> here ships <code>v1.2.5</code> of the spec. From v1.3.0 onward, strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> — minor bumps for additions, major for breaking renames.</p>
+            </div>
+            <div class="card" style="padding:var(--s-6)">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
+              <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">MIT. Use it in client work, internal tools, your own systems. Attribution appreciated, not required.</p>
             </div>
           </div>
         </div>
@@ -218,13 +333,13 @@
       <!-- ============ COLOR ============ -->
       <section class="section" id="color">
         <div class="page-header">
-          <div class="page-eyebrow">§ 02 · Foundations / Color</div>
-          <h1 class="page-title">A palette <span class="accent">pulled from the mark.</span></h1>
-          <p class="page-lede">Obsidian neutrals underneath. Cyan-to-mint accents on top. Semantic signals borrowed sparingly. The system is dark-first because confidence looks better in the dark.</p>
+          <div class="page-eyebrow">§ 04 · Foundations / Color</div>
+          <h1 class="page-title">Magenta on Obsidian, <span class="accent">one accent, twelve neutrals.</span></h1>
+          <p class="page-lede">The palette is built around a single primary accent — magenta — set against a calibrated obsidian neutral scale. Two supporting colors (cyan and petrol) carry secondary emphasis when needed, and four semantic colors are reserved exclusively for feedback. The system is dark-first because most of my product work lives in dark interfaces; the obsidian scale is engineered to carry typographic weight without strain.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Brand · signal</h2><span class="subsection-num">§ 02.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Brand · signal</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The magenta range. Use for primary actions, links, data emphasis, and gradients. Never for body text.</p>
           <div class="grid grid-4">
             <div class="swatch"><div class="chip" style="background:#FFE3F8"></div><div class="meta"><span class="name">Magenta 100</span><span class="hex">#FFE3F8</span><span class="role">Surface · tint</span></div></div>
@@ -239,8 +354,8 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Obsidian · neutrals</h2><span class="subsection-num">§ 02.2</span></div>
-          <p class="subsection-desc">The working surface. Eleven-step scale from page bedrock to bone. Body text lives at 100; metadata at 300; edges at 700.</p>
+          <div class="subsection-head"><h2 class="subsection-title">Obsidian · neutrals</h2><span class="subsection-num">§ 04.2</span></div>
+          <p class="subsection-desc">The working surface. Twelve-step scale from page bedrock to bone. Body text lives at 100; metadata at 300; edges at 700.</p>
           <div class="grid grid-6">
             <div class="swatch"><div class="chip" style="background:#07090B"></div><div class="meta"><span class="name">Obsidian 950</span><span class="hex">#07090B</span><span class="role">Page</span></div></div>
             <div class="swatch"><div class="chip" style="background:#0B0E12"></div><div class="meta"><span class="name">Obsidian 900</span><span class="hex">#0B0E12</span><span class="role">Surface</span></div></div>
@@ -258,7 +373,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Secondary · electric cyan</h2><span class="subsection-num">§ 02.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Secondary · electric cyan</h2><span class="subsection-num">§ 04.3</span></div>
           <p class="subsection-desc">High-voltage cyan. Use for focus accents, highlighted states, and secondary emphasis — never as a second primary.</p>
           <div class="grid grid-4">
             <div class="swatch"><div class="chip" style="background:#CCFFFC"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
@@ -269,7 +384,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Tertiary · petrol</h2><span class="subsection-num">§ 02.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Tertiary · petrol</h2><span class="subsection-num">§ 04.4</span></div>
           <p class="subsection-desc">Deep petrol teal. Used for default badges, quiet tags, and neutral chips that shouldn’t read as brand but still need color.</p>
           <div class="grid grid-4">
             <div class="swatch"><div class="chip" style="background:#CEEAF1"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
@@ -280,7 +395,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Semantic · signals</h2><span class="subsection-num">§ 02.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Semantic · signals</h2><span class="subsection-num">§ 04.5</span></div>
           <p class="subsection-desc">Reserved for feedback only — success, warning, danger, info. Never use as decoration.</p>
           <div class="grid grid-4">
             <div class="swatch"><div class="chip" style="background:#3AFFC7"></div><div class="meta"><span class="name">Success</span><span class="hex">#3AFFC7</span><span class="role">Confirm · saved</span></div></div>
@@ -291,7 +406,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Usage matrix</h2><span class="subsection-num">§ 02.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Usage matrix</h2><span class="subsection-num">§ 04.6</span></div>
           <table class="table">
             <thead><tr><th>Token</th><th>Value</th><th>Use</th><th>Don't</th></tr></thead>
             <tbody>
@@ -303,18 +418,39 @@
             </tbody>
           </table>
         </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 04.7</span></div>
+          <p class="subsection-desc">The proportion rule for every screen, slide, and case study. Obsidian is the ground; brand and signal are accents.</p>
+          <div class="color-law">
+            <div class="color-law-bar" aria-label="85 percent Obsidian, 10 percent Magenta plus Cyan, 5 percent semantic">
+              <div class="color-law-seg seg-obsidian" style="flex:85 85 0"></div>
+              <div class="color-law-seg seg-brand" style="flex:10 10 0"></div>
+              <div class="color-law-seg seg-semantic" style="flex:5 5 0"></div>
+            </div>
+            <div class="color-law-legend">
+              <div class="law-legend-item"><span class="dot d-obsidian"></span><div class="law-legend-body"><span class="pct">≥ 85%</span><span class="lbl">Obsidian</span><span class="note">page, surfaces, type</span></div></div>
+              <div class="law-legend-item"><span class="dot d-brand"></span><div class="law-legend-body"><span class="pct">≤ 10%</span><span class="lbl">Magenta + Cyan</span><span class="note">CTA, focus, emphasis</span></div></div>
+              <div class="law-legend-item"><span class="dot d-semantic"></span><div class="law-legend-body"><span class="pct">≤ 5%</span><span class="lbl">Semantic</span><span class="note">feedback only</span></div></div>
+            </div>
+            <blockquote class="color-law-rule">
+              <span class="mark">Rule</span>
+              <p>≥ 85% Obsidian, ≤ 10% Magenta + Cyan combined, ≤ 5% semantic. If a layout violates this rule, it's decoration, not hierarchy.</p>
+            </blockquote>
+          </div>
+        </div>
       </section>
 
       <!-- ============ TYPOGRAPHY ============ -->
       <section class="section" id="type">
         <div class="page-header">
-          <div class="page-eyebrow">§ 03 · Foundations / Typography</div>
+          <div class="page-eyebrow">§ 05 · Foundations / Typography</div>
           <h1 class="page-title">Satoshi, <span class="accent">at every scale.</span></h1>
           <p class="page-lede">One typeface carries the whole voice. Light through Black, with a monospace companion for metadata and engineering context. Tight letter-spacing at display sizes, loose leading at body.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Display scale</h2><span class="subsection-num">§ 03.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Display scale</h2><span class="subsection-num">§ 05.1</span></div>
           <div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-display</span>112 / 1.05 / -4%<br/>Black · 900</div><p class="sample ty-display">Reshape.</p></div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-h1</span>76 / 1.05 / -4%<br/>Bold · 700</div><p class="sample ty-h1">Design that compounds.</p></div>
@@ -326,7 +462,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Text scale</h2><span class="subsection-num">§ 03.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Text scale</h2><span class="subsection-num">§ 05.2</span></div>
           <div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-lead</span>18 / 1.65<br/>Regular · 400</div><p class="sample ty-lead">Lede paragraph. Sits under page titles. Used once per page to set the register before body text takes over.</p></div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-body</span>15 / 1.45<br/>Regular · 400</div><p class="sample ty-body">Body copy. Reads comfortably at 62–72 characters per line. Default for paragraphs, long-form notes, and case studies. Leading stays loose to respect the dark background — tight type on dark surfaces strains eyes.</p></div>
@@ -337,7 +473,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Weights available</h2><span class="subsection-num">§ 03.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Weights available</h2><span class="subsection-num">§ 05.3</span></div>
           <div class="grid grid-3">
             <div class="card"><div style="font-weight:300;font-size:26px;margin-bottom:8px">Light 300</div><div class="ty-mono" style="font-size:10px">Satoshi-Light</div></div>
             <div class="card"><div style="font-weight:400;font-size:26px;margin-bottom:8px">Regular 400</div><div class="ty-mono" style="font-size:10px">Satoshi-Regular</div></div>
@@ -349,7 +485,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pairing rules</h2><span class="subsection-num">§ 03.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pairing rules</h2><span class="subsection-num">§ 05.4</span></div>
           <div class="info-strip"><span class="tag">Rule 01</span>Headlines always negative track. Never tighter than −4%, never looser than −2%.</div>
           <div style="height:8px"></div>
           <div class="info-strip"><span class="tag">Rule 02</span>Mono is metadata only. Timestamps, token names, labels, status — never prose.</div>
@@ -361,13 +497,13 @@
       <!-- ============ SPACING ============ -->
       <section class="section" id="spacing">
         <div class="page-header">
-          <div class="page-eyebrow">§ 04 · Foundations / Spacing</div>
+          <div class="page-eyebrow">§ 06 · Foundations / Spacing</div>
           <h1 class="page-title">A 4-pixel grid, <span class="accent">held religiously.</span></h1>
           <p class="page-lede">Every margin, padding, and gap snaps to a multiple of 4. Thirteen steps carry the whole system, from hairline to hero.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 04.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 06.1</span></div>
           <div class="card">
             <div class="ruler-row"><span class="tok">--s-0</span><span class="val">0 px</span><div class="bar" style="width:1px;background:var(--obsidian-600)"></div></div>
             <div class="ruler-row"><span class="tok">--s-1</span><span class="val">4 px</span><div class="bar" style="width:4px"></div></div>
@@ -387,12 +523,12 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Where to reach</h2><span class="subsection-num">§ 04.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Where to reach</h2><span class="subsection-num">§ 06.2</span></div>
           <table class="table">
             <thead><tr><th>Context</th><th>Token</th><th>Notes</th></tr></thead>
             <tbody>
               <tr><td>Inline icon–label gap</td><td><code>--s-2</code></td><td class="muted">8px. Always.</td></tr>
-              <tr><td>Button padding (vertical)</td><td><code>10px</code></td><td class="muted">Not on the 4-grid — intentional optical tune.</td></tr>
+              <tr><td>Button padding (vertical)</td><td><code>--s-12</code></td><td class="muted">12px standard, --s-8 mini. --s-16 large.</td></tr>
               <tr><td>Card interior padding</td><td><code>--s-6</code></td><td class="muted">24px standard. <code>--s-8</code> on hero cards.</td></tr>
               <tr><td>Subsection vertical rhythm</td><td><code>--s-20</code></td><td class="muted">80px between subsections.</td></tr>
               <tr><td>Page top padding</td><td><code>--s-12</code></td><td class="muted">48px below top bar.</td></tr>
@@ -405,13 +541,13 @@
       <!-- ============ RADIUS & SHADOW ============ -->
       <section class="section" id="radius">
         <div class="page-header">
-          <div class="page-eyebrow">§ 05 · Foundations / Radius &amp; Shadow</div>
+          <div class="page-eyebrow">§ 07 · Foundations / Radius &amp; Shadow</div>
           <h1 class="page-title">Soft corners, <span class="accent">hard shadows.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Shadows are low-key, inset-first, reserved for depth hierarchy not decoration.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 05.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 07.1</span></div>
           <div class="grid grid-4">
             <div class="demo-tile" style="border-radius:0"><div class="name">None</div><div class="tok">--r-none · 0</div></div>
             <div class="demo-tile" style="border-radius:2px"><div class="name">Extra-small</div><div class="tok">--r-xs · 2px</div></div>
@@ -425,7 +561,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 05.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 07.2</span></div>
           <div class="grid grid-3">
             <div class="demo-tile" style="box-shadow:var(--sh-1);border-radius:var(--r-md)"><div class="name">Level 1</div><div class="tok">--sh-1 · subtle</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-2);border-radius:var(--r-md)"><div class="name">Level 2</div><div class="tok">--sh-2 · card</div></div>
@@ -440,13 +576,13 @@
       <!-- ============ MOTION ============ -->
       <section class="section" id="motion">
         <div class="page-header">
-          <div class="page-eyebrow">§ 06 · Foundations / Motion</div>
+          <div class="page-eyebrow">§ 08 · Foundations / Motion</div>
           <h1 class="page-title">Motion is <span class="accent">feedback, not decoration.</span></h1>
           <p class="page-lede">Five durations, four easings. Standard for UI, Spring for playful reveals, Accel for exits, Decel for entrances.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 06.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 08.1</span></div>
           <div class="card">
             <div class="motion-row">
               <div class="label">Standard<span class="sub">Default UI</span></div>
@@ -473,7 +609,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Duration tokens</h2><span class="subsection-num">§ 06.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Duration tokens</h2><span class="subsection-num">§ 08.2</span></div>
           <table class="table">
             <thead><tr><th>Token</th><th>ms</th><th>Use</th></tr></thead>
             <tbody>
@@ -490,13 +626,13 @@
       <!-- ============ GRID ============ -->
       <section class="section" id="grid">
         <div class="page-header">
-          <div class="page-eyebrow">§ 07 · Foundations / Grid &amp; Layout</div>
+          <div class="page-eyebrow">§ 09 · Foundations / Grid &amp; Layout</div>
           <h1 class="page-title">Twelve columns, <span class="accent">24px gutters.</span></h1>
           <p class="page-lede">A standard 12-col grid with a 1180px max content width. Sidebar is fixed; content breathes.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The grid</h2><span class="subsection-num">§ 07.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The grid</h2><span class="subsection-num">§ 09.1</span></div>
           <div class="grid-demo">
             <div class="cols">
               <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div>
@@ -507,7 +643,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Breakpoints</h2><span class="subsection-num">§ 07.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Breakpoints</h2><span class="subsection-num">§ 09.2</span></div>
           <table class="table">
             <thead><tr><th>Name</th><th>Min width</th><th>Columns</th><th>Gutter</th></tr></thead>
             <tbody>
@@ -520,7 +656,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Common layouts</h2><span class="subsection-num">§ 07.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Common layouts</h2><span class="subsection-num">§ 09.3</span></div>
           <div class="grid grid-3">
             <div class="card">
               <div class="card-header"><span>Sidebar · content</span><span>Default</span></div>
@@ -541,34 +677,34 @@
       <!-- ============ BUTTONS ============ -->
       <section class="section" id="buttons">
         <div class="page-header">
-          <div class="page-eyebrow">§ 08 · Components / Buttons</div>
+          <div class="page-eyebrow">§ 10 · Components / Buttons</div>
           <h1 class="page-title">Action, <span class="accent">ranked.</span></h1>
           <p class="page-lede">One primary per screen. Everything else recedes. Five variants × three sizes × states.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 08.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 10.1</span></div>
           <div class="card" style="padding:var(--s-10);display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center">
-            <button class="btn btn-primary">Primary action</button>
-            <button class="btn btn-secondary">Secondary</button>
-            <button class="btn btn-outline">Outline</button>
-            <button class="btn btn-ghost">Ghost</button>
-            <button class="btn btn-danger">Delete project</button>
-            <button class="btn btn-primary" disabled>Disabled</button>
+            <button class="btn btn-primary" style="padding: 12px 24px">Primary action</button>
+            <button class="btn btn-secondary" style="padding: 12px 24px">Secondary</button>
+            <button class="btn btn-outline" style="padding: 12px 24px">Outline</button>
+            <button class="btn btn-ghost" style="padding: 12px 24px">Ghost</button>
+            <button class="btn btn-danger" style="padding: 12px 24px">Delete project</button>
+            <button class="btn btn-primary" style="padding: 12px 24px" disabled>Disabled</button>
           </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Sizes</h2><span class="subsection-num">§ 08.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Sizes</h2><span class="subsection-num">§ 10.2</span></div>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm">Small · 32</button>
-            <button class="btn btn-primary">Default · 40</button>
-            <button class="btn btn-primary btn-lg">Large · 48</button>
+            <button class="btn btn-primary" style="padding: 12px 24px">Default · 40</button>
+            <button class="btn btn-primary btn-lg" style="padding: 16px 32px">Large · 48</button>
           </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">With icons</h2><span class="subsection-num">§ 08.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">With icons</h2><span class="subsection-num">§ 10.3</span></div>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
             <button class="btn btn-primary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg> New case study</button>
             <button class="btn btn-outline">View all <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3l5 5-5 5"/></svg></button>
@@ -581,13 +717,13 @@
       <!-- ============ INPUTS ============ -->
       <section class="section" id="inputs">
         <div class="page-header">
-          <div class="page-eyebrow">§ 09 · Components / Inputs</div>
+          <div class="page-eyebrow">§ 11 · Components / Inputs</div>
           <h1 class="page-title">Forms that <span class="accent">stay out of the way.</span></h1>
           <p class="page-lede">Low-contrast edges. Focus glow carries the attention load. Labels in mono to keep them distinct from content.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Fields</h2><span class="subsection-num">§ 09.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Fields</h2><span class="subsection-num">§ 11.1</span></div>
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div class="field" style="margin-bottom:var(--s-4)">
@@ -638,13 +774,13 @@
       <!-- ============ CARDS ============ -->
       <section class="section" id="cards">
         <div class="page-header">
-          <div class="page-eyebrow">§ 10 · Components / Cards</div>
+          <div class="page-eyebrow">§ 12 · Components / Cards</div>
           <h1 class="page-title">Containers with <span class="accent">metadata bones.</span></h1>
           <p class="page-lede">Every card carries a micro-header with context — project code, date, index. The case-file influence sits here, quietly.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Project card</h2><span class="subsection-num">§ 10.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Project card</h2><span class="subsection-num">§ 12.1</span></div>
           <div class="grid grid-3">
             <div class="card">
               <div class="card-header" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
@@ -653,10 +789,10 @@
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
             </div>
             <div class="card">
-              <div class="card-header" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Embargo</span></div>
+              <div class="card-header" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Fleet telemetry for industrial robotics. Details under NDA until Q3.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Pending state card. This payload is merely illustrative.</p>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
@@ -669,7 +805,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Stat card</h2><span class="subsection-num">§ 10.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Stat card</h2><span class="subsection-num">§ 12.2</span></div>
           <div class="grid grid-4">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Retention · D30</span><span class="s" data-fade>CS-017</span></div>
@@ -699,13 +835,13 @@
       <!-- ============ BADGES ============ -->
       <section class="section" id="badges">
         <div class="page-header">
-          <div class="page-eyebrow">§ 11 · Components / Badges &amp; Status</div>
+          <div class="page-eyebrow">§ 13 · Components / Badges &amp; Status</div>
           <h1 class="page-title">Small labels, <span class="accent">loud signals.</span></h1>
           <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they're never content.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 11.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 13.1</span></div>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
             <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
@@ -718,7 +854,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">In context</h2><span class="subsection-num">§ 11.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">In context</h2><span class="subsection-num">§ 13.2</span></div>
           <div class="card" style="padding:var(--s-6)">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:15px">Arc Automotive HMI</div><div class="ty-small" style="margin-top:2px">2024–2025 · 18 months</div></div><span class="badge badge-success"><span class="dot"></span>Shipped</span></div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:15px">Project Orion — IoT platform</div><div class="ty-small" style="margin-top:2px">2025–2026 · ongoing</div></div><span class="badge badge-warn"><span class="dot"></span>Embargo</span></div>
@@ -730,13 +866,13 @@
       <!-- ============ NAV ============ -->
       <section class="section" id="nav">
         <div class="page-header">
-          <div class="page-eyebrow">§ 12 · Components / Navigation</div>
+          <div class="page-eyebrow">§ 14 · Components / Navigation</div>
           <h1 class="page-title">Wayfinding, <span class="accent">un-decorated.</span></h1>
           <p class="page-lede">Top nav for marketing. Sidebar nav for dense documentation (this system uses its own). Breadcrumbs in mono — always.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 12.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 14.1</span></div>
           <div class="navdemo">
             <div class="left">
               <div class="logo"><span class="mk"></span> angelomacaione</div>
@@ -755,7 +891,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Breadcrumbs</h2><span class="subsection-num">§ 12.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Breadcrumbs</h2><span class="subsection-num">§ 14.2</span></div>
           <div class="card" style="padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)">
             <div class="breadcrumb"><span>Work</span><span class="sep">/</span><span>Case studies</span><span class="sep">/</span><span class="active">Arc Automotive HMI</span></div>
             <div class="breadcrumb"><span>Journal</span><span class="sep">/</span><span>2026</span><span class="sep">/</span><span class="active">On systems that outlive the work</span></div>
@@ -763,7 +899,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Tabs</h2><span class="subsection-num">§ 12.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Tabs</h2><span class="subsection-num">§ 14.3</span></div>
           <div class="card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs>
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="cs-overview">Overview</button>
@@ -782,16 +918,137 @@
         </div>
       </section>
 
+      <!-- ============ ACCORDION ============ -->
+      <section class="section" id="accordion">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 15 · Components / Accordion</div>
+          <h1 class="page-title">Disclosure, <span class="accent">on demand.</span></h1>
+          <p class="page-lede">For dense reference content where users scan headers first and read selectively. Single-open by default; chevron rotates 90° on expand. Keyboard-operable, prefers-reduced-motion safe.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Default · single-open</h2><span class="subsection-num">§ 15.1</span></div>
+          <p class="subsection-desc">Used inside case-study briefs and project requirements lists. Opening one panel closes the others — keeps the eye anchored. First item is open on mount so the surface never reads as inert.</p>
+          <div class="accordion" data-accordion>
+            <div class="acc-item is-open">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="acc-1" style="border-radius: 0px; padding: 16px 24px 16px 20px">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Expandable topics</span>
+                <span class="acc-num">01 / 04</span>
+              </button>
+              <div class="acc-panel" id="acc-1" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Clean informative text that is displayed only when someone wants to deep dive more. Crucial to cluster topics under the same group.</p>
+                  <p>
+</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-2">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Continuous evolution</span>
+                <span class="acc-num">02 / 04</span>
+              </button>
+              <div class="acc-panel" id="acc-2" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Ship the platform as a living surface, not a release. Feature-flag everything; let production teams roll out capabilities to fleets in cohorts without redeploying the console.</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-3">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Operator-grade legibility</span>
+                <span class="acc-num">03 / 04</span>
+              </button>
+              <div class="acc-panel" id="acc-3" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Workstations run 10–14h shifts under variable lighting. Type stays at <code>16px</code> minimum; primary actions clear AAA contrast on every surface; error states never rely on hue alone.</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-4">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Auditable by default</span>
+                <span class="acc-num">04 / 04</span>
+              </button>
+              <div class="acc-panel" id="acc-4" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Every OTA action — operator, target VIN range, package hash, timestamp — is logged and exportable. The interface surfaces this trail in-context, not in a separate compliance tool.</p>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Multi-open · FAQ</h2><span class="subsection-num">§ 15.2</span></div>
+          <p class="subsection-desc">When users compare answers side-by-side. Add <code>data-multi</code> on the wrapper — items toggle independently. Use sparingly; default to single-open.</p>
+          <div class="accordion" data-accordion data-multi>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-1">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Do you take on full product redesigns?</span>
+              </button>
+              <div class="acc-panel" id="faq-1" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Yes — typically as a 12–16 week engagement with embedded engineering pairing. I don't ship throwaway redesigns; the system has to outlive my involvement.</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-2">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">What's your minimum engagement?</span>
+              </button>
+              <div class="acc-panel" id="faq-2" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Two weeks for a discovery sprint — research, audit, a short written direction. Anything shorter doesn't leave room to disagree with the brief, which is usually where the work is.</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-3">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">Do you work in-house or remote?</span>
+              </button>
+              <div class="acc-panel" id="faq-3" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Remote-first, with on-site weeks for kickoff and major milestones. I'm based in Milan and travel comfortably across EU.</p>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy &amp; rules</h2><span class="subsection-num">§ 15.3</span></div>
+          <table class="table">
+            <thead><tr><th style="width:24%">Part</th><th>Rule</th></tr></thead>
+            <tbody>
+              <tr><td><code>.acc-trigger</code></td><td class="muted">Full-row hit target — minimum 56px tall. Entire row is a single button; never put a separate toggle inside.</td></tr>
+              <tr><td><code>.acc-chevron</code></td><td class="muted">Rotates from 0° (closed) to 90° (open) over 320ms on the standard ease. Color shifts to magenta-400 on open. No swap-icon.</td></tr>
+              <tr><td><code>.acc-num</code></td><td class="muted">Optional. Mono index in the form <code>NN / NN</code>. Use when the set has a fixed, ordered count; omit on FAQ-style lists.</td></tr>
+              <tr><td><code>.acc-panel</code></td><td class="muted">Animates via <code>grid-template-rows</code> 0fr → 1fr — no JS height measurement. Body fades in 80ms after the row starts opening.</td></tr>
+              <tr><td><code>aria-expanded</code></td><td class="muted">Required on every trigger. Toggled in JS in lockstep with <code>.is-open</code>. The panel carries <code>role="region"</code> and an <code>id</code> referenced by <code>aria-controls</code>.</td></tr>
+              <tr><td>Reduced motion</td><td class="muted">Under <code>prefers-reduced-motion: reduce</code>, the row swaps instantly — no rotation, no fade, no grid transition.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
       <!-- ============ DATA VIZ ============ -->
       <section class="section" id="dataviz">
         <div class="page-header">
-          <div class="page-eyebrow">§ 13 · Applied / Data Viz</div>
+          <div class="page-eyebrow">§ 16 · Applied / Data Viz</div>
           <h1 class="page-title">Charts that <span class="accent">respect the surface.</span></h1>
           <p class="page-lede">Dark canvas. One accent hue per chart. Grid lines at 8% opacity. Numbers in Satoshi, axis labels in mono.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 13.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 16.1</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -840,11 +1097,11 @@
               </g>
               <!-- area fill (gradient, starts transparent) -->
               <path data-area-fade d="M40,140 C120,155 180,145 260,160 S400,180 500,195 S640,200 690,205 L690,240 L40,240 Z" fill="url(#area)" opacity="0"/>
-              <!-- main neon line with glow -->
-              <path data-line-draw d="M40,140 C120,155 180,145 260,160 S400,180 500,195 S640,200 690,205" stroke="url(#neon-line)" stroke-width="2.5" fill="none" filter="url(#neon-glow)"/>
+              <!-- main neon line connecting dots (gradient: first dot pink → last dot magenta) -->
+              <path d="M40,140 C120,155 180,145 260,160 S400,180 500,195 S640,200 690,205" stroke="url(#neon-line)" stroke-width="2.5" fill="none" filter="url(#neon-glow)"/>
               <!-- data points -->
               <g data-line-dots fill="#F051D5">
-                <circle cx="40" cy="140" r="4" data-dot/><circle cx="260" cy="160" r="4" data-dot/><circle cx="500" cy="195" r="4" data-dot/><circle cx="690" cy="205" r="4" data-dot/>
+                <circle cx="40" cy="140" r="1.25" data-dot data-r="1.25"/><circle cx="260" cy="160" r="1.25" data-dot data-r="1.25"/><circle cx="500" cy="195" r="1.25" data-dot data-r="1.25"/><circle cx="690" cy="205" r="1.25" data-dot data-r="1.25"/>
               </g>
               <!-- x labels -->
               <g fill="#5B6573" font-family="Satoshi" font-size="10" letter-spacing="1">
@@ -857,7 +1114,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 13.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 16.2</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
@@ -907,7 +1164,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 13.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 16.3</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
@@ -964,7 +1221,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 13.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 16.4</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
@@ -987,18 +1244,248 @@
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
-      </section>
 
-      <!-- ============ VOICE ============ -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 16.5</span></div>
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <div class="t" data-fade>Project · Orion launch</div>
+                <div class="ty-small" data-fade style="margin-top:4px">Five workstreams across twelve weeks. Diamonds mark milestones. Dashed line is today.</div>
+              </div>
+              <div style="display:flex;gap:8px"><span class="badge badge-brand" data-fade>Wk 7 of 12</span><span class="badge" data-fade>5 lanes</span></div>
+            </div>
+            <svg viewBox="0 0 700 290" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
+              <defs>
+                <linearGradient id="gantt-bar-1" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#FFB5EC"/>
+                  <stop offset="100%" stop-color="#F051D5"/>
+                </linearGradient>
+                <linearGradient id="gantt-bar-2" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#F051D5"/>
+                  <stop offset="100%" stop-color="#C93BB0"/>
+                </linearGradient>
+                <linearGradient id="gantt-bar-3" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#9A2D87"/>
+                  <stop offset="100%" stop-color="#66195A"/>
+                </linearGradient>
+                <filter id="gantt-glow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              <!-- canvas -->
+              <rect x="0" y="0" width="700" height="290" fill="#150310" rx="6"/>
+
+              <!-- top axis labels (weeks) -->
+              <g fill="#5B6573" font-size="10" letter-spacing="1.5" text-anchor="middle" data-fade>
+                <text x="130" y="22">W1</text>
+                <text x="221" y="22">W3</text>
+                <text x="312" y="22">W5</text>
+                <text x="403" y="22">W7</text>
+                <text x="494" y="22">W9</text>
+                <text x="585" y="22">W11</text>
+              </g>
+
+              <!-- vertical gridlines every 2 weeks -->
+              <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                <line x1="130" y1="36" x2="130" y2="252"/>
+                <line x1="221" y1="36" x2="221" y2="252"/>
+                <line x1="312" y1="36" x2="312" y2="252"/>
+                <line x1="403" y1="36" x2="403" y2="252"/>
+                <line x1="494" y1="36" x2="494" y2="252"/>
+                <line x1="585" y1="36" x2="585" y2="252"/>
+                <line x1="676" y1="36" x2="676" y2="252"/>
+              </g>
+
+              <!-- lane backgrounds -->
+              <g fill="#1F0820">
+                <rect x="130" y="50"  width="546" height="28" rx="4"/>
+                <rect x="130" y="90"  width="546" height="28" rx="4"/>
+                <rect x="130" y="130" width="546" height="28" rx="4"/>
+                <rect x="130" y="170" width="546" height="28" rx="4"/>
+                <rect x="130" y="210" width="546" height="28" rx="4"/>
+              </g>
+
+              <!-- lane labels -->
+              <g fill="#E3E7EC" font-size="12" letter-spacing="0.3">
+                <text x="14" y="68"  data-fade>Discovery</text>
+                <text x="14" y="108" data-fade>Design</text>
+                <text x="14" y="148" data-fade>Engineering</text>
+                <text x="14" y="188" data-fade>QA</text>
+                <text x="14" y="228" data-fade>Launch</text>
+              </g>
+              <g fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1">
+                <text x="14" y="80"  data-fade>RES · 2</text>
+                <text x="14" y="120" data-fade>DES · 4</text>
+                <text x="14" y="160" data-fade>ENG · 6</text>
+                <text x="14" y="200" data-fade>QA  · 3</text>
+                <text x="14" y="240" data-fade>OPS · 2</text>
+              </g>
+
+              <!-- bars (animate width-grow via existing data-bar-h handler) -->
+              <g filter="url(#gantt-glow)">
+                <!-- Discovery: w1-w3 (x 130 → 267, w 137) -->
+                <rect data-bar-h data-bar-pct="100" x="130" y="50"  width="137" height="28" rx="4" fill="url(#gantt-bar-1)"/>
+                <!-- Design: w2-w6 (x 176 → 358, w 182) -->
+                <rect data-bar-h data-bar-pct="100" x="176" y="90"  width="182" height="28" rx="4" fill="url(#gantt-bar-2)"/>
+                <!-- Engineering: w4-w9 (x 267 → 494, w 227) -->
+                <rect data-bar-h data-bar-pct="100" x="267" y="130" width="227" height="28" rx="4" fill="url(#gantt-bar-2)"/>
+                <!-- QA: w7-w10 (x 403 → 540, w 137) -->
+                <rect data-bar-h data-bar-pct="100" x="403" y="170" width="137" height="28" rx="4" fill="url(#gantt-bar-3)"/>
+                <!-- Launch: w10-w12 (x 540 → 630, w 90) -->
+                <rect data-bar-h data-bar-pct="100" x="540" y="210" width="90"  height="28" rx="4" fill="url(#gantt-bar-3)"/>
+              </g>
+
+              <!-- bar inline labels -->
+              <g fill="#1A0616" font-size="10" font-weight="700" letter-spacing="0.4">
+                <text x="138" y="68"  data-fade>Research</text>
+                <text x="184" y="108" data-fade>Wireframe → Hi-fi</text>
+                <text x="275" y="148" data-fade>Build · API · Integration</text>
+                <text x="411" y="188" data-fade>Bug bash</text>
+              </g>
+              <g fill="#FFE5F7" font-size="10" font-weight="700" letter-spacing="0.4">
+                <text x="548" y="228" data-fade>Ship</text>
+              </g>
+
+              <!-- today line (W7) -->
+              <g data-fade>
+                <line x1="403" y1="36" x2="403" y2="252" stroke="#FFB5EC" stroke-width="1.5" stroke-dasharray="3 3" opacity="0.85"/>
+                <rect x="382" y="38" width="42" height="14" rx="3" fill="#FFB5EC"/>
+                <text x="403" y="48" fill="#1A0616" font-size="9" font-weight="700" letter-spacing="1" text-anchor="middle">TODAY</text>
+              </g>
+
+              <!-- milestone labels -->
+              <g fill="#8A94A3" font-size="9" letter-spacing="0.5" text-anchor="middle" data-fade>
+                <text x="130" y="86">Kickoff</text>
+                <text x="312" y="126">Review</text>
+                <text x="494" y="166">Beta</text>
+                <text x="630" y="246">GA</text>
+              </g>
+
+              <!-- bottom date axis -->
+              <g fill="#5B6573" font-size="10" letter-spacing="1" text-anchor="middle" data-fade>
+                <text x="130" y="272">Mar 03</text>
+                <text x="312" y="272">Mar 31</text>
+                <text x="494" y="272">Apr 28</text>
+                <text x="676" y="272">May 26</text>
+              </g>
+            </svg>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Stepper · progress</h2><span class="subsection-num">§ 16.6</span></div>
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <div class="t" data-fade>Checkout · order flow</div>
+                <div class="ty-small" data-fade style="margin-top:4px">Five steps. Completed segments fill in. The active step pulses; upcoming stays outlined.</div>
+              </div>
+              <div style="display:flex;gap:8px"><span class="badge badge-brand" data-fade>Step 3 of 5</span><span class="badge" data-fade>60% complete</span></div>
+            </div>
+            <svg viewBox="0 0 700 210" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
+              <defs>
+                <linearGradient id="step-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#FFB5EC"/>
+                  <stop offset="100%" stop-color="#F051D5"/>
+                </linearGradient>
+                <filter id="step-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+
+              <!-- canvas -->
+              <rect x="0" y="0" width="700" height="210" fill="#150310" rx="6"/>
+
+              <!-- connector track (background) -->
+              <line x1="70" y1="80" x2="630" y2="80" stroke="#2A1028" stroke-width="3" stroke-linecap="round"/>
+
+              <!-- completed connector segments (1→2, 2→3) — animate via existing data-bar-h handler (width grow) -->
+              <rect data-bar-h data-bar-pct="100" x="70" y="78.5" width="280" height="3" rx="1.5" fill="url(#step-grad)" filter="url(#step-glow)"/>
+
+              <!-- upcoming connectors (3→4, 4→5) dashed -->
+              <line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
+              <line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
+
+              <!-- step 1 — completed -->
+              <g data-fade>
+                <circle cx="70" cy="80" r="12" fill="#F051D5"/>
+                <path d="M65,80 L68.5,83.5 L75,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+
+              <!-- step 2 — completed -->
+              <g data-fade>
+                <circle cx="210" cy="80" r="12" fill="#F051D5"/>
+                <path d="M205,80 L208.5,83.5 L215,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              </g>
+
+              <!-- step 3 — current (pulsing glow ring + larger filled circle) -->
+              <g data-fade>
+                <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.4"/>
+                <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.6">
+                  <animate attributeName="r" values="18;24;18" dur="2.4s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="350" cy="80" r="15" fill="url(#step-grad)" filter="url(#step-glow)"/>
+                <text x="350" y="80" text-anchor="middle" dominant-baseline="central" fill="#1A0616" font-size="11" font-weight="700">3</text>
+              </g>
+
+              <!-- step 4 — upcoming -->
+              <g data-fade>
+                <circle cx="490" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
+                <text x="490" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">4</text>
+              </g>
+
+              <!-- step 5 — upcoming -->
+              <g data-fade>
+                <circle cx="630" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
+                <text x="630" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">5</text>
+              </g>
+
+              <!-- step labels -->
+              <g font-size="13" letter-spacing="0.2" text-anchor="middle" data-fade>
+                <text x="70"  y="135" fill="#E3E7EC" font-weight="600">Cart</text>
+                <text x="210" y="135" fill="#E3E7EC" font-weight="600">Shipping</text>
+                <text x="350" y="135" fill="#FFB5EC" font-weight="700">Payment</text>
+                <text x="490" y="135" fill="#8A94A3">Review</text>
+                <text x="630" y="135" fill="#8A94A3">Done</text>
+              </g>
+
+              <!-- step sublabels (status / duration) -->
+              <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2" text-anchor="middle" data-fade>
+                <text x="70"  y="155" fill="#5B6573">2 ITEMS</text>
+                <text x="210" y="155" fill="#5B6573">EXPRESS</text>
+                <text x="350" y="155" fill="#FFB5EC">IN PROGRESS</text>
+                <text x="490" y="155" fill="#5B4A6A">PENDING</text>
+                <text x="630" y="155" fill="#5B4A6A">PENDING</text>
+              </g>
+
+              <!-- bottom progress meter -->
+              <g data-fade>
+                <text x="40"  y="188" fill="#5B6573" font-size="10" letter-spacing="1.2">PROGRESS</text>
+                <rect x="120" y="180" width="540" height="6" rx="3" fill="#1F0820"/>
+                <rect data-bar-h data-bar-pct="100" x="120" y="180" width="324" height="6" rx="3" fill="url(#step-grad)" filter="url(#step-glow)"/>
+                <text x="660" y="188" fill="#E3E7EC" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="10" letter-spacing="0.5" text-anchor="end">60%</text>
+              </g>
+            </svg>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+
+      </section>
       <section class="section" id="voice">
         <div class="page-header">
-          <div class="page-eyebrow">§ 14 · Applied / Voice &amp; Tone</div>
+          <div class="page-eyebrow">§ 17 · Applied / Voice &amp; Tone</div>
           <h1 class="page-title">Write like <span class="accent">a working designer.</span></h1>
           <p class="page-lede">Direct. Specific. No hedging. Show the work and let it argue for itself.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 14.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 17.1</span></div>
           <div class="grid grid-4">
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Short sentences. Active voice. Verbs first.</p></div>
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers, durations, scope. Not "improved" — "−41% task time."</p></div>
@@ -1008,7 +1495,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 14.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 17.2</span></div>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do</div><p>"Cut the task flow from 11 screens to 4. Median time dropped from 38s to 22s."</p></div>
             <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Leveraged a holistic, user-centered approach to synergize the end-to-end experience."</p></div>
@@ -1018,7 +1505,7 @@
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 14.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 17.3</span></div>
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
             <tbody>
@@ -1032,10 +1519,89 @@
         </div>
       </section>
 
+      <!-- ============ ACCESSIBILITY ============ -->
+      <section class="section" id="accessibility">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 18 · Applied / Accessibility</div>
+          <h1 class="page-title">Contrast <span class="accent">by intent, not accident.</span></h1>
+          <p class="page-lede">Every text/surface pair in the system is verified against WCAG 2.2. The system is dark-first, not dark-only — every token has a light-mode equivalent resolved at build time. Motion, focus, and touch targets follow the same rule: specified, not assumed.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 18.1</span></div>
+          <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. Nothing in the production palette falls below AA.</p>
+          <table class="table table-contrast">
+            <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>obsidian-100</code> <span class="on">on</span> <code>obsidian-950</code></td><td class="num">16.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Body text, headings</td></tr>
+              <tr><td><code>obsidian-200</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">10.5<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Lede, supporting copy</td></tr>
+              <tr><td><code>obsidian-300</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Metadata, caption, subsection desc</td></tr>
+              <tr><td><code>obsidian-900</code> <span class="on">on</span> <code>magenta-500</code></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Primary CTA (text on brand surface)</td></tr>
+              <tr><td><code>magenta-400</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">7.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link rest, eyebrow, accent text</td></tr>
+              <tr><td><code>magenta-300</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">8.9<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link hover</td></tr>
+              <tr><td><code>secondary-500</code> <span class="on">on</span> <code>obsidian-950</code></td><td class="num">15.8<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Focus ring, secondary signal</td></tr>
+              <tr><td><code>success</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">15.0<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Positive badge, delta up, "do" label</td></tr>
+              <tr><td><code>warning</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">12.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Caution badge, draft state</td></tr>
+              <tr><td><code>danger</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Error text, destructive label, "don't"</td></tr>
+              <tr><td><code>info</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">10.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Info badge, neutral signal</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 18.2</span></div>
+          <p class="subsection-desc">Every interactive element has a visible focus state. The system ships two patterns: a dual-ring for pressable elements (outline + brand halo), and an inline glow for text inputs. Verified against <code>components.css</code>.</p>
+          <table class="table table-contrast">
+            <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
+            <tbody>
+              <tr><td><code>.btn, .nav-item,<br>.swatch, .chip</code></td><td class="muted"><code>outline: 2px solid obsidian-100; offset: 3px</code> + <code>0 0 0 4px rgba(magenta,.35)</code> halo</td><td class="num">16.1<span class="unit">:1</span></td></tr>
+              <tr><td><code>.input, .textarea,<br>.select</code></td><td class="muted">Border shifts to <code>magenta-500</code> + <code>0 0 0 3px rgba(magenta,.15)</code> glow</td><td class="num">6.5<span class="unit">:1</span></td></tr>
+              <tr><td><code>.cs-img</code></td><td class="muted">Border <code>magenta-500</code> + wide <code>48px</code> glow (case-study imagery)</td><td class="num">6.5<span class="unit">:1</span></td></tr>
+              <tr><td><code>.skip-link</code></td><td class="muted">Off-screen at <code>top: -100px</code>; jumps to <code>top: 12px</code> on focus</td><td class="num">6.5<span class="unit">:1</span></td></tr>
+            </tbody>
+          </table>
+          <div class="focus-row">
+            <div class="focus-demo"><button class="btn btn-primary is-focus">Primary · focused</button><span class="focus-cap">.btn:focus-visible</span></div>
+            <div class="focus-demo"><button class="btn btn-ghost is-focus">Ghost · focused</button><span class="focus-cap">same ruleset</span></div>
+            <div class="focus-demo"><div class="input-focus-demo"><span class="lbl">email</span><span class="val">you@studio</span><span class="caret"></span></div><span class="focus-cap">.input:focus</span></div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 18.3</span></div>
+          <p class="subsection-desc">Under <code>prefers-reduced-motion: reduce</code>, the system ships a global kill-switch plus per-component overrides for hover-transforms that would otherwise feel jumpy. No parallax, no auto-advance, anywhere in the system.</p>
+          <table class="table table-contrast">
+            <thead><tr><th style="width:38%">Rule</th><th>Scope</th><th>Effect</th></tr></thead>
+            <tbody>
+              <tr><td><code>*, *::before, *::after</code></td><td class="muted">Global (all elements)</td><td class="muted"><code>animation-duration</code> + <code>transition-duration</code> → <code>0.01ms !important</code></td></tr>
+              <tr><td><code>[data-fade]</code></td><td class="muted">Section reveals</td><td class="muted">Skip fade-in — final state painted immediately</td></tr>
+              <tr><td><code>.card-media</code></td><td class="muted">Media tiles on hover</td><td class="muted">Strip <code>transform: scale</code> — no zoom</td></tr>
+              <tr><td><code>.cs-img</code></td><td class="muted">Case-study imagery</td><td class="muted">Strip caption <code>transform: scale</code> on hover/focus</td></tr>
+              <tr><td><code>.tab-indicator,<br>.tab-panel</code></td><td class="muted">Tab switcher</td><td class="muted">No indicator slide, no panel translate — instant swap</td></tr>
+              <tr><td><code>.lightbox</code></td><td class="muted">Image overlay</td><td class="muted">No transition on open/close</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 18.4</span></div>
+          <p class="subsection-desc">Non-negotiable rules. Any component that can't meet all seven doesn't ship.</p>
+          <div class="a11y-floor">
+            <div class="a11y-rule"><span class="n">01</span><p>Color never carries meaning alone. Every status uses color + shape + label.</p></div>
+            <div class="a11y-rule"><span class="n">02</span><p>No text below <code>12px</code>. No body text below <code>14px</code>. Line height never under <code>1.4</code> for running text.</p></div>
+            <div class="a11y-rule"><span class="n">03</span><p>Every form field has a persistent label. Placeholder is not a label.</p></div>
+            <div class="a11y-rule"><span class="n">04</span><p>Every image has <code>alt</code>. Decorative images carry <code>alt=""</code> explicitly.</p></div>
+            <div class="a11y-rule"><span class="n">05</span><p>Focus order follows reading order. <code>tabindex</code> is used for fixes, never for flow.</p></div>
+            <div class="a11y-rule"><span class="n">06</span><p>Auto-advancing content is forbidden. Users drive timing — no carousels, no timed dismissals.</p></div>
+            <div class="a11y-rule"><span class="n">07</span><p>Touch hit area targets <code>44×44</code> on mobile, <code>32×32</code> minimum on dense desktop. Extend beyond the visual when needed.</p></div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ CASE STUDY APPLIED ============ -->
       <section class="section" id="casestudy">
         <div class="page-header">
-          <div class="page-eyebrow">§ 15 · Applied / Case Study Template</div>
+          <div class="page-eyebrow">§ 19 · Applied / Case Study Template</div>
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
@@ -1100,6 +1666,186 @@
         </div>
       </section>
 
+      <!-- ============ CHANGELOG ============ -->
+      <section class="section" id="changelog">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 20 · Meta / Changelog</div>
+          <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
+          <p class="page-lede">What changed, when, and why — read top to bottom. From v1.3.0 onward, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a>: <span class="ty-mono" style="font-size:13px">MAJOR</span> for breaking changes, <span class="ty-mono" style="font-size:13px">MINOR</span> for additions, <span class="ty-mono" style="font-size:13px">PATCH</span> for fixes.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 20.1</span></div>
+          <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
+          <div class="accordion" data-accordion>
+
+            <!-- v1.2.5 -->
+            <div class="acc-item is-open">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-1">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v1.2.5 — Components, accessibility, public spec</span>
+                <span class="acc-num">2026-04-28</span>
+              </button>
+              <div class="acc-panel" id="cl-1" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>First substantive expansion since v1.0. The system gains three new components, a full accessibility posture, a public changelog, deep-linkable sections, and a downloadable spec for AI-assisted design.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new components</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">§ 15 · Accordion</strong> — Collapsible content blocks for FAQs, dense documentation, and progressive disclosure. Single-open and multi-open variants. Keyboard navigation built in.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 16.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 16.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new sections</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">§ 18 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 20 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 03 · Documentation</strong> — Single Markdown file (<code>design.md</code>) containing every token, component spec, principle, and rule. Built to feed into LLMs as context for AI-assisted design work. Updated alongside the system — every release ships a fresh spec.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · navigation</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Anchor links</strong> — Every section header now carries a hash. Deep-link any paragraph: <code>amaca.design/#13-accordion</code>, <code>amaca.design/#16-accessibility</code>. The system became citable.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">§ 04 · Colors</strong> — Visual presentation refined. Token names, hex values, and intended use unchanged — no breaking changes to consumers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 10 · Buttons</strong> — Vertical padding tuned for better optical balance across sizes.</li>
+                    <li><strong style="color:var(--obsidian-100)">Copy</strong> — Several section intros and microcopy tightened for rhythm.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · meta</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Favicon</strong> — Amaca mark serves across browser tabs and bookmarks.</li>
+                    <li><strong style="color:var(--obsidian-100)">Open Graph image</strong> — Link previews on social and chat render the system's identity instead of a generic screenshot.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4>
+                  <p style="margin:0">No token renames. No component API shifts. No breaking changes.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
+                  <p style="margin:0">This release consolidates internal iterations (v1.1.4 → v1.2.3) that were not shipped publicly. From v1.3.0 onward, the system follows strict SemVer.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-28</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.0.0...v1.3.0" target="_blank" rel="noopener">v1.0.0…v1.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v1.1.4 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-2">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v1.1.4 — Maintenance &amp; donut polish</span>
+                <span class="acc-num">2026-04-24</span>
+              </button>
+              <div class="acc-panel" id="cl-2" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Maintenance release. Small fixes, one meaningful polish pass on donut charts.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">§ 04 · Colors</strong> — Primary token <code>#F051D5</code> was mislabeled "Cube Cyan" in the palette reference. Corrected to "Magenta" — its actual value for the last nine months.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ Overview</strong> — Page metadata stamp updated (version + date drift).</li>
+                    <li><strong style="color:var(--obsidian-100)">Responsiveness</strong> — Layout fixes across mobile breakpoints.</li>
+                    <li><strong style="color:var(--obsidian-100)">Interactions</strong> — Added states for tabs, images, and thumbs.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 16.3 Donut charts</h4>
+                  <p style="margin:0 0 var(--s-3)">Slice geometry rebuilt from stroked arcs to true ring-segment paths.</p>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 16.2).</li>
+                    <li>Inter-slice gap halved from ~6px to ~3px of circumference for tighter visual rhythm.</li>
+                    <li>Draw-on animation preserved via angular sweep.</li>
+                    <li><strong style="color:var(--obsidian-100)">Before</strong> — half-circle round caps (13px radius — too soft) or butt caps (sharp — inconsistent with bars).</li>
+                    <li><strong style="color:var(--obsidian-100)">After</strong> — 2px on all 4 edges. Matches the rest of the data viz vocabulary.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4>
+                  <p style="margin:0">Everything else. No breaking changes, no token renames, no component API shifts.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Infrastructure</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Repository</strong> — Cleanup: removed duplicate nested folders and orphaned font/logo files from root.</li>
+                    <li><strong style="color:var(--obsidian-100)">Documentation</strong> — Added <code>README</code> and <code>LICENSE</code> to public repo.</li>
+                    <li><strong style="color:var(--obsidian-100)">Branch protection</strong> — Ruleset activated on <code>main</code> (PR-only merges).</li>
+                  </ul>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v1.0.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-3">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v1.0.0 — Initial public release</span>
+                <span class="acc-num">2026-04-23</span>
+              </button>
+              <div class="acc-panel" id="cl-3" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>Initial public release. Prima pubblicazione pubblica del design system Amaca, live su amaca.design.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Foundations</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Color</strong> — Magenta brand range, obsidian neutrals, electric cyan secondary, petrol tertiary, semantic signals.</li>
+                    <li><strong style="color:var(--obsidian-100)">Typography</strong> — Satoshi as primary typeface across all weights (Light to Black).</li>
+                    <li><strong style="color:var(--obsidian-100)">Spacing, radius &amp; shadow</strong> — Core layout tokens.</li>
+                    <li><strong style="color:var(--obsidian-100)">Motion</strong> — 5 durations × 4 easings, all synchronized on <code>cubic-bezier(0.16, 1, 0.3, 1)</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Grid &amp; layout</strong> — Foundational structure across breakpoints.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Components</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Buttons</strong> — Primary set with full state coverage.</li>
+                    <li><strong style="color:var(--obsidian-100)">Inputs &amp; forms</strong> — Field, label, and validation patterns.</li>
+                    <li><strong style="color:var(--obsidian-100)">Cards</strong> — Container variants for content surfaces.</li>
+                    <li><strong style="color:var(--obsidian-100)">Badges</strong> — Compact status and category markers.</li>
+                    <li><strong style="color:var(--obsidian-100)">Navigation</strong> — Top-level wayfinding patterns.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Applied</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Data visualization</strong> — Charting vocabulary aligned to brand tokens.</li>
+                    <li><strong style="color:var(--obsidian-100)">Voice &amp; tone</strong> — Editorial direction across surfaces.</li>
+                    <li><strong style="color:var(--obsidian-100)">Case study template</strong> — Reusable narrative structure for project work.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Principles</h4>
+                  <p style="margin:0">Five principles — clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Infrastructure</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                    <li><strong style="color:var(--obsidian-100)">Hosting</strong> — Static site on Vercel.</li>
+                    <li><strong style="color:var(--obsidian-100)">DNS</strong> — Cloudflare.</li>
+                    <li><strong style="color:var(--obsidian-100)">Repository</strong> — Public on GitHub, MIT License.</li>
+                    <li><strong style="color:var(--obsidian-100)">Versioning</strong> — SemVer adopted.</li>
+                  </ul>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-23</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+
     </div>
   </main>
 </div>
@@ -1151,24 +1897,58 @@ window.addEventListener('resize', function(){
   if(window.innerWidth > 860) closeSidebar();
 });
 
-function go(target){
+function go(target, opts){
+  opts = opts || {};
   navItems.forEach(n => n.classList.toggle('active', n.dataset.target === target));
+  navItems.forEach(n => {
+    if(n.dataset.target === target){ n.setAttribute('aria-current','page'); }
+    else { n.removeAttribute('aria-current'); }
+  });
   sections.forEach(s => s.classList.toggle('active', s.id === target));
   const activeNav = Array.from(navItems).find(n => n.dataset.target === target);
   if(activeNav && crumb) crumb.textContent = activeNav.textContent.trim().replace(/^\d+\s*/, '');
   try{ localStorage.setItem('amaca-ds-section', target); }catch(e){}
-  window.scrollTo({top:0, behavior:'instant'});
+  if(!opts.preserveScroll) window.scrollTo({top:0, behavior:'instant'});
   // close mobile drawer after navigation
   if(window.innerWidth <= 860) closeSidebar();
 }
 
-navItems.forEach(n => n.addEventListener('click', () => go(n.dataset.target)));
+// Anchor-link routing: let the browser update the hash, then we react to it.
+function syncFromHash(){
+  const hash = (location.hash || '').replace(/^#/, '');
+  if(hash && document.getElementById(hash)){
+    go(hash);
+  }
+}
 
-// restore
-try{
-  const saved = localStorage.getItem('amaca-ds-section');
-  if(saved && document.getElementById(saved)) go(saved);
-}catch(e){}
+// Click handler — no preventDefault, so the browser updates the URL hash and
+// pushes a history entry. We just react in the same tick.
+navItems.forEach(n => n.addEventListener('click', (e) => {
+  // Let modifier-clicks (open in new tab, etc.) behave natively.
+  if(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  // Same-page hash change won't fire hashchange if hash already matches —
+  // call go() directly to ensure section activates.
+  go(n.dataset.target);
+}));
+
+// Browser back/forward through hash history
+window.addEventListener('hashchange', syncFromHash);
+
+// Initial route: hash > localStorage > default (overview)
+(function init(){
+  const hash = (location.hash || '').replace(/^#/, '');
+  if(hash && document.getElementById(hash)){
+    go(hash);
+    return;
+  }
+  try{
+    const saved = localStorage.getItem('amaca-ds-section');
+    if(saved && document.getElementById(saved)){
+      go(saved);
+      return;
+    }
+  }catch(e){}
+})();
 
 // --- motion demo ---
 function playMotion(){
@@ -1199,7 +1979,7 @@ new MutationObserver(muts => {
 </script>
 
 <script>
-// --- cards animations (§ 10.1 projects + § 10.2 stats), powered by Motion ---
+// --- cards animations (§ 12.1 projects + § 12.2 stats), powered by Motion ---
 (function(){
   const cardsSection = document.getElementById('cards');
   if (!cardsSection) return;
@@ -1505,9 +2285,12 @@ new MutationObserver(muts => {
 
     const mains = root.querySelectorAll('[data-line-draw]');
     mains.forEach(p => {
+      const delay = p.hasAttribute('data-delay') ? +p.getAttribute('data-delay') : 1.25;
+      const dur = p.hasAttribute('data-dur') ? +p.getAttribute('data-dur') : 1.4;
       animate(p._len, 0, {
-        duration: 1.4, ease: decel, delay: 1.25,
-        onUpdate: v => { p.style.strokeDashoffset = v; }
+        duration: dur, ease: decel, delay: delay,
+        onUpdate: v => { p.style.strokeDashoffset = v; },
+        onComplete: () => { p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; }
       });
     });
 
@@ -1521,8 +2304,11 @@ new MutationObserver(muts => {
 
     const dotCircles = root.querySelectorAll('[data-line-dots] [data-dot]');
     dotCircles.forEach((c, i) => {
-      animate(0, 4, {
-        duration: 0.4, ease: decel, delay: 2.65 + i * 0.22,
+      const delay = c.hasAttribute('data-delay') ? +c.getAttribute('data-delay') : (2.65 + i * 0.22);
+      const dur = c.hasAttribute('data-dur') ? +c.getAttribute('data-dur') : 0.4;
+      const rTarget = c.hasAttribute('data-r') ? +c.getAttribute('data-r') : 4;
+      animate(0, rTarget, {
+        duration: dur, ease: decel, delay: delay,
         onUpdate: v => c.setAttribute('r', v.toFixed(2))
       });
     });
@@ -1675,6 +2461,33 @@ new MutationObserver(muts => {
 })();
 </script>
 <script>
+// --- accordion: toggle is-open + aria + single/multi mode ---
+(function(){
+  document.querySelectorAll('[data-accordion]').forEach(function(group){
+    const multi = group.hasAttribute('data-multi');
+    const items = Array.from(group.querySelectorAll('.acc-item'));
+    items.forEach(function(item){
+      const trigger = item.querySelector('.acc-trigger');
+      if(!trigger) return;
+      trigger.addEventListener('click', function(){
+        const isOpen = item.classList.contains('is-open');
+        if(!multi){
+          items.forEach(function(other){
+            if(other !== item){
+              other.classList.remove('is-open');
+              const t = other.querySelector('.acc-trigger');
+              if(t) t.setAttribute('aria-expanded','false');
+            }
+          });
+        }
+        item.classList.toggle('is-open', !isOpen);
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
+  });
+})();
+</script>
+<script>
 // --- tabs: click to switch + animated sliding underline + panel crossfade ---
 (function(){
   document.querySelectorAll('[data-tabs]').forEach(function(tablist){
@@ -1770,6 +2583,45 @@ new MutationObserver(muts => {
   lb.addEventListener('click', e => { if(e.target === lb) close(); });
   document.addEventListener('keydown', e => {
     if(e.key==='Escape' && lb.classList.contains('open')) close();
+  });
+})();
+</script>
+
+<script>
+// --- force-download for the design.md spec link (cross-origin download attr is ignored by browsers) ---
+(function(){
+  document.addEventListener('click', function(e){
+    const a = e.target.closest('a[data-download-md]');
+    if(!a) return;
+    e.preventDefault();
+    const url = a.getAttribute('href');
+    const filename = a.getAttribute('data-download-md') || 'DESIGN.md';
+    // visual feedback
+    const original = a.innerHTML;
+    a.style.pointerEvents = 'none';
+    a.setAttribute('aria-busy', 'true');
+    fetch(url, { mode: 'cors' })
+      .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status); return r.blob(); })
+      .then(blob => {
+        const objUrl = URL.createObjectURL(blob);
+        const tmp = document.createElement('a');
+        tmp.href = objUrl;
+        tmp.download = filename === 'true' ? 'DESIGN.md' : filename;
+        if(!tmp.download || tmp.download === 'true') tmp.download = 'DESIGN.md';
+        document.body.appendChild(tmp);
+        tmp.click();
+        document.body.removeChild(tmp);
+        setTimeout(() => URL.revokeObjectURL(objUrl), 1000);
+      })
+      .catch(err => {
+        console.warn('Download failed, opening in new tab:', err);
+        window.open(url, '_blank', 'noopener');
+      })
+      .finally(() => {
+        a.innerHTML = original;
+        a.style.pointerEvents = '';
+        a.removeAttribute('aria-busy');
+      });
   });
 })();
 </script>
