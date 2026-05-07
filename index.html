@@ -11,21 +11,44 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=25">
-<link rel="stylesheet" href="styles/components.css?v=34">
+<link rel="stylesheet" href="styles/components.css?v=56">
 <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
-[data-fade]{opacity:0;transform:translateY(12px);transition:opacity 600ms cubic-bezier(0.16,1,0.3,1), transform 600ms cubic-bezier(0.16,1,0.3,1)}
+[data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 [data-fade].is-in{opacity:1;transform:translateY(0)}
-[data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity 800ms cubic-bezier(0.16,1,0.3,1), transform 800ms cubic-bezier(0.16,1,0.3,1)}
+[data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity var(--d-scene) var(--ease-decel), transform var(--d-scene) var(--ease-decel)}
 [data-fade-chart].is-in{opacity:1;transform:translateY(0) scale(1)}
-.gantt-diamond[data-fade]{opacity:0;transform:scale(0);transform-origin:center;transition:opacity 500ms cubic-bezier(0.34,1.56,0.64,1), transform 500ms cubic-bezier(0.34,1.56,0.64,1)}
+.cs-section > .eyebrow,.cs-section > h3,.cs-section > p,.cs-pull{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel)}
+.cs-section.is-in > .eyebrow,.cs-section.is-in > h3,.cs-section.is-in > p,.cs-pull.is-in{opacity:1;transform:translateY(0)}
+.cs-section.is-in > .eyebrow{transition-delay:0ms}
+.cs-section.is-in > h3{transition-delay:80ms}
+.cs-section.is-in > p{transition-delay:160ms}
+.cs-section.is-in > p ~ p{transition-delay:240ms}
+.gantt-diamond[data-fade]{opacity:0;transform:scale(0);transform-origin:center;transition:opacity var(--d-base) var(--ease-spring), transform var(--d-base) var(--ease-spring)}
 .gantt-diamond[data-fade].is-in{opacity:1;transform:scale(1)}
+.stepper-svg g[data-step-dot][data-fade]{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:50% 50%;transition:opacity var(--d-base) var(--ease-spring), transform var(--d-base) var(--ease-spring)}
+.stepper-svg g[data-step-dot][data-fade].is-in{opacity:1;transform:scale(1)}
+.stepper-svg g[data-step-labels][data-fade]{opacity:0;transform:translateY(10px);transform-box:fill-box;transform-origin:50% 50%;transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel)}
+.stepper-svg g[data-step-labels][data-fade].is-in{opacity:1;transform:translateY(0)}
+.stepper-svg [data-step-line][data-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
+.stepper-svg [data-step-line][data-fade].is-in{opacity:1}
+.stepper-svg [data-step-line][data-fade]{transition-delay:0ms}
+.stepper-svg g[data-step-dot="1"][data-fade]{transition-delay:520ms}
+.stepper-svg g[data-step-dot="2"][data-fade]{transition-delay:600ms}
+.stepper-svg g[data-step-dot="3"][data-fade]{transition-delay:680ms}
+.stepper-svg g[data-step-dot="4"][data-fade]{transition-delay:760ms}
+.stepper-svg g[data-step-dot="5"][data-fade]{transition-delay:840ms}
+.stepper-svg g[data-step-labels="1"][data-fade]{transition-delay:520ms}
+.stepper-svg g[data-step-labels="2"][data-fade]{transition-delay:600ms}
+.stepper-svg g[data-step-labels="3"][data-fade]{transition-delay:680ms}
+.stepper-svg g[data-step-labels="4"][data-fade]{transition-delay:760ms}
+.stepper-svg g[data-step-labels="5"][data-fade]{transition-delay:840ms}
 html{scroll-behavior:smooth}
 .section[id]{scroll-margin-top:96px}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  [data-fade],[data-fade-chart],.gantt-diamond[data-fade]{opacity:1;transform:none;transition:none}
+  [data-fade],[data-fade-chart],.gantt-diamond[data-fade],.stepper-svg [data-fade]{opacity:1;transform:none;transition:none}
 }
 .motion-card{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
 .motion-card .motion-chart{width:100%;max-width:320px;aspect-ratio:1/1;justify-self:center;align-self:center}
@@ -49,11 +72,12 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">v1.2.6 · Design System</span>
+        <span class="meta">V2.0.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
     <div class="nav-group">
+      <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Start</div>
       <a class="nav-item active" href="#overview" data-target="overview" aria-current="page"><span class="num">01</span> Overview</a>
       <a class="nav-item" href="#principles" data-target="principles"><span class="num">02</span> Principles</a>
@@ -61,6 +85,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <div class="nav-group">
+      <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Foundations</div>
       <a class="nav-item" href="#color" data-target="color"><span class="num">04</span> Color</a>
       <a class="nav-item" href="#type" data-target="type"><span class="num">05</span> Typography</a>
@@ -71,6 +96,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <div class="nav-group">
+      <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Components</div>
       <a class="nav-item" href="#buttons" data-target="buttons"><span class="num">10</span> Buttons</a>
       <a class="nav-item" href="#inputs" data-target="inputs"><span class="num">11</span> Inputs &amp; Forms</a>
@@ -81,6 +107,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <div class="nav-group">
+      <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Applied</div>
       <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">16</span> Data Viz</a>
       <a class="nav-item" href="#voice" data-target="voice"><span class="num">17</span> Voice &amp; Tone</a>
@@ -89,6 +116,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <div class="nav-group">
+      <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Meta</div>
       <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">20</span> Changelog</a>
     </div>
@@ -125,15 +153,13 @@ html{scroll-behavior:smooth}
           <p class="page-lede">
             Motion-first. AI-readable. Built in the open.
           </p>
-          <p class="page-lede">
-            Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years. It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.
-          </p>
+          <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">1.2.6</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.0.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Apr 28, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">May 07, 2026</span></div>
           </div>
         </div>
 
@@ -145,18 +171,18 @@ html{scroll-behavior:smooth}
           <div class="grid grid-3">
             <div class="card">
               <div class="card-header"><span>01 · Foundations</span><span>06</span></div>
-              <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">Hard tokens</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">The tokens everything else is built from. Color, type, spacing, motion, and the rules that hold them together.</p>
+              <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">Hard tokens</h3>
+              <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The tokens everything else is built from. Color, type, spacing, motion, and the rules that hold them together.</p>
             </div>
             <div class="card">
               <div class="card-header"><span>02 · Components</span><span>06</span></div>
-              <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">Build blocks</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">The primitives I reach for when designing a product surface. Buttons, forms, cards, and the patterns that emerge from them.</p>
+              <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">Build blocks</h3>
+              <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The primitives I reach for when designing a product surface. Buttons, forms, cards, and the patterns that emerge from them.</p>
             </div>
             <div class="card">
               <div class="card-header"><span>03 · Applied</span><span>04</span></div>
-              <h3 style="font-size:22px;margin:0 0 8px;letter-spacing:var(--tr-snug)">In practice</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:14px;line-height:1.6">How the system performs in practice. Data viz, voice, accessibility, and a worked case study template using every primitive in the kit.</p>
+              <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">In practice</h3>
+              <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">How the system performs in practice. Data viz, voice, accessibility, and a worked case study template using every primitive in the kit.</p>
             </div>
           </div>
         </div>
@@ -172,8 +198,8 @@ html{scroll-behavior:smooth}
             </div>
             <div class="card" style="display:flex;flex-direction:column;justify-content:center">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:12px">The symbol</div>
-              <h3 style="font-size:28px;margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:1.2">Three isometric cubes forming a triangle, in motion.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-4);font-size:14px">Each cube is a product. The triangle is a system — components snapping together, breaking apart, reassembling. The motion is intrinsic, not applied:
+              <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Three isometric cubes forming a triangle, in motion.</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-4);font-size:var(--t-body)">Each cube is a product. The triangle is a system — components snapping together, breaking apart, reassembling. The motion is intrinsic, not applied:
 the mark is a Lottie, a JSON file describing every rotation and every transition. The logo follows the same logic as the system itself — written, not decorated.</p>
             </div>
           </div>
@@ -191,31 +217,31 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="grid grid-2" style="gap:var(--s-6)">
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">01 · CLARITY BEFORE CLEVERNESS</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">The obvious answer, on purpose.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">The obvious answer, on purpose.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
 </p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">02 · EVIDENCE OVER OPINION</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Every decision shows its work.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Case studies document the path, not just the destination. Sketches, data, dead ends — the version that didn't ship is part of the file too.</p>
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Every decision shows its work.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Case studies document the path, not just the destination. Sketches, data, dead ends — the version that didn't ship is part of the file too.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">03 · PRECISION IS A FEELING</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Rigor the eye picks up before the mind does.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Rigor the eye picks up before the mind does.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">04 · QUIET, THEN LOUD</div>
-            <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Restraint is what makes accents land.Restraint is what makes accents land.</h3>
-            <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Restraint is what makes accents land.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
           </div>
           <div class="card motion-card" style="grid-column:1 / -1;padding:var(--s-8);display:grid;gap:var(--s-8);align-items:center">
             <div>
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
-              <h3 style="font-size:26px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.2">Interfaces are not static. Neither is this document.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0 0 var(--s-3);font-size:14px">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Every surface in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
+              <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Interfaces are not static. Neither is this document.</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-body)">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every surface in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
             </div>
             <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
               <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
@@ -254,8 +280,8 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Download</h2><span class="subsection-num">§ 03.1</span></div>
           <p class="subsection-desc">One file. Drop it into Claude, ChatGPT, Cursor, or any model that takes a system prompt — and your output starts speaking Amaca.</p>
 
-          <div class="card" style="padding:var(--s-8);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-6);align-items:center">
-            <div aria-hidden="true" style="width:88px;height:108px;border-radius:var(--r-2);border:1px solid var(--obsidian-700);background:linear-gradient(180deg,#10141A 0%,#07090B 100%);position:relative;display:grid;place-items:center;flex-shrink:0">
+          <div class="card spec-card" style="padding:var(--s-8);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-6);align-items:center">
+            <div aria-hidden="true" style="width: 88px; height: 108px; border-radius: 4px; border: 1px solid var(--obsidian-700); background: linear-gradient(180deg,var(--obsidian-850) 0%,var(--obsidian-950) 100%); position: relative; display: grid; place-items: center; flex-shrink: 0">
               <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">.MD</span>
               <span style="position:absolute;top:8px;right:8px;width:14px;height:14px;border-top:1px solid var(--obsidian-600);border-right:1px solid var(--obsidian-600);background:linear-gradient(225deg, var(--obsidian-700) 50%, transparent 50%)"></span>
               <span style="position:absolute;bottom:10px;left:10px;right:10px;height:1px;background:var(--obsidian-700)"></span>
@@ -264,8 +290,8 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div style="min-width:0">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-2)">SPEC · v1.2.6</div>
-              <h3 style="font-size:22px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.25">design.md</h3>
-              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Tokens, components, principles, motion specs and a11y rules — flat Markdown, ~40 KB. Last updated 2026-04-27.</p>
+              <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">design.md</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Tokens, components, principles, motion specs and a11y rules — flat Markdown, ~40 KB. Last updated 2026-04-27.</p>
             </div>
             <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md" data-download-md="DESIGN.md" style="white-space:nowrap">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -281,17 +307,17 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">01 · SYSTEM PROMPT</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Paste it whole.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Drop the contents into the system prompt of Claude, ChatGPT, or any chat model. Every reply will respect the tokens, copy voice, and component vocabulary.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Drop the contents into the system prompt of Claude, ChatGPT, or any chat model. Every reply will respect the tokens, copy voice, and component vocabulary.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">02 · PROJECT CONTEXT</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Add to the IDE.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">In Cursor, Windsurf, or Claude Code, save the file at the repo root as <code>design.md</code>. The agent picks it up as project context and uses the system tokens automatically.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">In Cursor, Windsurf, or Claude Code, save the file at the repo root as <code>design.md</code>. The agent picks it up as project context and uses the system tokens automatically.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">03 · ATTACH PER TASK</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">One-off generations.</h3>
-              <p style="color:var(--obsidian-300);line-height:1.65;margin:0;font-size:13.5px">Attach the file inline when you want a single screen, component, or copy block in the Amaca voice. No persistent setup needed.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Attach the file inline when you want a single screen, component, or copy block in the Amaca voice. No persistent setup needed.</p>
             </div>
           </div>
         </div>
@@ -320,11 +346,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">Pinned to the system release. <code>v1.2.6</code> here ships <code>v1.2.6</code> of the spec. From v1.3.0 onward, strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.0.0 here ships v1.2.7 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
-              <p style="color:var(--obsidian-300);line-height:1.7;margin:0;font-size:14px">MIT. Use it in client work, internal tools, your own systems. Attribution appreciated, not required.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">MIT. Use it in client work, internal tools, your own systems. Attribution appreciated, not required.</p>
             </div>
           </div>
         </div>
@@ -422,19 +448,43 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 04.7</span></div>
           <p class="subsection-desc">The proportion rule for every screen, slide, and case study. Obsidian is the ground; brand and signal are accents.</p>
-          <div class="color-law">
-            <div class="color-law-bar" aria-label="85 percent Obsidian, 10 percent Magenta plus Cyan, 5 percent semantic">
-              <div class="color-law-seg seg-obsidian" style="flex:85 85 0"></div>
-              <div class="color-law-seg seg-brand" style="flex:10 10 0"></div>
-              <div class="color-law-seg seg-semantic" style="flex:5 5 0"></div>
+
+          <div class="law-card">
+            <div class="law-card-bar" aria-label="85 percent Obsidian, 10 percent Magenta plus Cyan, 5 percent semantic">
+              <div class="law-seg law-seg-obsidian" style="flex:85 85 0"></div>
+              <div class="law-seg law-seg-brand" style="flex:10 10 0"></div>
+              <div class="law-seg law-seg-semantic" style="flex:5 5 0"></div>
             </div>
-            <div class="color-law-legend">
-              <div class="law-legend-item"><span class="dot d-obsidian"></span><div class="law-legend-body"><span class="pct">≥ 85%</span><span class="lbl">Obsidian</span><span class="note">page, surfaces, type</span></div></div>
-              <div class="law-legend-item"><span class="dot d-brand"></span><div class="law-legend-body"><span class="pct">≤ 10%</span><span class="lbl">Magenta + Cyan</span><span class="note">CTA, focus, emphasis</span></div></div>
-              <div class="law-legend-item"><span class="dot d-semantic"></span><div class="law-legend-body"><span class="pct">≤ 5%</span><span class="lbl">Semantic</span><span class="note">feedback only</span></div></div>
+
+            <div class="law-legend">
+              <div class="law-row">
+                <div class="law-row-head">
+                  <span class="law-dot law-dot-obsidian"></span>
+                  <span class="law-pct-mono">≥ 85%</span>
+                </div>
+                <span class="law-label">Obsidian</span>
+                <span class="law-note">PAGE, SURFACES, TYPE</span>
+              </div>
+              <div class="law-row">
+                <div class="law-row-head">
+                  <span class="law-dot law-dot-brand"></span>
+                  <span class="law-pct-mono">≤ 10%</span>
+                </div>
+                <span class="law-label">Magenta + Cyan</span>
+                <span class="law-note">CTA, FOCUS, EMPHASIS</span>
+              </div>
+              <div class="law-row">
+                <div class="law-row-head">
+                  <span class="law-dot law-dot-semantic"></span>
+                  <span class="law-pct-mono">≤ 5%</span>
+                </div>
+                <span class="law-label">Semantic</span>
+                <span class="law-note">FEEDBACK ONLY</span>
+              </div>
             </div>
-            <blockquote class="color-law-rule">
-              <span class="mark">Rule</span>
+
+            <blockquote class="law-rule">
+              <span class="law-rule-mark">RULE</span>
               <p>≥ 85% Obsidian, ≤ 10% Magenta + Cyan combined, ≤ 5% semantic. If a layout violates this rule, it's decoration, not hierarchy.</p>
             </blockquote>
           </div>
@@ -584,24 +634,25 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 08.1</span></div>
           <div class="card">
             <div class="motion-row">
-              <div class="label">Standard<span class="sub">Default UI</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.2, 0.8, 0.2, 1)" data-dur="240"></div></div>
-              <div class="time">240 ms</div>
+              <div class="label">STANDARD
+Basic UI</div>
+              <div class="track"><div class="dot" data-ease="cubic-bezier(0.22, 1, 0.36, 1)" data-dur="200"></div></div>
+              <div class="time">200 ms</div>
             </div>
             <div class="motion-row">
               <div class="label">Decel<span class="sub">Entrances</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0, 0, 0.2, 1)" data-dur="240"></div></div>
-              <div class="time">240 ms</div>
+              <div class="track"><div class="dot" data-ease="cubic-bezier(0.16, 1, 0.3, 1)" data-dur="350"></div></div>
+              <div class="time">350 ms</div>
             </div>
             <div class="motion-row">
               <div class="label">Accel<span class="sub">Exits</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.4, 0, 1, 1)" data-dur="160"></div></div>
-              <div class="time">160 ms</div>
+              <div class="track"><div class="dot" data-ease="cubic-bezier(0.7, 0, 0.84, 0)" data-dur="200"></div></div>
+              <div class="time">200 ms</div>
             </div>
             <div class="motion-row">
               <div class="label">Spring<span class="sub">Delight · reveal</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.34, 1.56, 0.64, 1)" data-dur="640"></div></div>
-              <div class="time">640 ms</div>
+              <div class="track"><div class="dot" data-ease="cubic-bezier(0.34, 1.56, 0.64, 1)" data-dur="600"></div></div>
+              <div class="time">600 ms</div>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" id="motion-play" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
@@ -612,11 +663,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <table class="table">
             <thead><tr><th>Token</th><th>ms</th><th>Use</th></tr></thead>
             <tbody>
-              <tr><td><code>--d-instant</code></td><td>80</td><td class="muted">Hover state, tap feedback</td></tr>
-              <tr><td><code>--d-quick</code></td><td>160</td><td class="muted">Button states, focus rings</td></tr>
-              <tr><td><code>--d-base</code></td><td>240</td><td class="muted">Default — most UI transitions</td></tr>
-              <tr><td><code>--d-slow</code></td><td>400</td><td class="muted">Page enters, panel slides</td></tr>
-              <tr><td><code>--d-scene</code></td><td>640</td><td class="muted">Hero reveals, orchestrated sequences</td></tr>
+              <tr><td><code>--d-instant</code></td><td>100</td><td class="muted">Hover state, tap feedback</td></tr>
+              <tr><td><code>--d-quick</code></td><td>200</td><td class="muted">Button states, focus rings</td></tr>
+              <tr><td><code>--d-base</code></td><td>350</td><td class="muted">Default — most UI transitions</td></tr>
+              <tr><td><code>--d-slow</code></td><td>600</td><td class="muted">Page enters, panel slides</td></tr>
+              <tr><td><code>--d-scene</code></td><td>900</td><td class="muted">Hero reveals, orchestrated sequences</td></tr>
             </tbody>
           </table>
         </div>
@@ -632,11 +683,47 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The grid</h2><span class="subsection-num">§ 09.1</span></div>
-          <div class="grid-demo">
-            <div class="cols">
-              <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div>
-              <div class="col">5</div><div class="col">6</div><div class="col">7</div><div class="col">8</div>
-              <div class="col">9</div><div class="col">10</div><div class="col">11</div><div class="col">12</div>
+          <div class="card grid-demo-card" style="padding:0">
+            <div class="tabs" role="tablist" data-tabs aria-label="Breakpoint">
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="grid-bp-desktop">Desktop · 12</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="grid-bp-tablet">Tablet · 8</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="grid-bp-mobile">Mobile · 4</button>
+              <span class="tab-indicator" aria-hidden="true"></span>
+            </div>
+            <div class="tab-panels">
+              <div class="tab-panel active" role="tabpanel" id="grid-bp-desktop">
+                <div class="grid-demo-meta">
+                  <span>≥ 1024px</span><span class="grid-demo-meta-sep">·</span><span>24px gutter</span>
+                </div>
+                <div class="grid-demo">
+                  <div class="cols cols-desktop">
+                    <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div>
+                    <div class="col">5</div><div class="col">6</div><div class="col">7</div><div class="col">8</div>
+                    <div class="col">9</div><div class="col">10</div><div class="col">11</div><div class="col">12</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="grid-bp-tablet">
+                <div class="grid-demo-meta">
+                  <span>720 – 1023px</span><span class="grid-demo-meta-sep">·</span><span>20px gutter</span>
+                </div>
+                <div class="grid-demo">
+                  <div class="cols cols-tablet">
+                    <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div>
+                    <div class="col">5</div><div class="col">6</div><div class="col">7</div><div class="col">8</div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="grid-bp-mobile">
+                <div class="grid-demo-meta">
+                  <span>&lt; 720px</span><span class="grid-demo-meta-sep">·</span><span>16px gutter</span>
+                </div>
+                <div class="grid-demo">
+                  <div class="cols cols-mobile">
+                    <div class="col">1</div><div class="col">2</div><div class="col">3</div><div class="col">4</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -656,18 +743,71 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Common layouts</h2><span class="subsection-num">§ 09.3</span></div>
-          <div class="grid grid-3">
-            <div class="card">
-              <div class="card-header"><span>Sidebar · content</span><span>Default</span></div>
-              <div style="display:grid;grid-template-columns:40px 1fr;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div>
+          <div class="card grid-demo-card" style="padding:0">
+            <div class="tabs" role="tablist" data-tabs aria-label="Layout breakpoint">
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="layouts-desktop">Desktop · 12</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="layouts-tablet">Tablet · 8</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="layouts-mobile">Mobile · 4</button>
+              <span class="tab-indicator" aria-hidden="true"></span>
             </div>
-            <div class="card">
-              <div class="card-header"><span>Hero · three-up</span><span>Landing</span></div>
-              <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:40px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;flex:1"><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div></div>
-            </div>
-            <div class="card">
-              <div class="card-header"><span>Editorial · split</span><span>Case study</span></div>
-              <div style="display:grid;grid-template-columns:5fr 7fr;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div>
+            <div class="tab-panels">
+              <div class="tab-panel active" role="tabpanel" id="layouts-desktop">
+                <div class="grid-demo-meta">
+                  <span>≥ 1024px</span><span class="grid-demo-meta-sep">·</span><span>3-column composition</span>
+                </div>
+                <div class="grid grid-3">
+                  <div class="card">
+                    <div class="card-header"><span>Sidebar · content</span><span>Default</span></div>
+                    <div style="display:grid;grid-template-columns:40px 1fr;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Hero · three-up</span><span>Landing</span></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:40px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;flex:1"><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Editorial · split</span><span>Case study</span></div>
+                    <div style="display:grid;grid-template-columns:5fr 7fr;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="layouts-tablet">
+                <div class="grid-demo-meta">
+                  <span>720 – 1023px</span><span class="grid-demo-meta-sep">·</span><span>sidebar collapses, hero stays 3-up</span>
+                </div>
+                <div class="grid grid-3">
+                  <div class="card">
+                    <div class="card-header"><span>Sidebar · content</span><span>Stacked</span></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:18px"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Hero · three-up</span><span>Landing</span></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:34px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;flex:1"><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Editorial · split</span><span>Case study</span></div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px"></div><div style="background:var(--obsidian-850);border-radius:4px"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="layouts-mobile">
+                <div class="grid-demo-meta">
+                  <span>&lt; 720px</span><span class="grid-demo-meta-sep">·</span><span>everything stacks</span>
+                </div>
+                <div class="grid grid-3">
+                  <div class="card">
+                    <div class="card-header"><span>Sidebar · content</span><span>Drawer</span></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:14px"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Hero · three-up</span><span>Stacked</span></div>
+                    <div style="display:flex;flex-direction:column;gap:5px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:24px"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div></div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header"><span>Editorial · split</span><span>Stacked</span></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:4px;height:30px"></div><div style="background:var(--obsidian-850);border-radius:4px;flex:1"></div></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -744,7 +884,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   </button>
                   <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
                     <li class="select-option" role="option" aria-selected="true" data-value="Draft">Draft</li>
-                    <li class="select-option" role="option" aria-selected="false" data-value="In review">In review</li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Pending">Pending</li>
                     <li class="select-option" role="option" aria-selected="false" data-value="Published">Published</li>
                   </ul>
                 </div>
@@ -785,19 +925,19 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <div class="card-header" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">Pending state card. This payload is merely illustrative.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Field · observability app</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:1.6">On-call dashboards for a SaaS infra company.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-projects" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
@@ -845,9 +985,9 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
-            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>In review</span>
+            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>Pending</span>
             <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
-            <span class="badge badge-info" style="background-color: rgba(92, 200, 255, 0.008); opacity: 1"><span class="dot"></span>Reading now</span>
+            <span class="badge"><span class="dot"></span>Reading now</span>
             <span class="badge badge-solid">Featured</span>
           </div>
         </div>
@@ -872,19 +1012,79 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 14.1</span></div>
-          <div class="navdemo">
-            <div class="left">
-              <div class="logo"><span class="mk"></span> angelomacaione</div>
-              <div class="links">
-                <a href="#" class="active">Work</a>
-                <a href="#">About</a>
-                <a href="#">Journal</a>
-                <a href="#">Contact</a>
-              </div>
+          <div class="card grid-demo-card" style="padding:0">
+            <div class="tabs" role="tablist" data-tabs aria-label="Navigation breakpoint">
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="nav-desktop">Desktop · 12</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-tablet">Tablet · 8</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-mobile">Mobile · 4</button>
+              <span class="tab-indicator" aria-hidden="true"></span>
             </div>
-            <div class="right">
-              <span class="badge badge-brand"><span class="dot"></span>Available · Q3</span>
-              <button class="btn btn-primary btn-sm">Book a call</button>
+            <div class="tab-panels">
+              <div class="tab-panel active" role="tabpanel" id="nav-desktop">
+                <div class="grid-demo-meta">
+                  <span>≥ 1024px</span><span class="grid-demo-meta-sep">·</span><span>full nav, badge + CTA visible</span>
+                </div>
+                <div class="device-preview" data-device="desktop">
+                  <div class="device-preview-inner">
+                    <div class="navdemo">
+                      <div class="left">
+                        <div class="logo"><span class="mk"></span> angelomacaione</div>
+                        <div class="links">
+                          <a href="#" class="active">Work</a>
+                          <a href="#">About</a>
+                          <a href="#">Journal</a>
+                          <a href="#">Contact</a>
+                        </div>
+                      </div>
+                      <div class="right">
+                        <button class="btn btn-primary btn-sm">Book a call</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="nav-tablet">
+                <div class="grid-demo-meta">
+                  <span>720 – 1023px</span><span class="grid-demo-meta-sep">·</span><span>badge drops, CTA stays</span>
+                </div>
+                <div class="device-preview" data-device="tablet">
+                  <div class="device-preview-inner">
+                    <div class="navdemo navdemo-tablet">
+                      <div class="left">
+                        <div class="logo"><span class="mk"></span> angelomacaione</div>
+                        <div class="links">
+                          <a href="#" class="active">Work</a>
+                          <a href="#">About</a>
+                          <a href="#">Journal</a>
+                          <a href="#">Contact</a>
+                        </div>
+                      </div>
+                      <div class="right">
+                        <button class="btn btn-primary btn-sm">Book a call</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-panel" role="tabpanel" id="nav-mobile">
+                <div class="grid-demo-meta">
+                  <span>&lt; 720px</span><span class="grid-demo-meta-sep">·</span><span>logo + hamburger, links collapse</span>
+                </div>
+                <div class="device-preview" data-device="mobile">
+                  <div class="device-preview-inner">
+                    <div class="navdemo navdemo-mobile">
+                      <div class="left">
+                        <div class="logo"><span class="mk"></span> angelomacaione</div>
+                      </div>
+                      <div class="right">
+                        <button type="button" class="navdemo-burger" aria-label="Open menu">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 5h12M2 11h12"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1054,7 +1254,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <div class="t" data-fade>Task time · Arc HMI</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Median, seconds to complete priority flow</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge badge-brand" data-fade>2024</span><span class="badge" data-fade>2023 baseline</span></div>
+              <div style="display:flex;gap:8px"><span class="badge" data-fade>2026 baseline</span></div>
             </div>
             <svg data-fade-chart viewBox="0 0 700 260" style="width:100%;height:auto">
               <defs>
@@ -1252,7 +1452,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <div class="t" data-fade>Project · Orion launch</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Five workstreams across twelve weeks. Diamonds mark milestones. Dashed line is today.</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge badge-brand" data-fade>Wk 7 of 12</span><span class="badge" data-fade>5 lanes</span></div>
+              <div style="display:flex;gap:8px"><span class="badge" data-fade>5 lanes</span></div>
             </div>
             <svg viewBox="0 0 700 290" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
               <defs>
@@ -1370,16 +1570,16 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Stepper · progress</h2><span class="subsection-num">§ 16.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 16.6</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t" data-fade>Checkout · order flow</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Five steps. Completed segments fill in. The active step pulses; upcoming stays outlined.</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge badge-brand" data-fade>Step 3 of 5</span><span class="badge" data-fade>60% complete</span></div>
+              <div style="display:flex;gap:8px"><span class="badge" data-fade>Step 3 of 5</span></div>
             </div>
-            <svg viewBox="0 0 700 210" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
+            <svg class="stepper-svg" viewBox="0 0 700 170" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
               <defs>
                 <linearGradient id="step-grad" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stop-color="#FFB5EC"/>
@@ -1392,7 +1592,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </defs>
 
               <!-- canvas -->
-              <rect x="0" y="0" width="700" height="210" fill="#150310" rx="6"/>
+              <rect x="0" y="0" width="700" height="170" fill="#150310" rx="6"/>
 
               <!-- connector track (background) -->
               <line x1="70" y1="80" x2="630" y2="80" stroke="#2A1028" stroke-width="3" stroke-linecap="round"/>
@@ -1401,23 +1601,23 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <rect data-bar-h data-bar-pct="100" x="70" y="78.5" width="280" height="3" rx="1.5" fill="url(#step-grad)" filter="url(#step-glow)"/>
 
               <!-- upcoming connectors (3→4, 4→5) dashed -->
-              <line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
-              <line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
+              <line data-step-line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
+              <line data-step-line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
 
               <!-- step 1 — completed -->
-              <g data-fade>
+              <g data-fade data-step-dot="1">
                 <circle cx="70" cy="80" r="12" fill="#F051D5"/>
                 <path d="M65,80 L68.5,83.5 L75,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </g>
 
               <!-- step 2 — completed -->
-              <g data-fade>
+              <g data-fade data-step-dot="2">
                 <circle cx="210" cy="80" r="12" fill="#F051D5"/>
                 <path d="M205,80 L208.5,83.5 L215,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </g>
 
               <!-- step 3 — current (pulsing glow ring + larger filled circle) -->
-              <g data-fade>
+              <g data-fade data-step-dot="3">
                 <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.4"/>
                 <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.6">
                   <animate attributeName="r" values="18;24;18" dur="2.4s" repeatCount="indefinite"/>
@@ -1428,72 +1628,107 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </g>
 
               <!-- step 4 — upcoming -->
-              <g data-fade>
+              <g data-fade data-step-dot="4">
                 <circle cx="490" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
                 <text x="490" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">4</text>
               </g>
 
               <!-- step 5 — upcoming -->
-              <g data-fade>
+              <g data-fade data-step-dot="5">
                 <circle cx="630" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
                 <text x="630" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">5</text>
               </g>
 
-              <!-- step labels -->
-              <g font-size="13" letter-spacing="0.2" text-anchor="middle" data-fade>
-                <text x="70"  y="135" fill="#E3E7EC" font-weight="600">Cart</text>
-                <text x="210" y="135" fill="#E3E7EC" font-weight="600">Shipping</text>
-                <text x="350" y="135" fill="#FFB5EC" font-weight="700">Payment</text>
-                <text x="490" y="135" fill="#8A94A3">Review</text>
-                <text x="630" y="135" fill="#8A94A3">Done</text>
-              </g>
-
-              <!-- step sublabels (status / duration) -->
-              <g font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2" text-anchor="middle" data-fade>
-                <text x="70"  y="155" fill="#5B6573">2 ITEMS</text>
-                <text x="210" y="155" fill="#5B6573">EXPRESS</text>
-                <text x="350" y="155" fill="#FFB5EC">IN PROGRESS</text>
-                <text x="490" y="155" fill="#5B4A6A">PENDING</text>
-                <text x="630" y="155" fill="#5B4A6A">PENDING</text>
-              </g>
-
-              <!-- bottom progress meter -->
-              <g data-fade>
-                <text x="40"  y="188" fill="#5B6573" font-size="10" letter-spacing="1.2">PROGRESS</text>
-                <rect x="120" y="180" width="540" height="6" rx="3" fill="#1F0820"/>
-                <rect data-bar-h data-bar-pct="100" x="120" y="180" width="324" height="6" rx="3" fill="url(#step-grad)" filter="url(#step-glow)"/>
-                <text x="660" y="188" fill="#E3E7EC" font-family="Satoshi, sans-serif" font-size="10" letter-spacing="0.5" text-anchor="end">60%</text>
+              <!-- step labels (label + sublabel grouped per step for staggered rise) -->
+              <g text-anchor="middle">
+                <g data-fade data-step-labels="1">
+                  <text x="70"  y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Cart</text>
+                  <text x="70"  y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">2 ITEMS</text>
+                </g>
+                <g data-fade data-step-labels="2">
+                  <text x="210" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Shipping</text>
+                  <text x="210" y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">EXPRESS</text>
+                </g>
+                <g data-fade data-step-labels="3">
+                  <text x="350" y="135" fill="#FFB5EC" font-size="13" letter-spacing="0.2" font-weight="700">Payment</text>
+                  <text x="350" y="155" fill="#FFB5EC" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">IN PROGRESS</text>
+                </g>
+                <g data-fade data-step-labels="4">
+                  <text x="490" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Review</text>
+                  <text x="490" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
+                </g>
+                <g data-fade data-step-labels="5">
+                  <text x="630" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Done</text>
+                  <text x="630" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
+                </g>
               </g>
             </svg>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 16.7</span></div>
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <div class="t" data-fade>Checkout · completion</div>
+                <div class="ty-small" data-fade style="margin-top:4px">Linear meter. Animates from 0 to its target on view.</div>
+              </div>
+              <div style="display:flex;gap:8px"><span class="badge" data-fade>60% complete</span></div>
+            </div>
+            <svg viewBox="0 0 700 80" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
+              <defs>
+                <linearGradient id="progress-grad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#FFB5EC"/>
+                  <stop offset="100%" stop-color="#F051D5"/>
+                </linearGradient>
+                <filter id="progress-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="4" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
+              <rect x="0" y="0" width="700" height="80" fill="#150310" rx="6"/>
+              <g data-fade>
+                <text x="40"  y="48" fill="#5B6573" font-size="10" letter-spacing="1.2">PROGRESS</text>
+                <rect x="120" y="40" width="540" height="6" rx="3" fill="#1F0820"/>
+                <rect data-bar-h data-bar-pct="100" x="120" y="40" width="324" height="6" rx="3" fill="url(#progress-grad)" filter="url(#progress-glow)"/>
+                <text x="660" y="48" fill="#E3E7EC" font-family="Satoshi, sans-serif" font-size="10" letter-spacing="0.5" text-anchor="end">60%</text>
+              </g>
+            </svg>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animation.</p>
+        </div>
+
       </section>
       <section class="section" id="voice">
         <div class="page-header">
           <div class="page-eyebrow">§ 17 · Applied / Voice &amp; Tone</div>
-          <h1 class="page-title">Write like <span class="accent">a working designer.</span></h1>
-          <p class="page-lede">Direct. Specific. No hedging. Show the work and let it argue for itself.</p>
+          <h1 class="page-title">How this system <span class="accent">writes.</span></h1>
+          <p class="page-lede">Amaca speaks in two registers. The live site is editorial, written for a designer reading on a Tuesday afternoon — paragraphed, contextual, first-person. The DESIGN.md on GitHub is the same system expressed differently — declarative, machine-readable, one rule per line. Both serve the design. Neither imitates the other.
+
+This section sets the rules for the editorial register. The DESIGN.md handles its own.</p>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 17.1</span></div>
           <div class="grid grid-4">
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Short sentences. Active voice. Verbs first.</p></div>
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers, durations, scope. Not "improved" — "−41% task time."</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers when you have them, scope when you don't.</p></div>
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">03</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Honest</h4><p class="ty-small" style="margin:0">Name the tradeoffs. Name the dead ends. No mythologizing.</p></div>
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">04</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Engineered</h4><p class="ty-small" style="margin:0">Treat prose like a system: tokens, rules, consistent rhythm.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">04</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Considered</h4><p class="ty-small" style="margin:0">No filler, no flourish. Every sentence earns its place.</p></div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 17.2</span></div>
           <div class="do-dont">
-            <div class="do"><div class="hd"><span>✓</span>Do</div><p>"Cut the task flow from 11 screens to 4. Median time dropped from 38s to 22s."</p></div>
-            <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Leveraged a holistic, user-centered approach to synergize the end-to-end experience."</p></div>
-            <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This didn't work. Users read 'send' as destructive. We reframed the action."</p></div>
-            <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through iterative exploration and rigorous testing, we arrived at an optimal solution."</p></div>
+            <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This pattern didn't work in early testing. Users read 'send' as destructive, so we changed the label to 'queue for review."</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through iterative exploration and rigorous testing, we arrived at an optimal labeling solution that better aligned with user mental models."</p></div>
+            <div class="do"><div class="hd"><span>✓</span>Do</div><p>"Three weeks of work, two releases, one major refactor. The token system is cleaner; the components are not."</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through a holistic, iterative process leveraging cross-functional collaboration, we achieved a more streamlined and impactful system."</p></div>
+            <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This is v0.1. The Don'ts list is short because it grows with use."</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Excited to share v0.1 of our latest design system initiative — stay tuned for what's next!"</p></div>
           </div>
         </div>
 
@@ -1502,13 +1737,25 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
             <tbody>
-              <tr><td><code>ship</code></td><td class="muted">"roll out", "launch at scale"</td><td class="muted">Concrete, not inflated</td></tr>
+              <tr><td><code>ship</code></td><td class="muted">"roll out", "launch"</td><td class="muted">Concrete, not inflated</td></tr>
               <tr><td><code>cut</code></td><td class="muted">"reduce", "optimize"</td><td class="muted">Action, not abstraction</td></tr>
-              <tr><td><code>the thing</code></td><td class="muted">"the solution", "the experience"</td><td class="muted">Clarity over reverence</td></tr>
-              <tr><td><code>we learned</code></td><td class="muted">"key insights surfaced"</td><td class="muted">Who, not what</td></tr>
               <tr><td><code>wrong</code></td><td class="muted">"non-optimal"</td><td class="muted">Be willing to be wrong out loud</td></tr>
+              <tr><td><code>we learned</code></td><td class="muted">"key insights surfaced"</td><td class="muted">Who, not what</td></tr>
+              <tr><td><code>the version that didn't ship</code></td><td class="muted">"alternative explorations"</td><td class="muted">Honest about process</td></tr>
+              <tr><td><code>it didn't work</code></td><td class="muted">"results were mixed"</td><td class="muted">The reader can tell either way</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 17.4</span></div>
+          <p class="subsection-desc">If you're a language model generating copy for surfaces that use this system, four hard constraints:</p>
+          <div class="do-dont">
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 01</div><p>Write nominal sentence fragments as headlines or pay-offs. Use complete sentences.</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 02</div><p>Use <em>always</em>, <em>never</em>, or <em>no exceptions</em> as rhetorical emphasis. Use them only when literally true.</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 03</div><p>Use the words <em>delight</em>, <em>world-class</em>, <em>journey</em>, <em>unlock</em>, <em>supercharge</em>, <em>holistic</em>, <em>synergy</em>, <em>leverage</em> (as verb), or <em>seamless</em>. None of them carry meaning.</p></div>
+            <div class="do"><div class="hd"><span>✓</span>Do · 04</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
+          </div>
         </div>
       </section>
 
@@ -1640,9 +1887,21 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="eyebrow">03 · Outcome</div>
           <h3>Measured, shipped, maintained.</h3>
           <div class="grid grid-3" style="margin:var(--s-5) 0">
-            <div class="chart-card"><div class="chart-head"><span class="t">Task time</span><span class="s">Priority flows</span></div><div class="chart-big accent">−41%</div><div class="chart-delta">38s → 22s median</div></div>
-            <div class="chart-card"><div class="chart-head"><span class="t">Eyes-off-road</span><span class="s">NHTSA 12s rule</span></div><div class="chart-big accent">−64%</div><div class="chart-delta">Below safety threshold</div></div>
-            <div class="chart-card"><div class="chart-head"><span class="t">Retention</span><span class="s">D30</span></div><div class="chart-big accent">+12pt</div><div class="chart-delta">72 → 84%</div></div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Task time</span><span class="s" data-fade>Priority flows</span></div>
+              <div class="chart-big accent" data-count-to="-41" data-suffix="%" data-prefix="−">0%</div>
+              <div class="chart-delta" data-fade>38s → 22s median</div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Eyes-off-road</span><span class="s" data-fade>NHTSA 12s rule</span></div>
+              <div class="chart-big accent" data-count-to="-64" data-suffix="%" data-prefix="−">0%</div>
+              <div class="chart-delta" data-fade>Below safety threshold</div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Retention</span><span class="s" data-fade>D30</span></div>
+              <div class="chart-big accent" data-count-to="12" data-suffix="pt" data-prefix="+">0pt</div>
+              <div class="chart-delta" data-fade>72 → 84%</div>
+            </div>
           </div>
           <p>Shipped to 2 vehicle platforms in Q4 2024. The token system that emerged from this project became the foundation for Arc's entire product design language — and for this design system.</p>
         </div>
@@ -1664,7 +1923,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 20 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
-          <p class="page-lede">What changed, when, and why — read top to bottom. From v1.3.0 onward, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a>: <span class="ty-mono" style="font-size:13px">MAJOR</span> for breaking changes, <span class="ty-mono" style="font-size:13px">MINOR</span> for additions, <span class="ty-mono" style="font-size:13px">PATCH</span> for fixes.</p>
+          <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
 
         <div class="subsection">
@@ -1672,9 +1931,93 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v1.2.6 -->
+            <!-- v2.0.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-1">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-0">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.0.0 — Motion language refresh</span>
+                <span class="acc-num">2026-05-07</span>
+              </button>
+              <div class="acc-panel" id="cl-0" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>First major release. Motion vocabulary recalibrated end to end — easing curves redistributed semantically, durations restretched across the full scale. Everything else stays. One reason to bump the major: one set of changes worth knowing about.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Breaking changes</h4>
+                  <p style="margin:0 0 var(--s-4)">This release shifts the <strong style="color:var(--obsidian-100)">values</strong> of the motion system. Token <strong style="color:var(--obsidian-100)">names</strong> are unchanged. If you reference Amaca tokens in another project, audit motion before upgrading.</p>
+
+                  <h4 style="font-size:13px;margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Easing values reassigned</h4>
+                  <p style="margin:0 0 var(--s-4)">The four easing tokens kept their names. The curves under them moved to better match what the names mean.</p>
+                  <table class="table table-contrast" style="margin-bottom:var(--s-4)">
+                    <thead><tr><th style="width:30%">Token</th><th>Before</th><th>After</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>--ease-standard</code></td><td class="muted"><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code></td></tr>
+                      <tr><td><code>--ease-decel</code></td><td class="muted">[previous curve]</td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td></tr>
+                      <tr><td><code>--ease-accel</code></td><td class="muted"><code>cubic-bezier(0.7, 0, 0.84, 0)</code></td><td class="muted">unchanged</td></tr>
+                      <tr><td><code>--ease-spring</code></td><td class="muted"><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td class="muted">unchanged</td></tr>
+                    </tbody>
+                  </table>
+                  <p style="margin:0 0 var(--s-4)">The curve <code>cubic-bezier(0.16, 1, 0.3, 1)</code> — the system signature — now lives where it semantically belongs: <code>--ease-decel</code>. Use it for entrances and reveals, where the slow tail in the curve has always been doing decel work. <code>--ease-standard</code> is now the Framer ease, sized for everyday UI state changes (hover, focus, button press).</p>
+                  <p style="margin:0 0 var(--s-5)"><strong style="color:var(--obsidian-100)">Migration:</strong> if a component was relying on <code>--ease-standard</code> <em>to behave like the old signature curve</em>, switch it to <code>--ease-decel</code>. If it was using <code>--ease-standard</code> for generic UI feedback, leave it — the new curve does the job.</p>
+
+                  <h4 style="font-size:13px;margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Duration values rebalanced</h4>
+                  <p style="margin:0 0 var(--s-4)">The five duration tokens have been restretched. Names unchanged — only values shift. The new scale stretches the slower end (more breathing room on entrances and orchestrated reveals) and grounds the faster end on round numbers.</p>
+                  <table class="table table-contrast" style="margin-bottom:var(--s-4)">
+                    <thead><tr><th style="width:30%">Token</th><th>Before</th><th>After</th></tr></thead>
+                    <tbody>
+                      <tr><td><code>--d-instant</code></td><td class="muted">80ms</td><td>100ms</td></tr>
+                      <tr><td><code>--d-quick</code></td><td class="muted">160ms</td><td>200ms</td></tr>
+                      <tr><td><code>--d-base</code></td><td class="muted">240ms</td><td>350ms</td></tr>
+                      <tr><td><code>--d-slow</code></td><td class="muted">400ms</td><td>600ms</td></tr>
+                      <tr><td><code>--d-scene</code></td><td class="muted">640ms</td><td>900ms</td></tr>
+                    </tbody>
+                  </table>
+                  <p style="margin:0"><strong style="color:var(--obsidian-100)">Migration:</strong> no code changes required if you reference durations via <code>var(--d-*)</code>. If any duration is hardcoded in milliseconds, search for the old values and confirm intent.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Motion</strong> — Additional animations integrated across components. The new easing/duration pairings applied throughout.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 7 · Grid &amp; Layout</strong> — Grid system extended to tablet and mobile breakpoints. Column counts, gutters, and content widths now documented for every viewport.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 14 · Voice &amp; Tone</strong> — Section rewritten for sharper register. Do/Don't examples expanded. Vocabulary table tightened.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>design.md</code></strong> — Spec file regenerated for v2.0.0. Drop the new version into LLM system prompts to keep AI-generated work in sync with the live system.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Mobile responsiveness</strong> — Multiple layout fixes across breakpoints. Long titles, dense tables, and stat cards now behave correctly on narrow viewports.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Compatibility</h4>
+                  <table class="table table-contrast">
+                    <thead><tr><th style="width:55%">Area</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>Color tokens</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Typography tokens</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Spacing scale</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Radius &amp; shadow</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Component APIs</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Motion easing <strong style="color:var(--obsidian-100)">names</strong></td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Motion easing <strong style="color:var(--obsidian-100)">values</strong></td><td><strong style="color:var(--magenta-400)">Breaking</strong> — curves redistributed</td></tr>
+                      <tr><td>Motion duration <strong style="color:var(--obsidian-100)">names</strong></td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Motion duration <strong style="color:var(--obsidian-100)">values</strong></td><td><strong style="color:var(--magenta-400)">Breaking</strong> — five values rebalanced</td></tr>
+                    </tbody>
+                  </table>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
+                  <p style="margin:0">v2.0.0 follows v1.2.6 directly. Internal iterations between (drafts at v1.2.7 and beyond) have been consolidated into this release. From v2.0.0, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> with no skipped numbers in public releases.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-07</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.2.6...v2.0.0" target="_blank" rel="noopener">v1.2.6…v2.0.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v1.2.6 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-1">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v1.2.6 — Components, accessibility, public spec</span>
                 <span class="acc-num">2026-04-28</span>
@@ -1684,33 +2027,33 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <p>First substantive expansion since v1.0. The system gains three new components, a full accessibility posture, a public changelog, deep-linkable sections, and a downloadable spec for AI-assisted design.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new components</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 15 · Accordion</strong> — Collapsible content blocks for FAQs, dense documentation, and progressive disclosure. Single-open and multi-open variants. Keyboard navigation built in.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 16.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 16.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new sections</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 18 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 20 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 03 · Documentation</strong> — Single Markdown file (<code>design.md</code>) containing every token, component spec, principle, and rule. Built to feed into LLMs as context for AI-assisted design work. Updated alongside the system — every release ships a fresh spec.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · navigation</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Anchor links</strong> — Every section header now carries a hash. Deep-link any paragraph: <code>amaca.design/#13-accordion</code>, <code>amaca.design/#16-accessibility</code>. The system became citable.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 04 · Colors</strong> — Visual presentation refined. Token names, hex values, and intended use unchanged — no breaking changes to consumers.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 10 · Buttons</strong> — Vertical padding tuned for better optical balance across sizes.</li>
                     <li><strong style="color:var(--obsidian-100)">Copy</strong> — Several section intros and microcopy tightened for rhythm.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · meta</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Favicon</strong> — Amaca mark serves across browser tabs and bookmarks.</li>
                     <li><strong style="color:var(--obsidian-100)">Open Graph image</strong> — Link previews on social and chat render the system's identity instead of a generic screenshot.</li>
                   </ul>
@@ -1743,7 +2086,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <p>Maintenance release. Small fixes, one meaningful polish pass on donut charts.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 04 · Colors</strong> — Primary token <code>#F051D5</code> was mislabeled "Cube Cyan" in the palette reference. Corrected to "Magenta" — its actual value for the last nine months.</li>
                     <li><strong style="color:var(--obsidian-100)">§ Overview</strong> — Page metadata stamp updated (version + date drift).</li>
                     <li><strong style="color:var(--obsidian-100)">Responsiveness</strong> — Layout fixes across mobile breakpoints.</li>
@@ -1752,7 +2095,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 16.3 Donut charts</h4>
                   <p style="margin:0 0 var(--s-3)">Slice geometry rebuilt from stroked arcs to true ring-segment paths.</p>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 16.2).</li>
                     <li>Inter-slice gap halved from ~6px to ~3px of circumference for tighter visual rhythm.</li>
                     <li>Draw-on animation preserved via angular sweep.</li>
@@ -1764,7 +2107,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <p style="margin:0">Everything else. No breaking changes, no token renames, no component API shifts.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Infrastructure</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Repository</strong> — Cleanup: removed duplicate nested folders and orphaned font/logo files from root.</li>
                     <li><strong style="color:var(--obsidian-100)">Documentation</strong> — Added <code>README</code> and <code>LICENSE</code> to public repo.</li>
                     <li><strong style="color:var(--obsidian-100)">Branch protection</strong> — Ruleset activated on <code>main</code> (PR-only merges).</li>
@@ -1790,7 +2133,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <p>Initial public release. Prima pubblicazione pubblica del design system Amaca, live su amaca.design.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Foundations</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Color</strong> — Magenta brand range, obsidian neutrals, electric cyan secondary, petrol tertiary, semantic signals.</li>
                     <li><strong style="color:var(--obsidian-100)">Typography</strong> — Satoshi as primary typeface across all weights (Light to Black).</li>
                     <li><strong style="color:var(--obsidian-100)">Spacing, radius &amp; shadow</strong> — Core layout tokens.</li>
@@ -1799,7 +2142,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Components</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Buttons</strong> — Primary set with full state coverage.</li>
                     <li><strong style="color:var(--obsidian-100)">Inputs &amp; forms</strong> — Field, label, and validation patterns.</li>
                     <li><strong style="color:var(--obsidian-100)">Cards</strong> — Container variants for content surfaces.</li>
@@ -1808,7 +2151,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · Applied</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Data visualization</strong> — Charting vocabulary aligned to brand tokens.</li>
                     <li><strong style="color:var(--obsidian-100)">Voice &amp; tone</strong> — Editorial direction across surfaces.</li>
                     <li><strong style="color:var(--obsidian-100)">Case study template</strong> — Reusable narrative structure for project work.</li>
@@ -1818,7 +2161,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <p style="margin:0">Five principles — clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Infrastructure</h4>
-                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:1.7;font-size:14px">
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Hosting</strong> — Static site on Vercel.</li>
                     <li><strong style="color:var(--obsidian-100)">DNS</strong> — Cloudflare.</li>
                     <li><strong style="color:var(--obsidian-100)">Repository</strong> — Public on GitHub, MIT License.</li>
@@ -1862,6 +2205,27 @@ const sidebar = document.querySelector('.sidebar');
 const sidebarScrim = document.getElementById('sidebar-scrim');
 const menuToggle = document.getElementById('menu-toggle');
 
+// Animated sliding indicator (shared with tabs)
+function moveNavIndicator(activeItem){
+  document.querySelectorAll('.nav-group').forEach(group => {
+    const indicator = group.querySelector('.nav-indicator');
+    if(!indicator) return;
+    if(activeItem && group.contains(activeItem)){
+      const groupRect = group.getBoundingClientRect();
+      const itemRect = activeItem.getBoundingClientRect();
+      const y = itemRect.top - groupRect.top + (itemRect.height / 2) - 8;
+      indicator.style.transform = 'translateY(' + y + 'px)';
+      group.classList.add('has-active');
+    } else {
+      group.classList.remove('has-active');
+    }
+  });
+}
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.nav-item.active');
+  if(active) moveNavIndicator(active);
+});
+
 function closeSidebar(){
   if(!sidebar) return;
   sidebar.classList.remove('open');
@@ -1900,6 +2264,7 @@ function go(target, opts){
   sections.forEach(s => s.classList.toggle('active', s.id === target));
   const activeNav = Array.from(navItems).find(n => n.dataset.target === target);
   if(activeNav && crumb) crumb.textContent = activeNav.textContent.trim().replace(/^\d+\s*/, '');
+  moveNavIndicator(activeNav);
   try{ localStorage.setItem('amaca-ds-section', target); }catch(e){}
   if(!opts.preserveScroll) window.scrollTo({top:0, behavior:'instant'});
   // close mobile drawer after navigation
@@ -1932,15 +2297,18 @@ window.addEventListener('hashchange', syncFromHash);
   const hash = (location.hash || '').replace(/^#/, '');
   if(hash && document.getElementById(hash)){
     go(hash);
+    requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
     return;
   }
   try{
     const saved = localStorage.getItem('amaca-ds-section');
     if(saved && document.getElementById(saved)){
       go(saved);
+      requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
       return;
     }
   }catch(e){}
+  requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
 })();
 
 // --- motion demo ---
@@ -1994,6 +2362,16 @@ new MutationObserver(muts => {
     const t = n.textContent.trim();
     if (t.includes('12.1')) projectsRegion = s;
     else if (t.includes('12.2')) statsRegion = s;
+  }
+
+  // Case study Outcome region — same chart-card pattern as § 12.2
+  const casestudySection = document.getElementById('casestudy');
+  let csOutcomeRegion = null;
+  if (casestudySection) {
+    casestudySection.querySelectorAll('.cs-section').forEach(sec => {
+      const eb = sec.querySelector('.eyebrow');
+      if (eb && /Outcome/i.test(eb.textContent)) csOutcomeRegion = sec;
+    });
   }
 
   waitForMotion(M => {
@@ -2067,6 +2445,19 @@ new MutationObserver(muts => {
       });
     }
 
+    // --- case study outcome cards (§ 19) — same pattern as § 12.2 ---
+    function runCsOutcome(){
+      if (!csOutcomeRegion) return;
+      const cards = csOutcomeRegion.querySelectorAll('.chart-card');
+      cards.forEach((card, ci) => {
+        const fades = card.querySelectorAll('[data-fade]');
+        const counter = card.querySelector('[data-count-to]');
+        const base = ci * 80;
+        fades.forEach((f, fi) => fadeIn(f, base + fi * 90));
+        if (counter) countTo(counter, base + 150);
+      });
+    }
+
     // --- triggers ---
     function observeScroll(region, fn){
       if (!region) return;
@@ -2079,6 +2470,7 @@ new MutationObserver(muts => {
     }
     observeScroll(projectsRegion, runProjects);
     observeScroll(statsRegion, runStats);
+    observeScroll(csOutcomeRegion, runCsOutcome);
 
     // Tab activation → run both
     new MutationObserver(muts => {
@@ -2088,6 +2480,16 @@ new MutationObserver(muts => {
         }
       }
     }).observe(cardsSection, {attributes:true, attributeFilter:['class']});
+
+    if (casestudySection) {
+      new MutationObserver(muts => {
+        for (const m of muts) {
+          if (m.target.id === 'casestudy' && m.target.classList.contains('active')) {
+            setTimeout(runCsOutcome, 80);
+          }
+        }
+      }).observe(casestudySection, {attributes:true, attributeFilter:['class']});
+    }
 
     // Replay buttons (scoped per subsection)
     document.addEventListener('click', (ev) => {
@@ -2264,7 +2666,24 @@ new MutationObserver(muts => {
     const decel = [0.16, 1, 0.3, 1];
 
     const fades = root.querySelectorAll('[data-fade]');
-    fades.forEach((f, i) => setTimeout(() => f.classList.add('is-in'), i * 35));
+    fades.forEach((f, i) => {
+      // Stepper items have explicit CSS transition-delays driving choreography;
+      // skip the JS stagger so line-then-dots ordering survives. Remove class,
+      // force reflow per-element, then add class on next macrotask so the
+      // browser commits the reset state before the transition starts.
+      if (f.matches('.stepper-svg [data-fade]')) {
+        f.classList.remove('is-in');
+        // Force layout flush with getComputedStyle (more reliable than rAF
+        // when the browser is busy), then re-add on a small timeout so the
+        // reset state (opacity:0, scale(0)/translateY) actually paints
+        // before the transition re-arms.
+        // eslint-disable-next-line no-unused-expressions
+        getComputedStyle(f).opacity;
+        setTimeout(() => f.classList.add('is-in'), 50);
+        return;
+      }
+      setTimeout(() => f.classList.add('is-in'), i * 35);
+    });
 
     const charts = root.querySelectorAll('[data-fade-chart]');
     charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), 120 + i * 150));
@@ -2635,6 +3054,63 @@ new MutationObserver(muts => {
         a.removeAttribute('aria-busy');
       });
   });
+})();
+</script>
+<script>
+// --- device preview · scale fixed-width content to fit container ---
+(function(){
+  function scale(preview){
+    const inner = preview.querySelector('.device-preview-inner');
+    if(!inner) return;
+    const containerW = preview.clientWidth;
+    const innerW = inner.offsetWidth;
+    if(!containerW || !innerW) return;
+    const s = Math.min(1, containerW / innerW);
+    inner.style.transform = 'scale(' + s + ')';
+    preview.style.height = (inner.offsetHeight * s) + 'px';
+  }
+  function scaleAll(){
+    document.querySelectorAll('.device-preview').forEach(scale);
+  }
+  if('ResizeObserver' in window){
+    const ro = new ResizeObserver(entries => {
+      entries.forEach(e => scale(e.target));
+    });
+    document.querySelectorAll('.device-preview').forEach(p => ro.observe(p));
+  }
+  window.addEventListener('resize', scaleAll);
+  // re-scale when a panel becomes active (was display:none, no width)
+  const mo = new MutationObserver(muts => {
+    muts.forEach(m => {
+      if(m.type === 'attributes' && m.target.classList.contains('tab-panel')){
+        m.target.querySelectorAll('.device-preview').forEach(scale);
+      }
+    });
+  });
+  document.querySelectorAll('.tab-panel').forEach(p => {
+    mo.observe(p, {attributes:true, attributeFilter:['class']});
+  });
+  requestAnimationFrame(() => { scaleAll(); requestAnimationFrame(scaleAll); });
+})();
+</script>
+
+<script>
+// --- text-block fade-in (cs-section + cs-pull): stagger eyebrow → h3 → p ---
+(function(){
+  const blocks = document.querySelectorAll('.cs-section, .cs-pull');
+  if (!blocks.length || typeof IntersectionObserver === 'undefined') {
+    blocks.forEach(b => b.classList.add('is-in'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.15, rootMargin: '0px 0px -8% 0px'});
+  blocks.forEach(b => io.observe(b));
 })();
 </script>
 </body>
