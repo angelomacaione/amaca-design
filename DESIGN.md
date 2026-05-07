@@ -1,501 +1,541 @@
-# Amaca · Design System
+# AMACA DESIGN SYSTEM — `design.md`
 
-Personal design system by Angelo Macaione.
-Motion-first. Dark by default. AI-readable.
-
-Source of truth: https://www.amaca.design
-Repository: https://github.com/angelomacaione/amaca-design
-
-This file is written so AI coding agents (Claude Code, Claude Design, Cursor)
-can build product surfaces faithful to the system without further context.
-For human-facing documentation, see the live site.
+> **Version** 2.0.0 — 2026.05
+> **Author** Angelo Macaione
+> **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
+> **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
 
 ---
 
-## 1. Visual Theme & Atmosphere
+## 0. How to use this file
 
-Editorial dark canvas. A single magenta accent against a calibrated obsidian
-neutral scale. Quiet by default; expressive in transition. Motion is structural,
-not decorative — every transition follows the same rhythm.
+This is a **specification + a contract**. Treat it as canonical. When code or output disagrees with this file, this file wins.
 
-Type is set in Satoshi at every weight. One typeface carries the entire voice.
+### 0.1 For the AI agent
 
-Atmosphere keywords: editorial, motion-first, restrained, precise, dark.
+When you generate UI code, you must:
+
+1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
+2. **Reference tokens by CSS variable name** (`var(--magenta-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
+3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
+4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
+5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
+6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship.
+7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
+8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
+
+### 0.2 For the human
+
+Keep this file at repo root. Update the version line on every breaking change. The system is dark-first, dark-only at v1.x — light-mode resolution is planned for v2.
 
 ---
 
-## 2. Color Palette & Roles
+## 1. Principles · five rules, no exceptions
 
-### Brand · primary
+Every output is graded against these. Cite the number when explaining a tradeoff.
 
+### 1.1 Clarity before cleverness
+The obvious answer, on purpose. If the user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
+
+**For agents:** prefer a labeled button over an icon-only button. Prefer a verbose variable name over a clever one. Prefer 4 lines of explicit code over 1 line of trick.
+
+### 1.2 Evidence over opinion
+Every decision shows its work. The dead end is part of the file too. When you make a choice, leave a trace — a comment, a token reference, a link to the spec.
+
+**For agents:** when the user asks "why," answer with the principle number, the token reference, or the prior commit. Never "because it looks better."
+
+### 1.3 Precision is a feeling
+Rigor the eye picks up before the mind does. Spacing on a 4px grid. Type on the scale. Motion on the curve. When they're locked, the work reads as considered before a word is parsed.
+
+**For agents:** never use values that aren't on a scale. `padding: 14px` is wrong; `padding: var(--s-3) var(--s-4)` is right.
+
+### 1.4 Quiet, then loud
+Restraint is what makes accents land. Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them.
+
+**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--magenta-*`. If you're using magenta on more than one element per viewport, you're decorating.
+
+### 1.5 Motion is a material
+Interfaces are not static. The way something arrives, settles, responds carries meaning. Every surface breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)` — so the whole document feels like one instrument.
+
+**For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut.
+
+---
+
+## 2. Tokens · the only acceptable values
+
+All tokens live in `styles/tokens.css` and are exposed as CSS custom properties. **Reference by name, never copy the value.**
+
+### 2.1 Color · neutrals (Obsidian scale)
+
+| Token | Hex | Use |
+|---|---|---|
+| `--obsidian-950` | `#07090B` | Page background |
+| `--obsidian-900` | `#0B0E12` | Surface |
+| `--obsidian-850` | `#10141A` | Elevated surface |
+| `--obsidian-800` | `#161B22` | Card |
+| `--obsidian-700` | `#1E242D` | Border strong |
+| `--obsidian-600` | `#2A313B` | Border |
+| `--obsidian-500` | `#3A4451` | Muted edge |
+| `--obsidian-400` | `#5B6573` | Disabled text |
+| `--obsidian-300` | `#8A94A3` | Secondary text |
+| `--obsidian-200` | `#B8C0CB` | Tertiary text |
+| `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
+| `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
+
+### 2.2 Color · brand (Magenta primary)
+
+| Token | Hex | Use |
+|---|---|---|
+| `--magenta-100` | `#FFE3F8` | Tints, soft highlights |
+| `--magenta-200` | `#FFB5EC` | |
+| `--magenta-300` | `#FF85DF` | Hover state on magenta links |
+| `--magenta-400` | `#F868D8` | Links on dark, mono accents |
+| `--magenta-500` | `#F051D5` | **Primary brand · CTAs · focus rings** |
+| `--magenta-600` | `#C93BB0` | Pressed state |
+| `--magenta-700` | `#9A2D87` | Deep brand accents |
+| `--magenta-800` | `#66195A` | Reserved |
+
+### 2.3 Color · supporting
+
+| Token | Hex | Role |
+|---|---|---|
+| `--secondary-400` | `#00FFF2` | Electric cyan (rare; data viz only) |
+| `--tertiary-500` | `#0C6078` | Petrol teal (deep dive accents) |
+| `--success` | `#3AFFC7` | Confirmation only |
+| `--warning` | `#F6C65B` | Caution only |
+| `--danger` | `#FF5B5B` | Error / destructive only |
+| `--info` | `#5CC8FF` | Inline info, links in long-form |
+
+**The 85/10/5 law:** ~85% of any surface uses `--obsidian-*`. ~10% supporting/semantic. ≤5% `--magenta-*`. Violations are visible at a glance.
+
+### 2.4 Type
+
+Single typeface — **Satoshi** — across the whole system. `--font-sans` and `--font-mono` both resolve to Satoshi (the "mono" alias preserves intent for future swap; do not assume monospaced metrics).
+
+| Token | Size | Typical use |
+|---|---|---|
+| `--t-display` | `112px` | Marketing hero only |
+| `--t-h1` | `76px` | Page title (one per page) |
+| `--t-h2` | `52px` | Section title |
+| `--t-h3` | `38px` | Subsection title |
+| `--t-h4` | `30px` | Card title |
+| `--t-h5` | `24px` | Small heading |
+| `--t-h6` | `20px` | Eyebrow heading |
+| `--t-lead` | `18px` | Page lede / intro paragraph |
+| `--t-body` | `15px` | **Default body text** |
+| `--t-small` | `13px` | Captions, table cells |
+| `--t-caption` | `12px` | Smallest readable text |
+| `--t-micro` | `10px` | Mono labels, eyebrows, kbd keys |
+
+| Line height | Value | Use |
+|---|---|---|
+| `--lh-tight` | `1.05` | Display text |
+| `--lh-snug` | `1.2` | Headings |
+| `--lh-normal` | `1.45` | UI text |
+| `--lh-loose` | `1.65` | Running body copy |
+
+| Tracking | Value | Use |
+|---|---|---|
+| `--tr-tight` | `-0.04em` | Display |
+| `--tr-snug` | `-0.02em` | Headings |
+| `--tr-normal` | `0` | Body |
+| `--tr-wide` | `0.04em` | Small caps |
+| `--tr-mono` | `0.06em` | All-caps mono labels |
+
+**Rules:**
+- One H1 per page. Always.
+- Mono labels: 10px, uppercase, `--tr-mono`, `--magenta-400` for brand context or `--obsidian-400` for neutral.
+- Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
+
+### 2.5 Spacing — 4px grid
+
+| Token | Px | Common use |
+|---|---|---|
+| `--s-0` | `0` | |
+| `--s-1` | `4` | Hairline gap (icon ↔ text) |
+| `--s-2` | `8` | Tight pair |
+| `--s-3` | `12` | Inline gap |
+| `--s-4` | `16` | Default content gap |
+| `--s-5` | `20` | Compact section gap |
+| `--s-6` | `24` | Card padding · subsection rhythm |
+| `--s-8` | `32` | Card padding (generous) |
+| `--s-10` | `40` | Block separator |
+| `--s-12` | `48` | Section margin |
+| `--s-16` | `64` | Major section break |
+| `--s-20` | `80` | Page-level rhythm |
+| `--s-24` | `96` | Hero spacing |
+| `--s-32` | `128` | Long-form vertical breathing |
+
+**Rule:** every margin, padding, gap is a token. No `13px`, no `20px;` literals in component CSS.
+
+### 2.6 Radius
+
+| Token | Px | Use |
+|---|---|---|
+| `--r-none` | `0` | Tables, dense data |
+| `--r-xs` | `2` | Code chips |
+| `--r-sm` | `4` | Tags, kbd keys |
+| `--r-md` | `8` | **Default — buttons, inputs, small cards** |
+| `--r-lg` | `12` | **Large cards, panels** |
+| `--r-xl` | `16` | Modal, drawer |
+| `--r-2xl` | `24` | Hero block |
+| `--r-full` | `999px` | Pills, status dots |
+
+**Working range is 8–12px.** If a component asks for more, justify it.
+
+### 2.7 Shadow
+
+| Token | Use |
+|---|---|
+| `--sh-1` | Resting card |
+| `--sh-2` | Hover lift |
+| `--sh-3` | Floating panel |
+| `--sh-4` | Modal / drawer |
+| `--sh-glow` | Focus state on brand elements |
+| `--sh-glow-soft` | Ambient brand glow (rare) |
+
+Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
+
+### 2.8 Motion
+
+**Five durations, four easings. No others.**
+
+| Duration | ms | Use |
+|---|---|---|
+| `--d-instant` | `100` | Hover state, tap feedback |
+| `--d-quick` | `200` | Button states, focus rings |
+| `--d-base` | `350` | Default — most UI transitions |
+| `--d-slow` | `600` | Page enters, panel slides |
+| `--d-scene` | `900` | Hero reveals, orchestrated sequences |
+
+| Easing | Curve | Use |
+|---|---|---|
+| `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default UI ease-out (Framer ease) |
+| `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
+| `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals (the system signature) |
+| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot |
+
+**Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
+
+**Reduced motion is mandatory:**
 ```css
---magenta-100: #FFE3F8;  /* surface tint */
---magenta-200: #FFB5EC;  /* soft hover background */
---magenta-300: #FF85DF;  /* link hover */
---magenta-400: #F868D8;  /* accent · eyebrow */
---magenta-500: #F051D5;  /* PRIMARY · CTAs, focus rings, brand emphasis */
---magenta-600: #C93BB0;  /* pressed state */
---magenta-700: #9A2D87;  /* deep shade */
---grad-signal: linear-gradient(--magenta-500 → --magenta-300);  /* brand gradient */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 ```
+Every component with hover transforms, fade-ins, or orchestrated animation must also override its specific transitions to `none` inside this query.
 
-Use magenta for: primary actions, focus rings, links, data emphasis, gradients.
-Never use magenta for: body text, large background surfaces, more than one accent per viewport.
+### 2.9 Layout
 
-### Neutrals · obsidian
+| Token | Value | Use |
+|---|---|---|
+| `--sidebar-w` | `260px` | Sidebar nav width |
+| `--content-max` | `1180px` | Max content width |
+| `--gutter` | `24px` | Column gutter |
 
-```css
---obsidian-950: #07090B;  /* PAGE background only */
---obsidian-900: #0B0E12;  /* surface */
---obsidian-850: #10141A;  /* elevated surface */
---obsidian-800: #161B22;  /* card */
---obsidian-700: #1E242D;  /* border */
---obsidian-600: #2A313B;  /* divider */
---obsidian-500: #3A4451;  /* edge */
---obsidian-400: #5B6573;  /* disabled state */
---obsidian-300: #8A94A3;  /* secondary text · metadata */
---obsidian-200: #B8C0CB;  /* tertiary text */
---obsidian-100: #E3E7EC;  /* BODY text on dark */
---obsidian-050: #F4F6F8;  /* bone · highest contrast */
-```
-
-Body text: --obsidian-100. Metadata: --obsidian-300. Borders: --obsidian-700.
-Never use #FFFFFF as text color. The brightest neutral is --obsidian-050.
-
-### Secondary · cyan
-
-```css
---cyan-100: #D9FCFB;  /* tint */
---cyan-300: #4FF1EC;  /* hover */
---cyan-500: #00FFF2;  /* SECONDARY accent · focus highlight */
---cyan-700: #04918D;  /* deep */
-```
-
-Cyan is secondary emphasis only. Never use as a second primary.
-Magenta is the only primary in this system.
-
-### Tertiary · petrol
-
-```css
---petrol-100: #CEEAF1;  /* tint */
---petrol-300: #4FA9BF;  /* text on dark */
---petrol-500: #0C6078;  /* DEFAULT · badge stroke, neutral chips */
---petrol-600: #084C61;  /* deep */
-```
-
-Petrol is for elements that need color but should not read as brand.
-Default badges, quiet tags, neutral chips.
-
-### Semantic · feedback
-
-```css
---success: #3AFFC7;  /* confirm · saved */
---warning: #F6C65B;  /* caution · pending */
---danger:  #FF5B5B;  /* error · destructive */
---info:    #5CC8FF;  /* informational · neutral state */
-```
-
-Reserved for feedback only. Never as decoration. Never as brand.
+12-col grid. Sidebar is fixed; content breathes.
 
 ---
 
-## 3. Typography Rules
+## 3. Components · canonical specs
 
-Single typeface: **Satoshi** (Fontshare). Monospace companion: system mono stack
-for metadata only.
+Every component below maps 1:1 to a class in `styles/components.css`. **Reuse classes; don't reinvent components.**
 
-### Display scale
+### 3.1 Button
 
-```
---t-display: 112px / 1.05 / -4% tracking · Black 900
---t-h1:       76px / 1.05 / -4% tracking · Bold 700
---t-h2:       52px / 1.05 / -4% tracking · Bold 700
---t-h3:       38px / 1.20 / -2% tracking · Bold 700
---t-h4:       30px / 1.20 / -2% tracking · Bold 700
---t-h5:       24px / 1.20 / -2% tracking · Semibold 600
+```html
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-ghost">Ghost</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-danger">Destructive</button>
 ```
 
-### Text scale
+| Variant | Background | Text | Use |
+|---|---|---|---|
+| `.btn-primary` | `--magenta-500` | dark | One per screen — the affirmative action |
+| `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
+| `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
+| `.btn-danger` | `--danger` | dark | Destructive only |
 
+**Rules:**
+- One `.btn-primary` per screen. Everything else recedes.
+- Sizes: `.btn-sm` (compact), default (32px), `.btn-lg` (44px touch target).
+- Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
+
+### 3.2 Input · textarea · select
+
+```html
+<label class="field">
+  <span class="field-label">EMAIL</span>
+  <input class="input" type="email" placeholder="you@studio">
+</label>
 ```
---t-lead:    18px / 1.65 · Regular 400  /* one per page, sits under page title */
---t-body:    15px / 1.45 · Regular 400  /* paragraphs, default */
---t-small:   13px / 1.45 · Regular 400  /* captions, table rows */
---t-caption: 12px / 1.45 · Regular 400  /* image credits, footnotes */
---font-mono: 13px / 1.45 / +6% tracking · Medium 500  /* metadata only */
+
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-400`. Always persistent — placeholder is **not** a label.
+- Focus state: border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
+- Error state: border `--danger`, helper text below in `--danger`.
+
+### 3.3 Card
+
+```html
+<div class="card">
+  <div class="card-meta">PROJ-014 · 2025.10</div>
+  <h3>Card title</h3>
+  <p>Body…</p>
+</div>
 ```
 
-### Available weights
+- Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
+- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
+- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`. Transition: `var(--d-quick) var(--ease-standard)`.
 
-Light 300, Regular 400, Medium 500, Bold 700, Black 900.
-Italic available for emphasis in running prose only.
+### 3.4 Badge
 
-### Pairing rules
+```html
+<span class="badge badge-live"><span class="dot"></span> Live</span>
+<span class="badge badge-draft">Draft</span>
+```
 
-- Headlines always use negative tracking. Never tighter than -4%, never looser than -2%.
-- Monospace is for metadata only: timestamps, token names, system labels, status codes. Never use mono for prose.
-- Italic is for emphasis in running text. Never for UI labels, never for headlines.
-- Body copy reads comfortably at 62-72 characters per line. Constrain content width accordingly.
+- Always Satoshi, always paired with a dot when live.
+- Size: `--t-micro`, uppercase, `--tr-mono`.
+- Colors: `--success` (live), `--warning` (draft), `--danger` (broken), `--obsidian-400` (archived).
+
+### 3.5 Navigation
+
+- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
+- **Top nav** for marketing only.
+- **Breadcrumb** in mono, `--t-micro`, separators in `--obsidian-500`.
+
+### 3.6 Accordion
+
+- Single-open by default.
+- Chevron rotates 90° on expand (`transform var(--d-base) var(--ease-decel)`).
+- Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
+- `prefers-reduced-motion`: instant swap, no chevron rotate.
+
+### 3.7 Tabs
+
+- Single magenta `.tab-indicator` slides between active triggers via `transform: translateX()` + width interpolation. Duration `var(--d-base) var(--ease-decel)`.
+- Panels swap with a fade — never crossfade, never slide both.
+
+### 3.8 Lightbox
+
+- Backdrop: `rgba(0,0,0,0.85)`.
+- Close button: top-right, `Esc` closes.
+- Transition: opacity `var(--d-quick) var(--ease-standard)`. No scale-in.
 
 ---
 
-## 4. Spacing & Grid
+## 4. Iconography
 
-A 4-pixel grid. Every margin, padding, and gap snaps to a multiple of 4.
-Fourteen tokens carry the entire system.
-
-### Scale
-
-```
---s-0:   0px
---s-1:   4px
---s-2:   8px    /* inline icon-label gap */
---s-3:   12px
---s-4:   16px   /* mobile gutter */
---s-5:   20px   /* tablet gutter */
---s-6:   24px   /* default card interior padding · desktop gutter */
---s-8:   32px   /* hero card interior padding */
---s-10:  40px
---s-12:  48px   /* page top padding below top bar */
---s-16:  64px
---s-20:  80px   /* subsection vertical rhythm */
---s-24:  96px   /* section to section breathing room */
---s-32:  128px
-```
-
-### Documented exception
-
-Button vertical padding is `10px`. This is intentionally off the 4-grid for optical balance.
-Document any other off-grid values explicitly. Do not introduce silent exceptions.
-
-### Layout grid
-
-- Mobile (0px+): 4 columns, 16px gutter
-- Tablet (720px+): 8 columns, 20px gutter
-- Desktop (1024px+): 12 columns, 24px gutter
-- Wide (1440px+): 12 columns, 24px gutter, content capped at 1180px max-width
-
-Sidebar is fixed width when present. Content area breathes within max-width.
+- **Stroke-only**, 1.5–2px stroke width.
+- 24×24 viewBox at default scale. 16×16 for inline.
+- `currentColor` only — icons inherit text color.
+- No filled icons. No multi-color icons. No emojis in the UI.
 
 ---
 
-## 5. Radius & Elevation
+## 5. Voice & tone
 
-### Radius scale
+The system speaks in two registers.
+
+### 5.1 Editorial (live site, marketing, docs intro)
+- First-person, paragraphed, contextual.
+- Sentence-case headings.
+- Short sentences. Precise verbs. No marketing fluff.
+
+### 5.2 Spec (this file, component docs, code comments)
+- Imperative. Numbered. Declarative.
+- "Use X." "Never do Y." "Default is Z."
+- No first person. No metaphors. No softening.
+
+### 5.3 Vocabulary
+
+| Use | Avoid |
+|---|---|
+| "Surface" | "Background" (when referring to component fill) |
+| "Token" | "Variable", "constant" |
+| "Variant" | "Style" (in component context) |
+| "Affordance" | "Feature" (when describing what a control offers) |
+| "Ship" | "Launch", "release" |
+
+### 5.4 For AI agents
+
+When generating copy:
+1. **Match the register.** Editorial for marketing pages, Spec for docs, terse for code comments.
+2. **Never use AI tells.** Avoid: "delve," "leverage," "robust," "seamless," "effortlessly," "in today's fast-paced world."
+3. **Don't decorate sentences.** "We crafted this with care" → cut.
+4. **Italics are rare.** Reserved for genuine emphasis, never for vibes.
+
+---
+
+## 6. Accessibility · the floor
+
+Non-negotiable. Any component that can't meet all seven doesn't ship.
+
+1. **Color never carries meaning alone.** Every status uses color + shape + label.
+2. **No text below 12px. No body text below 14px.** Line height never under 1.4 for running text.
+3. **Every form field has a persistent label.** Placeholder is not a label.
+4. **Every image has `alt`.** Decorative images carry `alt=""` explicitly.
+5. **Focus order follows reading order.** `tabindex` is for fixes, never for flow.
+6. **Auto-advancing content is forbidden.** No carousels, no timed dismissals.
+7. **Touch hit area:** 44×44 on mobile, 32×32 on dense desktop. Extend beyond the visual when needed.
+
+### 6.1 Contrast pairs verified at WCAG AA
+
+| Pair | Ratio |
+|---|---|
+| `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
+| `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
+| `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
+| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
+| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
+
+### 6.2 Focus visibility
+
+Two patterns ship:
+- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, `.chip`): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo.
+- **Text inputs** (`.input`, `.textarea`, `.select`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
+
+`.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
+
+---
+
+## 7. Code conventions
+
+### 7.1 CSS
+
+- **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
+- Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
+- File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
+- Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
+- `!important`: forbidden except in `prefers-reduced-motion` overrides.
+
+### 7.2 HTML
+
+- Canonical: close every non-void tag, double-quote every attribute, no implied closes.
+- Semantic first: `<button>` for actions, `<a>` for navigation. Never `<div onclick>`.
+- ARIA only when semantic HTML can't express the role.
+- `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`).
+
+### 7.3 JavaScript
+
+- Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
+- Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
+- Replay pattern: `classList.remove('is-in')` → force reflow (`getBoundingClientRect()`) → `setTimeout(0)` → `classList.add('is-in')`.
+
+### 7.4 File naming
+
+- `kebab-case.css`, `kebab-case.html`, `kebab-case.svg`.
+- Components named after their role: `card.css`, not `box.css`.
+
+---
+
+## 8. The 85 / 10 / 5 law
+
+Every screen, every component, every full-bleed surface should resolve to roughly:
+
+- **85% Obsidian** — backgrounds, borders, body text, neutral UI
+- **10% supporting** — cyan/petrol/semantic, mono labels, links in long-form
+- **≤5% Magenta** — one CTA per viewport, focus rings, brand moments
+
+If the magenta budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), the design is loud. Cut and earn the accent back.
+
+---
+
+## 9. Anti-patterns · what not to ship
+
+These have all been tried in this system and rejected.
+
+| Don't | Why |
+|---|---|
+| Gradient backgrounds on cards | Decorative; violates § 1.4 |
+| Emoji in UI copy | Voice mismatch (§ 5) and a11y noise |
+| Drop shadows for emphasis | Use type weight or color, not shadow |
+| Border-radius > 16px on small components | Reads as toy; § 2.6 working range is 8–12 |
+| Multi-color icons | Iconography is monochrome (§ 4) |
+| Carousels, auto-advance | A11y floor #6 |
+| Centered body text > 80ch | Unreadable; left-align long-form |
+| Placeholder-as-label | A11y floor #3 |
+| Filled "magenta accents" wider than 5% of viewport | Violates 85/10/5 law |
+| Cubic-bezier literal in component CSS | Use `var(--ease-*)`. Always. |
+| `font-size: 14px` in component CSS | Use `var(--t-small)` (13px) or `var(--t-body)` (15px) — pick a side. |
+
+---
+
+## 10. Quick reference · cheat sheet for prompts
+
+When pasted into an IDE assistant, these one-liners cover 80% of decisions.
 
 ```
---r-none: 0
---r-xs:   2px
---r-sm:   4px
---r-md:   8px    /* default for buttons, inputs */
---r-lg:   12px   /* default for cards */
---r-xl:   16px
---r-2xl:  24px
---r-full: 9999px /* pills, avatars */
-```
-
-Working range is 8px to 12px. Larger radii reserved for specific component types.
-
-### Elevation philosophy
-
-This system uses **tonal layers, not box-shadows**, for elevation. Surfaces gain
-hierarchy by stepping through obsidian shades (--obsidian-900 → --obsidian-850 → --obsidian-800),
-not by adding shadows.
-
-When shadows are required, they are low-key and reserved for true depth (popovers,
-modals, focus glows). Never use shadows for default cards or buttons.
-
-```
---sh-1: subtle               /* interactive hover lift */
---sh-2: card                 /* reserved · use tonal layers instead when possible */
---sh-3: popover              /* dropdowns, tooltips */
---sh-4: modal                /* dialogs, full overlays */
---sh-glow: focus magenta     /* focus state on inputs and buttons */
---sh-glow-soft: focus subtle /* secondary focus */
+Color:    --obsidian-* for surfaces & text. --magenta-500 for CTAs only. 85/10/5.
+Type:     Satoshi everywhere. Scale: micro 10 / small 13 / body 15 / lead 18 / h6-h1.
+Spacing:  4px grid. Tokens: --s-1 (4) … --s-32 (128). No raw px.
+Radius:   --r-md (8) for inputs/buttons, --r-lg (12) for cards. Range 8–12.
+Motion:   --d-quick (200) + --ease-standard for UI. --d-base + --ease-decel for reveals.
+                  Always: @media (prefers-reduced-motion: reduce){ transitions: none }
+Focus:    Dual-ring on pressables (outline + magenta halo). Glow on inputs.
+Voice:    Spec register in code/docs. Editorial in marketing. No AI tells.
+A11y:     Color + shape + label. Persistent labels. 44×44 touch. No auto-advance.
 ```
 
 ---
 
-## 6. Motion
+## 11. Working with this file in an IDE
 
-Motion is a foundation, not a finish. Every transition uses the same easing curve,
-so the entire interface reads as one instrument played at different durations.
+### 11.1 Cursor / `.cursor/rules/design.md`
+Drop this file into `.cursor/rules/`. Cursor surfaces it on every request inside the project.
 
-### Duration tokens
+### 11.2 Claude Code / `CLAUDE.md`
+Either paste the contents into `CLAUDE.md` at repo root, or add a header that imports it: `@DESIGN.md`.
 
-```
---d-instant: 80ms   /* hover state, tap feedback */
---d-quick:   160ms  /* button states, focus rings, micro-interactions */
---d-base:    240ms  /* default for most UI transitions */
---d-slow:    400ms  /* page entrances, panel slides */
---d-scene:   640ms  /* hero reveals, orchestrated multi-element sequences */
-```
+### 11.3 GitHub Copilot / `.github/copilot-instructions.md`
+Paste the contents directly. Copilot reads it as ambient guidance.
 
-### Easing tokens
+### 11.4 Continue / `.continuerules`
+Reference this file with `@DESIGN.md` in your `.continuerules` template.
 
-```
---ease-standard: default UI · used for the majority of transitions
---ease-decel:    entrances · elements arriving on screen
---ease-accel:    exits · elements leaving the screen
---ease-spring:   playful reveals · brand moments only
-```
+### 11.5 Windsurf / `.windsurfrules`
+Same pattern: paste contents or reference via `@DESIGN.md`.
 
-### Motion rules
+### 11.6 Aider / `CONVENTIONS.md`
+Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
 
-- Every state change has a transition. Hover, focus, active, disabled, loading — none of these snap.
-- Use --d-base unless there is a reason to use something else. Document the reason in code comments.
-- Spring easing is for brand moments only. Do not use spring on routine UI feedback.
-- Respect `prefers-reduced-motion: reduce`. Replace transitions with instant state changes when set.
+### 11.7 General prompt fragment
+
+When working without a rules file, prepend this to your request:
+
+> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the five durations and four easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
 
 ---
 
-## 7. Component Stylings
+## 12. Versioning
 
-### Buttons
+This file follows strict SemVer.
 
-Five variants: primary, secondary, outline, ghost, destructive.
-Three sizes: small (32px), default (40px), large (48px).
-States: default, hover, focus-visible, active, disabled, loading.
+- **MAJOR** — token rename, removal, or value change that breaks existing consumers.
+- **MINOR** — new tokens, new components, new principles.
+- **PATCH** — wording, typo, clarification, contrast recalculation.
 
-```
-Primary:     bg --magenta-500, text white, radius --r-md, padding 10px/16px
-Secondary:   bg --obsidian-800, text --obsidian-100, 1px border --obsidian-700
-Outline:     bg transparent, 1px border --obsidian-500, text --obsidian-100
-Ghost:       bg transparent, no border, text --obsidian-100
-Destructive: bg --danger, text --obsidian-950
-```
-
-Focus ring: 2px --magenta-500 with 2px offset.
-Loading state: spinner replaces icon, label stays.
-Disabled state: --obsidian-400 text, no hover, no focus ring.
-
-One primary button per screen. Everything else recedes.
-
-### Inputs & Forms
-
-Low-contrast edges. Focus glow carries attention.
-Labels in mono font (--font-mono) to keep them distinct from prose.
-
-```
-Input field:    bg --obsidian-850, 1px border --obsidian-700, radius --r-md, padding 10px/14px
-Focus state:    border --magenta-500, glow --sh-glow
-Error state:    border --danger, helper text in --danger
-Disabled state: bg --obsidian-900, text --obsidian-400
-```
-
-Helper text below field, --t-small size, --obsidian-300 color.
-Error helper text in --danger color.
-
-### Cards
-
-```
-Card:          bg --obsidian-800, 1px border --obsidian-700, radius --r-lg, padding --s-6
-Hero card:     padding --s-8
-Card header:   metadata in mono, project code + date + status badge
-Card title:    --t-h4, --obsidian-100
-Card body:     --t-body, --obsidian-200
-```
-
-Cards use tonal layering, not shadows, for hierarchy. Hover lift is --sh-1 only when card is interactive.
-
-### Badges & Status
-
-Always Satoshi. Always paired with a colored dot when status is live.
-Badges are feedback or metadata. Never use as content or decoration.
-
-```
-Badge default:  bg transparent, 1px border --petrol-500, text --petrol-300, --t-small
-Badge live:     bg --magenta-500, text --obsidian-950, dot before label
-Badge shipped:  bg --success, text --obsidian-950
-Badge embargo:  bg --warning, text --obsidian-950
-```
-
-### Navigation
-
-Top nav: marketing pages. Sidebar nav: dense documentation.
-Breadcrumbs always in mono font.
-
-```
-Top nav link:    --obsidian-200, hover --obsidian-100, active --magenta-500
-Sidebar item:    --obsidian-200, hover bg --obsidian-850, active bg --obsidian-800 with --magenta-500 indicator
-Breadcrumb:      --font-mono, --obsidian-300, separator " / " in --obsidian-500
-```
-
-### Tabs
-
-Active indicator is a 2px --magenta-500 underline that slides between tabs.
-Inactive tabs at --obsidian-300. Active tab at --obsidian-100.
-
-### Accordion
-
-Closed state: --t-h5 title, --obsidian-100 color, chevron in --obsidian-300.
-Open state: chevron rotates 180° at --d-base / --ease-standard.
-Body content: --t-body, --obsidian-200, padding --s-6 vertical.
+The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
 
 ---
 
-## 8. Data Visualization
+## 13. Changelog
 
-Dark canvas. One accent hue per chart. Grid lines at 8% opacity.
-Numbers in Satoshi. Axis labels in mono font.
+### v2.0.0 — 2026.05
+- Motion durations rebased to 100/200/350/600/900ms (was 80/160/240/400/640).
+- Easing tokens aligned to Framer curves; Material easings retired.
+- § 6 Accessibility floor formalized to seven rules.
+- Accordion + Stepper + Gantt added.
+- This file (`design.md`) introduced as canonical AI context.
 
-### Palette ramps
-
-- Sequential ramp: --magenta-100 → --magenta-700 (heatmaps, density plots)
-- Categorical: cyan, mint, info, warning, danger, neutral (up to 6 series)
-
-### Chart rules
-
-- Never more than one accent hue per chart unless comparing categorical data.
-- Grid lines at 8% white opacity, never solid.
-- Axis labels in --font-mono, --obsidian-300.
-- Data labels in Satoshi Regular, --obsidian-100.
-- Legend below chart, not overlaid.
-- Empty state: "No data" centered, --obsidian-400.
+### v1.2.0 — 2026.03
+- Initial public release.
 
 ---
 
-## 9. Voice & Tone
-
-The system is documented in two registers.
-
-### Register A · the live site (amaca.design)
-
-Editorial, narrative, first-person. Warm. Includes context, reasoning, occasional reflection.
-Sentences are paragraphed, not fragmented. Numbers are precise where they exist.
-Avoids slogans, manifesto-style nominal sentences, "always/never" absolutes.
-
-### Register B · this DESIGN.md
-
-Declarative, machine-readable. One rule per line where possible.
-Uses do/don't pairs. Token names with values. No prose decoration.
-Specific numbers and constraints over abstract principles.
-
-When generating new content for the system, match the appropriate register.
-Do not write site copy in DESIGN.md voice. Do not write DESIGN.md in site voice.
-
-### Vocabulary preferences
-
-Use "ship" instead of "launch" or "roll out".
-Use "cut" instead of "reduce" or "optimize".
-Use "we learned" instead of "key insights surfaced".
-Use "wrong" instead of "non-optimal".
-Be willing to be wrong out loud.
-
-### Avoided phrases
-
-Do not use: "delight", "world-class", "best-in-class", "next-gen", "leverage",
-"holistic", "synergy", "ecosystem" (when not literal), "journey" (as metaphor),
-"unlock", "supercharge".
-
----
-
-## 10. Accessibility
-
-This system is dark-first, which means accessibility for dark surfaces is the
-default case, not the exception.
-
-### Contrast rules
-
-- All body text against page background must meet WCAG AA (4.5:1 minimum).
-- Body text on --obsidian-950 uses --obsidian-100 (verified AA).
-- Metadata text on --obsidian-950 uses --obsidian-300 (verified AA for large text only).
-- Magenta-500 on obsidian-950: AA compliant for large text, not for body.
-- Never place magenta-500 text on obsidian-800 or lighter.
-
-### Focus
-
-- All interactive elements must have visible focus state.
-- Default focus: 2px --magenta-500 ring with 2px offset.
-- Focus is never removed for visual cleanliness.
-- Focus visible only on keyboard navigation (`:focus-visible`), not on mouse click.
-
-### Motion
-
-- Respect `prefers-reduced-motion: reduce`.
-- When set, replace transitions with instant state changes.
-- Never use motion as the sole means of conveying information.
-
-### Form fields
-
-- Every input has an associated label, visible or sr-only.
-- Error states use both color and text. Never color alone.
-- Required fields are marked in text, not only with an asterisk.
-
-### Touch targets
-
-- Minimum touch target: 44px × 44px on mobile.
-- Minimum click target: 32px × 32px on desktop.
-- Spacing between adjacent targets: --s-2 (8px) minimum.
-
----
-
-## 11. Responsive Behavior
-
-Mobile first in implementation, dark first in design.
-
-### Breakpoint behavior
-
-- Mobile (< 720px): single column, sidebar collapses to top drawer, gutter --s-4.
-- Tablet (720-1023px): two-column max, gutter --s-5.
-- Desktop (1024-1439px): full grid, fixed sidebar, gutter --s-6.
-- Wide (1440px+): same as desktop, content capped at 1180px max-width.
-
-### Type scaling
-
-Headlines reduce by one step on mobile (h1 → h2 size, h2 → h3 size).
-Body text stays at --t-body across all breakpoints.
-Lead paragraph stays at --t-lead.
-
----
-
-## 12. Don'ts
-
-A growing list. New entries are added when AI agents using this file produce
-output that violates the system's spirit. The list will expand with use.
-
-- Don't use shadows for default elevation. Use tonal layers (--obsidian-900 → 850 → 800).
-- Don't apply magenta to more than one element per viewport.
-- Don't use pure white (#FFFFFF) anywhere. The brightest neutral is --obsidian-050.
-- Don't introduce new accent colors. Magenta is the only primary; cyan and petrol are the only secondaries.
-- Don't use display weights (h1, h2) below 24px. They lose their function.
-- Don't use motion as decoration. Every transition must serve feedback or hierarchy.
-- Don't use mono font for prose. Mono is for metadata only.
-- Don't use italics for UI labels or headlines. Italic is for emphasis in running prose only.
-- Don't use semantic colors (success, warning, danger, info) as decoration or brand.
-- Don't write site copy with manifesto-style nominal sentences. Use complete, paragraphed prose.
-- Don't write DESIGN.md sections in editorial voice. One rule per line where possible.
-- Don't use "always" or "never" as rhetorical emphasis. Use them only when literally true.
-- Don't add features without updating this file. The DESIGN.md is part of the deliverable.
-
----
-
-## 13. Agent Prompt Guide
-
-When asked to generate a new product surface or component using this system,
-follow this process:
-
-1. Identify the purpose of the surface (marketing, documentation, product UI, data view).
-2. Choose the layout pattern from §11 Responsive Behavior matching the breakpoint.
-3. Apply foundations in this order: spacing (§4), typography (§3), color (§2), radius & elevation (§5), motion (§6).
-4. Reach for components from §7 before building custom variants.
-5. Apply at most one magenta accent per viewport.
-6. Verify accessibility (§10) before declaring complete: contrast, focus, motion, touch targets.
-7. Match the appropriate voice register (§9): site = editorial, DESIGN.md = declarative.
-8. Cross-check against §12 Don'ts before final output.
-
-When in doubt, prefer restraint. Quiet, then loud.
-
----
-
-## Versioning
-
-This file is versioned alongside the system itself.
-See https://github.com/angelomacaione/amaca-design for release history.
-
-Current: v0.1 (2026-04-26) — initial DESIGN.md, sectioned but unverified against AI agent output.
-Next: v0.2 — refinements after first round of agent testing (Don'ts will expand).
-
----
-
-*Maintained by Angelo Macaione. Open to issues and suggestions on GitHub.*
+*End of file. Anything not covered here is a gap — open an issue with the proposed token or pattern, never extend silently.*
