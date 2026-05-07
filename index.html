@@ -3113,5 +3113,12 @@ new MutationObserver(muts => {
   blocks.forEach(b => io.observe(b));
 })();
 </script>
+
+<!-- Vercel Web Analytics -->
+<script type="module">
+  import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@1/+esm';
+  inject();
+</script>
+
 </body>
 </html>
