@@ -1,6 +1,6 @@
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.0.0 — 2026.05
+> **Version** 2.1.0 — 2026.05
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -110,7 +110,7 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 
 ### 2.4 Type
 
-Single typeface — **Satoshi** — across the whole system. `--font-sans` and `--font-mono` both resolve to Satoshi (the "mono" alias preserves intent for future swap; do not assume monospaced metrics).
+Single typeface — **Satoshi** — across the whole system. `--font-sans` resolves to Satoshi; the system uses a generic monospace stack (`ui-monospace, SFMono-Regular, Menlo, monospace`) only for tabular numerics and code captions.
 
 | Token | Size | Typical use |
 |---|---|---|
@@ -327,6 +327,50 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Close button: top-right, `Esc` closes.
 - Transition: opacity `var(--d-quick) var(--ease-standard)`. No scale-in.
 
+### 3.9 Time input
+
+```html
+<label class="field">
+  <span class="field-label">ORARIO</span>
+  <input class="input" type="text" id="time-input"
+    placeholder="es. 18:00"
+    autocomplete="off"
+    maxlength="5"
+    inputmode="numeric" />
+</label>
+```
+
+Formato HH:MM, 24h. Auto-formatta mentre si digita.
+
+**Regole di validazione digit per digit:**
+- Cifra 1 (H1): max `2`
+- Cifra 2 (H2): max `3` se H1 = `2`, altrimenti `0–9`
+- Cifra 3 (M1): max `5`
+- Cifra 4 (M2): `0–9`
+
+Il `:` viene inserito automaticamente dopo le prime due cifre. L'utente digita solo numeri.
+
+```javascript
+document.getElementById("time-input").addEventListener("input", function () {
+  let raw = this.value.replace(/\D/g, "");
+  let out = "";
+  for (let i = 0; i < Math.min(raw.length, 4); i++) {
+    let d = parseInt(raw[i]);
+    if (i === 0) d = Math.min(d, 2);
+    if (i === 1 && out[0] === "2") d = Math.min(d, 3);
+    if (i === 2) d = Math.min(d, 5);
+    out += d;
+  }
+  this.value = out.length >= 3 ? out.slice(0, 2) + ":" + out.slice(2) : out;
+});
+```
+
+**Regole:**
+- `maxlength="5"` e `inputmode="numeric"` sono obbligatori.
+- Opzionale di default; può essere reso obbligatorio per contesto specifico.
+- Nessun `type="time"` — il native picker non rispetta il design system.
+- Focus e stato di errore seguono § 3.2.
+
 ---
 
 ## 4. Iconography
@@ -425,7 +469,11 @@ Two patterns ship:
 
 - Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
 - Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
-- Replay pattern: `classList.remove('is-in')` → force reflow (`getBoundingClientRect()`) → `setTimeout(0)` → `classList.add('is-in')`.
+- **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
+- **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
+- **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
+- **Stepper choreography (`.stepper-svg`):** lines fade first (delay 0ms), dots scale-in via spring (520ms, +80ms per step), labels rise from below via decel (520ms, +80ms per step). Position is set via the SVG `transform` attribute on each `<g>`; replay animates the attribute directly (no CSS transforms on the groups). Lines use opacity-only.
+- **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### 7.4 File naming
 
@@ -525,6 +573,32 @@ The version line at the top of this document is the source of truth. The CSS fil
 ---
 
 ## 13. Changelog
+
+### v2.1.0 — 2026.05 (MINOR)
+**Added**
+- **§ 3.9 Time input** — HH:MM, 24h, digit-by-digit masked. No native `type="time"` picker. Required attrs: `maxlength="5"`, `inputmode="numeric"`, `autocomplete="off"`. Reference implementation included.
+
+**Refined**
+- **Anchor-link routing** — landing on the root URL (no hash) now always resolves to `#overview`. Removed the localStorage fallback that previously remembered the last-visited section across visits — fresh visits are deterministic. URL is rewritten via `history.replaceState` so no extra history entry is created.
+- **Stepper SVG transforms** — refactored to use the SVG `transform` attribute as the single source of truth. The previous CSS `transform-box: fill-box` approach (documented in v2.0.1) was abandoned: a generic `[data-fade]{transform: translateY(12px)}` rule was silently composing with the group transforms via cascade, breaking dot positioning. Replay now animates the SVG attribute directly with `css: false` semantics.
+- **`.law-rule` mobile padding** — uniform 20px padding on small viewports with a 24px left-pad to compensate for the magenta border. Internal gap reduced from 32px to 12px for compact stacking.
+
+**Documented**
+- § 3.9 Time input — full spec.
+- § 7.3 — SVG group transforms guidance rewritten: prefer the SVG attribute over CSS. Stepper choreography updated to reflect the attribute-based approach.
+- § 7.3 — Anchor-link routing pattern documented.
+
+### v2.0.1 — 2026.05 (PATCH)
+**Refined**
+- Stepper entrance animation hardened: `transform-box: fill-box` on `[data-step-dot]` and `[data-step-labels]` groups so dots scale-in around their own center and labels rise from their own bbox. Replaced unreliable `setTimeout(0)` reset with `getComputedStyle()` flush + `setTimeout(50)` re-add, fixing the case where Replay only re-animated the connector lines.
+- Case study Outcome cards (§ 19) now use the same `chart-card` pattern as § 12.2 stat cards: `data-fade` on title/sublabel/delta, `data-count-to` with prefix/suffix on big numbers, animation triggered both on scroll-into-view and on tab activation of `#casestudy`.
+- Text-block staggered fade-in added to all `.cs-section` blocks and `.cs-pull` quote: eyebrow → h3 → p revealed in 80ms cascade when block crosses 15% viewport threshold.
+
+**Documented**
+- § 7.3 Replay pattern updated to canonical version (with rationale).
+- § 7.3 Added SVG group transform guidance (`transform-box: fill-box`).
+- § 7.3 Added staggered text reveal pattern.
+- § 7.3 Added stepper choreography spec.
 
 ### v2.0.0 — 2026.05
 - Motion durations rebased to 100/200/350/600/900ms (was 80/160/240/400/640).

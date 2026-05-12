@@ -27,34 +27,35 @@
 .cs-section.is-in > p ~ p{transition-delay:240ms}
 .gantt-diamond[data-fade]{opacity:0;transform:scale(0);transform-origin:center;transition:opacity var(--d-base) var(--ease-spring), transform var(--d-base) var(--ease-spring)}
 .gantt-diamond[data-fade].is-in{opacity:1;transform:scale(1)}
-.stepper-svg g[data-step-dot][data-fade]{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:50% 50%;transition:opacity var(--d-base) var(--ease-spring), transform var(--d-base) var(--ease-spring)}
-.stepper-svg g[data-step-dot][data-fade].is-in{opacity:1;transform:scale(1)}
-.stepper-svg g[data-step-labels][data-fade]{opacity:0;transform:translateY(10px);transform-box:fill-box;transform-origin:50% 50%;transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel)}
-.stepper-svg g[data-step-labels][data-fade].is-in{opacity:1;transform:translateY(0)}
-.stepper-svg [data-step-line][data-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
-.stepper-svg [data-step-line][data-fade].is-in{opacity:1}
-.stepper-svg [data-step-line][data-fade]{transition-delay:0ms}
-.stepper-svg g[data-step-dot="1"][data-fade]{transition-delay:520ms}
-.stepper-svg g[data-step-dot="2"][data-fade]{transition-delay:600ms}
-.stepper-svg g[data-step-dot="3"][data-fade]{transition-delay:680ms}
-.stepper-svg g[data-step-dot="4"][data-fade]{transition-delay:760ms}
-.stepper-svg g[data-step-dot="5"][data-fade]{transition-delay:840ms}
-.stepper-svg g[data-step-labels="1"][data-fade]{transition-delay:520ms}
-.stepper-svg g[data-step-labels="2"][data-fade]{transition-delay:600ms}
-.stepper-svg g[data-step-labels="3"][data-fade]{transition-delay:680ms}
-.stepper-svg g[data-step-labels="4"][data-fade]{transition-delay:760ms}
-.stepper-svg g[data-step-labels="5"][data-fade]{transition-delay:840ms}
+.stepper-svg g[data-step-dot][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-spring)}
+.stepper-svg g[data-step-dot][data-step-fade].is-in{opacity:1}
+.stepper-svg g[data-step-labels][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
+.stepper-svg g[data-step-labels][data-step-fade].is-in{opacity:1}
+.stepper-svg [data-step-line][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
+.stepper-svg [data-step-line][data-step-fade].is-in{opacity:1}
+.stepper-svg [data-step-line][data-step-fade]{transition-delay:0ms}
+.stepper-svg g[data-step-dot="1"][data-step-fade]{transition-delay:520ms}
+.stepper-svg g[data-step-dot="2"][data-step-fade]{transition-delay:600ms}
+.stepper-svg g[data-step-dot="3"][data-step-fade]{transition-delay:680ms}
+.stepper-svg g[data-step-dot="4"][data-step-fade]{transition-delay:760ms}
+.stepper-svg g[data-step-dot="5"][data-step-fade]{transition-delay:840ms}
+.stepper-svg g[data-step-labels="1"][data-step-fade]{transition-delay:520ms}
+.stepper-svg g[data-step-labels="2"][data-step-fade]{transition-delay:600ms}
+.stepper-svg g[data-step-labels="3"][data-step-fade]{transition-delay:680ms}
+.stepper-svg g[data-step-labels="4"][data-step-fade]{transition-delay:760ms}
+.stepper-svg g[data-step-labels="5"][data-step-fade]{transition-delay:840ms}
 html{scroll-behavior:smooth}
 .section[id]{scroll-margin-top:96px}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  [data-fade],[data-fade-chart],.gantt-diamond[data-fade],.stepper-svg [data-fade]{opacity:1;transform:none;transition:none}
+  [data-fade],[data-fade-chart],.gantt-diamond[data-fade],.stepper-svg [data-step-fade]{opacity:1;transform:none;transition:none}
 }
 .motion-card{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
 .motion-card .motion-chart{width:100%;max-width:320px;aspect-ratio:1/1;justify-self:center;align-self:center}
 @media (max-width: 720px){
   .motion-card{grid-template-columns:1fr !important}
   .motion-card .motion-chart{max-width:240px}
+  .law-rule{padding:var(--s-5) var(--s-5) var(--s-5) var(--s-6) !important;gap:var(--s-3) !important}
 }
 </style>
 <script type="module">
@@ -72,7 +73,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.0.0 · DESIGN SYSTEM</span>
+        <span class="meta">V2.1.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -197,7 +198,7 @@ html{scroll-behavior:smooth}
               <img src="assets/logo.gif" alt="Amaca logo" style="width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(240,81,213,0.35))"/>
             </div>
             <div class="card" style="display:flex;flex-direction:column;justify-content:center">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:12px">The symbol</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:12px">The symbol</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Three isometric cubes forming a triangle, in motion.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-4);font-size:var(--t-body)">Each cube is a product. The triangle is a system — components snapping together, breaking apart, reassembling. The motion is intrinsic, not applied:
 the mark is a Lottie, a JSON file describing every rotation and every transition. The logo follows the same logic as the system itself — written, not decorated.</p>
@@ -216,32 +217,32 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="grid grid-2" style="gap:var(--s-6)">
           <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">01 · CLARITY BEFORE CLEVERNESS</div>
+            <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">01 · CLARITY BEFORE CLEVERNESS</div>
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">The obvious answer, on purpose.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
 </p>
           </div>
           <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">02 · EVIDENCE OVER OPINION</div>
+            <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">02 · EVIDENCE OVER OPINION</div>
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Every decision shows its work.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Case studies document the path, not just the destination. Sketches, data, dead ends — the version that didn't ship is part of the file too.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">03 · PRECISION IS A FEELING</div>
+            <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">03 · PRECISION IS A FEELING</div>
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Rigor the eye picks up before the mind does.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
           </div>
           <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">04 · QUIET, THEN LOUD</div>
+            <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">04 · QUIET, THEN LOUD</div>
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Restraint is what makes accents land.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
           </div>
           <div class="card motion-card" style="grid-column:1 / -1;padding:var(--s-8);display:grid;gap:var(--s-8);align-items:center">
             <div>
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Interfaces are not static. Neither is this document.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-body)">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every surface in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every surface in this system breathes on the same curve — <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
             </div>
             <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
               <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
@@ -282,14 +283,14 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <div class="card spec-card" style="padding:var(--s-8);display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:var(--s-6);align-items:center">
             <div aria-hidden="true" style="width: 88px; height: 108px; border-radius: 4px; border: 1px solid var(--obsidian-700); background: linear-gradient(180deg,var(--obsidian-850) 0%,var(--obsidian-950) 100%); position: relative; display: grid; place-items: center; flex-shrink: 0">
-              <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">.MD</span>
+              <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">.MD</span>
               <span style="position:absolute;top:8px;right:8px;width:14px;height:14px;border-top:1px solid var(--obsidian-600);border-right:1px solid var(--obsidian-600);background:linear-gradient(225deg, var(--obsidian-700) 50%, transparent 50%)"></span>
               <span style="position:absolute;bottom:10px;left:10px;right:10px;height:1px;background:var(--obsidian-700)"></span>
               <span style="position:absolute;bottom:16px;left:10px;right:18px;height:1px;background:var(--obsidian-700)"></span>
               <span style="position:absolute;bottom:22px;left:10px;right:14px;height:1px;background:var(--obsidian-700)"></span>
             </div>
             <div style="min-width:0">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-2)">SPEC · v1.2.6</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-2)">SPEC · v1.2.6</div>
               <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">design.md</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Tokens, components, principles, motion specs and a11y rules — flat Markdown, ~40 KB. Last updated 2026-04-27.</p>
             </div>
@@ -305,17 +306,17 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <p class="subsection-desc">Three workflows. Pick whichever your tool supports — the file is identical.</p>
           <div class="grid grid-3" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">01 · SYSTEM PROMPT</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">01 · SYSTEM PROMPT</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Paste it whole.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Drop the contents into the system prompt of Claude, ChatGPT, or any chat model. Every reply will respect the tokens, copy voice, and component vocabulary.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">02 · PROJECT CONTEXT</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">02 · PROJECT CONTEXT</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">Add to the IDE.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">In Cursor, Windsurf, or Claude Code, save the file at the repo root as <code>design.md</code>. The agent picks it up as project context and uses the system tokens automatically.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">03 · ATTACH PER TASK</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">03 · ATTACH PER TASK</div>
               <h3 style="font-size:18px;margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:1.3">One-off generations.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Attach the file inline when you want a single screen, component, or copy block in the Amaca voice. No persistent setup needed.</p>
             </div>
@@ -345,11 +346,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <p class="subsection-desc">The spec ships with the system. Every release tags a fresh <code>design.md</code>.</p>
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.0.0 here ships v1.2.7 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.1.0 here ships v2.1.0 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
+              <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">MIT. Use it in client work, internal tools, your own systems. Attribution appreciated, not required.</p>
             </div>
           </div>
@@ -908,6 +909,51 @@ Basic UI</div>
             </div>
           </div>
         </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Time input</h2><span class="subsection-num">§ 11.2</span></div>
+          <p class="subsection-desc">HH:MM, 24h. Auto-formats as you type — the colon is inserted after the second digit, and each position is bounded so an invalid time is impossible to enter. No <code>type="time"</code>: the native picker doesn't respect the system.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6)">
+              <div class="field" style="margin-bottom:var(--s-4)">
+                <label class="label" for="ds-time-input">Orario</label>
+                <input class="input" type="text" id="ds-time-input"
+                  placeholder="es. 18:00"
+                  autocomplete="off"
+                  maxlength="5"
+                  inputmode="numeric"/>
+                <span class="help">Always optional. Empty submits are valid.</span>
+              </div>
+              <div class="field">
+                <label class="label" for="ds-time-input-err">Error state</label>
+                <input class="input" type="text" id="ds-time-input-err"
+                  value=""
+                  autocomplete="off"
+                  maxlength="5"
+                  inputmode="numeric"
+                  aria-invalid="true"
+                  style="border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.12)"/>
+                <span class="help error">Required when the field is mandatory and left empty on submit.</span>
+              </div>
+            </div>
+            <div class="card" style="padding:var(--s-6);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
+                <span style="color:var(--brand)">H1</span><span>max <code>2</code></span>
+                <span style="color:var(--brand)">H2</span><span>max <code>3</code> if H1 = <code>2</code>, else <code>0–9</code></span>
+                <span style="color:var(--brand)">M1</span><span>max <code>5</code></span>
+                <span style="color:var(--brand)">M2</span><span><code>0–9</code></span>
+              </div>
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
+                <li><code>maxlength="5"</code> + <code>inputmode="numeric"</code> are required.</li>
+                <li>The <code>:</code> is inserted automatically — users only type digits.</li>
+                <li>Optional by default; can be marked required per context.</li>
+                <li>Focus &amp; error states inherit from § 11.1.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ============ CARDS ============ -->
@@ -929,7 +975,7 @@ Basic UI</div>
             </div>
             <div class="card">
               <div class="card-header" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
-              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
@@ -1427,7 +1473,7 @@ Basic UI</div>
               <div style="display:flex;height:40px;border-radius:4px;overflow:hidden;margin-top:var(--s-4)">
                 <div style="flex:1;background:#07090B"></div><div style="flex:1;background:#66195A"></div><div style="flex:1;background:#9A2D87"></div><div style="flex:1;background:#C93BB0"></div><div style="flex:1;background:#F051D5"></div><div style="flex:1;background:#FF85DF"></div><div style="flex:1;background:#FFB5EC"></div>
               </div>
-              <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);margin-top:8px"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+              <div style="display:flex;justify-content:space-between;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);margin-top:8px"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
             </div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Categorical</span><span class="s" data-fade>Up to 6 series</span></div>
@@ -1601,65 +1647,65 @@ Basic UI</div>
               <rect data-bar-h data-bar-pct="100" x="70" y="78.5" width="280" height="3" rx="1.5" fill="url(#step-grad)" filter="url(#step-glow)"/>
 
               <!-- upcoming connectors (3→4, 4→5) dashed -->
-              <line data-step-line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
-              <line data-step-line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-fade/>
+              <line data-step-line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-step-fade/>
+              <line data-step-line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-step-fade/>
 
               <!-- step 1 — completed -->
-              <g data-fade data-step-dot="1">
-                <circle cx="70" cy="80" r="12" fill="#F051D5"/>
-                <path d="M65,80 L68.5,83.5 L75,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <g data-step-fade data-step-dot="1" transform="translate(70 80)">
+                <circle cx="0" cy="0" r="12" fill="#F051D5"/>
+                <path d="M-5,0 L-1.5,3.5 L5,-4" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </g>
 
               <!-- step 2 — completed -->
-              <g data-fade data-step-dot="2">
-                <circle cx="210" cy="80" r="12" fill="#F051D5"/>
-                <path d="M205,80 L208.5,83.5 L215,76" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <g data-step-fade data-step-dot="2" transform="translate(210 80)">
+                <circle cx="0" cy="0" r="12" fill="#F051D5"/>
+                <path d="M-5,0 L-1.5,3.5 L5,-4" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
               </g>
 
               <!-- step 3 — current (pulsing glow ring + larger filled circle) -->
-              <g data-fade data-step-dot="3">
-                <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.4"/>
-                <circle cx="350" cy="80" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.6">
+              <g data-step-fade data-step-dot="3" transform="translate(350 80)">
+                <circle cx="0" cy="0" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.4"/>
+                <circle cx="0" cy="0" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.6">
                   <animate attributeName="r" values="18;24;18" dur="2.4s" repeatCount="indefinite"/>
                   <animate attributeName="opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite"/>
                 </circle>
-                <circle cx="350" cy="80" r="15" fill="url(#step-grad)" filter="url(#step-glow)"/>
-                <text x="350" y="80" text-anchor="middle" dominant-baseline="central" fill="#1A0616" font-size="11" font-weight="700">3</text>
+                <circle cx="0" cy="0" r="15" fill="url(#step-grad)" filter="url(#step-glow)"/>
+                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#1A0616" font-size="11" font-weight="700">3</text>
               </g>
 
               <!-- step 4 — upcoming -->
-              <g data-fade data-step-dot="4">
-                <circle cx="490" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
-                <text x="490" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">4</text>
+              <g data-step-fade data-step-dot="4" transform="translate(490 80)">
+                <circle cx="0" cy="0" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
+                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">4</text>
               </g>
 
               <!-- step 5 — upcoming -->
-              <g data-fade data-step-dot="5">
-                <circle cx="630" cy="80" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
-                <text x="630" y="80" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">5</text>
+              <g data-step-fade data-step-dot="5" transform="translate(630 80)">
+                <circle cx="0" cy="0" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
+                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">5</text>
               </g>
 
               <!-- step labels (label + sublabel grouped per step for staggered rise) -->
               <g text-anchor="middle">
-                <g data-fade data-step-labels="1">
-                  <text x="70"  y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Cart</text>
-                  <text x="70"  y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">2 ITEMS</text>
+                <g data-step-fade data-step-labels="1" transform="translate(70 0)">
+                  <text x="0" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Cart</text>
+                  <text x="0" y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">2 ITEMS</text>
                 </g>
-                <g data-fade data-step-labels="2">
-                  <text x="210" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Shipping</text>
-                  <text x="210" y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">EXPRESS</text>
+                <g data-step-fade data-step-labels="2" transform="translate(210 0)">
+                  <text x="0" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Shipping</text>
+                  <text x="0" y="155" fill="#5B6573" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">EXPRESS</text>
                 </g>
-                <g data-fade data-step-labels="3">
-                  <text x="350" y="135" fill="#FFB5EC" font-size="13" letter-spacing="0.2" font-weight="700">Payment</text>
-                  <text x="350" y="155" fill="#FFB5EC" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">IN PROGRESS</text>
+                <g data-step-fade data-step-labels="3" transform="translate(350 0)">
+                  <text x="0" y="135" fill="#FFB5EC" font-size="13" letter-spacing="0.2" font-weight="700">Payment</text>
+                  <text x="0" y="155" fill="#FFB5EC" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">IN PROGRESS</text>
                 </g>
-                <g data-fade data-step-labels="4">
-                  <text x="490" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Review</text>
-                  <text x="490" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
+                <g data-step-fade data-step-labels="4" transform="translate(490 0)">
+                  <text x="0" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Review</text>
+                  <text x="0" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
                 </g>
-                <g data-fade data-step-labels="5">
-                  <text x="630" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Done</text>
-                  <text x="630" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
+                <g data-step-fade data-step-labels="5" transform="translate(630 0)">
+                  <text x="0" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Done</text>
+                  <text x="0" y="155" fill="#5B4A6A" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="9" letter-spacing="1.2">PENDING</text>
                 </g>
               </g>
             </svg>
@@ -1751,10 +1797,10 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 17.4</span></div>
           <p class="subsection-desc">If you're a language model generating copy for surfaces that use this system, four hard constraints:</p>
           <div class="do-dont">
-            <div class="dont"><div class="hd"><span>✗</span>Don't · 01</div><p>Write nominal sentence fragments as headlines or pay-offs. Use complete sentences.</p></div>
-            <div class="dont"><div class="hd"><span>✗</span>Don't · 02</div><p>Use <em>always</em>, <em>never</em>, or <em>no exceptions</em> as rhetorical emphasis. Use them only when literally true.</p></div>
-            <div class="dont"><div class="hd"><span>✗</span>Don't · 03</div><p>Use the words <em>delight</em>, <em>world-class</em>, <em>journey</em>, <em>unlock</em>, <em>supercharge</em>, <em>holistic</em>, <em>synergy</em>, <em>leverage</em> (as verb), or <em>seamless</em>. None of them carry meaning.</p></div>
-            <div class="do"><div class="hd"><span>✓</span>Do · 04</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
+            <div class="do"><div class="hd"><span>✓</span>Do · 01</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 02</div><p>Write nominal sentence fragments as headlines or pay-offs. Use complete sentences.</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 03</div><p>Use <em>always</em>, <em>never</em>, or <em>no exceptions</em> as rhetorical emphasis. Use them only when literally true.</p></div>
+            <div class="dont"><div class="hd"><span>✗</span>Don't · 04</div><p>Use the words <em>delight</em>, <em>world-class</em>, <em>journey</em>, <em>unlock</em>, <em>supercharge</em>, <em>holistic</em>, <em>synergy</em>, <em>leverage</em> (as verb), or <em>seamless</em>. None of them carry meaning.</p></div>
           </div>
         </div>
       </section>
@@ -1931,9 +1977,60 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.0.0 -->
+            <!-- v2.1.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-0">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-new">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.1.0 — Time input &amp; routing</span>
+                <span class="acc-num">2026-05-07</span>
+              </button>
+              <div class="acc-panel" id="cl-new" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR release. Adds the first new component since v2.0.0 — a fully-masked time input — alongside deterministic landing-page routing and a stepper transform refactor that fixes a long-standing replay bug. <code>design.md</code> bumped to v2.1.0; drop the new spec into your LLM rules.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 11.2 · Time input</strong> — HH:MM, 24h. Digit-by-digit masked: H1 max 2, H2 max 3 if H1=2 else 0–9, M1 max 5, M2 0–9. The colon inserts automatically after the second digit. No native <code>type="time"</code> — the browser picker doesn't respect the system. <code>maxlength="5"</code> + <code>inputmode="numeric"</code> are required. Optional by default; can be marked required per context. Focus &amp; error states inherit from § 11.1.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Anchor-link routing</strong> — landing on <code>amaca.design</code> (no hash) now always resolves to <code>#overview</code>. The previous localStorage fallback that remembered the last-visited section across visits has been removed — fresh visits are deterministic. URL is rewritten via <code>history.replaceState</code> to avoid extra history entries.</li>
+                    <li><strong style="color:var(--obsidian-100)">Stepper SVG transforms</strong> — refactored to use the SVG <code>transform</code> attribute as the single source of truth (instead of CSS <code>transform-box: fill-box</code>, which v2.0.1 had documented). A generic <code>[data-fade]{transform: translateY(12px)}</code> rule was silently composing with the group transforms via cascade and breaking dot positioning. Replay now drives the SVG attribute directly.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>.law-rule</code> mobile padding</strong> — uniform 20px padding on small viewports with a 24px left-pad to compensate for the magenta border. Internal gap reduced from 32px to 12px for compact stacking.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Documented</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 3.9</strong> — Time input full spec (rules, contract, reference implementation).</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 7.3</strong> — SVG group transforms guidance rewritten: prefer SVG attribute over CSS. Stepper choreography updated. Anchor-link routing pattern added.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Compatibility</h4>
+                  <table class="table table-contrast">
+                    <thead><tr><th style="width:55%">Area</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>All tokens (color, type, spacing, radius, shadow, motion)</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Existing component APIs</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>New component: Time input</td><td><strong style="color:var(--magenta-400)">Added</strong></td></tr>
+                    </tbody>
+                  </table>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
+                  <p style="margin:0">v2.1.0 follows v2.0.0 directly. The internal v2.0.1 patch (stepper hardening, outcome card stat refactor, staggered text reveals) was never publicly tagged — its contents are folded into this release alongside the new additions. From v2.1.0 onward the system continues to follow strict SemVer.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.0.0...v2.1.0" target="_blank" rel="noopener">v2.0.0…v2.1.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.0.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-0">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.0.0 — Motion language refresh</span>
                 <span class="acc-num">2026-05-07</span>
@@ -2005,7 +2102,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
                   <p style="margin:0">v2.0.0 follows v1.2.6 directly. Internal iterations between (drafts at v1.2.7 and beyond) have been consolidated into this release. From v2.0.0, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> with no skipped numbers in public releases.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-07</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -2064,7 +2161,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
                   <p style="margin:0">This release consolidates internal iterations (v1.1.4 → v1.2.3) that were not shipped publicly. From v1.3.0 onward, the system follows strict SemVer.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-28</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -2113,7 +2210,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Branch protection</strong> — Ruleset activated on <code>main</code> (PR-only merges).</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-24</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                   </div>
@@ -2168,7 +2265,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Versioning</strong> — SemVer adopted.</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-23</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                   </div>
@@ -2292,22 +2389,17 @@ navItems.forEach(n => n.addEventListener('click', (e) => {
 // Browser back/forward through hash history
 window.addEventListener('hashchange', syncFromHash);
 
-// Initial route: hash > localStorage > default (overview)
+// Initial route: always land on #overview unless a valid hash is present.
+// (No localStorage fallback — fresh visits to amaca.design always start at Overview.)
 (function init(){
   const hash = (location.hash || '').replace(/^#/, '');
   if(hash && document.getElementById(hash)){
     go(hash);
-    requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
-    return;
+  } else {
+    // Force overview and rewrite URL without polluting history.
+    go('overview');
+    try{ history.replaceState(null, '', '#overview'); }catch(e){}
   }
-  try{
-    const saved = localStorage.getItem('amaca-ds-section');
-    if(saved && document.getElementById(saved)){
-      go(saved);
-      requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
-      return;
-    }
-  }catch(e){}
   requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
 })();
 
@@ -2629,6 +2721,36 @@ new MutationObserver(muts => {
   function reset(root){
     root.querySelectorAll('[data-fade]').forEach(f => f.classList.remove('is-in'));
     root.querySelectorAll('[data-fade-chart]').forEach(c => c.classList.remove('is-in'));
+    // Stepper: reset inline styles applied by Motion driver
+    root.querySelectorAll('.stepper-svg [data-step-line][data-step-fade]').forEach(el => {
+      el.style.opacity = '0';
+    });
+    root.querySelectorAll('.stepper-svg g[data-step-dot][data-step-fade]').forEach(el => {
+      // Cache base translate (translate(cx cy)) once, parsed from the inline attribute.
+      if (el._baseT == null) {
+        const m = (el.getAttribute('transform') || '').match(/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/);
+        el._cx = m ? +m[1] : 0;
+        el._cy = m ? +m[2] : 0;
+        el._baseT = `translate(${el._cx} ${el._cy})`;
+      }
+      el.style.opacity = '0';
+      el.style.transform = '';
+      el.style.transformBox = '';
+      el.style.transformOrigin = '';
+      el.setAttribute('transform', `${el._baseT} scale(0)`);
+    });
+    root.querySelectorAll('.stepper-svg g[data-step-labels][data-step-fade]').forEach(el => {
+      if (el._baseT == null) {
+        const m = (el.getAttribute('transform') || '').match(/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/);
+        el._cx = m ? +m[1] : 0;
+        el._cy = m ? +m[2] : 0;
+      }
+      el.style.opacity = '0';
+      el.style.transform = '';
+      el.style.transformBox = '';
+      el.style.transformOrigin = '';
+      el.setAttribute('transform', `translate(${el._cx} ${el._cy + 10})`);
+    });
     root.querySelectorAll('[data-line-draw]').forEach(p => {
       p.style.strokeDashoffset = p._len;
     });
@@ -2667,22 +2789,49 @@ new MutationObserver(muts => {
 
     const fades = root.querySelectorAll('[data-fade]');
     fades.forEach((f, i) => {
-      // Stepper items have explicit CSS transition-delays driving choreography;
-      // skip the JS stagger so line-then-dots ordering survives. Remove class,
-      // force reflow per-element, then add class on next macrotask so the
-      // browser commits the reset state before the transition starts.
-      if (f.matches('.stepper-svg [data-fade]')) {
-        f.classList.remove('is-in');
-        // Force layout flush with getComputedStyle (more reliable than rAF
-        // when the browser is busy), then re-add on a small timeout so the
-        // reset state (opacity:0, scale(0)/translateY) actually paints
-        // before the transition re-arms.
-        // eslint-disable-next-line no-unused-expressions
-        getComputedStyle(f).opacity;
-        setTimeout(() => f.classList.add('is-in'), 50);
+      // Stepper items: drive via Motion (inline style) instead of CSS transitions.
+      // CSS transition reset is unreliable on SVG <g> with transform-box across
+      // browsers — JS animation is bit-identical between first-paint and replay.
+      if (f.matches('.stepper-svg [data-step-fade]')) {
+        // Skip — handled by stepper block below.
         return;
       }
       setTimeout(() => f.classList.add('is-in'), i * 35);
+    });
+
+    // Stepper choreography (JS-driven, identical for first-paint and replay)
+    const stepLines = root.querySelectorAll('.stepper-svg [data-step-line][data-step-fade]');
+    stepLines.forEach(el => {
+      el.style.opacity = '0';
+      animate(0, 1, {
+        duration: 0.5, ease: decel, delay: 0,
+        onUpdate: v => { el.style.opacity = v; }
+      });
+    });
+    const stepDots = root.querySelectorAll('.stepper-svg g[data-step-dot][data-step-fade]');
+    stepDots.forEach(el => {
+      const idx = +el.getAttribute('data-step-dot');
+      const delay = 0.52 + (idx - 1) * 0.08;
+      animate(0, 1, {
+        duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay,
+        onUpdate: v => {
+          el.style.opacity = v;
+          el.setAttribute('transform', `${el._baseT} scale(${v})`);
+        }
+      });
+    });
+    const stepLabels = root.querySelectorAll('.stepper-svg g[data-step-labels][data-step-fade]');
+    stepLabels.forEach(el => {
+      const idx = +el.getAttribute('data-step-labels');
+      const delay = 0.52 + (idx - 1) * 0.08;
+      animate(0, 1, {
+        duration: 0.5, ease: decel, delay,
+        onUpdate: v => {
+          el.style.opacity = v;
+          const offset = 10 - 10 * v;
+          el.setAttribute('transform', `translate(${el._cx} ${el._cy + offset})`);
+        }
+      });
     });
 
     const charts = root.querySelectorAll('[data-fade-chart]');
@@ -2808,13 +2957,15 @@ new MutationObserver(muts => {
       }
     }).observe(viz, {attributes:true, attributeFilter:['class']});
 
-    // Replay buttons → scoped to nearest subsection (or fallback to viz)
+    // Replay buttons → scoped to nearest subsection (or fallback to viz).
+    // Use capture phase so we run even if a downstream handler calls
+    // stopPropagation/stopImmediatePropagation in the bubble phase.
     document.addEventListener('click', (ev) => {
       const btn = ev.target.closest('[data-replay="dataviz"]');
       if (!btn) return;
       const scope = btn.closest('.subsection') || viz;
       run(M, scope);
-    });
+    }, true);
   });
 })();
 </script>
@@ -2868,6 +3019,25 @@ new MutationObserver(muts => {
     document.querySelectorAll('[data-select] .select-menu:not([hidden])').forEach(function(m){
       m.hidden = true;
       m.closest('[data-select]').querySelector('.select-trigger').setAttribute('aria-expanded','false');
+    });
+  });
+})();
+</script>
+<script>
+// --- time input (HH:MM, 24h) — digit-by-digit masking, see § 11.2 ---
+(function(){
+  document.querySelectorAll('#ds-time-input').forEach(function(el){
+    el.addEventListener('input', function(){
+      const raw = this.value.replace(/\D/g, '');
+      let out = '';
+      for(let i = 0; i < Math.min(raw.length, 4); i++){
+        let d = parseInt(raw[i], 10);
+        if(i === 0) d = Math.min(d, 2);
+        if(i === 1 && out[0] === '2') d = Math.min(d, 3);
+        if(i === 2) d = Math.min(d, 5);
+        out += d;
+      }
+      this.value = out.length >= 3 ? out.slice(0, 2) + ':' + out.slice(2) : out;
     });
   });
 })();
