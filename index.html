@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=25">
-<link rel="stylesheet" href="styles/components.css?v=56">
+<link rel="stylesheet" href="styles/components.css?v=63">
 <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
@@ -73,7 +73,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.1.0 · DESIGN SYSTEM</span>
+        <span class="meta">V2.2.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -347,7 +347,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.1.0 here ships v2.1.0 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.2.0 here ships v2.2.0 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
@@ -917,12 +917,23 @@ Basic UI</div>
             <div class="card" style="padding:var(--s-6)">
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label" for="ds-time-input">Orario</label>
-                <input class="input" type="text" id="ds-time-input"
-                  placeholder="es. 18:00"
-                  autocomplete="off"
-                  maxlength="5"
-                  inputmode="numeric"/>
-                <span class="help">Always optional. Empty submits are valid.</span>
+                <div class="tp-wrap">
+                  <div class="input-wrap input-wrap-trail">
+                    <input class="input" type="text" id="ds-time-input"
+                      data-time-input
+                      placeholder="es. 18:00"
+                      autocomplete="off"
+                      maxlength="5"
+                      inputmode="numeric"/>
+                    <button type="button" class="dp-icon-btn" aria-label="Open time picker" data-tp-trigger>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="8" cy="8" r="6.25"/>
+                        <path d="M8 4.5V8l2.25 1.5"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <span class="help">Type or pick. Arrow Down also opens the picker.</span>
               </div>
               <div class="field">
                 <label class="label" for="ds-time-input-err">Error state</label>
@@ -950,6 +961,169 @@ Basic UI</div>
                 <li>The <code>:</code> is inserted automatically — users only type digits.</li>
                 <li>Optional by default; can be marked required per context.</li>
                 <li>Focus &amp; error states inherit from § 11.1.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Date input</h2><span class="subsection-num">§ 11.3</span></div>
+          <p class="subsection-desc">DD/MM/YYYY, single date. Typed input is digit-by-digit masked (slashes auto-insert) and the trailing icon opens a calendar popover that stays in sync. No native <code>type="date"</code> — the browser picker doesn't respect the system. Optional <code>min</code>/<code>max</code> attributes constrain both the typed value and the picker.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6)">
+              <div class="field" style="margin-bottom:var(--s-4)">
+                <label class="label" for="ds-date-input">Departure date</label>
+                <div class="dp-wrap">
+                  <div class="input-wrap input-wrap-trail">
+                    <input class="input" type="text" id="ds-date-input"
+                      data-date-input
+                      placeholder="DD/MM/YYYY"
+                      autocomplete="off"
+                      maxlength="10"
+                      inputmode="numeric"/>
+                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
+                        <path d="M2 6.5h12"/>
+                        <path d="M5 1.5v3M11 1.5v3"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <span class="help">Type or pick. Arrow Down also opens the calendar.</span>
+              </div>
+              <div class="field" style="margin-bottom:var(--s-4)">
+                <label class="label" for="ds-date-input-bound">With min · max</label>
+                <div class="dp-wrap">
+                  <div class="input-wrap input-wrap-trail">
+                    <input class="input" type="text" id="ds-date-input-bound"
+                      data-date-input
+                      data-min="2026-05-01"
+                      data-max="2026-12-31"
+                      placeholder="DD/MM/YYYY"
+                      autocomplete="off"
+                      maxlength="10"
+                      inputmode="numeric"/>
+                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
+                        <path d="M2 6.5h12"/>
+                        <path d="M5 1.5v3M11 1.5v3"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <span class="help">Bound to <code>2026-05-01</code> → <code>2026-12-31</code>.</span>
+              </div>
+              <div class="field">
+                <label class="label" for="ds-date-input-err">Error state</label>
+                <div class="dp-wrap">
+                  <div class="input-wrap input-wrap-trail">
+                    <input class="input" type="text" id="ds-date-input-err"
+                      value="31/02/2026"
+                      autocomplete="off"
+                      maxlength="10"
+                      inputmode="numeric"
+                      aria-invalid="true"
+                      style="border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.12)"/>
+                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" tabindex="-1">
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
+                        <path d="M2 6.5h12"/>
+                        <path d="M5 1.5v3M11 1.5v3"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <span class="help error">Not a real date — calendar validation runs on blur, after the mask.</span>
+              </div>
+            </div>
+            <div class="card" style="padding:var(--s-6);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
+                <span style="color:var(--brand)">D1</span><span>max <code>3</code></span>
+                <span style="color:var(--brand)">D2</span><span>max <code>1</code> if D1 = <code>3</code>; if D1 = <code>0</code>, must be <code>1–9</code>; else <code>0–9</code></span>
+                <span style="color:var(--brand)">M1</span><span>max <code>1</code></span>
+                <span style="color:var(--brand)">M2</span><span>max <code>2</code> if M1 = <code>1</code>; if M1 = <code>0</code>, must be <code>1–9</code>; else <code>0–9</code></span>
+                <span style="color:var(--brand)">Y1–4</span><span><code>0–9</code></span>
+              </div>
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
+                <li><code>maxlength="10"</code> + <code>inputmode="numeric"</code> required.</li>
+                <li>Slashes are inserted automatically — users only type digits.</li>
+                <li>Real-date check (e.g. 31/02 rejected) runs on <strong>blur</strong>, not while typing.</li>
+                <li><code>data-min</code> &amp; <code>data-max</code> in ISO <code>YYYY-MM-DD</code>; both optional.</li>
+                <li>Trailing icon &amp; <kbd>↓</kbd> on the input both open the picker.</li>
+                <li>Locale: English month/day labels, week starts Monday.</li>
+                <li>Single date only. For range selection, see § 11.4.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Date range</h2><span class="subsection-num">§ 11.4</span></div>
+          <p class="subsection-desc">Two coupled inputs sharing one popover. Two months side-by-side on desktop, stacked on mobile. Click 1 sets the start, click 2 sets the end — clicking before start swaps. Footer presets cover the analytics defaults; the helper line auto-counts inclusive days.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6)">
+              <div class="field" style="margin-bottom:var(--s-4)">
+                <label class="label">Reporting period</label>
+                <div class="dp-wrap" data-range-group>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)">
+                    <div class="input-wrap input-wrap-trail">
+                      <input class="input" type="text" data-range-start
+                        placeholder="DD/MM/YYYY"
+                        autocomplete="off" maxlength="10" inputmode="numeric"
+                        aria-label="Start date"/>
+                      <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="2" y="3" width="12" height="11" rx="1.5"/>
+                          <path d="M2 6.5h12"/>
+                          <path d="M5 1.5v3M11 1.5v3"/>
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="input-wrap input-wrap-trail">
+                      <input class="input" type="text" data-range-end
+                        placeholder="DD/MM/YYYY"
+                        autocomplete="off" maxlength="10" inputmode="numeric"
+                        aria-label="End date"/>
+                      <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="2" y="3" width="12" height="11" rx="1.5"/>
+                          <path d="M2 6.5h12"/>
+                          <path d="M5 1.5v3M11 1.5v3"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <span class="help" data-range-help>Select start and end. Range count appears here.</span>
+              </div>
+            </div>
+            <div class="card" style="padding:var(--s-6);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">SELECTION RULES</div>
+              <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
+                <li>Click 1 → start. Hover preview shows tentative range.</li>
+                <li>Click 2 ≥ start → commits end.</li>
+                <li>Click 2 &lt; start → swaps (becomes new start).</li>
+                <li>Same-day click twice → single-day range.</li>
+                <li><kbd>Esc</kbd> → cancel pending selection &amp; close.</li>
+              </ul>
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">PRESETS</div>
+              <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
+                <span style="color:var(--brand)">Today</span><span>start = end = today</span>
+                <span style="color:var(--brand)">Last 7 days</span><span>today − 6 → today (inclusive)</span>
+                <span style="color:var(--brand)">Last 30 days</span><span>today − 29 → today</span>
+                <span style="color:var(--brand)">Last month</span><span>full previous calendar month</span>
+              </div>
+              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
+                <li>Two inputs: <code>data-range-start</code> &amp; <code>data-range-end</code> inside a <code>data-range-group</code> wrapper.</li>
+                <li>Same digit-by-digit mask as § 11.3.</li>
+                <li>Popover anchors to the start input. 580px wide, collapses to 280px stacked under 600px viewport.</li>
+                <li>Helper auto-renders <code>N days</code> (inclusive count) on commit.</li>
+                <li><code>data-min</code> &amp; <code>data-max</code> on either input bound the whole range.</li>
               </ul>
             </div>
           </div>
@@ -1033,7 +1207,7 @@ Basic UI</div>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
             <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>Pending</span>
             <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
-            <span class="badge"><span class="dot"></span>Reading now</span>
+            <span class="badge"><span class="dot"></span>Archive</span>
             <span class="badge badge-solid">Featured</span>
           </div>
         </div>
@@ -1977,9 +2151,65 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.1.0 -->
+            <!-- v2.2.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-new">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-220">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.2.0 — Date &amp; time pickers, dropdown spec, tabs hardened</span>
+                <span class="acc-num">2026-05-12</span>
+              </button>
+              <div class="acc-panel" id="cl-220" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR release. Three new components ship: a calendar-popover date input, a two-month date-range picker with analytics presets, and an iOS-style scroll-wheel time picker. The release also closes two spec gaps surfaced by a real implementation (pipeline-dashboard, 2026-05-12): Tabs were under-specified and the dropdown / select pattern was missing entirely.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · components</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 11.2 Time picker</strong> — iOS-style scroll wheel. 24h, configurable minute step (default 5), 7 visible items, infinite loop via triple-buffer + auto-rewind, native <code>scroll-snap-type: y mandatory</code>. Magenta band overlay + top/bottom fade gradient. Click on item snaps with smooth scroll; <kbd>↑</kbd>/<kbd>↓</kbd> on a focused wheel step ±one. <kbd>↓</kbd> on the input opens the popover.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 11.3 Date input</strong> — DD/MM/YYYY single date. Digit-by-digit masked (D1≤3, D2 depends on D1, M1≤1, M2 depends on M1, slashes auto-insert). Trailing calendar icon opens a popover with year-jump view (decade grid 4×3), Today shortcut, optional <code>data-min</code>/<code>data-max</code> bounds. Real-date validation (31/02 rejected) fires on blur.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 11.4 Date range</strong> — Two coupled inputs (<code>data-range-start</code> / <code>data-range-end</code>) sharing one popover anchored to start. Two months side-by-side; collapses to stacked vertical under 600px. Click 1 sets start, hover preview, click 2 commits end (swaps if before start). Four analytics presets in footer: Today, Last 7 days, Last 30 days, Last month. Helper auto-renders <code>N days</code> (inclusive count).</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · spec gaps closed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 3.7 Tabs</strong> — Expanded from a single line to a full spec: canonical HTML, required classes, the indicator-positioning JS pattern (<code>getBoundingClientRect</code> on button + parent, <code>transform: translateX</code> + width interpolation, resize listener, double <code>requestAnimationFrame</code> for initial position), <code>prefers-reduced-motion</code> handling, panel fade-in with opacity + 6px translateY, and the "never crossfade, never slide both" rule.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 3.10 Dropdown / Select</strong> — New section. Two variants: <em>native enhanced</em> (<code>&lt;select class="select"&gt;</code> with appearance:none + inline SVG chevron, canonical stroke <code>%238A94A3</code>, 36px right-pad, hover/focus borders) and <em>custom listbox</em> (<code>.select-wrap &gt; .select-trigger + .select-menu &gt; .select-option</code>) with full keyboard nav, focus-trap, click-outside dismissal, and guidance on when to prefer each.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Date picker hover flicker</strong> — The <code>:hover</code> rule on <code>.dp-day</code> now excludes every range state (<code>is-in-range</code>, <code>is-range-preview</code>, <code>is-range-start</code>, <code>is-range-end</code>); previously obsidian-800 was overpainting the magenta range fills frame-by-frame.</li>
+                    <li><strong style="color:var(--obsidian-100)">Range second-click reliability</strong> — The hover preview no longer re-renders DOM (was destroying the cell under the cursor before <code>click</code> could register). Cells are cached on <code>grid._cells</code> and only their state classes get repainted via <code>paintRange()</code>. Commit moved from <code>click</code> to <code>mousedown</code> with <code>preventDefault</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Stepper label drift on replay</strong> — The reset used a flag shared with dots (<code>_baseT</code>, never set on labels) and re-parsed <code>cy</code> from the already-offset attribute, accumulating +10px per replay. Replaced with a dedicated <code>_labelInit</code> flag and a clean <code>translate(cx, cy)</code> reset.</li>
+                    <li><strong style="color:var(--obsidian-100)">Replay button capture phase</strong> — Listener moved to capture phase so the chart reset survives any downstream <code>stopPropagation</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Compatibility</h4>
+                  <table class="table table-contrast">
+                    <thead><tr><th style="width:55%">Area</th><th>Status</th></tr></thead>
+                    <tbody>
+                      <tr><td>All tokens (color, type, spacing, radius, shadow, motion)</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>Existing component APIs</td><td class="muted">Unchanged</td></tr>
+                      <tr><td>New components: Time picker, Date input, Date range</td><td><strong style="color:var(--magenta-400)">Added</strong></td></tr>
+                      <tr><td>§ 3.7 Tabs, § 3.10 Dropdown</td><td><strong style="color:var(--magenta-400)">Spec expanded</strong> — no markup changes required</td></tr>
+                    </tbody>
+                  </table>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">A real implementation — pipeline-dashboard, 2026-05-12 — surfaced two under-specified areas. Closing those gaps is the rationale for the spec-side updates in § 3.7 and § 3.10.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-12</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.1.0...v2.2.0" target="_blank" rel="noopener">v2.1.0…v2.2.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.1.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-new">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.1.0 — Time input &amp; routing</span>
                 <span class="acc-num">2026-05-07</span>
@@ -2740,16 +2970,17 @@ new MutationObserver(muts => {
       el.setAttribute('transform', `${el._baseT} scale(0)`);
     });
     root.querySelectorAll('.stepper-svg g[data-step-labels][data-step-fade]').forEach(el => {
-      if (el._baseT == null) {
+      if (el._labelInit == null) {
         const m = (el.getAttribute('transform') || '').match(/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/);
         el._cx = m ? +m[1] : 0;
         el._cy = m ? +m[2] : 0;
+        el._labelInit = true;
       }
       el.style.opacity = '0';
       el.style.transform = '';
       el.style.transformBox = '';
       el.style.transformOrigin = '';
-      el.setAttribute('transform', `translate(${el._cx} ${el._cy + 10})`);
+      el.setAttribute('transform', `translate(${el._cx} ${el._cy})`);
     });
     root.querySelectorAll('[data-line-draw]').forEach(p => {
       p.style.strokeDashoffset = p._len;
@@ -3024,22 +3255,830 @@ new MutationObserver(muts => {
 })();
 </script>
 <script>
-// --- time input (HH:MM, 24h) — digit-by-digit masking, see § 11.2 ---
+// --- time input (HH:MM, 24h) — digit-by-digit mask + iOS-style scroll wheel picker, see § 11.2 ---
 (function(){
-  document.querySelectorAll('#ds-time-input').forEach(function(el){
-    el.addEventListener('input', function(){
-      const raw = this.value.replace(/\D/g, '');
-      let out = '';
-      for(let i = 0; i < Math.min(raw.length, 4); i++){
-        let d = parseInt(raw[i], 10);
-        if(i === 0) d = Math.min(d, 2);
-        if(i === 1 && out[0] === '2') d = Math.min(d, 3);
-        if(i === 2) d = Math.min(d, 5);
-        out += d;
-      }
-      this.value = out.length >= 3 ? out.slice(0, 2) + ':' + out.slice(2) : out;
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function maskTime(raw){
+    raw = raw.replace(/\D/g, '');
+    let out = '';
+    for(let i = 0; i < Math.min(raw.length, 4); i++){
+      let d = parseInt(raw[i], 10);
+      if(i === 0) d = Math.min(d, 2);
+      if(i === 1 && out[0] === '2') d = Math.min(d, 3);
+      if(i === 2) d = Math.min(d, 5);
+      out += d;
+    }
+    return out.length >= 3 ? out.slice(0,2) + ':' + out.slice(2) : out;
+  }
+  function parseHHMM(str){
+    const m = /^(\d{2}):(\d{2})$/.exec(str);
+    if(!m) return null;
+    const h = +m[1], min = +m[2];
+    if(h > 23 || min > 59) return null;
+    return {h: h, m: min};
+  }
+
+  const ITEM_H = 28;
+  const VISIBLE = 7;
+  const CENTER = (VISIBLE - 1) / 2; // 3
+
+  function setupTimePicker(input){
+    const wrap = input.closest('.tp-wrap');
+    if(!wrap){
+      input.addEventListener('input', function(){ this.value = maskTime(this.value); });
+      return;
+    }
+    const step = parseInt(input.getAttribute('data-step') || '5', 10);
+    const trigger = wrap.querySelector('[data-tp-trigger]');
+    // Build value lists with looping buffer (3 copies for seamless loop)
+    const HOURS = [];
+    for(let h = 0; h < 24; h++) HOURS.push(h);
+    const MINUTES = [];
+    for(let m = 0; m < 60; m += step) MINUTES.push(m);
+
+    const state = { open: false, h: null, m: null };
+
+    input.addEventListener('input', function(){
+      this.value = maskTime(this.value);
+      if(state.open){ syncFromInput(); positionWheels(false); }
     });
+
+    const pop = document.createElement('div');
+    pop.className = 'tp-popover';
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Choose time');
+    pop.hidden = true;
+    pop.innerHTML = ''
+      + '<div class="tp-wheels">'
+      +   '<div class="tp-wheel" data-tp-wheel="h" tabindex="0" role="listbox" aria-label="Hours"><div class="tp-wheel-list" data-tp-list="h"></div></div>'
+      +   '<div class="tp-sep">:</div>'
+      +   '<div class="tp-wheel" data-tp-wheel="m" tabindex="0" role="listbox" aria-label="Minutes"><div class="tp-wheel-list" data-tp-list="m"></div></div>'
+      + '</div>';
+    wrap.appendChild(pop);
+    const wheelH = pop.querySelector('[data-tp-wheel="h"]');
+    const wheelM = pop.querySelector('[data-tp-wheel="m"]');
+    const listH = pop.querySelector('[data-tp-list="h"]');
+    const listM = pop.querySelector('[data-tp-list="m"]');
+
+    // Build looping lists: 3 copies stitched, scroll lands on the middle copy
+    function buildWheel(list, values, role){
+      list.innerHTML = '';
+      for(let copy = 0; copy < 3; copy++){
+        values.forEach(function(v, idx){
+          const it = document.createElement('div');
+          it.className = 'tp-wheel-item';
+          it.textContent = pad(v);
+          it.dataset.value = v;
+          it.dataset.idx = (copy * values.length + idx);
+          it.setAttribute('role', 'option');
+          list.appendChild(it);
+        });
+      }
+    }
+    buildWheel(listH, HOURS, 'h');
+    buildWheel(listM, MINUTES, 'm');
+
+    function valueIndex(values, v){
+      const i = values.indexOf(v);
+      return i >= 0 ? i : 0;
+    }
+    function snapToValue(wheel, values, v, smooth){
+      const idx = valueIndex(values, v);
+      const target = (values.length + idx) * ITEM_H; // middle copy
+      wheel.style.scrollBehavior = smooth ? 'smooth' : 'auto';
+      wheel.scrollTop = target;
+    }
+
+    function syncFromInput(){
+      const p = parseHHMM(input.value);
+      state.h = p ? p.h : 0;
+      // Round minutes to nearest step for display in wheel
+      const mIn = p ? p.m : 0;
+      state.m = Math.round(mIn / step) * step;
+      if(state.m >= 60) state.m = 0;
+      if(MINUTES.indexOf(state.m) < 0) state.m = MINUTES[0];
+    }
+
+    function positionWheels(smooth){
+      snapToValue(wheelH, HOURS, state.h, smooth);
+      snapToValue(wheelM, MINUTES, state.m, smooth);
+      paintActive();
+    }
+
+    function paintActive(){
+      [[wheelH, HOURS, state.h], [wheelM, MINUTES, state.m]].forEach(function(t){
+        const wheel = t[0], values = t[1], v = t[2];
+        wheel.querySelectorAll('.tp-wheel-item').forEach(function(it){
+          it.classList.toggle('is-active', +it.dataset.value === v);
+        });
+      });
+    }
+
+    function updateInput(){
+      input.value = pad(state.h) + ':' + pad(state.m);
+      input.dispatchEvent(new Event('change', {bubbles: true}));
+    }
+
+    function onScroll(wheel, values, key){
+      let raf = null;
+      let scrollEndTimer = null;
+      wheel.addEventListener('scroll', function(){
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(function(){
+          const top = wheel.scrollTop;
+          const idx = Math.round(top / ITEM_H);
+          // Wrap into middle copy for seamless loop
+          const len = values.length;
+          const modIdx = ((idx % len) + len) % len;
+          const newV = values[modIdx];
+          if(state[key] !== newV){
+            state[key] = newV;
+            paintActive();
+            updateInput();
+          }
+          // Rewind to middle copy if scrolled into outer copies (loop trick)
+          clearTimeout(scrollEndTimer);
+          scrollEndTimer = setTimeout(function(){
+            const cur = Math.round(wheel.scrollTop / ITEM_H);
+            const target = len + (cur % len + len) % len;
+            if(cur !== target){
+              wheel.style.scrollBehavior = 'auto';
+              wheel.scrollTop = target * ITEM_H;
+            }
+          }, 100);
+        });
+      });
+    }
+    onScroll(wheelH, HOURS, 'h');
+    onScroll(wheelM, MINUTES, 'm');
+
+    // Click on item snaps to it
+    [[wheelH, HOURS, 'h'], [wheelM, MINUTES, 'm']].forEach(function(t){
+      const wheel = t[0], values = t[1], key = t[2];
+      wheel.addEventListener('click', function(e){
+        const it = e.target.closest('.tp-wheel-item');
+        if(!it) return;
+        state[key] = +it.dataset.value;
+        snapToValue(wheel, values, state[key], true);
+        paintActive();
+        updateInput();
+      });
+    });
+
+    // Keyboard nav on focused wheel
+    [[wheelH, HOURS, 'h'], [wheelM, MINUTES, 'm']].forEach(function(t){
+      const wheel = t[0], values = t[1], key = t[2];
+      wheel.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowUp' || e.key === 'ArrowDown'){
+          e.preventDefault();
+          const dir = e.key === 'ArrowDown' ? 1 : -1;
+          const i = valueIndex(values, state[key]);
+          const next = (i + dir + values.length) % values.length;
+          state[key] = values[next];
+          snapToValue(wheel, values, state[key], true);
+          paintActive();
+          updateInput();
+        }
+      });
+    });
+
+    function open(){
+      if(state.open) return;
+      syncFromInput();
+      pop.hidden = false;
+      requestAnimationFrame(function(){
+        pop.classList.add('is-open');
+        positionWheels(false);
+      });
+      state.open = true;
+      document.addEventListener('mousedown', onDocDown, true);
+      document.addEventListener('keydown', onKey, true);
+    }
+    function close(){
+      if(!state.open) return;
+      pop.classList.remove('is-open');
+      state.open = false;
+      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      document.removeEventListener('mousedown', onDocDown, true);
+      document.removeEventListener('keydown', onKey, true);
+    }
+    function onDocDown(e){ if(!wrap.contains(e.target)) close(); }
+    function onKey(e){ if(e.key === 'Escape'){ e.preventDefault(); close(); input.focus(); } }
+
+    if(trigger){
+      trigger.addEventListener('click', function(e){
+        e.preventDefault();
+        if(state.open) close(); else open();
+      });
+    }
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown' && !state.open){ e.preventDefault(); open(); }
+    });
+  }
+
+  document.querySelectorAll('[data-time-input]').forEach(setupTimePicker);
+  document.querySelectorAll('#ds-time-input-err').forEach(function(el){
+    el.addEventListener('input', function(){ this.value = maskTime(this.value); });
   });
+})();
+</script>
+<script>
+// --- date input (DD/MM/YYYY) — digit-by-digit mask + calendar popover, see § 11.3 ---
+(function(){
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DOW = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function daysInMonth(y, m){ return new Date(y, m + 1, 0).getDate(); }
+  function isLeap(y){ return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0); }
+  function parseISO(str){
+    if(!str) return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    if(!m) return null;
+    const y = +m[1], mo = +m[2] - 1, d = +m[3];
+    return new Date(y, mo, d);
+  }
+  function parseDDMMYYYY(str){
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
+    if(!m) return null;
+    const d = +m[1], mo = +m[2], y = +m[3];
+    if(mo < 1 || mo > 12) return null;
+    const dim = (mo === 2) ? (isLeap(y) ? 29 : 28) : [31,28,31,30,31,30,31,31,30,31,30,31][mo-1];
+    if(d < 1 || d > dim) return null;
+    return new Date(y, mo - 1, d);
+  }
+  function formatDDMM(date){
+    return pad(date.getDate()) + '/' + pad(date.getMonth()+1) + '/' + date.getFullYear();
+  }
+  function maskDate(raw){
+    raw = raw.replace(/\D/g, '');
+    let out = '';
+    for(let i = 0; i < Math.min(raw.length, 8); i++){
+      let d = parseInt(raw[i], 10);
+      if(i === 0) d = Math.min(d, 3);
+      if(i === 1){
+        if(out[0] === '3') d = Math.min(d, 1);
+        if(out[0] === '0' && d === 0) d = 1; // skip 00 → 01
+      }
+      if(i === 2) d = Math.min(d, 1);
+      if(i === 3){
+        if(out[2] === '1') d = Math.min(d, 2);
+        if(out[2] === '0' && d === 0) d = 1; // skip 00 → 01
+      }
+      out += d;
+    }
+    if(out.length >= 5) return out.slice(0,2) + '/' + out.slice(2,4) + '/' + out.slice(4);
+    if(out.length >= 3) return out.slice(0,2) + '/' + out.slice(2);
+    return out;
+  }
+
+  function buildPopover(){
+    const pop = document.createElement('div');
+    pop.className = 'dp-popover';
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Choose date');
+    pop.hidden = true;
+    pop.innerHTML = ''
+      + '<div class="dp-header">'
+      +   '<button type="button" class="dp-nav" data-dp-prev aria-label="Previous">'
+      +     '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5"/></svg>'
+      +   '</button>'
+      +   '<button type="button" class="dp-title" data-dp-title aria-label="Switch view">'
+      +     '<span data-dp-title-text></span>'
+      +     '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5"/></svg>'
+      +   '</button>'
+      +   '<button type="button" class="dp-nav" data-dp-next aria-label="Next">'
+      +     '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg>'
+      +   '</button>'
+      + '</div>'
+      + '<div class="dp-dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>'
+      + '<div class="dp-grid" data-dp-grid role="grid"></div>'
+      + '<div class="dp-year-grid" data-dp-years hidden></div>'
+      + '<div class="dp-footer"><button type="button" class="dp-today-btn" data-dp-today>Today</button></div>';
+    return pop;
+  }
+
+  function setupDatePicker(input){
+    const wrap = input.closest('.dp-wrap');
+    if(!wrap) return;
+    const trigger = wrap.querySelector('[data-dp-trigger]');
+    const min = parseISO(input.getAttribute('data-min'));
+    const max = parseISO(input.getAttribute('data-max'));
+
+    // Mask on input
+    input.addEventListener('input', function(){
+      const start = this.selectionStart;
+      const before = this.value;
+      const masked = maskDate(this.value);
+      this.value = masked;
+      // Sync caret + popover view if it's open
+      const parsed = parseDDMMYYYY(masked);
+      if(parsed && state.open){
+        state.viewYear = parsed.getFullYear();
+        state.viewMonth = parsed.getMonth();
+        render();
+      }
+    });
+    input.addEventListener('blur', function(){
+      // Validate on blur
+      if(!this.value) {
+        this.style.borderColor = '';
+        this.style.boxShadow = '';
+        this.removeAttribute('aria-invalid');
+        return;
+      }
+      const parsed = parseDDMMYYYY(this.value);
+      const valid = parsed && (!min || parsed >= min) && (!max || parsed <= max);
+      if(!valid){
+        this.style.borderColor = 'var(--danger)';
+        this.style.boxShadow = '0 0 0 3px rgba(255,91,91,0.12)';
+        this.setAttribute('aria-invalid', 'true');
+      } else {
+        this.style.borderColor = '';
+        this.style.boxShadow = '';
+        this.removeAttribute('aria-invalid');
+      }
+    });
+
+    const pop = buildPopover();
+    wrap.appendChild(pop);
+    const grid = pop.querySelector('[data-dp-grid]');
+    const yearGrid = pop.querySelector('[data-dp-years]');
+    const titleText = pop.querySelector('[data-dp-title-text]');
+    const titleBtn = pop.querySelector('[data-dp-title]');
+    const prevBtn = pop.querySelector('[data-dp-prev]');
+    const nextBtn = pop.querySelector('[data-dp-next]');
+    const todayBtn = pop.querySelector('[data-dp-today]');
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const initial = parseDDMMYYYY(input.value) || new Date();
+    const state = {
+      open: false,
+      mode: 'days',
+      viewYear: initial.getFullYear(),
+      viewMonth: initial.getMonth(),
+      yearDecadeStart: Math.floor(initial.getFullYear() / 12) * 12,
+      selected: parseDDMMYYYY(input.value) || null
+    };
+
+    function dayDisabled(d){
+      if(min && d < min) return true;
+      if(max && d > max) return true;
+      return false;
+    }
+
+    function renderDays(){
+      yearGrid.hidden = true;
+      grid.hidden = false;
+      pop.dataset.mode = 'days';
+      titleText.textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear;
+      grid.innerHTML = '';
+
+      const first = new Date(state.viewYear, state.viewMonth, 1);
+      // Monday-first offset
+      let offset = first.getDay() - 1;
+      if(offset < 0) offset = 6;
+      const start = new Date(state.viewYear, state.viewMonth, 1 - offset);
+
+      for(let i = 0; i < 42; i++){
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dp-day';
+        btn.textContent = d.getDate();
+        btn.setAttribute('role', 'gridcell');
+        const outside = d.getMonth() !== state.viewMonth;
+        if(outside) btn.classList.add('is-outside');
+        if(d.getTime() === today.getTime()) btn.classList.add('is-today');
+        if(state.selected && d.getTime() === state.selected.getTime()) btn.classList.add('is-selected');
+        if(dayDisabled(d)) btn.disabled = true;
+        btn.addEventListener('click', function(){
+          state.selected = d;
+          state.viewYear = d.getFullYear();
+          state.viewMonth = d.getMonth();
+          input.value = formatDDMM(d);
+          input.dispatchEvent(new Event('change', {bubbles: true}));
+          // Clear error on valid pick
+          input.style.borderColor = '';
+          input.style.boxShadow = '';
+          input.removeAttribute('aria-invalid');
+          close();
+          input.focus();
+        });
+        grid.appendChild(btn);
+      }
+
+      // Prev/next disabled if entirely out of bounds
+      const monthStart = new Date(state.viewYear, state.viewMonth, 1);
+      const monthEnd = new Date(state.viewYear, state.viewMonth + 1, 0);
+      prevBtn.disabled = !!(min && monthStart <= min);
+      nextBtn.disabled = !!(max && monthEnd >= max);
+    }
+
+    function renderYears(){
+      grid.hidden = true;
+      yearGrid.hidden = false;
+      pop.dataset.mode = 'years';
+      const start = state.yearDecadeStart;
+      titleText.textContent = start + ' – ' + (start + 11);
+      yearGrid.innerHTML = '';
+      for(let i = 0; i < 12; i++){
+        const y = start + i;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dp-year';
+        btn.textContent = y;
+        if(y === today.getFullYear()) btn.classList.add('is-current');
+        if(state.selected && y === state.selected.getFullYear()) btn.classList.add('is-selected');
+        if((min && y < min.getFullYear()) || (max && y > max.getFullYear())) btn.disabled = true;
+        btn.addEventListener('click', function(){
+          state.viewYear = y;
+          state.mode = 'days';
+          render();
+        });
+        yearGrid.appendChild(btn);
+      }
+      prevBtn.disabled = !!(min && start <= min.getFullYear());
+      nextBtn.disabled = !!(max && (start + 11) >= max.getFullYear());
+    }
+
+    function render(){
+      if(state.mode === 'days') renderDays();
+      else renderYears();
+    }
+
+    function open(){
+      if(state.open) return;
+      const parsed = parseDDMMYYYY(input.value);
+      if(parsed){
+        state.selected = parsed;
+        state.viewYear = parsed.getFullYear();
+        state.viewMonth = parsed.getMonth();
+      }
+      state.mode = 'days';
+      pop.hidden = false;
+      requestAnimationFrame(function(){ pop.classList.add('is-open'); });
+      state.open = true;
+      render();
+      document.addEventListener('mousedown', onDocDown, true);
+      document.addEventListener('keydown', onKey, true);
+    }
+    function close(){
+      if(!state.open) return;
+      pop.classList.remove('is-open');
+      state.open = false;
+      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      document.removeEventListener('mousedown', onDocDown, true);
+      document.removeEventListener('keydown', onKey, true);
+    }
+    function onDocDown(e){
+      if(!wrap.contains(e.target)) close();
+    }
+    function onKey(e){
+      if(e.key === 'Escape'){ e.preventDefault(); close(); input.focus(); }
+    }
+
+    if(trigger){
+      trigger.addEventListener('click', function(e){
+        e.preventDefault();
+        if(state.open) close();
+        else open();
+      });
+    }
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown' && !state.open){ e.preventDefault(); open(); }
+    });
+
+    titleBtn.addEventListener('click', function(){
+      if(state.mode === 'days'){
+        state.mode = 'years';
+        state.yearDecadeStart = Math.floor(state.viewYear / 12) * 12;
+      } else {
+        state.mode = 'days';
+      }
+      render();
+    });
+    prevBtn.addEventListener('click', function(){
+      if(state.mode === 'days'){
+        state.viewMonth--;
+        if(state.viewMonth < 0){ state.viewMonth = 11; state.viewYear--; }
+      } else {
+        state.yearDecadeStart -= 12;
+      }
+      render();
+    });
+    nextBtn.addEventListener('click', function(){
+      if(state.mode === 'days'){
+        state.viewMonth++;
+        if(state.viewMonth > 11){ state.viewMonth = 0; state.viewYear++; }
+      } else {
+        state.yearDecadeStart += 12;
+      }
+      render();
+    });
+    todayBtn.addEventListener('click', function(){
+      state.viewYear = today.getFullYear();
+      state.viewMonth = today.getMonth();
+      state.mode = 'days';
+      render();
+    });
+  }
+
+  document.querySelectorAll('[data-date-input]').forEach(setupDatePicker);
+})();
+</script>
+<script>
+// --- date range picker (DD/MM/YYYY → DD/MM/YYYY) — see § 11.4 ---
+(function(){
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+  function isLeap(y){ return (y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0); }
+  function parseISO(str){
+    if(!str) return null;
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(str);
+    if(!m) return null;
+    return new Date(+m[1], +m[2]-1, +m[3]);
+  }
+  function parseDDMMYYYY(str){
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(str);
+    if(!m) return null;
+    const d = +m[1], mo = +m[2], y = +m[3];
+    if(mo < 1 || mo > 12) return null;
+    const dim = (mo === 2) ? (isLeap(y) ? 29 : 28) : [31,28,31,30,31,30,31,31,30,31,30,31][mo-1];
+    if(d < 1 || d > dim) return null;
+    return new Date(y, mo - 1, d);
+  }
+  function fmt(date){ return pad(date.getDate()) + '/' + pad(date.getMonth()+1) + '/' + date.getFullYear(); }
+  function maskDate(raw){
+    raw = raw.replace(/\D/g, '');
+    let out = '';
+    for(let i = 0; i < Math.min(raw.length, 8); i++){
+      let d = parseInt(raw[i], 10);
+      if(i === 0) d = Math.min(d, 3);
+      if(i === 1){ if(out[0] === '3') d = Math.min(d, 1); if(out[0] === '0' && d === 0) d = 1; }
+      if(i === 2) d = Math.min(d, 1);
+      if(i === 3){ if(out[2] === '1') d = Math.min(d, 2); if(out[2] === '0' && d === 0) d = 1; }
+      out += d;
+    }
+    if(out.length >= 5) return out.slice(0,2) + '/' + out.slice(2,4) + '/' + out.slice(4);
+    if(out.length >= 3) return out.slice(0,2) + '/' + out.slice(2);
+    return out;
+  }
+  function sameDay(a, b){ return a && b && a.getTime() === b.getTime(); }
+  function diffDays(a, b){ return Math.round((b - a) / 86400000) + 1; }
+
+  function setupRange(group){
+    const startInput = group.querySelector('[data-range-start]');
+    const endInput = group.querySelector('[data-range-end]');
+    const helper = group.parentElement.querySelector('[data-range-help]');
+    if(!startInput || !endInput) return;
+
+    const min = parseISO(startInput.getAttribute('data-min') || endInput.getAttribute('data-min'));
+    const max = parseISO(startInput.getAttribute('data-max') || endInput.getAttribute('data-max'));
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const state = {
+      open: false,
+      start: parseDDMMYYYY(startInput.value) || null,
+      end: parseDDMMYYYY(endInput.value) || null,
+      pending: null, // start of an in-progress selection
+      hover: null,
+      viewYear: today.getFullYear(),
+      viewMonth: today.getMonth()
+    };
+
+    const pop = document.createElement('div');
+    pop.className = 'dp-popover dp-range';
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Choose date range');
+    pop.hidden = true;
+    pop.innerHTML = ''
+      + '<div class="dp-header">'
+      +   '<button type="button" class="dp-nav" data-dp-prev aria-label="Previous month"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5"/></svg></button>'
+      +   '<div style="flex:1"></div>'
+      +   '<button type="button" class="dp-nav" data-dp-next aria-label="Next month"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button>'
+      + '</div>'
+      + '<div class="dp-months">'
+      +   '<div data-dp-month-a><div class="dp-month-title" data-dp-title-a></div><div class="dp-dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div><div class="dp-grid" data-dp-grid-a></div></div>'
+      +   '<div data-dp-month-b><div class="dp-month-title" data-dp-title-b></div><div class="dp-dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div><div class="dp-grid" data-dp-grid-b></div></div>'
+      + '</div>'
+      + '<div class="dp-presets">'
+      +   '<button type="button" class="dp-preset" data-preset="today">Today</button>'
+      +   '<button type="button" class="dp-preset" data-preset="last7">Last 7 days</button>'
+      +   '<button type="button" class="dp-preset" data-preset="last30">Last 30 days</button>'
+      +   '<button type="button" class="dp-preset" data-preset="lastmonth">Last month</button>'
+      + '</div>';
+    group.appendChild(pop);
+
+    const titleA = pop.querySelector('[data-dp-title-a]');
+    const titleB = pop.querySelector('[data-dp-title-b]');
+    const gridA = pop.querySelector('[data-dp-grid-a]');
+    const gridB = pop.querySelector('[data-dp-grid-b]');
+
+    function dayDisabled(d){
+      if(min && d < min) return true;
+      if(max && d > max) return true;
+      return false;
+    }
+
+    function inRange(d, s, e){
+      if(!s || !e) return false;
+      return d.getTime() > s.getTime() && d.getTime() < e.getTime();
+    }
+
+    function renderMonth(grid, year, month){
+      grid.innerHTML = '';
+      const first = new Date(year, month, 1);
+      let offset = first.getDay() - 1;
+      if(offset < 0) offset = 6;
+      const start = new Date(year, month, 1 - offset);
+      const cells = [];
+
+      for(let i = 0; i < 42; i++){
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'dp-day';
+        btn.textContent = d.getDate();
+        btn.setAttribute('role', 'gridcell');
+        const outside = d.getMonth() !== month;
+        if(outside) btn.classList.add('is-outside');
+        if(d.getTime() === today.getTime()) btn.classList.add('is-today');
+        if(dayDisabled(d)) btn.disabled = true;
+        // Use mousedown — fires before mouseenter→re-paint and before click,
+        // so the picker commits even if the user moves the cursor mid-click.
+        btn.addEventListener('mousedown', function(ev){ ev.preventDefault(); pickDay(d); });
+        btn.addEventListener('mouseenter', function(){
+          if(state.pending){ state.hover = d; paintRange(); }
+        });
+        cells.push({btn: btn, d: d});
+        grid.appendChild(btn);
+      }
+      grid._cells = cells;
+    }
+
+    function paintRange(){
+      // effective range for visual: pending+hover OR committed start+end
+      let s = state.start, e = state.end;
+      if(state.pending){
+        s = state.pending;
+        e = state.hover || null;
+        if(s && e && e.getTime() < s.getTime()){ const t = s; s = e; e = t; }
+      }
+      [gridA, gridB].forEach(function(g){
+        if(!g._cells) return;
+        g._cells.forEach(function(c){
+          c.btn.classList.remove('is-range-start','is-range-end','is-in-range','is-range-preview');
+          if(s && sameDay(c.d, s)) c.btn.classList.add('is-range-start');
+          if(e && sameDay(c.d, e)) c.btn.classList.add('is-range-end');
+          if(inRange(c.d, s, e)) c.btn.classList.add(state.pending ? 'is-range-preview' : 'is-in-range');
+        });
+      });
+    }
+
+    function render(){
+      titleA.textContent = MONTHS[state.viewMonth] + ' ' + state.viewYear;
+      const nm = state.viewMonth === 11 ? 0 : state.viewMonth + 1;
+      const ny = state.viewMonth === 11 ? state.viewYear + 1 : state.viewYear;
+      titleB.textContent = MONTHS[nm] + ' ' + ny;
+      renderMonth(gridA, state.viewYear, state.viewMonth);
+      renderMonth(gridB, ny, nm);
+      paintRange();
+    }
+
+    function pickDay(d){
+      if(!state.pending && !state.start){
+        state.pending = d; state.hover = d; render(); return;
+      }
+      if(state.pending){
+        // 2nd click
+        let s = state.pending, e = d;
+        if(e.getTime() < s.getTime()){ const t = s; s = e; e = t; }
+        commit(s, e);
+        return;
+      }
+      // already had a committed range — start a new one
+      state.pending = d; state.hover = d; state.start = null; state.end = null;
+      render();
+    }
+
+    function commit(s, e){
+      state.start = s; state.end = e;
+      state.pending = null; state.hover = null;
+      startInput.value = fmt(s);
+      endInput.value = fmt(e);
+      startInput.dispatchEvent(new Event('change', {bubbles: true}));
+      endInput.dispatchEvent(new Event('change', {bubbles: true}));
+      updateHelper();
+      close();
+      startInput.focus();
+    }
+
+    function updateHelper(){
+      if(!helper) return;
+      if(state.start && state.end){
+        helper.textContent = diffDays(state.start, state.end) + ' days';
+      } else {
+        helper.textContent = 'Select start and end. Range count appears here.';
+      }
+    }
+
+    function open(anchor){
+      if(state.open) return;
+      // anchor popover to start input
+      pop.style.left = '0';
+      // sync view to existing start/end
+      const ref = state.start || today;
+      state.viewYear = ref.getFullYear();
+      state.viewMonth = ref.getMonth();
+      pop.hidden = false;
+      requestAnimationFrame(function(){ pop.classList.add('is-open'); });
+      state.open = true;
+      render();
+      document.addEventListener('mousedown', onDocDown, true);
+      document.addEventListener('keydown', onKey, true);
+    }
+    function close(){
+      if(!state.open) return;
+      pop.classList.remove('is-open');
+      state.open = false;
+      state.pending = null; state.hover = null;
+      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      document.removeEventListener('mousedown', onDocDown, true);
+      document.removeEventListener('keydown', onKey, true);
+    }
+    function onDocDown(e){ if(!group.contains(e.target)) close(); }
+    function onKey(e){ if(e.key === 'Escape'){ e.preventDefault(); close(); startInput.focus(); } }
+
+    // Triggers
+    group.querySelectorAll('[data-dp-trigger]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        if(state.open) close(); else open();
+      });
+    });
+
+    // Mask + ArrowDown on both inputs
+    [startInput, endInput].forEach(function(inp){
+      inp.addEventListener('input', function(){ this.value = maskDate(this.value); });
+      inp.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowDown' && !state.open){ e.preventDefault(); open(); }
+      });
+      inp.addEventListener('blur', function(){
+        // try to parse both and commit if valid pair
+        const s = parseDDMMYYYY(startInput.value);
+        const ev = parseDDMMYYYY(endInput.value);
+        if(s && ev && s <= ev && (!min || s >= min) && (!max || ev <= max)){
+          state.start = s; state.end = ev;
+          updateHelper();
+          [startInput, endInput].forEach(function(i){ i.style.borderColor=''; i.style.boxShadow=''; i.removeAttribute('aria-invalid'); });
+        } else if(this.value){
+          this.style.borderColor = 'var(--danger)';
+          this.style.boxShadow = '0 0 0 3px rgba(255,91,91,0.12)';
+          this.setAttribute('aria-invalid', 'true');
+        }
+      });
+    });
+
+    // Header nav
+    pop.querySelector('[data-dp-prev]').addEventListener('click', function(){
+      state.viewMonth--;
+      if(state.viewMonth < 0){ state.viewMonth = 11; state.viewYear--; }
+      render();
+    });
+    pop.querySelector('[data-dp-next]').addEventListener('click', function(){
+      state.viewMonth++;
+      if(state.viewMonth > 11){ state.viewMonth = 0; state.viewYear++; }
+      render();
+    });
+
+    // Presets
+    pop.querySelectorAll('[data-preset]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        const k = this.dataset.preset;
+        const t = new Date(today);
+        let s, e;
+        if(k === 'today'){ s = new Date(t); e = new Date(t); }
+        else if(k === 'last7'){ s = new Date(t); s.setDate(t.getDate() - 6); e = new Date(t); }
+        else if(k === 'last30'){ s = new Date(t); s.setDate(t.getDate() - 29); e = new Date(t); }
+        else if(k === 'lastmonth'){
+          s = new Date(t.getFullYear(), t.getMonth() - 1, 1);
+          e = new Date(t.getFullYear(), t.getMonth(), 0);
+        }
+        if(min && s < min) s = new Date(min);
+        if(max && e > max) e = new Date(max);
+        commit(s, e);
+      });
+    });
+
+    updateHelper();
+  }
+
+  document.querySelectorAll('[data-range-group]').forEach(setupRange);
 })();
 </script>
 <script>
@@ -3283,12 +4322,5 @@ new MutationObserver(muts => {
   blocks.forEach(b => io.observe(b));
 })();
 </script>
-
-<!-- Vercel Web Analytics -->
-<script type="module">
-  import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@1/+esm';
-  inject();
-</script>
-
 </body>
 </html>
