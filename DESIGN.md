@@ -1,6 +1,6 @@
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.1.0 — 2026.05
+> **Version** 2.2.0 — 2026.05
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -318,8 +318,43 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 ### 3.7 Tabs
 
-- Single magenta `.tab-indicator` slides between active triggers via `transform: translateX()` + width interpolation. Duration `var(--d-base) var(--ease-decel)`.
-- Panels swap with a fade — never crossfade, never slide both.
+```html
+<div class="tabs" role="tablist" data-tabs>
+  <button class="tab active" role="tab" aria-selected="true" data-panel="p1">First</button>
+  <button class="tab" role="tab" aria-selected="false" data-panel="p2">Second</button>
+  <span class="tab-indicator" aria-hidden="true"></span>
+</div>
+<div class="tab-panels">
+  <div class="tab-panel active is-in" id="p1" role="tabpanel">…</div>
+  <div class="tab-panel" id="p2" role="tabpanel">…</div>
+</div>
+```
+
+**Required classes:**
+- `.tabs` — wrapper, `position:relative`, bottom border 1px `--obsidian-800`.
+- `.tab` — trigger button. `.active` sets weight 600 + text `--obsidian-100`.
+- `.tab-indicator` — single magenta underline, `position:absolute; bottom:-1px; height:2px; width:0`. Positioned by JS via `transform: translateX(...)` + `width`.
+- `.tab-panels` / `.tab-panel` — panels hidden via `display:none`; `.active` reveals; `.is-in` fades in.
+
+**Indicator positioning (canonical JS pattern):**
+```javascript
+function moveIndicator(tab){
+  const rect = tab.getBoundingClientRect();
+  const parentRect = tablist.getBoundingClientRect();
+  indicator.style.width = rect.width + 'px';
+  indicator.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
+}
+```
+Duration `var(--d-base)` with `var(--ease-decel)` on both `transform` and `width`. Use `will-change: transform, width`.
+
+**Initial position:** double `requestAnimationFrame` so layout is measured after first paint. Re-measure on `window.resize`, and also when the parent section becomes visible (the tablist may live inside a hidden `.section` on first paint and `getBoundingClientRect` returns zeros). An `IntersectionObserver` at threshold 0.01 covers that case.
+
+**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`. Duration `var(--d-quick)` with `var(--ease-standard)`.
+
+**Rules:**
+- Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
+- `prefers-reduced-motion: reduce` — `.tab-indicator` transition becomes `none`; panels swap instantly.
+- Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
 
 ### 3.8 Lightbox
 
@@ -370,6 +405,63 @@ document.getElementById("time-input").addEventListener("input", function () {
 - Opzionale di default; può essere reso obbligatorio per contesto specifico.
 - Nessun `type="time"` — il native picker non rispetta il design system.
 - Focus e stato di errore seguono § 3.2.
+
+### 3.10 Dropdown / Select
+
+Two variants. Pick the smallest that covers the requirement.
+
+#### A. Native enhanced — `<select class="select">`
+
+Default choice. Use when options are fixed, short, no custom rendering required. Inherits browser keyboard nav, mobile UI, accessibility for free.
+
+```html
+<select class="select">
+  <option>Draft</option>
+  <option>Pending</option>
+  <option>Published</option>
+</select>
+```
+
+**Style contract:**
+- `appearance: none; -webkit-appearance: none; -moz-appearance: none`
+- Background: inline SVG chevron (down) as `background-image`, **canonical stroke `%238A94A3`**, 12×12 viewBox, `stroke-width:2.5`. Positioned `right 12px center`, size `12px 12px`.
+- `padding-right: 36px` to reserve space for the chevron.
+- Same border / radius / focus glow as `.input` (§ 3.2).
+
+#### B. Custom listbox
+
+Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (avatars, badges, two-line items), grouped headings beyond `<optgroup>`.
+
+```html
+<div class="select-wrap" data-select>
+  <button type="button" class="select select-trigger"
+    aria-haspopup="listbox" aria-expanded="false" aria-labelledby="status-label">
+    <span class="select-value">Draft</span>
+  </button>
+  <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
+    <li class="select-option" role="option" aria-selected="true" data-value="Draft">Draft</li>
+    <li class="select-option" role="option" aria-selected="false" data-value="Pending">Pending</li>
+    <li class="select-option" role="option" aria-selected="false" data-value="Published">Published</li>
+  </ul>
+</div>
+```
+
+**Behavior:**
+- `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
+- `.select-menu` is `position:absolute; top:calc(100% + 4px); left:0; right:0`; background `--obsidian-850`; max-height `240px` with internal overflow; `hidden` attribute used to dismiss (do not toggle `display` directly).
+- `.select-option[aria-selected="true"]` rendered in `--magenta-400`. Hover/focus background is `--obsidian-800`.
+- Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
+
+**Keyboard:**
+- `Enter`/`Space` on trigger opens.
+- `↓`/`↑` navigate options. First open lands on the currently selected option (or first if none).
+- `Enter` on focused option commits + closes; trigger receives focus back.
+- `Esc` closes without committing; trigger receives focus back.
+- `Tab` from open menu closes and proceeds.
+
+**Dismissal:**
+- Click outside the `[data-select]` wrapper closes the menu.
+- Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
 
 ---
 
@@ -573,6 +665,23 @@ The version line at the top of this document is the source of truth. The CSS fil
 ---
 
 ## 13. Changelog
+
+### v2.2.0 — 2026.05.12 (MINOR)
+**Added · components**
+- **§ 11.2 Time picker** — iOS-style scroll wheel. 24h, configurable minute step (default 5), 7 visible items, infinite loop via triple-buffer + auto-rewind, native `scroll-snap-type: y mandatory`. Magenta band overlay + top/bottom fade gradient.
+- **§ 11.3 Date input** — DD/MM/YYYY single date. Digit-by-digit mask, calendar popover with year-jump decade grid, Today shortcut, optional `data-min`/`data-max`, blur-time real-date validation.
+- **§ 11.4 Date range** — Two coupled inputs sharing one popover anchored to start. Two months side-by-side; collapses to stacked vertical ≤ 600px. Four analytics presets in footer: Today, Last 7 days, Last 30 days, Last month. Helper auto-renders `N days` (inclusive count).
+
+**Refined · spec gaps closed**
+- **§ 3.7 Tabs** — Expanded from a one-liner to a full spec: canonical HTML, required classes, indicator-positioning JS pattern, `prefers-reduced-motion` handling, panel fade-in pattern, "never crossfade, never slide both" rule.
+- **§ 3.10 Dropdown / Select** — New section. Documents native-enhanced `<select class="select">` (canonical inline SVG chevron, stroke `%238A94A3`, 36px right-pad) and custom listbox pattern with full keyboard nav, focus-trap, click-outside dismissal.
+
+**Fixed**
+- Date picker hover flicker, range second-click reliability, stepper label drift on replay, replay button capture phase.
+
+**Trigger**
+
+A real implementation — pipeline-dashboard, 2026-05-12 — surfaced two under-specified areas (Tabs, Dropdown). Closing those gaps is the rationale for § 3.7 and § 3.10.
 
 ### v2.1.0 — 2026.05 (MINOR)
 **Added**
