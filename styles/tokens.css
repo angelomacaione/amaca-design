@@ -149,6 +149,12 @@
   --d-slow:    600ms;
   --d-scene:   900ms;
 
+  /* — LOADER (component-specific size scale, § 17) — */
+  --loader-xs: 16px;
+  --loader-sm: 24px;
+  --loader-md: 48px;
+  --loader-lg: 96px;
+
   /* — LAYOUT — */
   --sidebar-w: 260px;
   --content-max: 1180px;

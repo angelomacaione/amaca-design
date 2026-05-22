@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=25">
-<link rel="stylesheet" href="styles/components.css?v=63">
+<link rel="stylesheet" href="styles/tokens.css?v=26">
+<link rel="stylesheet" href="styles/components.css?v=72">
 <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
@@ -73,7 +73,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.2.0 · DESIGN SYSTEM</span>
+        <span class="meta">V2.3.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -105,26 +105,28 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges &amp; Status</a>
       <a class="nav-item" href="#nav" data-target="nav"><span class="num">14</span> Navigation</a>
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">15</span> Accordion</a>
+      <a class="nav-item" href="#chat" data-target="chat"><span class="num">16</span> Chat &amp; Messaging</a>
+      <a class="nav-item" href="#loader" data-target="loader"><span class="num">17</span> Loader</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Applied</div>
-      <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">16</span> Data Viz</a>
-      <a class="nav-item" href="#voice" data-target="voice"><span class="num">17</span> Voice &amp; Tone</a>
-      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">18</span> Accessibility</a>
-      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">19</span> Case Study</a>
+      <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">18</span> Data Viz</a>
+      <a class="nav-item" href="#voice" data-target="voice"><span class="num">19</span> Voice &amp; Tone</a>
+      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">20</span> Accessibility</a>
+      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">21</span> Case Study</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Meta</div>
-      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">20</span> Changelog</a>
+      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">22</span> Changelog</a>
     </div>
 
     <div class="sidebar-footer">
       <div class="status"><span class="dot"></span> System live</div>
-      <div>Build 2026.04 · Angelo Macaione</div>
+      <div>Build 2026.05 · Angelo Macaione</div>
     </div>
   </aside>
   <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
@@ -149,18 +151,18 @@ html{scroll-behavior:smooth}
       <!-- ============ OVERVIEW ============ -->
       <section class="section active" id="overview">
         <div class="page-header">
-          <div class="page-eyebrow">The System · 2026.04</div>
+          <div class="page-eyebrow">The System · 2026.05</div>
           <h1 class="page-title">Design products that <span class="accent">reshape the future</span>.</h1>
           <p class="page-lede">
             Motion-first. AI-readable. Built in the open.
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.2.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.3.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">May 13, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">May 07, 2026</span></div>
           </div>
         </div>
 
@@ -336,7 +338,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <tr><td><code>## Components</code></td><td class="muted">Buttons, inputs, cards, badges, navigation, accordion — props, states, do/don't.</td></tr>
               <tr><td><code>## Voice</code></td><td class="muted">Editorial direction. Word lists. Phrasing examples.</td></tr>
               <tr><td><code>## Accessibility</code></td><td class="muted">Color pairs with ratios, focus rules, reduced-motion contracts.</td></tr>
-              <tr><td><code>## Changelog</code></td><td class="muted">Every release, top to bottom. Same as § 20.</td></tr>
+              <tr><td><code>## Changelog</code></td><td class="muted">Every release, top to bottom. Same as § 22.</td></tr>
             </tbody>
           </table>
         </div>
@@ -347,7 +349,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">VERSIONING</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.2.0 here ships v2.2.0 of the spec. From v1.2.6 onward, strict SemVer — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.3.0 here ships v2.3.0 of the spec. From v1.2.6 onward, strict SemVer.</p>strict SemVer — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6)">
               <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">LICENSE</div>
@@ -1458,16 +1460,582 @@ Basic UI</div>
         </div>
       </section>
 
+      <!-- ============ CHAT / MESSAGING ============ -->
+      <section class="section" id="chat">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 16 · Components / Chat &amp; Messaging</div>
+          <h1 class="page-title">Conversations that <span class="accent">earn their bubbles.</span></h1>
+          <p class="page-lede">A chatbot interface lives or dies on cadence. Bubbles land with a small spring overshoot, typing indicators promise a reply, and the conversation never overcrowds the surface — older messages roll off after three exchanges. Own bubbles use <code>--magenta-700</code> (deep brand), so <code>--magenta-500</code> stays reserved for CTAs and focus.</p>
+        </div>
+
+        <!-- § 16.1 Anatomy -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 16.1</span></div>
+          <p class="subsection-desc">Uniform <code>--r-lg</code> (12px) on all four corners — no tail. Avatar appears only on the first bubble of a bot streak; subsequent bot bubbles get a 32px invisible spacer so the column stays aligned. Own bubbles fill with <code>--magenta-700</code>, the deep brand accent — the brighter <code>--magenta-500</code> stays reserved for primary actions elsewhere in the system.</p>
+
+          <div class="chat-anatomy">
+            <div class="chat-anatomy-canvas" role="group" aria-label="Sample conversation: bot greeting and two user replies">
+              <!-- Bot bubble with avatar + meta -->
+              <div class="chat-msg chat-msg-bot is-in">
+                <div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>
+                <div class="chat-stack">
+                  <div class="chat-meta">
+                    <span class="chat-meta-name">Amaca</span>
+                    <span class="chat-meta-time">10:42</span>
+                  </div>
+                  <div class="chat-bubble chat-bubble-bot">
+                    <span class="chat-sr-only">Amaca said: </span>
+                    <div class="chat-bubble-content">Welcome — what should we build today?</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Own bubble — magenta-700 -->
+              <div class="chat-msg chat-msg-own is-in">
+                <div class="chat-stack">
+                  <div class="chat-bubble chat-bubble-own">
+                    <span class="chat-sr-only">You said: </span>
+                    <div class="chat-bubble-content">A color system for a finance dashboard.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Own bubble (follow-up) — same magenta-700, no “hot” distinction -->
+              <div class="chat-msg chat-msg-own is-in">
+                <div class="chat-stack">
+                  <div class="chat-bubble chat-bubble-own">
+                    <span class="chat-sr-only">You said: </span>
+                    <div class="chat-bubble-content">Start from system magenta.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chat-anatomy-legend">
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">01</div>
+                <div class="chat-anatomy-label">Avatar — first bubble of bot streak only</div>
+                <div class="chat-anatomy-value">32 × 32</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">02</div>
+                <div class="chat-anatomy-label">Bubble padding</div>
+                <div class="chat-anatomy-value">--s-3 / --s-4</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">03</div>
+                <div class="chat-anatomy-label">Bubble radius — uniform, no tail</div>
+                <div class="chat-anatomy-value">--r-lg (12)</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">04</div>
+                <div class="chat-anatomy-label">Max-width relative to surface</div>
+                <div class="chat-anatomy-value">84%</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">05</div>
+                <div class="chat-anatomy-label">Inter-bubble gap</div>
+                <div class="chat-anatomy-value">--s-3 (12)</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">06</div>
+                <div class="chat-anatomy-label">Own bubble fill — deep brand</div>
+                <div class="chat-anatomy-value">--magenta-700</div>
+              </div>
+              <div class="chat-anatomy-row">
+                <div class="chat-anatomy-num">07</div>
+                <div class="chat-anatomy-label">Bot bubble fill</div>
+                <div class="chat-anatomy-value">--obsidian-800</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 16.2 Live demo -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Live demo</h2><span class="subsection-num">§ 16.2</span></div>
+          <p class="subsection-desc">Three scripted exchanges with a chatbot. Each turn: typing indicator first, then the bubble lands. After the third exchange completes, older messages roll off the top so the surface never overcrowds. Hit replay to restart.</p>
+
+          <div class="chat-demo">
+            <div class="chat-demo-head">
+              <div class="chat-demo-head-title">§ 16.2 · Amaca assistant</div>
+              <div class="chat-demo-head-spacer"></div>
+              <button type="button" class="chat-demo-replay" data-chat-replay>
+                <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M11 7a4 4 0 1 1-1.2-2.85" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M11 2.2v2.4H8.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Replay
+              </button>
+            </div>
+
+            <div class="chat-stage" data-chat-demo aria-label="Conversation with Amaca">
+              <div class="chat-stage-head">
+                <div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>
+                <div class="chat-stage-head-title">Amaca · assistant</div>
+                <div class="chat-stage-head-status">Online</div>
+              </div>
+              <div class="chat-stage-scroll" data-chat-scroll role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 16.3 Composer -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Composer</h2><span class="subsection-num">§ 16.3</span></div>
+          <p class="subsection-desc">Textarea expands from 36px to 132px before scrolling. Send is dim while empty; lights up magenta on first keystroke. Attach is ghost-styled, hover only. Enter sends; ⇧ Enter inserts a newline.</p>
+
+          <div class="grid grid-2">
+            <div>
+              <div class="ty-mono" style="color:var(--obsidian-400);margin-bottom:var(--s-3);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase">Empty · resting</div>
+              <div class="chat-composer">
+                <button type="button" class="chat-composer-attach" aria-label="Attach file">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <textarea class="chat-composer-textarea" placeholder="Message Amaca…" rows="1" aria-label="Message Amaca"></textarea>
+                <button type="button" class="chat-composer-send" aria-label="Send message">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="chat-composer-hint">
+                <kbd>Enter</kbd> Send · <kbd>⇧ Enter</kbd> Newline
+              </div>
+            </div>
+
+            <div>
+              <div class="ty-mono" style="color:var(--obsidian-400);margin-bottom:var(--s-3);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase">Ready · text staged</div>
+              <div class="chat-composer is-ready">
+                <button type="button" class="chat-composer-attach" aria-label="Attach file">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <textarea class="chat-composer-textarea" rows="2" aria-label="Message Amaca">Generate the magenta ramp as CSS tokens.</textarea>
+                <button type="button" class="chat-composer-send" aria-label="Send message">
+                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                    <path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="chat-composer-hint">Send button activates on first keystroke</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 16.4 Motion spec -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 16.4</span></div>
+          <p class="subsection-desc">Every transition resolves to a token. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot, then the inner content fades up 80ms behind on the standard ease. The wave on the typing dots loops on <code>--d-slow</code>. Under <code>prefers-reduced-motion: reduce</code> everything in this section degrades to instant.</p>
+          <table class="table">
+            <thead><tr><th style="width:30%">Element</th><th style="width:25%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <tbody>
+              <tr><td><code>.chat-bubble</code> · container</td><td>transform (scale 0.92 → 1, spring overshoot)</td><td class="muted"><code>--d-base</code> · <code>--ease-spring</code> · 0ms</td></tr>
+              <tr><td><code>.chat-bubble</code> · container</td><td>opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-standard</code> · 0ms</td></tr>
+              <tr><td><code>.chat-bubble-content</code> · inner</td><td>opacity, translateY 3px → 0</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 80ms delay</td></tr>
+              <tr><td><code>.chat-msg.is-out</code> · roll-off</td><td>opacity, translateY -8px, max-height 0</td><td class="muted"><code>--d-quick</code> opacity/transform; <code>--d-base</code> collapse · <code>--ease-accel</code></td></tr>
+              <tr><td><code>.chat-dot</code> · wave (loop)</td><td>translateY -4px, opacity 0.35 → 1</td><td class="muted"><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 160 / 320ms</td></tr>
+              <tr><td><code>.chat-composer-send</code> · idle → ready</td><td>background, color</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 0ms</td></tr>
+              <tr><td>Reduced motion</td><td class="muted">All chat transitions disabled; <code>.chat-dot</code> animation stopped at rest; <code>.chat-msg.is-out</code> still hides (instant) so the surface never overcrowds.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- § 16.5 Do / Don't -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 16.5</span></div>
+          <p class="subsection-desc">Anti-patterns surfaced from early chatbot builds. Most are 85/10/5 violations dressed up as enthusiasm.</p>
+
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Own bubbles fill with <code>--magenta-700</code> — the deep brand accent. Bright <code>--magenta-500</code> stays reserved for CTAs and focus rings.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Paint own bubbles with <code>--magenta-500</code>. The bubble starts reading as a CTA and the actual primary action on the page loses its weight.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Anchor the typing indicator inside a bot bubble — same shape, same surface, same column. The reader's eye stays where the next message will land.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Float "Amaca is typing…" as a gutter caption below the conversation. For a single-bot UI it's noise; the avatar already says who's typing.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Show the avatar only on the first bot bubble of a streak. The rest of the streak gets a 32px invisible spacer so the column stays aligned.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Repeat the avatar on every bot bubble. It hijacks the eye and steals the budget from content.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Roll older messages off the top after the conversation passes ~3 exchanges. Fade up + collapse in <code>--d-quick</code> on <code>--ease-accel</code>.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Let the demo grow unbounded. A demo that fills the viewport buries the motion you're trying to document.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LOADER ============ -->
+      <section class="section" id="loader">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 17 · Components / Loader</div>
+          <h1 class="page-title">The logo, <span class="accent">in motion as a promise.</span></h1>
+          <p class="page-lede">A loader is a contract: <em>something is happening, don't leave</em>. The Amaca logo carries that contract at four scales — inside a button, beside an input, over a card, across the viewport. Under <code>prefers-reduced-motion</code> the Lottie steps aside and a single magenta ring spins in its place.</p>
+        </div>
+
+        <!-- § 17.1 Scale -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 17.1</span></div>
+          <p class="subsection-desc">Four sizes, four tokens. The Lottie scales linearly — the file is vector. Hit-area follows the box exactly; no extra padding.</p>
+
+          <div class="loader-scale">
+            <div class="loader-scale-cell">
+              <span class="loader loader-xs" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+              </span>
+              <div class="meta">
+                <span class="token">--loader-xs</span>
+                <span class="value">16 PX</span>
+              </div>
+            </div>
+            <div class="loader-scale-cell">
+              <span class="loader loader-sm" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+              </span>
+              <div class="meta">
+                <span class="token">--loader-sm</span>
+                <span class="value">24 PX</span>
+              </div>
+            </div>
+            <div class="loader-scale-cell">
+              <span class="loader loader-md" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+              </span>
+              <div class="meta">
+                <span class="token">--loader-md</span>
+                <span class="value">48 PX</span>
+              </div>
+            </div>
+            <div class="loader-scale-cell">
+              <span class="loader loader-lg" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+              </span>
+              <div class="meta">
+                <span class="token">--loader-lg</span>
+                <span class="value">96 PX</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 17.2 Variants -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 17.2</span></div>
+          <p class="subsection-desc">Five shapes for five waits. The standalone is the floor; everything else composes from it. Success swaps the Lottie for a check on <code>--ease-spring</code> when the wait resolves green.</p>
+
+          <div class="loader-variants">
+            <div class="loader-variant-cell">
+              <span class="loader loader-md" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+              </span>
+              <div class="caption">Standalone</div>
+            </div>
+
+            <div class="loader-variant-cell">
+              <div class="loader loader-with-label loader-md" role="status" aria-label="Generating tokens" data-loader-label-host>
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                <span class="loader-label" data-loader-cycle>Generating tokens…</span>
+              </div>
+              <div class="caption">With label</div>
+            </div>
+
+            <div class="loader-variant-cell">
+              <button type="button" class="btn btn-primary is-loading" disabled aria-label="Submitting">
+                Submit
+                <span class="loader loader-xs" role="status" aria-hidden="true">
+                  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                  <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                </span>
+              </button>
+              <div class="caption">Inside button</div>
+            </div>
+
+            <div class="loader-variant-cell" data-loader-skeleton>
+              <div class="skeleton-stack" style="max-width:140px;width:100%">
+                <div class="skeleton-line" style="width:88%"></div>
+                <div class="skeleton-line" style="width:64%"></div>
+                <div class="skeleton-line" style="width:78%"></div>
+              </div>
+              <div class="caption">Skeleton handoff</div>
+            </div>
+
+            <div class="loader-variant-cell" data-loader-state="success">
+              <span class="loader loader-md" role="status" aria-label="Done">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                <span class="loader-check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+              </span>
+              <div class="caption">Success state</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 17.3 Compositions -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Compositions</h2><span class="subsection-num">§ 17.3</span></div>
+          <p class="subsection-desc">Four real-world placements. Click any <em>Trigger</em> to start the wait, watch the loader hold the surface, then resolve.</p>
+
+          <div class="grid grid-2" style="gap:var(--s-5)">
+
+            <!-- C1: button submit loading -->
+            <div class="loader-comp">
+              <div class="loader-comp-head">
+                <span class="loader-comp-eyebrow">17.3 / 01</span>
+                <span class="loader-comp-title">Inside primary button · submitting</span>
+              </div>
+              <div class="loader-comp-body" style="flex-direction:column;gap:var(--s-4)">
+                <p style="font-size:var(--t-small);color:var(--obsidian-300);margin:0;text-align:center;max-width:280px">A submit handler is in flight. The button stays the same size; the label crossfades to the loader so layout never shifts.</p>
+                <button type="button" class="btn btn-primary" data-loader-btn-demo>
+                  Submit form
+                  <span class="loader loader-xs" role="status" aria-hidden="true">
+                    <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                    <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                    <span class="loader-check" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                  </span>
+                </button>
+              </div>
+              <div class="loader-comp-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-loader-btn-trigger>Trigger</button>
+              </div>
+            </div>
+
+            <!-- C2: input validating -->
+            <div class="loader-comp">
+              <div class="loader-comp-head">
+                <span class="loader-comp-eyebrow">17.3 / 02</span>
+                <span class="loader-comp-title">Inline · async validation</span>
+              </div>
+              <div class="loader-comp-body" style="flex-direction:column;gap:var(--s-3);align-items:stretch">
+                <label class="field" style="width:100%">
+                  <span class="field-label">EMAIL</span>
+                  <input class="input" type="email" value="hello@amaca.design" data-loader-input>
+                </label>
+                <div class="loader loader-inline loader-xs" role="status" aria-live="polite" data-loader-input-status>
+                  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                  <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                  <span class="loader-check" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </span>
+                  <span class="loader-label" data-loader-input-label>Checking availability…</span>
+                </div>
+              </div>
+              <div class="loader-comp-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-loader-input-trigger>Trigger</button>
+              </div>
+            </div>
+
+            <!-- C3: full-page loader in a device frame -->
+            <div class="loader-comp">
+              <div class="loader-comp-head">
+                <span class="loader-comp-eyebrow">17.3 / 03</span>
+                <span class="loader-comp-title">Full-page · app boot</span>
+              </div>
+              <div class="loader-comp-body" style="padding:var(--s-5)">
+                <div class="loader-device" data-loader-device>
+                  <div class="loader-device-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url"></span></div>
+                  <div class="loader-device-content" style="padding:var(--s-5);display:grid;gap:var(--s-4)">
+                    <div class="skeleton-line" style="width:60%;height:18px"></div>
+                    <div class="skeleton-stack">
+                      <div class="skeleton-line" style="width:92%"></div>
+                      <div class="skeleton-line" style="width:78%"></div>
+                      <div class="skeleton-line" style="width:84%"></div>
+                    </div>
+                  </div>
+                  <div class="loader-page" data-loader-page>
+                    <span class="loader loader-lg" role="status" aria-label="Loading workspace">
+                      <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                      <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                    </span>
+                    <span class="loader-label" style="color:var(--obsidian-300)">Loading workspace…</span>
+                  </div>
+                </div>
+              </div>
+              <div class="loader-comp-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-loader-device-trigger>Trigger</button>
+              </div>
+            </div>
+
+            <!-- C4: chat composer bot generating -->
+            <div class="loader-comp">
+              <div class="loader-comp-head">
+                <span class="loader-comp-eyebrow">17.3 / 04</span>
+                <span class="loader-comp-title">Chat composer · bot generating (cross-component)</span>
+              </div>
+              <div class="loader-comp-body" style="flex-direction:column;align-items:stretch;gap:var(--s-3)">
+                <div class="loader-mini-bubble" data-loader-chat-bubble>
+                  <span class="loader loader-xs" role="status" aria-label="Amaca is generating">
+                    <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                    <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                  </span>
+                  <span>Amaca is generating a response…</span>
+                </div>
+                <div class="loader-mini-composer">
+                  <span class="text">Send another message…</span>
+                </div>
+              </div>
+              <div class="loader-comp-actions">
+                <button type="button" class="btn btn-ghost btn-sm" data-loader-chat-trigger>Trigger</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- § 17.4 Anatomy -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 17.4</span></div>
+          <p class="subsection-desc">Tokenized spacing between logo and label, padding on overlay variants, alpha on the backdrop. Each measurement maps to a system token — no raw px in component code.</p>
+
+          <div class="loader-anatomy">
+            <div class="loader-anatomy-canvas" role="group" aria-label="Loader with label specimen">
+              <div class="loader loader-with-label loader-md" role="status" aria-label="Loading">
+                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
+                <span class="loader-label">Generating tokens…</span>
+              </div>
+            </div>
+
+            <div class="loader-anatomy-legend">
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">01</div>
+                <div class="loader-anatomy-label">Logo box (MD)</div>
+                <div class="loader-anatomy-value">--loader-md (48)</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">02</div>
+                <div class="loader-anatomy-label">Gap between logo and label</div>
+                <div class="loader-anatomy-value">--s-3 (12)</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">03</div>
+                <div class="loader-anatomy-label">Label · body 15, tracking snug</div>
+                <div class="loader-anatomy-value">--obsidian-200</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">04</div>
+                <div class="loader-anatomy-label">Overlay backdrop alpha</div>
+                <div class="loader-anatomy-value">0.72 · blur 2px</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">05</div>
+                <div class="loader-anatomy-label">Success check · scale-in spring</div>
+                <div class="loader-anatomy-value">--ease-spring</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">06</div>
+                <div class="loader-anatomy-label">Reduced-motion ring · stroke</div>
+                <div class="loader-anatomy-value">--magenta-500 · 1.4s</div>
+              </div>
+              <div class="loader-anatomy-row">
+                <div class="loader-anatomy-num">07</div>
+                <div class="loader-anatomy-label">ARIA · live announcement</div>
+                <div class="loader-anatomy-value">role=status</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 17.5 Do / Don't -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 17.5</span></div>
+          <p class="subsection-desc">A loader has a job. If it isn't communicating a real wait, it's decoration — and decoration on a brand mark dilutes the mark.</p>
+
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Show the loader within <em>100ms</em> of the action that triggered the wait. Late loaders read as a glitch, not feedback.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Pop the loader after the response already returned. A 200ms wait deserves no loader at all — show the result.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>One full-page loader per route at a time. After 800ms hand off to skeleton frames so the page reads as structurally present.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Stack a section loader inside a card that already sits inside a full-page loader. The user can't tell which wait is which.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Pair every loader with an accessible name — <code>aria-label</code> on the loader root or a visible label. Screen readers announce <code>role=status</code> politely.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Use the loader as a decorative animation in the corner of a hero. The mark is in motion <em>because</em> something is loading — never because the page is.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Resolve to the success state when a wait completes green — the checkmark crossfades in over the logo on <code>--ease-spring</code> and the live region announces.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Let the loader keep spinning after the wait is over. A loader that won't stop is a bug surface, not a state.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ DATA VIZ ============ -->
       <section class="section" id="dataviz">
         <div class="page-header">
-          <div class="page-eyebrow">§ 16 · Applied / Data Viz</div>
+          <div class="page-eyebrow">§ 18 · Applied / Data Viz</div>
           <h1 class="page-title">Charts that <span class="accent">respect the surface.</span></h1>
           <p class="page-lede">Dark canvas. One accent hue per chart. Grid lines at 8% opacity. Numbers in Satoshi, axis labels in mono.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 16.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 18.1</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -1533,7 +2101,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 16.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 18.2</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
@@ -1583,7 +2151,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 16.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 18.3</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
@@ -1640,7 +2208,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 16.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 18.4</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
@@ -1665,7 +2233,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 16.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 18.5</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -1790,7 +2358,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 16.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 18.6</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -1888,7 +2456,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 16.7</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 18.7</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -1923,7 +2491,7 @@ Basic UI</div>
       </section>
       <section class="section" id="voice">
         <div class="page-header">
-          <div class="page-eyebrow">§ 17 · Applied / Voice &amp; Tone</div>
+          <div class="page-eyebrow">§ 19 · Applied / Voice &amp; Tone</div>
           <h1 class="page-title">How this system <span class="accent">writes.</span></h1>
           <p class="page-lede">Amaca speaks in two registers. The live site is editorial, written for a designer reading on a Tuesday afternoon — paragraphed, contextual, first-person. The DESIGN.md on GitHub is the same system expressed differently — declarative, machine-readable, one rule per line. Both serve the design. Neither imitates the other.
 
@@ -1931,7 +2499,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 17.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 19.1</span></div>
           <div class="grid grid-4">
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers when you have them, scope when you don't.</p></div>
@@ -1941,7 +2509,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 17.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 19.2</span></div>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This pattern didn't work in early testing. Users read 'send' as destructive, so we changed the label to 'queue for review."</p></div>
             <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through iterative exploration and rigorous testing, we arrived at an optimal labeling solution that better aligned with user mental models."</p></div>
@@ -1953,7 +2521,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 17.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 19.3</span></div>
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
             <tbody>
@@ -1968,7 +2536,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 17.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 19.4</span></div>
           <p class="subsection-desc">If you're a language model generating copy for surfaces that use this system, four hard constraints:</p>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do · 01</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
@@ -1982,13 +2550,13 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ ACCESSIBILITY ============ -->
       <section class="section" id="accessibility">
         <div class="page-header">
-          <div class="page-eyebrow">§ 18 · Applied / Accessibility</div>
+          <div class="page-eyebrow">§ 20 · Applied / Accessibility</div>
           <h1 class="page-title">Contrast <span class="accent">by intent, not accident.</span></h1>
           <p class="page-lede">Every text/surface pair in the system is verified against WCAG 2.2. The system is dark-first, not dark-only — every token has a light-mode equivalent resolved at build time. Motion, focus, and touch targets follow the same rule: specified, not assumed.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 18.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 20.1</span></div>
           <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. Nothing in the production palette falls below AA.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
@@ -2009,7 +2577,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 18.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 20.2</span></div>
           <p class="subsection-desc">Every interactive element has a visible focus state. The system ships two patterns: a dual-ring for pressable elements (outline + brand halo), and an inline glow for text inputs. Verified against <code>components.css</code>.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
@@ -2028,7 +2596,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 18.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 20.3</span></div>
           <p class="subsection-desc">Under <code>prefers-reduced-motion: reduce</code>, the system ships a global kill-switch plus per-component overrides for hover-transforms that would otherwise feel jumpy. No parallax, no auto-advance, anywhere in the system.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Rule</th><th>Scope</th><th>Effect</th></tr></thead>
@@ -2044,7 +2612,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 18.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 20.4</span></div>
           <p class="subsection-desc">Non-negotiable rules. Any component that can't meet all seven doesn't ship.</p>
           <div class="a11y-floor">
             <div class="a11y-rule"><span class="n">01</span><p>Color never carries meaning alone. Every status uses color + shape + label.</p></div>
@@ -2061,7 +2629,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ CASE STUDY APPLIED ============ -->
       <section class="section" id="casestudy">
         <div class="page-header">
-          <div class="page-eyebrow">§ 19 · Applied / Case Study Template</div>
+          <div class="page-eyebrow">§ 21 · Applied / Case Study Template</div>
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
@@ -2141,19 +2709,66 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ CHANGELOG ============ -->
       <section class="section" id="changelog">
         <div class="page-header">
-          <div class="page-eyebrow">§ 20 · Meta / Changelog</div>
+          <div class="page-eyebrow">§ 22 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
           <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 20.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 22.1</span></div>
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.2.0 -->
+            <!-- v2.3.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-220">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-230">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.3.0 — Chat &amp; messaging, loader, 85/10/5 reveal</span>
+                <span class="acc-num">2026-05-22</span>
+              </button>
+              <div class="acc-panel" id="cl-230" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR release. Two new components ship — a chat &amp; messaging set built for chatbot interfaces, and a brand-logo loader at four scales with five composition variants. The 85/10/5 law card gets an entrance choreography. The Applied and Meta groups renumber by one to keep Components contiguous (16 Chat, 17 Loader); no token, no API breaks.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · components</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 16 · Chat &amp; Messaging</strong> — Bot and own bubbles at uniform <code>--r-lg</code> (no tail), avatar on the first bubble of a bot streak, two-stage entry choreography (container <code>scale(0.92→1)</code> on <code>--ease-spring</code> at <code>--d-base</code>, inner content fades up 80ms behind on <code>--ease-standard</code>), typing indicator with a 3-dot wave loop on <code>--d-slow</code>, scripted live demo with replay, full composer specimen (textarea + send + attach). Own bubbles fill with <code>--magenta-700</code> so <code>--magenta-500</code> stays reserved for CTAs and focus.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 17 · Loader</strong> — Brand mark (Lottie/GIF) at four scales — <code>--loader-xs</code> 16 / <code>--loader-sm</code> 24 / <code>--loader-md</code> 48 / <code>--loader-lg</code> 96. Five variants: standalone, with-label (cycling phrases on a 2.4s interval), inside-button (replaces label when <code>.is-loading</code>), skeleton handoff, and success state with a check that scales in on <code>--ease-spring</code>. Four real-world compositions: form submit, async input validation, full-page boot in a device frame, and a cross-component placement inside the chat composer. Under <code>prefers-reduced-motion: reduce</code> the brand mark steps aside and a single magenta CSS ring spinner takes its place.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · tokens</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)"><code>--loader-xs / sm / md / lg</code></strong> — Component-specific size scale at <code>16 / 24 / 48 / 96px</code>. Lives in <code>tokens.css</code> alongside layout tokens.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 04.7 · 85/10/5 law card</strong> — Entrance choreography added. On scroll into view, the proportion bar wipes left-to-right via <code>clip-path: inset(0 100% 0 0) → inset(0 0 0 0)</code> on <code>--ease-decel</code>, then the three legend rows and the rule block fade-and-rise in sequence (stagger 180ms). <code>IntersectionObserver</code> fires once at threshold 0.25; reduced-motion users see the resolved state instantly.</li>
+                    <li><strong style="color:var(--obsidian-100)">Chat own-bubble color</strong> — Discarded the "hot last" rule (latest own message tinted bright magenta). Unified all own bubbles on <code>--magenta-700</code> (deep brand) with <code>--obsidian-050</code> text — 6.26:1 contrast, near-AAA at body size. The brighter <code>--magenta-500</code> stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.</li>
+                    <li><strong style="color:var(--obsidian-100)">Loader inside <code>.btn-primary</code></strong> — Cyan-on-magenta is off-system. Resolved via <code>filter: brightness(0)</code> on <code>.btn-primary .loader-anim</code>, collapsing the cubes to a near-black silhouette without introducing a second source file. Applies at rest and while loading.</li>
+                    <li><strong style="color:var(--obsidian-100)">Section numbering</strong> — Applied (Data Viz, Voice, Accessibility, Case Study) and Meta (Changelog) groups shift by one — <code>16→18 / 17→19 / 18→20 / 19→21 / 20→22</code> — to make room for the two new Components entries. Sidebar nav, in-page anchors, and cross-references all updated; no external links break.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Accessibility</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Chat conversation</strong> — The scroll region carries <code>role="log" aria-live="polite" aria-relevant="additions"</code>; each bubble includes a visually-hidden sender prefix (<em>"Amaca said:" / "You said:"</em>) so the read order survives when the avatar is suppressed on streak follow-ups; the typing bubble carries <code>aria-label="Amaca is typing"</code>; the composer textareas get a persistent <code>aria-label</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Focus visibility</strong> — Dual-ring focus state (<code>--obsidian-100</code> outline + magenta halo) added to <code>.chat-composer-attach</code>, <code>.chat-composer-send</code>, and <code>.chat-demo-replay</code>. Touch hit areas on composer buttons bump from 36 to 44px below 720px wide.</li>
+                    <li><strong style="color:var(--obsidian-100)">Loader semantics</strong> — Every loader carries <code>role="status"</code> with a contextual <code>aria-label</code>. The cycling label variant updates the host's <code>aria-label</code> in lockstep with the visible phrase, so screen readers hear the real wait rather than a generic "Loading".</li>
+                  </ul>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-22</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.2.0...v2.3.0" target="_blank" rel="noopener">v2.2.0…v2.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.2.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-220">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.2.0 — Date &amp; time pickers, dropdown spec, tabs hardened</span>
                 <span class="acc-num">2026-05-12</span>
@@ -2356,14 +2971,14 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new components</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 15 · Accordion</strong> — Collapsible content blocks for FAQs, dense documentation, and progressive disclosure. Single-open and multi-open variants. Keyboard navigation built in.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 16.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 16.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 18.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 18.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new sections</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
-                    <li><strong style="color:var(--obsidian-100)">§ 18 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 20 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 20 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 22 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 03 · Documentation</strong> — Single Markdown file (<code>design.md</code>) containing every token, component spec, principle, and rule. Built to feed into LLMs as context for AI-assisted design work. Updated alongside the system — every release ships a fresh spec.</li>
                   </ul>
 
@@ -2420,10 +3035,10 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Interactions</strong> — Added states for tabs, images, and thumbs.</li>
                   </ul>
 
-                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 16.3 Donut charts</h4>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 18.3 Donut charts</h4>
                   <p style="margin:0 0 var(--s-3)">Slice geometry rebuilt from stroked arcs to true ring-segment paths.</p>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
-                    <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 16.2).</li>
+                    <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 18.2).</li>
                     <li>Inter-slice gap halved from ~6px to ~3px of circumference for tighter visual rhythm.</li>
                     <li>Draw-on animation preserved via angular sweep.</li>
                     <li><strong style="color:var(--obsidian-100)">Before</strong> — half-circle round caps (13px radius — too soft) or butt caps (sharp — inconsistent with bars).</li>
@@ -2767,7 +3382,7 @@ new MutationObserver(muts => {
       });
     }
 
-    // --- case study outcome cards (§ 19) — same pattern as § 12.2 ---
+    // --- case study outcome cards (§ 21) — same pattern as § 12.2 ---
     function runCsOutcome(){
       if (!csOutcomeRegion) return;
       const cards = csOutcomeRegion.querySelectorAll('.chart-card');
@@ -4320,6 +4935,454 @@ new MutationObserver(muts => {
     });
   }, {threshold: 0.15, rootMargin: '0px 0px -8% 0px'});
   blocks.forEach(b => io.observe(b));
+})();
+</script>
+
+<script>
+// --- 85/10/5 law card reveal: bar wipes L→R, then legend rows + rule appear in sequence ---
+(function(){
+  const cards = document.querySelectorAll('.law-card');
+  if (!cards.length) return;
+  const reduce = typeof matchMedia !== 'undefined' &&
+                 matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (typeof IntersectionObserver === 'undefined' || reduce) {
+    cards.forEach(c => c.classList.add('is-revealed'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold: 0.25, rootMargin: '0px 0px -10% 0px'});
+  cards.forEach(c => io.observe(c));
+})();
+</script>
+
+<script>
+// --- chat live demo (§ 16.2): scripted 3-exchange loop, replay-safe ---
+(function(){
+  const stage = document.querySelector('[data-chat-demo]');
+  if (!stage) return;
+  const scroll = stage.querySelector('[data-chat-scroll]');
+  const replayBtn = document.querySelector('[data-chat-replay]');
+  if (!scroll) return;
+
+  const reduce = typeof matchMedia !== 'undefined' &&
+                 matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Conversation script — three exchanges with the Amaca chatbot.
+  const SCRIPT = [
+    {kind:'msg', side:'bot', text:'Welcome — what should we build today?', meta:{name:'Amaca', time:'10:42'}, gap: 1300},
+    {kind:'msg', side:'own', text:'A color system for a finance dashboard.', gap: 700},
+    {kind:'typing', gap: 1900},
+    {kind:'reply', text:'Got it. Dark canvas, one signal hue. Start from system magenta — or pick fresh?', gap: 1500},
+
+    {kind:'msg', side:'own', text:'Start from system magenta.', gap: 700},
+    {kind:'typing', gap: 2100},
+    {kind:'reply', text:'Done. Ramp from --magenta-200 through -700, with cyan as the single chart accent.', gap: 1500},
+
+    {kind:'msg', side:'own', text:'Send me the tokens.', gap: 700},
+    {kind:'typing', gap: 1700},
+    {kind:'reply-media', label:'TOKENS', caption:'palette.css · 12 tokens · 1.2 kb', gap: 2800},
+
+    {kind:'rolloff'},
+    {kind:'restart', gap: 1100},
+  ];
+
+  let timer = null;
+  let started = false;
+  let scriptedBotMetaShown = false;
+  let lastBotBubble = null; // for streak detection (avatar/meta only on first)
+  let lastOwnHot = null;    // for hot→cold crossfade on next own
+  let typingBubbleRef = null;
+
+  // SVG snippets
+  const TICK_SVG = '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function buildMsg({side, text, meta, isTyping, isMedia, label, caption}){
+    const wrapper = document.createElement('div');
+    wrapper.className = 'chat-msg ' + (side === 'bot' ? 'chat-msg-bot' : 'chat-msg-own');
+
+    let html = '';
+    if (side === 'bot') {
+      // First bot bubble of a streak gets the avatar + meta; otherwise a spacer
+      const showAvatar = !lastBotBubble || meta;
+      html += showAvatar
+        ? '<div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>'
+        : '<div class="chat-avatar-spacer" aria-hidden="true"></div>';
+    }
+
+    let stackInner = '';
+    if (side === 'bot' && meta) {
+      stackInner += '<div class="chat-meta">'
+        + '<span class="chat-meta-name">' + escapeHtml(meta.name) + '</span>'
+        + '<span class="chat-meta-time">' + escapeHtml(meta.time) + '</span>'
+      + '</div>';
+    }
+
+    if (isTyping) {
+      stackInner += '<div class="chat-bubble chat-bubble-bot chat-bubble-typing" aria-label="Amaca is typing">'
+        + '<span class="chat-typing" aria-hidden="true">'
+        +   '<span class="chat-dot"></span>'
+        +   '<span class="chat-dot"></span>'
+        +   '<span class="chat-dot"></span>'
+        + '</span>'
+      + '</div>';
+    } else if (isMedia) {
+      stackInner += '<div class="chat-bubble chat-bubble-bot chat-bubble-media">'
+        + '<span class="chat-sr-only">Amaca sent a file: </span>'
+        + '<div class="chat-bubble-content">'
+        +   '<div class="chat-media" aria-hidden="true"><span class="chat-media-tag">' + escapeHtml(label || 'FILE') + '</span></div>'
+        +   '<div class="chat-media-caption">' + escapeHtml(caption || '') + '</div>'
+        + '</div>'
+      + '</div>';
+    } else {
+      const bubbleClass = side === 'bot'
+        ? 'chat-bubble chat-bubble-bot'
+        : 'chat-bubble chat-bubble-own';
+      const senderPrefix = side === 'bot'
+        ? '<span class="chat-sr-only">Amaca said: </span>'
+        : '<span class="chat-sr-only">You said: </span>';
+      stackInner += '<div class="' + bubbleClass + '">'
+        + senderPrefix
+        + '<div class="chat-bubble-content">' + escapeHtml(text) + '</div>'
+      + '</div>';
+    }
+
+    html += '<div class="chat-stack">' + stackInner + '</div>';
+    wrapper.innerHTML = html;
+    return wrapper;
+  }
+
+  function commitIn(node){
+    // Trigger the bubble entry by adding .is-in on next frame.
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        node.classList.add('is-in');
+      });
+    });
+  }
+
+  function coolPreviousHot(){
+    if (lastOwnHot) {
+      const bubble = lastOwnHot.querySelector('.chat-bubble-own');
+      if (bubble) bubble.classList.remove('is-hot');
+      // Also drop the previous "Read" label so only the latest carries it
+      const status = lastOwnHot.querySelector('.chat-status');
+      if (status) status.classList.remove('is-read');
+    }
+  }
+
+  function markRead(node){
+    const status = node && node.querySelector('.chat-status');
+    if (status) status.classList.add('is-read');
+  }
+
+  function appendMsg(opts){
+    const node = buildMsg(opts);
+    scroll.appendChild(node);
+    commitIn(node);
+    return node;
+  }
+
+  function rollOffAll(done){
+    const nodes = Array.from(scroll.querySelectorAll('.chat-msg'));
+    if (!nodes.length) { done && done(); return; }
+    nodes.forEach((n, i) => {
+      schedule(() => n.classList.add('is-out'), i * 80);
+    });
+    // After the last collapse settles, clear DOM and call done
+    schedule(() => {
+      scroll.innerHTML = '';
+      lastBotBubble = null;
+      lastOwnHot = null;
+      typingBubbleRef = null;
+      done && done();
+    }, nodes.length * 80 + 480);
+  }
+
+  function schedule(fn, ms){
+    const t = setTimeout(fn, ms);
+    pending.push(t);
+    return t;
+  }
+  let pending = [];
+  function cancelAll(){
+    pending.forEach(t => clearTimeout(t));
+    pending = [];
+  }
+
+  function play(){
+    cancelAll();
+    let acc = 0;
+    SCRIPT.forEach((step, idx) => {
+      schedule(() => runStep(step), acc);
+      acc += (step.gap || 0);
+    });
+  }
+
+  function runStep(step){
+    if (step.kind === 'msg') {
+      if (step.side === 'own') {
+        appendMsg({side:'own', text: step.text});
+      } else {
+        const node = appendMsg({side:'bot', text: step.text, meta: step.meta});
+        lastBotBubble = node;
+      }
+    } else if (step.kind === 'typing') {
+      // Insert a typing bot bubble; remember it so the next 'reply' can replace it.
+      const node = buildMsg({side:'bot', isTyping:true});
+      scroll.appendChild(node);
+      commitIn(node);
+      typingBubbleRef = node;
+      lastBotBubble = node;
+    } else if (step.kind === 'reply') {
+      // Replace the typing bubble's inner content with the real reply, in place.
+      // This preserves the bubble container — only the inner content does stage 2.
+      if (!typingBubbleRef) return;
+      const stack = typingBubbleRef.querySelector('.chat-stack');
+      // Swap the bubble element entirely (cleaner than mutating typing markup)
+      const old = stack.querySelector('.chat-bubble');
+      const fresh = document.createElement('div');
+      fresh.className = 'chat-bubble chat-bubble-bot';
+      fresh.innerHTML = '<span class="chat-sr-only">Amaca said: </span>'
+        + '<div class="chat-bubble-content">' + escapeHtml(step.text) + '</div>';
+      // Start the inner content hidden so it fades up
+      const content = fresh.querySelector('.chat-bubble-content');
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(3px)';
+      content.style.transition = 'opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)';
+      stack.replaceChild(fresh, old);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        content.style.opacity = '';
+        content.style.transform = '';
+      }));
+      typingBubbleRef = null;
+    } else if (step.kind === 'reply-media') {
+      if (!typingBubbleRef) return;
+      const stack = typingBubbleRef.querySelector('.chat-stack');
+      const old = stack.querySelector('.chat-bubble');
+      const fresh = document.createElement('div');
+      fresh.className = 'chat-bubble chat-bubble-bot chat-bubble-media';
+      fresh.innerHTML =
+        '<span class="chat-sr-only">Amaca sent a file: </span>' +
+        '<div class="chat-bubble-content">' +
+          '<div class="chat-media" aria-hidden="true"><span class="chat-media-tag">' + escapeHtml(step.label || 'FILE') + '</span></div>' +
+          '<div class="chat-media-caption">' + escapeHtml(step.caption || '') + '</div>' +
+        '</div>';
+      const content = fresh.querySelector('.chat-bubble-content');
+      content.style.opacity = '0';
+      content.style.transform = 'translateY(3px)';
+      content.style.transition = 'opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)';
+      stack.replaceChild(fresh, old);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        content.style.opacity = '';
+        content.style.transform = '';
+      }));
+      typingBubbleRef = null;
+    } else if (step.kind === 'rolloff') {
+      rollOffAll();
+    } else if (step.kind === 'restart') {
+      // Re-run the script from the top
+      play();
+    }
+  }
+
+  function restart(){
+    cancelAll();
+    // Canonical replay flush: remove states, force a paint, then re-add
+    scroll.innerHTML = '';
+    lastBotBubble = null;
+    lastOwnHot = null;
+    typingBubbleRef = null;
+    // Force layout flush
+    void scroll.offsetHeight;
+    setTimeout(play, 50);
+  }
+
+  // Static fallback under reduced motion: render the three bubbles permanently, no loop.
+  function renderStatic(){
+    scroll.innerHTML = '';
+    const a = buildMsg({side:'bot', text:'Welcome — what should we build today?', meta:{name:'Amaca', time:'10:42'}});
+    scroll.appendChild(a); a.classList.add('is-in'); lastBotBubble = a;
+    const b = buildMsg({side:'own', text:'A color system for a finance dashboard.'});
+    scroll.appendChild(b); b.classList.add('is-in');
+    const c = buildMsg({side:'own', text:'Start from system magenta.'});
+    scroll.appendChild(c); c.classList.add('is-in');
+    const d = buildMsg({side:'bot', text:'Done. Ramp from --magenta-200 through -700, with cyan as the single chart accent.'});
+    scroll.appendChild(d); d.classList.add('is-in');
+  }
+
+  // Start when the stage scrolls into view
+  function startOnce(){
+    if (started) return;
+    started = true;
+    if (reduce) {
+      renderStatic();
+    } else {
+      play();
+    }
+  }
+
+  if (typeof IntersectionObserver === 'undefined') {
+    startOnce();
+  } else {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { startOnce(); io.disconnect(); }
+      });
+    }, {threshold: 0.25});
+    io.observe(stage);
+  }
+
+  // Replay button
+  if (replayBtn) {
+    replayBtn.addEventListener('click', function(){
+      if (reduce) { renderStatic(); return; }
+      started = true;
+      restart();
+    });
+  }
+})();
+</script>
+
+<script>
+// --- loader compositions (§ 17.3) — four mini state machines, all replay-safe ---
+(function(){
+  function flash(el, on){ on ? el.setAttribute('data-loader-state','success') : el.removeAttribute('data-loader-state'); }
+
+  // C1: button submit — load → success → reset
+  const btn = document.querySelector('[data-loader-btn-demo]');
+  const btnTrigger = document.querySelector('[data-loader-btn-trigger]');
+  if (btn && btnTrigger) {
+    let timers = [];
+    btnTrigger.addEventListener('click', function(){
+      timers.forEach(clearTimeout); timers = [];
+      const loader = btn.querySelector('.loader');
+      btn.classList.add('is-loading');
+      btn.setAttribute('disabled','');
+      btn.setAttribute('aria-label','Submitting');
+      loader.removeAttribute('data-loader-state');
+      timers.push(setTimeout(function(){ flash(loader, true); btn.setAttribute('aria-label','Submitted'); }, 2200));
+      timers.push(setTimeout(function(){
+        btn.classList.remove('is-loading');
+        btn.removeAttribute('disabled');
+        btn.removeAttribute('aria-label');
+        loader.removeAttribute('data-loader-state');
+      }, 3700));
+    });
+  }
+
+  // C2: input validating — checking → available
+  const inputStatus = document.querySelector('[data-loader-input-status]');
+  const inputLabel  = document.querySelector('[data-loader-input-label]');
+  const inputTrigger = document.querySelector('[data-loader-input-trigger]');
+  if (inputStatus && inputTrigger) {
+    let timers = [];
+    function start(){
+      timers.forEach(clearTimeout); timers = [];
+      inputStatus.removeAttribute('data-loader-state');
+      inputLabel.textContent = 'Checking availability…';
+      inputLabel.style.color = '';
+      timers.push(setTimeout(function(){
+        inputStatus.setAttribute('data-loader-state','success');
+        inputLabel.textContent = 'Available · hello@amaca.design';
+        inputLabel.style.color = 'var(--success)';
+      }, 2000));
+    }
+    // Land in the "checking" state on first scroll-in
+    start();
+    inputTrigger.addEventListener('click', start);
+  }
+
+  // C3: full-page loader in device — loader holds, fades out to skeleton, fades back
+  const devicePage = document.querySelector('[data-loader-page]');
+  const deviceTrigger = document.querySelector('[data-loader-device-trigger]');
+  if (devicePage && deviceTrigger) {
+    devicePage.style.transition = 'opacity var(--d-base) var(--ease-decel)';
+    let timers = [];
+    deviceTrigger.addEventListener('click', function(){
+      timers.forEach(clearTimeout); timers = [];
+      devicePage.style.opacity = '1';
+      devicePage.style.pointerEvents = 'auto';
+      timers.push(setTimeout(function(){
+        devicePage.style.opacity = '0';
+        devicePage.style.pointerEvents = 'none';
+      }, 2200));
+      timers.push(setTimeout(function(){
+        devicePage.style.opacity = '1';
+        devicePage.style.pointerEvents = 'auto';
+      }, 5000));
+    });
+    // Auto-hand-off once on first view so users see the skeleton beneath
+    setTimeout(function(){
+      if (devicePage.style.opacity === '') {
+        devicePage.style.opacity = '0';
+        devicePage.style.pointerEvents = 'none';
+      }
+    }, 2600);
+  }
+
+  // C4: chat composer — loader bubble → real response → back to loading
+  const chatBubble = document.querySelector('[data-loader-chat-bubble]');
+  const chatTrigger = document.querySelector('[data-loader-chat-trigger]');
+  if (chatBubble && chatTrigger) {
+    const originalHTML = chatBubble.innerHTML;
+    let timers = [];
+    chatTrigger.addEventListener('click', function(){
+      timers.forEach(clearTimeout); timers = [];
+      chatBubble.innerHTML = originalHTML;
+      timers.push(setTimeout(function(){
+        chatBubble.innerHTML = '<span>Sure — generating the magenta ramp now. Want it scoped to <code style="font-size:11px;padding:1px 4px;background:var(--obsidian-900);border:1px solid var(--obsidian-700);border-radius:var(--r-xs);color:var(--magenta-300)">--magenta-*</code>?</span>';
+      }, 2200));
+      timers.push(setTimeout(function(){
+        chatBubble.innerHTML = originalHTML;
+      }, 5200));
+    });
+  }
+
+  // Cycling label (§ 17.2 "With label" variant) — rotates phrases in TOV register.
+  const cycleLabel = document.querySelector('[data-loader-cycle]');
+  const cycleHost  = document.querySelector('[data-loader-label-host]');
+  if (cycleLabel) {
+    const reduceMotion = typeof matchMedia !== 'undefined' &&
+                         matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const PHRASES = [
+      'Generating tokens…',
+      'Designing architecture…',
+      'Auditing contrast…',
+      'Locking the grid…',
+      'Drafting components…',
+      'Composing the surface…',
+    ];
+    let idx = 0;
+    cycleLabel.style.transition = 'opacity var(--d-quick) var(--ease-standard)';
+
+    function setPhrase(text){
+      cycleLabel.textContent = text;
+      if (cycleHost) cycleHost.setAttribute('aria-label', text.replace(/…$/, ''));
+    }
+    function step(){
+      idx = (idx + 1) % PHRASES.length;
+      if (reduceMotion){
+        setPhrase(PHRASES[idx]);
+        return;
+      }
+      cycleLabel.style.opacity = '0';
+      setTimeout(function(){
+        setPhrase(PHRASES[idx]);
+        cycleLabel.style.opacity = '1';
+      }, 200);
+    }
+    setInterval(step, 2400);
+  }
 })();
 </script>
 </body>
