@@ -1324,6 +1324,41 @@
   margin-top: var(--s-7);
 }
 
+/* Scroll-in reveal: bar wipes L→R (obsidian → magenta → semantic, in segment order),
+   then legend rows and rule fade up in sequence. Triggered by .is-revealed on .law-card. */
+.law-card .law-card-bar{
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1100ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
+}
+.law-card .law-row,
+.law-card .law-rule{
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.law-card.is-revealed .law-card-bar{ clip-path: inset(0 0 0 0); }
+.law-card.is-revealed .law-row,
+.law-card.is-revealed .law-rule{ opacity: 1; transform: none; }
+/* Stagger begins just before the bar finishes, for overlap */
+.law-card.is-revealed .law-row:nth-child(1){ transition-delay: 900ms; }
+.law-card.is-revealed .law-row:nth-child(2){ transition-delay: 1080ms; }
+.law-card.is-revealed .law-row:nth-child(3){ transition-delay: 1260ms; }
+.law-card.is-revealed .law-rule{ transition-delay: 1500ms; }
+
+@media (prefers-reduced-motion: reduce){
+  .law-card .law-card-bar,
+  .law-card .law-row,
+  .law-card .law-rule{
+    transition: none;
+    transform: none;
+    clip-path: none;
+    opacity: 1;
+  }
+}
+
 /* striped bar — flat colors only, hatch on obsidian */
 .law-card-bar{
   display:flex;
@@ -1556,3 +1591,1036 @@
 
 /* italic emphasis inside do/dont cards */
 .do em, .dont em{font-style: italic; color: var(--obsidian-100); font-weight: 500}
+
+
+/* ─────────── CHAT / MESSAGING · § 16 ─────────── */
+/* Conversation surface — fixed height, bottom-aligned, bubbles push up */
+.chat-stage{
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  gap: var(--s-2);
+  height: 480px;
+  padding: var(--s-6);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-lg);
+  overflow:hidden;
+  position:relative;
+}
+.chat-stage-head{
+  position:absolute; top:0; left:0; right:0;
+  display:flex; align-items:center; gap: var(--s-3);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--obsidian-800);
+  background: linear-gradient(to bottom, var(--obsidian-900) 60%, rgba(11,14,18,0));
+  z-index:2;
+}
+.chat-stage-head .chat-avatar{ width: 28px; height: 28px; font-size: 10px }
+.chat-stage-head-title{
+  font-size: var(--t-small); font-weight: 600;
+  color: var(--obsidian-100); letter-spacing: var(--tr-snug);
+}
+.chat-stage-head-status{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro); letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400); text-transform: uppercase;
+  margin-left: auto;
+  display:flex; align-items:center; gap: var(--s-2);
+}
+.chat-stage-head-status::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background: var(--success); flex-shrink:0;
+}
+.chat-stage-scroll{
+  display:flex; flex-direction:column; gap: var(--s-3);
+  padding-top: var(--s-12);
+  margin-top: auto;
+}
+
+/* Day separator */
+.chat-day{
+  display:flex; align-items:center; gap: var(--s-3);
+  margin: var(--s-3) 0 var(--s-1);
+}
+.chat-day::before, .chat-day::after{
+  content:""; flex:1; height:1px; background: var(--obsidian-800);
+}
+.chat-day-label{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro); letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400); text-transform: uppercase;
+}
+
+/* Message row — sender side defines column direction */
+.chat-msg{
+  display:flex; align-items:flex-end; gap: var(--s-3);
+  max-width: 84%;
+}
+.chat-msg-bot{ align-self:flex-start }
+.chat-msg-own{ align-self:flex-end; flex-direction: row-reverse }
+
+/* Avatar (initials or image) — only on first bubble of a bot streak */
+.chat-avatar{
+  width: 32px; height: 32px; border-radius: 50%;
+  flex-shrink:0;
+  background: var(--obsidian-700);
+  color: var(--obsidian-100);
+  display:flex; align-items:center; justify-content:center;
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+}
+.chat-avatar-bot{
+  background: var(--obsidian-800);
+  color: var(--magenta-400);
+  border: 1px solid var(--obsidian-700);
+}
+.chat-avatar-spacer{ width:32px; height:32px; flex-shrink:0; visibility:hidden }
+
+/* Bubble stack column (bubble + meta below) */
+.chat-stack{
+  display:flex; flex-direction:column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+.chat-msg-own .chat-stack{ align-items:flex-end }
+
+/* Meta row above first bubble of a streak */
+.chat-meta{
+  display:flex; align-items:baseline; gap: var(--s-2);
+  margin-bottom: 2px;
+  padding: 0 var(--s-2);
+}
+.chat-meta-name{
+  font-size: var(--t-caption);
+  font-weight: 600;
+  color: var(--obsidian-200);
+  letter-spacing: var(--tr-snug);
+}
+.chat-meta-time{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400);
+}
+
+/* Bubble — uniform --r-lg radius on all corners (system-like, no tail) */
+.chat-bubble{
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-lg);
+  font-size: var(--t-body);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tr-snug);
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+.chat-bubble-bot{
+  background: var(--obsidian-800);
+  color: var(--obsidian-100);
+  border: 1px solid var(--obsidian-700);
+}
+/* Own bubble — deep magenta (--magenta-700), reserved brand accent.
+   The bright --magenta-500 stays for CTAs / focus rings only.
+   Text uses --obsidian-050 for max contrast (6.26:1 — AA, near AAA). */
+.chat-bubble-own{
+  background: var(--magenta-700);
+  color: var(--obsidian-050);
+}
+
+/* Screen-reader-only utility for sender prefix inside bubbles + typing label */
+.chat-sr-only{
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visibility — dual-ring per § 6.2 (outline + magenta halo) */
+.chat-composer-attach:focus-visible,
+.chat-composer-send:focus-visible,
+.chat-demo-replay:focus-visible{
+  outline: 2px solid var(--obsidian-100);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(240,81,213,0.35);
+}
+
+/* Status ticks row under own bubble */
+.chat-status{
+  display:flex; align-items:center; gap: 4px;
+  padding: 0 var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400);
+  text-transform: uppercase;
+}
+.chat-tick{
+  display:inline-flex; align-items:center;
+  color: var(--obsidian-400);
+  transition: color var(--d-quick) var(--ease-standard);
+}
+.chat-tick svg{ width: 14px; height: 14px; display:block }
+.chat-status.is-read .chat-tick{ color: var(--magenta-400) }
+.chat-status-label{ margin-left: 2px }
+
+/* Typing indicator — lives inside a bot bubble */
+.chat-bubble-typing{
+  padding: var(--s-3) var(--s-4);
+  min-height: 36px;
+}
+.chat-typing{
+  display:inline-flex; align-items:center;
+  gap: 5px; height: 14px;
+}
+.chat-dot{
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--obsidian-300);
+  animation: chat-dot-wave var(--d-slow) var(--ease-standard) infinite;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+.chat-dot:nth-child(2){ animation-delay: 160ms }
+.chat-dot:nth-child(3){ animation-delay: 320ms }
+@keyframes chat-dot-wave{
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.35 }
+  30%           { transform: translateY(-4px); opacity: 1 }
+}
+
+/* Media attachment (image preview inside a bot bubble) */
+.chat-bubble-media{ padding: 0; overflow:hidden }
+.chat-media{
+  display:block; width: 280px; max-width: 100%;
+  aspect-ratio: 16 / 10;
+  background:
+    repeating-linear-gradient(135deg,
+      var(--obsidian-700) 0 1px,
+      transparent 1px 10px),
+    var(--obsidian-800);
+  position:relative;
+}
+.chat-media-tag{
+  position:absolute; left: var(--s-3); top: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro); letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  padding: 4px 8px;
+  background: rgba(7,9,11,0.85);
+  border:1px solid var(--obsidian-700);
+  border-radius: var(--r-sm);
+  color: var(--obsidian-200);
+}
+.chat-media-caption{
+  padding: var(--s-3) var(--s-4);
+  font-size: var(--t-small);
+  color: var(--obsidian-300);
+  border-top: 1px solid var(--obsidian-700);
+}
+
+/* Link preview card embedded inside a bubble */
+.chat-linkprev{
+  display:grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  margin-top: var(--s-2);
+  background: var(--obsidian-850);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-md);
+}
+.chat-linkprev-thumb{
+  width: 56px; height: 56px;
+  border-radius: var(--r-sm);
+  background:
+    repeating-linear-gradient(135deg,
+      var(--obsidian-700) 0 1px,
+      transparent 1px 6px),
+    var(--obsidian-800);
+}
+.chat-linkprev-body{ display:flex; flex-direction:column; gap: 2px; min-width: 0 }
+.chat-linkprev-domain{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--magenta-400);
+}
+.chat-linkprev-title{
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--obsidian-100);
+  letter-spacing: var(--tr-snug);
+  overflow:hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.chat-linkprev-desc{
+  font-size: var(--t-micro);
+  color: var(--obsidian-300);
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Voice message — duration + waveform */
+.chat-bubble-voice{
+  padding: var(--s-3) var(--s-4);
+  min-width: 220px;
+}
+.chat-voice{
+  display:flex; align-items:center; gap: var(--s-3);
+}
+.chat-voice-play{
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--obsidian-700);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink: 0;
+  color: var(--obsidian-100);
+}
+.chat-bubble-own .chat-voice-play{
+  background: var(--magenta-800);
+  color: var(--obsidian-100);
+}
+.chat-voice-play svg{ width: 12px; height: 12px; display:block }
+.chat-waveform{
+  display:flex; align-items:center;
+  gap: 2px; flex: 1;
+  height: 22px;
+}
+.chat-waveform .bar{
+  flex: 1;
+  background: var(--obsidian-400);
+  border-radius: 999px;
+  min-height: 4px;
+}
+.chat-bubble-own .chat-waveform .bar{ background: rgba(227,231,236,0.35) }
+.chat-bubble-own .chat-waveform .bar.played{ background: var(--obsidian-100) }
+.chat-bubble-bot .chat-waveform .bar.played{ background: var(--magenta-400) }
+.chat-voice-time{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300);
+  text-transform: uppercase;
+  flex-shrink:0;
+}
+.chat-bubble-own .chat-voice-time{ color: rgba(227,231,236,0.7) }
+
+/* ─── Bubble entry choreography ───
+   Two-stage: container scales+fades in with a subtle spring overshoot
+   (--d-base / --ease-spring), then the inner content fades up after
+   80ms (--d-quick / --ease-standard). Exit: opacity + slight rise,
+   --d-quick / --ease-accel.
+*/
+.chat-msg .chat-bubble,
+.chat-msg .chat-status,
+.chat-msg .chat-avatar,
+.chat-msg .chat-meta{
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity var(--d-base) var(--ease-standard),
+    transform var(--d-base) var(--ease-spring);
+}
+.chat-msg-own .chat-bubble{ transform-origin: bottom right }
+.chat-msg-bot .chat-bubble{ transform-origin: bottom left }
+.chat-msg .chat-avatar,
+.chat-msg .chat-meta{ transform: translateY(4px) scale(1) }
+
+.chat-msg.is-in .chat-bubble,
+.chat-msg.is-in .chat-status,
+.chat-msg.is-in .chat-avatar,
+.chat-msg.is-in .chat-meta{
+  opacity: 1;
+  transform: none;
+}
+
+/* Stage 2: content inside the bubble (text, media, voice) fades with +80ms delay */
+.chat-bubble-content{
+  opacity: 0;
+  transform: translateY(3px);
+  transition:
+    opacity var(--d-quick) var(--ease-standard),
+    transform var(--d-quick) var(--ease-standard);
+}
+.chat-msg.is-in .chat-bubble-content{
+  opacity: 1;
+  transform: none;
+  transition-delay: 80ms;
+}
+
+/* Re-cool the hot bubble: keep the hot-cold transition (color only) intact */
+/* (defined above on .chat-bubble-own) */
+
+/* Exit (roll-off): older messages fade up + collapse vertically */
+.chat-msg.is-out{
+  opacity: 0;
+  transform: translateY(-8px);
+  max-height: 0;
+  margin-top: calc(var(--s-3) * -1);
+  pointer-events: none;
+  transition:
+    opacity var(--d-quick) var(--ease-accel),
+    transform var(--d-quick) var(--ease-accel),
+    max-height var(--d-base) var(--ease-accel),
+    margin-top var(--d-base) var(--ease-accel);
+}
+
+/* ─── Composer ─── */
+.chat-composer{
+  display:flex; align-items:flex-end; gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--obsidian-850);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-lg);
+  transition: border-color var(--d-quick) var(--ease-standard),
+              box-shadow var(--d-quick) var(--ease-standard);
+}
+.chat-composer:focus-within{
+  border-color: var(--magenta-500);
+  box-shadow: 0 0 0 3px rgba(240,81,213,0.15);
+}
+.chat-composer-attach,
+.chat-composer-send{
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display:flex; align-items:center; justify-content:center;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--obsidian-300);
+  cursor: pointer;
+  transition:
+    background var(--d-quick) var(--ease-standard),
+    color var(--d-quick) var(--ease-standard),
+    border-color var(--d-quick) var(--ease-standard),
+    transform var(--d-quick) var(--ease-standard);
+}
+.chat-composer-attach svg,
+.chat-composer-send svg{ width: 16px; height: 16px; display:block }
+.chat-composer-attach:hover{
+  background: var(--obsidian-800);
+  color: var(--obsidian-100);
+}
+.chat-composer-send{
+  background: var(--obsidian-700);
+  color: var(--obsidian-400);
+}
+.chat-composer.is-ready .chat-composer-send{
+  background: var(--magenta-500);
+  color: var(--obsidian-950);
+}
+.chat-composer.is-ready .chat-composer-send:hover{
+  transform: scale(1.04);
+}
+.chat-composer-textarea{
+  flex: 1;
+  min-height: 36px;
+  max-height: 132px;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--obsidian-100);
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tr-snug);
+  padding: 8px var(--s-2);
+}
+.chat-composer-textarea::placeholder{ color: var(--obsidian-400) }
+.chat-composer-hint{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400);
+  text-transform: uppercase;
+  margin-top: var(--s-2);
+  display:flex; align-items:center; gap: var(--s-2);
+}
+.chat-composer-hint kbd{
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 2px 5px;
+  background: var(--obsidian-800);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-xs);
+  color: var(--obsidian-200);
+}
+
+/* ─── Anatomy diagram (§ 16.1) ─── */
+.chat-anatomy{
+  display:grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: var(--s-10);
+  padding: var(--s-8);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-lg);
+  align-items:center;
+}
+.chat-anatomy-canvas{
+  display:flex; flex-direction:column; gap: var(--s-3);
+  padding: var(--s-6) var(--s-4);
+  background: var(--obsidian-950);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-md);
+}
+.chat-anatomy-canvas .chat-msg{ opacity: 1; max-width: 100% }
+.chat-anatomy-canvas .chat-msg .chat-bubble,
+.chat-anatomy-canvas .chat-msg .chat-avatar,
+.chat-anatomy-canvas .chat-msg .chat-status,
+.chat-anatomy-canvas .chat-msg .chat-meta,
+.chat-anatomy-canvas .chat-msg .chat-bubble-content{
+  opacity: 1; transform: none; transition: none;
+}
+.chat-anatomy-legend{ display:grid; gap: var(--s-3) }
+.chat-anatomy-row{
+  display:grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: var(--s-3);
+  align-items:baseline;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--obsidian-800);
+}
+.chat-anatomy-row:last-child{ border-bottom: none; padding-bottom: 0 }
+.chat-anatomy-num{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--magenta-400);
+  padding-top: 2px;
+}
+.chat-anatomy-label{ font-size: var(--t-small); color: var(--obsidian-100); font-weight: 500 }
+.chat-anatomy-value{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300);
+  text-transform: uppercase;
+}
+
+/* ─── Live demo wrapper (§ 16.2) — replay button + chat-stage ─── */
+.chat-demo{ display:grid; gap: var(--s-4) }
+.chat-demo-head{
+  display:flex; align-items:center; gap: var(--s-3);
+}
+.chat-demo-head-title{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro); letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300); text-transform: uppercase;
+}
+.chat-demo-head-spacer{ flex: 1 }
+.chat-demo-replay{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-sm);
+  color: var(--obsidian-200);
+  cursor: pointer;
+  display:inline-flex; align-items:center; gap: 6px;
+  transition: border-color var(--d-quick) var(--ease-standard),
+              color var(--d-quick) var(--ease-standard);
+}
+.chat-demo-replay:hover{
+  border-color: var(--magenta-500);
+  color: var(--magenta-400);
+}
+.chat-demo-replay svg{ width: 12px; height: 12px; display: block }
+
+/* ─── Reduced motion: kill all chat motion ─── */
+@media (prefers-reduced-motion: reduce){
+  .chat-msg .chat-bubble,
+  .chat-msg .chat-avatar,
+  .chat-msg .chat-meta,
+  .chat-msg .chat-bubble-content,
+  .chat-composer,
+  .chat-composer-attach,
+  .chat-composer-send,
+  .chat-tick,
+  .chat-msg.is-out{
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .chat-msg.is-out{ opacity: 0 !important; max-height: 0 !important }
+  .chat-dot{ animation: none !important; opacity: 1 !important }
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 720px){
+  .chat-stage{ height: 420px; padding: var(--s-4) }
+  .chat-msg{ max-width: 92% }
+  .chat-anatomy{
+    grid-template-columns: 1fr;
+    gap: var(--s-6);
+    padding: var(--s-5);
+  }
+  .chat-media{ width: 100% }
+  /* Touch targets — § 6 floor #7 (44×44 minimum on mobile) */
+  .chat-composer-attach,
+  .chat-composer-send{ width: 44px; height: 44px }
+}
+
+
+/* ─────────── LOADER · § 17 ─────────── */
+/* Brand logo Lottie at four sizes. Under reduced motion: SVG ring spinner. */
+
+.loader{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+/* Size scale — controls both the lottie box and the fallback ring */
+.loader-xs{ width: var(--loader-xs); height: var(--loader-xs) }
+.loader-sm{ width: var(--loader-sm); height: var(--loader-sm) }
+.loader-md{ width: var(--loader-md); height: var(--loader-md) }
+.loader-lg{ width: var(--loader-lg); height: var(--loader-lg) }
+
+/* The Lottie canvas — fills the loader box */
+.loader-anim{
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transition:
+    opacity var(--d-quick) var(--ease-standard),
+    transform var(--d-quick) var(--ease-standard);
+}
+
+/* CSS ring spinner — fallback shown under prefers-reduced-motion */
+.loader-fallback{
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.loader-fallback svg{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.loader-fallback circle{
+  fill: none;
+  stroke: var(--magenta-500);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 60 60;
+  stroke-dashoffset: 30;
+  transform-origin: center;
+  animation: loader-spin 1400ms linear infinite;
+}
+.loader-xs .loader-fallback circle{ stroke-width: 2 }
+.loader-lg .loader-fallback circle{ stroke-width: 3 }
+@keyframes loader-spin{
+  to { transform: rotate(360deg) }
+}
+
+/* Layout: with label below (vertical stack) */
+.loader-with-label{
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  width: auto; height: auto;
+}
+.loader-with-label .loader-anim,
+.loader-with-label .loader-fallback{ position: relative }
+.loader-with-label > .loader-anim,
+.loader-with-label > .loader-fallback{
+  width: var(--loader-md);
+  height: var(--loader-md);
+  position: relative;
+}
+.loader-with-label.loader-sm > .loader-anim,
+.loader-with-label.loader-sm > .loader-fallback{ width: var(--loader-sm); height: var(--loader-sm) }
+.loader-with-label.loader-lg > .loader-anim,
+.loader-with-label.loader-lg > .loader-fallback{ width: var(--loader-lg); height: var(--loader-lg) }
+
+/* Layout: inline (label to the right) — used for input validating, chat hints */
+.loader-inline{
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--s-2);
+  width: auto; height: auto;
+}
+.loader-inline > .loader-anim,
+.loader-inline > .loader-fallback{
+  width: var(--loader-xs);
+  height: var(--loader-xs);
+  position: relative;
+}
+.loader-inline.loader-sm > .loader-anim,
+.loader-inline.loader-sm > .loader-fallback{ width: var(--loader-sm); height: var(--loader-sm) }
+
+.loader-label{
+  font-size: var(--t-body);
+  color: var(--obsidian-200);
+  letter-spacing: var(--tr-snug);
+  white-space: nowrap;
+}
+.loader-inline .loader-label{ font-size: var(--t-small); color: var(--obsidian-300) }
+
+/* Success state — Lottie fades out, checkmark scales in with spring */
+.loader-check{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity var(--d-quick) var(--ease-standard),
+    transform var(--d-base) var(--ease-spring);
+  pointer-events: none;
+}
+.loader-check svg{ width: 60%; height: 60%; color: var(--success) }
+[data-loader-state="success"] .loader-anim,
+[data-loader-state="success"] .loader-fallback{
+  opacity: 0;
+  transform: scale(0.7);
+}
+[data-loader-state="success"] .loader-check{
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Inside a button: replaces label, button stays the same size */
+.btn.is-loading{
+  position: relative;
+  pointer-events: none;
+  color: transparent !important;
+}
+.btn.is-loading > .loader{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* Tint loader inside primary button for legibility on magenta */
+.btn-primary.is-loading .loader-fallback circle{ stroke: var(--obsidian-950) }
+.btn-primary.is-loading .loader-check svg{ color: var(--obsidian-950) }
+/* Flat obsidian silhouette — cyan on magenta is off-system; at this size detail
+   isn't legible anyway, so we collapse the cubes to a near-black silhouette.
+   Applies whenever a loader is composed inside a primary button — at rest and
+   while loading — so the visual contract holds before the trigger fires too. */
+.btn-primary .loader-anim{
+  filter: brightness(0);
+}
+
+/* Section overlay variant — sits over a card/region, dims the parent */
+.loader-overlay{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(11, 14, 18, 0.72);
+  backdrop-filter: blur(2px);
+  z-index: 5;
+  width: auto; height: auto;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-quick) var(--ease-standard);
+}
+.loader-overlay.is-active{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Full-page variant — covers the viewport (or a relative ancestor) */
+.loader-page{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-5);
+  background: var(--obsidian-950);
+  z-index: 10;
+}
+
+/* Skeleton handoff — three-stage composition stand-in */
+.skeleton-stack{
+  display: grid;
+  gap: var(--s-3);
+  width: 100%;
+}
+.skeleton-line{
+  height: 12px;
+  background: var(--obsidian-800);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  position: relative;
+}
+.skeleton-line::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    rgba(240,81,213,0.08) 50%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1600ms linear infinite;
+}
+@keyframes skeleton-shimmer{
+  from{ transform: translateX(-100%) }
+  to  { transform: translateX(100%) }
+}
+
+/* ─── Loader compositions (§ 17.3) — frames for the demo cards ─── */
+.loader-comp{
+  display: flex;
+  flex-direction: column;
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  min-height: 220px;
+}
+.loader-comp-head{
+  display: flex; align-items: center; gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  border-bottom: 1px solid var(--obsidian-800);
+}
+.loader-comp-eyebrow{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--magenta-400);
+  text-transform: uppercase;
+}
+.loader-comp-title{
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--obsidian-100);
+  letter-spacing: var(--tr-snug);
+}
+.loader-comp-body{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-6);
+  position: relative;
+}
+.loader-comp-actions{
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-5);
+  border-top: 1px solid var(--obsidian-800);
+  background: var(--obsidian-850);
+}
+.loader-comp-actions .btn{ font-size: var(--t-micro) }
+
+/* Device-frame composition body (full-page loader inside an iframe-like) */
+.loader-device{
+  width: 100%;
+  height: 240px;
+  background: var(--obsidian-950);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-md);
+  position: relative;
+  overflow: hidden;
+}
+.loader-device-bar{
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--obsidian-800);
+  background: var(--obsidian-900);
+}
+.loader-device-bar .dot{
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--obsidian-700);
+}
+.loader-device-bar .url{
+  margin-left: var(--s-3);
+  flex: 1;
+  height: 14px;
+  background: var(--obsidian-850);
+  border-radius: var(--r-sm);
+}
+
+/* Tiny chat-composer-style strip for the cross-component composition */
+.loader-mini-composer{
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  background: var(--obsidian-850);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-lg);
+}
+.loader-mini-composer .text{
+  flex: 1;
+  font-size: var(--t-small);
+  color: var(--obsidian-300);
+}
+.loader-mini-bubble{
+  align-self: flex-start;
+  margin-bottom: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--obsidian-800);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-small);
+  color: var(--obsidian-200);
+}
+
+/* ─── Scale subsection (§ 17.1) — the four sizes side-by-side ─── */
+.loader-scale{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--s-4);
+}
+.loader-scale-cell{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-6) var(--s-4);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-md);
+  min-height: 180px;
+  justify-content: center;
+}
+.loader-scale-cell .loader-anim{ position: relative }
+.loader-scale-cell .loader-fallback{ position: absolute; inset: 0 }
+.loader-scale-cell .meta{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: auto;
+}
+.loader-scale-cell .token{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--magenta-400);
+  text-transform: uppercase;
+}
+.loader-scale-cell .value{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300);
+}
+
+/* ─── Variants subsection (§ 17.2) — five labeled specimens ─── */
+.loader-variants{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+.loader-variant-cell{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-4);
+  padding: var(--s-6) var(--s-4);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-md);
+  min-height: 220px;
+  position: relative;
+}
+.loader-variant-cell .caption{
+  position: absolute;
+  bottom: var(--s-3);
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-400);
+  text-transform: uppercase;
+}
+
+/* ─── Anatomy diagram (§ 17.4) — annotated specimen ─── */
+.loader-anatomy{
+  display: grid;
+  grid-template-columns: minmax(280px, 380px) 1fr;
+  gap: var(--s-10);
+  padding: var(--s-8);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-lg);
+  align-items: center;
+}
+.loader-anatomy-canvas{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-8);
+  background: var(--obsidian-950);
+  border: 1px solid var(--obsidian-800);
+  border-radius: var(--r-md);
+}
+.loader-anatomy-canvas .loader-anim{ position: relative }
+.loader-anatomy-canvas .loader-fallback{ position: absolute; inset: 0 }
+.loader-anatomy-legend{ display: grid; gap: var(--s-3) }
+.loader-anatomy-row{
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  gap: var(--s-3);
+  align-items: baseline;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--obsidian-800);
+}
+.loader-anatomy-row:last-child{ border-bottom: none; padding-bottom: 0 }
+.loader-anatomy-num{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--magenta-400);
+}
+.loader-anatomy-label{ font-size: var(--t-small); color: var(--obsidian-100); font-weight: 500 }
+.loader-anatomy-value{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300);
+  text-transform: uppercase;
+}
+
+/* ─── Reduced motion: hide Lottie, show CSS ring ─── */
+@media (prefers-reduced-motion: reduce){
+  .loader-anim{ display: none !important }
+  .loader-fallback{ display: flex }
+  .loader-check{ transition: none }
+  .skeleton-line::after{ animation: none; opacity: 0 }
+}
+
+/* Mobile */
+@media (max-width: 720px){
+  .loader-scale{ grid-template-columns: repeat(2, 1fr) }
+  .loader-variants{ grid-template-columns: repeat(2, 1fr) }
+  .loader-anatomy{ grid-template-columns: 1fr; padding: var(--s-5); gap: var(--s-6) }
+}

@@ -1,6 +1,6 @@
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.2.0 — 2026.05
+> **Version** 2.3.0 — 2026.05.22
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -463,6 +463,156 @@ Reach for this only when native can't carry the requirement: search/filter insid
 - Click outside the `[data-select]` wrapper closes the menu.
 - Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
 
+### 3.11 Chat & Messaging
+
+For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
+
+```html
+<div class="chat-stage" aria-label="Conversation with Amaca">
+  <div class="chat-stage-head">…</div>
+  <div class="chat-stage-scroll" role="log" aria-live="polite" aria-relevant="additions">
+    <div class="chat-msg chat-msg-bot">
+      <div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>
+      <div class="chat-stack">
+        <div class="chat-meta"><span class="chat-meta-name">Amaca</span><span class="chat-meta-time">10:42</span></div>
+        <div class="chat-bubble chat-bubble-bot">
+          <span class="chat-sr-only">Amaca said: </span>
+          <div class="chat-bubble-content">Welcome.</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-msg chat-msg-own">
+      <div class="chat-stack">
+        <div class="chat-bubble chat-bubble-own">
+          <span class="chat-sr-only">You said: </span>
+          <div class="chat-bubble-content">Hi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Required classes:**
+- `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
+- `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
+- `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--magenta-700` fill, `--obsidian-050` text — 6.26:1).
+- `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
+- `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
+- `.chat-meta` — sender + time row, only on the first bubble of a streak.
+- `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
+- `.chat-sr-only` — visually-hidden sender prefix inside every bubble (`"Amaca said: "` / `"You said: "` / `"Amaca sent a file: "`). The avatar streak-suppression rule means screen readers would otherwise lose sender identity on bot follow-ups.
+
+**Reserved colors:**
+- Own bubbles fill with `--magenta-700` — the deep brand accent.
+- The brighter `--magenta-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
+- A previous "hot last" rule (paint only the latest own bubble magenta-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
+
+**Two-stage entry choreography:**
+1. Container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`): `scale(0.92 → 1)` on `--ease-spring` for the transform + opacity on `--ease-standard`, both `--d-base`, 0ms delay. Subtle overshoot.
+2. Inner content (`.chat-bubble-content`): `opacity 0 → 1` and `translateY(3px → 0)` on `--ease-standard`, `--d-quick`, 80ms delay.
+3. The wrapper toggles `.is-in` on next frame to start both stages.
+4. Exit (roll-off after N exchanges): `.is-out` adds `opacity: 0`, `translateY(-8px)`, `max-height: 0`, `margin-top: -var(--s-3)` on `--ease-accel`. `--d-quick` for opacity/transform; `--d-base` for the collapse.
+
+**Typing indicator:**
+- Lives **inside a bot bubble** (`.chat-bubble.chat-bubble-typing`), never floats as a gutter caption. For a single-bot UI the avatar already says who's typing.
+- Three `.chat-dot` spans inside `.chat-typing`. Each: `width 6px; height 6px; background --obsidian-300`.
+- Animation: `chat-dot-wave` on `--d-slow` with `--ease-standard`, infinite. Keyframes: `translateY(0 → -4px → 0)` and `opacity 0.35 → 1 → 0.35`.
+- Stagger via `animation-delay` on `:nth-child(2)` (160ms) and `:nth-child(3)` (320ms).
+- The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
+
+**Composer:**
+- `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
+- `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--magenta-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
+- Composer focus-within: border shifts to `--magenta-500` + 3px halo `rgba(240,81,213,0.15)` — same focus treatment as `.input`.
+- Enter sends. `⇧ Enter` inserts a newline.
+- Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
+
+**Day separator:**
+- `.chat-day` — inserted between bubbles when the date changes. Mono label centered between two hairline rules. Use "Today", "Yesterday", or `DD MMM` for older.
+
+**Accessibility:**
+- `.chat-stage-scroll` carries `role="log" aria-live="polite" aria-relevant="additions"`. New bubbles announce; the demo wrapper does not.
+- Every visible bubble has a `.chat-sr-only` sender prefix as its first child. `.chat-bubble-typing` carries `aria-label="<name> is typing"`; `.chat-bubble-media` carries an `.chat-sr-only` prefix `"<name> sent a file: "`.
+- Composer attach, send, and any replay buttons get a dual-ring focus state (§ 6.2).
+- Touch hit areas on composer buttons bump from 36 to 44px below 720px wide.
+
+**Rules:**
+- One avatar per streak. The rest of the streak uses `.chat-avatar-spacer` for column alignment, never repeats the avatar.
+- Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
+- After ~3 exchanges, roll older messages off the top so the surface never overcrowds.
+- Under `prefers-reduced-motion: reduce`: container transitions and dot wave both stop at rest; `.chat-msg.is-out` still hides instantly so the surface still rolls off.
+
+### 3.12 Loader
+
+The brand mark (Lottie / GIF) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
+
+```html
+<span class="loader loader-md" role="status" aria-label="Loading">
+  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" />
+  <span class="loader-fallback" aria-hidden="true">
+    <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
+  </span>
+</span>
+```
+
+**Tokens:**
+
+| Token | Px | Use |
+|---|---|---|
+| `--loader-xs` | `16` | Inline with text, inside buttons |
+| `--loader-sm` | `24` | Beside an input, chat hints |
+| `--loader-md` | `48` | Inside a card / section overlay |
+| `--loader-lg` | `96` | Full-page / modal / hero wait |
+
+**Required classes:**
+- `.loader` — root. `display: inline-flex`, vertical-align: middle. Size mod (`.loader-xs` / `-sm` / `-md` / `-lg`) sets both width and height.
+- `.loader-anim` — the moving brand mark. Width/height 100%, `object-fit: contain` so the source ratio is preserved at any size.
+- `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--magenta-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
+- `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent. Scale-in on `--ease-spring` over `--d-base`; the `.loader-anim` fades to 0 + scales to 0.7 in lockstep.
+
+**Variants:**
+- **Standalone** — the loader root alone.
+- **With label** — add `.loader-with-label`. Vertical stack, `gap: var(--s-3)`. Label uses `--t-body / --obsidian-200`. Supports a cycling label via `data-loader-cycle` on the label span — rotates phrases every 2400ms with a 200ms opacity crossfade; under reduced motion the swap is instant. The host's `aria-label` updates in lockstep with the visible phrase so the SR announcement matches what's on screen.
+- **Inline** — add `.loader-inline`. Horizontal layout, `gap: var(--s-2)`, smaller label (`--t-small / --obsidian-300`). Used for async input validation and chat hints.
+- **Inside a button** — add `.is-loading` to a `.btn`. The label collapses to transparent (`color: transparent !important`) so the button keeps its size, and `.loader` is absolutely positioned at the center. No layout shift.
+- **Skeleton handoff** — after a `--d-scene` wait, swap the full-page loader for `.skeleton-stack` (rows of `.skeleton-line` with a shimmer animation). The structure becomes visible while the data is still in flight.
+- **Success state** — add `data-loader-state="success"` on the loader root. `.loader-anim` fades; `.loader-check` scales in with a spring. Use this when a wait resolves green.
+
+**Loop:**
+- The brand mark loops infinitely while mounted. There is no "play once and hold" variant in this version.
+- If you need a finite wait with a deterministic end state, transition to `[data-loader-state="success"]` and let the check carry the resolution.
+
+**Inside `.btn-primary`:**
+- Cyan-on-magenta is off-system. The selector `.btn-primary .loader-anim` applies `filter: brightness(0)` to collapse the cubes to a near-black silhouette (~`--obsidian-950`). Alpha is preserved.
+- Applies at rest **and** while loading — the visual contract holds before the trigger fires too.
+- Inside `.btn-primary.is-loading`, the fallback ring and check icon also tint to `--obsidian-950` for the same reason.
+
+**Reduced motion:**
+- `.loader-anim` hidden via `display: none !important`.
+- `.loader-fallback` shown (CSS ring continues to spin — ring rotation is a single transform on a slow linear loop, considered tolerable feedback even under reduced-motion rules; the alternative is a static circle, which reads as broken).
+- `.loader-check` transition disabled; the swap is instant.
+- `.skeleton-line::after` shimmer disabled.
+
+**Anatomy:**
+- Gap between logo and label: `--s-3` (with-label vertical) or `--s-2` (inline horizontal).
+- Overlay backdrop alpha: `rgba(11, 14, 18, 0.72)` with 2px backdrop blur.
+- Skeleton line height: `12px`, radius `--r-sm`, background `--obsidian-800`. Shimmer: linear gradient with magenta tint at 8% over 1600ms.
+
+**Accessibility:**
+- Every loader carries `role="status"` with a contextual `aria-label` (e.g. "Generating tokens", not just "Loading").
+- Inner `.loader-anim` and `.loader-check` are `aria-hidden="true"` — the role-status announcement reads from the loader root's `aria-label`.
+- For the cycling label variant, the JS that swaps the phrase also rewrites the root's `aria-label` so the SR announcement matches what's on screen.
+- For inline async validation, the inline loader sits in an `aria-live="polite"` region so the resolution ("Available…") announces.
+
+**Rules:**
+- Show the loader within 100ms of the action that triggered the wait. Late loaders read as glitches, not feedback.
+- A 200ms wait deserves no loader at all — show the result.
+- One full-page loader per route at a time. After 800ms hand off to skeleton frames.
+- Don't stack a section loader inside a card that already sits inside a full-page loader.
+- Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
+- Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
+
 ---
 
 ## 4. Iconography
@@ -665,6 +815,24 @@ The version line at the top of this document is the source of truth. The CSS fil
 ---
 
 ## 13. Changelog
+
+### v2.3.0 — 2026.05.22 (MINOR)
+**Added · components**
+- **§ 3.11 Chat & Messaging** — Full component set for chatbot interfaces. Bot and own bubbles at uniform `--r-lg` (no tail); own fills with `--magenta-700` and `--obsidian-050` text (6.26:1); avatar only on the first bubble of a bot streak (subsequent bubbles get an invisible 32px spacer). Two-stage entry: container scales from 0.92 with `--ease-spring`, inner content fades up 80ms behind on `--ease-standard`. Typing indicator lives inside a bot bubble with three dots on a `--d-slow` wave loop (stagger 0/160/320ms). Composer specifies textarea (36→132px auto-grow), attach (ghost), send (idle obsidian → ready magenta on first keystroke). Roll-off pattern collapses older bubbles after ~3 exchanges. Full A11y: `role="log"`, `aria-live="polite"`, visually-hidden sender prefixes, typing-bubble `aria-label`, composer `aria-label`, dual-ring focus, 44×44 mobile hit area.
+- **§ 3.12 Loader** — Brand-logo loader at four scales: `--loader-xs` 16, `--loader-sm` 24, `--loader-md` 48, `--loader-lg` 96. Five variants: standalone, with-label (supports a cycling phrase via `data-loader-cycle` — 2400ms interval, 200ms fade, `aria-label` syncs), inline (input validation, chat hints), inside-button (`.btn.is-loading` collapses label to transparent so the button keeps size), skeleton handoff, success state (`data-loader-state="success"` swaps to a checkmark on `--ease-spring`). Under `prefers-reduced-motion: reduce` the Lottie/GIF hides and a CSS ring spinner takes its place (magenta-500 stroke, 1400ms linear). Inside `.btn-primary` the loader's `.loader-anim` is filtered to `brightness(0)` — collapses to a near-black silhouette, resolves cyan-on-magenta without a second source file.
+
+**Added · tokens**
+- `--loader-xs / sm / md / lg` (16 / 24 / 48 / 96px) in `tokens.css` alongside layout tokens.
+
+**Refined**
+- **§ 04.7 · The 85/10/5 law card** — Entrance choreography. On scroll into view, the proportion bar wipes left-to-right via `clip-path: inset(0 100% 0 0)` → `inset(0 0 0 0)` on `--ease-decel` over 1100ms, then the three legend rows and the rule block fade and rise in sequence (stagger 180ms; rule lands at 1500ms). `IntersectionObserver` fires once at threshold 0.25 with `rootMargin: '0px 0px -10% 0px'`. Under `prefers-reduced-motion: reduce` the card renders directly to the resolved state.
+- **Chat own-bubble color (§ 3.11)** — Discarded the "hot last" rule (latest own message tinted bright magenta-500). Unified all own bubbles on `--magenta-700` with `--obsidian-050` text. The brighter `--magenta-500` stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations. The earlier rule shipped briefly in development and was cut on the same day after the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
+- **Loader inside `.btn-primary` (§ 3.12)** — Cyan-on-magenta is off-system. Resolved via `filter: brightness(0)` on `.btn-primary .loader-anim`, collapsing the cubes to a near-black silhouette without introducing a second source file. Applies at rest and while loading.
+- **Section numbering** — Applied (Data Viz, Voice, Accessibility, Case Study) and Meta (Changelog) groups shift by one — 16→18 / 17→19 / 18→20 / 19→21 / 20→22 — to make room for the two new Components entries. Sidebar nav, in-page anchors, and cross-references all updated. No external links break.
+
+**Trigger**
+
+A real implementation — a chatbot UI under prototype, 2026-05 — surfaced two gaps in the system: a canonical chat component set and a system-level loader. Closing those gaps is the rationale for § 3.11 and § 3.12. The 85/10/5 law card reveal was a quality-of-life refinement that landed in the same window.
 
 ### v2.2.0 — 2026.05.12 (MINOR)
 **Added · components**
