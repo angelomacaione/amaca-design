@@ -1,3 +1,20 @@
+---
+type: design-system
+project: amaca
+status: canonical
+version: 2.3.0
+last_synced: 2026-05-24
+source: https://github.com/angelomacaione/amaca-design
+upstream_raw: https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md
+sync_method: web_fetch
+sync_protocol: vault è MIRROR del repo GitHub (single source of truth = repo)
+tags:
+  - design-system
+  - amaca
+  - canonical
+  - dark-only
+---
+
 # AMACA DESIGN SYSTEM — `design.md`
 
 > **Version** 2.3.0 — 2026.05.22
