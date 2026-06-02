@@ -1295,6 +1295,19 @@
   .spec-card .btn{width:100%;justify-content:center}
 }
 
+/* Documentation install rows + DTCG row: collapse the mono-label / body
+   two-column grid to a single column on mobile so copy isn't crammed
+   into a ~120px right rail. */
+@media (max-width: 720px){
+  .doc-row{
+    grid-template-columns: 1fr !important;
+    gap: var(--s-3) !important;
+    padding: var(--s-5) !important;
+  }
+  /* Picker card buttons (03.1) go full-width — matches .spec-card behavior */
+  #documentation .grid-2 > .card .btn{ width:100%; justify-content:center }
+}
+
 
 /* cs-hero stacks vertically on mobile so the cube doesn't overlap the headline */
 @media (max-width: 720px){

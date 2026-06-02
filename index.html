@@ -12,7 +12,6 @@
 
 <link rel="stylesheet" href="styles/tokens.css?v=26">
 <link rel="stylesheet" href="styles/components.css?v=72">
-<script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.6.2/dist/dotlottie-wc.js" type="module"></script>
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -64,6 +63,27 @@ html{scroll-behavior:smooth}
 </script>
 </head>
 <body>
+<template id="__bundler_thumbnail" data-bg-color="#0B0E13">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#0B0E13"/>
+    <g transform="translate(600 380)" fill="none" stroke="#F051D5" stroke-width="10" stroke-linejoin="round">
+      <g transform="translate(0 -150)">
+        <path d="M0 -52 L45 -26 L45 26 L0 52 L-45 26 L-45 -26 Z" fill="rgba(240,81,213,0.12)"/>
+        <path d="M0 -52 L0 0 M0 0 L45 26 M0 0 L-45 26"/>
+      </g>
+      <g transform="translate(-115 70)">
+        <path d="M0 -52 L45 -26 L45 26 L0 52 L-45 26 L-45 -26 Z" fill="rgba(240,81,213,0.12)"/>
+        <path d="M0 -52 L0 0 M0 0 L45 26 M0 0 L-45 26"/>
+      </g>
+      <g transform="translate(115 70)">
+        <path d="M0 -52 L45 -26 L45 26 L0 52 L-45 26 L-45 -26 Z" fill="rgba(240,81,213,0.12)"/>
+        <path d="M0 -52 L0 0 M0 0 L45 26 M0 0 L-45 26"/>
+      </g>
+    </g>
+    <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.5.0</text>
+  </svg>
+</template>
 <a href="#main-content" class="skip-link">Skip to content</a>
 <div class="app">
 
@@ -73,7 +93,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.4.1 · DESIGN SYSTEM</span>
+        <span class="meta">V2.5.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -158,11 +178,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.4.1</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.5.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">May 25, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 02, 2026</span></div>
           </div>
         </div>
 
@@ -276,7 +296,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 03 · Meta / Documentation</div>
           <h1 class="page-title">The whole system, <span class="accent">two ways to drop it into your stack.</span></h1>
-          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. Pick the level of enforcement you want — the underlying spec is identical.</p>
+          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. As of v1.1.0 the skill is multi-target — one canonical token, three surfaces: HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables. Pick the level of enforcement you want — the underlying spec is identical.</p>
         </div>
 
         <!-- 03.1 · Choose your fit -->
@@ -286,13 +306,13 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <div class="grid grid-2" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
                 <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SKILL · ENFORCED WORKFLOW</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.0.2</div>
+                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.0</div>
               </div>
               <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">amaca-frontend.skill / .zip</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 6-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 13 verification checks before handing off. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
-              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For Cowork, Claude Code, Cursor with Claude, Continue with Claude. Install once, invoke per task.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 6-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 13 verification checks before handing off. Multi-target as of v1.1.0: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
+              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue. Install once, invoke per task.</p>
               <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
                 <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill" download>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -306,7 +326,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
 
             <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3)">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
                 <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SPEC · RAW CONTEXT</div>
                 <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">~40 KB</div>
               </div>
@@ -326,42 +346,68 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <!-- 03.2 · How to install -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">How to install</h2><span class="subsection-num">§ 03.2</span></div>
-          <p class="subsection-desc">Per-runtime. Pick the row that matches your tool.</p>
+          <p class="subsection-desc">Per-runtime, for code generation. Pick the row that matches your tool. Figma sync is separate — see row 02.</p>
 
           <ol style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-3)">
-            <li class="card" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">01 · COWORK / CLAUDE CODE<br/><span style="color:var(--obsidian-400)">ANY ANTHROPIC RUNTIME</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the .skill bundle in.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Skills panel → Install from file → select <code>amaca-frontend.skill</code>. Restart the session. Invoke with <code>amaca-frontend</code> or just describe an Amaca task — the skill auto-triggers on context.</p>
               </div>
             </li>
-            <li class="card" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">02 · CURSOR / CONTINUE<br/><span style="color:var(--obsidian-400)">WINDSURF / AIDER</span></div>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">02 · FIGMA<br/><span style="color:var(--obsidian-400)">— DESIGN TOOL</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Rename to .zip if your tool needs it.</h3>
-                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Same binary, different extension. Upload the .zip as a skill, extension, or context bundle per your tool's UI. The <code>SKILL.md</code> is the entry point; the runtime reads it as instructions and grounds on the bundled DESIGN.md.</p>
+                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Sync to Figma — it writes, not just reads.</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Not a skill drop. Connect the Figma connector (MCP): the skill pushes Amaca tokens as Figma Variables and generates component artboards directly into your file — bidirectional. Use a frontier-tier model for fidelity.</p>
               </div>
             </li>
-            <li class="card" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03 · GEMINI ADVANCED<br/><span style="color:var(--obsidian-400)">— GEMS</span></div>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03 · CURSOR / VS CODE / WINDSURF · CONTINUE / AIDER<br/><span style="color:var(--obsidian-400)">— EDITORS &amp; ASSISTANTS</span></div>
+              <div>
+                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the spec at your tool's rules path.</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">These read a markdown rules file at the repo root — no zip upload. Place DESIGN.md (or the SKILL.md body) where your tool looks:</p>
+                <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-2);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-snug)">
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.cursor/rules/amaca.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">VS Code (Copilot)</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.github/copilot-instructions.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Windsurf</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.windsurf/rules/amaca.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Aider</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">CONVENTIONS.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Continue</span><span style="color:var(--obsidian-400)">rules in config</span></li>
+                </ul>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:var(--s-3) 0 0;font-size:var(--t-small)">The runtime reads it as instructions and grounds on the spec.</p>
+                <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Model-gated — fidelity tracks the model behind the editor. See § 03.4.</p>
+              </div>
+            </li>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">04 · GEMINI ADVANCED<br/><span style="color:var(--obsidian-400)">— GEMS</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Spec as knowledge, instructions as system prompt.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a new Gem. Paste the SKILL.md body (without YAML frontmatter) into <em>Instructions</em>. Upload DESIGN.md as the Gem's knowledge file. Save. That Gem now speaks Amaca for any frontend task.</p>
+                <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.4 capability tiers.</p>
               </div>
             </li>
-            <li class="card" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">04 · CHATGPT<br/><span style="color:var(--obsidian-400)">— CUSTOM GPT</span></div>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">05 · CHATGPT<br/><span style="color:var(--obsidian-400)">— CUSTOM GPT</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Same pattern as Gems.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a Custom GPT. SKILL.md body as instructions. DESIGN.md as knowledge file. Same result.</p>
+                <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.4 capability tiers.</p>
               </div>
             </li>
-            <li class="card" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">05 · ONE-OFF<br/><span style="color:var(--obsidian-400)">ANY LLM CHAT</span></div>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">06 · ONE-OFF<br/><span style="color:var(--obsidian-400)">ANY LLM CHAT</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Attach and prefix.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Drop DESIGN.md inline in the chat. Prefix your prompt with <em>"Use this as the canonical reference for tokens, components, and voice — generate strictly compliant frontend code."</em> Lighter than the skill but works when nothing else does.</p>
+                <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.4 capability tiers.</p>
+              </div>
+            </li>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">07 · REPLIT / LOVABLE / V0 / BOLT / BASE44<br/><span style="color:var(--obsidian-400)">— APP BUILDERS</span></div>
+              <div>
+                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Feed the tokens, not the skill.</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Prompt-to-app builders impose their own stack (usually React + Tailwind + shadcn) and treat a pasted spec as soft context. Give them the Tailwind <code>@theme</code> tokens as the project foundation — those travel; the enforcement workflow does not. Replit is closest (its Agent reads project files — drop a rules file). Base44 is the tightest (locked stack). Compliance is model- and platform-gated: a frontier model + tokens-as-foundation gets most of the way — verify with the § 03.4 scan.</p>
               </div>
             </li>
           </ol>
@@ -399,8 +445,9 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">FRONTIER · RECOMMENDED</span>
               </div>
               <h3 style="font-size:20px;margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Production-grade enforcement.</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Sonnet 4+, GPT-5, Gemini 2.5 Pro, Claude Opus. Explicit tool calls to read DESIGN.md, syntactic token registry checks, gap-surfacing protocol invoked correctly, voice register maintained.</p>
-              <div style="display:flex;gap:var(--s-6);padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);margin-top:auto">
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Opus 4.x, Claude Sonnet 4.x, GPT-5, Gemini 3 Pro. Explicit tool calls to read DESIGN.md, syntactic token registry checks, gap-surfacing protocol invoked correctly, voice register maintained.</p>
+              <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:0">Validated empirically: Gemini 3.1 Pro held strict Amaca compliance on a design-tool runtime.</p>
+              <div style="display:flex;gap:var(--s-6);padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);margin-top:auto;flex-wrap:wrap;row-gap:var(--s-4)">
                 <div>
                   <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);margin-bottom:6px">SCORE · N=4</div>
                   <div style="font-size:28px;font-weight:600;line-height:1;letter-spacing:var(--tr-snug)">8.5<span style="color:var(--obsidian-500);font-size:14px;font-weight:400">/10</span></div>
@@ -418,7 +465,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">LIGHTWEIGHT · BEST-EFFORT</span>
               </div>
               <h3 style="font-size:20px;margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Usable output, partial compliance.</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Haiku, GPT-4o-mini, Gemini 2.5 Flash. Token references are mostly canonical, principles are cited, structure is sound. Expect two weaknesses:</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Haiku, GPT-5 mini, Gemini 3 Flash. Token references are mostly canonical, principles are cited, structure is sound. Expect two weaknesses:</p>
               <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-3);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-loose)">
                 <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-3);align-items:start"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:3px">01</span><span><strong style="color:var(--obsidian-100);font-weight:500">Class name proliferation.</strong> New classes where canonical components would compose.</span></li>
                 <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-3);align-items:start"><span style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:3px">02</span><span><strong style="color:var(--obsidian-100);font-weight:500">Micro-inconsistencies.</strong> Radius drift, occasional minor token substitution, edge cases on multi-component composition.</span></li>
@@ -431,6 +478,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <span>After any generation, grep the code for hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px values (<code>16px</code> instead of <code>var(--s-4)</code>), new <code>.classname</code> introductions outside the canonical § 3 registry, and missing <code>@media (prefers-reduced-motion: reduce)</code> overrides. Catches most drift regardless of model tier.</span>
           </div>
 
+          <div class="info-strip" style="margin-top:var(--s-4);align-items:flex-start">
+            <span class="tag" style="white-space:nowrap;padding-top:2px">A11Y FLOOR · § 06</span>
+            <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) uses <code>obsidian-950</code> — 6.5:1. Light text fails WCAG AA (2.47:1). Applies to every magenta fill — primary button, CTAs, chips.</span>
+          </div>
+
           <div class="card" style="padding:var(--s-6);margin-top:var(--s-4)">
             <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-3)">RUNTIME ARCHITECTURE CAVEAT</div>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">Beyond model size, the runtime's file-grounding architecture matters. Anthropic-stack tools (Claude Code, Cowork, Cursor with Claude, Continue with Claude) read uploaded files via explicit tool calls — what you upload is what gets read. Consumer chat tools that abstract file uploads as context embeddings may produce <em>performative compliance</em>: the model announces reading DESIGN.md but the actual grounding is shallow.</p>
@@ -438,43 +490,31 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           </div>
         </div>
 
-        <!-- 03.5 · Tailwind export -->
+        <!-- 03.5 · React — native -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Tailwind export</h2><span class="subsection-num">§ 03.5 · roadmap</span></div>
-          <p class="subsection-desc">The DESIGN.md format is converging with the <a href="https://github.com/google-labs-code/design.md">Google design.md open spec</a> — YAML frontmatter for machine-parseable tokens, layered on top of human-readable markdown rationale. When Amaca DS lands its frontmatter (planned v2.5.0+), three tooling integrations unlock automatically.</p>
+          <div class="subsection-head"><h2 class="subsection-title">React — native</h2><span class="subsection-num">§ 03.5</span></div>
+          <p class="subsection-desc">Tailwind v4 <code>@theme</code> is native: tokens become first-class utilities (<code>bg-magenta-500</code>, <code>rounded-md</code>) straight from <code>tokens.css</code> — no Google spec, no build hack. React is first-class in amaca-frontend v1.1.</p>
 
-          <div class="grid grid-3" style="gap:var(--s-4)">
+          <div class="grid grid-2" style="gap:var(--s-4);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">01 · LINT</div>
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">npx @google/design.md lint</code>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Validates token references, contrast ratios (WCAG AA), orphaned tokens, section order. Pre-release check or CI gate.</p>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">UTILITIES</div>
+              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">bg-magenta-500 · text-obsidian-950 · rounded-md</code>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Every token resolves to a utility class against the same <code>var()</code> chain the CSS surface uses. No CSS modules, no translation layer.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">02 · DIFF</div>
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">design.md diff v1 v2</code>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Token-level regression detection between versions. Catches breaking changes that warrant a MAJOR SemVer bump before they ship.</p>
-            </div>
-            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
-              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">03 · EXPORT — TAILWIND v4</div>
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">--format css-tailwind &gt; theme.css</code>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Generates a Tailwind v4 <code>@theme</code> block from the frontmatter. Tokens become first-class utilities — <code>bg-magenta-500</code>, <code>text-obsidian-100</code>, <code>rounded-md</code>.</p>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">IMPORT</div>
+              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">@import "amaca-design/styles/theme.css";</code>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">One line wires the full token scale into a Tailwind v4 project. <code>theme.css</code> is a <code>@theme</code> projection of <code>tokens.css</code> — <code>var()</code> aliases, no duplicated literals.</p>
             </div>
           </div>
 
-          <div class="card" style="padding:var(--s-5) var(--s-6);margin-top:var(--s-4);display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);align-items:start">
-            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03b · EXPORT — DTCG<br/><span style="color:var(--obsidian-400)">W3C DESIGN TOKENS</span></div>
+          <div class="card doc-row" style="padding:var(--s-5) var(--s-6);margin-top:var(--s-4);display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);align-items:start">
+            <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-300);padding-top:4px">OPTIONAL PROJECTION<br/><span style="color:var(--obsidian-400)">design.md / W3C DTCG</span></div>
             <div style="display:flex;flex-direction:column;gap:var(--s-3)">
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:inline-block;width:fit-content;max-width:100%">--format dtcg &gt; tokens.json</code>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">W3C standard format. Interop with Figma plugins, Style Dictionary pipelines, native tokenization tools across vendors.</p>
+              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:inline-block;width:fit-content;max-width:100%">tokens.json</code>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The Google <code>design.md</code> / W3C DTCG export stays available as an optional, generated projection for lint, diff, and cross-tool interop — not the thing that unlocks React. Same one-way model: derived from <code>tokens.css</code>, not authored separately.</p>
             </div>
           </div>
-
-          <div class="info-strip" style="margin-top:var(--s-5);align-items:flex-start">
-            <span class="tag" style="white-space:nowrap;padding-top:2px">REACT / VUE / SVELTE</span>
-            <span>The amaca-frontend skill is HTML/CSS/JS-only in v1. v1.1 — unlocked when YAML frontmatter ships in DESIGN.md v2.5.0+ — adds React-via-Tailwind generation: the skill runs the Tailwind export at Step 1.5, ingests the theme.css, and produces React components with utility classes that map 1:1 to Amaca tokens. No manual CSS modules, no translation layer.</span>
-          </div>
-
-          <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:var(--s-4) 0 0;font-size:var(--t-small)">Status: <strong style="color:var(--obsidian-100);font-weight:500">planned v2.5.0</strong>. The DESIGN.md body stays as-is; YAML frontmatter is additive, no breaking change. Subscribe to <a href="https://github.com/angelomacaione/amaca-design">the repo</a> for the release.</p>
         </div>
 
         <!-- 03.6 · Versioning & license -->
@@ -484,15 +524,15 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.4.1 here ships v2.4.1 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.5.0 here ships v2.5.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, runtime support. v1.0.2 ships with DESIGN.md v2.4.1 today; next week the same v1.0.2 ships with v2.5.0 inside.</p>
-              <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.0.2</span></span>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.0 ships with DESIGN.md v2.5.0 — multi-target across HTML, React, and Figma.</p>
+              <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.0</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
-                <span>NEXT · <span style="color:var(--obsidian-100)">v1.1</span></span>
+                <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
@@ -2863,9 +2903,48 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.4.1 -->
+            <!-- v2.5.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-241">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-250">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.5.0 — Multi-deploy: one token, three surfaces</span>
+                <span class="acc-num">2026-06-02</span>
+              </button>
+              <div class="acc-panel" id="cl-250" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. React and Figma move from roadmap to shipped. One canonical token now projects to three surfaces — CSS, Tailwind v4, Figma Variables — defined in a new § 13 and emitted by <code>styles/theme.css</code>. Additive: <code>tokens.css</code> and every component spec are untouched; existing HTML output is byte-for-byte identical.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 13 · Multi-deploy compatibility</strong> — One token, three surfaces. <code>var(--magenta-500)</code> ↔ <code>bg-magenta-500</code> (React / Tailwind v4) ↔ the Figma Variable <code>color/magenta/500</code>, all resolving to #F051D5. The direction is one-way: tokens are the source, every target derives.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>styles/theme.css</code></strong> — A Tailwind v4 <code>@theme</code> projection of <code>tokens.css</code>. <code>var()</code> aliases, no duplicated literals. Wire it with <code>@import "amaca-design/styles/theme.css"</code> and the full token scale becomes utilities.</li>
+                    <li><strong style="color:var(--obsidian-100)">DESIGN.md YAML frontmatter</strong> — Machine-parseable header: <code>version</code>, <code>updated</code>, <code>last_synced</code>, <code>deploy_targets</code>. The markdown body is unchanged below it.</li>
+                    <li><strong style="color:var(--obsidian-100)">amaca-frontend skill v1.1.0</strong> — Multi-target. Reads HTML.md / REACT.md / FIGMA.md for the surface you request and ingests <code>theme.css</code> for React output. HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables all ship.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 03.5 · Multi-deploy export</strong> — Reframed from roadmap to shipped. The section now documents the three-surface model and the <code>theme.css</code> import. The Google <code>design.md</code> open-spec dependency is dropped — the React/Tailwind path is Tailwind v4 <code>@theme</code> native, not generated by an external tool. The DTCG export is restated as Amaca's own roadmap, fully decoupled.</li>
+                    <li><strong style="color:var(--obsidian-100)">Version reconciliation</strong> — Spec, skill, header badge, and overview meta all reconciled to v2.5.0 / skill v1.1.0. § 03.1 and § 03.6 reflect the multi-target skill and the spec ↔ skill version split.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">The amaca-frontend skill reached v1.1 and its reference docs cited a § 13 and a Tailwind v4 <code>@theme</code> projection that did not yet exist — the skill shipped ahead of its contract. § 13 and <code>theme.css</code> close that gap: the contract the skill already references is now real and canonical.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-02</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">SKILL · </span><a href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill" target="_blank" rel="noopener" download>amaca-frontend.skill</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.4.1...v2.5.0" target="_blank" rel="noopener">v2.4.1…v2.5.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.4.1 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-241">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.4.1 — Documentation refresh: skill bundle, capability tiers, Tailwind roadmap</span>
                 <span class="acc-num">2026-05-25</span>

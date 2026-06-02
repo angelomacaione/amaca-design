@@ -1,6 +1,16 @@
+---
+version: 2.5.0
+updated: 2026-06-02
+author: Angelo Macaione
+license: MIT
+canonical: https://github.com/angelomacaione/amaca-design
+last_synced: 2026-06-02
+deploy_targets: [html, react, figma]
+---
+
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.3.0 — 2026.05.22
+> **Version** 2.5.0 — 2026.06.02
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -677,8 +687,9 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
 | `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
 | `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
-| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
-| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
+| `--magenta-400` on `--obsidian-950` | 7.6 : 1 |
+| `--magenta-500` on `--obsidian-950` | 6.5 : 1 |
+| `--obsidian-950` on `--magenta-500` | 6.5 : 1 (dark text on the magenta primary fill / CTAs) |
 
 ### 6.2 Focus visibility
 
@@ -691,6 +702,27 @@ Two patterns ship:
 ---
 
 ## 7. Code conventions
+
+### Scrollbar — custom, never the default
+
+The default browser scrollbar is off-system (light track, chunky thumb on dark surfaces). Always restyle it: thin, obsidian, no magenta — it recedes (§ 1.4 Quiet, then loud).
+
+```css
+/* WebKit / Blink */
+::-webkit-scrollbar { width: var(--s-2); height: var(--s-2); }   /* 8px — thin */
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--obsidian-600);
+  border-radius: var(--r-full);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--obsidian-500); }
+
+/* Firefox */
+* { scrollbar-width: thin; scrollbar-color: var(--obsidian-600) transparent; }
+```
+
+Tokens only: `--s-2` width, `--r-full` radius, `--obsidian-600` thumb (`--obsidian-500` on hover), transparent track. The scrollbar is chrome, not an accent — no magenta.
+
 
 ### 7.1 CSS
 
@@ -814,7 +846,71 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ---
 
-## 13. Changelog
+## 13. Multi-deploy compatibility
+
+The system ships to three targets: vanilla **HTML/CSS/JS**, **React with Tailwind v4**, and **Figma Variables**. `DESIGN.md` + `styles/tokens.css` are the single source of truth. React utilities and Figma Variables are projections of the same tokens — never independent values.
+
+**Direction is one-way: tokens → target.** A token defined in § 2 maps to one logical name on every surface. The CSS custom property is canonical; the Tailwind utility and the Figma Variable are generated or mirrored from it. Code → Figma, never Figma → code (except an explicit audit).
+
+### 13.1 Token name mapping
+
+The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magenta-500` (React/Tailwind v4), and the Variable `color/magenta/500` (Figma) all resolve to `#F051D5`.
+
+| § 2 token | Tailwind v4 `@theme` name | Generated utilities | Figma Variable | Type |
+|---|---|---|---|---|
+| `--magenta-500` | `--color-magenta-500` | `bg-`, `text-`, `border-`, `fill-`, `stroke-magenta-500` | `color/magenta/500` | Color |
+| `--obsidian-800` | `--color-obsidian-800` | `bg-obsidian-800`, … | `color/obsidian/800` | Color |
+| `--success` | `--color-success` | `bg-success`, `text-success` | `color/semantic/success` | Color |
+| `--s-4` | `--spacing-4` | `p-4`, `m-4`, `px-4`, `gap-4`, … | `spacing/4` | Number (16) |
+| `--r-lg` | `--radius-lg` | `rounded-lg` | `radius/lg` | Number (12) |
+| `--t-body` | `--text-body` | `text-body` | `typography/body/size` | Number (15) |
+| `--lh-normal` | `--leading-normal` | `leading-normal` | `typography/lineHeight/normal` | Number (1.45) |
+| `--tr-snug` | `--tracking-snug` | `tracking-snug` | `typography/tracking/snug` | Number (-0.02em) |
+| `--font-sans` | `--font-sans` | `font-sans` | `typography/family/sans` | String |
+| `--d-quick` | `--duration-quick` | `duration-quick` | `motion/duration/quick` | Number (200) |
+| `--ease-decel` | `--ease-decel` | `ease-decel` | `motion/easing/decel` | String |
+| `--sh-2` | `--shadow-sh-2` | `shadow-sh-2` | `effect/shadow/2` | Effect |
+
+**Conventions, no exceptions:**
+- Tailwind: prefix the § 2 name with the Tailwind v4 theme namespace (`--color-`, `--spacing-`, `--radius-`, `--text-`, `--leading-`, `--tracking-`, `--duration-`, `--shadow-`). The bare scale number is preserved (`--s-4` → `--spacing-4`, not `--spacing-16`).
+- Figma: slash-separated namespace mirrors the token hierarchy (`color/magenta/500`). Figma renders `/` as a folder. Never flatten to `magenta500`.
+- Values never diverge across targets. The same token is the same value on all three. Divergence is a regression caught by cross-target verification.
+
+### 13.2 React · Tailwind v4 `@theme`
+
+`styles/theme.css` exposes every § 2 token inside a Tailwind v4 `@theme` block under its namespaced name, aliasing the canonical `:root` values in `tokens.css`. Legacy `var(--magenta-500)` keeps working — the `@theme` names are additive, not a rename. Import once at the project entry:
+
+```css
+@import "tailwindcss";
+@import "amaca-design/styles/theme.css";
+```
+
+Tailwind generates the utilities (`bg-magenta-500`, `p-4`, `rounded-lg`, `duration-quick`). Where Tailwind v4 is unavailable, fall back to CSS modules with raw `var(--token)` syntax — functionally identical, less ergonomic.
+
+### 13.3 Figma · Variables
+
+Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every fill, stroke, corner radius, and padding to a Variable — no raw values on generated nodes. Component artboards carry canonical state coverage (default · hover · focus-visible · active · disabled, plus component-specific states per § 3). Figma is a projection of `DESIGN.md`; on conflict, `DESIGN.md` wins.
+
+---
+
+## 14. Changelog
+
+### v2.5.0 — 2026.06.02 (MINOR)
+**Added**
+- **§ 13 Multi-deploy compatibility** — Canonical mapping of every § 2 token across three deploy targets: HTML CSS custom property, React Tailwind v4 `@theme` utility, and Figma Variable. One logical token, three names, one value. `var(--magenta-500)` ↔ `bg-magenta-500` ↔ `color/magenta/500`, all `#F051D5`. Tailwind names are additive aliases under the theme namespace — no token rename, existing `var(--token)` consumers unaffected (non-breaking, hence MINOR). Figma uses slash-namespace (`color/magenta/500`) for native folder display. Direction is one-way: tokens → target. Closes the broken references in the `amaca-frontend` skill v1.1 reference docs (REACT.md, FIGMA.md), which pointed to a § 13 that did not yet exist.
+- **`styles/theme.css`** — Tailwind v4 `@theme` projection of `tokens.css`. Additive file; aliases canonical `:root` values under namespaced names so `@import "amaca-design/styles/theme.css"` generates Amaca utilities. `tokens.css` unchanged.
+- **YAML frontmatter** — `version`, `updated`, `last_synced`, `deploy_targets` at the head of this file. Machine-readable for tools that read the spec (the `amaca-frontend` skill reads `version` and `last_synced` at pre-flight). The human-readable `> **Version**` line is retained.
+
+**Refined**
+- **Version reconciliation** — The spec content version had drifted from the distribution surfaces. `DESIGN.md` header (was 2.3.0), `README.md` (was "v1.0.0"), and the site version display are realigned to a single source of truth: this file's `version`. The 2.4.x labels covered documentation and site refreshes with no token or component change; the spec content resumes its line at 2.5.0.
+
+**Documented**
+- **§ 11 Working with this file in an IDE** — unchanged surface; the new § 13 covers cross-target consumption (React/Figma) that § 11 (single-file IDE context) did not.
+
+**Trigger**
+
+The `amaca-frontend` skill reached v1.1 — multi-target (HTML + React + Figma) — and its reference docs (REACT.md, FIGMA.md) cite "§ 13 Multi-deploy compatibility" and a Tailwind v4 `@theme` projection as canonical context. Neither existed in the spec: the skill shipped ahead of the contract it depends on. Closing that gap is the rationale for § 13 and `styles/theme.css`. React and Figma move from roadmap to shipped.
+
 
 ### v2.3.0 — 2026.05.22 (MINOR)
 **Added · components**
