@@ -20,6 +20,8 @@ Every token, component, and rule here is already in use across my case studies a
 
 **Applied** — data visualization, voice & tone, case study template. The system in practice.
 
+**Multi-deploy** — one token, three targets. `var(--magenta-500)` (CSS) ↔ `bg-magenta-500` (React/Tailwind v4) ↔ `color/magenta/500` (Figma Variable), all the same value. Mapping canonical in DESIGN.md § 13. The `amaca-frontend` skill bundle enforces it at generation time.
+
 ## Five principles
 
 These are forcing functions, not decorations. Each one should make some designs impossible.
@@ -45,12 +47,14 @@ Deliberately minimal. No framework, no build step, no dependencies to audit.
 
 ```
 ├── index.html              # The document itself
+├── DESIGN.md               # The canonical spec (single source of truth)
 ├── styles/
 │   ├── tokens.css          # Design tokens (color, type, space, motion)
+│   ├── theme.css           # Tailwind v4 @theme projection of the tokens
 │   └── components.css      # Component styles
+├── amaca-frontend.skill    # Enforcement skill bundle (.zip mirror alongside)
 ├── fonts/                  # Satoshi typeface, all weights
-├── assets/                 # Logo and static assets
-└── uploads/                # Source artwork
+└── assets/                 # Logo and static assets
 ```
 
 ## Running locally
@@ -78,7 +82,7 @@ This system follows [Semantic Versioning](https://semver.org).
 - **MINOR** — new components, sections, or non-breaking additions
 - **PATCH** — typo fixes, visual refinements, bug fixes
 
-Current version: **v1.0.0** — see [Releases](https://github.com/angelomacaione/amaca-design/releases) for changelog.
+Current version: **v2.5.0** — see [Releases](https://github.com/angelomacaione/amaca-design/releases) for changelog.
 
 ## License
 
