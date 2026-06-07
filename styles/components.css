@@ -355,8 +355,8 @@
 }
 .btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn .icon{width:14px;height:14px}
-.btn-primary{background:var(--magenta-500);color:#1A001A;border-color:var(--magenta-500);box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0)}
-.btn-primary:hover{background:var(--magenta-400);color:#1A001A;border-color:var(--magenta-400);box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18)}
+.btn-primary{background:var(--magenta-500);color:var(--obsidian-050);border-color:var(--magenta-500);box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0)}
+.btn-primary:hover{background:var(--magenta-500);color:var(--obsidian-050);border-color:var(--magenta-500);box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18)}
 .btn-secondary{background:var(--obsidian-800);color:var(--obsidian-100);border-color:var(--obsidian-700)}
 .btn-secondary:hover{background:var(--obsidian-700);border-color:var(--obsidian-600)}
 .btn-ghost{color:var(--obsidian-100);background:transparent}
@@ -2636,4 +2636,130 @@
   .loader-scale{ grid-template-columns: repeat(2, 1fr) }
   .loader-variants{ grid-template-columns: repeat(2, 1fr) }
   .loader-anatomy{ grid-template-columns: 1fr; padding: var(--s-5); gap: var(--s-6) }
+}
+
+
+/* ─────────── DIAGRAMS · § 18 ─────────── */
+/* Auto-layout flow/architecture diagrams (Mermaid, theme base) themed entirely
+   from tokens read at runtime. The figure chrome is coherent with .card (§ 12):
+   --obsidian-900 surface, --obsidian-700 border, --r-lg, --s-6 padding. */
+.diagram{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  padding: var(--s-6);
+  background: var(--obsidian-900);
+  border: 1px solid var(--obsidian-700);
+  border-radius: var(--r-lg);
+}
+/* Render target — the Mermaid SVG is injected here. role="img" + aria-label. */
+.diagram-canvas{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
+  padding: var(--s-4) var(--s-2);
+  overflow-x: auto;
+}
+.diagram-canvas svg{
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+/* Mermaid's label classes (.nodeLabel / .edgeLabel / .cluster-label) are unique
+   to diagrams. Neutralize them GLOBALLY — not just inside .diagram-canvas — so
+   Mermaid's off-screen width-measurement pass matches the render. Otherwise the
+   design system's global `.label` rule (mono, uppercase, tracked) uppercases the
+   measured text and inflates every node box. These classes never appear in any
+   design-system component, so the global scope is safe. */
+.nodeLabel, .edgeLabel, .cluster-label,
+.diagram-canvas .label{
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: var(--tr-normal);
+  text-transform: none;
+}
+.nodeLabel, .cluster-label{ font-size: var(--t-small) }
+.edgeLabel{ font-size: var(--t-caption) }
+.diagram-canvas .nodeLabel{ fill: var(--obsidian-100); color: var(--obsidian-100) }
+.diagram-canvas .edgeLabel{ fill: var(--obsidian-300); color: var(--obsidian-300) }
+.diagram-canvas .cluster-label{ fill: var(--obsidian-200); color: var(--obsidian-200) }
+/* Safety net: label content is flex-centered via JS, so any residual overflow
+   spills symmetrically and never reaches the node border (16px padding). */
+.diagram-canvas foreignObject{ overflow: visible }
+/* Edges a touch thicker (arrowheads inherit lineColor from themeVariables). */
+.diagram-canvas .edgePaths path,
+.diagram-canvas path.flowchart-link{ stroke-width: 2px }
+/* Edge labels (yes / no) get an opaque chip applied via JS on the label div
+   (Mermaid paints it at 0.5 alpha through an id-scoped rule). Just reset margins. */
+.diagram-canvas .edgeLabel p,
+.diagram-canvas .edgeLabel .nodeLabel{ margin: 0 }
+/* Node radius → --r-md. rx is a geometry property Mermaid leaves unset on
+   default rectangles, so this applies without !important (no inline override). */
+.diagram-canvas .node rect,
+.diagram-canvas .node .basic{ rx: var(--r-md); ry: var(--r-md) }
+/* Subgraph / cluster box radius → --r-lg, matching panels. */
+.diagram-canvas .cluster rect{ rx: var(--r-lg); ry: var(--r-lg) }
+/* Caption — mono micro, echoes .card-meta. "FIG-NN · title". */
+.diagram-caption{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--obsidian-400);
+}
+.diagram-caption .num{ color: var(--magenta-400) }
+
+/* Legend — only for semantic-state diagrams. Color is never alone: each row
+   pairs a shape token + a written label (§ 6 floor #1). */
+.diagram-legend{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--obsidian-800);
+}
+.diagram-legend-item{
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-small);
+  color: var(--obsidian-200);
+}
+.diagram-legend-swatch{
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background: var(--obsidian-800);
+  border: 1.5px solid var(--obsidian-600);
+}
+.diagram-legend-swatch.is-focus{ border-color: var(--magenta-500); border-radius: var(--r-md) }
+.diagram-legend-swatch.is-ok{ border-color: var(--success); border-radius: var(--r-full) }
+.diagram-legend-swatch.is-warn{ border-color: var(--warning); transform: rotate(45deg) }
+.diagram-legend-swatch.is-bad{ border-color: var(--danger); border-radius: var(--r-md) }
+.diagram-legend-meta{
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-mono);
+  text-transform: uppercase;
+  color: var(--obsidian-400);
+}
+
+/* ─── Entrance: opacity-only cascade (§ 7.3 — never transform the SVG groups) ───
+   JS sets opacity:0 + per-element transition-delay after Mermaid's async render
+   resolves, then flips opacity:1 on scroll-in. Reduced motion renders straight
+   to the resolved state (handled in JS — no hidden initial state is ever set). */
+.diagram-canvas svg .node,
+.diagram-canvas svg .cluster,
+.diagram-canvas svg .edgePath,
+.diagram-canvas svg .edgePaths path,
+.diagram-canvas svg .edgeLabel{
+  will-change: opacity;
+}
+
+/* Mobile */
+@media (max-width: 720px){
+  .diagram{ padding: var(--s-5) }
+  .diagram-canvas{ padding: var(--s-2) 0 }
 }
