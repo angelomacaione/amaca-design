@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=26">
-<link rel="stylesheet" href="styles/components.css?v=72">
+<link rel="stylesheet" href="styles/components.css?v=79">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -81,7 +81,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.5.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.6.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -93,7 +93,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.5.0 · DESIGN SYSTEM</span>
+        <span class="meta">V2.6.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -127,21 +127,22 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">15</span> Accordion</a>
       <a class="nav-item" href="#chat" data-target="chat"><span class="num">16</span> Chat &amp; Messaging</a>
       <a class="nav-item" href="#loader" data-target="loader"><span class="num">17</span> Loader</a>
+      <a class="nav-item" href="#diagrams" data-target="diagrams"><span class="num">18</span> Diagrams</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Applied</div>
-      <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">18</span> Data Viz</a>
-      <a class="nav-item" href="#voice" data-target="voice"><span class="num">19</span> Voice &amp; Tone</a>
-      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">20</span> Accessibility</a>
-      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">21</span> Case Study</a>
+      <a class="nav-item" href="#dataviz" data-target="dataviz"><span class="num">19</span> Data Viz</a>
+      <a class="nav-item" href="#voice" data-target="voice"><span class="num">20</span> Voice &amp; Tone</a>
+      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">21</span> Accessibility</a>
+      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">22</span> Case Study</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Meta</div>
-      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">22</span> Changelog</a>
+      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">23</span> Changelog</a>
     </div>
 
     <div class="sidebar-footer">
@@ -178,11 +179,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.5.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.6.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 02, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 07, 2026</span></div>
           </div>
         </div>
 
@@ -425,7 +426,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <tr><td><code>## Tokens · type</code></td><td class="muted">Display through caption — size, weight, leading, tracking. Family fallbacks.</td></tr>
               <tr><td><code>## Tokens · spacing &amp; radius</code></td><td class="muted">The 4-px scale, radius steps, shadow specs.</td></tr>
               <tr><td><code>## Tokens · motion</code></td><td class="muted">Durations, easings, the single curve everything rides on.</td></tr>
-              <tr><td><code>## Components</code></td><td class="muted">13 components — buttons, forms, cards, badges, navigation, accordion, chat, loader, checkbox — props, states, do/don't.</td></tr>
+              <tr><td><code>## Components</code></td><td class="muted">14 components — buttons, forms, cards, badges, navigation, accordion, chat, loader, diagrams, checkbox — props, states, do/don't.</td></tr>
               <tr><td><code>## Voice</code></td><td class="muted">Editorial direction. Word lists. Phrasing examples.</td></tr>
               <tr><td><code>## Accessibility</code></td><td class="muted">Color pairs with ratios, focus rules, reduced-motion contracts.</td></tr>
               <tr><td><code>## Changelog</code></td><td class="muted">Every release, top to bottom. Same as § 23.</td></tr>
@@ -524,7 +525,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.5.0 here ships v2.5.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.6.0 here ships v2.6.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
@@ -2210,16 +2211,205 @@ Basic UI</div>
         </div>
       </section>
 
+      <!-- ============ DIAGRAMS ============ -->
+      <section class="section" id="diagrams">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 18 · Components / Diagrams</div>
+          <h1 class="page-title">Structure, <span class="accent">drawn on the same grid.</span></h1>
+          <p class="page-lede">Flowcharts and system maps from a textual source — auto-laid-out, then themed entirely from tokens. The library only ever sees values read off <code>:root</code> at runtime, so there is no hardcoded hex anywhere: the single source of truth stays <code>tokens.css</code>. Everything is neutral obsidian; exactly one magenta node marks the narrative entry. On scroll, nodes cascade in, then the edges that connect them.</p>
+        </div>
+
+        <!-- § 18.1 Flowchart -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 18.1</span></div>
+          <p class="subsection-desc">Decisions and paths. Rectangles are steps, diamonds are gates, dashed edges are loops. One magenta node — the entry — anchors where to start reading. Everything else recedes to obsidian.</p>
+
+          <figure class="diagram" data-anim="pending">
+            <div class="diagram-canvas" role="img" aria-label="Flowchart: a request plus DESIGN.md reaches a gate asking whether a token covers the need. If yes, reference the variable by name, then an 85/10/5 and accessibility pass, then ship. If no, stop and ask the owner.">
+              <template class="diagram-src">
+flowchart TD
+  accTitle: Token-resolution path
+  accDescr: A request with DESIGN.md reaches a gate. If a token covers the need, reference the variable by name, pass the 85/10/5 and accessibility check, then ship. If not, stop and ask the owner.
+  P["Request + DESIGN.md"]:::focus --> R{"Token covers it?"}
+  R -->|yes| W["Reference var by name"]
+  R -->|no| A["Stop · ask owner"]
+  W --> C["85/10/5 + a11y pass"]
+  C --> S["Ship"]
+              </template>
+            </div>
+            <figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token-resolution path</figcaption>
+          </figure>
+        </div>
+
+        <!-- § 18.2 System architecture -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">System architecture · grouped</h2><span class="subsection-num">§ 18.2</span></div>
+          <p class="subsection-desc">Box-and-line with grouping. Subgraphs become clusters — <code>--obsidian-850</code> fill, <code>--obsidian-700</code> border — so related boxes read as one zone. The one magenta node is the source of truth every surface derives from.</p>
+
+          <figure class="diagram" data-anim="pending">
+            <div class="diagram-canvas" role="img" aria-label="System architecture: a source-of-truth group holds tokens.css, which feeds a build group containing components.css and design.md; those fan out to a surfaces group of the live web site, the IDE rules file, and the skill bundle.">
+              <template class="diagram-src">
+flowchart LR
+  accTitle: One token, three surfaces
+  accDescr: The source-of-truth group holds tokens.css. It feeds the build group — components.css and design.md — which fan out to the surfaces group: the live web site, the IDE rules file, and the skill bundle.
+  subgraph SRC ["Source of truth"]
+    T["tokens.css"]:::focus
+  end
+  subgraph BUILD ["Build"]
+    M["components.css"]
+    D["design.md"]
+  end
+  subgraph OUT ["Surfaces"]
+    W["Web · live site"]
+    I["IDE · rules file"]
+    K["Skill bundle"]
+  end
+  T --> M
+  T --> D
+  M --> W
+  D --> I
+  D --> K
+              </template>
+            </div>
+            <figcaption class="diagram-caption"><span class="num">FIG-02</span> · Multi-deploy · one token, three surfaces</figcaption>
+          </figure>
+        </div>
+
+        <!-- § 18.3 Semantic states -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Semantic states · legend</h2><span class="subsection-num">§ 18.3</span></div>
+          <p class="subsection-desc">The one case for color beyond magenta. When a node encodes a real state, it carries the semantic hue — but never alone: every state node also changes <em>shape</em> and spells the state in its <em>label</em> (§ 6 floor #1). A legend maps each pairing.</p>
+
+          <figure class="diagram" data-anim="pending">
+            <div class="diagram-canvas" role="img" aria-label="A release gate: a commit reaches a gate that yields three states — pass, tokens valid; warn, contrast at 4.3 to 1; and block, hardcoded hex. The pass state proceeds to merge.">
+              <template class="diagram-src">
+flowchart TD
+  accTitle: Release gate states
+  accDescr: A commit reaches a gate that yields three checked states — pass with valid tokens, warn at contrast 4.3 to 1, and block on hardcoded hex. Only the pass state proceeds to merge.
+  C["Commit"]:::focus --> G{"Release gate"}
+  G --> A(["PASS · tokens valid"]):::stateOk
+  G --> N{{"WARN · contrast 4.3:1"}}:::stateWarn
+  G --> X[/"BLOCK · hardcoded hex"/]:::stateBad
+  A --> M["Merge"]
+              </template>
+            </div>
+            <div class="diagram-legend" aria-hidden="true">
+              <div class="diagram-legend-item"><span class="diagram-legend-swatch is-focus"></span> Entry <span class="diagram-legend-meta">magenta-500</span></div>
+              <div class="diagram-legend-item"><span class="diagram-legend-swatch is-ok"></span> Pass <span class="diagram-legend-meta">success · stadium</span></div>
+              <div class="diagram-legend-item"><span class="diagram-legend-swatch is-warn"></span> Warn <span class="diagram-legend-meta">warning · hexagon</span></div>
+              <div class="diagram-legend-item"><span class="diagram-legend-swatch is-bad"></span> Block <span class="diagram-legend-meta">danger · parallelogram</span></div>
+            </div>
+            <figcaption class="diagram-caption"><span class="num">FIG-03</span> · Release gate · color + shape + label</figcaption>
+          </figure>
+        </div>
+
+        <!-- § 18.4 Anatomy -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 18.4</span></div>
+          <p class="subsection-desc">A <code>&lt;figure class="diagram"&gt;</code> wraps a <code>.diagram-canvas[role="img"]</code> (holding the rendered SVG) and a <code>.diagram-caption</code>. Surface, border, and radius are coherent with <code>.card</code>. Semantic-state diagrams add a <code>.diagram-legend</code>.</p>
+          <table class="table">
+            <thead><tr><th style="width:26%">Class</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td><code>.diagram</code></td><td class="muted">Figure shell. <code>--obsidian-900</code> surface, <code>1px</code> <code>--obsidian-700</code> border, <code>--r-lg</code>, <code>--s-6</code> padding — the <code>.card</code> frame.</td></tr>
+              <tr><td><code>.diagram-canvas</code></td><td class="muted">Render target. Carries <code>role="img"</code> + a descriptive <code>aria-label</code>; the library injects the SVG here. A textual source sits in a <code>&lt;template class="diagram-src"&gt;</code> until render.</td></tr>
+              <tr><td><code>.diagram-caption</code></td><td class="muted">Mono micro, <code>--obsidian-400</code>, <code>FIG-NN · title</code> — echoes <code>.card-meta</code>. The index tints <code>--magenta-400</code>.</td></tr>
+              <tr><td><code>.diagram-legend</code></td><td class="muted">Optional. Only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone.</td></tr>
+            </tbody>
+          </table>
+
+          <p class="subsection-desc" style="margin-top:var(--s-6)">Token map — applied through <code>themeVariables</code> populated from <code>getComputedStyle(:root)</code>, plus <code>classDef</code> strings built from the same tokens at runtime. The theming config holds zero hex literals.</p>
+          <table class="table">
+            <thead><tr><th style="width:42%">Element</th><th>Token</th></tr></thead>
+            <tbody>
+              <tr><td class="muted">Canvas / background</td><td><code>--obsidian-900</code></td></tr>
+              <tr><td class="muted">Node fill</td><td><code>--obsidian-800</code></td></tr>
+              <tr><td class="muted">Node border · text</td><td><code>--obsidian-600</code> · <code>--obsidian-100</code></td></tr>
+              <tr><td class="muted">Edge line + arrowhead</td><td><code>--obsidian-500</code></td></tr>
+              <tr><td class="muted">Edge label</td><td><code>--obsidian-300</code> on <code>--obsidian-900</code></td></tr>
+              <tr><td class="muted">Cluster fill · border</td><td><code>--obsidian-850</code> · <code>--obsidian-700</code></td></tr>
+              <tr><td class="muted">Node radius · font</td><td><code>--r-md</code> · Satoshi <code>(--font-sans)</code></td></tr>
+              <tr><td class="muted">Focus node border</td><td><code>--magenta-500</code> · one per diagram</td></tr>
+              <tr><td class="muted">State nodes</td><td><code>--success</code> · <code>--warning</code> · <code>--danger</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- § 18.5 Motion spec -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 18.5</span></div>
+          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new. An <code>IntersectionObserver</code> fires once; nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
+          <table class="table">
+            <thead><tr><th style="width:30%">Stage</th><th style="width:30%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <tbody>
+              <tr><td>Observer</td><td class="muted">threshold 0.15</td><td class="muted">rootMargin <code>0px 0px -8% 0px</code> · unobserve after fire</td></tr>
+              <tr><td>Nodes</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td></tr>
+              <tr><td>Edges · clusters</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td></tr>
+              <tr><td>Reduced motion</td><td class="muted">render to rest</td><td class="muted">no hidden state is ever set — straight to resolved</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- § 18.6 Do / Don't -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 18.6</span></div>
+          <p class="subsection-desc">A diagram is structure, not decoration. Most of these are 85/10/5 violations or auto-layout breakers.</p>
+
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Keep every node neutral obsidian and spend the magenta once — on the entry or the narrative focus. One accent per diagram is the budget.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Color nodes by category with a per-type rainbow palette. The hues stop meaning anything and the surface goes loud.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Read tokens from <code>:root</code> at runtime and feed them to <code>themeVariables</code> and <code>classDef</code>. The source of truth stays <code>tokens.css</code>.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Paste hex literals into <code>themeVariables</code>. A copied <code>#0B0E12</code> drifts the moment a token moves — it's a regression on day one.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Animate the entrance with opacity only, gated on an <code>IntersectionObserver</code> that fires once after render resolves.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Apply CSS <code>transform</code> to the SVG <code>&lt;g&gt;</code> groups. It composes with the auto-layout transforms and the diagram falls apart — set position via the SVG attribute, animate opacity only.</p>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-4)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>When a node encodes a real state, pair the semantic color with a distinct shape and a written label, and add a legend.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Fill nodes with gradients or bleed a diffuse magenta glow down the edges. Depth comes from token borders, never from decoration.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ DATA VIZ ============ -->
       <section class="section" id="dataviz">
         <div class="page-header">
-          <div class="page-eyebrow">§ 18 · Applied / Data Viz</div>
+          <div class="page-eyebrow">§ 19 · Applied / Data Viz</div>
           <h1 class="page-title">Charts that <span class="accent">respect the surface.</span></h1>
           <p class="page-lede">Dark canvas. One accent hue per chart. Grid lines at 8% opacity. Numbers in Satoshi, axis labels in mono.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 18.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 19.1</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -2285,7 +2475,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 18.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 19.2</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
@@ -2335,7 +2525,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 18.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 19.3</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
@@ -2392,7 +2582,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 18.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 19.4</span></div>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
@@ -2417,7 +2607,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 18.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 19.5</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -2542,7 +2732,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 18.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 19.6</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -2640,7 +2830,7 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 18.7</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 19.7</span></div>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -2675,7 +2865,7 @@ Basic UI</div>
       </section>
       <section class="section" id="voice">
         <div class="page-header">
-          <div class="page-eyebrow">§ 19 · Applied / Voice &amp; Tone</div>
+          <div class="page-eyebrow">§ 20 · Applied / Voice &amp; Tone</div>
           <h1 class="page-title">How this system <span class="accent">writes.</span></h1>
           <p class="page-lede">Amaca speaks in two registers. The live site is editorial, written for a designer reading on a Tuesday afternoon — paragraphed, contextual, first-person. The DESIGN.md on GitHub is the same system expressed differently — declarative, machine-readable, one rule per line. Both serve the design. Neither imitates the other.
 
@@ -2683,7 +2873,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 19.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 20.1</span></div>
           <div class="grid grid-4">
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
             <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers when you have them, scope when you don't.</p></div>
@@ -2693,7 +2883,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 19.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 20.2</span></div>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This pattern didn't work in early testing. Users read 'send' as destructive, so we changed the label to 'queue for review."</p></div>
             <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through iterative exploration and rigorous testing, we arrived at an optimal labeling solution that better aligned with user mental models."</p></div>
@@ -2705,7 +2895,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 19.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 20.3</span></div>
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
             <tbody>
@@ -2720,7 +2910,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 19.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 20.4</span></div>
           <p class="subsection-desc">If you're a language model generating copy for surfaces that use this system, four hard constraints:</p>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do · 01</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
@@ -2734,13 +2924,13 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ ACCESSIBILITY ============ -->
       <section class="section" id="accessibility">
         <div class="page-header">
-          <div class="page-eyebrow">§ 20 · Applied / Accessibility</div>
+          <div class="page-eyebrow">§ 21 · Applied / Accessibility</div>
           <h1 class="page-title">Contrast <span class="accent">by intent, not accident.</span></h1>
           <p class="page-lede">Every text/surface pair in the system is verified against WCAG 2.2. The system is dark-first, not dark-only — every token has a light-mode equivalent resolved at build time. Motion, focus, and touch targets follow the same rule: specified, not assumed.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 20.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 21.1</span></div>
           <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. Nothing in the production palette falls below AA.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
@@ -2761,7 +2951,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 20.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 21.2</span></div>
           <p class="subsection-desc">Every interactive element has a visible focus state. The system ships two patterns: a dual-ring for pressable elements (outline + brand halo), and an inline glow for text inputs. Verified against <code>components.css</code>.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
@@ -2780,7 +2970,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 20.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 21.3</span></div>
           <p class="subsection-desc">Under <code>prefers-reduced-motion: reduce</code>, the system ships a global kill-switch plus per-component overrides for hover-transforms that would otherwise feel jumpy. No parallax, no auto-advance, anywhere in the system.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Rule</th><th>Scope</th><th>Effect</th></tr></thead>
@@ -2796,7 +2986,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 20.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 21.4</span></div>
           <p class="subsection-desc">Non-negotiable rules. Any component that can't meet all seven doesn't ship.</p>
           <div class="a11y-floor">
             <div class="a11y-rule"><span class="n">01</span><p>Color never carries meaning alone. Every status uses color + shape + label.</p></div>
@@ -2813,7 +3003,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ CASE STUDY APPLIED ============ -->
       <section class="section" id="casestudy">
         <div class="page-header">
-          <div class="page-eyebrow">§ 21 · Applied / Case Study Template</div>
+          <div class="page-eyebrow">§ 22 · Applied / Case Study Template</div>
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
@@ -2893,19 +3083,59 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       <!-- ============ CHANGELOG ============ -->
       <section class="section" id="changelog">
         <div class="page-header">
-          <div class="page-eyebrow">§ 22 · Meta / Changelog</div>
+          <div class="page-eyebrow">§ 23 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
           <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 22.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 23.1</span></div>
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.5.0 -->
+            <!-- v2.6.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-250">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-260">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.6.0 — Diagrams: structure, drawn on the same grid</span>
+                <span class="acc-num">2026-06-06</span>
+              </button>
+              <div class="acc-panel" id="cl-260" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. A new component: auto-layout flowcharts and system-architecture diagrams, rendered from a textual source and themed entirely from tokens. Additive — <code>tokens.css</code> is untouched and no component API breaks.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · components</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 18 · Diagrams</strong> — Flowcharts / node-edge graphs and system architecture (box-and-line with grouping), via an auto-layout library (Mermaid, theme <code>base</code>) laid out with the ELK engine for orthogonal, FigJam-style right-angle edges (dagre fallback). The theming config holds <em>zero</em> hardcoded hex: tokens are read off <code>:root</code> with <code>getComputedStyle</code> at runtime and passed into <code>themeVariables</code>, and the focus / state <code>classDef</code> strings are built from the same tokens at render time — the source of truth stays <code>tokens.css</code>. 85/10/5 holds: everything neutral obsidian, exactly one <code>--magenta-500</code> focus node per diagram; semantic states (<code>--success</code> / <code>--warning</code> / <code>--danger</code>) only when a node encodes a real state, always with a distinct shape + label + a <code>.diagram-legend</code> — never color alone. Anatomy: <code>&lt;figure class="diagram"&gt;</code> → <code>.diagram-canvas[role="img"]</code> holding the SVG → <code>.diagram-caption</code> (<code>FIG-NN · title</code>), coherent with <code>.card</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Motion</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">On-scroll entrance</strong> — Reuses the established reveal patterns. An <code>IntersectionObserver</code> (threshold 0.15, <code>rootMargin '0px 0px -8% 0px'</code>, unobserve after fire) cascades nodes in (~70ms stagger), then edges and clusters. <strong>Opacity only</strong> — no CSS <code>transform</code> on the generated SVG <code>&lt;g&gt;</code> groups; they compose with the cascade and break the auto-layout positioning. Hooked after the async render resolves. <code>prefers-reduced-motion: reduce</code> renders straight to rest.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 3.1 · Button (primary)</strong> — Primary label moves dark → near-white: <code>--obsidian-050</code> on <code>--magenta-500</code>. A ratified accessibility exception (§ 6.3): the pair is ≈ 3.0 : 1, below the 4.5 : 1 AA bar, kept on perceptual grounds — on the high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to <code>.btn-primary</code>; rest and hover are bounded to <code>--magenta-500</code> (no lighten), fill and dual-ring focus unchanged. The CTA stays <code>--magenta-500</code>, so the magenta doctrine and chat reservation are untouched.</li>
+                    <li><strong style="color:var(--obsidian-100)">Section numbering</strong> — Diagrams lands in the Components group as § 18. The Applied and Meta groups shift by one — Data Viz 18→19, Voice 19→20, Accessibility 20→21, Case Study 21→22, Changelog 22→23. Sidebar nav, in-page anchors, and cross-references all updated; no external links break.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">The multi-deploy docs (v2.5.0) needed a system map and there was no on-system way to draw one. The open question — how to theme an auto-layout library without pasting hex into its config — is closed by reading tokens off <code>:root</code> at runtime. That is the rationale for § 18.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-06</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.5.0...v2.6.0" target="_blank" rel="noopener">v2.5.0…v2.6.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.5.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-250">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.5.0 — Multi-deploy: one token, three surfaces</span>
                 <span class="acc-num">2026-06-02</span>
@@ -3240,14 +3470,14 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new components</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">§ 15 · Accordion</strong> — Collapsible content blocks for FAQs, dense documentation, and progressive disclosure. Single-open and multi-open variants. Keyboard navigation built in.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 18.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 18.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 19.5 · Timeline (Gantt)</strong> — Horizontal time-based visualization for project phases, roadmaps, and case study chronologies. Date-aware, with milestone markers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 19.6 · Stepper</strong> — Linear progress indicator for multi-step flows (forms, onboarding, case study walkthroughs). Horizontal and vertical variants.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · new sections</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
-                    <li><strong style="color:var(--obsidian-100)">§ 20 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 22 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 21 · Accessibility</strong> — Color pairs with documented contrast ratios, <code>prefers-reduced-motion</code> handling, focus &amp; keyboard order, and hard rules that gate every component decision.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 23 · Changelog</strong> — Version history, in public. What changed, when, and why.</li>
                     <li><strong style="color:var(--obsidian-100)">§ 03 · Documentation</strong> — Single Markdown file (<code>design.md</code>) containing every token, component spec, principle, and rule. Built to feed into LLMs as context for AI-assisted design work. Updated alongside the system — every release ships a fresh spec.</li>
                   </ul>
 
@@ -3304,10 +3534,10 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Interactions</strong> — Added states for tabs, images, and thumbs.</li>
                   </ul>
 
-                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 18.3 Donut charts</h4>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Refined · § 19.3 Donut charts</h4>
                   <p style="margin:0 0 var(--s-3)">Slice geometry rebuilt from stroked arcs to true ring-segment paths.</p>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
-                    <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 18.2).</li>
+                    <li>All four corners of each slice now render with a real <code>2px</code> radius (matches <code>rx=2</code> on bars in § 19.2).</li>
                     <li>Inter-slice gap halved from ~6px to ~3px of circumference for tighter visual rhythm.</li>
                     <li>Draw-on animation preserved via angular sweep.</li>
                     <li><strong style="color:var(--obsidian-100)">Before</strong> — half-circle round caps (13px radius — too soft) or butt caps (sharp — inconsistent with bars).</li>
@@ -3651,7 +3881,7 @@ new MutationObserver(muts => {
       });
     }
 
-    // --- case study outcome cards (§ 21) — same pattern as § 12.2 ---
+    // --- case study outcome cards (§ 22) — same pattern as § 12.2 ---
     function runCsOutcome(){
       if (!csOutcomeRegion) return;
       const cards = csOutcomeRegion.querySelectorAll('.chart-card');
@@ -5651,6 +5881,349 @@ new MutationObserver(muts => {
       }, 200);
     }
     setInterval(step, 2400);
+  }
+})();
+</script>
+
+<script type="module">
+// =========================================================
+// DIAGRAMS · § 18 — Mermaid (theme 'base'), themed from tokens read at runtime.
+// Core technique: the theming config holds ZERO hardcoded hex. Every value is
+// read off :root via getComputedStyle and passed into themeVariables; the
+// focus/state classDefs are likewise built from tokens at render time.
+// =========================================================
+import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+// ELK layout engine — orthogonal edge routing (FigJam-style right angles) + tidy
+// node placement. Registered with a graceful fallback to the built-in dagre
+// layout if the module can't load.
+let useElk = false;
+try {
+  const elk = await import("https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.1.7/dist/mermaid-layout-elk.esm.min.mjs");
+  mermaid.registerLayoutLoaders(elk.default);
+  useElk = true;
+} catch (e) {
+  console.warn('[diagrams] ELK layout unavailable, using dagre', e);
+}
+
+(async function(){
+  const figs = Array.from(document.querySelectorAll('.diagram'));
+  if (!figs.length) return;
+
+  const reduce = typeof matchMedia !== 'undefined' &&
+                 matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Read tokens off :root — single source of truth stays tokens.css ──
+  const cs = getComputedStyle(document.documentElement);
+  const tok = (name) => cs.getPropertyValue(name).trim();
+
+  const bg        = tok('--obsidian-900');
+  const nodeFill  = tok('--obsidian-800');
+  const nodeBorder= tok('--obsidian-600');
+  const nodeText  = tok('--obsidian-100');
+  const line      = tok('--obsidian-500');
+  const edgeLabel = tok('--obsidian-300');
+  const clusterBg = tok('--obsidian-850');
+  const clusterBd = tok('--obsidian-700');
+  const fontSans  = tok('--font-sans') || 'Satoshi, sans-serif';
+  const fontSmall = tok('--t-small') || '13px';
+
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    securityLevel: 'strict',
+    fontFamily: fontSans,
+    // ELK routes edges orthogonally. 'linear' = straight polyline through the
+    // routed points (pure horizontal/vertical, no diagonals); we round the
+    // corners ourselves after render for FigJam-style elbows. htmlLabels keep the
+    // node boxes measured tight to the text; we re-center them via JS below.
+    layout: useElk ? 'elk' : 'dagre',
+    elk: { edgeRouting: 'ORTHOGONAL', nodePlacementStrategy: 'NETWORK_SIMPLEX', mergeEdges: false, cycleBreakingStrategy: 'GREEDY' },
+    flowchart: { curve: 'linear', htmlLabels: true, padding: 16, nodeSpacing: 92, rankSpacing: 88, useMaxWidth: true },
+    themeVariables: {
+      darkMode: true,
+      background: bg,
+      fontFamily: fontSans,
+      fontSize: fontSmall,
+      // nodes
+      primaryColor: nodeFill,
+      mainBkg: nodeFill,
+      primaryBorderColor: nodeBorder,
+      nodeBorder: nodeBorder,
+      primaryTextColor: nodeText,
+      nodeTextColor: nodeText,
+      titleColor: nodeText,
+      textColor: nodeText,
+      secondaryColor: nodeFill,
+      tertiaryColor: nodeFill,
+      // edges
+      lineColor: line,
+      edgeLabelBackground: bg,
+      // clusters / subgraphs
+      clusterBkg: clusterBg,
+      clusterBorder: clusterBd
+    }
+  });
+
+  // classDefs built from tokens — keeps hex out of both config and the source
+  // templates (which carry only structure + :::class references).
+  const classDefs = [
+    'classDef focus stroke:' + tok('--magenta-500') + ',stroke-width:1.5px;',
+    'classDef stateOk stroke:' + tok('--success') + ',stroke-width:1.5px;',
+    'classDef stateWarn stroke:' + tok('--warning') + ',stroke-width:1.5px;',
+    'classDef stateBad stroke:' + tok('--danger') + ',stroke-width:1.5px;'
+  ].join('\n');
+
+  // ── Render each diagram (async). Hook entrance only after render resolves. ──
+  // Wait for Satoshi to load before rendering — Mermaid measures label widths,
+  // and measuring against the fallback font then swapping to Satoshi mis-sizes
+  // (and clips) the node boxes.
+  if (document.fonts && document.fonts.ready) {
+    try { await document.fonts.ready; } catch (e) {}
+  }
+
+  let n = 0;
+  for (const fig of figs){
+    const canvas = fig.querySelector('.diagram-canvas');
+    const tpl = canvas && canvas.querySelector('template.diagram-src');
+    if (!canvas || !tpl) continue;
+    const src = (tpl.content.textContent || '').trim() + '\n' + classDefs;
+    try {
+      const { svg } = await mermaid.render('amaca-dg-' + (n++), src);
+      tpl.remove();
+      canvas.insertAdjacentHTML('beforeend', svg);
+      const renderedSvg = fig.querySelector('svg');
+      roundEdges(renderedSvg, 12);
+      // htmlLabels center via inline `display:table-cell`, which lets text wider
+      // than the measured box overflow to the right (off-center). Flip to flex
+      // centering so any residual overflow splits symmetrically = truly centered.
+      renderedSvg.querySelectorAll('g.node foreignObject > div').forEach(div => {
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+      });
+      // Edge labels (yes/no): opaque chip + shift them OFF the connector so the
+      // line stays continuous and the text sits beside it (FigJam-style), never
+      // overlapping. Mermaid paints the div bg at 0.5 alpha via an id-scoped rule.
+      renderedSvg.querySelectorAll('.edgeLabels foreignObject > div, g.edgeLabel foreignObject > div').forEach(div => {
+        if (!div.textContent.trim()) return;
+        div.style.background = bg;
+        div.style.padding = '2px ' + tok('--s-2');
+        div.style.borderRadius = tok('--r-sm');
+      });
+      placeEdgeLabels(renderedSvg);
+      prep(fig);
+    } catch (err) {
+      // Leave the figure empty rather than crash the page; surface in console.
+      console.error('[diagrams] render failed', err);
+    }
+  }
+
+  // Round the corners of orthogonal edge paths — turns ELK's sharp right-angle
+  // polylines into soft FigJam-style elbows. Pure string math on the `d`
+  // attribute; no layout needed, so it runs even while the section is hidden.
+  function roundEdges(svg, radius){
+    if (!svg) return;
+    const paths = svg.querySelectorAll('.edgePaths path, path.flowchart-link');
+    paths.forEach(path => {
+      const d = path.getAttribute('d');
+      if (!d) return;
+      path.style.strokeWidth = '2px'; // beats Mermaid's id-scoped injected rule
+      // Parse the M/L vertices (linear curve → only M and L commands).
+      let pts = [];
+      const re = /([ML])\s*(-?[\d.]+)[ ,]+(-?[\d.]+)/g;
+      let m;
+      while ((m = re.exec(d))) pts.push({ x: +m[2], y: +m[3] });
+      if (pts.length < 3) return;
+      const start = pts[0], end = pts[pts.length - 1];
+
+      // 1) Dedupe near points (ELK adds 2-3px port-attachment staircases).
+      let dd = [pts[0]];
+      for (let i = 1; i < pts.length; i++){
+        const a = dd[dd.length - 1], b = pts[i];
+        if (Math.hypot(b.x - a.x, b.y - a.y) > 7) dd.push(b);
+      }
+      dd[dd.length - 1] = end; // keep the exact arrow endpoint
+      dd[0] = start;
+
+      // 2) Orthogonalize: every segment must be pure H or V. Any diagonal left by
+      //    ELK (e.g. leaving a diamond's tip toward an offset box) is broken into
+      //    an L. The elbow continues the previous segment's axis where possible so
+      //    the stub leaving each node stays dead vertical/horizontal.
+      const TOL = 1.5;
+      let orth = [dd[0]];
+      for (let i = 1; i < dd.length; i++){
+        const a = orth[orth.length - 1], b = dd[i];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        if (Math.abs(dx) <= TOL){ orth.push({ x: a.x, y: b.y }); continue; } // already vertical
+        if (Math.abs(dy) <= TOL){ orth.push({ x: b.x, y: a.y }); continue; } // already horizontal
+        // diagonal → insert a corner
+        let breakVertical;
+        if (orth.length >= 2){
+          const p = orth[orth.length - 2];
+          breakVertical = Math.abs(a.y - p.y) >= Math.abs(a.x - p.x); // continue same axis
+        } else {
+          breakVertical = Math.abs(dy) >= Math.abs(dx); // dominant axis out of source
+        }
+        orth.push(breakVertical ? { x: a.x, y: b.y } : { x: b.x, y: a.y });
+        orth.push(b);
+      }
+
+      // 3) Drop points that are collinear with their neighbours (collapses the
+      //    straight runs left after orthogonalizing into clean single segments).
+      let cl = [orth[0]];
+      for (let i = 1; i < orth.length - 1; i++){
+        const p0 = cl[cl.length - 1], p1 = orth[i], p2 = orth[i+1];
+        const dx = p2.x - p0.x, dy = p2.y - p0.y;
+        const L = Math.hypot(dx, dy) || 1;
+        const perp = Math.abs((p1.x - p0.x) * dy - (p1.y - p0.y) * dx) / L;
+        if (perp > 1.5) cl.push(p1);
+      }
+      cl.push(orth[orth.length - 1]);
+      cl[0] = start; cl[cl.length - 1] = end;
+      if (cl.length < 3){ path.setAttribute('d', 'M' + cl.map(p => p.x + ',' + p.y).join('L')); return; }
+
+      // 4) Round each interior corner with a quadratic bend.
+      let out = 'M' + cl[0].x + ',' + cl[0].y;
+      for (let i = 1; i < cl.length - 1; i++){
+        const p0 = cl[i-1], p1 = cl[i], p2 = cl[i+1];
+        const len1 = Math.hypot(p1.x - p0.x, p1.y - p0.y);
+        const len2 = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        const rr = Math.min(radius, len1 / 2, len2 / 2);
+        if (rr < 0.5){ out += 'L' + p1.x + ',' + p1.y; continue; }
+        const e = { x: p1.x - (p1.x - p0.x) / len1 * rr, y: p1.y - (p1.y - p0.y) / len1 * rr };
+        const x = { x: p1.x + (p2.x - p1.x) / len2 * rr, y: p1.y + (p2.y - p1.y) / len2 * rr };
+        out += 'L' + e.x.toFixed(2) + ',' + e.y.toFixed(2) +
+               'Q' + p1.x.toFixed(2) + ',' + p1.y.toFixed(2) + ' ' + x.x.toFixed(2) + ',' + x.y.toFixed(2);
+      }
+      const last = cl[cl.length - 1];
+      out += 'L' + last.x + ',' + last.y;
+      path.setAttribute('d', out);
+    });
+  }
+
+  // Shift edge labels (yes/no) off their connector so the line stays continuous
+  // and the text sits beside it (FigJam-style), never overlapping. Pushes the
+  // label perpendicular to the local segment, outward from the diagram centre.
+  function placeEdgeLabels(svg){
+    if (!svg) return;
+    const vb = svg.viewBox && svg.viewBox.baseVal;
+    const centerX = vb ? (vb.x + vb.width / 2) : 0;
+    const paths = [...svg.querySelectorAll('.edgePaths path, path.flowchart-link')];
+    if (!paths.length) return;
+    const labels = [...svg.querySelectorAll('g.edgeLabels g.edgeLabel')]
+      .filter(g => g.querySelector('foreignObject') && g.textContent.trim());
+    labels.forEach(g => {
+      const tr = g.transform.baseVal.consolidate();
+      if (!tr) return;
+      const lx = tr.matrix.e, ly = tr.matrix.f;
+      const fo = g.querySelector('foreignObject');
+      const hw = (parseFloat(fo.getAttribute('width')) || 24) / 2;
+      const hh = (parseFloat(fo.getAttribute('height')) || 20) / 2;
+      // nearest point on any connector + local tangent
+      let bestS = 0, bestD = Infinity, bestP = null;
+      paths.forEach(p => {
+        const L = p.getTotalLength(); if (!L) return;
+        const step = Math.max(3, L / 50);
+        for (let s = 0; s <= L; s += step){
+          const pt = p.getPointAtLength(s);
+          const dd = (pt.x - lx) * (pt.x - lx) + (pt.y - ly) * (pt.y - ly);
+          if (dd < bestD){ bestD = dd; bestS = s; bestP = p; }
+        }
+      });
+      if (!bestP) return;
+      const L = bestP.getTotalLength();
+      const a = bestP.getPointAtLength(Math.max(0, bestS - 4));
+      const b = bestP.getPointAtLength(Math.min(L, bestS + 4));
+      const tx = Math.abs(b.x - a.x), ty = Math.abs(b.y - a.y);
+      const pad = 10;  // chip padding the foreignObject width doesn't include
+      const gap = 12;  // clear space between the label box edge and the line
+      let dx = 0, dy = 0;
+      if (tx <= ty) dx = (lx < centerX ? -1 : 1) * (hw + pad + gap); // vertical line → push outward
+      else dy = -(hh + pad + gap);                                  // horizontal line → push up
+      g.setAttribute('transform', 'translate(' + (lx + dx) + ',' + (ly + dy) + ')');
+    });
+  }
+
+  // Collect the animatable groups from a rendered figure.
+  function groups(fig){
+    const svg = fig.querySelector('svg');
+    if (!svg) return null;
+    const nodes = Array.from(svg.querySelectorAll('g.node'));
+    const clusters = Array.from(svg.querySelectorAll('g.cluster'));
+    const edges = Array.from(svg.querySelectorAll('.edgePaths path, path.flowchart-link'));
+    const elabels = Array.from(svg.querySelectorAll('g.edgeLabels .edgeLabel, .edgeLabel'));
+    return { nodes, clusters, edges, elabels };
+  }
+
+  // Set the hidden initial state (opacity only — never a transform on the <g>).
+  function prep(fig){
+    const g = fig._g = groups(fig);
+    if (!g) return;
+    if (reduce){ fig.setAttribute('data-anim', 'in'); return; }   // straight to rest
+    const all = [...g.nodes, ...g.clusters, ...g.edges, ...g.elabels];
+    all.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transition = 'opacity var(--d-base) var(--ease-decel)';
+    });
+  }
+
+  // Reveal cascade: nodes first (stagger 70ms), then clusters + edges + labels.
+  function reveal(fig){
+    if (fig._revealed) return;
+    const g = fig._g;
+    if (!g) { fig._revealed = true; return; }
+    fig._revealed = true;
+    fig.setAttribute('data-anim', 'in');
+    if (reduce) return;
+    g.nodes.forEach((el, i) => {
+      el.style.transitionDelay = (i * 70) + 'ms';
+      el.style.opacity = '1';
+    });
+    const base = g.nodes.length * 70 + 120;
+    [...g.clusters, ...g.edges, ...g.elabels].forEach((el, i) => {
+      el.style.transitionDelay = (base + i * 40) + 'ms';
+      el.style.opacity = '1';
+    });
+  }
+
+  // ── Triggers ──
+  // 1) IntersectionObserver — fires once when the figure scrolls into view.
+  if (typeof IntersectionObserver !== 'undefined'){
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){ reveal(e.target); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    figs.forEach(f => io.observe(f));
+  } else {
+    figs.forEach(reveal);
+  }
+
+  // 2) Section activation — the #diagrams section is display:none until routed to,
+  //    so an IO observe set up while hidden may not have a viewport to measure.
+  //    On activation, reveal whatever already sits within the viewport; the IO
+  //    handles the rest as the user scrolls.
+  const section = document.getElementById('diagrams');
+  if (section){
+    const revealVisible = () => {
+      const vh = window.innerHeight || 0;
+      figs.forEach(f => {
+        const r = f.getBoundingClientRect();
+        if (r.top < vh * 0.92 && r.bottom > 0) reveal(f);
+      });
+    };
+    new MutationObserver(muts => {
+      for (const m of muts){
+        if (m.target.classList && m.target.classList.contains('active')){
+          requestAnimationFrame(() => requestAnimationFrame(revealVisible));
+        }
+      }
+    }).observe(section, { attributes: true, attributeFilter: ['class'] });
+    // If the page loads directly on #diagrams, it's already active.
+    if (section.classList.contains('active')){
+      requestAnimationFrame(() => requestAnimationFrame(revealVisible));
+    }
   }
 })();
 </script>

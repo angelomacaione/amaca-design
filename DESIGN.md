@@ -1,16 +1,16 @@
 ---
-version: 2.5.0
-updated: 2026-06-02
+version: 2.6.0
+updated: 2026-06-07
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-02
+last_synced: 2026-06-07
 deploy_targets: [html, react, figma]
 ---
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.5.0 — 2026.06.02
+> **Version** 2.6.0 — 2026.06.07
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -265,7 +265,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 | Variant | Background | Text | Use |
 |---|---|---|---|
-| `.btn-primary` | `--magenta-500` | dark | One per screen — the affirmative action |
+| `.btn-primary` | `--magenta-500` | `--obsidian-050` | One per screen — the affirmative action |
 | `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
 | `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
 | `.btn-danger` | `--danger` | dark | Destructive only |
@@ -274,6 +274,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - One `.btn-primary` per screen. Everything else recedes.
 - Sizes: `.btn-sm` (compact), default (32px), `.btn-lg` (44px touch target).
 - Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
+- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 3.0 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
 
 ### 3.2 Input · textarea · select
 
@@ -623,6 +624,72 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 - Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
 - Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
 
+### 3.13 Diagrams
+
+Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
+
+```html
+<figure class="diagram" data-anim="pending">
+  <div class="diagram-canvas" role="img" aria-label="…description…">
+    <template class="diagram-src">
+flowchart TD
+  P["Request + DESIGN.md"]:::focus --> R{"Token covers it?"}
+  R -->|yes| W["Reference var by name"]
+  R -->|no| A["Stop · ask owner"]
+  W --> C["85/10/5 + a11y pass"]
+  C --> S["Ship"]
+    </template>
+  </div>
+  <figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token-resolution path</figcaption>
+</figure>
+```
+
+**Required classes:**
+- `.diagram` — figure shell, consistent with `.card` (§ 3.3): `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
+- `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
+- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--magenta-400`.
+- `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
+
+**Theming — no hardcoded hex:**
+- Mermaid's `themeVariables` accepts only hex, which conflicts with the token-by-name contract. Resolve it: read the tokens off `:root` with `getComputedStyle` at runtime and pass those values into `themeVariables`; build the `:::focus` and state `classDef` strings from the same tokens at render time. The theming config holds zero hex literals — the source of truth stays `tokens.css`.
+
+**Token map:**
+
+| Element | Token |
+|---|---|
+| Canvas / background | `--obsidian-900` |
+| Node fill | `--obsidian-800` |
+| Node border · text | `--obsidian-600` · `--obsidian-100` |
+| Edge line + arrowhead | `--obsidian-500` |
+| Edge label | `--obsidian-300` on `--obsidian-900` |
+| Cluster fill · border | `--obsidian-850` · `--obsidian-700` |
+| Node radius · font | `--r-md` · Satoshi (`--font-sans`) |
+| Node label · edge label | `--t-small` · ≥ `--t-caption` (12) |
+| Focus node border | `--magenta-500` · one per diagram |
+| State nodes | `--success` · `--warning` · `--danger` |
+
+**Shapes & routing:**
+- Regular shapes only: rounded rectangles (`--r-md`) for steps, diamonds for gates; varied shapes reserved for the semantic-state case. Connectors are orthogonal (H/V) with soft elbows — never diagonal. One magenta focus node marks the entry / narrative focus.
+
+**Accessibility:**
+- One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.3). The entrance runs once, never loops (§ 6 #6).
+
+**Motion (reuse § 7.3):**
+- `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). Nodes cascade in first (stagger ~70ms), then edges + clusters. Opacity only — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`. `prefers-reduced-motion: reduce` renders straight to the resolved state.
+
+**Responsive:**
+- `.diagram-canvas` is `width:100%`; the rendered `<svg>` is `max-width:100%; height:auto` — it scales to fit. Below ~720px the canvas switches to `overflow-x:auto` with an intrinsic `min-width`, so wide architecture maps scroll instead of shrinking illegibly. Caption and legend wrap.
+
+**Label-class reset (scoped):**
+- The global `.label` (§ 3.2) and Mermaid's `.nodeLabel` / `.edgeLabel` / `.cluster-label` would otherwise upcase and track the diagram text. Reset them scoped under `.diagram`: `text-transform:none; letter-spacing:normal; font-family:var(--font-sans); font-weight:400`. `await document.fonts.ready` before render so measurement uses Satoshi metrics.
+
+**Rules:**
+- One diagram per figure; the source lives in `<template class="diagram-src">` and never renders as raw text.
+- Theme only from tokens read at runtime. A hex literal in `themeVariables` is a regression (§ 9).
+- Exactly one magenta focus node per diagram (`:::focus`). More than one = decorating (§ 1.4).
+- Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
+- Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
+
 ---
 
 ## 4. Iconography
@@ -687,9 +754,8 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
 | `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
 | `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
-| `--magenta-400` on `--obsidian-950` | 7.6 : 1 |
-| `--magenta-500` on `--obsidian-950` | 6.5 : 1 |
-| `--obsidian-950` on `--magenta-500` | 6.5 : 1 (dark text on the magenta primary fill / CTAs) |
+| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
+| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
 ### 6.2 Focus visibility
 
@@ -699,30 +765,15 @@ Two patterns ship:
 
 `.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
 
+### 6.3 Ratified exceptions
+
+The floor admits exactly one documented exception.
+
+**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 3.0 : 1).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
+
 ---
 
 ## 7. Code conventions
-
-### Scrollbar — custom, never the default
-
-The default browser scrollbar is off-system (light track, chunky thumb on dark surfaces). Always restyle it: thin, obsidian, no magenta — it recedes (§ 1.4 Quiet, then loud).
-
-```css
-/* WebKit / Blink */
-::-webkit-scrollbar { width: var(--s-2); height: var(--s-2); }   /* 8px — thin */
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: var(--obsidian-600);
-  border-radius: var(--r-full);
-}
-::-webkit-scrollbar-thumb:hover { background: var(--obsidian-500); }
-
-/* Firefox */
-* { scrollbar-width: thin; scrollbar-color: var(--obsidian-600) transparent; }
-```
-
-Tokens only: `--s-2` width, `--r-full` radius, `--obsidian-600` thumb (`--obsidian-500` on hover), transparent track. The scrollbar is chrome, not an accent — no magenta.
-
 
 ### 7.1 CSS
 
@@ -894,6 +945,19 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ---
 
 ## 14. Changelog
+
+### v2.6.0 — 2026.06.07 (MINOR)
+
+**Added · components**
+- **§ 3.13 Diagrams** — Flowcharts / node-edge graphs and system architecture (box-and-line with grouping), via an auto-layout library (Mermaid, theme `base`) laid out with the ELK engine for orthogonal, right-angle edges (dagre fallback). The theming config holds zero hardcoded hex: tokens are read off `:root` with `getComputedStyle` at runtime and passed into `themeVariables`, and the focus / state `classDef` strings are built from the same tokens at render time — the source of truth stays `tokens.css`. 85/10/5 holds: everything neutral obsidian, exactly one `--magenta-500` focus node per diagram; semantic states (`--success` / `--warning` / `--danger`) only when a node encodes a real state, always with a distinct shape + label + a `.diagram-legend` — never color alone. Anatomy: `<figure class="diagram">` → `.diagram-canvas[role="img"]` holding the SVG (rendered `<svg>` `aria-hidden`, one accessible name on the canvas) → `.diagram-caption` (`FIG-NN · title`), coherent with `.card`. Motion reuses § 7.3 — opacity-only cascade (nodes then edges) on an `IntersectionObserver`, revealed when the section becomes `.active`, straight to rest under `prefers-reduced-motion`. Responsive: scale-to-fit with `overflow-x` scroll for wide maps. The global `.label` and Mermaid's label classes are reset scoped under `.diagram`. No new tokens.
+
+**Refined**
+- **§ 3.1 Button — primary** — Primary label moves dark → near-white: `--obsidian-050` on `--magenta-500`. A ratified accessibility exception (§ 6.3): the pair is ≈ 3.0 : 1, below the 4.5 : 1 AA bar, kept on perceptual grounds — on the high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to `.btn-primary`, rest and hover bounded to `--magenta-500` (no lighten); fill and dual-ring focus unchanged. The CTA stays `--magenta-500`, so the magenta doctrine (§ 1.4 / § 8) and the chat reservation (§ 3.11) are untouched. Precedent: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
+- **§ 6.3 Ratified exceptions** — New. Records the one documented deviation from the floor (the primary-button pairing above) with rationale and bounds, so it reads as a decision, not an oversight.
+
+**Trigger**
+
+A real implementation — diagramming the Amaca Compiler architecture, 2026-06 — surfaced the absence of a canonical diagram component; § 3.13 closes it. In the same window, a human-eye review of the primary button found dark-on-magenta, though the most accessible pairing, read weaker than near-white; § 3.1 + § 6.3 ratify the perceptual choice as a bounded exception.
 
 ### v2.5.0 — 2026.06.02 (MINOR)
 **Added**
