@@ -1,16 +1,16 @@
 ---
-version: 2.6.0
-updated: 2026-06-07
+version: 2.6.1
+updated: 2026-06-11
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-07
+last_synced: 2026-06-11
 deploy_targets: [html, react, figma]
 ---
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.6.0 — 2026.06.07
+> **Version** 2.6.1 — 2026.06.11
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -40,7 +40,7 @@ Keep this file at repo root. Update the version line on every breaking change. T
 
 ---
 
-## 1. Principles · five rules, no exceptions
+## 1. Principles · five rules, exceptions earn their keep
 
 Every output is graded against these. Cite the number when explaining a tradeoff.
 
@@ -65,7 +65,7 @@ Restraint is what makes accents land. Most of the surface stays neutral. Color, 
 **For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--magenta-*`. If you're using magenta on more than one element per viewport, you're decorating.
 
 ### 1.5 Motion is a material
-Interfaces are not static. The way something arrives, settles, responds carries meaning. Every surface breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)` — so the whole document feels like one instrument.
+Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
 
 **For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut.
 
@@ -757,6 +757,8 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
 | `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
+One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 3.0 : 1). See § 6.3.
+
 ### 6.2 Focus visibility
 
 Two patterns ship:
@@ -918,12 +920,12 @@ The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magen
 | `--lh-normal` | `--leading-normal` | `leading-normal` | `typography/lineHeight/normal` | Number (1.45) |
 | `--tr-snug` | `--tracking-snug` | `tracking-snug` | `typography/tracking/snug` | Number (-0.02em) |
 | `--font-sans` | `--font-sans` | `font-sans` | `typography/family/sans` | String |
-| `--d-quick` | `--duration-quick` | `duration-quick` | `motion/duration/quick` | Number (200) |
+| `--d-quick` | `--transition-duration-quick` | `duration-quick` | `motion/duration/quick` | Number (200) |
 | `--ease-decel` | `--ease-decel` | `ease-decel` | `motion/easing/decel` | String |
 | `--sh-2` | `--shadow-sh-2` | `shadow-sh-2` | `effect/shadow/2` | Effect |
 
 **Conventions, no exceptions:**
-- Tailwind: prefix the § 2 name with the Tailwind v4 theme namespace (`--color-`, `--spacing-`, `--radius-`, `--text-`, `--leading-`, `--tracking-`, `--duration-`, `--shadow-`). The bare scale number is preserved (`--s-4` → `--spacing-4`, not `--spacing-16`).
+- Tailwind: prefix the § 2 name with the Tailwind v4 theme namespace (`--color-`, `--spacing-`, `--radius-`, `--text-`, `--leading-`, `--tracking-`, `--transition-duration-`, `--shadow-`). The bare scale number is preserved (`--s-4` → `--spacing-4`, not `--spacing-16`). Same-name tokens (`--font-*`, `--ease-*`) are declared `@theme inline` — a same-name `var()` alias on `:root` would be circular.
 - Figma: slash-separated namespace mirrors the token hierarchy (`color/magenta/500`). Figma renders `/` as a folder. Never flatten to `magenta500`.
 - Values never diverge across targets. The same token is the same value on all three. Divergence is a regression caught by cross-target verification.
 
@@ -945,6 +947,21 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ---
 
 ## 14. Changelog
+
+### v2.6.1 — 2026.06.11 (PATCH)
+
+**Fixed · documentation only**
+- **§ 1 Principles heading** — "five rules, no exceptions" violated the system's own voice rule (§ 5 / site § 20.4: *no exceptions* only when literally true) and, after the § 6.3 ratified exception, was literally false. Retitled "five rules, exceptions earn their keep". Site § 02 heading updated to match.
+- **§ 1.5 Signature curve copy** — Still claimed every surface rides `cubic-bezier(0.16, 1, 0.3, 1)`; since v2.0.0 that curve lives at `--ease-decel` and `--ease-standard` is the Framer ease. The copy now says what the tokens say. Same fix on site § 02.
+- **§ 6.1 Contrast pairs** — Added the explicit pointer to the § 6.3 exception so the table and the floor can't be read in isolation. On the site, § 03.4 (A11Y floor) and § 21.1 (contrast table + lede) are reconciled to the ratified pairing: `--obsidian-050` on `--magenta-500` (≈ 3.0 : 1, `.btn-primary` only), `--obsidian-950` default on every other magenta fill.
+- **Site § 03 · Skill references** — The docs described the skill as v1.1.0, 6 steps, 13 checks; the shipped bundle is two releases ahead — 7 steps and 14 checks since v1.1. All § 03 references reconciled, and the bundle re-baked as v1.1.2 on this spec so the download matches the page that describes it.
+- **`styles/theme.css`** — v2.5.0 declared it shipped; it never reached the repo. It now exists: a Tailwind v4 `@theme` projection of `tokens.css` — `var()` aliases, zero duplicated literals, same-name tokens (`--font-*`, `--ease-*`) declared `@theme inline` to avoid circular aliases. Verified against a real Tailwind v4 build: 21/21 utilities generate. § 13.1 corrected with it: the duration namespace is `--transition-duration-*`, not `--duration-*` — the generated utility (`duration-quick`) is unchanged.
+
+No token changes, no component API breaks — every screen renders identically to v2.6.0.
+
+**Trigger**
+
+An external audit (2026-06-11) read the live document end to end and found three sections still describing the system as it was before v2.0.0 and v2.6.0. A spec that sells enforcement can't disagree with itself — reconciling the copy to the ratified decisions is the whole release.
 
 ### v2.6.0 — 2026.06.07 (MINOR)
 

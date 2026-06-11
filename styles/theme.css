@@ -1,0 +1,164 @@
+/* =========================================================
+   AMACA DESIGN SYSTEM — theme.css
+   Tailwind v4 @theme projection of tokens.css.
+
+   Declared in v2.5.0, shipped in v2.6.1.
+   Source of truth: styles/tokens.css (§ 2). Direction is
+   one-way — tokens → target. Every value below is a var()
+   alias; no duplicated literals. Naming per DESIGN.md § 13.1:
+   Tailwind namespace prefix + the bare § 2 name
+   (--s-4 → --spacing-4, --r-lg → --radius-lg).
+
+   Usage (React / Tailwind v4 project):
+     @import "tailwindcss";
+     @import "amaca-design/styles/theme.css";
+
+   Tokens with no Tailwind namespace (gradients --grad-*,
+   loader sizes --loader-*, layout --sidebar-w / --content-max /
+   --gutter) are not projected — consume them via var().
+   ========================================================= */
+
+@import "./tokens.css";
+
+@theme {
+  /* — COLOR · neutrals (obsidian) — */
+  --color-obsidian-950: var(--obsidian-950);
+  --color-obsidian-900: var(--obsidian-900);
+  --color-obsidian-850: var(--obsidian-850);
+  --color-obsidian-800: var(--obsidian-800);
+  --color-obsidian-700: var(--obsidian-700);
+  --color-obsidian-600: var(--obsidian-600);
+  --color-obsidian-500: var(--obsidian-500);
+  --color-obsidian-400: var(--obsidian-400);
+  --color-obsidian-300: var(--obsidian-300);
+  --color-obsidian-200: var(--obsidian-200);
+  --color-obsidian-100: var(--obsidian-100);
+  --color-obsidian-050: var(--obsidian-050);
+
+  /* — COLOR · brand (magenta) — */
+  --color-magenta-100: var(--magenta-100);
+  --color-magenta-200: var(--magenta-200);
+  --color-magenta-300: var(--magenta-300);
+  --color-magenta-400: var(--magenta-400);
+  --color-magenta-500: var(--magenta-500);
+  --color-magenta-600: var(--magenta-600);
+  --color-magenta-700: var(--magenta-700);
+  --color-magenta-800: var(--magenta-800);
+
+  /* — COLOR · secondary (electric cyan) — */
+  --color-secondary-100: var(--secondary-100);
+  --color-secondary-200: var(--secondary-200);
+  --color-secondary-300: var(--secondary-300);
+  --color-secondary-400: var(--secondary-400);
+  --color-secondary-500: var(--secondary-500);
+  --color-secondary-600: var(--secondary-600);
+  --color-secondary-700: var(--secondary-700);
+
+  /* — COLOR · tertiary (petrol) — */
+  --color-tertiary-100: var(--tertiary-100);
+  --color-tertiary-200: var(--tertiary-200);
+  --color-tertiary-300: var(--tertiary-300);
+  --color-tertiary-400: var(--tertiary-400);
+  --color-tertiary-500: var(--tertiary-500);
+  --color-tertiary-600: var(--tertiary-600);
+  --color-tertiary-700: var(--tertiary-700);
+
+  /* — COLOR · legacy cube (logo glow only — § 2) — */
+  --color-cube-cyan: var(--cube-cyan);
+  --color-cube-mint: var(--cube-mint);
+  --color-cube-aqua: var(--cube-aqua);
+
+  /* — COLOR · semantic (feedback only — § 8) — */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+
+  /* — TYPE · scale — */
+  --text-micro: var(--t-micro);
+  --text-caption: var(--t-caption);
+  --text-small: var(--t-small);
+  --text-body: var(--t-body);
+  --text-lead: var(--t-lead);
+  --text-h6: var(--t-h6);
+  --text-h5: var(--t-h5);
+  --text-h4: var(--t-h4);
+  --text-h3: var(--t-h3);
+  --text-h2: var(--t-h2);
+  --text-h1: var(--t-h1);
+  --text-display: var(--t-display);
+
+  /* — TYPE · leading — */
+  --leading-tight: var(--lh-tight);
+  --leading-snug: var(--lh-snug);
+  --leading-normal: var(--lh-normal);
+  --leading-loose: var(--lh-loose);
+
+  /* — TYPE · tracking — */
+  --tracking-tight: var(--tr-tight);
+  --tracking-snug: var(--tr-snug);
+  --tracking-normal: var(--tr-normal);
+  --tracking-wide: var(--tr-wide);
+  --tracking-mono: var(--tr-mono);
+
+  /* — SPACING (4px base, § 2 scale numbers preserved) — */
+  --spacing-0: var(--s-0);
+  --spacing-1: var(--s-1);
+  --spacing-2: var(--s-2);
+  --spacing-3: var(--s-3);
+  --spacing-4: var(--s-4);
+  --spacing-5: var(--s-5);
+  --spacing-6: var(--s-6);
+  --spacing-8: var(--s-8);
+  --spacing-10: var(--s-10);
+  --spacing-12: var(--s-12);
+  --spacing-16: var(--s-16);
+  --spacing-20: var(--s-20);
+  --spacing-24: var(--s-24);
+  --spacing-32: var(--s-32);
+
+  /* — RADIUS — */
+  --radius-none: var(--r-none);
+  --radius-xs: var(--r-xs);
+  --radius-sm: var(--r-sm);
+  --radius-md: var(--r-md);
+  --radius-lg: var(--r-lg);
+  --radius-xl: var(--r-xl);
+  --radius-2xl: var(--r-2xl);
+  --radius-full: var(--r-full);
+
+  /* — SHADOW — */
+  --shadow-sh-0: var(--sh-0);
+  --shadow-sh-1: var(--sh-1);
+  --shadow-sh-2: var(--sh-2);
+  --shadow-sh-3: var(--sh-3);
+  --shadow-sh-4: var(--sh-4);
+  --shadow-sh-glow: var(--sh-glow);
+  --shadow-sh-glow-soft: var(--sh-glow-soft);
+
+  /* — MOTION · duration —
+     Tailwind v4 namespace is --transition-duration-*;
+     the generated utility is still duration-quick (§ 13.1). */
+  --transition-duration-instant: var(--d-instant);
+  --transition-duration-quick: var(--d-quick);
+  --transition-duration-base: var(--d-base);
+  --transition-duration-slow: var(--d-slow);
+  --transition-duration-scene: var(--d-scene);
+}
+
+/* Same-name tokens (§ 13.1 maps them 1:1 — --font-*, --ease-*
+   already wear their Tailwind name in tokens.css). Declared
+   inline so Tailwind generates the utilities without re-emitting
+   the variable on :root — a same-name var() alias would be
+   circular. The canonical definition stays in tokens.css. */
+@theme inline {
+  /* — TYPE · family — */
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* — MOTION · easing — */
+  --ease-standard: var(--ease-standard);
+  --ease-accel: var(--ease-accel);
+  --ease-decel: var(--ease-decel);
+  --ease-spring: var(--ease-spring);
+}
