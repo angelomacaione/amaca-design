@@ -1,83 +1,129 @@
-# amaca-frontend skill — v1.1 (multi-target)
+# Amaca — Design System
 
-Enforcement skill for generating frontend strict-compliant with the **Amaca Design System**, across three deploy targets: **HTML/CSS/JS**, **React + Tailwind v4**, and **Figma Variables**. It inverts the "vary every time" pattern of standard generation skills — here **convergence is the goal**: the same tokens, components, and motion choreography on every surface.
+The personal design system of [Angelo Macaione](https://amaca.design). Motion-first. AI-readable. Built in the open.
 
-> Two version lines, on purpose. The **skill** is `v1.1.1`. The **design system** it bundles is `DESIGN.md v2.6.0`. They version independently — a doc fix to the spec doesn't force a skill bump, and vice versa.
+**Live:** [amaca.design](https://amaca.design)
 
-## What's in this bundle
+---
 
-- **`SKILL.md`** — the skill: YAML frontmatter + 7-step workflow + posture rules + anti-patterns. Single trigger, single set of posture rules, target-aware from Step 2.
-- **`DESIGN.md`** — the canonical design system **v2.6.0**, read as Step 1 mandatory. Bundled in full to guarantee offline enforcement — no vault dependency, no remote fetch.
-- **`HTML.md`** — target reference: vanilla HTML/CSS/JS conventions (Replay pattern, IntersectionObserver reveals, anchor-link routing, SVG transforms).
-- **`REACT.md`** — target reference: React + Tailwind v4 `@theme` utility classes, CSS-modules fallback, `theme.css` import.
-- **`FIGMA.md`** — target reference: Figma Console MCP usage, push Variables, component artboards with state coverage, visual-git snapshots.
-- **`README.md`** — this file.
+## What this is
 
-## How target detection works
+Amaca is not a UI kit for download. It is the source of truth for how I design, write, and ship — documented in public so the work can be seen, audited, and learned from.
 
-After Amaca-scope is confirmed, the skill picks a target in Step 2:
+Two things make it specific. Motion is a foundation, not a finish — five durations, four easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
 
-- **HTML** — single/multi-file prototype, landing, slide deck.
-- **React** — component with Tailwind v4 utilities (or CSS-modules fallback) in a real project repo.
-- **Figma** — push tokens/components to a Figma file via Figma Console MCP.
+## Use it with AI — two formats
 
-Explicit target in the request wins; otherwise it's inferred from context and confirmed with a one-line ask. Each subsequent step is target-aware and reads the matching reference doc in Step 4.
+The system is built to be dropped into an AI coding stack. Same spec inside, two postures:
 
-## Installation
+**The skill — enforced workflow.** [`amaca-frontend.skill`](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill) ([universal .zip](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.zip)). A 6-step workflow that reads the spec, maps intent against canonical tokens, generates `var(--token)` references only, and runs 13 verification checks before handing off. Multi-target: HTML, React via Tailwind v4 `@theme`, Figma Variables. For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue.
 
-Anthropic skill format is cross-tool (Cowork, Claude Code, Cursor, Continue, Windsurf, Aider).
+**The spec — raw context.** [`DESIGN.md`](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md) (~40 KB). Tokens, components, principles, motion specs, accessibility rules — flat Markdown with YAML frontmatter. Paste into any system prompt: ChatGPT Custom GPT, Gemini Gems, any chat model with file upload.
 
-1. Open the runtime → Skills (in Cowork: Customize → Skills).
-2. "+ Create skill" / "Upload a skill".
-3. Drop the `.skill` file (a renamed zip of this folder), or upload the folder contents as a ZIP.
-4. The server emits an opaque skillId.
-5. Restart the runtime + open a new chat to activate.
+Per-runtime install instructions, model capability tiers, and a 30-second compliance scan live at [amaca.design → § 03 Documentation](https://amaca.design/#documentation).
 
-### Install test
+## React — native
 
-In a new chat:
+Tailwind v4 `@theme` is first-class. One line wires the full token scale into a project:
 
-```
-amaca-frontend: build me a primary button that says "Continue"
+```css
+@import "amaca-design/styles/theme.css";
 ```
 
-Expected: the skill reads the bundled DESIGN.md (Step 1), confirms Amaca-scope, detects target HTML, maps to § 3.1 Button (primary), generates code with token references only (`var(--magenta-500)`, `var(--s-3)`), runs the verification pass, and hands off. If you get hardcoded values (`#F051D5`, `200ms`), the runtime isn't enforcing the spec — see the compatibility caveat below.
+`theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-magenta-500`, `rounded-md`) against the same chain the CSS surface uses.
 
-## Targets — what's required
+## What's inside
 
-| Target | Requires |
-|---|---|
-| HTML | nothing beyond the bundle |
-| React | DESIGN.md v2.5.0+ (§ 13) + Tailwind v4 with the `@theme` block from `theme.css`. Fallback: CSS modules with `var(--token)`. |
-| Figma | Figma Console MCP installed + connected, Desktop Bridge plugin running. |
+**Foundations** — color, typography, spacing, radius & shadow, motion, grid & layout. One pass, zero drift.
 
-The token-name mapping across all three surfaces is canonical in **DESIGN.md § 13 Multi-deploy compatibility** — `var(--magenta-500)` ↔ `bg-magenta-500` ↔ Variable `color/magenta/500`, all `#F051D5`.
+**Components** — buttons, inputs & forms (incl. masked date/time pickers and range selection), cards, badges, navigation, accordion, chat & messaging, loader, diagrams.
 
-## Gap handling
+**Applied** — data visualization, voice & tone, accessibility, case study template. The system in practice.
 
-If a needed value isn't in DESIGN.md § 2, or a component isn't in § 3, the skill **does not extend silently**. It surfaces the gap and proposes three paths: (a) workaround with the nearest token, (b) planning release via the `claude-design-release` skill, (c) refactor the intent. You decide; the skill waits.
+## Five principles
 
-## Skill ecosystem (the loop)
+These are forcing functions, not decorations. Each one should make some designs impossible.
 
-`amaca-frontend` **applies** DESIGN.md. Its companion `claude-design-release` **evolves** DESIGN.md. A gap found during generation → planning → the spec gains a token/component via a release → the next generation uses it. Compounding.
+1. **Clarity before cleverness** — the obvious answer, made inevitable
+2. **Evidence over opinion** — every decision shows its work
+3. **Precision is a feeling** — 4px grid, one curve, always
+4. **Quiet, then loud** — restraint makes accents work
+5. **Motion is a material** — interfaces are not static, neither is this document
 
-## Runtime compatibility caveat
+## Tech stack
 
-Designed and validated for Anthropic-stack runtimes (Claude Code, Cowork, Cursor, Continue, Windsurf, Aider), where the bundled DESIGN.md is read via explicit tool calls. For other vendors, compatibility is best-effort: models that treat an upload as context-embedding without an explicit read tend toward performative compliance (they announce reading the spec, then emit invented values). Always verify generated token values against DESIGN.md on a non-Anthropic runtime. For Gemini, the most reliable path is a Gem: SKILL.md as system instructions + DESIGN.md as a knowledge file.
+Deliberately minimal. No framework, no build step, no dependencies to audit.
+
+* Static HTML, CSS, vanilla JavaScript
+* Design tokens in CSS custom properties
+* [Satoshi](https://www.fontshare.com/fonts/satoshi) typeface, served from `/fonts`
+* [Motion One](https://motion.dev) for orchestrated animations
+* [Lottie](https://lottiefiles.com) for the brand mark
+* Mermaid + ELK for token-themed diagrams (§ 18)
+* Hosted on [Vercel](https://vercel.com), DNS via Cloudflare
+
+## Repository structure
+
+```
+├── index.html              # The document itself
+├── DESIGN.md               # Machine-readable spec — the source of truth for AI runtimes
+├── amaca-frontend.skill    # Installable skill bundle (Anthropic runtimes)
+├── amaca-frontend.zip      # Universal mirror of the skill
+├── styles/
+│   ├── tokens.css          # Design tokens (color, type, space, motion)
+│   ├── theme.css           # Tailwind v4 @theme projection of tokens.css
+│   └── components.css      # Component styles
+├── fonts/                  # Satoshi typeface, all weights
+└── assets/                 # Logo and static assets
+```
+
+## Running locally
+
+No build step. Open `index.html` in a browser.
+
+```
+git clone https://github.com/angelomacaione/amaca-design.git
+cd amaca-design
+open index.html
+```
+
+For a proper local server (recommended for font loading):
+
+```
+python3 -m http.server 8000
+# then visit http://localhost:8000
+```
 
 ## Versioning
 
-- **v1** (2026-05-24) — first version, HTML/CSS/JS only.
-- **v1.0.1** (2026-05-24) — class-name novelty check, 4 verification checks, 1 anti-pattern.
-- **v1.0.2** (2026-05-24) — English rewrite for cross-vendor portability; Posture 0 (communication language).
-- **v1.1.0** (2026-05-25) — multi-target: HTML + React + Figma. Target detection (Step 2) + cross-target propose (Step 7). Three reference docs added (HTML.md, REACT.md, FIGMA.md). Posture #9 (cross-target consistency), anti-patterns #9–#10. Requires DESIGN.md v2.5.0+ for the React/Figma targets (§ 13 Multi-deploy compatibility). HTML target works against v2.3.0+.
-- **v1.1.1** (2026-06-07) — re-bundle on DESIGN.md v2.6.0 (§ 3.13 Diagrams + § 3.1 primary-button light-on-magenta exception, § 6.3). HTML.md gains the ratified-exception a11y note. Workflow unchanged.
+Two [SemVer](https://semver.org) streams, one rule each.
 
-## Source of truth
+* **Spec** — pinned to the system release. The site at v2.6.1 ships v2.6.1 of `DESIGN.md`. MAJOR for breaking token changes, MINOR for additions, PATCH for fixes.
+* **Skill** — versioned independently. Its SemVer covers workflow changes: posture rules, verification checks, deploy targets.
 
-- Amaca DS canonical: [github.com/angelomacaione/amaca-design](https://github.com/angelomacaione/amaca-design) + [amaca.design](https://amaca.design)
-- License: MIT (the DESIGN.md spec). Use, learn from, fork.
+Current: **system v2.6.1 · skill v1.1.2** — full history in the [public changelog](https://amaca.design/#changelog).
+
+## License
+
+The **code** in this repository is released under the [MIT License](LICENSE). Use it, learn from it, fork it.
+
+The **Amaca brand** — name, logo, and mark — is reserved. Please don't ship projects under the Amaca name or use the isometric-cube logo as your own.
+
+The **Satoshi typeface** is the property of [Indian Type Foundry](https://www.fontshare.com/fonts/satoshi), licensed via Fontshare. Check their terms before reusing the font files.
 
 ## Credits
 
-Skill design + DESIGN.md authoring: Angelo Macaione.
+Designed, written, and built by [Angelo Macaione](https://amaca.design).
+
+Typeface: Satoshi by Indian Type Foundry.
+Motion: [Motion One](https://motion.dev) by Matt Perry.
+
+## Contact
+
+* Website — [angelomacaione.com](https://angelomacaione.com)
+* Design System — [amaca.design](https://amaca.design)
+* Email — [angelo.macaione@gmail.com](mailto:angelo.macaione@gmail.com)
+
+---
+
+*Built 2026.04 · maintained in the open · Angelo Macaione*
