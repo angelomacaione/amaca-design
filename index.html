@@ -81,7 +81,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.6.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.6.1</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -93,7 +93,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.6.0 · DESIGN SYSTEM</span>
+        <span class="meta">V2.6.1 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -147,7 +147,7 @@ html{scroll-behavior:smooth}
 
     <div class="sidebar-footer">
       <div class="status"><span class="dot"></span> System live</div>
-      <div>Build 2026.05 · Angelo Macaione</div>
+      <div>Build 2026.06 · Angelo Macaione</div>
     </div>
   </aside>
   <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
@@ -179,11 +179,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.6.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.6.1</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 07, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 11, 2026</span></div>
           </div>
         </div>
 
@@ -234,7 +234,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
       <section class="section" id="principles">
         <div class="page-header">
           <div class="page-eyebrow">§ 02 · Principles</div>
-          <h1 class="page-title">Five rules. <span class="accent">No exceptions.</span></h1>
+          <h1 class="page-title">Five rules. <span class="accent">Exceptions earn their keep.</span></h1>
           <p class="page-lede">These are the principles I keep returning to. They're not absolute — design systems live in tension between rules and exceptions — but they're the questions I ask first when something feels off.</p>
         </div>
 
@@ -265,7 +265,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <div style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Interfaces are not static. Neither is this document.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-body)">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every surface in this system breathes on the same curve — <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span> — so the whole document feels like a single instrument, played deliberately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every entrance in this system breathes on the same curve — <span style="font-family:ui-monospace, SFMono-Regular, Menlo, monospace;color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span>, the signature ease, living at <code>--ease-decel</code> since v2.0.0 — so the whole document feels like a single instrument, played deliberately.</p>
             </div>
             <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
               <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
@@ -297,7 +297,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 03 · Meta / Documentation</div>
           <h1 class="page-title">The whole system, <span class="accent">two ways to drop it into your stack.</span></h1>
-          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. As of v1.1.0 the skill is multi-target — one canonical token, three surfaces: HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables. Pick the level of enforcement you want — the underlying spec is identical.</p>
+          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. As of v1.1 the skill is multi-target — one canonical token, three surfaces: HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables. Pick the level of enforcement you want — the underlying spec is identical.</p>
         </div>
 
         <!-- 03.1 · Choose your fit -->
@@ -309,10 +309,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
                 <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SKILL · ENFORCED WORKFLOW</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.0</div>
+                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.2</div>
               </div>
               <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">amaca-frontend.skill / .zip</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 6-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 13 verification checks before handing off. Multi-target as of v1.1.0: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 7-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 14 verification checks before handing off. Multi-target as of v1.1: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
               <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue. Install once, invoke per task.</p>
               <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
                 <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill" download>
@@ -437,7 +437,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <!-- 03.4 · Model capability tier -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Model capability tier</h2><span class="subsection-num">§ 03.4 · what to expect</span></div>
-          <p class="subsection-desc">The skill encodes a 6-step workflow and 13 verification checks. Whether the runtime model executes them rigorously depends on its reasoning capacity, instruction-following fidelity, and how it grounds on uploaded files.</p>
+          <p class="subsection-desc">The skill encodes a 7-step workflow and 14 verification checks. Whether the runtime model executes them rigorously depends on its reasoning capacity, instruction-following fidelity, and how it grounds on uploaded files.</p>
 
           <div class="grid grid-2" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
@@ -481,7 +481,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <div class="info-strip" style="margin-top:var(--s-4);align-items:flex-start">
             <span class="tag" style="white-space:nowrap;padding-top:2px">A11Y FLOOR · § 06</span>
-            <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) uses <code>obsidian-950</code> — 6.5:1. Light text fails WCAG AA (2.47:1). Applies to every magenta fill — primary button, CTAs, chips.</span>
+            <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) defaults to <code>obsidian-950</code> — 6.5:1, AA. One ratified exception (v2.6.0, § 6.3): <code>.btn-primary</code> carries <code>obsidian-050</code> at ≈3.0:1 — kept on perceptual grounds, scoped to that selector only. Every other magenta fill — chips, badges, non-button CTAs — stays dark-text.</span>
           </div>
 
           <div class="card" style="padding:var(--s-6);margin-top:var(--s-4)">
@@ -525,13 +525,13 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.6.0 here ships v2.6.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.6.1 here ships v2.6.1 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.0 ships with DESIGN.md v2.5.0 — multi-target across HTML, React, and Figma.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.2 re-bundles on DESIGN.md v2.6.1 — multi-target across HTML, React, and Figma.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.0</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.2</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
                 <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
               </div>
@@ -2931,14 +2931,15 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 21.1</span></div>
-          <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. Nothing in the production palette falls below AA.</p>
+          <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. One pair sits below AA by ratified exception — the primary button label, documented below and in the v2.6.0 release.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
             <tbody>
               <tr><td><code>obsidian-100</code> <span class="on">on</span> <code>obsidian-950</code></td><td class="num">16.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Body text, headings</td></tr>
               <tr><td><code>obsidian-200</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">10.5<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Lede, supporting copy</td></tr>
               <tr><td><code>obsidian-300</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Metadata, caption, subsection desc</td></tr>
-              <tr><td><code>obsidian-900</code> <span class="on">on</span> <code>magenta-500</code></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Primary CTA (text on brand surface)</td></tr>
+              <tr><td><code>obsidian-050</code> <span class="on">on</span> <code>magenta-500</code></td><td class="num">≈3.0<span class="unit">:1</span></td><td><span class="wcag wcag-exc" style="color:var(--warning)">EXC*</span></td><td class="muted">Primary button label (ratified v2.6.0)</td></tr>
+              <tr><td><code>obsidian-950</code> <span class="on">on</span> <code>magenta-500</code></td><td class="num">6.5<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Default for every other magenta fill</td></tr>
               <tr><td><code>magenta-400</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">7.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link rest, eyebrow, accent text</td></tr>
               <tr><td><code>magenta-300</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">8.9<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link hover</td></tr>
               <tr><td><code>secondary-500</code> <span class="on">on</span> <code>obsidian-950</code></td><td class="num">15.8<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Focus ring, secondary signal</td></tr>
@@ -2948,6 +2949,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               <tr><td><code>info</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">10.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Info badge, neutral signal</td></tr>
             </tbody>
           </table>
+          <p class="muted" style="font-size:var(--t-caption);color:var(--obsidian-300);margin-top:var(--s-3);line-height:var(--lh-loose)">* Ratified exception, § 6.3: below the 4.5:1 AA bar, kept on perceptual grounds — on high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to <code>.btn-primary</code> only.</p>
         </div>
 
         <div class="subsection">
@@ -3093,9 +3095,43 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.6.0 -->
+            <!-- v2.6.1 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-260">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-261">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.6.1 — Documentation reconciliation: the v2.6.0 exception, propagated</span>
+                <span class="acc-num">2026-06-11</span>
+              </button>
+              <div class="acc-panel" id="cl-261" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>PATCH. Documentation-only. The accessibility exception ratified in v2.6.0 (§ 3.1 primary button label) is now reflected everywhere the old rule survived. No token changes, no component API breaks — every screen renders identically to v2.6.0.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">§ 03.4 · A11Y floor</strong> — Rewritten. The old note required <code>obsidian-950</code> on every magenta fill and called light text a failure; it now states the dark-text default and documents the single ratified exception, scoped to <code>.btn-primary</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 21.1 · Contrast pairs</strong> — The <code>obsidian-900</code> on <code>magenta-500</code> row described the pre-v2.6.0 button. Replaced with two rows: <code>obsidian-050</code> on <code>magenta-500</code> (≈3.0:1, ratified exception, primary button label) and <code>obsidian-950</code> on <code>magenta-500</code> (6.5:1, AA, default for every other magenta fill). Section lede updated — "nothing falls below AA" is no longer literally true, so it no longer says it.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 02 · Principles heading</strong> — "Five rules. No exceptions." violated § 20.4 (<em>no exceptions</em> as rhetorical emphasis) and, after v2.6.0, was literally false. Retitled: "Five rules. Exceptions earn their keep."</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 02 · Signature curve copy</strong> — Still claimed every surface rides <code>cubic-bezier(0.16, 1, 0.3, 1)</code>; since v2.0.0 that curve lives at <code>--ease-decel</code> and <code>--ease-standard</code> is the Framer ease. The copy now says what the tokens say.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 03 · Skill references</strong> — The docs described the skill as v1.1.0, 6 steps, 13 checks; the shipped bundle is two releases ahead — 7 steps and 14 checks since v1.1. All § 03 references reconciled, and the bundle re-baked as v1.1.2 on the v2.6.1 spec so the download matches the page that describes it.</li>
+                    <li><strong style="color:var(--obsidian-100)">styles/theme.css</strong> — v2.5.0 declared it shipped; it never reached the repo. It now exists: a Tailwind v4 <code>@theme</code> projection of <code>tokens.css</code> — <code>var()</code> aliases, zero duplicated literals, same-name tokens (<code>--font-*</code>, <code>--ease-*</code>) declared <code>@theme inline</code> to avoid circular aliases. Verified against a real Tailwind v4 build: 21/21 utilities generate. One spec correction landed with it: the duration namespace in § 13.1 is <code>--transition-duration-*</code>, not <code>--duration-*</code> — the generated utility (<code>duration-quick</code>) is unchanged.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">An external audit (2026-06-11) read the live document end to end and found three sections still describing the system as it was before v2.0.0 and v2.6.0. A spec that sells enforcement can't disagree with itself — reconciling the copy to the ratified decisions is the whole release.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-11</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.6.0...v2.6.1" target="_blank" rel="noopener">v2.6.0…v2.6.1</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.6.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-260">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.6.0 — Diagrams: structure, drawn on the same grid</span>
                 <span class="acc-num">2026-06-06</span>
