@@ -1,5 +1,5 @@
 ---
-version: 2.7.1
+version: 2.7.2
 updated: 2026-06-12
 author: Angelo Macaione
 license: MIT
@@ -10,7 +10,7 @@ deploy_targets: [html, react, figma]
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.7.1 — 2026.06.12
+> **Version** 2.7.2 — 2026.06.12
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -278,6 +278,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Sizes: `.btn-sm` (compact), default (32px), `.btn-lg` (44px touch target).
 - Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
 - Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
+- **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
 ### 3.2 Input · textarea · select
 
@@ -776,7 +777,7 @@ The floor admits exactly one documented exception.
 
 **`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
 
-**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures.
+**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
 
 **Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
 
@@ -957,6 +958,18 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ---
 
 ## 14. Changelog
+
+### v2.7.2 — 2026.06.12 (PATCH)
+
+**Ratified · § 3.1 / § 6.3**
+- **Primary label weight stays Medium 500** — Evaluated against Regular 400 and Bold 700 (in-context comparison, 15px and 13px scales). Under APCA stroke weight is a contrast input and 700 scores strongest, but the bold label shifts the button's voice; 500 keeps the register. Codified in § 3.1 (don't bold the primary label, don't drop below 500) and noted in the § 6.3 APCA evidence so the question doesn't reopen. Note: Satoshi ships no SemiBold cut — `font-weight: 600` silently resolves to Bold 700; the real choice is 500 vs 700.
+
+**Skill**
+- Bundle re-baked as **v1.1.5** on this spec; HTML.md a11y note carries the weight rule.
+
+**Trigger**
+
+Follow-up to the v2.7.1 APCA work: "would a semibold label improve accessibility?" The honest answer — WCAG 2 is weight-blind, APCA rewards weight, the system has no 600 cut — turned into a side-by-side evaluation and a ratified no-change, documented so the decision has a date and a rationale.
 
 ### v2.7.1 — 2026.06.12 (PATCH)
 
