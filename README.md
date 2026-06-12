@@ -101,7 +101,7 @@ Two [SemVer](https://semver.org) streams, one rule each.
 * **Spec** — pinned to the system release. The site at v2.6.1 ships v2.6.1 of `DESIGN.md`. MAJOR for breaking token changes, MINOR for additions, PATCH for fixes.
 * **Skill** — versioned independently. Its SemVer covers workflow changes: posture rules, verification checks, deploy targets.
 
-Current: **system v2.7.0 · skill v1.1.3** — full history in the [public changelog](https://amaca.design/#changelog).
+Current: **system v2.7.1 · skill v1.1.4** — full history in the [public changelog](https://amaca.design/#changelog).
 
 ## License
 

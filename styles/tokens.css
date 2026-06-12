@@ -182,7 +182,7 @@ img,svg{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
 a:hover{color:var(--magenta-300)}
-::selection{background:var(--magenta-500);color:#fff}
+::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
 
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
