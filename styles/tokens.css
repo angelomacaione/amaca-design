@@ -148,6 +148,7 @@
   --d-base:    350ms;
   --d-slow:    600ms;
   --d-scene:   900ms;
+  --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19) */
 
   /* — LOADER (component-specific size scale, § 17) — */
   --loader-xs: 16px;
