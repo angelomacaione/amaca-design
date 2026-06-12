@@ -144,6 +144,7 @@
   --transition-duration-base: var(--d-base);
   --transition-duration-slow: var(--d-slow);
   --transition-duration-scene: var(--d-scene);
+  --transition-duration-draw: var(--d-draw);
 }
 
 /* Same-name tokens (§ 13.1 maps them 1:1 — --font-*, --ease-*
