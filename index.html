@@ -59,7 +59,48 @@ html{scroll-behavior:smooth}
 </style>
 <script type="module">
   import { animate, stagger, inView } from "https://cdn.jsdelivr.net/npm/motion@11.15.0/+esm";
-  window.__motion = { animate, stagger, inView };
+
+  // Amaca motion tokens, read off :root at runtime — same pattern as § 18
+  // diagrams. Single source: tokens.css. Parses --ease-* cubic-bezier()
+  // into Motion arrays and --d-* ms into seconds. Lazy + memoized so the
+  // stylesheet is loaded by first call.
+  let __tok = null;
+  function tokens(){
+    if (__tok) return __tok;
+    const cs = getComputedStyle(document.documentElement);
+    const bez = n => (cs.getPropertyValue(n).match(/-?[\d.]+/g) || []).map(Number);
+    const sec = n => parseFloat(cs.getPropertyValue(n)) / 1000;
+    __tok = {
+      easeStandard: bez('--ease-standard'),
+      easeAccel:    bez('--ease-accel'),
+      easeDecel:    bez('--ease-decel'),
+      easeSpring:   bez('--ease-spring'),
+      dInstant: sec('--d-instant'),
+      dQuick:   sec('--d-quick'),
+      dBase:    sec('--d-base'),
+      dSlow:    sec('--d-slow'),
+      dScene:   sec('--d-scene')
+    };
+    return __tok;
+  }
+
+  // § 21.3 — the CSS kill-switch can't reach Motion (WAAPI/JS): gate it here.
+  // Under prefers-reduced-motion every animate() jumps straight to its final
+  // state (duration ~0, no delay); onUpdate/onComplete still fire, so
+  // counters land on their target value.
+  const REDUCE = typeof matchMedia !== 'undefined' &&
+                 matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animateGated = (...args) => {
+    if (REDUCE){
+      const last = args[args.length - 1];
+      if (last && typeof last === 'object' && !Array.isArray(last) && !(last instanceof Element)){
+        args[args.length - 1] = { ...last, duration: 0.001, delay: 0 };
+      }
+    }
+    return animate(...args);
+  };
+
+  window.__motion = { animate: animateGated, stagger, inView, tokens, reduce: REDUCE };
 </script>
 </head>
 <body>
@@ -3786,8 +3827,9 @@ window.addEventListener('hashchange', syncFromHash);
 // --- motion demo ---
 function playMotion(){
   document.querySelectorAll('.motion-row .dot').forEach(dot => {
-    const ease = dot.dataset.ease || 'cubic-bezier(0.2, 0.8, 0.2, 1)';
-    const dur = parseInt(dot.dataset.dur || '240', 10);
+    const csRoot = getComputedStyle(document.documentElement);
+    const ease = dot.dataset.ease || csRoot.getPropertyValue('--ease-standard').trim();
+    const dur = parseInt(dot.dataset.dur, 10) || parseFloat(csRoot.getPropertyValue('--d-quick'));
     const track = dot.parentElement;
     const max = track.clientWidth - dot.clientWidth - 8;
     dot.style.transition = 'none';
@@ -3848,7 +3890,8 @@ new MutationObserver(muts => {
 
   waitForMotion(M => {
     const { animate } = M;
-    const decel = [0.16, 1, 0.3, 1];
+    const decel = M.tokens().easeDecel;   // --ease-decel via :root — single source (§ 18 pattern)
+    const spring = M.tokens().easeSpring; // --ease-spring via :root
 
     // --- fade-in-up helper using Motion ---
     // We keep the CSS [data-fade] default state (opacity:0 + translateY(12px))
@@ -4166,7 +4209,8 @@ new MutationObserver(muts => {
     reset(root);
 
     const { animate } = M;
-    const decel = [0.16, 1, 0.3, 1];
+    const decel = M.tokens().easeDecel;   // --ease-decel via :root — single source (§ 18 pattern)
+    const spring = M.tokens().easeSpring; // --ease-spring via :root
 
     const fades = root.querySelectorAll('[data-fade]');
     fades.forEach((f, i) => {
@@ -4194,7 +4238,7 @@ new MutationObserver(muts => {
       const idx = +el.getAttribute('data-step-dot');
       const delay = 0.52 + (idx - 1) * 0.08;
       animate(0, 1, {
-        duration: 0.5, ease: [0.34, 1.56, 0.64, 1], delay,
+        duration: 0.5, ease: spring, delay,
         onUpdate: v => {
           el.style.opacity = v;
           el.setAttribute('transform', `${el._baseT} scale(${v})`);
