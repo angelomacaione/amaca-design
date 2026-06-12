@@ -1,5 +1,5 @@
 ---
-version: 2.7.0
+version: 2.7.1
 updated: 2026-06-12
 author: Angelo Macaione
 license: MIT
@@ -10,7 +10,7 @@ deploy_targets: [html, react, figma]
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.7.0 — 2026.06.12
+> **Version** 2.7.1 — 2026.06.12
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -277,7 +277,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - One `.btn-primary` per screen. Everything else recedes.
 - Sizes: `.btn-sm` (compact), default (32px), `.btn-lg` (44px touch target).
 - Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
-- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 3.0 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
+- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
 
 ### 3.2 Input · textarea · select
 
@@ -760,7 +760,7 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
 | `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
-One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 3.0 : 1). See § 6.3.
+One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 2.8 : 1). See § 6.3.
 
 ### 6.2 Focus visibility
 
@@ -774,7 +774,13 @@ Two patterns ship:
 
 The floor admits exactly one documented exception.
 
-**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 3.0 : 1).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
+**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
+
+**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures.
+
+**Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
+
+**Compliance mode.** Where strict WCAG 2.x AA is contractual (public sector, enterprise audit), ship the documented variant: `--obsidian-950` label on the unchanged `--magenta-500` fill (6.5 : 1, AA). Variant on request, never the default.
 
 ---
 
@@ -798,6 +804,7 @@ The floor admits exactly one documented exception.
 ### 7.3 JavaScript
 
 - Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
+- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.13 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
 - Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
@@ -950,6 +957,22 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ---
 
 ## 14. Changelog
+
+### v2.7.1 — 2026.06.12 (PATCH)
+
+**Fixed · evidence & honesty**
+- **§ 6.3 APCA evidence** — The ratified exception is now quantified: under APCA (WCAG 3 candidate) the ranking inverts — `--obsidian-050` on `--magenta-500` scores Lc 55.8 vs 47.4 for `--obsidian-950`. The perceptual model rates the light label more readable; WCAG 2.x under-estimates light text on saturated mid-tone fills (the "orange button" failure mode). Added with it: the ceiling note (4.5 : 1 unreachable on #F051D5 — pure white tops at 3.07 : 1; AA-strict requires darkening the fill, a MAJOR brand decision) and a compliance mode (dark-label variant for AA-contractual contexts, variant on request, never default).
+- **Ratio honesty** — The exception's declared ratio was ≈ 3.0 : 1; the measured value is 2.83. Corrected to ≈ 2.8 : 1 in § 3.1, § 6.1, § 6.3 and site § 03.4 / § 21.1. Historical changelog entries untouched.
+- **Site § 21.1 · EXC badge** — Dropped the warning tint: the asterisk already marks the exception, and semantic colors are feedback-only — a documentation badge reading as an alarm was off-doctrine.
+- **`::selection` literal** — `tokens.css` carried `color:#fff`, contradicting both the no-#FFF rule (§ 04.6) and § 6.3's "near-white" description of the precedent. Now `var(--obsidian-050)`.
+- **§ 7.3 · Runtime-token anti-drift, codified** — The pattern was live in two domains (§ 3.13 Mermaid theming, the `window.__motion` helper) but the general rule was missing from code conventions. Now canonical: tokens read off `:root` at runtime at every JS boundary; hand-copied values are a regression.
+
+**Skill**
+- Bundle re-baked as **v1.1.4** on this spec; HTML.md's a11y note updated with the APCA evidence and the measured ratio. Per release rule: every relevant DS change ships into the skill in the same release.
+
+**Trigger**
+
+An accessibility question — "is there an accessible non-pure white on magenta-500?" — led to measuring the exception with both models. The answer (no light color can pass WCAG 2 on this fill; APCA inverts the ranking in the light label's favor) turned the floor's only exception into its most evidence-based section.
 
 ### v2.7.0 — 2026.06.12 (MINOR)
 
