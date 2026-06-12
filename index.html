@@ -79,7 +79,8 @@ html{scroll-behavior:smooth}
       dQuick:   sec('--d-quick'),
       dBase:    sec('--d-base'),
       dSlow:    sec('--d-slow'),
-      dScene:   sec('--d-scene')
+      dScene:   sec('--d-scene'),
+      dDraw:    sec('--d-draw')
     };
     return __tok;
   }
@@ -122,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.6.1</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.7.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -134,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.6.1 · DESIGN SYSTEM</span>
+        <span class="meta">V2.7.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -220,11 +221,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.6.1</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">2.7.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 11, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 12, 2026</span></div>
           </div>
         </div>
 
@@ -350,7 +351,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
                 <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SKILL · ENFORCED WORKFLOW</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.2</div>
+                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.3</div>
               </div>
               <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">amaca-frontend.skill / .zip</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 7-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 14 verification checks before handing off. Multi-target as of v1.1: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
@@ -566,13 +567,13 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.6.1 here ships v2.6.1 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.7.0 here ships v2.7.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.2 re-bundles on DESIGN.md v2.6.1 — multi-target across HTML, React, and Figma.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.3 re-bundles on DESIGN.md v2.7.0 — multi-target across HTML, React, and Figma.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.2</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.3</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
                 <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
               </div>
@@ -856,7 +857,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 08 · Foundations / Motion</div>
           <h1 class="page-title">Motion is <span class="accent">feedback, not decoration.</span></h1>
-          <p class="page-lede">Five durations, four easings. Standard for UI, Spring for playful reveals, Accel for exits, Decel for entrances.</p>
+          <p class="page-lede">Six durations, four easings. Standard for UI, Spring for playful reveals, Accel for exits, Decel for entrances, Draw for data reveals.</p>
         </div>
 
         <div class="subsection">
@@ -897,6 +898,7 @@ Basic UI</div>
               <tr><td><code>--d-base</code></td><td>350</td><td class="muted">Default — most UI transitions</td></tr>
               <tr><td><code>--d-slow</code></td><td>600</td><td class="muted">Page enters, panel slides</td></tr>
               <tr><td><code>--d-scene</code></td><td>900</td><td class="muted">Hero reveals, orchestrated sequences</td></tr>
+              <tr><td><code>--d-draw</code></td><td>1200</td><td class="muted">Chart draw-on, count-up, progressive data reveals</td></tr>
             </tbody>
           </table>
         </div>
@@ -3024,6 +3026,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               <tr><td><code>.cs-img</code></td><td class="muted">Case-study imagery</td><td class="muted">Strip caption <code>transform: scale</code> on hover/focus</td></tr>
               <tr><td><code>.tab-indicator,<br>.tab-panel</code></td><td class="muted">Tab switcher</td><td class="muted">No indicator slide, no panel translate — instant swap</td></tr>
               <tr><td><code>.lightbox</code></td><td class="muted">Image overlay</td><td class="muted">No transition on open/close</td></tr>
+              <tr><td><code>window.__motion</code> gate</td><td class="muted">Motion One — cards, data viz, counters</td><td class="muted">JS animations jump to final state; counters land on target</td></tr>
             </tbody>
           </table>
         </div>
@@ -3136,9 +3139,46 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.6.1 -->
+            <!-- v2.7.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-261">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-270">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.7.0 — Motion integrity: one source, six durations</span>
+                <span class="acc-num">2026-06-12</span>
+              </button>
+              <div class="acc-panel" id="cl-270" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. A motion audit (2026-06-11) found the system's animations running on six engines with two structural leaks: Motion One blocks duplicated easing values as literals and escaped the reduced-motion kill-switch, and chart draw-on choreography lived off-scale. This release closes both — one new token, zero new engines.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added · tokens</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">--d-draw · 1200ms</strong> — Sixth duration. Data draw-on: chart tracing, count-up, progressive data reveals. The scale topped out at <code>--d-scene</code> (900ms, hero reveals), but a line tracing itself or a number counting up is a different semantic category — data revealing, not UI entering — and lives naturally at 1.2s. Projected to Tailwind as <code>duration-draw</code> via <code>theme.css</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed · motion integrity</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Motion tokens, one source</strong> — The Motion One module now reads <code>--d-*</code> and <code>--ease-*</code> off <code>:root</code> at runtime and hands them to consumers (same pattern § 18 uses for color). The hand-copied easing arrays in cards (§ 12) and data viz (§ 19) are gone — if a token moves, the JS follows. The v2.0.0 lesson, finally encoded.</li>
+                    <li><strong style="color:var(--obsidian-100)">Reduced-motion gate for Motion One</strong> — The § 21.3 CSS kill-switch can't reach WAAPI/JS animation. Every <code>animate()</code> call is now gated: under <code>prefers-reduced-motion: reduce</code> it jumps straight to the final state and counters land on their target. Cards and data viz — the most animated surfaces in the system — were the only blocks without a JS check.</li>
+                    <li><strong style="color:var(--obsidian-100)">Durations snapped to scale</strong> — Data viz literals (0.5 / 0.7 / 0.75 / 0.9 / 1.2 / 1.4s) now resolve to tokens: draw-on and count-up ride <code>--d-draw</code>, baseline sweeps ride <code>--d-scene</code>, bar and ramp reveals ride <code>--d-slow</code>. Choreography delays and staggers stay literal by design — they are composition, not vocabulary.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 08 demo fallback</strong> — <code>playMotion</code> fell back to <code>cubic-bezier(0.2, 0.8, 0.2, 1)</code> — a curve that exists nowhere in the system — and 240ms, the pre-v2.0.0 base. Now reads <code>--ease-standard</code> and <code>--d-quick</code> off <code>:root</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">An external motion audit read every animation path in the codebase and found the virtuous pattern — tokens read off <code>:root</code> at runtime — already canonized in § 18, while the Motion One blocks next to it still carried hand-copied values. Extending the system's own best pattern to its most animated surfaces is the whole release.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-12</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.6.1...v2.7.0" target="_blank" rel="noopener">v2.6.1…v2.7.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.6.1 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-261">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.6.1 — Documentation reconciliation: the v2.6.0 exception, propagated</span>
                 <span class="acc-num">2026-06-11</span>
@@ -3890,8 +3930,9 @@ new MutationObserver(muts => {
 
   waitForMotion(M => {
     const { animate } = M;
-    const decel = M.tokens().easeDecel;   // --ease-decel via :root — single source (§ 18 pattern)
-    const spring = M.tokens().easeSpring; // --ease-spring via :root
+    const T = M.tokens();        // motion tokens via :root — single source (§ 18 pattern)
+    const decel = T.easeDecel;
+    const spring = T.easeSpring;
 
     // --- fade-in-up helper using Motion ---
     // We keep the CSS [data-fade] default state (opacity:0 + translateY(12px))
@@ -3905,7 +3946,7 @@ new MutationObserver(muts => {
       // tiny rAF to flush
       requestAnimationFrame(() => {
         animate(0, 1, {
-          duration: 0.6, ease: decel, delay: delayMs / 1000,
+          duration: T.dSlow, ease: decel, delay: delayMs / 1000,
           onUpdate: v => {
             el.style.opacity = v;
             el.style.transform = 'translateY(' + (12 * (1 - v)).toFixed(2) + 'px)';
@@ -3926,7 +3967,7 @@ new MutationObserver(muts => {
       const suffix = el.dataset.suffix || '';
       el.textContent = prefix + (0).toFixed(decimals) + suffix;
       animate(0, target, {
-        duration: 1.4, ease: decel, delay: delayMs / 1000,
+        duration: T.dDraw, ease: decel, delay: delayMs / 1000,
         onUpdate: v => {
           el.textContent = prefix + Math.abs(v).toFixed(decimals) + suffix;
         },
@@ -4209,8 +4250,9 @@ new MutationObserver(muts => {
     reset(root);
 
     const { animate } = M;
-    const decel = M.tokens().easeDecel;   // --ease-decel via :root — single source (§ 18 pattern)
-    const spring = M.tokens().easeSpring; // --ease-spring via :root
+    const T = M.tokens();        // motion tokens via :root — single source (§ 18 pattern)
+    const decel = T.easeDecel;
+    const spring = T.easeSpring;
 
     const fades = root.querySelectorAll('[data-fade]');
     fades.forEach((f, i) => {
@@ -4229,7 +4271,7 @@ new MutationObserver(muts => {
     stepLines.forEach(el => {
       el.style.opacity = '0';
       animate(0, 1, {
-        duration: 0.5, ease: decel, delay: 0,
+        duration: T.dSlow, ease: decel, delay: 0,
         onUpdate: v => { el.style.opacity = v; }
       });
     });
@@ -4238,7 +4280,7 @@ new MutationObserver(muts => {
       const idx = +el.getAttribute('data-step-dot');
       const delay = 0.52 + (idx - 1) * 0.08;
       animate(0, 1, {
-        duration: 0.5, ease: spring, delay,
+        duration: T.dSlow, ease: spring, delay,
         onUpdate: v => {
           el.style.opacity = v;
           el.setAttribute('transform', `${el._baseT} scale(${v})`);
@@ -4250,7 +4292,7 @@ new MutationObserver(muts => {
       const idx = +el.getAttribute('data-step-labels');
       const delay = 0.52 + (idx - 1) * 0.08;
       animate(0, 1, {
-        duration: 0.5, ease: decel, delay,
+        duration: T.dSlow, ease: decel, delay,
         onUpdate: v => {
           el.style.opacity = v;
           const offset = 10 - 10 * v;
@@ -4264,7 +4306,7 @@ new MutationObserver(muts => {
 
     root.querySelectorAll('[data-baseline-clip]').forEach(r => {
       animate(0, 650, {
-        duration: 0.9, ease: decel, delay: 0.35,
+        duration: T.dScene, ease: decel, delay: 0.35,
         onUpdate: v => r.setAttribute('width', v.toFixed(1))
       });
     });
@@ -4283,7 +4325,7 @@ new MutationObserver(muts => {
     const areas = Array.from(root.querySelectorAll('[data-area-fade]'));
     areas.forEach(a => {
       animate(0, 1, {
-        duration: 0.7, ease: decel, delay: 2.65,
+        duration: T.dSlow, ease: decel, delay: 2.65,
         onUpdate: v => { a.style.opacity = v; }
       });
     });
@@ -4301,7 +4343,7 @@ new MutationObserver(muts => {
 
     root.querySelectorAll('[data-bar-h]').forEach((r, i) => {
       animate(0, 1, {
-        duration: 0.9, ease: decel, delay: 0.7 + i * 0.1,
+        duration: T.dScene, ease: decel, delay: 0.7 + i * 0.1,
         onUpdate: t => {
           const w = r._w * t;
           r.setAttribute('width', w.toFixed(1));
@@ -4317,7 +4359,7 @@ new MutationObserver(muts => {
 
     root.querySelectorAll('[data-bar-v]').forEach((r, i) => {
       animate(0, 1, {
-        duration: 0.7, ease: decel, delay: 0.8 + i * 0.04,
+        duration: T.dSlow, ease: decel, delay: 0.8 + i * 0.04,
         onUpdate: t => {
           const h = r._h * t;
           r.setAttribute('height', h.toFixed(1));
@@ -4336,7 +4378,7 @@ new MutationObserver(muts => {
         const startDeg = c._startPct * 3.6 + c._gapPct / 2;
         const endDeg   = (c._startPct + c._pct) * 3.6 - c._gapPct / 2;
         animate(startDeg, endDeg, {
-          duration: 0.75, ease: decel, delay: 0.6 + i * 0.14,
+          duration: T.dSlow, ease: decel, delay: 0.6 + i * 0.14,
           onUpdate: v => {
             c.setAttribute('d', ringSegmentPath(c._radius, c._sw, startDeg, v, c._corner));
           }
@@ -4349,7 +4391,7 @@ new MutationObserver(muts => {
         pcts.forEach((el, i) => {
           const target = +el.getAttribute('data-pct-count');
           animate(0, target, {
-            duration: 0.75, ease: decel, delay: 0.6 + i * 0.14,
+            duration: T.dSlow, ease: decel, delay: 0.6 + i * 0.14,
             onUpdate: v => { el.textContent = Math.round(v) + '%'; }
           });
         });
@@ -4361,7 +4403,7 @@ new MutationObserver(muts => {
       const target = +t.getAttribute('data-count-to');
       const decimals = +(t.getAttribute('data-decimals') || 0);
       animate(0, target, {
-        duration: 1.2, ease: decel, delay: 0.7,
+        duration: T.dDraw, ease: decel, delay: 0.7,
         onUpdate: v => { t.textContent = v.toFixed(decimals); }
       });
     });

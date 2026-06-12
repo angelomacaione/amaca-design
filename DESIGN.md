@@ -1,16 +1,16 @@
 ---
-version: 2.6.1
-updated: 2026-06-11
+version: 2.7.0
+updated: 2026-06-12
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-11
+last_synced: 2026-06-12
 deploy_targets: [html, react, figma]
 ---
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.6.1 — 2026.06.11
+> **Version** 2.7.0 — 2026.06.12
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -208,7 +208,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 ### 2.8 Motion
 
-**Five durations, four easings. No others.**
+**Six durations, four easings. No others.**
 
 | Duration | ms | Use |
 |---|---|---|
@@ -217,6 +217,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 | `--d-base` | `350` | Default — most UI transitions |
 | `--d-slow` | `600` | Page enters, panel slides |
 | `--d-scene` | `900` | Hero reveals, orchestrated sequences |
+| `--d-draw` | `1200` | Data draw-on: chart tracing, count-up, progressive data reveals |
 
 | Easing | Curve | Use |
 |---|---|---|
@@ -227,7 +228,9 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 **Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
 
-**Reduced motion is mandatory:**
+**Reduced motion is mandatory** — and the CSS kill-switch alone is not enough: JS-driven animation (Motion One / WAAPI, counters writing `textContent`) bypasses CSS. Gate it in JS — read `matchMedia('(prefers-reduced-motion: reduce)')` and jump to the final state (v2.7.0: the shared `window.__motion` gate does this for every `animate()` call).
+
+**CSS kill-switch:**
 ```css
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{
@@ -883,7 +886,7 @@ Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
 
 When working without a rules file, prepend this to your request:
 
-> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the five durations and four easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
+> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and four easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
 
 ---
 
@@ -947,6 +950,21 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ---
 
 ## 14. Changelog
+
+### v2.7.0 — 2026.06.12 (MINOR)
+
+**Added · tokens**
+- **`--d-draw` (1200ms)** — Sixth duration. Data draw-on: chart tracing, count-up, progressive data reveals. The scale topped out at `--d-scene` (900ms, hero reveals); a chart revealing its data is a different semantic category and lives naturally at 1.2s. Projected to Tailwind as `duration-draw` via `theme.css`.
+
+**Fixed · motion integrity**
+- **Motion tokens, one source** — The Motion One module reads `--d-*` / `--ease-*` off `:root` at runtime (the § 18 pattern, extended to motion) and hands them to cards (§ 12) and data viz (§ 19). Hand-copied easing arrays removed — if a token moves, the JS follows.
+- **Reduced-motion gate for JS animation** — The CSS kill-switch can't reach WAAPI/Motion One. Every `animate()` is now gated via the shared module: under `prefers-reduced-motion: reduce` it jumps to the final state; counters land on target. Documented as a hard rule in § 2.8.
+- **Durations snapped to scale** — Data-viz literals (0.5/0.7/0.75/0.9/1.2/1.4s) resolve to tokens: `--d-draw` for draw-on and count-up, `--d-scene` for baseline sweeps, `--d-slow` for bar and ramp reveals. Choreography delays/staggers stay literal by design — composition, not vocabulary.
+- **§ 08 demo fallback** — Replaced an off-system curve (`0.2, 0.8, 0.2, 1`) and the pre-v2.0.0 240ms base with `--ease-standard` / `--d-quick` read off `:root`.
+
+**Trigger**
+
+An external motion audit (2026-06-11) mapped every animation path: six engines, with the virtuous runtime-token pattern already canonical in § 18 while the Motion One blocks beside it carried hand-copied values and escaped reduced-motion. Extending the system's own best pattern to its most animated surfaces is the whole release.
 
 ### v2.6.1 — 2026.06.11 (PATCH)
 
