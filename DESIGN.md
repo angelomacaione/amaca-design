@@ -697,6 +697,29 @@ flowchart TD
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
 
+### 3.14 Presentations
+
+Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
+
+**Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = mono + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
+
+**Eight layouts** — a single `.slide` + a modifier:
+- `.slide--cover` — opening; big title (one `.accent` word on the signal gradient) + `.slide-lead`.
+- `.slide--divider` — chapter break; a ghosted oversized `.slide-index` numeral (obsidian — a graphic, not an accent).
+- `.slide--content` / `.slide--data` — title + body copy / `.slide-bars`.
+- `.slide--split` — two columns: title + a `.split-list` of key/value rows.
+- `.slide--stat` — one giant gradient `.slide-stat` + label + context.
+- `.slide--image` — full-bleed media (`.slide-ph`) under a `.slide-scrim`, title bottom-aligned.
+- `.slide--closing` — closing; oversized title + `.slide-contacts`.
+
+**Deck.** The live demo (`.deck-stage` + `.deck-bar` → `.deck-nav` / `.deck-dots`) walks the gallery slides — **manual only** (no auto-advance, § 6 floor #6), position remembered across reloads, ← / → keys.
+
+**Rules.**
+- The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
+- Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
+- Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
+- Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
+
 ---
 
 ## 4. Iconography
