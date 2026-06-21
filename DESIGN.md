@@ -1,81 +1,122 @@
 ---
-version: 2.8.0
+name: Amaca
+version: 3.0.0
 updated: 2026-06-21
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
 last_synced: 2026-06-21
 deploy_targets: [html, react, figma]
+colors:
+  primary: "#F051D5"
+  neutral: "#07090B"
+  secondary: "#00FFF2"
+  tertiary: "#0C6078"
+  success: "#3AFFC7"
+  warning: "#F6C65B"
+  danger: "#FF5B5B"
+  info: "#5CC8FF"
+  obsidian-950: "#07090B"
+  obsidian-900: "#0B0E12"
+  obsidian-850: "#10141A"
+  obsidian-800: "#161B22"
+  obsidian-700: "#1E242D"
+  obsidian-600: "#2A313B"
+  obsidian-500: "#3A4451"
+  obsidian-400: "#5B6573"
+  obsidian-300: "#8A94A3"
+  obsidian-200: "#B8C0CB"
+  obsidian-100: "#E3E7EC"
+  obsidian-050: "#F4F6F8"
+  magenta-100: "#FFE3F8"
+  magenta-200: "#FFB5EC"
+  magenta-300: "#FF85DF"
+  magenta-400: "#F868D8"
+  magenta-500: "#F051D5"
+  magenta-600: "#C93BB0"
+  magenta-700: "#9A2D87"
+  magenta-800: "#66195A"
+typography:
+  font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
+  font-mono: "ui-monospace, SFMono-Regular, Menlo, monospace"
+  t-display: "112px"
+  t-h1: "76px"
+  t-h2: "52px"
+  t-h3: "38px"
+  t-h4: "30px"
+  t-h5: "24px"
+  t-h6: "20px"
+  t-lead: "18px"
+  t-body: "15px"
+  t-small: "13px"
+  t-caption: "12px"
+  t-micro: "10px"
+spacing:
+  s-0: "0"
+  s-1: "4px"
+  s-2: "8px"
+  s-3: "12px"
+  s-4: "16px"
+  s-5: "20px"
+  s-6: "24px"
+  s-8: "32px"
+  s-10: "40px"
+  s-12: "48px"
+  s-16: "64px"
+  s-20: "80px"
+  s-24: "96px"
+  s-32: "128px"
+rounded:
+  r-none: "0"
+  r-xs: "2px"
+  r-sm: "4px"
+  r-md: "8px"
+  r-lg: "12px"
+  r-xl: "16px"
+  r-2xl: "24px"
+  r-full: "999px"
 ---
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.8.0 — 2026.06.21
+> **Version** 3.0.0 — 2026.06.21
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
 
 ---
 
-## 0. How to use this file
+## Overview
+
+**Amaca** is a dark-first design system for AI coding assistants and the humans pairing with them — a single file that defines every acceptable token, component, and rule so that any output, by a human or a model, sounds, looks, and behaves like the rest of the work. It follows the Google Labs [`design.md`](https://github.com/google-labs-code/design.md) standard: the eight canonical sections below carry the normative spec; the YAML front matter holds the machine-readable token roles; extension sections after the eighth preserve Amaca's full richness (Motion, Iconography, Accessibility, Code conventions, Multi-deploy, IDE).
 
 This is a **specification + a contract**. Treat it as canonical. When code or output disagrees with this file, this file wins.
 
-### 0.1 For the AI agent
-
-When you generate UI code, you must:
-
-1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
-2. **Reference tokens by CSS variable name** (`var(--magenta-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
-3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
-4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
-5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
-6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship.
-7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
-8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
-
-### 0.2 For the human
+### For the human
 
 Keep this file at repo root. Update the version line on every breaking change. The system is dark-first, dark-only at v1.x — light-mode resolution is planned for v2.
 
----
+### Quick reference · cheat sheet for prompts
 
-## 1. Principles · five rules, exceptions earn their keep
+When pasted into an IDE assistant, these one-liners cover 80% of decisions.
 
-Every output is graded against these. Cite the number when explaining a tradeoff.
+```
+Color:    --obsidian-* for surfaces & text. --magenta-500 for CTAs only. 85/10/5.
+Type:     Satoshi everywhere. Scale: micro 10 / small 13 / body 15 / lead 18 / h6-h1.
+Spacing:  4px grid. Tokens: --s-1 (4) … --s-32 (128). No raw px.
+Radius:   --r-md (8) for inputs/buttons, --r-lg (12) for cards. Range 8–12.
+Motion:   --d-quick (200) + --ease-standard for UI. --d-base + --ease-decel for reveals.
+                  Always: @media (prefers-reduced-motion: reduce){ transitions: none }
+Focus:    Dual-ring on pressables (outline + magenta halo). Glow on inputs.
+Voice:    Spec register in code/docs. Editorial in marketing. No AI tells.
+A11y:     Color + shape + label. Persistent labels. 44×44 touch. No auto-advance.
+```
 
-### 1.1 Clarity before cleverness
-The obvious answer, on purpose. If the user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
-
-**For agents:** prefer a labeled button over an icon-only button. Prefer a verbose variable name over a clever one. Prefer 4 lines of explicit code over 1 line of trick.
-
-### 1.2 Evidence over opinion
-Every decision shows its work. The dead end is part of the file too. When you make a choice, leave a trace — a comment, a token reference, a link to the spec.
-
-**For agents:** when the user asks "why," answer with the principle number, the token reference, or the prior commit. Never "because it looks better."
-
-### 1.3 Precision is a feeling
-Rigor the eye picks up before the mind does. Spacing on a 4px grid. Type on the scale. Motion on the curve. When they're locked, the work reads as considered before a word is parsed.
-
-**For agents:** never use values that aren't on a scale. `padding: 14px` is wrong; `padding: var(--s-3) var(--s-4)` is right.
-
-### 1.4 Quiet, then loud
-Restraint is what makes accents land. Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them.
-
-**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--magenta-*`. If you're using magenta on more than one element per viewport, you're decorating.
-
-### 1.5 Motion is a material
-Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
-
-**For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut.
-
----
-
-## 2. Tokens · the only acceptable values
+## Colors
 
 All tokens live in `styles/tokens.css` and are exposed as CSS custom properties. **Reference by name, never copy the value.**
 
-### 2.1 Color · neutrals (Obsidian scale)
+### Color · neutrals (Obsidian scale)
 
 | Token | Hex | Use |
 |---|---|---|
@@ -92,7 +133,7 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
 
-### 2.2 Color · brand (Magenta primary)
+### Color · brand (Magenta primary)
 
 | Token | Hex | Use |
 |---|---|---|
@@ -105,7 +146,7 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--magenta-700` | `#9A2D87` | Deep brand accents |
 | `--magenta-800` | `#66195A` | Reserved |
 
-### 2.3 Color · supporting
+### Color · supporting
 
 | Token | Hex | Role |
 |---|---|---|
@@ -118,7 +159,7 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 
 **The 85/10/5 law:** ~85% of any surface uses `--obsidian-*`. ~10% supporting/semantic. ≤5% `--magenta-*`. Violations are visible at a glance.
 
-### 2.4 Type
+## Typography
 
 Single typeface — **Satoshi** — across the whole system. `--font-sans` resolves to Satoshi; the system uses a generic monospace stack (`ui-monospace, SFMono-Regular, Menlo, monospace`) only for tabular numerics and code captions.
 
@@ -157,7 +198,9 @@ Single typeface — **Satoshi** — across the whole system. `--font-sans` resol
 - Mono labels: 10px, uppercase, `--tr-mono`, `--magenta-400` for brand context or `--obsidian-400` for neutral.
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
 
-### 2.5 Spacing — 4px grid
+## Layout
+
+### Spacing — 4px grid
 
 | Token | Px | Common use |
 |---|---|---|
@@ -178,7 +221,34 @@ Single typeface — **Satoshi** — across the whole system. `--font-sans` resol
 
 **Rule:** every margin, padding, gap is a token. No `13px`, no `20px;` literals in component CSS.
 
-### 2.6 Radius
+### Layout
+
+| Token | Value | Use |
+|---|---|---|
+| `--sidebar-w` | `260px` | Sidebar nav width |
+| `--content-max` | `1180px` | Max content width |
+| `--gutter` | `24px` | Column gutter |
+
+12-col grid. Sidebar is fixed; content breathes.
+
+## Elevation & Depth
+
+### Shadow
+
+| Token | Use |
+|---|---|
+| `--sh-1` | Resting card |
+| `--sh-2` | Hover lift |
+| `--sh-3` | Floating panel |
+| `--sh-4` | Modal / drawer |
+| `--sh-glow` | Focus state on brand elements |
+| `--sh-glow-soft` | Ambient brand glow (rare) |
+
+Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
+
+## Shapes
+
+### Radius
 
 | Token | Px | Use |
 |---|---|---|
@@ -193,71 +263,11 @@ Single typeface — **Satoshi** — across the whole system. `--font-sans` resol
 
 **Working range is 8–12px.** If a component asks for more, justify it.
 
-### 2.7 Shadow
-
-| Token | Use |
-|---|---|
-| `--sh-1` | Resting card |
-| `--sh-2` | Hover lift |
-| `--sh-3` | Floating panel |
-| `--sh-4` | Modal / drawer |
-| `--sh-glow` | Focus state on brand elements |
-| `--sh-glow-soft` | Ambient brand glow (rare) |
-
-Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
-
-### 2.8 Motion
-
-**Six durations, four easings. No others.**
-
-| Duration | ms | Use |
-|---|---|---|
-| `--d-instant` | `100` | Hover state, tap feedback |
-| `--d-quick` | `200` | Button states, focus rings |
-| `--d-base` | `350` | Default — most UI transitions |
-| `--d-slow` | `600` | Page enters, panel slides |
-| `--d-scene` | `900` | Hero reveals, orchestrated sequences |
-| `--d-draw` | `1200` | Data draw-on: chart tracing, count-up, progressive data reveals |
-
-| Easing | Curve | Use |
-|---|---|---|
-| `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default UI ease-out (Framer ease) |
-| `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
-| `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals (the system signature) |
-| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot |
-
-**Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
-
-**Reduced motion is mandatory** — and the CSS kill-switch alone is not enough: JS-driven animation (Motion One / WAAPI, counters writing `textContent`) bypasses CSS. Gate it in JS — read `matchMedia('(prefers-reduced-motion: reduce)')` and jump to the final state (v2.7.0: the shared `window.__motion` gate does this for every `animate()` call).
-
-**CSS kill-switch:**
-```css
-@media (prefers-reduced-motion: reduce){
-  *, *::before, *::after{
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-```
-Every component with hover transforms, fade-ins, or orchestrated animation must also override its specific transitions to `none` inside this query.
-
-### 2.9 Layout
-
-| Token | Value | Use |
-|---|---|---|
-| `--sidebar-w` | `260px` | Sidebar nav width |
-| `--content-max` | `1180px` | Max content width |
-| `--gutter` | `24px` | Column gutter |
-
-12-col grid. Sidebar is fixed; content breathes.
-
----
-
-## 3. Components · canonical specs
+## Components
 
 Every component below maps 1:1 to a class in `styles/components.css`. **Reuse classes; don't reinvent components.**
 
-### 3.1 Button
+### Button
 
 ```html
 <button class="btn btn-primary">Primary</button>
@@ -280,7 +290,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
-### 3.2 Input · textarea · select
+### Input · textarea · select
 
 ```html
 <label class="field">
@@ -293,7 +303,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Focus state: border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
 - Error state: border `--danger`, helper text below in `--danger`.
 
-### 3.3 Card
+### Card
 
 ```html
 <div class="card">
@@ -307,7 +317,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`. Transition: `var(--d-quick) var(--ease-standard)`.
 
-### 3.4 Badge
+### Badge
 
 ```html
 <span class="badge badge-live"><span class="dot"></span> Live</span>
@@ -318,20 +328,20 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - Size: `--t-micro`, uppercase, `--tr-mono`.
 - Colors: `--success` (live), `--warning` (draft), `--danger` (broken), `--obsidian-400` (archived).
 
-### 3.5 Navigation
+### Navigation
 
 - **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
 - **Top nav** for marketing only.
 - **Breadcrumb** in mono, `--t-micro`, separators in `--obsidian-500`.
 
-### 3.6 Accordion
+### Accordion
 
 - Single-open by default.
 - Chevron rotates 90° on expand (`transform var(--d-base) var(--ease-decel)`).
 - Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
 - `prefers-reduced-motion`: instant swap, no chevron rotate.
 
-### 3.7 Tabs
+### Tabs
 
 ```html
 <div class="tabs" role="tablist" data-tabs>
@@ -371,13 +381,13 @@ Duration `var(--d-base)` with `var(--ease-decel)` on both `transform` and `width
 - `prefers-reduced-motion: reduce` — `.tab-indicator` transition becomes `none`; panels swap instantly.
 - Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
 
-### 3.8 Lightbox
+### Lightbox
 
 - Backdrop: `rgba(0,0,0,0.85)`.
 - Close button: top-right, `Esc` closes.
 - Transition: opacity `var(--d-quick) var(--ease-standard)`. No scale-in.
 
-### 3.9 Time input
+### Time input
 
 ```html
 <label class="field">
@@ -421,7 +431,7 @@ document.getElementById("time-input").addEventListener("input", function () {
 - Nessun `type="time"` — il native picker non rispetta il design system.
 - Focus e stato di errore seguono § 3.2.
 
-### 3.10 Dropdown / Select
+### Dropdown / Select
 
 Two variants. Pick the smallest that covers the requirement.
 
@@ -481,7 +491,7 @@ Reach for this only when native can't carry the requirement: search/filter insid
 - A **fixed-position** (viewport-aware) menu also closes on `scroll` and `resize` — its anchored coordinates would otherwise drift from the trigger.
 - Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
 
-### 3.11 Chat & Messaging
+### Chat & Messaging
 
 For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
 
@@ -561,7 +571,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - After ~3 exchanges, roll older messages off the top so the surface never overcrowds.
 - Under `prefers-reduced-motion: reduce`: container transitions and dot wave both stop at rest; `.chat-msg.is-out` still hides instantly so the surface still rolls off.
 
-### 3.12 Loader
+### Loader
 
 The brand mark (Lottie / GIF) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
 
@@ -631,7 +641,7 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 - Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
 - Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
 
-### 3.13 Diagrams
+### Diagrams
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
 
@@ -697,7 +707,7 @@ flowchart TD
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
 
-### 3.14 Presentations
+### Presentations
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
 
@@ -720,32 +730,65 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
 - Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
 
----
+## Do's and Don'ts
 
-## 4. Iconography
+### For the AI agent
 
-- **Stroke-only**, 1.5–2px stroke width.
-- 24×24 viewBox at default scale. 16×16 for inline.
-- `currentColor` only — icons inherit text color.
-- No filled icons. No multi-color icons. No emojis in the UI.
+When you generate UI code, you must:
 
----
+1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
+2. **Reference tokens by CSS variable name** (`var(--magenta-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
+3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
+4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
+5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
+6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship.
+7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
+8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
 
-## 5. Voice & tone
+### Principles · five rules, exceptions earn their keep
+
+Every output is graded against these. Cite the number when explaining a tradeoff.
+
+#### Clarity before cleverness
+The obvious answer, on purpose. If the user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
+
+**For agents:** prefer a labeled button over an icon-only button. Prefer a verbose variable name over a clever one. Prefer 4 lines of explicit code over 1 line of trick.
+
+#### Evidence over opinion
+Every decision shows its work. The dead end is part of the file too. When you make a choice, leave a trace — a comment, a token reference, a link to the spec.
+
+**For agents:** when the user asks "why," answer with the principle number, the token reference, or the prior commit. Never "because it looks better."
+
+#### Precision is a feeling
+Rigor the eye picks up before the mind does. Spacing on a 4px grid. Type on the scale. Motion on the curve. When they're locked, the work reads as considered before a word is parsed.
+
+**For agents:** never use values that aren't on a scale. `padding: 14px` is wrong; `padding: var(--s-3) var(--s-4)` is right.
+
+#### Quiet, then loud
+Restraint is what makes accents land. Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them.
+
+**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--magenta-*`. If you're using magenta on more than one element per viewport, you're decorating.
+
+#### Motion is a material
+Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
+
+**For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut.
+
+### Voice & tone
 
 The system speaks in two registers.
 
-### 5.1 Editorial (live site, marketing, docs intro)
+#### Editorial (live site, marketing, docs intro)
 - First-person, paragraphed, contextual.
 - Sentence-case headings.
 - Short sentences. Precise verbs. No marketing fluff.
 
-### 5.2 Spec (this file, component docs, code comments)
+#### Spec (this file, component docs, code comments)
 - Imperative. Numbered. Declarative.
 - "Use X." "Never do Y." "Default is Z."
 - No first person. No metaphors. No softening.
 
-### 5.3 Vocabulary
+#### Vocabulary
 
 | Use | Avoid |
 |---|---|
@@ -755,7 +798,7 @@ The system speaks in two registers.
 | "Affordance" | "Feature" (when describing what a control offers) |
 | "Ship" | "Launch", "release" |
 
-### 5.4 For AI agents
+#### For AI agents
 
 When generating copy:
 1. **Match the register.** Editorial for marketing pages, Spec for docs, terse for code comments.
@@ -763,90 +806,7 @@ When generating copy:
 3. **Don't decorate sentences.** "We crafted this with care" → cut.
 4. **Italics are rare.** Reserved for genuine emphasis, never for vibes.
 
----
-
-## 6. Accessibility · the floor
-
-Non-negotiable. Any component that can't meet all seven doesn't ship.
-
-1. **Color never carries meaning alone.** Every status uses color + shape + label.
-2. **No text below 12px. No body text below 14px.** Line height never under 1.4 for running text.
-3. **Every form field has a persistent label.** Placeholder is not a label.
-4. **Every image has `alt`.** Decorative images carry `alt=""` explicitly.
-5. **Focus order follows reading order.** `tabindex` is for fixes, never for flow.
-6. **Auto-advancing content is forbidden.** No carousels, no timed dismissals.
-7. **Touch hit area:** 44×44 on mobile, 32×32 on dense desktop. Extend beyond the visual when needed.
-
-### 6.1 Contrast pairs verified at WCAG AA
-
-| Pair | Ratio |
-|---|---|
-| `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
-| `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
-| `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
-| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
-| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
-
-One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 2.8 : 1). See § 6.3.
-
-### 6.2 Focus visibility
-
-Two patterns ship:
-- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, `.chip`): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo.
-- **Text inputs** (`.input`, `.textarea`, `.select`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
-
-`.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
-
-### 6.3 Ratified exceptions
-
-The floor admits exactly one documented exception.
-
-**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
-
-**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
-
-**Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
-
-**Compliance mode.** Where strict WCAG 2.x AA is contractual (public sector, enterprise audit), ship the documented variant: `--obsidian-950` label on the unchanged `--magenta-500` fill (6.5 : 1, AA). Variant on request, never the default.
-
----
-
-## 7. Code conventions
-
-### 7.1 CSS
-
-- **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
-- Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
-- File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
-- Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
-- `!important`: forbidden except in `prefers-reduced-motion` overrides.
-
-### 7.2 HTML
-
-- Canonical: close every non-void tag, double-quote every attribute, no implied closes.
-- Semantic first: `<button>` for actions, `<a>` for navigation. Never `<div onclick>`.
-- ARIA only when semantic HTML can't express the role.
-- `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`).
-
-### 7.3 JavaScript
-
-- Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
-- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.13 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
-- Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
-- **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
-- **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
-- **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (`.stepper-svg`):** lines fade first (delay 0ms), dots scale-in via spring (520ms, +80ms per step), labels rise from below via decel (520ms, +80ms per step). Position is set via the SVG `transform` attribute on each `<g>`; replay animates the attribute directly (no CSS transforms on the groups). Lines use opacity-only.
-- **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
-
-### 7.4 File naming
-
-- `kebab-case.css`, `kebab-case.html`, `kebab-case.svg`.
-- Components named after their role: `card.css`, not `box.css`.
-
----
-
-## 8. The 85 / 10 / 5 law
+### The 85 / 10 / 5 law
 
 Every screen, every component, every full-bleed surface should resolve to roughly:
 
@@ -856,9 +816,7 @@ Every screen, every component, every full-bleed surface should resolve to roughl
 
 If the magenta budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), the design is loud. Cut and earn the accent back.
 
----
-
-## 9. Anti-patterns · what not to ship
+### Anti-patterns · what not to ship
 
 These have all been tried in this system and rejected.
 
@@ -876,73 +834,134 @@ These have all been tried in this system and rejected.
 | Cubic-bezier literal in component CSS | Use `var(--ease-*)`. Always. |
 | `font-size: 14px` in component CSS | Use `var(--t-small)` (13px) or `var(--t-body)` (15px) — pick a side. |
 
----
+> **Extension sections** — beyond the eight canonical `design.md` sections. They carry Amaca's full spec where the standard has no slot; consumers that only read the canonical eight can ignore them safely.
 
-## 10. Quick reference · cheat sheet for prompts
+## Motion
 
-When pasted into an IDE assistant, these one-liners cover 80% of decisions.
+**Six durations, four easings. No others.**
 
+| Duration | ms | Use |
+|---|---|---|
+| `--d-instant` | `100` | Hover state, tap feedback |
+| `--d-quick` | `200` | Button states, focus rings |
+| `--d-base` | `350` | Default — most UI transitions |
+| `--d-slow` | `600` | Page enters, panel slides |
+| `--d-scene` | `900` | Hero reveals, orchestrated sequences |
+| `--d-draw` | `1200` | Data draw-on: chart tracing, count-up, progressive data reveals |
+
+| Easing | Curve | Use |
+|---|---|---|
+| `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default UI ease-out (Framer ease) |
+| `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
+| `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals (the system signature) |
+| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot |
+
+**Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
+
+**Reduced motion is mandatory** — and the CSS kill-switch alone is not enough: JS-driven animation (Motion One / WAAPI, counters writing `textContent`) bypasses CSS. Gate it in JS — read `matchMedia('(prefers-reduced-motion: reduce)')` and jump to the final state (v2.7.0: the shared `window.__motion` gate does this for every `animate()` call).
+
+**CSS kill-switch:**
+```css
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 ```
-Color:    --obsidian-* for surfaces & text. --magenta-500 for CTAs only. 85/10/5.
-Type:     Satoshi everywhere. Scale: micro 10 / small 13 / body 15 / lead 18 / h6-h1.
-Spacing:  4px grid. Tokens: --s-1 (4) … --s-32 (128). No raw px.
-Radius:   --r-md (8) for inputs/buttons, --r-lg (12) for cards. Range 8–12.
-Motion:   --d-quick (200) + --ease-standard for UI. --d-base + --ease-decel for reveals.
-                  Always: @media (prefers-reduced-motion: reduce){ transitions: none }
-Focus:    Dual-ring on pressables (outline + magenta halo). Glow on inputs.
-Voice:    Spec register in code/docs. Editorial in marketing. No AI tells.
-A11y:     Color + shape + label. Persistent labels. 44×44 touch. No auto-advance.
-```
+Every component with hover transforms, fade-ins, or orchestrated animation must also override its specific transitions to `none` inside this query.
 
----
+## Iconography
 
-## 11. Working with this file in an IDE
+- **Stroke-only**, 1.5–2px stroke width.
+- 24×24 viewBox at default scale. 16×16 for inline.
+- `currentColor` only — icons inherit text color.
+- No filled icons. No multi-color icons. No emojis in the UI.
 
-### 11.1 Cursor / `.cursor/rules/design.md`
-Drop this file into `.cursor/rules/`. Cursor surfaces it on every request inside the project.
+## Accessibility
 
-### 11.2 Claude Code / `CLAUDE.md`
-Either paste the contents into `CLAUDE.md` at repo root, or add a header that imports it: `@DESIGN.md`.
+Non-negotiable. Any component that can't meet all seven doesn't ship.
 
-### 11.3 GitHub Copilot / `.github/copilot-instructions.md`
-Paste the contents directly. Copilot reads it as ambient guidance.
+1. **Color never carries meaning alone.** Every status uses color + shape + label.
+2. **No text below 12px. No body text below 14px.** Line height never under 1.4 for running text.
+3. **Every form field has a persistent label.** Placeholder is not a label.
+4. **Every image has `alt`.** Decorative images carry `alt=""` explicitly.
+5. **Focus order follows reading order.** `tabindex` is for fixes, never for flow.
+6. **Auto-advancing content is forbidden.** No carousels, no timed dismissals.
+7. **Touch hit area:** 44×44 on mobile, 32×32 on dense desktop. Extend beyond the visual when needed.
 
-### 11.4 Continue / `.continuerules`
-Reference this file with `@DESIGN.md` in your `.continuerules` template.
+### Contrast pairs verified at WCAG AA
 
-### 11.5 Windsurf / `.windsurfrules`
-Same pattern: paste contents or reference via `@DESIGN.md`.
+| Pair | Ratio |
+|---|---|
+| `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
+| `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
+| `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
+| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
+| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
-### 11.6 Aider / `CONVENTIONS.md`
-Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
+One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 2.8 : 1). See § 6.3.
 
-### 11.7 General prompt fragment
+### Focus visibility
 
-When working without a rules file, prepend this to your request:
+Two patterns ship:
+- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, `.chip`): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo.
+- **Text inputs** (`.input`, `.textarea`, `.select`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
 
-> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and four easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
+`.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
 
----
+### Ratified exceptions
 
-## 12. Versioning
+The floor admits exactly one documented exception.
 
-This file follows strict SemVer.
+**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
 
-- **MAJOR** — token rename, removal, or value change that breaks existing consumers.
-- **MINOR** — new tokens, new components, new principles.
-- **PATCH** — wording, typo, clarification, contrast recalculation.
+**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
 
-The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
+**Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
 
----
+**Compliance mode.** Where strict WCAG 2.x AA is contractual (public sector, enterprise audit), ship the documented variant: `--obsidian-950` label on the unchanged `--magenta-500` fill (6.5 : 1, AA). Variant on request, never the default.
 
-## 13. Multi-deploy compatibility
+## Code conventions
+
+### CSS
+
+- **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
+- Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
+- File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
+- Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
+- `!important`: forbidden except in `prefers-reduced-motion` overrides.
+
+### HTML
+
+- Canonical: close every non-void tag, double-quote every attribute, no implied closes.
+- Semantic first: `<button>` for actions, `<a>` for navigation. Never `<div onclick>`.
+- ARIA only when semantic HTML can't express the role.
+- `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`).
+
+### JavaScript
+
+- Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
+- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.13 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
+- Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
+- **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
+- **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
+- **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
+- **Stepper choreography (`.stepper-svg`):** lines fade first (delay 0ms), dots scale-in via spring (520ms, +80ms per step), labels rise from below via decel (520ms, +80ms per step). Position is set via the SVG `transform` attribute on each `<g>`; replay animates the attribute directly (no CSS transforms on the groups). Lines use opacity-only.
+- **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
+
+### File naming
+
+- `kebab-case.css`, `kebab-case.html`, `kebab-case.svg`.
+- Components named after their role: `card.css`, not `box.css`.
+
+## Multi-deploy compatibility
 
 The system ships to three targets: vanilla **HTML/CSS/JS**, **React with Tailwind v4**, and **Figma Variables**. `DESIGN.md` + `styles/tokens.css` are the single source of truth. React utilities and Figma Variables are projections of the same tokens — never independent values.
 
 **Direction is one-way: tokens → target.** A token defined in § 2 maps to one logical name on every surface. The CSS custom property is canonical; the Tailwind utility and the Figma Variable are generated or mirrored from it. Code → Figma, never Figma → code (except an explicit audit).
 
-### 13.1 Token name mapping
+### Token name mapping
 
 The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magenta-500` (React/Tailwind v4), and the Variable `color/magenta/500` (Figma) all resolve to `#F051D5`.
 
@@ -966,7 +985,7 @@ The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magen
 - Figma: slash-separated namespace mirrors the token hierarchy (`color/magenta/500`). Figma renders `/` as a folder. Never flatten to `magenta500`.
 - Values never diverge across targets. The same token is the same value on all three. Divergence is a regression caught by cross-target verification.
 
-### 13.2 React · Tailwind v4 `@theme`
+### React · Tailwind v4 `@theme`
 
 `styles/theme.css` exposes every § 2 token inside a Tailwind v4 `@theme` block under its namespaced name, aliasing the canonical `:root` values in `tokens.css`. Legacy `var(--magenta-500)` keeps working — the `@theme` names are additive, not a rename. Import once at the project entry:
 
@@ -977,13 +996,54 @@ The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magen
 
 Tailwind generates the utilities (`bg-magenta-500`, `p-4`, `rounded-lg`, `duration-quick`). Where Tailwind v4 is unavailable, fall back to CSS modules with raw `var(--token)` syntax — functionally identical, less ergonomic.
 
-### 13.3 Figma · Variables
+### Figma · Variables
 
 Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every fill, stroke, corner radius, and padding to a Variable — no raw values on generated nodes. Component artboards carry canonical state coverage (default · hover · focus-visible · active · disabled, plus component-specific states per § 3). Figma is a projection of `DESIGN.md`; on conflict, `DESIGN.md` wins.
 
----
+## IDE integration
 
-## 14. Changelog
+### Cursor / `.cursor/rules/design.md`
+Drop this file into `.cursor/rules/`. Cursor surfaces it on every request inside the project.
+
+### Claude Code / `CLAUDE.md`
+Either paste the contents into `CLAUDE.md` at repo root, or add a header that imports it: `@DESIGN.md`.
+
+### GitHub Copilot / `.github/copilot-instructions.md`
+Paste the contents directly. Copilot reads it as ambient guidance.
+
+### Continue / `.continuerules`
+Reference this file with `@DESIGN.md` in your `.continuerules` template.
+
+### Windsurf / `.windsurfrules`
+Same pattern: paste contents or reference via `@DESIGN.md`.
+
+### Aider / `CONVENTIONS.md`
+Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
+
+### General prompt fragment
+
+When working without a rules file, prepend this to your request:
+
+> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and four easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
+
+## Versioning
+
+This file follows strict SemVer.
+
+- **MAJOR** — token rename, removal, or value change that breaks existing consumers.
+- **MINOR** — new tokens, new components, new principles.
+- **PATCH** — wording, typo, clarification, contrast recalculation.
+
+The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
+
+## Changelog
+
+### v3.0.0 — 2026.06.21 (MAJOR)
+
+**Changed · document grammar — restructured to the Google Labs `design.md` standard.**
+- The file now leads with the eight canonical sections in order — **Overview · Colors · Typography · Layout · Elevation & Depth · Shapes · Components · Do's and Don'ts** — and a structured front-matter `colors:` / `typography:` / `spacing:` / `rounded:` block (with an explicit `colors.primary`), so any conforming consumer (Stitch, agents, the amaca-compiler conformance lint) reads it as a valid `design.md` *by construction*, not by omission.
+- All prior richness is preserved. The old numbered sections fold in: Principles / Voice / 85·10·5 / Anti-patterns → **Do's and Don'ts**; the token sub-sections → **Colors / Typography / Layout / Elevation & Depth / Shapes**; component specs §3.1–3.14 → **Components**. Motion, Iconography, Accessibility, Code conventions, Multi-deploy and IDE integration are retained verbatim as **extension sections** after the canonical eight. Versioning + Changelog stay as meta.
+- **Migration note.** Section *numbers* changed; in-prose cross-references written as “§ N.M” now point to the same content under its new home (e.g. former § 3.10 Dropdown → **Components → Dropdown / Select**; § 6.3 → **Accessibility → Ratified exceptions**; § 2.8 → **Motion**). No tokens, values, or component contracts changed — this is a documentation-grammar break only.
 
 ### v2.8.0 — 2026.06.21 (MINOR)
 
@@ -1081,7 +1141,6 @@ A real implementation — diagramming the Amaca Compiler architecture, 2026-06 �
 **Trigger**
 
 The `amaca-frontend` skill reached v1.1 — multi-target (HTML + React + Figma) — and its reference docs (REACT.md, FIGMA.md) cite "§ 13 Multi-deploy compatibility" and a Tailwind v4 `@theme` projection as canonical context. Neither existed in the spec: the skill shipped ahead of the contract it depends on. Closing that gap is the rationale for § 13 and `styles/theme.css`. React and Figma move from roadmap to shipped.
-
 
 ### v2.3.0 — 2026.05.22 (MINOR)
 **Added · components**
