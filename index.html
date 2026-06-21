@@ -339,55 +339,101 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
       <section class="section" id="documentation">
         <div class="page-header">
           <div class="page-eyebrow">§ 03 · Meta / Documentation</div>
-          <h1 class="page-title">The whole system, <span class="accent">two ways to drop it into your stack.</span></h1>
-          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. As of v1.1 the skill is multi-target — one canonical token, three surfaces: HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables. Pick the level of enforcement you want — the underlying spec is identical.</p>
+          <h1 class="page-title">Your design system, <span class="accent">compiled for every tool.</span></h1>
+          <p class="page-lede">Pick your tool, grab the file — or the turnkey <code>.zip</code> — and drop it in. Every download is <strong style="color:var(--obsidian-100)">token-only</strong>: it makes any AI reference your tokens by name instead of inventing values. Same source on every surface — the spec is <code>DESIGN.md</code>, the tokens are <code>tokens.css</code> / <code>tokens.dtcg.json</code>. MIT.</p>
         </div>
 
-        <!-- 03.1 · Choose your fit -->
+        <!-- 03.0 · Pick your tool (the downloads grid) -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Choose your fit</h2><span class="subsection-num">§ 03.1</span></div>
-          <p class="subsection-desc">Two formats, two postures. Both ship the same DESIGN.md inside.</p>
+          <div class="subsection-head"><h2 class="subsection-title">Pick your tool</h2><span class="subsection-num">§ 03.0</span></div>
+          <p class="subsection-desc">Start with the three on top, or jump to your stack. One download per tool — a small bundle with the file, the tokens/spec it needs, and a usage README inside.</p>
 
-          <div class="grid grid-2" style="gap:var(--s-5);align-items:stretch">
-            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SKILL · ENFORCED WORKFLOW</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.5</div>
+          <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:var(--s-8) 0 var(--s-3)">Start here</div>
+          <div class="grid grid-2" style="gap:var(--s-4);align-items:stretch">
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Claude</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Claude — skill + CLAUDE.md</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">The rules as a Claude skill (tokens bundled) + a CLAUDE.md for Claude Code.</p>
               </div>
-              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">amaca-frontend.skill / .zip</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 7-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 14 verification checks before handing off. Multi-target as of v1.1: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
-              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue. Install once, invoke per task.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
-                <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill" download>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download .skill
-                </a>
-                <a class="btn btn-secondary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.zip" download>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Universal .zip
-                </a>
-              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-claude.zip" download style="flex-shrink:0">amaca-frontend.skill</a>
             </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Universal</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">AGENTS.md</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">One repo-root file read natively by 28+ agents (Codex, Cursor, Copilot, Windsurf, Aider…).</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-agents.zip" download style="flex-shrink:0">AGENTS.md</a>
+            </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Google · Stitch</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Google design.md</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">The spec in the Google Labs design.md standard — paste into Stitch's project box.</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-stitch.zip" download style="flex-shrink:0">DESIGN.md</a>
+            </div>
+          </div>
 
-            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SPEC · RAW CONTEXT</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">~40 KB</div>
+          <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:var(--s-8) 0 var(--s-3)">AI integrations</div>
+          <div class="grid grid-2" style="gap:var(--s-4);align-items:stretch">
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Chat</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">ChatGPT · Gemini</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Self-contained paste-in with the token values inlined — no companion files.</p>
               </div>
-              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">DESIGN.md</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Tokens, components, principles, motion specs, accessibility rules — flat Markdown. The source of truth that the skill wraps. Paste into any system prompt. No enforcement workflow, full transparency.</p>
-              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For ChatGPT custom instructions, Gemini Gems knowledge base, any chat model with file upload.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
-                <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md" data-download-md="DESIGN.md">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download .md
-                </a>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-chat.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
+            </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">IDE</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Cursor · Copilot</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">.cursor/rules/amaca.mdc (auto-attaches on UI files) + .github/copilot-instructions.md.</p>
               </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-ide.zip" download style="flex-shrink:0">amaca.mdc</a>
+            </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Builders</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Figma Make · v0 · Lovable</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Same self-contained paste-in — these builders have no filesystem.</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-chat.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
+            </div>
+          </div>
+
+          <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:var(--s-8) 0 var(--s-3)">Tokens &amp; formats</div>
+          <div class="grid grid-2" style="gap:var(--s-4);align-items:stretch">
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Tailwind</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Tailwind v4 @theme</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Every token as a @theme block — generates bg-magenta-500, p-4, rounded-lg.</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-tailwind.zip" download style="flex-shrink:0">theme.css</a>
+            </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">React / CSS</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Raw CSS variables</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">tokens.css (vars + reset) + components.css — var(--token) everywhere, no build step.</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-react-css.zip" download style="flex-shrink:0">tokens.css</a>
+            </div>
+            <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-5)">
+              <div style="flex:1;min-width:0">
+                <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">DTCG</div>
+                <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">DTCG pipeline</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Tokens as W3C DTCG JSON for Style Dictionary, Tokens Studio, any DTCG-aware build.</p>
+              </div>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-dtcg.zip" download style="flex-shrink:0">tokens.dtcg.json</a>
             </div>
           </div>
         </div>
 
-        <!-- 03.2 · How to install -->
+                <!-- 03.2 · How to install -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">How to install</h2><span class="subsection-num">§ 03.2</span></div>
           <p class="subsection-desc">Per-runtime, for code generation. Pick the row that matches your tool. Figma sync is separate — see row 02.</p>

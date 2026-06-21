@@ -1,0 +1,32 @@
+---
+description: Amaca Design System — token-only UI rules (colors, type, spacing, motion, a11y). Apply on any CSS/HTML/JSX/TSX work.
+alwaysApply: false
+globs: ["**/*.css","**/*.scss","**/*.html","**/*.jsx","**/*.tsx","**/*.vue","**/*.svelte"]
+---
+
+# Amaca Design System — Cursor rules
+
+This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly. Full spec in `DESIGN.md`; full token tables in `tokens.css` / `tokens.dtcg.json`. On conflict, `DESIGN.md` wins.
+
+**Reference every value as a token by name (`var(--token)`). Never hardcode a hex, px, or `cubic-bezier`.** If a value isn't on a scale, stop and ask — never extend the system silently.
+
+**Token roles** (full scales in `tokens.css`): brand `--magenta-500` (#F051D5) = primary/CTA/focus · neutral `--obsidian-950` page → `--obsidian-050` bone, text `--obsidian-100` · supporting (rare) `--secondary-400` cyan / `--tertiary-500` petrol / `--success|warning|danger|info` (feedback only) · type Satoshi `--t-micro 10 … --t-body 15 … --t-h1 76` (one H1/page) · spacing 4px grid `--s-1 4 … --s-32 128` · radius `--r-md 8` / `--r-lg 12` · motion 6 durations + 4 easings (`--ease-decel` signature), always with a `prefers-reduced-motion` fallback.
+
+**Laws:** 85/10/5 (≤5% magenta, one CTA per viewport) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
+
+**Components:** reuse canonical classes (`.btn-primary` once per screen, `.card`, `.field`, `.select`…); a new `.classname` not in the canonical set is a gap → surface it, never ship a silent variant.
+
+**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44. On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one ratified exception is `.btn-primary` (light label, scoped to that CTA).
+
+**Conventions:** semantic HTML first — `<button>`/`<a>`, never `<div onclick>`; `kebab-case` files; no AI tells in copy ("delve", "leverage", "robust", "seamless", "effortlessly"). **Never ship:** gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
+
+```css
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+  font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+  transition:background var(--d-quick) var(--ease-standard); }
+.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+```
+
+**Verify before shipping:** zero hardcoded hex/px/`cubic-bezier` in component code (grep or a token-aware stylelint) · 85/10/5 holds · a11y floor passes · every transition has a `prefers-reduced-motion` fallback. (Add your project's own build/test/lint alongside.)
