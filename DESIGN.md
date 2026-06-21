@@ -1,16 +1,16 @@
 ---
-version: 2.7.2
-updated: 2026-06-12
+version: 2.8.0
+updated: 2026-06-21
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-12
+last_synced: 2026-06-21
 deploy_targets: [html, react, figma]
 ---
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 2.7.2 — 2026.06.12
+> **Version** 2.8.0 — 2026.06.21
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -429,6 +429,8 @@ Two variants. Pick the smallest that covers the requirement.
 
 Default choice. Use when options are fixed, short, no custom rendering required. Inherits browser keyboard nav, mobile UI, accessibility for free.
 
+**Exception — never directly above important content.** The browser/OS renders the native option popup *over* the control and can cover whatever sits beneath it (e.g. a chat composer the select sits above). When the control may sit near a viewport edge or above content the user must still see, use variant B (viewport-aware placement) instead.
+
 ```html
 <select class="select">
   <option>Draft</option>
@@ -463,7 +465,7 @@ Reach for this only when native can't carry the requirement: search/filter insid
 
 **Behavior:**
 - `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
-- `.select-menu` is `position:absolute; top:calc(100% + 4px); left:0; right:0`; background `--obsidian-850`; max-height `240px` with internal overflow; `hidden` attribute used to dismiss (do not toggle `display` directly).
+- `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** when there isn't room below; clamp `max-height` to the available space (internal scroll) and clamp horizontally to the viewport, so the menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect when the control may sit near a viewport edge or above important content; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
 - `.select-option[aria-selected="true"]` rendered in `--magenta-400`. Hover/focus background is `--obsidian-800`.
 - Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
 
@@ -476,6 +478,7 @@ Reach for this only when native can't carry the requirement: search/filter insid
 
 **Dismissal:**
 - Click outside the `[data-select]` wrapper closes the menu.
+- A **fixed-position** (viewport-aware) menu also closes on `scroll` and `resize` — its anchored coordinates would otherwise drift from the trigger.
 - Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
 
 ### 3.11 Chat & Messaging
@@ -959,6 +962,16 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 
 ## 14. Changelog
 
+### v2.8.0 — 2026.06.21 (MINOR)
+
+**Changed · § 3.10 Dropdown / Select**
+- **Viewport-aware placement (variant B).** The custom listbox now opens **below** the trigger and **flips above** when there isn't room, clamps its `max-height` to the available space (internal scroll) and clamps horizontally — so the menu **never covers adjacent content** (e.g. a chat composer the control sits above). `position:fixed` measured from the trigger's rect when near a viewport edge / above important content; the old `position:absolute; top:calc(100% + 4px)` stays valid only when there's always room below.
+- **Native `<select>` (variant A) discouraged directly above content.** The browser/OS renders the option popup *over* the control and can cover what's beneath it; near a viewport edge or above must-see content, reach for variant B.
+- **Dismissal** extended: a fixed-position menu also closes on `scroll` and `resize` (its anchored coordinates would otherwise drift).
+
+**Trigger**
+
+Shipped first in the Amaca Compiler app: the multi-mode `.fig` mode-pick (and then the connected-repo picker) used a native `<select>` whose OS popup covered the chat composer. Generalized into a JS-positioned, flip-aware custom select; the behavior is now canonical here.
 ### v2.7.2 — 2026.06.12 (PATCH)
 
 **Ratified · § 3.1 / § 6.3**
