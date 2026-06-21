@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.7.2</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.0.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.7.2 · DESIGN SYSTEM</span>
+        <span class="meta">V3.0.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.7.2</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.0.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 12, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 21, 2026</span></div>
           </div>
         </div>
 
@@ -568,7 +568,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.7.2 here ships v2.7.2 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v3.0.0 here ships v3.0.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
@@ -3479,9 +3479,74 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.7.2 -->
+            <!-- v3.0.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-272">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-300">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.0.0 — design.md grammar: restructured to the Google standard</span>
+                <span class="acc-num">2026-06-21</span>
+              </button>
+              <div class="acc-panel" id="cl-300" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MAJOR. A document-grammar break, not a token change. <code>DESIGN.md</code> is rewritten to the Google Labs <a href="https://github.com/google-labs-code/design.md" target="_blank" rel="noopener"><code>design.md</code></a> open standard — the eight canonical sections in order plus a structured front-matter token block — so any conforming consumer (Stitch, an agent, the amaca-compiler conformance lint) reads it as a valid <code>design.md</code> <em>by construction</em>, not by omission. No token, value, or component contract changed; every screen renders identically to v2.8.0.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Eight canonical sections</strong> — Overview · Colors · Typography · Layout · Elevation &amp; Depth · Shapes · Components · Do's and Don'ts, in that order. The old numbered sections fold in: Principles / Voice / 85·10·5 / Anti-patterns → <strong style="color:var(--obsidian-100)">Do's and Don'ts</strong>; the token sub-sections → <strong style="color:var(--obsidian-100)">Colors / Typography / Layout / Elevation &amp; Depth / Shapes</strong>; component specs → <strong style="color:var(--obsidian-100)">Components</strong>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Structured front-matter</strong> — Machine-readable <code>colors:</code> (with an explicit <code>primary: #F051D5</code> role + the full obsidian/magenta scales), <code>typography:</code>, <code>spacing:</code>, <code>rounded:</code>. The <code>primary</code> role is the load-bearing bit: without it a consumer can regenerate the palette and ignore the brand.</li>
+                    <li><strong style="color:var(--obsidian-100)">Extension sections, preserved</strong> — Motion, Iconography, Accessibility, Code conventions, Multi-deploy and IDE integration are kept verbatim as marked extension sections after the canonical eight — the richness the standard has no slot for, lint-safe.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Migration</h4>
+                  <p style="margin:0">Section <em>numbers</em> changed. In-prose cross-references written as "§ N.M" now point to the same content under its new home (e.g. former § 3.10 Dropdown → <strong style="color:var(--obsidian-100)">Components → Dropdown / Select</strong>; § 6.3 → <strong style="color:var(--obsidian-100)">Accessibility → Ratified exceptions</strong>; § 2.8 → <strong style="color:var(--obsidian-100)">Motion</strong>). A migration note in the spec changelog carries the mapping.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">amaca.design is the dogfood for amaca-compiler: what the site ships should equal what the compiler emits when it ingests this system. The compiler's output already conforms to the Google <code>design.md</code> grammar — so the hand-authored spec was restructured to the same standard, written at its best. The site is now the maximal-compliant instance, not a bespoke doc the lint can't read.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-21</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.8.0...v3.0.0" target="_blank" rel="noopener">v2.8.0…v3.0.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.8.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-280">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.8.0 — Select: viewport-aware placement</span>
+                <span class="acc-num">2026-06-21</span>
+              </button>
+              <div class="acc-panel" id="cl-280" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. One component refinement: the custom listbox now places itself so it never covers the content it sits above.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · Dropdown / Select</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Viewport-aware placement (variant B)</strong> — The custom listbox opens <strong style="color:var(--obsidian-100)">below</strong> the trigger and <strong style="color:var(--obsidian-100)">flips above</strong> when there isn't room, clamps its <code>max-height</code> to the available space (internal scroll) and clamps horizontally — so the menu never covers adjacent content (e.g. a chat composer the control sits above). <code>position:fixed</code> measured from the trigger's rect when near a viewport edge; the old <code>position:absolute; top:calc(100% + 4px)</code> stays valid only when there's always room below.</li>
+                    <li><strong style="color:var(--obsidian-100)">Native <code>&lt;select&gt;</code> (variant A) discouraged directly above content</strong> — The browser/OS renders the option popup over the control and can cover what's beneath it; near a viewport edge or above must-see content, reach for variant B.</li>
+                    <li><strong style="color:var(--obsidian-100)">Dismissal extended</strong> — A fixed-position menu also closes on <code>scroll</code> and <code>resize</code> (its anchored coordinates would otherwise drift from the trigger).</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">A native <code>&lt;select&gt;</code> sitting just above a chat composer covered the input with its option popup. The fix is a placement contract, ratified into § Components → Dropdown / Select, that any control near a viewport edge or above must-see content follows.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-21</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.7.2...v2.8.0" target="_blank" rel="noopener">v2.7.2…v2.8.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.7.2 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-272">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.7.2 — Label weight, ratified: Medium 500 holds</span>
                 <span class="acc-num">2026-06-12</span>
