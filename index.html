@@ -179,12 +179,13 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#voice" data-target="voice"><span class="num">20</span> Voice &amp; Tone</a>
       <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">21</span> Accessibility</a>
       <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">22</span> Case Study</a>
+      <a class="nav-item" href="#presentations" data-target="presentations"><span class="num">23</span> Presentations</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Meta</div>
-      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">23</span> Changelog</a>
+      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">24</span> Changelog</a>
     </div>
 
     <div class="sidebar-footer">
@@ -3126,10 +3127,349 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
       </section>
 
+      <style id="pres-styles">
+      /* ─── PRESENTATIONS / SLIDE TEMPLATES ─── */
+      .slide-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+      @media (max-width:900px){.slide-grid{grid-template-columns:1fr}}
+      .slide-card{background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-lg);padding:var(--s-5);transition:border-color var(--d-quick) var(--ease-standard)}
+      .slide-card:hover{border-color:var(--obsidian-600)}
+      .slide-card .card-meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin-bottom:var(--s-3)}
+      .slide-card .card-meta .num{color:var(--magenta-400)}
+      .slide-card .slide-caption{margin:var(--s-4) 0 0;font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-normal)}
+
+      /* 16:9 viewport that scales the fixed canvas down to fit */
+      .slide-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-md);overflow:hidden;background:#000;border:1px solid var(--obsidian-800)}
+      /* the fixed 1920×1080 canvas — slides are authored at full size, then scaled */
+      .slide{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;transform:scale(var(--slide-scale,0.29));background:var(--obsidian-950);color:var(--obsidian-100);font-family:var(--font-sans);overflow:hidden;--pad-x:120px;--pad-y:88px}
+
+      /* chrome */
+      .slide-brand{position:absolute;top:var(--pad-y);left:var(--pad-x);display:flex;align-items:center;gap:18px;z-index:2}
+      .slide-brand .mark{width:44px;height:44px;display:block;border-radius:var(--r-sm)}
+      .slide-brand .wm{font-size:32px;font-weight:700;letter-spacing:var(--tr-snug);color:var(--obsidian-100)}
+      .slide-foot{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:var(--pad-y);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);z-index:2}
+      .slide-foot .pg b{color:var(--magenta-400);font-weight:500}
+
+      /* body / shared type */
+      .slide-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:240px;bottom:210px;display:flex;flex-direction:column;justify-content:center}
+      .slide-eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:34px}
+      .slide-eyebrow::before{content:"";width:52px;height:2px;background:var(--magenta-500)}
+      .slide-title{margin:0;font-weight:700;letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
+      .slide-title .accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide-copy{font-size:30px;line-height:var(--lh-loose);color:var(--obsidian-300);max-width:44ch}
+      .slide-copy + .slide-copy{margin-top:30px}
+      .slide-copy strong{color:var(--obsidian-100);font-weight:600}
+
+      /* cover */
+      .slide--cover .slide-title{font-size:128px;max-width:17ch;margin-bottom:40px}
+      .slide--cover .slide-lead{font-size:36px;line-height:var(--lh-snug);color:var(--obsidian-200);max-width:30ch}
+
+      /* divider */
+      .slide--divider .slide-index{position:absolute;right:90px;bottom:60px;font-size:600px;line-height:0.74;font-weight:700;letter-spacing:var(--tr-tight);color:var(--obsidian-850);pointer-events:none;z-index:0}
+      .slide--divider .slide-body{z-index:1}
+      .slide--divider .slide-dtitle{margin:0;font-size:124px;font-weight:700;letter-spacing:var(--tr-tight);line-height:1}
+
+      /* content + data */
+      .slide--content .slide-title,.slide--data .slide-title{font-size:84px;max-width:20ch;margin-bottom:40px}
+
+      /* two-column */
+      .slide--split .slide-body{flex-direction:row;gap:128px;align-items:center}
+      .slide--split .split-col{flex:1;min-width:0}
+      .slide--split .slide-title{font-size:64px;max-width:14ch;margin-bottom:28px}
+      .split-list{display:flex;flex-direction:column;border-top:1px solid var(--obsidian-700)}
+      .split-item{display:flex;justify-content:space-between;gap:40px;padding:30px 0;border-bottom:1px solid var(--obsidian-700)}
+      .split-item .k{font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);white-space:nowrap}
+      .split-item .v{font-size:28px;color:var(--obsidian-100);text-align:right}
+
+      /* big stat */
+      .slide--stat .slide-stat{font-size:340px;line-height:0.86;font-weight:700;letter-spacing:var(--tr-tight);background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide--stat .slide-stat .u{font-size:170px}
+      .slide--stat .slide-stat-label{font-size:46px;font-weight:600;margin-top:28px;letter-spacing:var(--tr-snug)}
+      .slide--stat .slide-stat-ctx{font-size:28px;color:var(--obsidian-300);margin-top:16px}
+
+      /* data / bars */
+      .slide-bars{display:flex;flex-direction:column;gap:30px;margin-top:8px}
+      .bar-row{display:grid;grid-template-columns:210px 1fr 130px;align-items:center;gap:36px}
+      .bar-lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)}
+      .bar-track{height:30px;background:var(--obsidian-850);border-radius:var(--r-sm);overflow:hidden}
+      .bar-fill{display:block;height:100%;background:var(--magenta-500);border-radius:var(--r-sm)}
+      .bar-val{font-size:30px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+      /* full-bleed image placeholder */
+      .slide--image .slide-ph{position:absolute;inset:0;background:repeating-linear-gradient(135deg,var(--obsidian-900) 0 2px,transparent 2px 24px),var(--obsidian-850);display:flex;align-items:center;justify-content:center;z-index:0}
+      .slide--image .slide-ph .lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);border:1px solid var(--obsidian-700);padding:16px 24px;border-radius:var(--r-sm);background:rgba(7,9,11,0.45)}
+      .slide--image .slide-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,11,0.92) 0%,rgba(7,9,11,0.35) 38%,transparent 68%);z-index:1}
+      .slide--image .slide-body{justify-content:flex-end;z-index:2}
+      .slide--image .slide-title{font-size:72px;max-width:22ch}
+
+      /* closing */
+      .slide--closing .slide-title{font-size:150px}
+      .slide-contacts{display:flex;gap:96px;margin-top:52px;font-family:var(--font-mono)}
+      .slide-contacts .cc{display:flex;flex-direction:column;gap:10px}
+      .slide-contacts .k{font-size:20px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)}
+      .slide-contacts .v{font-size:30px;color:var(--obsidian-100)}
+
+      /* demo deck */
+      .deck-stage .slide{transition:opacity var(--d-quick) var(--ease-standard)}
+      .deck-stage.swapping .slide{opacity:0}
+      .deck-bar{display:flex;align-items:center;gap:var(--s-4);margin-top:var(--s-5);flex-wrap:wrap}
+      .deck-nav{display:flex;gap:var(--s-2)}
+      .deck-meta{flex:1;min-width:160px;display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--font-mono);font-size:var(--t-small);letter-spacing:var(--tr-mono);text-transform:uppercase}
+      .deck-meta .idx{color:var(--magenta-400)}
+      .deck-meta .nm{color:var(--obsidian-300)}
+      .deck-dots{display:flex;gap:10px}
+      .deck-dot{width:9px;height:9px;border-radius:var(--r-full);background:var(--obsidian-700);border:0;padding:0;cursor:pointer;transition:background var(--d-quick) var(--ease-standard)}
+      .deck-dot.on{background:var(--magenta-500)}
+      .deck-dot:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px}
+      @media (prefers-reduced-motion:reduce){.deck-stage .slide{transition:none}}
+      @media (max-width:600px){.deck-meta{order:3;flex-basis:100%}}
+      </style>
+
+      <section class="section" id="presentations">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 23 · Applied / Presentations</div>
+          <h1 class="page-title">Slides that <span class="accent">hold the system.</span></h1>
+          <p class="page-lede">Eight canonical layouts on a fixed 1920×1080 canvas. Same tokens, same 85/10/5 restraint as every other surface — the deck just happens to be 16:9. One magenta moment per slide; everything else stays obsidian.</p>
+        </div>
+
+        <!-- § 23.1 — demo deck -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 24.1</span></div>
+          <p class="subsection-desc">A worked 8-slide deck — the Arc HMI case study, told on-system. Navigate with the controls, the dots, or the ← / → arrow keys. No auto-advance (a11y floor #6); position is remembered across reloads.</p>
+          <div class="deck">
+            <div class="slide-frame deck-stage" id="pres-deck-stage" role="group" aria-roledescription="slide" aria-label="Presentation template deck"></div>
+            <div class="deck-bar">
+              <div class="deck-nav">
+                <button type="button" class="btn btn-secondary btn-sm" id="pres-prev" aria-label="Previous slide">← Prev</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="pres-next" aria-label="Next slide">Next →</button>
+              </div>
+              <div class="deck-meta" aria-live="polite"><span class="idx" id="pres-idx">01 / 08</span> <span class="nm" id="pres-name">Cover</span></div>
+              <div class="deck-dots" id="pres-dots" role="tablist" aria-label="Jump to slide"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 23.2 — layout gallery -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Layouts</h2><span class="subsection-num">§ 23.2</span></div>
+          <p class="subsection-desc">The eight templates, authored at full 1920×1080 and scaled to fit. Each is a single <code>.slide</code> with a layout modifier; the chrome (brand, footer, page number) is shared across all of them.</p>
+          <div class="slide-grid" id="pres-grid">
+
+            <!-- 01 · Cover -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-01</span> · Cover</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--cover" data-name="Cover">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Case study · CS-017</div>
+                    <h2 class="slide-title">Rebuilding Arc's <span class="accent">in-car</span> interface.</h2>
+                    <p class="slide-lead">A next-generation automotive HMI — one glance at a time.</p>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>01</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Opening slide. Title carries the single accent word; eyebrow and footer set context.</p>
+            </div>
+
+            <!-- 02 · Divider -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-02</span> · Section divider</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--divider" data-name="Section divider">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-index" aria-hidden="true">01</div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Section</div>
+                    <h2 class="slide-dtitle">Brief</h2>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>02</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Chapter break. The oversized numeral is ghosted obsidian — a graphic, not an accent.</p>
+            </div>
+
+            <!-- 03 · Content -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-03</span> · Content</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--content" data-name="Content">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">01 · Brief</div>
+                    <h2 class="slide-title">The legacy stack made drivers work.</h2>
+                    <p class="slide-copy">The previous HMI borrowed mobile patterns — deep hierarchies, tap-heavy flows — and dropped them into a 70mph context.</p>
+                    <p class="slide-copy">The constraint: <strong>every primary task in under 3 interactions, under 10 seconds, eyes-on-road.</strong></p>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>03</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Title + body. Two short paragraphs, one bolded key line. Copy capped near 44ch.</p>
+            </div>
+
+            <!-- 04 · Two-column -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-04</span> · Two-column</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--split" data-name="Two-column">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="split-col">
+                      <div class="slide-eyebrow">Dossier</div>
+                      <h2 class="slide-title">Scope, fixed before a screen was drawn.</h2>
+                    </div>
+                    <div class="split-col">
+                      <div class="split-list">
+                        <div class="split-item"><span class="k">Role</span><span class="v">Lead Product Designer</span></div>
+                        <div class="split-item"><span class="k">Team</span><span class="v">3 design · 14 eng · 2 research</span></div>
+                        <div class="split-item"><span class="k">Platform</span><span class="v">Stack · cluster · companion</span></div>
+                        <div class="split-item"><span class="k">Window</span><span class="v">18 months</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>04</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Heading left, metadata list right. Hairline rows echo the case-file dossier.</p>
+            </div>
+
+            <!-- 05 · Big stat -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-05</span> · Big stat</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--stat" data-name="Big stat">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Outcome</div>
+                    <div class="slide-stat">−41<span class="u">%</span></div>
+                    <div class="slide-stat-label">Task time, priority flows</div>
+                    <div class="slide-stat-ctx">38s → 22s median · measured over 6 weeks</div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>05</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">One number, full weight. The magenta gradient is the slide's single accent.</p>
+            </div>
+
+            <!-- 06 · Data -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-06</span> · Data</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--data" data-name="Data">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <h2 class="slide-title">Adoption by region.</h2>
+                    <div class="slide-bars">
+                      <div class="bar-row"><span class="bar-lbl">EMEA</span><span class="bar-track"><span class="bar-fill" style="width:91%"></span></span><span class="bar-val">91%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">AMER</span><span class="bar-track"><span class="bar-fill" style="width:71%;background:var(--magenta-600)"></span></span><span class="bar-val">71%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">APAC</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:var(--magenta-700)"></span></span><span class="bar-val">58%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">LATAM</span><span class="bar-track"><span class="bar-fill" style="width:29%;background:var(--obsidian-600)"></span></span><span class="bar-val">29%</span></div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>06</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Chart slide. One hue, descending weight — the Data Viz vocabulary (§ 19) at slide scale.</p>
+            </div>
+
+            <!-- 07 · Full-bleed image -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-07</span> · Full-bleed image</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--image" data-name="Full-bleed image">
+                  <div class="slide-ph" aria-hidden="true"><span class="lbl">In-vehicle observation</span></div>
+                  <div class="slide-scrim" aria-hidden="true"></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Fig. 01</div>
+                    <h2 class="slide-title">Six weeks in the cabin, 42 participants.</h2>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>07</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Media fills the frame; a bottom scrim keeps the caption and chrome legible. Drop a real photo in place of the placeholder.</p>
+            </div>
+
+            <!-- 08 · Closing -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-08</span> · Closing</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--closing" data-name="Closing">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <h2 class="slide-title">Let's build.</h2>
+                    <div class="slide-contacts">
+                      <div class="cc"><span class="k">Mail</span><span class="v">studio@amaca.design</span></div>
+                      <div class="cc"><span class="k">Web</span><span class="v">amaca.design</span></div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>08</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Sign-off. Statement line plus contact in mono — no CTA fights the message.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- § 23.3 — anatomy -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 23.3</span></div>
+          <p class="subsection-desc">Every slide is authored in a 1920×1080 coordinate space, then scaled to whatever container holds it. The chrome and safe margins are constant so a deck reads as one object.</p>
+          <table class="table">
+            <thead><tr><th style="width:30%">Part</th><th>Spec</th></tr></thead>
+            <tbody>
+              <tr><td><code>.slide</code> canvas</td><td class="muted">1920×1080, 16:9, surface <code>--obsidian-950</code>. Scaled via <code>transform: scale()</code>, never reflowed.</td></tr>
+              <tr><td>Safe margin</td><td class="muted">120px left/right, 88px top/bottom (<code>--pad-x</code> / <code>--pad-y</code>). Content lives inside.</td></tr>
+              <tr><td><code>.slide-brand</code></td><td class="muted">Top-left lockup — logo mark + “Amaca” wordmark. Present on every slide.</td></tr>
+              <tr><td><code>.slide-foot</code></td><td class="muted">Footer rail — project · date (left), page <code>NN / total</code> (right). Mono, <code>--obsidian-400</code>; the live page index tints <code>--magenta-400</code>.</td></tr>
+              <tr><td>Type</td><td class="muted">Its own optical scale — the UI scale (§ 05) is tuned for an 1180px column, not a 1920px canvas. Titles 64–150px, body 30px, mono chrome 20–24px.</td></tr>
+              <tr><td>Accent</td><td class="muted">≤5% magenta — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (§ 08).</td></tr>
+            </tbody>
+          </table>
+          <p class="subsection-desc" style="margin-top:var(--s-6)">Layout modifiers — each is a single class on <code>.slide</code>:</p>
+          <table class="table">
+            <thead><tr><th style="width:34%">Class</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>.slide--cover</code></td><td class="muted">Title / opening</td></tr>
+              <tr><td><code>.slide--divider</code></td><td class="muted">Section divider with ghosted numeral</td></tr>
+              <tr><td><code>.slide--content</code></td><td class="muted">Title + body copy</td></tr>
+              <tr><td><code>.slide--split</code></td><td class="muted">Two-column — heading + metadata list</td></tr>
+              <tr><td><code>.slide--stat</code></td><td class="muted">One oversized metric</td></tr>
+              <tr><td><code>.slide--data</code></td><td class="muted">Chart slide (Data Viz vocabulary)</td></tr>
+              <tr><td><code>.slide--image</code></td><td class="muted">Full-bleed media + scrim + caption</td></tr>
+              <tr><td><code>.slide--closing</code></td><td class="muted">Sign-off / contact</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- § 23.4 — rules -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 23.4</span></div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5).</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.</p>
+            </div>
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Keep the 1920×1080 canvas fixed and scale it. Nav controls live <em>outside</em> the scaled frame so they stay usable at any size.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Auto-advance the deck or loop decorative motion. Navigation is manual — arrow keys, controls, or dots (a11y floor #6).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ CHANGELOG ============ -->
       <section class="section" id="changelog">
         <div class="page-header">
-          <div class="page-eyebrow">§ 23 · Meta / Changelog</div>
+          <div class="page-eyebrow">§ 24 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
           <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
@@ -6416,6 +6756,103 @@ try {
       requestAnimationFrame(() => requestAnimationFrame(revealVisible));
     }
   }
+})();
+</script>
+<script>
+// --- Presentations (§ 23): fixed-canvas scaling + manual deck nav ---
+(function(){
+  const grid = document.getElementById('pres-grid');
+  const stage = document.getElementById('pres-deck-stage');
+  if (!grid || !stage) return;
+
+  // Scale any 1920×1080 .slide to fit its .slide-frame.
+  function scaleFrame(frame){
+    const slide = frame.querySelector('.slide');
+    if (slide && frame.clientWidth) slide.style.setProperty('--slide-scale', frame.clientWidth / 1920);
+  }
+  function scaleAll(){ document.querySelectorAll('#presentations .slide-frame').forEach(scaleFrame); }
+
+  // ResizeObserver handles the display:none → block transition (frames have 0 width until the section is shown).
+  if (typeof ResizeObserver !== 'undefined'){
+    const ro = new ResizeObserver(entries => { entries.forEach(e => scaleFrame(e.target)); });
+    document.querySelectorAll('#presentations .slide-frame').forEach(f => ro.observe(f));
+  }
+  window.addEventListener('resize', scaleAll);
+
+  // Re-measure when the section becomes visible (frames are display:none → block on activation).
+  const sectionEl = document.getElementById('presentations');
+  if (sectionEl && typeof MutationObserver !== 'undefined'){
+    new MutationObserver(() => {
+      if (sectionEl.classList.contains('active')) requestAnimationFrame(() => requestAnimationFrame(scaleAll));
+    }).observe(sectionEl, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  // ── deck ──
+  const tpl = Array.from(grid.querySelectorAll('.slide'));
+  const total = tpl.length;
+  const idxEl = document.getElementById('pres-idx');
+  const nameEl = document.getElementById('pres-name');
+  const dotsEl = document.getElementById('pres-dots');
+  const prev = document.getElementById('pres-prev');
+  const next = document.getElementById('pres-next');
+  const pad = n => String(n + 1).padStart(2, '0');
+  const totalStr = String(total).padStart(2, '0');
+
+  let i = 0;
+  try { const s = parseInt(localStorage.getItem('amaca-pres-idx'), 10); if (s >= 0 && s < total) i = s; } catch(e){}
+
+  // build dots
+  const dots = tpl.map((s, n) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'deck-dot'; b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Slide ' + pad(n) + ' · ' + (s.dataset.name || ''));
+    b.addEventListener('click', () => render(n));
+    dotsEl.appendChild(b);
+    return b;
+  });
+
+  const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function render(n){
+    i = (n + total) % total;
+    try { localStorage.setItem('amaca-pres-idx', i); } catch(e){}
+    const paint = () => {
+      stage.innerHTML = '';
+      const clone = tpl[i].cloneNode(true);
+      stage.appendChild(clone);
+      scaleFrame(stage);
+      requestAnimationFrame(() => stage.classList.remove('swapping'));
+    };
+    idxEl.textContent = pad(i) + ' / ' + totalStr;
+    nameEl.textContent = tpl[i].dataset.name || '';
+    dots.forEach((d, k) => { d.classList.toggle('on', k === i); d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (reduce){ paint(); }
+    else { stage.classList.add('swapping'); setTimeout(paint, 160); }
+  }
+
+  prev.addEventListener('click', () => render(i - 1));
+  next.addEventListener('click', () => render(i + 1));
+
+  // Arrow keys — only while the Presentations section is active and focus isn't in a field.
+  document.addEventListener('keydown', e => {
+    const sec = document.getElementById('presentations');
+    if (!sec || !sec.classList.contains('active')) return;
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); render(i - 1); }
+    else if (e.key === 'ArrowRight'){ e.preventDefault(); render(i + 1); }
+  });
+
+  // initial paint without the fade
+  (function init(){
+    stage.innerHTML = '';
+    const clone = tpl[i].cloneNode(true);
+    stage.appendChild(clone);
+    idxEl.textContent = pad(i) + ' / ' + totalStr;
+    nameEl.textContent = tpl[i].dataset.name || '';
+    dots.forEach((d, k) => { d.classList.toggle('on', k === i); d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    requestAnimationFrame(scaleAll);
+  })();
 })();
 </script>
 </body>
