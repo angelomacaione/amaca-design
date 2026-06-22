@@ -6961,8 +6961,8 @@ try {
       scaleFrame(stage);
       requestAnimationFrame(() => {
         stage.classList.remove('swapping');
-        if (reduce) clone.classList.add('is-in');
-        else requestAnimationFrame(() => clone.classList.add('is-in'));
+        if (reduce){ clone.classList.add('is-in'); countUp(clone); }
+        else requestAnimationFrame(() => { clone.classList.add('is-in'); countUp(clone); });
       });
     };
     idxEl.textContent = pad(i) + ' / ' + totalStr;
