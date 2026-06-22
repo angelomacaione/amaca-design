@@ -2951,6 +2951,66 @@ flowchart TD
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animation.</p>
         </div>
 
+
+        <style id="hexmap-styles">
+        .hexmap{position:relative;width:100%;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}
+        .hexmap-svg{width:100%;height:auto;display:block}
+        .hexmap .hex{fill:var(--obsidian-500);opacity:0.92;cursor:pointer;transform-box:fill-box;transform-origin:center}
+        .hexmap .hex.m-primary{fill:var(--magenta-500);opacity:1;filter:drop-shadow(0 0 5px rgba(240,81,213,0.45))}
+        .hexmap .hex.m-warning{fill:var(--warning);opacity:1}
+        .hexmap .hex.m-danger{fill:var(--danger);opacity:1}
+        .hexmap .hex.m-cluster{fill:var(--secondary-400);opacity:0.95;filter:drop-shadow(0 0 6px rgba(0,255,242,0.5))}
+        .hexmap .hex{transition:transform var(--d-base) var(--ease-spring), fill var(--d-quick) var(--ease-standard), filter var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard)}
+        .hexmap .hex.is-near{opacity:0.55}
+        .hexmap .hex.is-hot{stroke:var(--magenta-500);stroke-width:2.5;paint-order:stroke;filter:drop-shadow(0 0 9px rgba(240,81,213,0.75))}
+        .hexmap .hex.is-hot:not([class*="m-"]){fill:var(--magenta-200);opacity:1}
+        @media (prefers-reduced-motion:reduce){.hexmap .hex{transition:none}}
+        .hexmap-card{position:absolute;z-index:5;width:232px;background:var(--obsidian-850);border:1px solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-4);box-shadow:var(--sh-3);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
+        .hexmap-card.open{opacity:1;transform:translateY(0);pointer-events:auto}
+        .hexmap-card .hc-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-3)}
+        .hexmap-card .hc-status{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200)}
+        .hexmap-card .hc-dot{width:8px;height:8px;border-radius:var(--r-full);flex:none}
+        .hexmap-card .hc-close{background:none;border:0;color:var(--obsidian-400);cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
+        .hexmap-card .hc-close:hover{color:var(--obsidian-100)}
+        .hexmap-card .hc-id{font-family:var(--font-mono);font-size:var(--t-small);color:var(--obsidian-100);margin-bottom:var(--s-3)}
+        .hexmap-card .hc-rows{display:grid;gap:7px}
+        .hexmap-card .hc-row{display:flex;justify-content:space-between;gap:var(--s-4);align-items:baseline}
+        .hexmap-card .hc-row .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+        .hexmap-card .hc-row .v{font-size:var(--t-small);color:var(--obsidian-100);font-variant-numeric:tabular-nums}
+        .hexmap-legend{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-6);margin-top:var(--s-5);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+        .hm-key{display:flex;align-items:center;gap:8px}
+        .hm-sw{width:13px;height:13px;display:inline-block;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+        .hm-sw.hm-primary{background:var(--magenta-500)}
+        .hm-sw.hm-warning{background:var(--warning)}
+        .hm-sw.hm-danger{background:var(--danger)}
+        .hm-sw.hm-cluster{background:var(--secondary-400)}
+        </style>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 19.8</span></div>
+          <p class="subsection-desc">A dot-density world drawn as a honeycomb. The landmass isn't hand-drawn: it's the public-domain <strong style="color:var(--obsidian-100)">Natural Earth 1:110m</strong> dataset (loaded as TopoJSON via <code>world-atlas</code>), rasterised into the hex grid by canvas sampling — the canonical d3 dotted-map pipeline — and every node is placed at its true longitude / latitude. The land is a single neutral obsidian fill — quiet, the 85% — so the status hexes are the only thing that reads as data. Every fill is a token, no hardcoded hex; color is always paired with a label in the legend (§ 6 #1).</p>
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <div class="t">Deployments · worldwide</div>
+                <div class="ty-small" style="margin-top:4px">Edge nodes by status · 2026 Q2</div>
+              </div>
+              <div style="display:flex;gap:8px"><span class="badge badge-live"><span class="dot"></span> Live</span></div>
+            </div>
+            <div class="hexmap" data-hexmap>
+              <svg class="hexmap-svg" id="hexmap-svg" role="img" aria-label="Honeycomb world map of edge deployments by status. Most nodes are primary hubs across North America, Europe, Asia and Africa; a handful flag high load or an active incident; two dense clusters sit over North America and Europe, and one over the Indian Ocean region."></svg>
+              <div class="hexmap-card" id="hexmap-card" role="dialog" aria-label="Node details" aria-hidden="true"></div>
+            </div>
+            <div class="hexmap-legend">
+              <span class="hm-key"><span class="hm-sw hm-primary"></span> Primary hub</span>
+              <span class="hm-key"><span class="hm-sw hm-warning"></span> High load</span>
+              <span class="hm-key"><span class="hm-sw hm-danger"></span> Active incident</span>
+              <span class="hm-key"><span class="hm-sw hm-cluster"></span> Dense cluster</span>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
+        </div>
+
       </section>
       <section class="section" id="voice">
         <div class="page-header">
@@ -7031,6 +7091,250 @@ try {
       entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); countUp(en.target); obs.unobserve(en.target); } });
     }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
     gal.forEach(function(s){ gio.observe(s); });
+  })();
+})();
+</script>
+<script>
+// --- Data Viz · § 19.8 hex world map ---
+(function(){
+  const svg = document.getElementById('hexmap-svg');
+  if (!svg) return;
+  const ROWS = ["....................................................................................................................................................................................",".................................................................###########........................................................................................................","................................................................#############.......................................................................................................","..............................................................#################.....................................................................................................",".............................................................###################....................................................########........................................","..............................................................#################................................................#######################..............................","..............................................................#################............................................#########################################################","........##########################################.............###############......................###.................############################################################",".......##############################################..........#############.....................#######.............##############################################################.","......##############################################............##########....#####............###########........###############################################################...",".......############################################..............########.....................#############.....############################################################........","........#############################################.............#####......................################..########################################################.............",".........######.....####################################..................................########################################################################..................","......................####################################............................########################################################################......................","........................####################################..........................####################################################################..........................",".........................####################################........................#################################################################..............................","..........................####################################.......................#######################################################........................................","...........................##################################........................#######################################################........................................","............................###############################..........................#######################################################........................................","............................#############################............................####################......#############################........................................","............................############################.............................########.##########........###################...####..........................................","............................##########################...............................######....#########.........###############.......######.......................................",".............................########################.................................####......#...###................................#######......##..............................",".............................#######################..................................####.............................................#########...####.............................","..............................#####################.....................................................................................###############......#......................","...............................###################.............................................................................#.........##############.....#.......................","................................##################......................................##################....................###........#############..............................",".................................##########....###....................................#####################.###########......#####........###########...............................","..................................########.......#...................................######################..##########......######.......##########................................","...................................######...........................................#######################...##########....########.......########.................................","....................................#####..........................................#########################...########.....##########.....#######..................................",".....................................####.........................................##########################....######.......########.......####....................................",".......................................####..#....................................##########################..................######........####....................................",".........................................#####....................................##########################..................#####..........###....................................","..............................................#...................................##########################...................###..........####....................................","...............................................#...................................###########################.................###..........####....................................","................................................#..................................################################.............#..........####.....................................","....................................................########........................##############################..............#..........###......................................","...................................................##########........................###########################............................#.......................................","...................................................###########...............................##################.....................................................................","...................................................############...............................#################...........................#.....####................................","..................................................##############..............................################............................##.....####...............................","..................................................################............................################.............................##....####...............................","..................................................###################..........................###############..............................##...####.......####....................","..................................................#####################........................###############................................#.............######..................","..................................................######################.......................###############...............................................#######................","..................................................######################.......................###############...............................................#####..................","...................................................####################.........................##############......................................................................","....................................................###################.........................##############............................................#######...................",".....................................................#################..........................##############..##.......................................#########..................","......................................................###############...........................#############...###.....................................##########..................",".......................................................#############.............................############...###...................................#############.................","......................................................#############..............................###########....###.................................################................","......................................................############..............................##########......##................................#################................","......................................................###########...............................#########.........................................##################...............","......................................................##########.................................########.........................................##################...............","......................................................##########..................................#######..........................................##################...............","......................................................#########...................................######...........................................#################................","......................................................########.....................................#####...........................................#######...#######................","......................................................#######.................................................................................................######................",".....................................................#######...................................................................................................#####................","......................................................######....................................................................................................................#...","......................................................#####....................................................................................................................###..","......................................................####....................................................................................................................###...","......................................................####...................................................................................................................###....","......................................................###...........................................................................................................................",".....................................................###............................................................................................................................",".....................................................###............................................................................................................................","....................................................................................................................................................................................","....................................................................................................................................................................................","...................................................................................................................................................................................."];
+  // status markers placed by REAL geographic coordinates [lon, lat], projected with the
+  // same equirectangular mapping that generated the land matrix.
+  const MARKERS = [
+    {lon:-77,lat:39,t:'primary'},   // N. Virginia
+    {lon:-122,lat:45,t:'primary'},  // Oregon
+    {lon:-46,lat:-23,t:'primary'},  // Sao Paulo
+    {lon:-0.1,lat:51,t:'primary'},  // London
+    {lon:73,lat:19,t:'primary'},    // Mumbai
+    {lon:104,lat:1,t:'primary'},    // Singapore
+    {lon:139,lat:36,t:'primary'},   // Tokyo
+    {lon:151,lat:-33,t:'primary'},  // Sydney
+    {lon:28,lat:-26,t:'primary'},   // Johannesburg
+    {lon:-99,lat:19,t:'primary'},   // Mexico City
+    {lon:-95,lat:38,t:'warning'},   // US central
+    {lon:50,lat:26,t:'warning'},    // Bahrain
+    {lon:37,lat:-1,t:'warning'},    // Nairobi
+    {lon:127,lat:37,t:'warning'},   // Seoul
+    {lon:107,lat:-6,t:'warning'},   // Jakarta
+    {lon:18,lat:59,t:'warning'},    // Stockholm
+    {lon:-21,lat:64,t:'danger'},    // Iceland
+    {lon:78,lat:56,t:'danger'},     // Siberia
+    {lon:-60,lat:-12,t:'danger'},   // Brazil interior
+    {lon:25,lat:-29,t:'danger'},    // S Africa
+    {lon:-79,lat:44,t:'primary'},   // Toronto
+    {lon:-3,lat:40,t:'primary'},    // Madrid
+    {lon:121,lat:31,t:'primary'},   // Shanghai
+    {lon:77,lat:28,t:'primary'},    // Delhi
+    {lon:31,lat:30,t:'primary'},    // Cairo
+    {lon:3,lat:6,t:'primary'},      // Lagos
+    {lon:174,lat:-41,t:'primary'},  // Wellington
+    {lon:-95,lat:30,t:'warning'},   // Houston
+    {lon:29,lat:41,t:'warning'},    // Istanbul
+    {lon:115,lat:-32,t:'warning'},  // Perth
+    {lon:-70,lat:-33,t:'warning'},  // Santiago
+    {lon:13,lat:52,t:'warning'},    // Berlin
+    {lon:-77,lat:-12,t:'danger'},   // Lima
+    {lon:23,lat:38,t:'danger'},     // Athens
+    {lon:121,lat:14,t:'danger'}     // Manila
+  ];
+  const CLUSTER_CENTERS = [{lon:-77,lat:41},{lon:8,lat:50}]; // US-East, Europe
+  const FLOWER_CENTER = {lon:112,lat:6};                     // SE-Asia hub (Indian Ocean side)
+  // small same-colour clusters (centre + n-1 neighbours)
+  const MINI = [
+    {lon:-119,lat:37,t:'primary',n:3},  // California
+    {lon:116,lat:39,t:'primary',n:3},   // Beijing
+    {lon:54,lat:25,t:'warning',n:3},    // Gulf
+    {lon:-58,lat:-34,t:'warning',n:2},  // Buenos Aires
+    {lon:100,lat:14,t:'danger',n:2}     // Bangkok
+  ];
+
+  const R = 10, GAP = 0.86, hexH = Math.sqrt(3)*R, dx = 1.5*R;
+  const W = ROWS[0].length, H = ROWS.length;
+  const LAT_TOP = 84, LAT_BOT = -58;
+  const lon2c = lon => Math.round((lon+180)/360*W - 0.5);
+  const lat2r = lat => Math.round((LAT_TOP-lat)/(LAT_TOP-LAT_BOT)*H - 0.5);
+  const center = (c,r) => ({ x:c*dx+R, y:r*hexH+(c%2?hexH/2:0)+hexH/2 });
+  const hexPath = (cx,cy) => {
+    const v = R*GAP, h = hexH*GAP;
+    return [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
+      .map(([x,y]) => (cx+x).toFixed(1)+','+(cy+y).toFixed(1)).join(' ');
+  };
+  // 6 neighbours of a flat-top cell (odd columns shifted down half a row)
+  const ring = (c,r) => (c % 2 === 0)
+    ? [[c,r-1],[c,r+1],[c-1,r-1],[c-1,r],[c+1,r-1],[c+1,r]]
+    : [[c,r-1],[c,r+1],[c-1,r],[c-1,r+1],[c+1,r],[c+1,r+1]];
+
+  const cellLon = c => -180 + (c+0.5)/W*360;
+  const cellLat = r => LAT_TOP - (r+0.5)/H*(LAT_TOP-LAT_BOT);
+  const lonStep = 360/W, latStep = (LAT_TOP-LAT_BOT)/H;
+
+  // Build a Map of cell -> render scale (0..1). The scale is the SQRT of the cell's land
+  // coverage, so a cell that's only partly land draws a smaller hex — coastlines taper to a
+  // point instead of stair-stepping, exactly like a dot-density reference map. Interior cells
+  // (full coverage) draw full size.
+  function buildCells(covFn){
+    const m = new Map();
+    for (let r=0; r<H; r++) for (let c=0; c<W; c++) {
+      const cov = covFn(c,r);
+      if (cov >= 0.08) m.set(c+','+r, Math.max(0.25, Math.min(1, Math.pow(cov, 0.6))));
+    }
+    return m;
+  }
+  // Morphological cleanup: fill single interior holes (small lakes), drop fully-isolated crumbs.
+  function cleanup(m){
+    const has = (c,r) => r>=0 && r<H && c>=0 && c<W && m.has(c+','+r);
+    const nb  = (c,r) => ring(c,r).reduce((n,[a,b]) => n + (has(a,b)?1:0), 0);
+    const add = [];
+    for (let r=0; r<H; r++) for (let c=0; c<W; c++) if (!has(c,r) && nb(c,r) >= 5) add.push(c+','+r);
+    add.forEach(k => m.set(k, 1));
+    const del = [];
+    m.forEach((v,k) => { const a=k.split(','); if (nb(+a[0],+a[1]) === 0) del.push(k); });
+    del.forEach(k => m.delete(k));
+    return m;
+  }
+  function render(cells){
+    let maxX = 0, maxY = 0, landFrag = '', markFrag = '';
+    const poly = (c,r,cls,mul) => {
+      const {x,y} = center(c,r);
+      maxX = Math.max(maxX, x+R); maxY = Math.max(maxY, y+hexH/2);
+      const v = R*GAP*mul, h = hexH*GAP*mul;
+      const pts = [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
+        .map(([px,py]) => (x+px).toFixed(1)+','+(y+py).toFixed(1)).join(' ');
+      return '<polygon class="hex'+(cls?' '+cls:'')+'" data-c="'+c+'" data-r="'+r+'" data-s="'+mul.toFixed(3)+'" points="'+pts+'"/>';
+    };
+    cells.forEach((mul,k) => { const a = k.split(','); landFrag += poly(+a[0], +a[1], '', mul); });
+    CLUSTER_CENTERS.forEach(p => { const c=lon2c(p.lon), r=lat2r(p.lat);
+      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); });
+    MARKERS.forEach(m => markFrag += poly(lon2c(m.lon), lat2r(m.lat), 'm-'+m.t, 1));
+    MINI.forEach(g => { const c=lon2c(g.lon), r=lat2r(g.lat);
+      [[c,r], ...ring(c,r).slice(0, g.n-1)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-'+g.t,1)); });
+    (() => { const c=lon2c(FLOWER_CENTER.lon), r=lat2r(FLOWER_CENTER.lat);
+      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); })();
+    svg.setAttribute('viewBox', '0 0 '+(maxX+R).toFixed(0)+' '+(maxY+hexH).toFixed(0));
+    svg.innerHTML = '<g class="hx-land">'+landFrag+'</g><g class="hx-mark">'+markFrag+'</g>';
+    cellMap = new Map();
+    svg.querySelectorAll('.hx-land .hex').forEach(el => cellMap.set(el.dataset.c+','+el.dataset.r, el));
+  }
+  let cellMap = new Map();
+
+  // Instant fallback: the baked low-res matrix (offline / exports), full-size cells.
+  render(cleanup(buildCells((c,r) => (ROWS[r] && ROWS[r][c] === '#') ? 1 : 0)));
+
+  // --- click a hex → generic info card (event-delegated, survives re-render) ---
+  const cardEl = document.getElementById('hexmap-card');
+  const wrap = svg.closest('.hexmap');
+  if (cardEl && wrap) {
+    const META = {
+      primary: { label:'Primary hub',     color:'var(--magenta-500)' },
+      warning: { label:'High load',       color:'var(--warning)' },
+      danger:  { label:'Active incident', color:'var(--danger)' },
+      cluster: { label:'Dense cluster',   color:'var(--secondary-400)' },
+      land:    { label:'Edge region',     color:'var(--obsidian-300)' }
+    };
+    const typeOf = el => { const cl = el.getAttribute('class') || '';
+      return cl.includes('m-primary') ? 'primary' : cl.includes('m-warning') ? 'warning'
+           : cl.includes('m-danger') ? 'danger' : cl.includes('m-cluster') ? 'cluster' : 'land'; };
+    const cellOf = el => { const n = el.getAttribute('points').split(/[ ,]/).map(Number);
+      let sx=0, sy=0; for (let i=0;i<12;i+=2){ sx+=n[i]; sy+=n[i+1]; }
+      const cx=sx/6, cy=sy/6, c=Math.round((cx-R)/(1.5*R));
+      return { c, r: Math.round((cy-(c%2?hexH/2:0)-hexH/2)/hexH) }; };
+    const fmt = (v,pos,neg) => Math.abs(v).toFixed(1)+'\u00b0'+(v>=0?pos:neg);
+    const closeCard = () => { cardEl.classList.remove('open'); cardEl.setAttribute('aria-hidden','true'); };
+    svg.addEventListener('click', e => {
+      const el = e.target.closest('polygon.hex'); if (!el) return;
+      e.stopPropagation();
+      const { c, r } = cellOf(el), m = META[typeOf(el)];
+      const lon = cellLon(c), lat = cellLat(r);
+      const seed = ((c*73856093) ^ (r*19349663)) >>> 0;
+      const nodes = 6 + seed % 240, p95 = 16 + (seed>>3) % 130, up = (99 + ((seed>>6)%99)/100).toFixed(2);
+      cardEl.innerHTML =
+        '<div class="hc-head"><span class="hc-status"><span class="hc-dot" style="background:'+m.color+'"></span>'+m.label+'</span>'+
+        '<button type="button" class="hc-close" aria-label="Close">\u00d7</button></div>'+
+        '<div class="hc-id">EDGE-'+String(1000+c).slice(-3)+'-'+String(100+r).slice(-2)+'</div>'+
+        '<div class="hc-rows">'+
+          '<div class="hc-row"><span class="k">Location</span><span class="v">'+fmt(lat,'N','S')+' '+fmt(lon,'E','W')+'</span></div>'+
+          '<div class="hc-row"><span class="k">Nodes</span><span class="v">'+nodes+'</span></div>'+
+          '<div class="hc-row"><span class="k">p95 latency</span><span class="v">'+p95+' ms</span></div>'+
+          '<div class="hc-row"><span class="k">Uptime</span><span class="v">'+up+'%</span></div>'+
+        '</div>';
+      const er = el.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      const cardW = cardEl.offsetWidth || 232, cardH = cardEl.offsetHeight || 190;
+      let x = er.left - wr.left + er.width + 10, y = er.top - wr.top - 8;
+      if (x + cardW > wr.width) x = er.left - wr.left - cardW - 10;
+      x = Math.max(4, Math.min(x, wr.width - cardW - 4));
+      y = Math.max(4, Math.min(y, wr.height - cardH - 4));
+      cardEl.style.left = x+'px'; cardEl.style.top = y+'px';
+      cardEl.classList.add('open'); cardEl.setAttribute('aria-hidden','false');
+    });
+    cardEl.addEventListener('click', e => { if (e.target.closest('.hc-close')) closeCard(); });
+    document.addEventListener('click', e => {
+      if (!cardEl.classList.contains('open')) return;
+      if (cardEl.contains(e.target)) return;
+      closeCard();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+  }
+
+  // --- articulated hover: hovered hex grows (magenta light fill + stroke + glow), its 6
+  // neighbours shrink to make room so the honeycomb layout never overlaps. ---
+  if (wrap) {
+    let hot = null, near = [];
+    const clearHot = () => {
+      if (hot) { hot.classList.remove('is-hot'); hot.style.transform = ''; hot = null; }
+      near.forEach(n => { n.classList.remove('is-near'); n.style.transform = ''; }); near = [];
+    };
+    const setHot = el => {
+      const c = +el.dataset.c, r = +el.dataset.r, s = +el.dataset.s || 1;
+      hot = el; el.classList.add('is-hot');
+      el.style.transform = 'scale(' + (1.5 / s) + ')';
+      el.parentNode.appendChild(el); // raise within its own group (land stays below markers)
+      ring(c,r).forEach(([cc,rr]) => {
+        const nb = cellMap.get(cc+','+rr);
+        if (nb && nb !== el) { nb.classList.add('is-near'); nb.style.transform = 'scale(0.5)'; near.push(nb); }
+      });
+    };
+    svg.addEventListener('pointerover', e => {
+      const el = e.target.closest('polygon.hex'); if (!el || el === hot) return;
+      clearHot(); setHot(el);
+    });
+    svg.addEventListener('pointerleave', clearHot);
+  }
+
+  // Upgrade to the real public-domain Natural Earth 1:110m land (TopoJSON via world-atlas),
+  // rasterised with d3-geo (geoPath clips the antimeridian). Each cell's COVERAGE is measured
+  // with a 5×5 sub-sample; the hex is then sized by √coverage so faint coastlines render as
+  // small hexes and solid interiors as full ones.
+  (async function upgrade(){
+    try {
+      const [tj, geo] = await Promise.all([
+        import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm'),
+        import('https://cdn.jsdelivr.net/npm/d3-geo@3/+esm')
+      ]);
+      const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r => r.json());
+      const land = tj.feature(topo, topo.objects.land);
+      const cw = 2880, ch = 1440;
+      const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+      const cx = cv.getContext('2d');
+      const proj = geo.geoEquirectangular().fitSize([cw, ch], { type: 'Sphere' });
+      const path = geo.geoPath(proj, cx);
+      cx.fillStyle = '#fff'; cx.beginPath(); path(land); cx.fill();
+      const data = cx.getImageData(0, 0, cw, ch).data;
+      const atLand = (lon,lat) => {
+        const p = proj([lon, lat]); if (!p) return 0;
+        const x = Math.round(p[0]), y = Math.round(p[1]);
+        if (x < 0 || x >= cw || y < 0 || y >= ch) return 0;
+        return data[(y*cw + x)*4 + 3] > 128 ? 1 : 0;
+      };
+      const offs = [-0.4, -0.2, 0, 0.2, 0.4];
+      const coverage = (c,r) => {
+        const lo = cellLon(c), la = cellLat(r); let hit = 0;
+        for (const ox of offs) for (const oy of offs) hit += atLand(lo + ox*lonStep, la - oy*latStep);
+        return hit / 25;
+      };
+      render(cleanup(buildCells(coverage)));
+    } catch (e) { /* keep the baked fallback */ }
   })();
 })();
 </script>
