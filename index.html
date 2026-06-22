@@ -3266,7 +3266,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       .deck-dot.on{background:var(--magenta-500)}
       .deck-dot:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px}
       /* piece entrance — Amaca staggered reveal (ease-decel), fires on .is-in */
-      #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index{opacity:0;transform:translateY(20px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-index{opacity:0;transform:translateY(20px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
       #presentations .slide.is-in .slide-eyebrow{opacity:1;transform:none;transition-delay:0ms}
       #presentations .slide.is-in .slide-index{opacity:1;transform:none;transition-delay:60ms}
       #presentations .slide.is-in .slide-title,#presentations .slide.is-in .slide-dtitle{opacity:1;transform:none;transition-delay:90ms}
@@ -3274,13 +3274,24 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
       #presentations .slide.is-in .slide-copy + .slide-copy{transition-delay:250ms}
       #presentations .slide.is-in .slide-stat-label{opacity:1;transform:none;transition-delay:230ms}
       #presentations .slide.is-in .slide-stat-ctx{opacity:1;transform:none;transition-delay:300ms}
-      #presentations .slide.is-in .slide-bars,#presentations .slide.is-in .split-list,#presentations .slide.is-in .slide-contacts{opacity:1;transform:none;transition-delay:250ms}
-      /* data bars wipe in (the "data draw-on" moment) */
+      /* listed items enter ONE AT A TIME (not as a block) */
+      #presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide.is-in .bar-row,#presentations .slide.is-in .split-item,#presentations .slide.is-in .slide-contacts .cc{opacity:1;transform:none}
+      #presentations .slide.is-in .bar-row:nth-child(1),#presentations .slide.is-in .split-item:nth-child(1),#presentations .slide.is-in .slide-contacts .cc:nth-child(1){transition-delay:260ms}
+      #presentations .slide.is-in .bar-row:nth-child(2),#presentations .slide.is-in .split-item:nth-child(2),#presentations .slide.is-in .slide-contacts .cc:nth-child(2){transition-delay:340ms}
+      #presentations .slide.is-in .bar-row:nth-child(3),#presentations .slide.is-in .split-item:nth-child(3),#presentations .slide.is-in .slide-contacts .cc:nth-child(3){transition-delay:420ms}
+      #presentations .slide.is-in .bar-row:nth-child(4),#presentations .slide.is-in .split-item:nth-child(4),#presentations .slide.is-in .slide-contacts .cc:nth-child(4){transition-delay:500ms}
+      #presentations .slide.is-in .bar-row:nth-child(n+5),#presentations .slide.is-in .split-item:nth-child(n+5){transition-delay:560ms}
+      /* each data bar wipes in just after its row lands (the "data draw-on") */
       #presentations .slide .bar-fill{transform:scaleX(0);transform-origin:left center;transition:transform var(--d-slow) var(--ease-decel)}
-      #presentations .slide.is-in .bar-fill{transform:scaleX(1);transition-delay:380ms}
+      #presentations .slide.is-in .bar-fill{transform:scaleX(1)}
+      #presentations .slide.is-in .bar-row:nth-child(1) .bar-fill{transition-delay:360ms}
+      #presentations .slide.is-in .bar-row:nth-child(2) .bar-fill{transition-delay:440ms}
+      #presentations .slide.is-in .bar-row:nth-child(3) .bar-fill{transition-delay:520ms}
+      #presentations .slide.is-in .bar-row:nth-child(4) .bar-fill{transition-delay:600ms}
       @media (prefers-reduced-motion:reduce){
         .deck-stage .slide{transition:none}
-        #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index,#presentations .slide .bar-fill{opacity:1;transform:none;transition:none}
+        #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index,#presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc,#presentations .slide .bar-fill{opacity:1;transform:none;transition:none}
       }
       @media (max-width:600px){.deck-meta{order:3;flex-basis:100%}}
       </style>
@@ -3401,7 +3412,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">Outcome</div>
-                    <div class="slide-stat">−41<span class="u">%</span></div>
+                    <div class="slide-stat"><span data-count-to="-41" data-prefix="−">0</span><span class="u">%</span></div>
                     <div class="slide-stat-label">Task time, priority flows</div>
                     <div class="slide-stat-ctx">38s → 22s median · measured over 6 weeks</div>
                   </div>
@@ -3420,10 +3431,10 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <div class="slide-body">
                     <h2 class="slide-title">Adoption by region.</h2>
                     <div class="slide-bars">
-                      <div class="bar-row"><span class="bar-lbl">EMEA</span><span class="bar-track"><span class="bar-fill" style="width:91%"></span></span><span class="bar-val">91%</span></div>
-                      <div class="bar-row"><span class="bar-lbl">AMER</span><span class="bar-track"><span class="bar-fill" style="width:71%;background:var(--magenta-600)"></span></span><span class="bar-val">71%</span></div>
-                      <div class="bar-row"><span class="bar-lbl">APAC</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:var(--magenta-700)"></span></span><span class="bar-val">58%</span></div>
-                      <div class="bar-row"><span class="bar-lbl">LATAM</span><span class="bar-track"><span class="bar-fill" style="width:29%;background:var(--obsidian-600)"></span></span><span class="bar-val">29%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">EMEA</span><span class="bar-track"><span class="bar-fill" style="width:91%"></span></span><span class="bar-val" data-count-to="91" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">AMER</span><span class="bar-track"><span class="bar-fill" style="width:71%;background:var(--magenta-600)"></span></span><span class="bar-val" data-count-to="71" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">APAC</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:var(--magenta-700)"></span></span><span class="bar-val" data-count-to="58" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">LATAM</span><span class="bar-track"><span class="bar-fill" style="width:29%;background:var(--obsidian-600)"></span></span><span class="bar-val" data-count-to="29" data-suffix="%">0%</span></div>
                     </div>
                   </div>
                   <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>06</b> / 08</span></div>
@@ -6986,19 +6997,38 @@ try {
   })();
 
   // ── piece-entrance motion (Amaca staggered reveal · ease-decel) ──
+  // numeric values count up (--d-draw); honors reduced-motion (lands on target).
+  function countUp(scope){
+    Array.prototype.forEach.call(scope.querySelectorAll('[data-count-to]'), function(el){
+      var target = parseFloat(el.dataset.countTo) || 0;
+      var dec = parseInt(el.dataset.decimals || '0', 10);
+      var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      function fmt(v){ return pre + Math.abs(v).toFixed(dec) + suf; }
+      if (reduce){ el.textContent = fmt(target); return; }
+      var dur = 1200, t0 = null;                                  // --d-draw: count-up / data draw-on
+      el.textContent = fmt(0);
+      function step(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);  // easeOutCubic
+        el.textContent = (p < 1) ? fmt(target * e) : fmt(target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
   function revealDeck(){
     var s = stage.querySelector('.slide'); if (!s) return;
-    if (reduce){ s.classList.add('is-in'); return; }
+    if (reduce){ s.classList.add('is-in'); countUp(s); return; }
     s.classList.remove('is-in'); void s.offsetWidth;            // reflow so the re-add re-triggers the stagger
-    requestAnimationFrame(function(){ s.classList.add('is-in'); });
+    requestAnimationFrame(function(){ s.classList.add('is-in'); countUp(s); });
   }
   if (sectionEl && sectionEl.classList.contains('active')) requestAnimationFrame(revealDeck);
-  // gallery previews: stagger each one's pieces in on scroll into view (once)
+  // gallery previews: stagger each one's pieces in on scroll into view (once) + count up
   (function(){
     var gal = Array.prototype.slice.call(grid.querySelectorAll('.slide'));
-    if (reduce || typeof IntersectionObserver === 'undefined'){ gal.forEach(function(s){ s.classList.add('is-in'); }); return; }
+    if (reduce || typeof IntersectionObserver === 'undefined'){ gal.forEach(function(s){ s.classList.add('is-in'); countUp(s); }); return; }
     var gio = new IntersectionObserver(function(entries, obs){
-      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); obs.unobserve(en.target); } });
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); countUp(en.target); obs.unobserve(en.target); } });
     }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
     gal.forEach(function(s){ gio.observe(s); });
   })();
