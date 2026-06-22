@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V2.7.2</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.0.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V2.7.2 · DESIGN SYSTEM</span>
+        <span class="meta">V3.0.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -179,12 +179,13 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#voice" data-target="voice"><span class="num">20</span> Voice &amp; Tone</a>
       <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">21</span> Accessibility</a>
       <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">22</span> Case Study</a>
+      <a class="nav-item" href="#presentations" data-target="presentations"><span class="num">23</span> Presentations</a>
     </div>
 
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Meta</div>
-      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">23</span> Changelog</a>
+      <a class="nav-item" href="#changelog" data-target="changelog"><span class="num">24</span> Changelog</a>
     </div>
 
     <div class="sidebar-footer">
@@ -221,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">2.7.2</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.0.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 12, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 22, 2026</span></div>
           </div>
         </div>
 
@@ -338,55 +339,100 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
       <section class="section" id="documentation">
         <div class="page-header">
           <div class="page-eyebrow">§ 03 · Meta / Documentation</div>
-          <h1 class="page-title">The whole system, <span class="accent">two ways to drop it into your stack.</span></h1>
-          <p class="page-lede">A skill bundle that installs into Cowork or any Anthropic runtime and enforces the rules at generation time, plus the raw spec for any model that takes a system prompt. As of v1.1 the skill is multi-target — one canonical token, three surfaces: HTML, React via Tailwind v4 <code>@theme</code>, and Figma Variables. Pick the level of enforcement you want — the underlying spec is identical.</p>
+          <h1 class="page-title">Your design system, <span class="accent">compiled for every tool.</span></h1>
+          <p class="page-lede">Pick your tool, grab the file — or the turnkey <code>.zip</code> — and drop it in. Every download is <strong style="color:var(--obsidian-100)">token-only</strong>: it makes any AI reference your tokens by name instead of inventing values. Same source on every surface — the spec is <code>DESIGN.md</code>, the tokens are <code>tokens.css</code> / <code>tokens.dtcg.json</code>. MIT.</p>
         </div>
 
-        <!-- 03.1 · Choose your fit -->
+        <!-- 03.0 · Pick your tool (the downloads grid) -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Choose your fit</h2><span class="subsection-num">§ 03.1</span></div>
-          <p class="subsection-desc">Two formats, two postures. Both ship the same DESIGN.md inside.</p>
+          <div class="subsection-head"><h2 class="subsection-title">Pick your tool</h2><span class="subsection-num">§ 03.0</span></div>
+          <p class="subsection-desc">Start with the three on top, or jump to your stack. One download per tool — a small bundle with the file, the tokens/spec it needs, and a usage README inside.</p>
 
-          <div class="grid grid-2" style="gap:var(--s-5);align-items:stretch">
-            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SKILL · ENFORCED WORKFLOW</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">v1.1.5</div>
+          <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:var(--s-5) 0 var(--s-3)">Start here</div>
+          <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Claude</div>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Claude — skill + CLAUDE.md</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The rules as a Claude skill (tokens bundled) + a CLAUDE.md for Claude Code.</p>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-claude.zip" download style="margin-top:auto;align-self:flex-start">amaca-frontend.skill</a>
+            </div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Universal</div>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">AGENTS.md</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">One repo-root file read natively by 28+ agents (Codex, Cursor, Copilot, Windsurf, Aider…).</p>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-agents.zip" download style="margin-top:auto;align-self:flex-start">AGENTS.md</a>
+            </div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Google · Stitch</div>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Google design.md</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The spec in the Google Labs design.md standard — paste into Stitch's project box.</p>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-stitch.zip" download style="margin-top:auto;align-self:flex-start">DESIGN.md</a>
+            </div>
+          </div>
+
+          <div class="grid grid-2" style="gap:var(--s-6);align-items:start;margin-top:var(--s-8)">
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:0 0 var(--s-3)">AI integrations</div>
+              <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Chat</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">ChatGPT · Gemini</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Self-contained paste-in with the token values inlined — no companion files.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-chat.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
               </div>
-              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">amaca-frontend.skill / .zip</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">A 7-step workflow that reads DESIGN.md, maps your intent against canonical tokens, generates <code>var(--token)</code> references only, and runs 14 verification checks before handing off. Multi-target as of v1.1: it reads HTML.md / REACT.md / FIGMA.md and emits to the surface you ask for. When you ask for something not in scale, the skill stops and proposes paths — workaround, planned release, or refactor. It never silently invents.</p>
-              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue. Install once, invoke per task.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
-                <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill" download>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download .skill
-                </a>
-                <a class="btn btn-secondary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.zip" download>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Universal .zip
-                </a>
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">IDE</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Cursor · Copilot</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">.cursor/rules/amaca.mdc (auto-attaches on UI files) + .github/copilot-instructions.md.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-ide.zip" download style="flex-shrink:0">amaca.mdc</a>
+              </div>
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Builders</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Figma Make · v0 · Lovable</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Same self-contained paste-in — these builders have no filesystem.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-chat.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
+              </div>
               </div>
             </div>
-
-            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-4)">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap">
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">THE SPEC · RAW CONTEXT</div>
-                <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)">~40 KB</div>
+            <div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:0 0 var(--s-3)">Tokens &amp; formats</div>
+              <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Tailwind</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Tailwind v4 @theme</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Every token as a @theme block — generates bg-magenta-500, p-4, rounded-lg.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-tailwind.zip" download style="flex-shrink:0">theme.css</a>
               </div>
-              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">DESIGN.md</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Tokens, components, principles, motion specs, accessibility rules — flat Markdown. The source of truth that the skill wraps. Paste into any system prompt. No enforcement workflow, full transparency.</p>
-              <p style="color:var(--obsidian-400);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For ChatGPT custom instructions, Gemini Gems knowledge base, any chat model with file upload.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:auto">
-                <a class="btn btn-primary" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md" data-download-md="DESIGN.md">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;vertical-align:-2px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download .md
-                </a>
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">React / CSS</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Raw CSS variables</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">tokens.css (vars + reset) + components.css — var(--token) everywhere, no build step.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-react-css.zip" download style="flex-shrink:0">tokens.css</a>
+              </div>
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">DTCG</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">DTCG pipeline</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Tokens as W3C DTCG JSON for Style Dictionary, Tokens Studio, any DTCG-aware build.</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-dtcg.zip" download style="flex-shrink:0">tokens.dtcg.json</a>
+              </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 03.2 · How to install -->
+                <!-- 03.2 · How to install -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">How to install</h2><span class="subsection-num">§ 03.2</span></div>
           <p class="subsection-desc">Per-runtime, for code generation. Pick the row that matches your tool. Figma sync is separate — see row 02.</p>
@@ -567,7 +613,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v2.7.2 here ships v2.7.2 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v3.0.0 here ships v3.0.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
@@ -2905,6 +2951,66 @@ flowchart TD
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animation.</p>
         </div>
 
+
+        <style id="hexmap-styles">
+        .hexmap{position:relative;width:100%;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}
+        .hexmap-svg{width:100%;height:auto;display:block}
+        .hexmap .hex{fill:var(--obsidian-500);opacity:0.92;cursor:pointer;transform-box:fill-box;transform-origin:center}
+        .hexmap .hex.m-primary{fill:var(--magenta-500);opacity:1;filter:drop-shadow(0 0 5px rgba(240,81,213,0.45))}
+        .hexmap .hex.m-warning{fill:var(--warning);opacity:1}
+        .hexmap .hex.m-danger{fill:var(--danger);opacity:1}
+        .hexmap .hex.m-cluster{fill:var(--secondary-400);opacity:0.95;filter:drop-shadow(0 0 6px rgba(0,255,242,0.5))}
+        .hexmap .hex{transition:transform var(--d-base) var(--ease-spring), fill var(--d-quick) var(--ease-standard), filter var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard)}
+        .hexmap .hex.is-near{opacity:0.55}
+        .hexmap .hex.is-hot{stroke:var(--magenta-500);stroke-width:2.5;paint-order:stroke;filter:drop-shadow(0 0 9px rgba(240,81,213,0.75))}
+        .hexmap .hex.is-hot:not([class*="m-"]){fill:var(--magenta-200);opacity:1}
+        @media (prefers-reduced-motion:reduce){.hexmap .hex{transition:none}}
+        .hexmap-card{position:absolute;z-index:5;width:232px;background:var(--obsidian-850);border:1px solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-4);box-shadow:var(--sh-3);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
+        .hexmap-card.open{opacity:1;transform:translateY(0);pointer-events:auto}
+        .hexmap-card .hc-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-3)}
+        .hexmap-card .hc-status{display:flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200)}
+        .hexmap-card .hc-dot{width:8px;height:8px;border-radius:var(--r-full);flex:none}
+        .hexmap-card .hc-close{background:none;border:0;color:var(--obsidian-400);cursor:pointer;font-size:18px;line-height:1;padding:0 2px}
+        .hexmap-card .hc-close:hover{color:var(--obsidian-100)}
+        .hexmap-card .hc-id{font-family:var(--font-mono);font-size:var(--t-small);color:var(--obsidian-100);margin-bottom:var(--s-3)}
+        .hexmap-card .hc-rows{display:grid;gap:7px}
+        .hexmap-card .hc-row{display:flex;justify-content:space-between;gap:var(--s-4);align-items:baseline}
+        .hexmap-card .hc-row .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+        .hexmap-card .hc-row .v{font-size:var(--t-small);color:var(--obsidian-100);font-variant-numeric:tabular-nums}
+        .hexmap-legend{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-6);margin-top:var(--s-5);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+        .hm-key{display:flex;align-items:center;gap:8px}
+        .hm-sw{width:13px;height:13px;display:inline-block;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+        .hm-sw.hm-primary{background:var(--magenta-500)}
+        .hm-sw.hm-warning{background:var(--warning)}
+        .hm-sw.hm-danger{background:var(--danger)}
+        .hm-sw.hm-cluster{background:var(--secondary-400)}
+        </style>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 19.8</span></div>
+          <p class="subsection-desc">A dot-density world drawn as a honeycomb. The landmass isn't hand-drawn: it's the public-domain <strong style="color:var(--obsidian-100)">Natural Earth 1:110m</strong> dataset (loaded as TopoJSON via <code>world-atlas</code>), rasterised into the hex grid by canvas sampling — the canonical d3 dotted-map pipeline — and every node is placed at its true longitude / latitude. The land is a single neutral obsidian fill — quiet, the 85% — so the status hexes are the only thing that reads as data. Every fill is a token, no hardcoded hex; color is always paired with a label in the legend (§ 6 #1).</p>
+          <div class="chart-card">
+            <div class="chart-head">
+              <div>
+                <div class="t">Deployments · worldwide</div>
+                <div class="ty-small" style="margin-top:4px">Edge nodes by status · 2026 Q2</div>
+              </div>
+              <div style="display:flex;gap:8px"><span class="badge badge-live"><span class="dot"></span> Live</span></div>
+            </div>
+            <div class="hexmap" data-hexmap>
+              <svg class="hexmap-svg" id="hexmap-svg" role="img" aria-label="Honeycomb world map of edge deployments by status. Most nodes are primary hubs across North America, Europe, Asia and Africa; a handful flag high load or an active incident; two dense clusters sit over North America and Europe, and one over the Indian Ocean region."></svg>
+              <div class="hexmap-card" id="hexmap-card" role="dialog" aria-label="Node details" aria-hidden="true"></div>
+            </div>
+            <div class="hexmap-legend">
+              <span class="hm-key"><span class="hm-sw hm-primary"></span> Primary hub</span>
+              <span class="hm-key"><span class="hm-sw hm-warning"></span> High load</span>
+              <span class="hm-key"><span class="hm-sw hm-danger"></span> Active incident</span>
+              <span class="hm-key"><span class="hm-sw hm-cluster"></span> Dense cluster</span>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
+        </div>
+
       </section>
       <section class="section" id="voice">
         <div class="page-header">
@@ -3126,10 +3232,376 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
       </section>
 
+      <style id="pres-styles">
+      /* ─── PRESENTATIONS / SLIDE TEMPLATES ─── */
+      .slide-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+      @media (max-width:900px){.slide-grid{grid-template-columns:1fr}}
+      .slide-card{background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-lg);padding:var(--s-5);transition:border-color var(--d-quick) var(--ease-standard)}
+      .slide-card:hover{border-color:var(--obsidian-600)}
+      .slide-card .card-meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin-bottom:var(--s-3)}
+      .slide-card .card-meta .num{color:var(--magenta-400)}
+      .slide-card .slide-caption{margin:var(--s-4) 0 0;font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-normal)}
+
+      /* 16:9 viewport that scales the fixed canvas down to fit */
+      .slide-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-md);overflow:hidden;background:#000;border:1px solid var(--obsidian-800)}
+      /* the fixed 1920×1080 canvas — slides are authored at full size, then scaled */
+      .slide{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;transform:scale(var(--slide-scale,0.29));background:var(--obsidian-950);color:var(--obsidian-100);font-family:var(--font-sans);overflow:hidden;--pad-x:120px;--pad-y:88px}
+
+      /* chrome */
+      .slide-brand{position:absolute;top:var(--pad-y);left:var(--pad-x);display:flex;align-items:center;gap:18px;z-index:2}
+      .slide-brand .mark{width:44px;height:44px;display:block;border-radius:var(--r-sm)}
+      .slide-brand .wm{font-size:32px;font-weight:700;letter-spacing:var(--tr-snug);color:var(--obsidian-100)}
+      .slide-foot{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:var(--pad-y);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);z-index:2}
+      .slide-foot .pg b{color:var(--magenta-400);font-weight:500}
+
+      /* body / shared type */
+      .slide-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:240px;bottom:210px;display:flex;flex-direction:column;justify-content:center}
+      .slide-eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400);margin-bottom:34px}
+      .slide-eyebrow::before{content:"";width:52px;height:2px;background:var(--magenta-500)}
+      .slide-title{margin:0;font-weight:700;letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
+      .slide-title .accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide-copy{font-size:30px;line-height:var(--lh-loose);color:var(--obsidian-300);max-width:44ch}
+      .slide-copy + .slide-copy{margin-top:30px}
+      .slide-copy strong{color:var(--obsidian-100);font-weight:600}
+
+      /* cover */
+      .slide--cover .slide-title{font-size:128px;max-width:17ch;margin-bottom:40px}
+      .slide--cover .slide-lead{font-size:36px;line-height:var(--lh-snug);color:var(--obsidian-200);max-width:30ch}
+
+      /* divider */
+      .slide--divider .slide-index{position:absolute;right:90px;bottom:60px;font-size:600px;line-height:0.74;font-weight:700;letter-spacing:var(--tr-tight);color:var(--obsidian-850);pointer-events:none;z-index:0}
+      .slide--divider .slide-body{z-index:1}
+      .slide--divider .slide-dtitle{margin:0;font-size:124px;font-weight:700;letter-spacing:var(--tr-tight);line-height:1}
+
+      /* content + data */
+      .slide--content .slide-title,.slide--data .slide-title{font-size:84px;max-width:20ch;margin-bottom:40px}
+
+      /* two-column */
+      .slide--split .slide-body{flex-direction:row;gap:128px;align-items:center}
+      .slide--split .split-col{flex:1;min-width:0}
+      .slide--split .slide-title{font-size:64px;max-width:14ch;margin-bottom:28px}
+      .split-list{display:flex;flex-direction:column;border-top:1px solid var(--obsidian-700)}
+      .split-item{display:flex;justify-content:space-between;gap:40px;padding:30px 0;border-bottom:1px solid var(--obsidian-700)}
+      .split-item .k{font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);white-space:nowrap}
+      .split-item .v{font-size:28px;color:var(--obsidian-100);text-align:right}
+
+      /* big stat */
+      .slide--stat .slide-stat{font-size:340px;line-height:0.86;font-weight:700;letter-spacing:var(--tr-tight);background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide--stat .slide-stat .u{font-size:170px}
+      .slide--stat .slide-stat-label{font-size:46px;font-weight:600;margin-top:28px;letter-spacing:var(--tr-snug)}
+      .slide--stat .slide-stat-ctx{font-size:28px;color:var(--obsidian-300);margin-top:16px}
+
+      /* data / bars */
+      .slide-bars{display:flex;flex-direction:column;gap:30px;margin-top:8px}
+      .bar-row{display:grid;grid-template-columns:210px 1fr 130px;align-items:center;gap:36px}
+      .bar-lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)}
+      .bar-track{height:30px;background:var(--obsidian-850);border-radius:var(--r-sm);overflow:hidden}
+      .bar-fill{display:block;height:100%;background:var(--magenta-500);border-radius:var(--r-sm)}
+      .bar-val{font-size:30px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+      /* full-bleed image placeholder */
+      .slide--image .slide-ph{position:absolute;inset:0;background:repeating-linear-gradient(135deg,var(--obsidian-900) 0 2px,transparent 2px 24px),var(--obsidian-850);display:flex;align-items:center;justify-content:center;z-index:0}
+      .slide--image .slide-ph .lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);border:1px solid var(--obsidian-700);padding:16px 24px;border-radius:var(--r-sm);background:rgba(7,9,11,0.45)}
+      .slide--image .slide-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,11,0.92) 0%,rgba(7,9,11,0.35) 38%,transparent 68%);z-index:1}
+      .slide--image .slide-body{justify-content:flex-end;z-index:2}
+      .slide--image .slide-title{font-size:72px;max-width:22ch}
+
+      /* closing */
+      .slide--closing .slide-title{font-size:150px}
+      .slide-contacts{display:flex;gap:96px;margin-top:52px;font-family:var(--font-mono)}
+      .slide-contacts .cc{display:flex;flex-direction:column;gap:10px}
+      .slide-contacts .k{font-size:20px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)}
+      .slide-contacts .v{font-size:30px;color:var(--obsidian-100)}
+
+      /* demo deck */
+      .deck-stage .slide{transition:opacity var(--d-quick) var(--ease-standard)}
+      .deck-stage.swapping .slide{opacity:0}
+      .deck-bar{display:flex;align-items:center;gap:var(--s-4);margin-top:var(--s-5);flex-wrap:wrap}
+      .deck-nav{display:flex;gap:var(--s-2)}
+      .deck-meta{flex:1;min-width:160px;display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--font-mono);font-size:var(--t-small);letter-spacing:var(--tr-mono);text-transform:uppercase}
+      .deck-meta .idx{color:var(--magenta-400)}
+      .deck-meta .nm{color:var(--obsidian-300)}
+      .deck-dots{display:flex;gap:10px}
+      .deck-dot{width:9px;height:9px;border-radius:var(--r-full);background:var(--obsidian-700);border:0;padding:0;cursor:pointer;transition:background var(--d-quick) var(--ease-standard)}
+      .deck-dot.on{background:var(--magenta-500)}
+      .deck-dot:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px}
+      /* piece entrance — Amaca staggered reveal (ease-decel), fires on .is-in */
+      #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-index{opacity:0;transform:translateY(20px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide.is-in .slide-eyebrow{opacity:1;transform:none;transition-delay:0ms}
+      #presentations .slide.is-in .slide-index{opacity:1;transform:none;transition-delay:60ms}
+      #presentations .slide.is-in .slide-title,#presentations .slide.is-in .slide-dtitle{opacity:1;transform:none;transition-delay:90ms}
+      #presentations .slide.is-in .slide-lead,#presentations .slide.is-in .slide-stat,#presentations .slide.is-in .slide-copy{opacity:1;transform:none;transition-delay:170ms}
+      #presentations .slide.is-in .slide-copy + .slide-copy{transition-delay:250ms}
+      #presentations .slide.is-in .slide-stat-label{opacity:1;transform:none;transition-delay:230ms}
+      #presentations .slide.is-in .slide-stat-ctx{opacity:1;transform:none;transition-delay:300ms}
+      /* listed items enter ONE AT A TIME (not as a block) */
+      #presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide.is-in .bar-row,#presentations .slide.is-in .split-item,#presentations .slide.is-in .slide-contacts .cc{opacity:1;transform:none}
+      #presentations .slide.is-in .bar-row:nth-child(1),#presentations .slide.is-in .split-item:nth-child(1),#presentations .slide.is-in .slide-contacts .cc:nth-child(1){transition-delay:260ms}
+      #presentations .slide.is-in .bar-row:nth-child(2),#presentations .slide.is-in .split-item:nth-child(2),#presentations .slide.is-in .slide-contacts .cc:nth-child(2){transition-delay:340ms}
+      #presentations .slide.is-in .bar-row:nth-child(3),#presentations .slide.is-in .split-item:nth-child(3),#presentations .slide.is-in .slide-contacts .cc:nth-child(3){transition-delay:420ms}
+      #presentations .slide.is-in .bar-row:nth-child(4),#presentations .slide.is-in .split-item:nth-child(4),#presentations .slide.is-in .slide-contacts .cc:nth-child(4){transition-delay:500ms}
+      #presentations .slide.is-in .bar-row:nth-child(n+5),#presentations .slide.is-in .split-item:nth-child(n+5){transition-delay:560ms}
+      /* each data bar wipes in just after its row lands (the "data draw-on") */
+      #presentations .slide .bar-fill{transform:scaleX(0);transform-origin:left center;transition:transform var(--d-slow) var(--ease-decel)}
+      #presentations .slide.is-in .bar-fill{transform:scaleX(1)}
+      #presentations .slide.is-in .bar-row:nth-child(1) .bar-fill{transition-delay:360ms}
+      #presentations .slide.is-in .bar-row:nth-child(2) .bar-fill{transition-delay:440ms}
+      #presentations .slide.is-in .bar-row:nth-child(3) .bar-fill{transition-delay:520ms}
+      #presentations .slide.is-in .bar-row:nth-child(4) .bar-fill{transition-delay:600ms}
+      @media (prefers-reduced-motion:reduce){
+        .deck-stage .slide{transition:none}
+        #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index,#presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc,#presentations .slide .bar-fill{opacity:1;transform:none;transition:none}
+      }
+      @media (max-width:600px){.deck-meta{order:3;flex-basis:100%}}
+      </style>
+
+      <section class="section" id="presentations">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 23 · Applied / Presentations</div>
+          <h1 class="page-title">Slides that <span class="accent">hold the system.</span></h1>
+          <p class="page-lede">Eight canonical layouts on a fixed 1920×1080 canvas. Same tokens, same 85/10/5 restraint as every other surface — the deck just happens to be 16:9. One magenta moment per slide; everything else stays obsidian.</p>
+        </div>
+
+        <!-- § 23.1 — demo deck -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 24.1</span></div>
+          <p class="subsection-desc">A worked 8-slide deck — the Arc HMI case study, told on-system. Navigate with the controls, the dots, or the ← / → arrow keys. No auto-advance (a11y floor #6); position is remembered across reloads.</p>
+          <div class="deck">
+            <div class="slide-frame deck-stage" id="pres-deck-stage" role="group" aria-roledescription="slide" aria-label="Presentation template deck"></div>
+            <div class="deck-bar">
+              <div class="deck-nav">
+                <button type="button" class="btn btn-secondary btn-sm" id="pres-prev" aria-label="Previous slide">← Prev</button>
+                <button type="button" class="btn btn-secondary btn-sm" id="pres-next" aria-label="Next slide">Next →</button>
+              </div>
+              <div class="deck-meta" aria-live="polite"><span class="idx" id="pres-idx">01 / 08</span> <span class="nm" id="pres-name">Cover</span></div>
+              <div class="deck-dots" id="pres-dots" role="tablist" aria-label="Jump to slide"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- § 23.2 — layout gallery -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Layouts</h2><span class="subsection-num">§ 23.2</span></div>
+          <p class="subsection-desc">The eight templates, authored at full 1920×1080 and scaled to fit. Each is a single <code>.slide</code> with a layout modifier; the chrome (brand, footer, page number) is shared across all of them.</p>
+          <div class="slide-grid" id="pres-grid">
+
+            <!-- 01 · Cover -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-01</span> · Cover</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--cover" data-name="Cover">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Case study · CS-017</div>
+                    <h2 class="slide-title">Rebuilding Arc's <span class="accent">in-car</span> interface.</h2>
+                    <p class="slide-lead">A next-generation automotive HMI — one glance at a time.</p>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>01</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Opening slide. Title carries the single accent word; eyebrow and footer set context.</p>
+            </div>
+
+            <!-- 02 · Divider -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-02</span> · Section divider</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--divider" data-name="Section divider">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-index" aria-hidden="true">01</div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Section</div>
+                    <h2 class="slide-dtitle">Brief</h2>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>02</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Chapter break. The oversized numeral is ghosted obsidian — a graphic, not an accent.</p>
+            </div>
+
+            <!-- 03 · Content -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-03</span> · Content</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--content" data-name="Content">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">01 · Brief</div>
+                    <h2 class="slide-title">The legacy stack made drivers work.</h2>
+                    <p class="slide-copy">The previous HMI borrowed mobile patterns — deep hierarchies, tap-heavy flows — and dropped them into a 70mph context.</p>
+                    <p class="slide-copy">The constraint: <strong>every primary task in under 3 interactions, under 10 seconds, eyes-on-road.</strong></p>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>03</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Title + body. Two short paragraphs, one bolded key line. Copy capped near 44ch.</p>
+            </div>
+
+            <!-- 04 · Two-column -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-04</span> · Two-column</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--split" data-name="Two-column">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="split-col">
+                      <div class="slide-eyebrow">Dossier</div>
+                      <h2 class="slide-title">Scope, fixed before a screen was drawn.</h2>
+                    </div>
+                    <div class="split-col">
+                      <div class="split-list">
+                        <div class="split-item"><span class="k">Role</span><span class="v">Lead Product Designer</span></div>
+                        <div class="split-item"><span class="k">Team</span><span class="v">3 design · 14 eng · 2 research</span></div>
+                        <div class="split-item"><span class="k">Platform</span><span class="v">Stack · cluster · companion</span></div>
+                        <div class="split-item"><span class="k">Window</span><span class="v">18 months</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>04</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Heading left, metadata list right. Hairline rows echo the case-file dossier.</p>
+            </div>
+
+            <!-- 05 · Big stat -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-05</span> · Big stat</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--stat" data-name="Big stat">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Outcome</div>
+                    <div class="slide-stat"><span data-count-to="-41" data-prefix="−">0</span><span class="u">%</span></div>
+                    <div class="slide-stat-label">Task time, priority flows</div>
+                    <div class="slide-stat-ctx">38s → 22s median · measured over 6 weeks</div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>05</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">One number, full weight. The magenta gradient is the slide's single accent.</p>
+            </div>
+
+            <!-- 06 · Data -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-06</span> · Data</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--data" data-name="Data">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <h2 class="slide-title">Adoption by region.</h2>
+                    <div class="slide-bars">
+                      <div class="bar-row"><span class="bar-lbl">EMEA</span><span class="bar-track"><span class="bar-fill" style="width:91%"></span></span><span class="bar-val" data-count-to="91" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">AMER</span><span class="bar-track"><span class="bar-fill" style="width:71%;background:var(--magenta-600)"></span></span><span class="bar-val" data-count-to="71" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">APAC</span><span class="bar-track"><span class="bar-fill" style="width:58%;background:var(--magenta-700)"></span></span><span class="bar-val" data-count-to="58" data-suffix="%">0%</span></div>
+                      <div class="bar-row"><span class="bar-lbl">LATAM</span><span class="bar-track"><span class="bar-fill" style="width:29%;background:var(--obsidian-600)"></span></span><span class="bar-val" data-count-to="29" data-suffix="%">0%</span></div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>06</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Chart slide. One hue, descending weight — the Data Viz vocabulary (§ 19) at slide scale.</p>
+            </div>
+
+            <!-- 07 · Full-bleed image -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-07</span> · Full-bleed image</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--image" data-name="Full-bleed image">
+                  <div class="slide-ph" aria-hidden="true"><span class="lbl">In-vehicle observation</span></div>
+                  <div class="slide-scrim" aria-hidden="true"></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <div class="slide-eyebrow">Fig. 01</div>
+                    <h2 class="slide-title">Six weeks in the cabin, 42 participants.</h2>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>07</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Media fills the frame; a bottom scrim keeps the caption and chrome legible. Drop a real photo in place of the placeholder.</p>
+            </div>
+
+            <!-- 08 · Closing -->
+            <div class="slide-card">
+              <div class="card-meta"><span><span class="num">TPL-08</span> · Closing</span><span>16:9</span></div>
+              <div class="slide-frame">
+                <div class="slide slide--closing" data-name="Closing">
+                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-body">
+                    <h2 class="slide-title">Let's build.</h2>
+                    <div class="slide-contacts">
+                      <div class="cc"><span class="k">Mail</span><span class="v">studio@amaca.design</span></div>
+                      <div class="cc"><span class="k">Web</span><span class="v">amaca.design</span></div>
+                    </div>
+                  </div>
+                  <div class="slide-foot"><span>Amaca · Case study</span><span class="pg"><b>08</b> / 08</span></div>
+                </div>
+              </div>
+              <p class="slide-caption">Sign-off. Statement line plus contact in mono — no CTA fights the message.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- § 23.3 — anatomy -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 23.3</span></div>
+          <p class="subsection-desc">Every slide is authored in a 1920×1080 coordinate space, then scaled to whatever container holds it. The chrome and safe margins are constant so a deck reads as one object.</p>
+          <table class="table">
+            <thead><tr><th style="width:30%">Part</th><th>Spec</th></tr></thead>
+            <tbody>
+              <tr><td><code>.slide</code> canvas</td><td class="muted">1920×1080, 16:9, surface <code>--obsidian-950</code>. Scaled via <code>transform: scale()</code>, never reflowed.</td></tr>
+              <tr><td>Safe margin</td><td class="muted">120px left/right, 88px top/bottom (<code>--pad-x</code> / <code>--pad-y</code>). Content lives inside.</td></tr>
+              <tr><td><code>.slide-brand</code></td><td class="muted">Top-left lockup — logo mark + “Amaca” wordmark. Present on every slide.</td></tr>
+              <tr><td><code>.slide-foot</code></td><td class="muted">Footer rail — project · date (left), page <code>NN / total</code> (right). Mono, <code>--obsidian-400</code>; the live page index tints <code>--magenta-400</code>.</td></tr>
+              <tr><td>Type</td><td class="muted">Its own optical scale — the UI scale (§ 05) is tuned for an 1180px column, not a 1920px canvas. Titles 64–150px, body 30px, mono chrome 20–24px.</td></tr>
+              <tr><td>Accent</td><td class="muted">≤5% magenta — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (§ 08).</td></tr>
+            </tbody>
+          </table>
+          <p class="subsection-desc" style="margin-top:var(--s-6)">Layout modifiers — each is a single class on <code>.slide</code>:</p>
+          <table class="table">
+            <thead><tr><th style="width:34%">Class</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>.slide--cover</code></td><td class="muted">Title / opening</td></tr>
+              <tr><td><code>.slide--divider</code></td><td class="muted">Section divider with ghosted numeral</td></tr>
+              <tr><td><code>.slide--content</code></td><td class="muted">Title + body copy</td></tr>
+              <tr><td><code>.slide--split</code></td><td class="muted">Two-column — heading + metadata list</td></tr>
+              <tr><td><code>.slide--stat</code></td><td class="muted">One oversized metric</td></tr>
+              <tr><td><code>.slide--data</code></td><td class="muted">Chart slide (Data Viz vocabulary)</td></tr>
+              <tr><td><code>.slide--image</code></td><td class="muted">Full-bleed media + scrim + caption</td></tr>
+              <tr><td><code>.slide--closing</code></td><td class="muted">Sign-off / contact</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- § 23.4 — rules -->
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 23.4</span></div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5).</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.</p>
+            </div>
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Keep the 1920×1080 canvas fixed and scale it. Nav controls live <em>outside</em> the scaled frame so they stay usable at any size.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Auto-advance the deck or loop decorative motion. Navigation is manual — arrow keys, controls, or dots (a11y floor #6).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ CHANGELOG ============ -->
       <section class="section" id="changelog">
         <div class="page-header">
-          <div class="page-eyebrow">§ 23 · Meta / Changelog</div>
+          <div class="page-eyebrow">§ 24 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
           <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
@@ -3139,9 +3611,81 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v2.7.2 -->
+            <!-- v3.0.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-272">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-300">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.0.0 — design.md rewrite, Presentations, per-tool downloads, motion</span>
+                <span class="acc-num">2026-06-22</span>
+              </button>
+              <div class="acc-panel" id="cl-300" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MAJOR. A document-grammar break, not a token change. <code>DESIGN.md</code> is rewritten to the Google Labs <a href="https://github.com/google-labs-code/design.md" target="_blank" rel="noopener"><code>design.md</code></a> open standard — the eight canonical sections in order plus a structured front-matter token block — so any conforming consumer (Stitch, an agent, the amaca-compiler conformance lint) reads it as a valid <code>design.md</code> <em>by construction</em>, not by omission. No token, value, or component contract changed; every screen renders identically to v2.8.0.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Eight canonical sections</strong> — Overview · Colors · Typography · Layout · Elevation &amp; Depth · Shapes · Components · Do's and Don'ts, in that order. The old numbered sections fold in: Principles / Voice / 85·10·5 / Anti-patterns → <strong style="color:var(--obsidian-100)">Do's and Don'ts</strong>; the token sub-sections → <strong style="color:var(--obsidian-100)">Colors / Typography / Layout / Elevation &amp; Depth / Shapes</strong>; component specs → <strong style="color:var(--obsidian-100)">Components</strong>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Structured front-matter</strong> — Machine-readable <code>colors:</code> (with an explicit <code>primary: #F051D5</code> role + the full obsidian/magenta scales), <code>typography:</code>, <code>spacing:</code>, <code>rounded:</code>. The <code>primary</code> role is the load-bearing bit: without it a consumer can regenerate the palette and ignore the brand.</li>
+                    <li><strong style="color:var(--obsidian-100)">Extension sections, preserved</strong> — Motion, Iconography, Accessibility, Code conventions, Multi-deploy and IDE integration are kept verbatim as marked extension sections after the canonical eight — the richness the standard has no slot for, lint-safe.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Migration</h4>
+                  <p style="margin:0">Section <em>numbers</em> changed. In-prose cross-references written as "§ N.M" now point to the same content under its new home (e.g. former § 3.10 Dropdown → <strong style="color:var(--obsidian-100)">Components → Dropdown / Select</strong>; § 6.3 → <strong style="color:var(--obsidian-100)">Accessibility → Ratified exceptions</strong>; § 2.8 → <strong style="color:var(--obsidian-100)">Motion</strong>). A migration note in the spec changelog carries the mapping.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">amaca.design is the dogfood for amaca-compiler: what the site ships should equal what the compiler emits when it ingests this system. The compiler's output already conforms to the Google <code>design.md</code> grammar — so the hand-authored spec was restructured to the same standard, written at its best. The site is now the maximal-compliant instance, not a bespoke doc the lint can't read.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Also shipped in 3.0.0</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">New component · Presentations</strong> — slide-deck templates (a fixed 1920×1080 canvas scaled to 16:9, eight layouts), with a live demo deck + layout gallery in Applied. Slide pieces enter on the system's staggered-reveal motion: numeric values count up, listed rows choreograph one at a time, data bars wipe in.</li>
+                    <li><strong style="color:var(--obsidian-100)">Downloads · "Pick your tool"</strong> — your design system compiled for every tool: a Claude skill + <code>CLAUDE.md</code>, the universal <code>AGENTS.md</code>, Google <code>design.md</code>, IDE rules (Cursor <code>.mdc</code> / Copilot), a self-contained paste-in for ChatGPT/Gemini/builders, and the token formats (Tailwind <code>@theme</code>, raw CSS, DTCG). One turnkey bundle per tool, each with a usage README inside.</li>
+                    <li><strong style="color:var(--obsidian-100)">Data Viz · interactive hex world map (§ 19.8)</strong> — the public-domain Natural Earth 1:110m land rasterised into a token-styled honeycomb (d3-geo + world-atlas), status nodes placed at true longitude/latitude, click-to-inspect node card, labeled legend.</li>
+                  </ul>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-22</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.8.0...v3.0.0" target="_blank" rel="noopener">v2.8.0…v3.0.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.8.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-280">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v2.8.0 — Select: viewport-aware placement</span>
+                <span class="acc-num">2026-06-21</span>
+              </button>
+              <div class="acc-panel" id="cl-280" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. One component refinement: the custom listbox now places itself so it never covers the content it sits above.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · Dropdown / Select</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Viewport-aware placement (variant B)</strong> — The custom listbox opens <strong style="color:var(--obsidian-100)">below</strong> the trigger and <strong style="color:var(--obsidian-100)">flips above</strong> when there isn't room, clamps its <code>max-height</code> to the available space (internal scroll) and clamps horizontally — so the menu never covers adjacent content (e.g. a chat composer the control sits above). <code>position:fixed</code> measured from the trigger's rect when near a viewport edge; the old <code>position:absolute; top:calc(100% + 4px)</code> stays valid only when there's always room below.</li>
+                    <li><strong style="color:var(--obsidian-100)">Native <code>&lt;select&gt;</code> (variant A) discouraged directly above content</strong> — The browser/OS renders the option popup over the control and can cover what's beneath it; near a viewport edge or above must-see content, reach for variant B.</li>
+                    <li><strong style="color:var(--obsidian-100)">Dismissal extended</strong> — A fixed-position menu also closes on <code>scroll</code> and <code>resize</code> (its anchored coordinates would otherwise drift from the trigger).</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">A native <code>&lt;select&gt;</code> sitting just above a chat composer covered the input with its option popup. The fix is a placement contract, ratified into § Components → Dropdown / Select, that any control near a viewport edge or above must-see content follows.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-21</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.7.2...v2.8.0" target="_blank" rel="noopener">v2.7.2…v2.8.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v2.7.2 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-272">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v2.7.2 — Label weight, ratified: Medium 500 holds</span>
                 <span class="acc-num">2026-06-12</span>
@@ -6416,6 +6960,389 @@ try {
       requestAnimationFrame(() => requestAnimationFrame(revealVisible));
     }
   }
+})();
+</script>
+<script>
+// --- Presentations (§ 23): fixed-canvas scaling + manual deck nav ---
+(function(){
+  const grid = document.getElementById('pres-grid');
+  const stage = document.getElementById('pres-deck-stage');
+  if (!grid || !stage) return;
+
+  // Scale any 1920×1080 .slide to fit its .slide-frame.
+  function scaleFrame(frame){
+    const slide = frame.querySelector('.slide');
+    if (slide && frame.clientWidth) slide.style.setProperty('--slide-scale', frame.clientWidth / 1920);
+  }
+  function scaleAll(){ document.querySelectorAll('#presentations .slide-frame').forEach(scaleFrame); }
+
+  // ResizeObserver handles the display:none → block transition (frames have 0 width until the section is shown).
+  if (typeof ResizeObserver !== 'undefined'){
+    const ro = new ResizeObserver(entries => { entries.forEach(e => scaleFrame(e.target)); });
+    document.querySelectorAll('#presentations .slide-frame').forEach(f => ro.observe(f));
+  }
+  window.addEventListener('resize', scaleAll);
+
+  // Re-measure when the section becomes visible (frames are display:none → block on activation).
+  const sectionEl = document.getElementById('presentations');
+  if (sectionEl && typeof MutationObserver !== 'undefined'){
+    new MutationObserver(() => {
+      if (sectionEl.classList.contains('active')) requestAnimationFrame(() => requestAnimationFrame(() => { scaleAll(); revealDeck(); }));
+    }).observe(sectionEl, { attributes: true, attributeFilter: ['class'] });
+  }
+
+  // ── deck ──
+  const tpl = Array.from(grid.querySelectorAll('.slide'));
+  const total = tpl.length;
+  const idxEl = document.getElementById('pres-idx');
+  const nameEl = document.getElementById('pres-name');
+  const dotsEl = document.getElementById('pres-dots');
+  const prev = document.getElementById('pres-prev');
+  const next = document.getElementById('pres-next');
+  const pad = n => String(n + 1).padStart(2, '0');
+  const totalStr = String(total).padStart(2, '0');
+
+  let i = 0;
+  try { const s = parseInt(localStorage.getItem('amaca-pres-idx'), 10); if (s >= 0 && s < total) i = s; } catch(e){}
+
+  // build dots
+  const dots = tpl.map((s, n) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'deck-dot'; b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'Slide ' + pad(n) + ' · ' + (s.dataset.name || ''));
+    b.addEventListener('click', () => render(n));
+    dotsEl.appendChild(b);
+    return b;
+  });
+
+  const reduce = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function render(n){
+    i = (n + total) % total;
+    try { localStorage.setItem('amaca-pres-idx', i); } catch(e){}
+    const paint = () => {
+      stage.innerHTML = '';
+      const clone = tpl[i].cloneNode(true);
+      clone.classList.remove('is-in'); // start hidden so the pieces re-stagger on every swap
+      stage.appendChild(clone);
+      scaleFrame(stage);
+      requestAnimationFrame(() => {
+        stage.classList.remove('swapping');
+        if (reduce){ clone.classList.add('is-in'); countUp(clone); }
+        else requestAnimationFrame(() => { clone.classList.add('is-in'); countUp(clone); });
+      });
+    };
+    idxEl.textContent = pad(i) + ' / ' + totalStr;
+    nameEl.textContent = tpl[i].dataset.name || '';
+    dots.forEach((d, k) => { d.classList.toggle('on', k === i); d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    if (reduce){ paint(); }
+    else { stage.classList.add('swapping'); setTimeout(paint, 160); }
+  }
+
+  prev.addEventListener('click', () => render(i - 1));
+  next.addEventListener('click', () => render(i + 1));
+
+  // Arrow keys — only while the Presentations section is active and focus isn't in a field.
+  document.addEventListener('keydown', e => {
+    const sec = document.getElementById('presentations');
+    if (!sec || !sec.classList.contains('active')) return;
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); render(i - 1); }
+    else if (e.key === 'ArrowRight'){ e.preventDefault(); render(i + 1); }
+  });
+
+  // initial paint without the fade
+  (function init(){
+    stage.innerHTML = '';
+    const clone = tpl[i].cloneNode(true);
+    stage.appendChild(clone);
+    idxEl.textContent = pad(i) + ' / ' + totalStr;
+    nameEl.textContent = tpl[i].dataset.name || '';
+    dots.forEach((d, k) => { d.classList.toggle('on', k === i); d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
+    requestAnimationFrame(scaleAll);
+  })();
+
+  // ── piece-entrance motion (Amaca staggered reveal · ease-decel) ──
+  // numeric values count up (--d-draw); honors reduced-motion (lands on target).
+  function countUp(scope){
+    Array.prototype.forEach.call(scope.querySelectorAll('[data-count-to]'), function(el){
+      var target = parseFloat(el.dataset.countTo) || 0;
+      var dec = parseInt(el.dataset.decimals || '0', 10);
+      var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      function fmt(v){ return pre + Math.abs(v).toFixed(dec) + suf; }
+      if (reduce){ el.textContent = fmt(target); return; }
+      var dur = 1200, t0 = null;                                  // --d-draw: count-up / data draw-on
+      el.textContent = fmt(0);
+      function step(ts){
+        if (t0 === null) t0 = ts;
+        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);  // easeOutCubic
+        el.textContent = (p < 1) ? fmt(target * e) : fmt(target);
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  function revealDeck(){
+    var s = stage.querySelector('.slide'); if (!s) return;
+    if (reduce){ s.classList.add('is-in'); countUp(s); return; }
+    s.classList.remove('is-in'); void s.offsetWidth;            // reflow so the re-add re-triggers the stagger
+    requestAnimationFrame(function(){ s.classList.add('is-in'); countUp(s); });
+  }
+  if (sectionEl && sectionEl.classList.contains('active')) requestAnimationFrame(revealDeck);
+  // gallery previews: stagger each one's pieces in on scroll into view (once) + count up
+  (function(){
+    var gal = Array.prototype.slice.call(grid.querySelectorAll('.slide'));
+    if (reduce || typeof IntersectionObserver === 'undefined'){ gal.forEach(function(s){ s.classList.add('is-in'); countUp(s); }); return; }
+    var gio = new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(en){ if (en.isIntersecting){ en.target.classList.add('is-in'); countUp(en.target); obs.unobserve(en.target); } });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    gal.forEach(function(s){ gio.observe(s); });
+  })();
+})();
+</script>
+<script>
+// --- Data Viz · § 19.8 hex world map ---
+(function(){
+  const svg = document.getElementById('hexmap-svg');
+  if (!svg) return;
+  const ROWS = ["....................................................................................................................................................................................",".................................................................###########........................................................................................................","................................................................#############.......................................................................................................","..............................................................#################.....................................................................................................",".............................................................###################....................................................########........................................","..............................................................#################................................................#######################..............................","..............................................................#################............................................#########################################################","........##########################################.............###############......................###.................############################################################",".......##############################################..........#############.....................#######.............##############################################################.","......##############################################............##########....#####............###########........###############################################################...",".......############################################..............########.....................#############.....############################################################........","........#############################################.............#####......................################..########################################################.............",".........######.....####################################..................................########################################################################..................","......................####################################............................########################################################################......................","........................####################################..........................####################################################################..........................",".........................####################################........................#################################################################..............................","..........................####################################.......................#######################################################........................................","...........................##################################........................#######################################################........................................","............................###############################..........................#######################################################........................................","............................#############################............................####################......#############################........................................","............................############################.............................########.##########........###################...####..........................................","............................##########################...............................######....#########.........###############.......######.......................................",".............................########################.................................####......#...###................................#######......##..............................",".............................#######################..................................####.............................................#########...####.............................","..............................#####################.....................................................................................###############......#......................","...............................###################.............................................................................#.........##############.....#.......................","................................##################......................................##################....................###........#############..............................",".................................##########....###....................................#####################.###########......#####........###########...............................","..................................########.......#...................................######################..##########......######.......##########................................","...................................######...........................................#######################...##########....########.......########.................................","....................................#####..........................................#########################...########.....##########.....#######..................................",".....................................####.........................................##########################....######.......########.......####....................................",".......................................####..#....................................##########################..................######........####....................................",".........................................#####....................................##########################..................#####..........###....................................","..............................................#...................................##########################...................###..........####....................................","...............................................#...................................###########################.................###..........####....................................","................................................#..................................################################.............#..........####.....................................","....................................................########........................##############################..............#..........###......................................","...................................................##########........................###########################............................#.......................................","...................................................###########...............................##################.....................................................................","...................................................############...............................#################...........................#.....####................................","..................................................##############..............................################............................##.....####...............................","..................................................################............................################.............................##....####...............................","..................................................###################..........................###############..............................##...####.......####....................","..................................................#####################........................###############................................#.............######..................","..................................................######################.......................###############...............................................#######................","..................................................######################.......................###############...............................................#####..................","...................................................####################.........................##############......................................................................","....................................................###################.........................##############............................................#######...................",".....................................................#################..........................##############..##.......................................#########..................","......................................................###############...........................#############...###.....................................##########..................",".......................................................#############.............................############...###...................................#############.................","......................................................#############..............................###########....###.................................################................","......................................................############..............................##########......##................................#################................","......................................................###########...............................#########.........................................##################...............","......................................................##########.................................########.........................................##################...............","......................................................##########..................................#######..........................................##################...............","......................................................#########...................................######...........................................#################................","......................................................########.....................................#####...........................................#######...#######................","......................................................#######.................................................................................................######................",".....................................................#######...................................................................................................#####................","......................................................######....................................................................................................................#...","......................................................#####....................................................................................................................###..","......................................................####....................................................................................................................###...","......................................................####...................................................................................................................###....","......................................................###...........................................................................................................................",".....................................................###............................................................................................................................",".....................................................###............................................................................................................................","....................................................................................................................................................................................","....................................................................................................................................................................................","...................................................................................................................................................................................."];
+  // status markers placed by REAL geographic coordinates [lon, lat], projected with the
+  // same equirectangular mapping that generated the land matrix.
+  const MARKERS = [
+    {lon:-77,lat:39,t:'primary'},   // N. Virginia
+    {lon:-122,lat:45,t:'primary'},  // Oregon
+    {lon:-46,lat:-23,t:'primary'},  // Sao Paulo
+    {lon:-0.1,lat:51,t:'primary'},  // London
+    {lon:73,lat:19,t:'primary'},    // Mumbai
+    {lon:104,lat:1,t:'primary'},    // Singapore
+    {lon:139,lat:36,t:'primary'},   // Tokyo
+    {lon:151,lat:-33,t:'primary'},  // Sydney
+    {lon:28,lat:-26,t:'primary'},   // Johannesburg
+    {lon:-99,lat:19,t:'primary'},   // Mexico City
+    {lon:-95,lat:38,t:'warning'},   // US central
+    {lon:50,lat:26,t:'warning'},    // Bahrain
+    {lon:37,lat:-1,t:'warning'},    // Nairobi
+    {lon:127,lat:37,t:'warning'},   // Seoul
+    {lon:107,lat:-6,t:'warning'},   // Jakarta
+    {lon:18,lat:59,t:'warning'},    // Stockholm
+    {lon:-21,lat:64,t:'danger'},    // Iceland
+    {lon:78,lat:56,t:'danger'},     // Siberia
+    {lon:-60,lat:-12,t:'danger'},   // Brazil interior
+    {lon:25,lat:-29,t:'danger'},    // S Africa
+    {lon:-79,lat:44,t:'primary'},   // Toronto
+    {lon:-3,lat:40,t:'primary'},    // Madrid
+    {lon:121,lat:31,t:'primary'},   // Shanghai
+    {lon:77,lat:28,t:'primary'},    // Delhi
+    {lon:31,lat:30,t:'primary'},    // Cairo
+    {lon:3,lat:6,t:'primary'},      // Lagos
+    {lon:174,lat:-41,t:'primary'},  // Wellington
+    {lon:-95,lat:30,t:'warning'},   // Houston
+    {lon:29,lat:41,t:'warning'},    // Istanbul
+    {lon:115,lat:-32,t:'warning'},  // Perth
+    {lon:-70,lat:-33,t:'warning'},  // Santiago
+    {lon:13,lat:52,t:'warning'},    // Berlin
+    {lon:-77,lat:-12,t:'danger'},   // Lima
+    {lon:23,lat:38,t:'danger'},     // Athens
+    {lon:121,lat:14,t:'danger'}     // Manila
+  ];
+  const CLUSTER_CENTERS = [{lon:-77,lat:41},{lon:8,lat:50}]; // US-East, Europe
+  const FLOWER_CENTER = {lon:112,lat:6};                     // SE-Asia hub (Indian Ocean side)
+  // small same-colour clusters (centre + n-1 neighbours)
+  const MINI = [
+    {lon:-119,lat:37,t:'primary',n:3},  // California
+    {lon:116,lat:39,t:'primary',n:3},   // Beijing
+    {lon:54,lat:25,t:'warning',n:3},    // Gulf
+    {lon:-58,lat:-34,t:'warning',n:2},  // Buenos Aires
+    {lon:100,lat:14,t:'danger',n:2}     // Bangkok
+  ];
+
+  const R = 10, GAP = 0.86, hexH = Math.sqrt(3)*R, dx = 1.5*R;
+  const W = ROWS[0].length, H = ROWS.length;
+  const LAT_TOP = 84, LAT_BOT = -58;
+  const lon2c = lon => Math.round((lon+180)/360*W - 0.5);
+  const lat2r = lat => Math.round((LAT_TOP-lat)/(LAT_TOP-LAT_BOT)*H - 0.5);
+  const center = (c,r) => ({ x:c*dx+R, y:r*hexH+(c%2?hexH/2:0)+hexH/2 });
+  const hexPath = (cx,cy) => {
+    const v = R*GAP, h = hexH*GAP;
+    return [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
+      .map(([x,y]) => (cx+x).toFixed(1)+','+(cy+y).toFixed(1)).join(' ');
+  };
+  // 6 neighbours of a flat-top cell (odd columns shifted down half a row)
+  const ring = (c,r) => (c % 2 === 0)
+    ? [[c,r-1],[c,r+1],[c-1,r-1],[c-1,r],[c+1,r-1],[c+1,r]]
+    : [[c,r-1],[c,r+1],[c-1,r],[c-1,r+1],[c+1,r],[c+1,r+1]];
+
+  const cellLon = c => -180 + (c+0.5)/W*360;
+  const cellLat = r => LAT_TOP - (r+0.5)/H*(LAT_TOP-LAT_BOT);
+  const lonStep = 360/W, latStep = (LAT_TOP-LAT_BOT)/H;
+
+  // Build a Map of cell -> render scale (0..1). The scale is the SQRT of the cell's land
+  // coverage, so a cell that's only partly land draws a smaller hex — coastlines taper to a
+  // point instead of stair-stepping, exactly like a dot-density reference map. Interior cells
+  // (full coverage) draw full size.
+  function buildCells(covFn){
+    const m = new Map();
+    for (let r=0; r<H; r++) for (let c=0; c<W; c++) {
+      const cov = covFn(c,r);
+      if (cov >= 0.08) m.set(c+','+r, Math.max(0.25, Math.min(1, Math.pow(cov, 0.6))));
+    }
+    return m;
+  }
+  // Morphological cleanup: fill single interior holes (small lakes), drop fully-isolated crumbs.
+  function cleanup(m){
+    const has = (c,r) => r>=0 && r<H && c>=0 && c<W && m.has(c+','+r);
+    const nb  = (c,r) => ring(c,r).reduce((n,[a,b]) => n + (has(a,b)?1:0), 0);
+    const add = [];
+    for (let r=0; r<H; r++) for (let c=0; c<W; c++) if (!has(c,r) && nb(c,r) >= 5) add.push(c+','+r);
+    add.forEach(k => m.set(k, 1));
+    const del = [];
+    m.forEach((v,k) => { const a=k.split(','); if (nb(+a[0],+a[1]) === 0) del.push(k); });
+    del.forEach(k => m.delete(k));
+    return m;
+  }
+  function render(cells){
+    let maxX = 0, maxY = 0, landFrag = '', markFrag = '';
+    const poly = (c,r,cls,mul) => {
+      const {x,y} = center(c,r);
+      maxX = Math.max(maxX, x+R); maxY = Math.max(maxY, y+hexH/2);
+      const v = R*GAP*mul, h = hexH*GAP*mul;
+      const pts = [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
+        .map(([px,py]) => (x+px).toFixed(1)+','+(y+py).toFixed(1)).join(' ');
+      return '<polygon class="hex'+(cls?' '+cls:'')+'" data-c="'+c+'" data-r="'+r+'" data-s="'+mul.toFixed(3)+'" points="'+pts+'"/>';
+    };
+    cells.forEach((mul,k) => { const a = k.split(','); landFrag += poly(+a[0], +a[1], '', mul); });
+    CLUSTER_CENTERS.forEach(p => { const c=lon2c(p.lon), r=lat2r(p.lat);
+      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); });
+    MARKERS.forEach(m => markFrag += poly(lon2c(m.lon), lat2r(m.lat), 'm-'+m.t, 1));
+    MINI.forEach(g => { const c=lon2c(g.lon), r=lat2r(g.lat);
+      [[c,r], ...ring(c,r).slice(0, g.n-1)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-'+g.t,1)); });
+    (() => { const c=lon2c(FLOWER_CENTER.lon), r=lat2r(FLOWER_CENTER.lat);
+      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); })();
+    svg.setAttribute('viewBox', '0 0 '+(maxX+R).toFixed(0)+' '+(maxY+hexH).toFixed(0));
+    svg.innerHTML = '<g class="hx-land">'+landFrag+'</g><g class="hx-mark">'+markFrag+'</g>';
+    cellMap = new Map();
+    svg.querySelectorAll('.hx-land .hex').forEach(el => cellMap.set(el.dataset.c+','+el.dataset.r, el));
+  }
+  let cellMap = new Map();
+
+  // Instant fallback: the baked low-res matrix (offline / exports), full-size cells.
+  render(cleanup(buildCells((c,r) => (ROWS[r] && ROWS[r][c] === '#') ? 1 : 0)));
+
+  // --- click a hex → generic info card (event-delegated, survives re-render) ---
+  const cardEl = document.getElementById('hexmap-card');
+  const wrap = svg.closest('.hexmap');
+  if (cardEl && wrap) {
+    const META = {
+      primary: { label:'Primary hub',     color:'var(--magenta-500)' },
+      warning: { label:'High load',       color:'var(--warning)' },
+      danger:  { label:'Active incident', color:'var(--danger)' },
+      cluster: { label:'Dense cluster',   color:'var(--secondary-400)' },
+      land:    { label:'Edge region',     color:'var(--obsidian-300)' }
+    };
+    const typeOf = el => { const cl = el.getAttribute('class') || '';
+      return cl.includes('m-primary') ? 'primary' : cl.includes('m-warning') ? 'warning'
+           : cl.includes('m-danger') ? 'danger' : cl.includes('m-cluster') ? 'cluster' : 'land'; };
+    const cellOf = el => { const n = el.getAttribute('points').split(/[ ,]/).map(Number);
+      let sx=0, sy=0; for (let i=0;i<12;i+=2){ sx+=n[i]; sy+=n[i+1]; }
+      const cx=sx/6, cy=sy/6, c=Math.round((cx-R)/(1.5*R));
+      return { c, r: Math.round((cy-(c%2?hexH/2:0)-hexH/2)/hexH) }; };
+    const fmt = (v,pos,neg) => Math.abs(v).toFixed(1)+'\u00b0'+(v>=0?pos:neg);
+    const closeCard = () => { cardEl.classList.remove('open'); cardEl.setAttribute('aria-hidden','true'); };
+    svg.addEventListener('click', e => {
+      const el = e.target.closest('polygon.hex'); if (!el) return;
+      e.stopPropagation();
+      const { c, r } = cellOf(el), m = META[typeOf(el)];
+      const lon = cellLon(c), lat = cellLat(r);
+      const seed = ((c*73856093) ^ (r*19349663)) >>> 0;
+      const nodes = 6 + seed % 240, p95 = 16 + (seed>>3) % 130, up = (99 + ((seed>>6)%99)/100).toFixed(2);
+      cardEl.innerHTML =
+        '<div class="hc-head"><span class="hc-status"><span class="hc-dot" style="background:'+m.color+'"></span>'+m.label+'</span>'+
+        '<button type="button" class="hc-close" aria-label="Close">\u00d7</button></div>'+
+        '<div class="hc-id">EDGE-'+String(1000+c).slice(-3)+'-'+String(100+r).slice(-2)+'</div>'+
+        '<div class="hc-rows">'+
+          '<div class="hc-row"><span class="k">Location</span><span class="v">'+fmt(lat,'N','S')+' '+fmt(lon,'E','W')+'</span></div>'+
+          '<div class="hc-row"><span class="k">Nodes</span><span class="v">'+nodes+'</span></div>'+
+          '<div class="hc-row"><span class="k">p95 latency</span><span class="v">'+p95+' ms</span></div>'+
+          '<div class="hc-row"><span class="k">Uptime</span><span class="v">'+up+'%</span></div>'+
+        '</div>';
+      const er = el.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+      const cardW = cardEl.offsetWidth || 232, cardH = cardEl.offsetHeight || 190;
+      let x = er.left - wr.left + er.width + 10, y = er.top - wr.top - 8;
+      if (x + cardW > wr.width) x = er.left - wr.left - cardW - 10;
+      x = Math.max(4, Math.min(x, wr.width - cardW - 4));
+      y = Math.max(4, Math.min(y, wr.height - cardH - 4));
+      cardEl.style.left = x+'px'; cardEl.style.top = y+'px';
+      cardEl.classList.add('open'); cardEl.setAttribute('aria-hidden','false');
+    });
+    cardEl.addEventListener('click', e => { if (e.target.closest('.hc-close')) closeCard(); });
+    document.addEventListener('click', e => {
+      if (!cardEl.classList.contains('open')) return;
+      if (cardEl.contains(e.target)) return;
+      closeCard();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+  }
+
+  // --- articulated hover: hovered hex grows (magenta light fill + stroke + glow), its 6
+  // neighbours shrink to make room so the honeycomb layout never overlaps. ---
+  if (wrap) {
+    let hot = null, near = [];
+    const clearHot = () => {
+      if (hot) { hot.classList.remove('is-hot'); hot.style.transform = ''; hot = null; }
+      near.forEach(n => { n.classList.remove('is-near'); n.style.transform = ''; }); near = [];
+    };
+    const setHot = el => {
+      const c = +el.dataset.c, r = +el.dataset.r, s = +el.dataset.s || 1;
+      hot = el; el.classList.add('is-hot');
+      el.style.transform = 'scale(' + (1.5 / s) + ')';
+      el.parentNode.appendChild(el); // raise within its own group (land stays below markers)
+      ring(c,r).forEach(([cc,rr]) => {
+        const nb = cellMap.get(cc+','+rr);
+        if (nb && nb !== el) { nb.classList.add('is-near'); nb.style.transform = 'scale(0.5)'; near.push(nb); }
+      });
+    };
+    svg.addEventListener('pointerover', e => {
+      const el = e.target.closest('polygon.hex'); if (!el || el === hot) return;
+      clearHot(); setHot(el);
+    });
+    svg.addEventListener('pointerleave', clearHot);
+  }
+
+  // Upgrade to the real public-domain Natural Earth 1:110m land (TopoJSON via world-atlas),
+  // rasterised with d3-geo (geoPath clips the antimeridian). Each cell's COVERAGE is measured
+  // with a 5×5 sub-sample; the hex is then sized by √coverage so faint coastlines render as
+  // small hexes and solid interiors as full ones.
+  (async function upgrade(){
+    try {
+      const [tj, geo] = await Promise.all([
+        import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm'),
+        import('https://cdn.jsdelivr.net/npm/d3-geo@3/+esm')
+      ]);
+      const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r => r.json());
+      const land = tj.feature(topo, topo.objects.land);
+      const cw = 2880, ch = 1440;
+      const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+      const cx = cv.getContext('2d');
+      const proj = geo.geoEquirectangular().fitSize([cw, ch], { type: 'Sphere' });
+      const path = geo.geoPath(proj, cx);
+      cx.fillStyle = '#fff'; cx.beginPath(); path(land); cx.fill();
+      const data = cx.getImageData(0, 0, cw, ch).data;
+      const atLand = (lon,lat) => {
+        const p = proj([lon, lat]); if (!p) return 0;
+        const x = Math.round(p[0]), y = Math.round(p[1]);
+        if (x < 0 || x >= cw || y < 0 || y >= ch) return 0;
+        return data[(y*cw + x)*4 + 3] > 128 ? 1 : 0;
+      };
+      const offs = [-0.4, -0.2, 0, 0.2, 0.4];
+      const coverage = (c,r) => {
+        const lo = cellLon(c), la = cellLat(r); let hit = 0;
+        for (const ox of offs) for (const oy of offs) hit += atLand(lo + ox*lonStep, la - oy*latStep);
+        return hit / 25;
+      };
+      render(cleanup(buildCells(coverage)));
+    } catch (e) { /* keep the baked fallback */ }
+  })();
 })();
 </script>
 </body>
