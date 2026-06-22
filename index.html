@@ -226,7 +226,7 @@ html{scroll-behavior:smooth}
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jun 21, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jun 22, 2026</span></div>
           </div>
         </div>
 
@@ -3615,8 +3615,8 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <div class="acc-item is-open">
               <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-300">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="acc-label">v3.0.0 — design.md grammar: restructured to the Google standard</span>
-                <span class="acc-num">2026-06-21</span>
+                <span class="acc-label">v3.0.0 — design.md rewrite, Presentations, per-tool downloads, motion</span>
+                <span class="acc-num">2026-06-22</span>
               </button>
               <div class="acc-panel" id="cl-300" role="region">
                 <div class="acc-panel-inner"><div class="acc-panel-body">
@@ -3635,8 +3635,15 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">amaca.design is the dogfood for amaca-compiler: what the site ships should equal what the compiler emits when it ingests this system. The compiler's output already conforms to the Google <code>design.md</code> grammar — so the hand-authored spec was restructured to the same standard, written at its best. The site is now the maximal-compliant instance, not a bespoke doc the lint can't read.</p>
 
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Also shipped in 3.0.0</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">New component · Presentations</strong> — slide-deck templates (a fixed 1920×1080 canvas scaled to 16:9, eight layouts), with a live demo deck + layout gallery in Applied. Slide pieces enter on the system's staggered-reveal motion: numeric values count up, listed rows choreograph one at a time, data bars wipe in.</li>
+                    <li><strong style="color:var(--obsidian-100)">Downloads · "Pick your tool"</strong> — your design system compiled for every tool: a Claude skill + <code>CLAUDE.md</code>, the universal <code>AGENTS.md</code>, Google <code>design.md</code>, IDE rules (Cursor <code>.mdc</code> / Copilot), a self-contained paste-in for ChatGPT/Gemini/builders, and the token formats (Tailwind <code>@theme</code>, raw CSS, DTCG). One turnkey bundle per tool, each with a usage README inside.</li>
+                    <li><strong style="color:var(--obsidian-100)">Data Viz · interactive hex world map (§ 19.8)</strong> — the public-domain Natural Earth 1:110m land rasterised into a token-styled honeycomb (d3-geo + world-atlas), status nodes placed at true longitude/latitude, click-to-inspect node card, labeled legend.</li>
+                  </ul>
+
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
-                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-21</span>
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-22</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
                     <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.8.0...v3.0.0" target="_blank" rel="noopener">v2.8.0…v3.0.0</a></span>

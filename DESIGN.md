@@ -1,11 +1,11 @@
 ---
 name: Amaca
 version: 3.0.0
-updated: 2026-06-21
+updated: 2026-06-22
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-21
+last_synced: 2026-06-22
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.0.0 — 2026.06.21
+> **Version** 3.0.0 — 2026.06.22
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1038,12 +1038,14 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ## Changelog
 
-### v3.0.0 — 2026.06.21 (MAJOR)
+### v3.0.0 — 2026.06.22 (MAJOR)
 
 **Changed · document grammar — restructured to the Google Labs `design.md` standard.**
 - The file now leads with the eight canonical sections in order — **Overview · Colors · Typography · Layout · Elevation & Depth · Shapes · Components · Do's and Don'ts** — and a structured front-matter `colors:` / `typography:` / `spacing:` / `rounded:` block (with an explicit `colors.primary`), so any conforming consumer (Stitch, agents, the amaca-compiler conformance lint) reads it as a valid `design.md` *by construction*, not by omission.
 - All prior richness is preserved. The old numbered sections fold in: Principles / Voice / 85·10·5 / Anti-patterns → **Do's and Don'ts**; the token sub-sections → **Colors / Typography / Layout / Elevation & Depth / Shapes**; component specs §3.1–3.14 → **Components**. Motion, Iconography, Accessibility, Code conventions, Multi-deploy and IDE integration are retained verbatim as **extension sections** after the canonical eight. Versioning + Changelog stay as meta.
 - **Migration note.** Section *numbers* changed; in-prose cross-references written as “§ N.M” now point to the same content under its new home (e.g. former § 3.10 Dropdown → **Components → Dropdown / Select**; § 6.3 → **Accessibility → Ratified exceptions**; § 2.8 → **Motion**). No tokens, values, or component contracts changed — this is a documentation-grammar break only.
+
+**New · Components → Presentations.** Slide-deck templates on the system: a fixed 1920×1080 canvas scaled to a 16:9 frame, eight layout modifiers (cover · divider · content · data · split · stat · image · closing), token-only with one magenta moment per slide. Worked example on the site (Applied / Presentations); slide pieces enter on the Amaca staggered-reveal motion — count-up on numeric values, per-row choreography on lists.
 
 ### v2.8.0 — 2026.06.21 (MINOR)
 
