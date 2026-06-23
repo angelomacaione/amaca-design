@@ -45,6 +45,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Use** — it works standalone (no companion files); a self-check section keeps output token-true.
 - **Verify** — ask for a component; it outputs `var(--token)` and the exact brand hex, ≤5% magenta.
 - **Pairs with** — nothing required; attach `DESIGN.md` for the full component specs.
+- **Shared source** — same `AI-INSTRUCTIONS.md` as the App builder bundle; both baked from one source via `build-paste-in-bundles.sh`.
 
 ### IDE (Cursor, Copilot, Codex…) · `zips/amaca-ide.zip`
 - **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md`.
@@ -54,13 +55,14 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Verify** — edit a `.tsx`; `amaca-react.mdc` + core attach (no HTML rule leaks in), tokens used by name, canonical classes, gaps surfaced instead of invented.
 - **Pairs with** — `tokens.css` / `DESIGN.md` (referenced by the rules).
 
-### App builder (Figma Make, v0, Lovable…) · `zips/amaca-chat.zip`
+### App builder (Figma Make, v0, Lovable…) · `zips/amaca-appbuilder.zip`
 - **What** — same self-contained `AI-INSTRUCTIONS.md` paste-in (these builders have no filesystem).
 - **For** — Figma Make, v0, Lovable, Base44, Bolt.
 - **Get it / where it goes** — paste into the builder's instructions/knowledge box.
 - **Use** — keep the prompt brand-neutral (describe the screen, not a mood); let the tokens carry the look.
 - **Verify** — generated UI uses the magenta primary only on the CTA, obsidian everywhere else.
 - **Pairs with** — `DESIGN.md` if the builder accepts a knowledge file.
+- **Shared source** — same `AI-INSTRUCTIONS.md` as the AI chat bundle (`amaca-chat.zip`); both baked from one source via `build-paste-in-bundles.sh`. Edit the source once, rerun the script, both stay in sync.
 
 ---
 
