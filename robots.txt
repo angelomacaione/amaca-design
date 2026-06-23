@@ -1,0 +1,30 @@
+# amaca.design — robots
+# Open by default. AI agents are welcome; the curated inference-time index
+# for them is /llms.txt (see https://amaca.design/llms.txt).
+
+User-agent: *
+Allow: /
+
+# AI / LLM crawlers — explicitly allowed (don't block them, or /llms.txt is moot)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://amaca.design/sitemap.xml
