@@ -47,11 +47,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Pairs with** — nothing required; attach `DESIGN.md` for the full component specs.
 
 ### IDE (Cursor, Copilot, Codex…) · `zips/amaca-ide.zip`
-- **What** — `.cursor/rules/amaca.mdc` (Auto-Attached on UI files) + `.github/copilot-instructions.md` + `AGENTS.md`.
+- **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md`.
 - **For** — Cursor, GitHub Copilot, and the AGENTS.md-reading IDE agents.
-- **Get it / where it goes** — `amaca.mdc` → `.cursor/rules/`; `copilot-instructions.md` → `.github/`; `AGENTS.md` → repo root.
-- **Use** — the Cursor rule loads when you touch CSS/HTML/JSX/TSX (`alwaysApply: false` + globs); Copilot reads its file repo-wide.
-- **Verify** — edit a `.tsx`; the agent uses tokens by name and the canonical classes, surfaces gaps instead of inventing.
+- **Get it / where it goes** — `.cursor/rules/*` → `.cursor/rules/`; `.github/*` → `.github/`; `AGENTS.md` → repo root.
+- **Use** — `amaca-core.mdc` is always in scope (token discipline + a11y floor); the target files auto-attach only on the files they govern (`amaca-html.mdc` on CSS/HTML, `amaca-react.mdc` on JSX/TSX). Copilot reads `copilot-instructions.md` repo-wide and the per-target `instructions/` on matching files.
+- **Verify** — edit a `.tsx`; `amaca-react.mdc` + core attach (no HTML rule leaks in), tokens used by name, canonical classes, gaps surfaced instead of invented.
 - **Pairs with** — `tokens.css` / `DESIGN.md` (referenced by the rules).
 
 ### App builder (Figma Make, v0, Lovable…) · `zips/amaca-chat.zip`

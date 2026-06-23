@@ -1,0 +1,279 @@
+# Amaca — full context (self-contained)
+
+> Amaca is a dark-first, token-only design system, and amaca.ai is the compiler that turns any
+> design system into rules your AI tools follow. Reference every value by name (var(--token));
+> never hardcode a hex, px, or easing. This file inlines the agent rules and the full token
+> table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
+> motion, accessibility, examples) see https://amaca.design/DESIGN.md.
+
+Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
+
+================================================================================
+# Agent rules (AGENTS.md)
+================================================================================
+
+# Amaca — AGENTS.md
+
+> Agent rules for the **Amaca Design System**. Place at repo root; read natively by Codex, Cursor, Copilot, Windsurf, Amp, Devin, Aider, Zed, Jules, VS Code, JetBrains Junie, and any tool on the [AGENTS.md](https://agents.md) standard.
+> **Full spec:** `DESIGN.md` · **tokens:** `tokens.css` / `tokens.dtcg.json` · **home:** [amaca.design](https://amaca.design). On conflict, `DESIGN.md` wins.
+
+Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly. **Reference every value as a token by name (`var(--token)`) — never hardcode a hex, px, or `cubic-bezier`.** The full token tables live in `tokens.css`; read them, don't restate them. If a value isn't on a scale, **stop and ask** — never extend the system silently.
+
+## Token roles (anchors; full scales in `tokens.css`)
+- **Brand:** `--magenta-500` (#F051D5) = **primary** · CTAs · focus rings. Magenta scale `--magenta-100…800`.
+- **Neutral:** `--obsidian-950` (page) → `--obsidian-050` (bone); text on dark = `--obsidian-100`.
+- **Supporting (rare):** `--secondary-400` cyan (data-viz), `--tertiary-500` petrol; semantic `--success / --warning / --danger / --info` — feedback only.
+- **Type:** Satoshi; scale `--t-micro 10 … --t-body 15 (default) … --t-h1 76 / --t-display 112`. One H1 per page.
+- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` (default) / `--r-lg 12` (cards). **Motion:** 6 durations `--d-instant…--d-draw`, 4 easings `--ease-standard / -accel / -decel (signature) / -spring` — no others.
+
+## The laws
+1. **85 / 10 / 5.** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
+2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Values off a scale break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
+3. **Motion is feedback, not decoration** — if it doesn't communicate a state change, cut it. **Always provide a `prefers-reduced-motion: reduce` fallback** (gate JS-driven animation too).
+
+## Components — reuse, don't reinvent
+Each maps to a class in `components.css` (`.btn-primary`, `.card`, `.field`, `.select`, …); full specs in `DESIGN.md → Components`. One `.btn-primary` per screen. Dropdown/Select placement is viewport-aware (opens below, flips above, never covers adjacent content). **A new `.classname` not in the canonical set is a gap** — surface it (workaround / extend / refactor), never ship a silent variant.
+
+## Accessibility floor (non-negotiable)
+Color never carries meaning alone (pair with shape + label) · no text < 12px, no body < 14px · every field has a persistent label (placeholder ≠ label) · every image has `alt` · focus follows reading order · no auto-advancing content · touch target 44×44 (32×32 dense desktop). Focus: pressables get a dual-ring (white outline + magenta halo); inputs get the magenta border + glow. On `--magenta-500` use a dark label (`--obsidian-950`, AA) by default; the one ratified exception is `.btn-primary` (light `--obsidian-050` label, scoped to that CTA).
+
+## Snippets — reuse these verbatim (token-only)
+```html
+<button class="btn btn-primary">Save</button>
+```
+```css
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+  font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+  transition:background var(--d-quick) var(--ease-standard); }
+.btn-primary:hover{ background:var(--magenta-600); }
+.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+```
+```html
+<label class="field">
+  <span class="field-label">EMAIL</span>
+  <input class="input" type="email" placeholder="you@studio">
+</label>
+```
+```css
+.field-label{ font-family:var(--font-mono); font-size:var(--t-micro);
+  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-400); }
+.input{ background:var(--obsidian-900); border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md); padding:var(--s-3) var(--s-4); color:var(--obsidian-100); }
+.input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+```
+
+## Voice
+Imperative and terse in specs/code; editorial (paragraphed, sentence-case) in marketing. **Never use AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".
+
+## Conventions
+**Semantic HTML first** — `<button>` for actions, `<a>` for navigation; **never `<div onclick>`**. Close every tag, double-quote every attribute. Files are `kebab-case`, named after their role (`card.css`, not `box.css`). CSS split `tokens.css` → `components.css`; `!important` only inside `prefers-reduced-motion`.
+
+## Never ship
+Gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (icons: stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta fills > 5% of viewport · a `cubic-bezier(...)` literal or `font-size:14px` in component CSS · a token value hand-copied into JS (read it off `:root` at runtime).
+
+## Verify (before shipping)
+Confirm: **zero** hardcoded hex/px/`cubic-bezier` in component code (grep `#[0-9A-Fa-f]{3,8}` / `[0-9]+px` / `cubic-bezier(`, or run a token-aware stylelint) · 85/10/5 holds (count `--magenta-*` per surface) · the a11y floor passes · every transition has a `prefers-reduced-motion` fallback. *(Add your repo's own build/test/lint commands alongside this.)*
+
+## Security
+Tokens and this spec are public (MIT) — safe to commit. Treat any externally-sourced markup as untrusted: diagram sources (Mermaid) render from a sanitized `<template>`, never inject raw third-party SVG/HTML. Don't paste secrets into token files.
+
+---
+*Hand-authored gold standard · MIT · the target [amaca.ai](https://amaca.ai) compiles toward.*
+
+================================================================================
+# Tokens (tokens.css — every value, by name)
+================================================================================
+
+/* =========================================================
+   AMACA DESIGN SYSTEM — TOKENS
+   Derived from angelomacaione.com
+   ========================================================= */
+
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-LightItalic.otf") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Italic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-MediumItalic.otf") format("opentype");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-BoldItalic.otf") format("opentype");font-weight:700;font-style:italic;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-Black.otf") format("opentype");font-weight:900;font-style:normal;font-display:swap}
+@font-face{font-family:"Satoshi";src:url("../fonts/Satoshi-BlackItalic.otf") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+
+:root{
+  /* — NEUTRALS (obsidian-to-bone scale) — */
+  --obsidian-950: #07090B;      /* page */
+  --obsidian-900: #0B0E12;      /* surface */
+  --obsidian-850: #10141A;      /* elevated */
+  --obsidian-800: #161B22;      /* card */
+  --obsidian-700: #1E242D;      /* border strong */
+  --obsidian-600: #2A313B;      /* border */
+  --obsidian-500: #3A4451;      /* muted edge */
+  --obsidian-400: #5B6573;      /* disabled text */
+  --obsidian-300: #8A94A3;      /* secondary text */
+  --obsidian-200: #B8C0CB;      /* tertiary text */
+  --obsidian-100: #E3E7EC;      /* primary text on dark */
+  --obsidian-050: #F4F6F8;      /* bone */
+
+  /* — BRAND (primary accent: magenta F051D5) — */
+  --magenta-100: #FFE3F8;
+  --magenta-200: #FFB5EC;
+  --magenta-300: #FF85DF;
+  --magenta-400: #F868D8;
+  --magenta-500: #F051D5;       /* primary brand */
+  --magenta-600: #C93BB0;
+  --magenta-700: #9A2D87;
+  --magenta-800: #66195A;
+
+  /* — SECONDARY (electric cyan) — */
+  --secondary-100: #CCFFFC;
+  --secondary-200: #80FFF8;
+  --secondary-300: #33FFF5;
+  --secondary-400: #00FFF2;
+  --secondary-500: #00FFF2;
+  --secondary-600: #00CCC2;
+  --secondary-700: #009992;
+
+  /* — TERTIARY (petrol teal) — */
+  --tertiary-100: #CEEAF1;
+  --tertiary-200: #8FCFDE;
+  --tertiary-300: #4FA9BF;
+  --tertiary-400: #1F85A0;
+  --tertiary-500: #0C6078;
+  --tertiary-600: #084C61;
+  --tertiary-700: #06384A;
+
+  /* legacy cube colors kept for the logo glow only */
+  --cube-cyan:   #2CE3D0;
+  --cube-mint:   #3AFFC7;
+  --cube-aqua:   #1FD6F2;
+
+  /* — SEMANTIC — */
+  --success:     #3AFFC7;
+  --warning:     #F6C65B;
+  --danger:      #FF5B5B;
+  --info:        #5CC8FF;
+
+  /* — GRADIENTS — */
+  --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
+  --grad-signal: linear-gradient(90deg, #F051D5 0%, #FF85DF 100%);
+  --grad-fog:    radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),
+                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%);
+
+  /* — TYPE — */
+  --font-sans:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* type scale — perfect-fourth on small / modular on large */
+  --t-micro:   10px;
+  --t-caption: 12px;
+  --t-small:   13px;
+  --t-body:    15px;
+  --t-lead:    18px;
+  --t-h6:      20px;
+  --t-h5:      24px;
+  --t-h4:      30px;
+  --t-h3:      38px;
+  --t-h2:      52px;
+  --t-h1:      76px;
+  --t-display: 112px;
+
+  --lh-tight:   1.05;
+  --lh-snug:    1.2;
+  --lh-normal:  1.45;
+  --lh-loose:   1.65;
+
+  --tr-tight:   -0.04em;
+  --tr-snug:    -0.02em;
+  --tr-normal:   0em;
+  --tr-wide:    0.04em;
+  --tr-mono:    0.06em;
+
+  /* — SPACING (4px base) — */
+  --s-0: 0;
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* — RADIUS — */
+  --r-none: 0;
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --r-2xl: 24px;
+  --r-full: 999px;
+
+  /* — SHADOW — */
+  --sh-0: none;
+  --sh-1: 0 1px 0 0 rgba(255,255,255,0.03) inset, 0 1px 2px rgba(0,0,0,0.4);
+  --sh-2: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 4px 12px rgba(0,0,0,0.5);
+  --sh-3: 0 1px 0 0 rgba(255,255,255,0.05) inset, 0 12px 32px rgba(0,0,0,0.55);
+  --sh-4: 0 1px 0 0 rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.6);
+  --sh-glow: 0 0 0 1px rgba(240,81,213,0.35), 0 0 24px rgba(240,81,213,0.25);
+  --sh-glow-soft: 0 0 40px rgba(240,81,213,0.12);
+
+  /* — MOTION (Framer-aligned: soft, bouncy, confident) — */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);     /* Framer default ease-out */
+  --ease-accel:    cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-decel:    cubic-bezier(0.16, 1, 0.3, 1);      /* expo-out */
+  --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* elastic overshoot */
+  --d-instant: 100ms;
+  --d-quick:   200ms;
+  --d-base:    350ms;
+  --d-slow:    600ms;
+  --d-scene:   900ms;
+  --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19) */
+
+  /* — LOADER (component-specific size scale, § 17) — */
+  --loader-xs: 16px;
+  --loader-sm: 24px;
+  --loader-md: 48px;
+  --loader-lg: 96px;
+
+  /* — LAYOUT — */
+  --sidebar-w: 260px;
+  --content-max: 1180px;
+  --gutter: 24px;
+}
+
+/* =========================================================
+   GLOBAL RESET + BASE
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{color-scheme:dark}
+body{
+  font-family:var(--font-sans);
+  font-size:var(--t-body);
+  line-height:var(--lh-normal);
+  color:var(--obsidian-100);
+  background:var(--obsidian-950);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"ss01","ss02","cv11";
+}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
+a:hover{color:var(--magenta-300)}
+::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
+
+/* scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:4px;border:2px solid var(--obsidian-950)}
+::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}

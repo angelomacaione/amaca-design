@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 3.0.0
-updated: 2026-06-22
+version: 3.1.0
+updated: 2026-06-24
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-22
+last_synced: 2026-06-24
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.0.0 — 2026.06.22
+> **Version** 3.1.0 — 2026.06.24
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1002,8 +1002,8 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 
 ## IDE integration
 
-### Cursor / `.cursor/rules/design.md`
-Drop this file into `.cursor/rules/`. Cursor surfaces it on every request inside the project.
+### Cursor / `.cursor/rules/`
+Two ways to wire Amaca into Cursor. **Single-file** — drop `DESIGN.md` into `.cursor/rules/`; Cursor surfaces it on every request inside the project. **Core + per-target** (the compiler layout, shipped in the IDE download since v3.1.0) — `amaca-core.mdc` (`alwaysApply: true`, always-in-scope token discipline + a11y floor) alongside the glob-scoped `amaca-html.mdc` (CSS/HTML) and `amaca-react.mdc` (JSX/TSX, Tailwind v4 `@theme`), so the heavy target rules attach only to the files they govern while the core stays loaded everywhere. The split is the default amaca.ai emits.
 
 ### Claude Code / `CLAUDE.md`
 Either paste the contents into `CLAUDE.md` at repo root, or add a header that imports it: `@DESIGN.md`.
@@ -1037,6 +1037,20 @@ This file follows strict SemVer.
 The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
 
 ## Changelog
+
+### v3.1.0 — 2026.06.24 (MINOR)
+
+**New · IDE download — core + per-target rules (dogfood parity).** The IDE bundle (`amaca-ide.zip`) now ships the layout the amaca.ai compiler emits, replacing the single hand-authored `.cursor/rules/amaca.mdc`:
+- `.cursor/rules/amaca-core.mdc` — `alwaysApply: true`, the always-in-scope token discipline, the laws, the a11y floor, voice, never-ship list, and verify gate.
+- `.cursor/rules/amaca-html.mdc` (globs `**/*.css,**/*.html,**/*.vue,**/*.svelte`) + `amaca-react.mdc` (globs `**/*.tsx,**/*.jsx`, Tailwind v4 `@theme`) — only the target-scoped rules, attached to the files they govern.
+- `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo` per target).
+
+The core stays loaded everywhere while the heavy target rules stop leaking into non-matching files — less context noise, fewer false applications. Targets follow the canonical `deploy_targets: [html, react, figma]`; Figma is a Variables deploy, not a glob target, so it carries no `.mdc`.
+
+**New · site `/llms.txt`.** amaca.design now hosts a curated, inference-time index for AI tools (`/llms.txt`) plus a self-contained `/llms-full.txt` (agent rules + the full token table inlined). Distinct from the per-DS bundle `llms.txt`: this is the *site* index — the ≤8 docs an agent should read, by absolute URL (DESIGN.md, tokens.css, theme.css, tokens.dtcg.json, AGENTS.md). Consumed by Cursor, Copilot, and Claude/Perplexity in retrieval.
+
+**Trigger**
+A reconciliation of the hand-authored gold against what the compiler now ships surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted `llms.txt`. Both are amaca.design-side parity moves — no spec token, value, or component contract changed (hence MINOR). The flagship now eats its own output.
 
 ### v3.0.0 — 2026.06.22 (MAJOR)
 
