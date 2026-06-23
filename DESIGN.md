@@ -1049,8 +1049,12 @@ The core stays loaded everywhere while the heavy target rules stop leaking into 
 
 **New · site `/llms.txt`.** amaca.design now hosts a curated, inference-time index for AI tools (`/llms.txt`) plus a self-contained `/llms-full.txt` (agent rules + the full token table inlined). Distinct from the per-DS bundle `llms.txt`: this is the *site* index — the ≤8 docs an agent should read, by absolute URL (DESIGN.md, tokens.css, theme.css, tokens.dtcg.json, AGENTS.md). Consumed by Cursor, Copilot, and Claude/Perplexity in retrieval.
 
+**New · `robots.txt` + `sitemap.xml`.** The site gains an explicit crawl surface: `robots.txt` is permissive and names the AI/LLM crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended) as allowed — so `/llms.txt` is never moot — and points to the sitemap; `sitemap.xml` lists `/` and `/DESIGN.md`. Independent layers from `llms.txt` (access policy + search index vs inference-time index).
+
+**Changed · downloads — App-builder bundle split out.** The App-builder card (Figma Make · v0 · Lovable · Base44 · Bolt) now downloads its own `amaca-appbuilder.zip` instead of sharing `amaca-chat.zip`, so the two no longer collide as one filename. Both ship the same self-contained `AI-INSTRUCTIONS.md` paste-in and are baked from one source via `downloads/build-paste-in-bundles.sh` — edit the source once, both stay in sync.
+
 **Trigger**
-A reconciliation of the hand-authored gold against what the compiler now ships surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted `llms.txt`. Both are amaca.design-side parity moves — no spec token, value, or component contract changed (hence MINOR). The flagship now eats its own output.
+A reconciliation of the hand-authored gold against what the compiler now ships surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted `llms.txt`. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All are amaca.design-side moves — no spec token, value, or component contract changed (hence MINOR). The flagship now eats its own output.
 
 ### v3.0.0 — 2026.06.22 (MAJOR)
 

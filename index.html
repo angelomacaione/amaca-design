@@ -3632,10 +3632,16 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · site <code>/llms.txt</code></h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Curated AI index</strong> — <a href="https://amaca.design/llms.txt" target="_blank" rel="noopener"><code>/llms.txt</code></a> points agents at the docs worth reading (DESIGN.md, tokens.css, theme.css, tokens.dtcg.json, AGENTS.md) by absolute URL, plus a self-contained <a href="https://amaca.design/llms-full.txt" target="_blank" rel="noopener"><code>/llms-full.txt</code></a> with the rules and full token table inlined. Read by Cursor, Copilot, and Claude/Perplexity in retrieval.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>robots.txt</code> + <code>sitemap.xml</code></strong> — permissive crawl policy that names the AI/LLM crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended) as allowed so <code>/llms.txt</code> is never moot, plus a sitemap listing <code>/</code> and <code>/DESIGN.md</code>. Independent layers from <code>llms.txt</code> (access + search vs inference-time index).</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · downloads</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">App-builder bundle split out</strong> — the App-builder card (Figma Make · v0 · Lovable · Base44 · Bolt) now downloads its own <code>amaca-appbuilder.zip</code> instead of sharing <code>amaca-chat.zip</code>, so the two no longer collide as one filename. Both ship the same self-contained <code>AI-INSTRUCTIONS.md</code> paste-in, baked from one source via <code>build-paste-in-bundles.sh</code> — edit once, both stay in sync.</li>
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
-                  <p style="margin:0">Reconciling the hand-authored gold against the compiler's current output surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted <code>llms.txt</code>. Both close to parity — the flagship eats its own output.</p>
+                  <p style="margin:0">Reconciling the hand-authored gold against the compiler's current output surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted <code>llms.txt</code>. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All close to parity — the flagship eats its own output.</p>
 
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-24</span>
