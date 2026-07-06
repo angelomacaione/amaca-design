@@ -1,0 +1,44 @@
+---
+description: Amaca — HTML/CSS target rules (semantic markup, canonical component classes, var(--token) syntax).
+globs: ["**/*.css","**/*.scss","**/*.html","**/*.vue","**/*.svelte"]
+alwaysApply: false
+---
+
+<!-- Amaca HTML/CSS target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Token tables live in tokens.css — not restated here. -->
+
+# Amaca — HTML / CSS target
+
+Scoped rules for vanilla HTML/CSS/JS (and Vue/Svelte single-file components). The token discipline, laws, a11y floor, and never-ship list are in `amaca-core.mdc` (always loaded) — this file adds only what's HTML/CSS-specific.
+
+**Token syntax:** reference every value as `var(--token)`. Tokens come from `tokens.css` (`:root`); `components.css` carries the canonical classes. CSS split is `tokens.css` → `components.css`; `!important` only inside `prefers-reduced-motion`.
+
+**Semantic HTML first** — `<button>` for actions, `<a>` for navigation; **never `<div onclick>`**. Close every tag, double-quote every attribute. Files are `kebab-case`, named after their role (`card.css`, not `box.css`).
+
+**Components — reuse, don't reinvent.** Use the canonical classes from `components.css` (`.btn-primary` once per screen, `.card`, `.field`, `.select`, …); full specs in `DESIGN.md → Components`. A new `.classname` not in the canonical set is a gap — surface it (workaround / extend / refactor), never ship a silent variant.
+
+Reference snippets (token-only, reuse verbatim):
+
+```css
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+  font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+  transition:background var(--d-quick) var(--ease-standard); }
+.btn-primary:hover{ background:var(--magenta-600); }
+.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+```
+
+```html
+<label class="field">
+  <span class="field-label">EMAIL</span>
+  <input class="input" type="email" placeholder="you@studio">
+</label>
+```
+
+```css
+.field-label{ font-family:var(--font-mono); font-size:var(--t-micro);
+  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-400); }
+.input{ background:var(--obsidian-900); border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md); padding:var(--s-3) var(--s-4); color:var(--obsidian-100); }
+.input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+```
