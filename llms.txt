@@ -1,0 +1,19 @@
+# Amaca
+
+> Amaca is a dark-first, token-only design system, and amaca.ai is the compiler that turns any design system into rules your AI tools follow. Reference every value by name (`var(--token)`); never hardcode a hex, px, or easing. Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly — the 85/10/5 law. On conflict, the spec (DESIGN.md) wins.
+
+## Start here
+- [Design system spec (DESIGN.md)](https://amaca.design/DESIGN.md): the full Amaca spec — tokens + prose (colors, type, spacing, components, motion, accessibility, do/don'ts), in the Google Labs design.md standard.
+- [amaca.design](https://amaca.design/): the live system — component gallery, token tables, and the downloads for every AI tool.
+
+## Tokens
+- [tokens.css](https://amaca.design/styles/tokens.css): every token as a CSS custom property (`var(--token)`), plus the reset and base.
+- [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-magenta-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
+- [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): the W3C DTCG token file for Style Dictionary / Tokens Studio pipelines.
+
+## Use with AI tools
+- [AGENTS.md](https://amaca.design/downloads/AGENTS.md): the agent rules (token discipline, the laws, the a11y floor, the verify checklist) on the AGENTS.md standard.
+- [Amaca compiler (amaca.ai)](https://amaca.ai): compile any design system into the same AI-tool rules (Cursor, Copilot, Claude, AGENTS.md, DTCG).
+
+## Optional
+- [Changelog](https://amaca.design/#changelog): releases and token deltas.

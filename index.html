@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.0.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.1.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.0.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.1.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.0.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.1.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
@@ -396,7 +396,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Figma Make · v0 · Lovable</h3>
                   <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Same self-contained paste-in — these builders have no filesystem.</p>
                 </div>
-                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-chat.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-appbuilder.zip" download style="flex-shrink:0">AI-INSTRUCTIONS.md</a>
               </div>
               </div>
             </div>
@@ -613,7 +613,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v3.0.0 here ships v3.0.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release. v3.1.0 here ships v3.1.0 of the spec. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
@@ -3365,7 +3365,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
         <!-- § 23.1 — demo deck -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 24.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 23.1</span></div>
           <p class="subsection-desc">A worked 8-slide deck — the Arc HMI case study, told on-system. Navigate with the controls, the dots, or the ← / → arrow keys. No auto-advance (a11y floor #6); position is remembered across reloads.</p>
           <div class="deck">
             <div class="slide-frame deck-stage" id="pres-deck-stage" role="group" aria-roledescription="slide" aria-label="Presentation template deck"></div>
@@ -3607,13 +3607,55 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 23.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Releases</h2><span class="subsection-num">§ 24.1</span></div>
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.0.0 -->
+            <!-- v3.1.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-300">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-310">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.1.0 — IDE core + per-target rules, site llms.txt</span>
+                <span class="acc-num">2026-07-06</span>
+              </button>
+              <div class="acc-panel" id="cl-310" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. Two amaca.design-side parity moves — no token, value, or component contract changed. The flagship now ships what the amaca.ai compiler emits.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · IDE download — core + per-target rules</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Cursor split</strong> — the single <code>.cursor/rules/amaca.mdc</code> is replaced by <code>amaca-core.mdc</code> (<code>alwaysApply: true</code> — token discipline, the laws, the a11y floor) plus glob-scoped <code>amaca-html.mdc</code> (CSS/HTML) and <code>amaca-react.mdc</code> (JSX/TSX, Tailwind v4 <code>@theme</code>). The core stays loaded everywhere; the heavy target rules attach only to the files they govern.</li>
+                    <li><strong style="color:var(--obsidian-100)">Copilot per-target</strong> — <code>.github/copilot-instructions.md</code> (repo-wide) plus <code>.github/instructions/amaca-{html,react}.instructions.md</code> with <code>applyTo</code> globs.</li>
+                    <li><strong style="color:var(--obsidian-100)">Canonical targets</strong> — <code>html · react · figma</code>. Figma is a Variables deploy, not a glob target, so it carries no <code>.mdc</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · site <code>/llms.txt</code></h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Curated AI index</strong> — <a href="https://amaca.design/llms.txt" target="_blank" rel="noopener"><code>/llms.txt</code></a> points agents at the docs worth reading (DESIGN.md, tokens.css, theme.css, tokens.dtcg.json, AGENTS.md) by absolute URL, plus a self-contained <a href="https://amaca.design/llms-full.txt" target="_blank" rel="noopener"><code>/llms-full.txt</code></a> with the rules and full token table inlined. Read by Cursor, Copilot, and Claude/Perplexity in retrieval.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>robots.txt</code> + <code>sitemap.xml</code></strong> — permissive crawl policy that names the AI/LLM crawlers (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-Web, PerplexityBot, Google-Extended) as allowed so <code>/llms.txt</code> is never moot, plus a sitemap listing <code>/</code> and <code>/DESIGN.md</code>. Independent layers from <code>llms.txt</code> (access + search vs inference-time index).</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · downloads</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">App-builder bundle split out</strong> — the App-builder card (Figma Make · v0 · Lovable · Base44 · Bolt) now downloads its own <code>amaca-appbuilder.zip</code> instead of sharing <code>amaca-chat.zip</code>, so the two no longer collide as one filename. Both ship the same self-contained <code>AI-INSTRUCTIONS.md</code> paste-in, baked from one source via <code>build-paste-in-bundles.sh</code> — edit once, both stay in sync.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">Reconciling the hand-authored gold against the compiler's current output surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted <code>llms.txt</code>. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All close to parity — the flagship eats its own output.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-06</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.0.0...v3.1.0" target="_blank" rel="noopener">v3.0.0…v3.1.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.0.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-300">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.0.0 — design.md rewrite, Presentations, per-tool downloads, motion</span>
                 <span class="acc-num">2026-06-22</span>

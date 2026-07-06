@@ -1,0 +1,26 @@
+---
+description: Amaca Design System — always-in-scope token discipline, governance, a11y floor. The core rule, loaded on every file.
+alwaysApply: true
+---
+
+<!-- Amaca core rules · gold reference · amaca.design@3.1.0 · the layout amaca.ai compiles toward. Pairs with amaca-html.mdc + amaca-react.mdc (glob-scoped). -->
+
+# Amaca Design System — core rules
+
+This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly. Full spec in `DESIGN.md`; full token tables in `tokens.css` / `tokens.dtcg.json`. On conflict, `DESIGN.md` wins.
+
+**Reference every value as a token by name (`var(--token)`). Never hardcode a hex, px, or `cubic-bezier`.** If a value isn't on a scale, stop and ask — never extend the system silently.
+
+**Token roles** (full scales in `tokens.css`): brand `--magenta-500` (#F051D5) = primary/CTA/focus · neutral `--obsidian-950` page → `--obsidian-050` bone, text `--obsidian-100` · supporting (rare) `--secondary-400` cyan / `--tertiary-500` petrol / `--success|warning|danger|info` (feedback only) · type Satoshi `--t-micro 10 … --t-body 15 … --t-h1 76` (one H1/page) · spacing 4px grid `--s-1 4 … --s-32 128` · radius `--r-md 8` / `--r-lg 12` · motion 6 durations + 4 easings (`--ease-decel` signature), always with a `prefers-reduced-motion` fallback.
+
+**Laws:** 85/10/5 (≤5% magenta, one CTA per viewport) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
+
+**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one ratified exception is `.btn-primary` (light label, scoped to that CTA).
+
+**Voice:** imperative and terse in specs/code; no AI tells ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".
+
+**Never ship:** gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (icons: stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
+
+**Verify before shipping:** zero hardcoded hex/px/`cubic-bezier` in component code (grep or a token-aware stylelint) · 85/10/5 holds · a11y floor passes · every transition has a `prefers-reduced-motion` fallback. (Add your project's own build/test/lint alongside.)
+
+Target-specific rules live in the glob-scoped files: `amaca-html.mdc` (CSS/HTML), `amaca-react.mdc` (JSX/TSX). They attach only to the files they govern; this core is always on.

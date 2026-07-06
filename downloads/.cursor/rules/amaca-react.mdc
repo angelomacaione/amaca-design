@@ -1,0 +1,51 @@
+---
+description: Amaca — React + Tailwind v4 target rules (@theme utility classes, read tokens off :root, never hand-copy into JS).
+globs: ["**/*.tsx","**/*.jsx"]
+alwaysApply: false
+---
+
+<!-- Amaca React/Tailwind v4 target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Requires DESIGN.md v3.0.0 §13 Multi-deploy + theme.css @theme block. -->
+
+# Amaca — React / Tailwind v4 target
+
+Scoped rules for React (Vue/Svelte applicable) on Tailwind v4. The token discipline, laws, a11y floor, and never-ship list are in `amaca-core.mdc` (always loaded) — this file adds only what's React-specific.
+
+**Tailwind v4 `@theme`** (from `styles/theme.css`, canonical mapping in `DESIGN.md → §13 Multi-deploy`): tokens are exposed as namespaced custom properties that auto-generate utilities. Prefer the utilities; the raw `var(--token)` form still works at runtime.
+
+| token | namespaced | utilities |
+|---|---|---|
+| `--magenta-500` | `--color-magenta-500` | `bg-magenta-500`, `text-magenta-500`, `border-magenta-500` |
+| `--obsidian-800` | `--color-obsidian-800` | `bg-obsidian-800`, … |
+| `--s-4` | `--spacing-4` | `p-4`, `px-4`, `gap-4`, … |
+| `--r-md` | `--radius-md` | `rounded-md` |
+| `--t-body` | `--text-body` | `text-body` |
+| `--d-quick` / `--ease-decel` | `--duration-quick` / `--ease-decel` | `duration-quick` / `ease-decel` |
+
+**Never hand-copy a token value into JS** — read it off `:root` at runtime (`getComputedStyle(document.documentElement).getPropertyValue('--magenta-500')`) or use the utility class. A literal hex/px in a component is a violation.
+
+**Motion:** gate JS-driven animation behind `prefers-reduced-motion: reduce` too, not just CSS transitions.
+
+If `theme.css` has no `@theme {` block (only `:root {`), fall back to CSS-modules with raw `var(--token)` and flag the hand-off `compliance: best-effort`.
+
+Reference pattern (utility-only, token-true):
+
+```tsx
+export function PrimaryButton({ children, ...props }: ButtonProps) {
+  return (
+    <button
+      className="
+        bg-magenta-500 text-obsidian-050
+        px-5 py-3 rounded-md
+        font-sans text-body font-medium
+        transition duration-quick ease-standard
+        hover:bg-magenta-600
+        focus-visible:outline-2 focus-visible:outline-obsidian-100 focus-visible:outline-offset-[3px]
+        focus-visible:shadow-[0_0_0_4px_rgba(240,81,213,0.35)]
+      "
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+```
