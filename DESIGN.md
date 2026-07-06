@@ -1,11 +1,11 @@
 ---
 name: Amaca
 version: 3.1.0
-updated: 2026-06-24
+updated: 2026-07-06
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-06-24
+last_synced: 2026-07-06
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.1.0 — 2026.06.24
+> **Version** 3.1.0 — 2026.07.06
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1038,7 +1038,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ## Changelog
 
-### v3.1.0 — 2026.06.24 (MINOR)
+### v3.1.0 — 2026.07.06 (MINOR)
 
 **New · IDE download — core + per-target rules (dogfood parity).** The IDE bundle (`amaca-ide.zip`) now ships the layout the amaca.ai compiler emits, replacing the single hand-authored `.cursor/rules/amaca.mdc`:
 - `.cursor/rules/amaca-core.mdc` — `alwaysApply: true`, the always-in-scope token discipline, the laws, the a11y floor, voice, never-ship list, and verify gate.
