@@ -1046,6 +1046,10 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Changed · `llms-full.txt` version stamp.** The self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (the `/amaca-figma` skill included) can echo which version they loaded.
 
+**Changed · site sez. 03 instructions reconciled.** The install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke `/amaca-figma`) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (skill CURRENT v1.1.8, spec copy de-versioned); subsection numbering closed (03.1-03.5, was 03.2-03.6).
+
+**Changed · `tokens.dtcg.json` migrated to DTCG stable 2025.10.** Colors as colorSpace/components objects (hex kept as fallback), dimensions and durations as value+unit objects, easings as cubicBezier arrays, shadows structured, font stacks as arrays. Repairs in passing: two gradient tokens re-typed from cubicBezier to other (latent mistype), `font-mono` corrected to the ui-monospace stack (was a copy of font-sans), em letter-spacing kept as CSS strings (stable dimension is px|rem only). The draft-format file remains in git history.
+
 **Trigger**
 Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy (`deploy_targets: [html, react, figma]`) to where designers actually work. No token, value, or component contract changed (hence MINOR).
 

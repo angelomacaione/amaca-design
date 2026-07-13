@@ -93,11 +93,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Pairs with** — a rules file (AGENTS/CLAUDE/cursor) to keep usage token-only.
 
 ### DTCG pipeline · `zips/amaca-dtcg.zip`
-- **What** — the tokens as W3C DTCG JSON (`tokens.dtcg.json`) for token tooling.
+- **What** — the tokens as W3C DTCG JSON (`tokens.dtcg.json`), **stable 2025.10 format** (colorSpace/components colors with hex fallback, value+unit dimensions).
 - **For** — Style Dictionary, Tokens Studio, and any DTCG-aware pipeline.
 - **Get it / where it goes** — feed `tokens.dtcg.json` into your token build.
 - **Use** — transform to any target (CSS, iOS, Android) from one source.
-- **Verify** — it parses as valid DTCG; `color.magenta.500` resolves to `#F051D5`.
+- **Verify** — it parses as valid DTCG 2025.10; `magenta-500` carries sRGB components with `#F051D5` as hex fallback.
 - **Pairs with** — `theme.css` (the Tailwind projection), `DESIGN.md`.
 
 ---
