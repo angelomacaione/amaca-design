@@ -1,5 +1,5 @@
 ---
-name: amaca
+name: amaca-figma
 description: "Apply and audit the Amaca Design System (amaca.design) inside Figma. Use when creating or editing designs that should follow Amaca — tokens, components, color law, accessibility — or when reviewing a selection for Amaca compliance. Triggers: 'use Amaca', 'Amaca style', 'apply the Amaca design system', 'audit this against Amaca', 'is this on-system', 'Amaca check', amaca.design. Generate mode builds on canvas using only Amaca tokens as Figma Variables, then self-audits in a verify loop (max 2 repair passes) before handing back. Audit mode lints an existing selection and reports findings by severity. Always fetches the current spec from amaca.design before any action — never generates from memory. Advisory best-effort: the enforceable build gate ships with the amaca-frontend bundle at amaca.design."
 license: MIT
 metadata:
@@ -8,7 +8,7 @@ metadata:
   canonical: https://amaca.design
 ---
 
-# amaca — apply + audit the Amaca Design System on the Figma canvas
+# amaca-figma — apply + audit the Amaca Design System on the Figma canvas
 
 Amaca is an open-source, motion-first design system built to be machine-readable. This skill makes the Figma agent build WITH it and check AGAINST it, in one loop: generate on-system, audit what was actually placed on canvas, repair what drifted.
 

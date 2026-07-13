@@ -18,11 +18,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Verify** — ask for a primary button: it uses `var(--magenta-500)`, dual-ring focus, no raw hex/px.
 - **Pairs with** — `tokens.css` (bundled), `DESIGN.md` (the spec it enforces).
 
-### Figma agent — /amaca skill · `zips/amaca-figma.zip`
-- **What** — an in-canvas custom skill for the Figma agent (`amaca.md`, Agent Skills single-file standard): generate + audit composed in a verify loop (2-pass repair cap, gap protocol on persistent findings).
+### Figma agent — /amaca-figma skill · `zips/amaca-figma.zip`
+- **What** — an in-canvas custom skill for the Figma agent (`amaca-figma.md`, Agent Skills single-file standard): generate + audit composed in a verify loop (2-pass repair cap, gap protocol on persistent findings).
 - **For** — the Figma agent in Figma Design and Figma Make.
-- **Get it / where it goes** — in a Figma file: prompt box → attachment icon → Skills → Add skill → upload `amaca.md`. Invoke with `/amaca`.
-- **Use** — "/amaca build a pricing card" (generate, then self-audit) or "/amaca audit this selection" (lint on canvas evidence).
+- **Get it / where it goes** — in a Figma file: prompt box → attachment icon → Skills → Add skill → upload `amaca-figma.md`. Invoke with `/amaca-figma`.
+- **Use** — "/amaca-figma build a pricing card" (generate, then self-audit) or "/amaca-figma audit this selection" (lint on canvas evidence).
 - **Verify** — it fetches `https://amaca.design/llms-full.txt` before acting and stops if unreachable — it never invents token values.
 - **Pairs with** — nothing required in-canvas; the deterministic gate lives in the `amaca-frontend` bundle.
 
