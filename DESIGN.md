@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 3.1.0
-updated: 2026-07-06
+version: 3.2.0
+updated: 2026-07-14
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-07-06
+last_synced: 2026-07-14
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.1.0 — 2026.07.06
+> **Version** 3.2.0 — 2026.07.14
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1037,6 +1037,17 @@ This file follows strict SemVer.
 The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
 
 ## Changelog
+
+### v3.2.0 — 2026.07.14 (MINOR)
+
+**New · Figma agent skill (`/amaca`).** The system ships an in-canvas custom skill for the Figma agent (Figma Design · Figma Make) on the Agent Skills single-file standard: `downloads/amaca.md`, bundled as `zips/amaca-figma.zip`. Two entry points — *generate* (build on canvas binding Amaca-named Variables) and *audit* (lint a selection on canvas evidence: bindings, token existence, the 85/10/5 budget, contrast pairs, the component registry, type and spacing scale) — composed in a verify loop: audit runs after every generate, repairs target only the flagged nodes, capped at two passes; a finding that survives a repair is treated as a system gap and routed to the gap protocol instead of another loop. Fetch-first and fail-stop: the skill reads `https://amaca.design/llms-full.txt` before any action and refuses to generate from memory — it never invents a hex, px, or easing. Advisory by nature (the Figma agent is non-deterministic); the deterministic verify gate remains the `amaca-frontend` bundle.
+
+**Changed · downloads grid (§ 03.0).** The Figma agent card takes the second hero slot; `AGENTS.md` moves to the top of the AI integrations column. Its bundle (`amaca-agents.zip`) is unchanged.
+
+**Changed · `llms-full.txt` version stamp.** The self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (the `/amaca` skill included) can echo which version they loaded.
+
+**Trigger**
+Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy (`deploy_targets: [html, react, figma]`) to where designers actually work. No token, value, or component contract changed (hence MINOR).
 
 ### v3.1.0 — 2026.07.06 (MINOR)
 

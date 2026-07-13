@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.1.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.2.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.1.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.2.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -357,10 +357,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-claude.zip" download style="margin-top:auto;align-self:flex-start">amaca-frontend.skill</a>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
-              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Universal</div>
-              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">AGENTS.md</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">One repo-root file read natively by 28+ agents (Codex, Cursor, Copilot, Windsurf, Aider…).</p>
-              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-agents.zip" download style="margin-top:auto;align-self:flex-start">AGENTS.md</a>
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Figma agent</div>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Figma agent — /amaca skill</h3>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">In-canvas custom skill: builds with Amaca Variables, audits what landed on canvas, repairs in a verify loop. Fetch-first — it never invents values.</p>
+              <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-figma.zip" download style="margin-top:auto;align-self:flex-start">amaca.md</a>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--magenta-400)">Google · Stitch</div>
@@ -374,6 +374,14 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <div>
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin:0 0 var(--s-3)">AI integrations</div>
               <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+              <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
+                <div style="flex:1;min-width:0">
+                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Repo root</div>
+                  <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">AGENTS.md</h3>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">One repo-root file read natively by 28+ agents (Codex, Cursor, Copilot, Windsurf, Aider…).</p>
+                </div>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-agents.zip" download style="flex-shrink:0">AGENTS.md</a>
+              </div>
               <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
                 <div style="flex:1;min-width:0">
                   <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Chat</div>
@@ -3611,9 +3619,47 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.1.0 -->
+            <!-- v3.2.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-310">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-320">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.2.0 — Figma agent skill (/amaca)</span>
+                <span class="acc-num">2026-07-14</span>
+              </button>
+              <div class="acc-panel" id="cl-320" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The system reaches the Figma canvas: an in-canvas custom skill for the Figma agent, on the Agent Skills single-file standard. No token, value, or component contract changed.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Figma agent skill — <code>/amaca</code></h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Two entry points</strong> — <em>generate</em> builds on canvas binding Amaca-named Variables; <em>audit</em> lints a selection on canvas evidence: bindings, token existence, the 85/10/5 budget, contrast pairs, the component registry, type and spacing scale.</li>
+                    <li><strong style="color:var(--obsidian-100)">Verify loop</strong> — audit runs after every generate; repairs target only the flagged nodes, capped at two passes. A finding that survives a repair is treated as a system gap and routed to the gap protocol, not another loop.</li>
+                    <li><strong style="color:var(--obsidian-100)">Fetch-first, fail-stop</strong> — the skill reads <a href="https://amaca.design/llms-full.txt" target="_blank" rel="noopener"><code>/llms-full.txt</code></a> before any action and refuses to generate from memory. It never invents a hex, px, or easing.</li>
+                    <li><strong style="color:var(--obsidian-100)">Install</strong> — in a Figma file: prompt box → Skills → Add skill → upload <code>amaca.md</code> → invoke <code>/amaca</code>. Ships as <code>downloads/amaca.md</code> + <code>zips/amaca-figma.zip</code>.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · downloads grid (§ 03.0)</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Hero swap</strong> — the Figma agent card takes the second hero slot; <code>AGENTS.md</code> moves to the top of the AI integrations column. Its bundle is unchanged.</li>
+                    <li><strong style="color:var(--obsidian-100)"><code>llms-full.txt</code> version stamp</strong> — the self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (this skill included) can echo what they loaded.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy to where designers work. The skill is advisory by nature (the agent is non-deterministic); the deterministic gate remains the <code>amaca-frontend</code> bundle.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-14</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SKILL · </span><a href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/amaca.md" target="_blank" rel="noopener" download>amaca.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.1.0...v3.2.0" target="_blank" rel="noopener">v3.1.0…v3.2.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.1.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-310">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.1.0 — IDE core + per-target rules, site llms.txt</span>
                 <span class="acc-num">2026-07-06</span>
