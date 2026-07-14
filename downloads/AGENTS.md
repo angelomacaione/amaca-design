@@ -16,6 +16,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 1. **85 / 10 / 5.** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
 2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Values off a scale break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
 3. **Motion is feedback, not decoration** — if it doesn't communicate a state change, cut it. **Always provide a `prefers-reduced-motion: reduce` fallback** (gate JS-driven animation too).
+4. **Stat count-up (site-canonical, RIGID).** Numeric stats/KPIs count up from zero to their target on entrance (`--d-draw` · `--ease-decel`) and land exactly on the final value — a static stat number where a count-up belongs is off-system. Under reduced motion the counter jumps straight to the target.
 
 ## Components — reuse, don't reinvent
 Each maps to a class in `components.css` (`.btn-primary`, `.card`, `.field`, `.select`, …); full specs in `DESIGN.md → Components`. One `.btn-primary` per screen. Dropdown/Select placement is viewport-aware (opens below, flips above, never covers adjacent content). **A new `.classname` not in the canonical set is a gap** — surface it (workaround / extend / refactor), never ship a silent variant.

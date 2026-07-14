@@ -858,6 +858,8 @@ These have all been tried in this system and rejected.
 
 **Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
 
+**Stat count-up (RIGID · site-canonical).** Numeric stats and KPI values compose incrementally on entrance: count up from zero to the target riding `--d-draw` with `--ease-decel`, landing exactly on the final value (the amaca.design counter pattern). A static stat number where a count-up belongs is off-system. This rule binds every Amaca deploy target — the site, the `amaca-frontend` targets (HTML · React · Figma), and the `/amaca-figma` in-canvas skill. Under `prefers-reduced-motion: reduce` the counter jumps straight to the final value — no counting.
+
 **Reduced motion is mandatory** — and the CSS kill-switch alone is not enough: JS-driven animation (Motion One / WAAPI, counters writing `textContent`) bypasses CSS. Gate it in JS — read `matchMedia('(prefers-reduced-motion: reduce)')` and jump to the final state (v2.7.0: the shared `window.__motion` gate does this for every `animate()` call).
 
 **CSS kill-switch:**
@@ -1042,16 +1044,18 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **New · Figma agent skill (`/amaca-figma`).** The system ships an in-canvas custom skill for the Figma agent (Figma Design · Figma Make) on the Agent Skills single-file standard: `downloads/amaca-figma.md`, bundled as `zips/amaca-figma.zip`. Two entry points — *generate* (build on canvas binding Amaca-named Variables) and *audit* (lint a selection on canvas evidence: bindings, token existence, the 85/10/5 budget, contrast pairs, the component registry, type and spacing scale) — composed in a verify loop: audit runs after every generate, repairs target only the flagged nodes, capped at two passes; a finding that survives a repair is treated as a system gap and routed to the gap protocol instead of another loop. Fetch-first and fail-stop: the skill reads `https://amaca.design/llms-full.txt` before any action and refuses to generate from memory — it never invents a hex, px, or easing. Advisory by nature (the Figma agent is non-deterministic); the deterministic verify gate remains the `amaca-frontend` bundle.
 
+**New · Motion rule — stat count-up (RIGID).** Numeric stats and KPI values count up from zero to the target on entrance (`--d-draw` · `--ease-decel`) and land exactly on the final value; under reduced motion they jump straight to it. This was already the site's counter behavior — now it is normative in § Motion for every deploy target, taught by the `amaca-frontend` targets (v1.1.9) and audited by `/amaca-figma` (v1.3, check 10).
+
 **Changed · downloads grid (§ 03.0).** The Figma card takes the second hero slot; `AGENTS.md` moves to the top of the AI integrations column (bundle unchanged). The Builders row hands Figma Make off to the dedicated Figma card and now reads v0 · Lovable · Base44 — same paste-in bundle (`amaca-appbuilder.zip`), contents unchanged.
 
 **Changed · `llms-full.txt` version stamp.** The self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (the `/amaca-figma` skill included) can echo which version they loaded.
 
-**Changed · site sez. 03 instructions reconciled.** The install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke `/amaca-figma`) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (skill CURRENT v1.1.8, spec copy de-versioned); subsection numbering closed (03.1-03.5, was 03.2-03.6).
+**Changed · site sez. 03 instructions reconciled.** The install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke `/amaca-figma`) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (skill CURRENT v1.1.9, spec copy de-versioned); subsection numbering closed (03.1-03.5, was 03.2-03.6).
 
 **Changed · `tokens.dtcg.json` migrated to DTCG stable 2025.10.** Colors as colorSpace/components objects (hex kept as fallback), dimensions and durations as value+unit objects, easings as cubicBezier arrays, shadows structured, font stacks as arrays. Repairs in passing: two gradient tokens re-typed from cubicBezier to other (latent mistype), `font-mono` corrected to the ui-monospace stack (was a copy of font-sans), em letter-spacing kept as CSS strings (stable dimension is px|rem only). The draft-format file remains in git history.
 
 **Trigger**
-Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy (`deploy_targets: [html, react, figma]`) to where designers actually work. No token, value, or component contract changed (hence MINOR).
+Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy (`deploy_targets: [html, react, figma]`) to where designers actually work. No token or value changed; the stat count-up motion rule is additive (hence MINOR).
 
 ### v3.1.0 — 2026.07.06 (MINOR)
 
