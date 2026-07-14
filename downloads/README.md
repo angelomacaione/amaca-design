@@ -18,13 +18,13 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Verify** — ask for a primary button: it uses `var(--magenta-500)`, dual-ring focus, no raw hex/px.
 - **Pairs with** — `tokens.css` (bundled), `DESIGN.md` (the spec it enforces).
 
-### AGENTS.md (universal agent rules) · `zips/amaca-agents.zip`
-- **What** — one repo-root rules file read natively by 28+ coding agents on the [AGENTS.md](https://agents.md) standard.
-- **For** — Codex, Cursor, Copilot, Windsurf, Amp, Devin, Aider, Zed, Jules, VS Code, JetBrains Junie.
-- **Get it / where it goes** — `AGENTS.md` at your repo root (nested files allowed for sub-areas).
-- **Use** — agents load it automatically; it carries the token discipline, the laws, the a11y floor, and a `## Verify` checklist.
-- **Verify** — ask any supported agent for UI; it references tokens by name and respects 85/10/5.
-- **Pairs with** — `tokens.css` / `tokens.dtcg.json` (the full tables it points to), `DESIGN.md`.
+### Figma agent — /amaca-figma skill · `zips/amaca-figma.zip`
+- **What** — an in-canvas custom skill for the Figma agent (`amaca-figma.md`, Agent Skills single-file standard): generate + audit composed in a verify loop (2-pass repair cap, gap protocol on persistent findings).
+- **For** — the Figma agent in Figma Design and Figma Make.
+- **Get it / where it goes** — in a Figma file: prompt box → attachment icon → Skills → Add skill → upload `amaca-figma.md`. Invoke with `/amaca-figma`.
+- **Use** — "/amaca-figma build a pricing card" (generate, then self-audit) or "/amaca-figma audit this selection" (lint on canvas evidence).
+- **Verify** — it fetches `https://amaca.design/llms-full.txt` before acting and stops if unreachable — it never invents token values.
+- **Pairs with** — nothing required in-canvas; the deterministic gate lives in the `amaca-frontend` bundle.
 
 ### Google `design.md` (Stitch) · `zips/amaca-stitch.zip`
 - **What** — the spec in the Google Labs [`design.md`](https://github.com/google-labs-code/design.md) open standard: 8 canonical sections + token front-matter with `colors.primary`.
@@ -37,6 +37,14 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 ---
 
 ## AI integrations
+
+### AGENTS.md (universal agent rules) · `zips/amaca-agents.zip`
+- **What** — one repo-root rules file read natively by 28+ coding agents on the [AGENTS.md](https://agents.md) standard.
+- **For** — Codex, Cursor, Copilot, Windsurf, Amp, Devin, Aider, Zed, Jules, VS Code, JetBrains Junie.
+- **Get it / where it goes** — `AGENTS.md` at your repo root (nested files allowed for sub-areas).
+- **Use** — agents load it automatically; it carries the token discipline, the laws, the a11y floor, and a `## Verify` checklist.
+- **Verify** — ask any supported agent for UI; it references tokens by name and respects 85/10/5.
+- **Pairs with** — `tokens.css` / `tokens.dtcg.json` (the full tables it points to), `DESIGN.md`.
 
 ### ChatGPT · Gemini · AI chat · `zips/amaca-chat.zip`
 - **What** — a self-contained paste-in (`AI-INSTRUCTIONS.md`) with the token values **inlined**.
@@ -85,11 +93,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Pairs with** — a rules file (AGENTS/CLAUDE/cursor) to keep usage token-only.
 
 ### DTCG pipeline · `zips/amaca-dtcg.zip`
-- **What** — the tokens as W3C DTCG JSON (`tokens.dtcg.json`) for token tooling.
+- **What** — the tokens as W3C DTCG JSON (`tokens.dtcg.json`), **stable 2025.10 format** (colorSpace/components colors with hex fallback, value+unit dimensions).
 - **For** — Style Dictionary, Tokens Studio, and any DTCG-aware pipeline.
 - **Get it / where it goes** — feed `tokens.dtcg.json` into your token build.
 - **Use** — transform to any target (CSS, iOS, Android) from one source.
-- **Verify** — it parses as valid DTCG; `color.magenta.500` resolves to `#F051D5`.
+- **Verify** — it parses as valid DTCG 2025.10; `magenta-500` carries sRGB components with `#F051D5` as hex fallback.
 - **Pairs with** — `theme.css` (the Tailwind projection), `DESIGN.md`.
 
 ---

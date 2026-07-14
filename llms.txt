@@ -13,6 +13,7 @@
 
 ## Use with AI tools
 - [AGENTS.md](https://amaca.design/downloads/AGENTS.md): the agent rules (token discipline, the laws, the a11y floor, the verify checklist) on the AGENTS.md standard.
+- [Figma agent skill — /amaca-figma (amaca-figma.md)](https://amaca.design/downloads/amaca-figma.md): in-canvas custom skill for the Figma agent — generate + audit in a verify loop; it fetches this site's llms-full.txt before acting.
 - [Amaca compiler (amaca.ai)](https://amaca.ai): compile any design system into the same AI-tool rules (Cursor, Copilot, Claude, AGENTS.md, DTCG).
 
 ## Optional
