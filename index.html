@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.1.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.2.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jul 6, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jul 14, 2026</span></div>
           </div>
         </div>
 
@@ -633,9 +633,9 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.9 re-bundles on the current spec — multi-target across HTML, React, and Figma, and teaches the stat count-up motion rule. The in-canvas Figma skill (amaca-figma) versions separately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.8 re-bundles on the current spec — multi-target across HTML, React, and Figma. The in-canvas Figma skill (amaca-figma) versions separately.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.9</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.8</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
                 <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
               </div>
@@ -963,7 +963,6 @@ Basic UI</div>
               <tr><td><code>--d-draw</code></td><td>1200</td><td class="muted">Chart draw-on, count-up, progressive data reveals</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Stat count-up is a RIGID rule: numeric stats and KPIs compose from zero to their target riding <code>--d-draw</code> · <code>--ease-decel</code> and land exactly on the final value; under reduced motion they jump straight to it.</p>
         </div>
       </section>
 
@@ -3639,7 +3638,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. The system reaches the Figma canvas: an in-canvas custom skill for the Figma agent, on the Agent Skills single-file standard. No token, value, or component contract changed.</p>
 
-                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Figma agent skill — <code>/amaca-figma</code></h4>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Figma agent skill — <code>/amaca</code></h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Two entry points</strong> — <em>generate</em> builds on canvas binding Amaca-named Variables; <em>audit</em> lints a selection on canvas evidence: bindings, token existence, the 85/10/5 budget, contrast pairs, the component registry, type and spacing scale.</li>
                     <li><strong style="color:var(--obsidian-100)">Verify loop</strong> — audit runs after every generate; repairs target only the flagged nodes, capped at two passes. A finding that survives a repair is treated as a system gap and routed to the gap protocol, not another loop.</li>
@@ -3647,14 +3646,11 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Install</strong> — in a Figma file: prompt box → Skills → Add skill → upload <code>amaca-figma.md</code> → invoke <code>/amaca-figma</code>. Ships as <code>downloads/amaca-figma.md</code> + <code>zips/amaca-figma.zip</code>.</li>
                   </ul>
 
-                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Motion rule — stat count-up (RIGID)</h4>
-                  <p style="margin:0;color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">Numeric stats and KPI values count up from zero to the target on entrance (<code>--d-draw</code> · <code>--ease-decel</code>) and land exactly on the final value; under reduced motion they jump straight to it. Already the site's counter behavior — now normative in § 08 for every deploy target, taught by the <code>amaca-frontend</code> targets (v1.1.9) and audited by <code>/amaca-figma</code> (check 10).</p>
-
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · downloads grid (§ 03.0)</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Hero swap</strong> — the Figma card takes the second hero slot; <code>AGENTS.md</code> moves to the top of the AI integrations column. Its bundle is unchanged.</li>
                     <li><strong style="color:var(--obsidian-100)">Builders card</strong> — Figma Make hands off to the dedicated Figma card; the row now reads v0 · Lovable · Base44. Same paste-in bundle (<code>amaca-appbuilder.zip</code>), contents unchanged.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 03 instructions reconciled</strong> — the install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke <code>/amaca-figma</code>) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (CURRENT v1.1.9); subsection numbering closed (03.1–03.5, was 03.2–03.6).</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 03 instructions reconciled</strong> — the install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke <code>/amaca-figma</code>) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (CURRENT v1.1.8); subsection numbering closed (03.1–03.5, was 03.2–03.6).</li>
                     <li><strong style="color:var(--obsidian-100)"><code>tokens.dtcg.json</code> → DTCG stable 2025.10</strong> — colors as colorSpace/components objects (hex kept as fallback), dimensions and durations as value+unit objects, easings as cubicBezier arrays, shadows structured, font stacks as arrays. Repairs in passing: two gradient tokens re-typed from cubicBezier to other, <code>font-mono</code> corrected to the ui-monospace stack, em letter-spacing kept as strings (dimension is px|rem only). The draft-format file remains in git history.</li>
                     <li><strong style="color:var(--obsidian-100)"><code>llms-full.txt</code> version stamp</strong> — the self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (this skill included) can echo what they loaded.</li>
                   </ul>
