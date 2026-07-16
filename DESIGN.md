@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 3.2.0
-updated: 2026-07-14
+version: 3.3.0
+updated: 2026-07-17
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-07-14
+last_synced: 2026-07-17
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -1115,7 +1115,38 @@ This file follows strict SemVer.
 
 The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
 
+**Release checklist (RIGID — every release, no exceptions):**
+
+1. Bump `version`, `updated`, `last_synced` in this file's frontmatter.
+2. Changelog entry in both places: here (`## Changelog`) and on the site (§ 23) — new entry ships open, previous entry closes.
+3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
+4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
+5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents).
+6. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
+7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
+
 ## Changelog
+
+### v3.3.0 — 2026.07.17 (MINOR)
+**Added**
+- **Motion grammar (§ 08.3–08.4 · § Motion)** — one fixed four-column schema (trigger · property+type · token pair · reduced-motion with closed vocabulary `instant`/`fade-only`/`none`) for every component that moves; prose motion specs migrated (Card, Accordion, Tabs, Lightbox, Chat, Loader, Diagrams; site § 16.4 / § 18.5 converted to the canonical columns). The **motion index** aggregates every ratified row — the system's whole choreography in one table, here and in § 08.4.
+- **Spatial vs Effects (RIGID)** — every animated property has a type, and the type gates the easing: spatial (transform, position, size, shape) may ride any curve including `--ease-spring`; effect (color, background, opacity, shadow) never overshoots. Greppable per line.
+- **Trigger-based pairing** — user-triggered states ride `--d-quick` · `--ease-standard`; system-triggered transitions ride `--d-base` · `--ease-decel`.
+- **Continuous loops (ratified class)** — loops run while mounted on per-component literal clocks, `linear`/`steps` only, each ratified by its own *loop* row in the motion index; the raw-duration grep exception is now a closed list.
+- **Release checklist (§ Versioning)** — seven RIGID steps; the § Overview page-meta stamp is named explicitly after drifting twice.
+
+**Changed**
+- **Enforcement** — grep audit, anti-patterns table and AI-agent rule #6 now catch raw `ms` durations (ratified loops excepted) and `--ease-spring` on effect properties. Propagated to every download surface (AI-INSTRUCTIONS, CLAUDE.md, AGENTS.md, Copilot/Cursor rules, `llms-full.txt`); `/amaca-figma` v1.4 (check 8 gains the Spatial/Effects RIGID); amaca-frontend bundle re-baked — HTML.md/REACT.md gain the pairing section + checks H8/R10, **FIGMA.md v1.1** maps the motion scale to Figma's native Timing and Easing variable types (Number fallback documented).
+
+**Fixed**
+- **Vercel Web Analytics** — the tracking snippet (merged 2026-05-12) was lost in a later `index.html` rewrite; re-added before `</body>`.
+- **Token drift, three survivors** — `[data-fade]` raw `600ms` → `--d-slow`; law-card raw bezier → `--ease-standard`; law-card `1100ms` clip-path → `--d-draw` (the last off-scale draw-on literal).
+- **Changelog renumbered to strict SemVer** — v2.4.1 → v2.4.0, v1.2.6 → v1.2.0, v1.1.4 → v1.1.0; the public sequence has no skipped numbers.
+- **§ Overview metadata stamp** — read 3.1.0 · Jul 6 while the system shipped 3.2.0; realigned.
+
+**Trigger**
+
+The foundations lived in § Motion but per-component rules were scattered with no uniform grammar — the exact pathology a machine-readable system can't afford. A verified comparative research pass (M3 Expressive, Figma, Carbon, Atlassian, Fluent 2, Polaris, DTCG) shaped the schema; Atlassian's intent bundles, M3's spatial/effects taxonomy and Polaris's per-token guidance landed as Amaca rules.
 
 ### v3.2.0 — 2026.07.14 (MINOR)
 

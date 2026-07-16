@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.2.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.3.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.2.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.3.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.1.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.3.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jul 6, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jul 17, 2026</span></div>
           </div>
         </div>
 
@@ -3677,9 +3677,54 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.2.0 -->
+            <!-- v3.3.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-320">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-330">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.3.0 — Motion grammar: one schema for every component</span>
+                <span class="acc-num">2026-07-17</span>
+              </button>
+              <div class="acc-panel" id="cl-330" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The motion documentation becomes homogeneous: one fixed grammar for every component that moves, two new RIGID rules, and the anti-drift net extended to catch what it couldn't see. Shaped by a comparative research pass across M3 Expressive, Figma, Carbon, Atlassian, Fluent 2, Polaris and the DTCG standard. No token value changes.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Motion grammar (§ 08.3–08.4)</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Spatial vs Effects (RIGID)</strong> — every animated property has a type, and the type gates the easing: spatial (transform, position, size, shape) may ride any curve including <code>--ease-spring</code>; effect (color, background, opacity, shadow) never overshoots. Mechanically greppable, per line.</li>
+                    <li><strong style="color:var(--obsidian-100)">Trigger-based pairing</strong> — user-triggered states ride <code>--d-quick</code> · <code>--ease-standard</code>; system-triggered transitions ride <code>--d-base</code> · <code>--ease-decel</code>. The trigger decides, not taste.</li>
+                    <li><strong style="color:var(--obsidian-100)">Per-component motion schema</strong> — one fixed four-column table (trigger · property+type · token pair · reduced-motion, closed vocabulary <code>instant</code>/<code>fade-only</code>/<code>none</code>) replaces prose specs. Card, Accordion, Tabs, Lightbox, Chat, Loader and Diagrams migrated; § 16.4 and § 18.5 converted to the canonical columns.</li>
+                    <li><strong style="color:var(--obsidian-100)">Motion index</strong> — the aggregate of every ratified per-component spec, in § 08.4 and DESIGN.md § Motion: the system's whole choreography in one table.</li>
+                    <li><strong style="color:var(--obsidian-100)">Continuous loops (ratified class)</strong> — loops run while mounted, on per-component literal clocks, <code>linear</code>/<code>steps</code> only, each ratified by its own index row (brand mark, fallback ring, label cycle, shimmer, caret). The raw-duration grep exception is now a closed list.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 08.3 Easing tokens</strong> — the four curves get their own table on the site (they lived only in DESIGN.md and the demo), each with intent annotation on the row.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · Enforcement</h4>
+                  <p style="margin:0;color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">The grep audit, the anti-patterns table and AI-agent rule #6 now catch raw <code>ms</code> durations (ratified loops excepted) and <code>--ease-spring</code> on effect properties. Propagated to every download surface: AI-INSTRUCTIONS, CLAUDE.md, AGENTS.md, Copilot/Cursor rules, <code>llms-full.txt</code>; <code>amaca-figma</code> reaches v1.4 (check 8 gains the Spatial/Effects RIGID); the <code>amaca-frontend</code> bundle re-bakes with the pairing section and new checks (H8, R10, F9–F10), and FIGMA.md v1.1 maps the motion scale to Figma's native <strong>Timing and Easing variable types</strong>.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Vercel Web Analytics</strong> — the tracking snippet (PR #9, May 12) was lost in a later <code>index.html</code> rewrite; the site shipped without it and the dashboard read zero. Re-added before <code>&lt;/body&gt;</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Token drift, three survivors</strong> — <code>[data-fade]</code> rode a raw <code>600ms</code> → <code>--d-slow</code>; the law-card bar rode a raw bezier → <code>--ease-standard</code> and a <code>1100ms</code> clip-path → <code>--d-draw</code>, closing the last off-scale draw-on literal the v2.7.0 audit had missed.</li>
+                    <li><strong style="color:var(--obsidian-100)">Changelog renumbered to strict SemVer</strong> — v2.4.1 → v2.4.0, v1.2.6 → v1.2.0, v1.1.4 → v1.1.0: the first release of each line is now X.Y.0, consolidation notes and COMPARE links updated. The public sequence has no skipped numbers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ Overview metadata stamp</strong> — read Version 3.1.0 · Jul 6 while the system shipped 3.2.0: realigned, and the release checklist in DESIGN.md § Versioning now names it explicitly so it can't drift again.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">The foundations lived in § 08 but per-component motion rules were scattered across component sections with no uniform grammar — the exact pathology a machine-readable system can't afford. A verified research pass over how the leading systems structure motion (spring schemes, composite tokens, intent annotations, kill-switch contracts) shaped the schema; the strongest patterns — Atlassian's intent bundles, M3's spatial/effects taxonomy, Polaris's per-token guidance — landed as Amaca rules.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-17</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.2.0...v3.3.0" target="_blank" rel="noopener">v3.2.0…v3.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.2.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-320">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.2.0 — Figma agent skill (/amaca-figma)</span>
                 <span class="acc-num">2026-07-14</span>

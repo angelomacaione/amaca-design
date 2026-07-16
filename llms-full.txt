@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 3.2.0 · Released: 2026-07-14 · Matches the DESIGN.md frontmatter version
+Version: 3.3.0 · Released: 2026-07-17 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
