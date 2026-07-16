@@ -10,12 +10,12 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 - **Neutral:** `--obsidian-950` (page) → `--obsidian-050` (bone); text on dark = `--obsidian-100`.
 - **Supporting (rare):** `--secondary-400` cyan (data-viz), `--tertiary-500` petrol; semantic `--success / --warning / --danger / --info` — feedback only.
 - **Type:** Satoshi; `--t-micro 10 … --t-body 15 (default) … --t-h1 76 / --t-display 112`. One H1 per page.
-- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` / `--r-lg 12`. **Motion:** 6 durations, 4 easings (`--ease-decel` = signature) — no others.
+- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` / `--r-lg 12`. **Motion:** 6 durations, 4 easings (`--ease-decel` = signature) — no others; `--ease-spring` = spatial properties only.
 
 ## The laws
 1. **85 / 10 / 5** — ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport).
 2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
-3. **Motion is feedback, not decoration**; always provide a `prefers-reduced-motion: reduce` fallback (gate JS animation too).
+3. **Motion is feedback, not decoration**; always provide a `prefers-reduced-motion: reduce` fallback (gate JS animation too). `--ease-spring` rides **spatial** properties only — transform, size, position; never color, background, opacity, or shadow.
 
 ## Components — reuse, don't reinvent
 Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); full specs in `DESIGN.md`. One `.btn-primary` per screen. A new `.classname` not in the canonical set is a gap — surface it (workaround / extend / refactor), never ship a silent variant.
