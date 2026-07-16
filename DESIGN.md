@@ -775,7 +775,7 @@ When you generate UI code, you must:
 3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
 4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
 5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
-6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship.
+6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship. When it does ship, spec it in the § Motion grammar — token pair, property type (spatial/effect), reduced-motion behavior — and remember `--ease-spring` rides spatial properties only.
 7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
 8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
 
@@ -866,6 +866,8 @@ These have all been tried in this system and rejected.
 | Placeholder-as-label | A11y floor #3 |
 | Filled "magenta accents" wider than 5% of viewport | Violates 85/10/5 law |
 | Cubic-bezier literal in component CSS | Use `var(--ease-*)`. Always. |
+| Raw duration literal (`600ms`) in component CSS | Use `var(--d-*)`. Ratified continuous loops are the only exception. |
+| `--ease-spring` on an effect property (color, background, opacity, shadow) | Spatial properties only — § Motion RIGID. |
 | `font-size: 14px` in component CSS | Use `var(--t-small)` (13px) or `var(--t-body)` (15px) — pick a side. |
 
 > **Extension sections** — beyond the eight canonical `design.md` sections. They carry Amaca's full spec where the standard has no slot; consumers that only read the canonical eight can ignore them safely.
