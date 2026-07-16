@@ -626,7 +626,7 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
 | skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
 
-The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on their own clocks — see **Loop** and **Reduced motion** below; their ratification into § Motion is pending.
+The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on their own clocks per the **Continuous loops** class in § Motion — each is ratified by its row in the motion index; see **Loop** and **Reduced motion** below.
 
 **Variants:**
 - **Standalone** — the loader root alone.
@@ -927,8 +927,13 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Diagrams | enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
 | Diagrams | enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
+| Loader | wait (loop) | brand mark GIF (spatial) | media clock (GIF/Lottie) · infinite | hidden — fallback ring shown |
+| Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
+| Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
+| Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled |
+| A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 
-Continuous loops (loader ring, label cycle, skeleton shimmer, caret blink) run on per-component clocks outside the duration scale — their ratification as a motion class is pending.
+**Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 
 **Stat count-up (RIGID · site-canonical).** Numeric stats and KPI values compose incrementally on entrance: count up from zero to the target riding `--d-draw` with `--ease-decel`, landing exactly on the final value (the amaca.design counter pattern). A static stat number where a count-up belongs is off-system. This rule binds every Amaca deploy target — the site, the `amaca-frontend` targets (HTML · React · Figma), and the `/amaca-figma` in-canvas skill. Under `prefers-reduced-motion: reduce` the counter jumps straight to the final value — no counting.
 

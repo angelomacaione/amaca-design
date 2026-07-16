@@ -1007,9 +1007,14 @@ Basic UI</div>
               <tr><td>Diagrams</td><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Diagrams</td><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Stat / KPI</td><td>enter viewport</td><td class="muted">text content count-up 0→target (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">instant — jump to final</td></tr>
+              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">brand mark GIF (spatial)</td><td class="muted">media clock (GIF/Lottie) · infinite</td><td class="muted">hidden — fallback ring shown</td></tr>
+              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">fallback ring rotate (spatial)</td><td class="muted">1400ms · linear · infinite</td><td class="muted">ratified exception — keeps spinning</td></tr>
+              <tr><td>Loader</td><td>label cycle (loop)</td><td class="muted">label opacity crossfade (effect)</td><td class="muted">2400ms cycle · 200ms crossfade</td><td class="muted">instant swap</td></tr>
+              <tr><td>Skeleton</td><td>wait (loop)</td><td class="muted">shimmer sweep (effect)</td><td class="muted">1600ms · linear · infinite</td><td class="muted">disabled</td></tr>
+              <tr><td>A11y caret (demo)</td><td>idle (loop)</td><td class="muted">caret opacity blink (effect)</td><td class="muted">1s · steps(1) · infinite</td><td class="muted">stopped by the kill-switch</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops (loader ring, label cycle, skeleton shimmer, caret blink) run on per-component clocks outside the duration scale — their ratification as a motion class is pending.</p>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops are a ratified class: they run while the component is mounted, on per-component literal clocks — the <code>--d-*</code> scale describes perceived transitions, not idle rhythm. Mechanical loops ride <code>linear</code> (or <code>steps</code>), never an easing curve; every loop is ratified by its own <em>loop</em> row above, and a loop literal without a row is drift — the raw-duration grep exception covers exactly this list, nothing else.</p>
         </div>
       </section>
 

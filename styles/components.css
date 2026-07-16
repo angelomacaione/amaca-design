@@ -1341,7 +1341,7 @@
    then legend rows and rule fade up in sequence. Triggered by .is-revealed on .law-card. */
 .law-card .law-card-bar{
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 1100ms var(--ease-standard);
+  transition: clip-path var(--d-draw) var(--ease-standard);
   will-change: clip-path;
 }
 .law-card .law-row,
