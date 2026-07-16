@@ -105,7 +105,8 @@ Color:    --obsidian-* for surfaces & text. --magenta-500 for CTAs only. 85/10/5
 Type:     Satoshi everywhere. Scale: micro 10 / small 13 / body 15 / lead 18 / h6-h1.
 Spacing:  4px grid. Tokens: --s-1 (4) … --s-32 (128). No raw px.
 Radius:   --r-md (8) for inputs/buttons, --r-lg (12) for cards. Range 8–12.
-Motion:   --d-quick (200) + --ease-standard for UI. --d-base + --ease-decel for reveals.
+Motion:   --d-quick (200) + --ease-standard for user-triggered UI. --d-base + --ease-decel for reveals.
+                  Spring/overshoot on spatial props (transform/size) only — never color/opacity.
                   Always: @media (prefers-reduced-motion: reduce){ transitions: none }
 Focus:    Dual-ring on pressables (outline + magenta halo). Glow on inputs.
 Voice:    Spec register in code/docs. Editorial in marketing. No AI tells.
@@ -851,12 +852,33 @@ These have all been tried in this system and rejected.
 
 | Easing | Curve | Use |
 |---|---|---|
-| `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default UI ease-out (Framer ease) |
+| `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default for user-triggered states — hover, press, focus (Framer ease) |
 | `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
-| `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals (the system signature) |
-| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot |
+| `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Default for system-triggered transitions — entrances, reveals (the system signature) |
+| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot — spatial properties only, see below |
 
-**Default pairing:** `transition: <prop> var(--d-quick) var(--ease-standard)` for UI states. Switch to `--d-base var(--ease-decel)` for content reveals.
+**Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`.
+
+**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
+
+**Component motion grammar.** Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs, no extra columns:
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+
+Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `--ease-*`, plus an optional delay) — never raw values. The *Property* column declares the type (`spatial` / `effect`) next to each property, so the Spatial-vs-Effects rule is checkable on the row itself. The *Reduced motion* column uses a closed vocabulary: `instant` (state applies with no transition) · `fade-only` (opacity-only ride on `--d-quick`) · `none` (nothing animates in the first place). The global kill-switch below remains the contract; the column records only how this component lands when it fires.
+
+**Motion index (site-canonical).** The aggregate of every ratified per-component motion spec. Seeded with the site's canonical patterns; every new component ships its rows here in the same release:
+
+| Component | Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|---|
+| Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
+| Accordion | open / close | panel grid-rows (spatial) · chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
+| Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
+| Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
 
 **Stat count-up (RIGID · site-canonical).** Numeric stats and KPI values compose incrementally on entrance: count up from zero to the target riding `--d-draw` with `--ease-decel`, landing exactly on the final value (the amaca.design counter pattern). A static stat number where a count-up belongs is off-system. This rule binds every Amaca deploy target — the site, the `amaca-frontend` targets (HTML · React · Figma), and the `/amaca-figma` in-canvas skill. Under `prefers-reduced-motion: reduce` the counter jumps straight to the final value — no counting.
 
