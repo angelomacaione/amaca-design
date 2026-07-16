@@ -316,7 +316,11 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
-- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`. Transition: `var(--d-quick) var(--ease-standard)`.
+- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 
 ### Badge
 
@@ -338,9 +342,14 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 ### Accordion
 
 - Single-open by default.
-- Chevron rotates 90° on expand (`transform var(--d-base) var(--ease-decel)`).
+- Chevron rotates 90° on expand.
 - Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
-- `prefers-reduced-motion`: instant swap, no chevron rotate.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| open / close | panel grid-rows (spatial) · chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
 ### Tabs
 
@@ -371,22 +380,29 @@ function moveIndicator(tab){
   indicator.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
 }
 ```
-Duration `var(--d-base)` with `var(--ease-decel)` on both `transform` and `width`. Use `will-change: transform, width`.
+Use `will-change: transform, width` on the indicator.
 
 **Initial position:** double `requestAnimationFrame` so layout is measured after first paint. Re-measure on `window.resize`, and also when the parent section becomes visible (the tablist may live inside a hidden `.section` on first paint and `getBoundingClientRect` returns zeros). An `IntersectionObserver` at threshold 0.01 covers that case.
 
-**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`. Duration `var(--d-quick)` with `var(--ease-standard)`.
+**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
+| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 
 **Rules:**
 - Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
-- `prefers-reduced-motion: reduce` — `.tab-indicator` transition becomes `none`; panels swap instantly.
 - Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
 
 ### Lightbox
 
 - Backdrop: `rgba(0,0,0,0.85)`.
 - Close button: top-right, `Esc` closes.
-- Transition: opacity `var(--d-quick) var(--ease-standard)`. No scale-in.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| open / close | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-standard` | instant |
 
 ### Time input
 
@@ -537,17 +553,22 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - The brighter `--magenta-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
 - A previous "hot last" rule (paint only the latest own bubble magenta-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
 
-**Two-stage entry choreography:**
-1. Container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`): `scale(0.92 → 1)` on `--ease-spring` for the transform + opacity on `--ease-standard`, both `--d-base`, 0ms delay. Subtle overshoot.
-2. Inner content (`.chat-bubble-content`): `opacity 0 → 1` and `translateY(3px → 0)` on `--ease-standard`, `--d-quick`, 80ms delay.
-3. The wrapper toggles `.is-in` on next frame to start both stages.
-4. Exit (roll-off after N exchanges): `.is-out` adds `opacity: 0`, `translateY(-8px)`, `max-height: 0`, `margin-top: -var(--s-3)` on `--ease-accel`. `--d-quick` for opacity/transform; `--d-base` for the collapse.
+**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
+| message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
+| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
+| roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
+| send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 
 **Typing indicator:**
 - Lives **inside a bot bubble** (`.chat-bubble.chat-bubble-typing`), never floats as a gutter caption. For a single-bot UI the avatar already says who's typing.
 - Three `.chat-dot` spans inside `.chat-typing`. Each: `width 6px; height 6px; background --obsidian-300`.
-- Animation: `chat-dot-wave` on `--d-slow` with `--ease-standard`, infinite. Keyframes: `translateY(0 → -4px → 0)` and `opacity 0.35 → 1 → 0.35`.
-- Stagger via `animation-delay` on `:nth-child(2)` (160ms) and `:nth-child(3)` (320ms).
+- Animation: `chat-dot-wave`, infinite — spec in the motion table above. Stagger via `animation-delay` on `:nth-child(2)` and `:nth-child(3)`.
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
 
 **Composer:**
@@ -569,8 +590,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 **Rules:**
 - One avatar per streak. The rest of the streak uses `.chat-avatar-spacer` for column alignment, never repeats the avatar.
 - Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
-- After ~3 exchanges, roll older messages off the top so the surface never overcrowds.
-- Under `prefers-reduced-motion: reduce`: container transitions and dot wave both stop at rest; `.chat-msg.is-out` still hides instantly so the surface still rolls off.
+- After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion `.is-out` still hides (instantly), per the motion table.
 
 ### Loader
 
@@ -598,7 +618,15 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 - `.loader` — root. `display: inline-flex`, vertical-align: middle. Size mod (`.loader-xs` / `-sm` / `-md` / `-lg`) sets both width and height.
 - `.loader-anim` — the moving brand mark. Width/height 100%, `object-fit: contain` so the source ratio is preserved at any size.
 - `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--magenta-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
-- `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent. Scale-in on `--ease-spring` over `--d-base`; the `.loader-anim` fades to 0 + scales to 0.7 in lockstep.
+- `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
+| success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
+| skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
+
+The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on their own clocks — see **Loop** and **Reduced motion** below; their ratification into § Motion is pending.
 
 **Variants:**
 - **Standalone** — the loader root alone.
@@ -693,7 +721,12 @@ flowchart TD
 - One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.3). The entrance runs once, never loops (§ 6 #6).
 
 **Motion (reuse § 7.3):**
-- `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). Nodes cascade in first (stagger ~70ms), then edges + clusters. Opacity only — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`. `prefers-reduced-motion: reduce` renders straight to the resolved state.
+- `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). **Opacity only** — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
+| enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
 
 **Responsive:**
 - `.diagram-canvas` is `width:100%`; the rendered `<svg>` is `max-width:100%; height:auto` — it scales to fit. Below ~720px the canvas switches to `overflow-x:auto` with an intrinsic `min-width`, so wide architecture maps scroll instead of shrinking illegibly. Caption and legend wrap.
@@ -878,7 +911,22 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Lightbox | open / close | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-standard` | instant |
+| Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
+| Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
+| Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
+| Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
+| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
+| Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Loader | success | check scale-in (spatial) · anim fade + scale 0.7 (spatial/effect) | `--d-base` · `--ease-spring` | instant |
+| Loader | skeleton handoff | loader → skeleton swap | after a `--d-scene` wait | instant swap, shimmer disabled |
+| Diagrams | enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
+| Diagrams | enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
+
+Continuous loops (loader ring, label cycle, skeleton shimmer, caret blink) run on per-component clocks outside the duration scale — their ratification as a motion class is pending.
 
 **Stat count-up (RIGID · site-canonical).** Numeric stats and KPI values compose incrementally on entrance: count up from zero to the target riding `--d-draw` with `--ease-decel`, landing exactly on the final value (the amaca.design counter pattern). A static stat number where a count-up belongs is off-system. This rule binds every Amaca deploy target — the site, the `amaca-frontend` targets (HTML · React · Figma), and the `/amaca-figma` in-canvas skill. Under `prefers-reduced-motion: reduce` the counter jumps straight to the final value — no counting.
 

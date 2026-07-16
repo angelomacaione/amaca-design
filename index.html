@@ -993,10 +993,23 @@ Basic UI</div>
               <tr><td>Accordion</td><td>hover / open state</td><td class="muted">trigger + chevron color (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Tabs</td><td>select</td><td class="muted">indicator transform + width (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Tabs</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 6px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Lightbox</td><td>open / close</td><td class="muted">backdrop + content opacity (effect) — no scale-in</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · container</td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · content</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>roll-off <code>.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>Chat</td><td>roll-off <code>.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">instant — rest state</td></tr>
+              <tr><td>Chat</td><td>send idle → ready</td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Loader</td><td>success</td><td class="muted">check scale-in (spatial) · anim fade + scale 0.7 (spatial/effect)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>Loader</td><td>skeleton handoff</td><td class="muted">loader → skeleton swap</td><td class="muted">after a <code>--d-scene</code> wait</td><td class="muted">instant swap, shimmer disabled</td></tr>
+              <tr><td>Diagrams</td><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>Diagrams</td><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Stat / KPI</td><td>enter viewport</td><td class="muted">text content count-up 0→target (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">instant — jump to final</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release.</p>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops (loader ring, label cycle, skeleton shimmer, caret blink) run on per-component clocks outside the duration scale — their ratification as a motion class is pending.</p>
         </div>
       </section>
 
@@ -1953,17 +1966,17 @@ Basic UI</div>
         <!-- § 16.4 Motion spec -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 16.4</span></div>
-          <p class="subsection-desc">Every transition resolves to a token. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot, then the inner content fades up 80ms behind on the standard ease. The wave on the typing dots loops on <code>--d-slow</code>. Under <code>prefers-reduced-motion: reduce</code> everything in this section degrades to instant.</p>
+          <p class="subsection-desc">Every transition resolves to a token, in the canonical § 08.4 grammar. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot (spatial only — the opacity rides <code>--ease-standard</code>), then the inner content fades up 80ms behind.</p>
           <table class="table">
-            <thead><tr><th style="width:30%">Element</th><th style="width:25%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
-              <tr><td><code>.chat-bubble</code> · container</td><td>transform (scale 0.92 → 1, spring overshoot)</td><td class="muted"><code>--d-base</code> · <code>--ease-spring</code> · 0ms</td></tr>
-              <tr><td><code>.chat-bubble</code> · container</td><td>opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-standard</code> · 0ms</td></tr>
-              <tr><td><code>.chat-bubble-content</code> · inner</td><td>opacity, translateY 3px → 0</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 80ms delay</td></tr>
-              <tr><td><code>.chat-msg.is-out</code> · roll-off</td><td>opacity, translateY -8px, max-height 0</td><td class="muted"><code>--d-quick</code> opacity/transform; <code>--d-base</code> collapse · <code>--ease-accel</code></td></tr>
-              <tr><td><code>.chat-dot</code> · wave (loop)</td><td>translateY -4px, opacity 0.35 → 1</td><td class="muted"><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 160 / 320ms</td></tr>
-              <tr><td><code>.chat-composer-send</code> · idle → ready</td><td>background, color</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 0ms</td></tr>
-              <tr><td>Reduced motion</td><td class="muted">All chat transitions disabled; <code>.chat-dot</code> animation stopped at rest; <code>.chat-msg.is-out</code> still hides (instant) so the surface never overcrowds.</td></tr>
+              <tr><td>message enter · container <code>.chat-bubble</code></td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">instant — rest state</td></tr>
+              <tr><td>send idle → ready <code>.chat-composer-send</code></td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
             </tbody>
           </table>
         </div>
@@ -2476,14 +2489,12 @@ flowchart TD
         <!-- § 18.5 Motion spec -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 18.5</span></div>
-          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new. An <code>IntersectionObserver</code> fires once; nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
+          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 08.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
           <table class="table">
-            <thead><tr><th style="width:30%">Stage</th><th style="width:30%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
-              <tr><td>Observer</td><td class="muted">threshold 0.15</td><td class="muted">rootMargin <code>0px 0px -8% 0px</code> · unobserve after fire</td></tr>
-              <tr><td>Nodes</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td></tr>
-              <tr><td>Edges · clusters</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td></tr>
-              <tr><td>Reduced motion</td><td class="muted">render to rest</td><td class="muted">no hidden state is ever set — straight to resolved</td></tr>
+              <tr><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
             </tbody>
           </table>
         </div>
