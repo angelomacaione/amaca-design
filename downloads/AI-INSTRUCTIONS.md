@@ -18,7 +18,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Radius:** `--r-sm 4` · **`--r-md 8` default** · `--r-lg 12` cards · `--r-xl 16` modal · `--r-full 999px`. Working range 8–12.
 
-**Motion (6 durations, 4 easings):** `--d-instant 100 / -quick 200 / -base 350 / -slow 600 / -scene 900 / -draw 1200`. `--ease-standard cubic-bezier(0.22,1,0.36,1)` UI · `--ease-accel (0.7,0,0.84,0)` exits · `--ease-decel (0.16,1,0.3,1)` entrances (signature) · `--ease-spring (0.34,1.56,0.64,1)`. Always add a `@media (prefers-reduced-motion: reduce)` fallback.
+**Motion (6 durations, 4 easings):** `--d-instant 100 / -quick 200 / -base 350 / -slow 600 / -scene 900 / -draw 1200`. `--ease-standard cubic-bezier(0.22,1,0.36,1)` UI · `--ease-accel (0.7,0,0.84,0)` exits · `--ease-decel (0.16,1,0.3,1)` entrances (signature) · `--ease-spring (0.34,1.56,0.64,1)` — **spatial properties only** (transform/size), never color/opacity/shadow. User-triggered states ride `--d-quick`+`--ease-standard`; system-triggered reveals `--d-base`+`--ease-decel`. Always add a `@media (prefers-reduced-motion: reduce)` fallback.
 
 ## Laws
 - **85 / 10 / 5:** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
