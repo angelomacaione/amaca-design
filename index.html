@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.2.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.3.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.2.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.3.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.2.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.3.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jul 14, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Jul 17, 2026</span></div>
           </div>
         </div>
 
@@ -580,7 +580,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <div class="info-strip" style="margin-top:var(--s-5);align-items:flex-start">
             <span class="tag" style="white-space:nowrap;padding-top:2px">30-SEC SCAN</span>
-            <span>After any generation, grep the code for hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px values (<code>16px</code> instead of <code>var(--s-4)</code>), new <code>.classname</code> introductions outside the canonical § 3 registry, and missing <code>@media (prefers-reduced-motion: reduce)</code> overrides. Catches most drift regardless of model tier.</span>
+            <span>After any generation, grep the code for hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px values (<code>16px</code> instead of <code>var(--s-4)</code>), raw duration literals (<code>600ms</code> instead of <code>var(--d-*)</code> — ratified continuous loops are the only exception), <code>--ease-spring</code> on effect properties (color, background, opacity, shadow — § 08.3 RIGID), new <code>.classname</code> introductions outside the canonical § 3 registry, and missing <code>@media (prefers-reduced-motion: reduce)</code> overrides. Catches most drift regardless of model tier.</span>
           </div>
 
           <div class="info-strip" style="margin-top:var(--s-4);align-items:flex-start">
@@ -629,13 +629,13 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-3" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SPEC</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release — the version in the site header is the version of the spec this page ships. Strict SemVer from v1.2.6 onward — minor bumps for additions, major for breaking renames.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Pinned to the system release — the version in the site header is the version of the spec this page ships. Strict SemVer from v1.2.0 onward — minor bumps for additions, major for breaking renames.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.8 re-bundles on the current spec — multi-target across HTML, React, and Figma. The in-canvas Figma skill (amaca-figma) versions separately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.9 re-bundles on the current spec — multi-target across HTML, React, and Figma, and teaches the stat count-up motion rule. The in-canvas Figma skill (amaca-figma) versions separately.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.8</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.9</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
                 <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
               </div>
@@ -963,6 +963,58 @@ Basic UI</div>
               <tr><td><code>--d-draw</code></td><td>1200</td><td class="muted">Chart draw-on, count-up, progressive data reveals</td></tr>
             </tbody>
           </table>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Stat count-up is a RIGID rule: numeric stats and KPIs compose from zero to their target riding <code>--d-draw</code> · <code>--ease-decel</code> and land exactly on the final value; under reduced motion they jump straight to it.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Easing tokens &amp; pairing</h2><span class="subsection-num">§ 08.3</span></div>
+          <table class="table">
+            <thead><tr><th>Token</th><th>Curve</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code></td><td class="muted">Default for user-triggered states — hover, press, focus</td></tr>
+              <tr><td><code>--ease-accel</code></td><td><code>cubic-bezier(0.7, 0, 0.84, 0)</code></td><td class="muted">Exits, dismissals</td></tr>
+              <tr><td><code>--ease-decel</code></td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td><td class="muted">Default for system-triggered transitions — entrances, reveals. The system signature</td></tr>
+              <tr><td><code>--ease-spring</code></td><td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td class="muted">Pop-in, delight, overshoot — spatial properties only</td></tr>
+            </tbody>
+          </table>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">The trigger decides the pairing: user-triggered states ride <code>--d-quick</code> · <code>--ease-standard</code>; system-triggered transitions — content entering, leaving, or moving without a direct pointer cause — ride <code>--d-base</code> · <code>--ease-decel</code>.</p>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Spatial vs Effects is a RIGID rule: every animated property has a type, and the type gates the easing. Spatial properties — transform, position, size, shape — may use any easing, including <code>--ease-spring</code>. Effect properties — color, background, opacity, shadow — use no-overshoot curves only; <code>--ease-spring</code> on an effect property is off-system, and greppable per line.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Motion per component</h2><span class="subsection-num">§ 08.4</span></div>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-bottom:var(--s-4)">Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs. The Motion column accepts token pairs only; the Property column declares the type (spatial / effect) so the rule above is checkable on the row itself; the Reduced motion column uses a closed vocabulary — <code>instant</code> · <code>fade-only</code> · <code>none</code> — recording only how the component lands when the global kill-switch (§ 21.3) fires.</p>
+          <table class="table">
+            <thead><tr><th>Component</th><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
+            <tbody>
+              <tr><td>Entrance reveal <code>[data-fade]</code></td><td>enter viewport</td><td class="muted">opacity (effect) · translateY 12px→0 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Accordion</td><td>open / close</td><td class="muted">panel grid-rows (spatial) · chevron rotate 90° (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Accordion</td><td>open</td><td class="muted">panel body opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>Accordion</td><td>hover / open state</td><td class="muted">trigger + chevron color (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Tabs</td><td>select</td><td class="muted">indicator transform + width (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Tabs</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 6px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Lightbox</td><td>open / close</td><td class="muted">backdrop + content opacity (effect) — no scale-in</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · container</td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · content</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>roll-off <code>.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>Chat</td><td>roll-off <code>.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">instant — rest state</td></tr>
+              <tr><td>Chat</td><td>send idle → ready</td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Loader</td><td>success</td><td class="muted">check scale-in (spatial) · anim fade + scale 0.7 (spatial/effect)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>Loader</td><td>skeleton handoff</td><td class="muted">loader → skeleton swap</td><td class="muted">after a <code>--d-scene</code> wait</td><td class="muted">instant swap, shimmer disabled</td></tr>
+              <tr><td>Diagrams</td><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>Diagrams</td><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>Stat / KPI</td><td>enter viewport</td><td class="muted">text content count-up 0→target (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">instant — jump to final</td></tr>
+              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">brand mark GIF (spatial)</td><td class="muted">media clock (GIF/Lottie) · infinite</td><td class="muted">hidden — fallback ring shown</td></tr>
+              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">fallback ring rotate (spatial)</td><td class="muted">1400ms · linear · infinite</td><td class="muted">ratified exception — keeps spinning</td></tr>
+              <tr><td>Loader</td><td>label cycle (loop)</td><td class="muted">label opacity crossfade (effect)</td><td class="muted">2400ms cycle · 200ms crossfade</td><td class="muted">instant swap</td></tr>
+              <tr><td>Skeleton</td><td>wait (loop)</td><td class="muted">shimmer sweep (effect)</td><td class="muted">1600ms · linear · infinite</td><td class="muted">disabled</td></tr>
+              <tr><td>A11y caret (demo)</td><td>idle (loop)</td><td class="muted">caret opacity blink (effect)</td><td class="muted">1s · steps(1) · infinite</td><td class="muted">stopped by the kill-switch</td></tr>
+            </tbody>
+          </table>
+          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops are a ratified class: they run while the component is mounted, on per-component literal clocks — the <code>--d-*</code> scale describes perceived transitions, not idle rhythm. Mechanical loops ride <code>linear</code> (or <code>steps</code>), never an easing curve; every loop is ratified by its own <em>loop</em> row above, and a loop literal without a row is drift — the raw-duration grep exception covers exactly this list, nothing else.</p>
         </div>
       </section>
 
@@ -1919,17 +1971,17 @@ Basic UI</div>
         <!-- § 16.4 Motion spec -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 16.4</span></div>
-          <p class="subsection-desc">Every transition resolves to a token. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot, then the inner content fades up 80ms behind on the standard ease. The wave on the typing dots loops on <code>--d-slow</code>. Under <code>prefers-reduced-motion: reduce</code> everything in this section degrades to instant.</p>
+          <p class="subsection-desc">Every transition resolves to a token, in the canonical § 08.4 grammar. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot (spatial only — the opacity rides <code>--ease-standard</code>), then the inner content fades up 80ms behind.</p>
           <table class="table">
-            <thead><tr><th style="width:30%">Element</th><th style="width:25%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
-              <tr><td><code>.chat-bubble</code> · container</td><td>transform (scale 0.92 → 1, spring overshoot)</td><td class="muted"><code>--d-base</code> · <code>--ease-spring</code> · 0ms</td></tr>
-              <tr><td><code>.chat-bubble</code> · container</td><td>opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-standard</code> · 0ms</td></tr>
-              <tr><td><code>.chat-bubble-content</code> · inner</td><td>opacity, translateY 3px → 0</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 80ms delay</td></tr>
-              <tr><td><code>.chat-msg.is-out</code> · roll-off</td><td>opacity, translateY -8px, max-height 0</td><td class="muted"><code>--d-quick</code> opacity/transform; <code>--d-base</code> collapse · <code>--ease-accel</code></td></tr>
-              <tr><td><code>.chat-dot</code> · wave (loop)</td><td>translateY -4px, opacity 0.35 → 1</td><td class="muted"><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 160 / 320ms</td></tr>
-              <tr><td><code>.chat-composer-send</code> · idle → ready</td><td>background, color</td><td class="muted"><code>--d-quick</code> · <code>--ease-standard</code> · 0ms</td></tr>
-              <tr><td>Reduced motion</td><td class="muted">All chat transitions disabled; <code>.chat-dot</code> animation stopped at rest; <code>.chat-msg.is-out</code> still hides (instant) so the surface never overcrowds.</td></tr>
+              <tr><td>message enter · container <code>.chat-bubble</code></td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
+              <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">instant — rest state</td></tr>
+              <tr><td>send idle → ready <code>.chat-composer-send</code></td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
             </tbody>
           </table>
         </div>
@@ -2442,14 +2494,12 @@ flowchart TD
         <!-- § 18.5 Motion spec -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 18.5</span></div>
-          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new. An <code>IntersectionObserver</code> fires once; nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
+          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 08.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
           <table class="table">
-            <thead><tr><th style="width:30%">Stage</th><th style="width:30%">Property</th><th>Duration · easing · delay</th></tr></thead>
+            <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
-              <tr><td>Observer</td><td class="muted">threshold 0.15</td><td class="muted">rootMargin <code>0px 0px -8% 0px</code> · unobserve after fire</td></tr>
-              <tr><td>Nodes</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td></tr>
-              <tr><td>Edges · clusters</td><td class="muted">opacity 0 → 1</td><td class="muted"><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td></tr>
-              <tr><td>Reduced motion</td><td class="muted">render to rest</td><td class="muted">no hidden state is ever set — straight to resolved</td></tr>
+              <tr><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
             </tbody>
           </table>
         </div>
@@ -3619,7 +3669,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         <div class="page-header">
           <div class="page-eyebrow">§ 24 · Meta / Changelog</div>
           <h1 class="page-title">Version history, <span class="accent">in public.</span></h1>
-          <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.6 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
+          <p class="page-lede">What changed, when, and why — read top to bottom. From v1.2.0 onward, the system follows strict SemVer: MAJOR for breaking changes, MINOR for additions, PATCH for fixes.</p>
         </div>
 
         <div class="subsection">
@@ -3627,9 +3677,54 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.2.0 -->
+            <!-- v3.3.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-320">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-330">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.3.0 — Motion grammar: one schema for every component</span>
+                <span class="acc-num">2026-07-17</span>
+              </button>
+              <div class="acc-panel" id="cl-330" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The motion documentation becomes homogeneous: one fixed grammar for every component that moves, two new RIGID rules, and the anti-drift net extended to catch what it couldn't see. Shaped by a comparative research pass across M3 Expressive, Figma, Carbon, Atlassian, Fluent 2, Polaris and the DTCG standard. No token value changes.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Motion grammar (§ 08.3–08.4)</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Spatial vs Effects (RIGID)</strong> — every animated property has a type, and the type gates the easing: spatial (transform, position, size, shape) may ride any curve including <code>--ease-spring</code>; effect (color, background, opacity, shadow) never overshoots. Mechanically greppable, per line.</li>
+                    <li><strong style="color:var(--obsidian-100)">Trigger-based pairing</strong> — user-triggered states ride <code>--d-quick</code> · <code>--ease-standard</code>; system-triggered transitions ride <code>--d-base</code> · <code>--ease-decel</code>. The trigger decides, not taste.</li>
+                    <li><strong style="color:var(--obsidian-100)">Per-component motion schema</strong> — one fixed four-column table (trigger · property+type · token pair · reduced-motion, closed vocabulary <code>instant</code>/<code>fade-only</code>/<code>none</code>) replaces prose specs. Card, Accordion, Tabs, Lightbox, Chat, Loader and Diagrams migrated; § 16.4 and § 18.5 converted to the canonical columns.</li>
+                    <li><strong style="color:var(--obsidian-100)">Motion index</strong> — the aggregate of every ratified per-component spec, in § 08.4 and DESIGN.md § Motion: the system's whole choreography in one table.</li>
+                    <li><strong style="color:var(--obsidian-100)">Continuous loops (ratified class)</strong> — loops run while mounted, on per-component literal clocks, <code>linear</code>/<code>steps</code> only, each ratified by its own index row (brand mark, fallback ring, label cycle, shimmer, caret). The raw-duration grep exception is now a closed list.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 08.3 Easing tokens</strong> — the four curves get their own table on the site (they lived only in DESIGN.md and the demo), each with intent annotation on the row.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · Enforcement</h4>
+                  <p style="margin:0;color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">The grep audit, the anti-patterns table and AI-agent rule #6 now catch raw <code>ms</code> durations (ratified loops excepted) and <code>--ease-spring</code> on effect properties. Propagated to every download surface: AI-INSTRUCTIONS, CLAUDE.md, AGENTS.md, Copilot/Cursor rules, <code>llms-full.txt</code>; <code>amaca-figma</code> reaches v1.4 (check 8 gains the Spatial/Effects RIGID); the <code>amaca-frontend</code> bundle re-bakes with the pairing section and new checks (H8, R10, F9–F10), and FIGMA.md v1.1 maps the motion scale to Figma's native <strong>Timing and Easing variable types</strong>.</p>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4>
+                  <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
+                    <li><strong style="color:var(--obsidian-100)">Vercel Web Analytics</strong> — the tracking snippet (PR #9, May 12) was lost in a later <code>index.html</code> rewrite; the site shipped without it and the dashboard read zero. Re-added before <code>&lt;/body&gt;</code>.</li>
+                    <li><strong style="color:var(--obsidian-100)">Token drift, three survivors</strong> — <code>[data-fade]</code> rode a raw <code>600ms</code> → <code>--d-slow</code>; the law-card bar rode a raw bezier → <code>--ease-standard</code> and a <code>1100ms</code> clip-path → <code>--d-draw</code>, closing the last off-scale draw-on literal the v2.7.0 audit had missed.</li>
+                    <li><strong style="color:var(--obsidian-100)">Changelog renumbered to strict SemVer</strong> — v2.4.1 → v2.4.0, v1.2.6 → v1.2.0, v1.1.4 → v1.1.0: the first release of each line is now X.Y.0, consolidation notes and COMPARE links updated. The public sequence has no skipped numbers.</li>
+                    <li><strong style="color:var(--obsidian-100)">§ Overview metadata stamp</strong> — read Version 3.1.0 · Jul 6 while the system shipped 3.2.0: realigned, and the release checklist in DESIGN.md § Versioning now names it explicitly so it can't drift again.</li>
+                  </ul>
+
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">The foundations lived in § 08 but per-component motion rules were scattered across component sections with no uniform grammar — the exact pathology a machine-readable system can't afford. A verified research pass over how the leading systems structure motion (spring schemes, composite tokens, intent annotations, kill-switch contracts) shaped the schema; the strongest patterns — Atlassian's intent bundles, M3's spatial/effects taxonomy, Polaris's per-token guidance — landed as Amaca rules.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-17</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.2.0...v3.3.0" target="_blank" rel="noopener">v3.2.0…v3.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.2.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-320">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.2.0 — Figma agent skill (/amaca-figma)</span>
                 <span class="acc-num">2026-07-14</span>
@@ -3638,7 +3733,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. The system reaches the Figma canvas: an in-canvas custom skill for the Figma agent, on the Agent Skills single-file standard. No token, value, or component contract changed.</p>
 
-                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Figma agent skill — <code>/amaca</code></h4>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Figma agent skill — <code>/amaca-figma</code></h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Two entry points</strong> — <em>generate</em> builds on canvas binding Amaca-named Variables; <em>audit</em> lints a selection on canvas evidence: bindings, token existence, the 85/10/5 budget, contrast pairs, the component registry, type and spacing scale.</li>
                     <li><strong style="color:var(--obsidian-100)">Verify loop</strong> — audit runs after every generate; repairs target only the flagged nodes, capped at two passes. A finding that survives a repair is treated as a system gap and routed to the gap protocol, not another loop.</li>
@@ -3646,11 +3741,14 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Install</strong> — in a Figma file: prompt box → Skills → Add skill → upload <code>amaca-figma.md</code> → invoke <code>/amaca-figma</code>. Ships as <code>downloads/amaca-figma.md</code> + <code>zips/amaca-figma.zip</code>.</li>
                   </ul>
 
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">New · Motion rule — stat count-up (RIGID)</h4>
+                  <p style="margin:0;color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">Numeric stats and KPI values count up from zero to the target on entrance (<code>--d-draw</code> · <code>--ease-decel</code>) and land exactly on the final value; under reduced motion they jump straight to it. Already the site's counter behavior — now normative in § 08 for every deploy target, taught by the <code>amaca-frontend</code> targets (v1.1.9) and audited by <code>/amaca-figma</code> (check 10).</p>
+
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed · downloads grid (§ 03.0)</h4>
                   <ul style="margin:0;padding-left:var(--s-5);color:var(--obsidian-300);line-height:var(--lh-loose);font-size:var(--t-body)">
                     <li><strong style="color:var(--obsidian-100)">Hero swap</strong> — the Figma card takes the second hero slot; <code>AGENTS.md</code> moves to the top of the AI integrations column. Its bundle is unchanged.</li>
                     <li><strong style="color:var(--obsidian-100)">Builders card</strong> — Figma Make hands off to the dedicated Figma card; the row now reads v0 · Lovable · Base44. Same paste-in bundle (<code>amaca-appbuilder.zip</code>), contents unchanged.</li>
-                    <li><strong style="color:var(--obsidian-100)">§ 03 instructions reconciled</strong> — the install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke <code>/amaca-figma</code>) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (CURRENT v1.1.8); subsection numbering closed (03.1–03.5, was 03.2–03.6).</li>
+                    <li><strong style="color:var(--obsidian-100)">§ 03 instructions reconciled</strong> — the install rows now mirror the hero cards: the Figma row teaches the in-canvas skill (install like Claude, invoke <code>/amaca-figma</code>) and a Google Stitch row is added; the IDE row reflects the v3.1.0 core + per-target layout; the spec-contents table speaks the design.md grammar; versioning cards refreshed (CURRENT v1.1.9); subsection numbering closed (03.1–03.5, was 03.2–03.6).</li>
                     <li><strong style="color:var(--obsidian-100)"><code>tokens.dtcg.json</code> → DTCG stable 2025.10</strong> — colors as colorSpace/components objects (hex kept as fallback), dimensions and durations as value+unit objects, easings as cubicBezier arrays, shadows structured, font stacks as arrays. Repairs in passing: two gradient tokens re-typed from cubicBezier to other, <code>font-mono</code> corrected to the ui-monospace stack, em letter-spacing kept as strings (dimension is px|rem only). The draft-format file remains in git history.</li>
                     <li><strong style="color:var(--obsidian-100)"><code>llms-full.txt</code> version stamp</strong> — the self-contained context file now declares the spec version and release date it was baked from, so fetch-first consumers (this skill included) can echo what they loaded.</li>
                   </ul>
@@ -3995,17 +4093,17 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
                     <span><span style="color:var(--obsidian-400)">SKILL · </span><a href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/amaca-frontend.skill" target="_blank" rel="noopener" download>amaca-frontend.skill</a></span>
-                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.4.1...v2.5.0" target="_blank" rel="noopener">v2.4.1…v2.5.0</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.4.0...v2.5.0" target="_blank" rel="noopener">v2.4.0…v2.5.0</a></span>
                   </div>
                 </div></div>
               </div>
             </div>
 
-            <!-- v2.4.1 -->
+            <!-- v2.4.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-241">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="acc-label">v2.4.1 — Documentation refresh: skill bundle, capability tiers, Tailwind roadmap</span>
+                <span class="acc-label">v2.4.0 — Documentation refresh: skill bundle, capability tiers, Tailwind roadmap</span>
                 <span class="acc-num">2026-05-25</span>
               </button>
               <div class="acc-panel" id="cl-241" role="region">
@@ -4034,14 +4132,14 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   </ul>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
-                  <p style="margin:0">Operating the system across multiple AI runtimes — Cowork, Cursor, ChatGPT, Gemini — surfaced a single point of friction: the docs assumed one delivery mode (paste the spec) when in practice two exist, with very different enforcement guarantees. v2.4.1 closes that gap and pre-loads the v2.5.0+ Tailwind roadmap so the next minor release lands against a documented surface, not a blank one.</p>
+                  <p style="margin:0">Operating the system across multiple AI runtimes — Cowork, Cursor, ChatGPT, Gemini — surfaced a single point of friction: the docs assumed one delivery mode (paste the spec) when in practice two exist, with very different enforcement guarantees. v2.4.0 closes that gap and pre-loads the v2.5.0+ Tailwind roadmap so the next minor release lands against a documented surface, not a blank one.</p>
 
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-25</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
                     <span><span style="color:var(--obsidian-400)">SKILL · </span><a href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/amaca-frontend.skill" target="_blank" rel="noopener" download>amaca-frontend.skill</a></span>
-                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.3.0...v2.4.1" target="_blank" rel="noopener">v2.3.0…v2.4.1</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.3.0...v2.4.0" target="_blank" rel="noopener">v2.3.0…v2.4.0</a></span>
                   </div>
                 </div></div>
               </div>
@@ -4273,23 +4371,23 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   </table>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
-                  <p style="margin:0">v2.0.0 follows v1.2.6 directly. Internal iterations between (drafts at v1.2.7 and beyond) have been consolidated into this release. From v2.0.0, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> with no skipped numbers in public releases.</p>
+                  <p style="margin:0">v2.0.0 follows v1.2.0 directly. Internal iterations between (drafts at v1.2.1 and beyond) have been consolidated into this release. From v2.0.0, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> with no skipped numbers in public releases.</p>
 
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-07</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
-                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.2.6...v2.0.0" target="_blank" rel="noopener">v1.2.6…v2.0.0</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.2.0...v2.0.0" target="_blank" rel="noopener">v1.2.0…v2.0.0</a></span>
                   </div>
                 </div></div>
               </div>
             </div>
 
-            <!-- v1.2.6 -->
+            <!-- v1.2.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-1">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="acc-label">v1.2.6 — Components, accessibility, public spec</span>
+                <span class="acc-label">v1.2.0 — Components, accessibility, public spec</span>
                 <span class="acc-num">2026-04-28</span>
               </button>
               <div class="acc-panel" id="cl-1" role="region">
@@ -4332,23 +4430,23 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <p style="margin:0">No token renames. No component API shifts. No breaking changes.</p>
 
                   <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
-                  <p style="margin:0">This release consolidates internal iterations (v1.1.4 → v1.2.3) that were not shipped publicly. From v1.3.0 onward, the system follows strict SemVer.</p>
+                  <p style="margin:0">This release consolidates internal iterations after v1.1.0 that were not shipped publicly. From v1.2.0 onward, the system follows strict SemVer.</p>
 
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-28</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
-                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.0.0...v1.3.0" target="_blank" rel="noopener">v1.0.0…v1.3.0</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v1.1.0...v1.2.0" target="_blank" rel="noopener">v1.1.0…v1.2.0</a></span>
                   </div>
                 </div></div>
               </div>
             </div>
 
-            <!-- v1.1.4 -->
+            <!-- v1.1.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-2">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                <span class="acc-label">v1.1.4 — Maintenance &amp; donut polish</span>
+                <span class="acc-label">v1.1.0 — Maintenance &amp; donut polish</span>
                 <span class="acc-num">2026-04-24</span>
               </button>
               <div class="acc-panel" id="cl-2" role="region">
@@ -7443,6 +7541,11 @@ try {
     } catch (e) { /* keep the baked fallback */ }
   })();
 })();
+</script>
+<!-- Vercel Web Analytics -->
+<script type="module">
+  import { inject } from 'https://cdn.jsdelivr.net/npm/@vercel/analytics@1/+esm';
+  inject();
 </script>
 </body>
 </html>

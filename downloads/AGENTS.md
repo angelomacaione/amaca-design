@@ -15,7 +15,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 ## The laws
 1. **85 / 10 / 5.** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
 2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Values off a scale break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
-3. **Motion is feedback, not decoration** — if it doesn't communicate a state change, cut it. **Always provide a `prefers-reduced-motion: reduce` fallback** (gate JS-driven animation too).
+3. **Motion is feedback, not decoration** — if it doesn't communicate a state change, cut it. **Always provide a `prefers-reduced-motion: reduce` fallback** (gate JS-driven animation too). `--ease-spring` rides **spatial** properties only — transform, size, position; never color, background, opacity, or shadow.
 4. **Stat count-up (site-canonical, RIGID).** Numeric stats/KPIs count up from zero to their target on entrance (`--d-draw` · `--ease-decel`) and land exactly on the final value — a static stat number where a count-up belongs is off-system. Under reduced motion the counter jumps straight to the target.
 
 ## Components — reuse, don't reinvent
@@ -61,7 +61,7 @@ Imperative and terse in specs/code; editorial (paragraphed, sentence-case) in ma
 Gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (icons: stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta fills > 5% of viewport · a `cubic-bezier(...)` literal or `font-size:14px` in component CSS · a token value hand-copied into JS (read it off `:root` at runtime).
 
 ## Verify (before shipping)
-Confirm: **zero** hardcoded hex/px/`cubic-bezier` in component code (grep `#[0-9A-Fa-f]{3,8}` / `[0-9]+px` / `cubic-bezier(`, or run a token-aware stylelint) · 85/10/5 holds (count `--magenta-*` per surface) · the a11y floor passes · every transition has a `prefers-reduced-motion` fallback. *(Add your repo's own build/test/lint commands alongside this.)*
+Confirm: **zero** hardcoded hex/px/`cubic-bezier` in component code (grep `#[0-9A-Fa-f]{3,8}` / `[0-9]+px` / `cubic-bezier(` / raw `[0-9]+ms` durations (ratified continuous loops excepted), or run a token-aware stylelint) · 85/10/5 holds (count `--magenta-*` per surface) · the a11y floor passes · every transition has a `prefers-reduced-motion` fallback · no `--ease-spring` on color/opacity/shadow (spatial only). *(Add your repo's own build/test/lint commands alongside this.)*
 
 ## Security
 Tokens and this spec are public (MIT) — safe to commit. Treat any externally-sourced markup as untrusted: diagram sources (Mermaid) render from a sanitized `<template>`, never inject raw third-party SVG/HTML. Don't paste secrets into token files.
