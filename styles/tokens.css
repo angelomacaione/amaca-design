@@ -70,10 +70,10 @@
   --info:        #5CC8FF;
 
   /* — SEMANTIC · light ink + tint + edge (v4.0.0, ratified 2026-07-17) — */
-  --success-ink:  #0B7A54;  --success-tint:  #E0F5EC;  --success-edge:  #BFE7D6;
-  --warning-ink:  #8A6200;  --warning-tint:  #FAF0D6;  --warning-edge:  #EDDFB3;
-  --danger-ink:   #C62A29;  --danger-tint:   #FDE7E6;  --danger-edge:   #F6CCC9;
-  --info-ink:     #0A6DAD;  --info-tint:     #E3F1FB;  --info-edge:     #C4E0F4;
+  --success-ink:  #00815C;  --success-tint:  #D9F6EA;  --success-edge:  #A9E6CD;
+  --warning-ink:  #976800;  --warning-tint:  #FBEED2;  --warning-edge:  #EFDCA6;
+  --danger-ink:   #E40000;  --danger-tint:   #FDE2E2;  --danger-edge:   #F8C5C5;
+  --info-ink:     #0077B4;  --info-tint:     #DEF0FB;  --info-edge:     #B7DFF5;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
@@ -217,6 +217,12 @@
   --text-emph:      var(--obsidian-050);
   --control-glyph:  #04201D;
   --brand-magenta:  #F051D5;   /* punctual signature: logo fog, ::selection — NEVER theme-remapped */
+  --secondary-rgb:  0,255,242;
+  --tertiary-rgb:   12,96,120;
+  --success-rgb:    58,255,199;
+  --warning-rgb:    246,198,91;
+  --danger-rgb:     255,91,91;
+  --info-rgb:       92,200,255;
   /* data viz secondary */
   --viz-secondary:  var(--secondary-400);
   /* status (ink on fill, edge = border) */
@@ -267,19 +273,19 @@ html[data-theme="light"]{color-scheme:light}
   --text-disabled:  var(--obsidian-300);
   /* accent — petrol · rest 500 (6.55:1 text AND CTA label: full AA,
      the § 6.3 exception does not apply in light) · hover 400 */
-  --accent:         var(--tertiary-500);
-  --accent-hover:   var(--tertiary-400);
-  --accent-press:   var(--tertiary-600);
+  --accent:         var(--magenta-500);   /* resolves petrol via the light ramp remap */
+  --accent-hover:   var(--magenta-300);
+  --accent-press:   var(--magenta-600);
   --on-accent:      var(--obsidian-050);
-  --link:           var(--tertiary-500);
-  --link-hover:     var(--tertiary-400);
-  --mono-accent:    var(--tertiary-500);
+  --link:           var(--magenta-500);
+  --link-hover:     var(--magenta-300);
+  --mono-accent:    var(--magenta-500);
   --focus-halo:     rgba(12,96,120,0.30);
   --focus-glow:     var(--sh-glow-petrol);
   --accent-rgb:     12,96,120;
   --on-accent-alt:  var(--obsidian-050);
-  --accent-deep:    var(--tertiary-700);
-  --accent-deepest: var(--tertiary-700);
+  --accent-deep:    var(--magenta-700);
+  --accent-deepest: var(--magenta-800);
   --hairline:       var(--obsidian-100);
   --card-hover:     var(--obsidian-050);
   --control-knob:   var(--obsidian-000);
@@ -287,8 +293,8 @@ html[data-theme="light"]{color-scheme:light}
   --text-ghost:     var(--obsidian-200);
   --text-emph:      var(--obsidian-950);
   --control-glyph:  var(--obsidian-050);
-  /* data viz secondary — cyan deepens for light (3.25:1 graphic) */
-  --viz-secondary:  var(--secondary-700);
+  /* data viz secondary — magenta electric, graphic grade */
+  --viz-secondary:  var(--secondary-600);
   /* status — ink + tint fill + tonal edge (ratified D2-A V3) */
   --status-success-ink:  var(--success-ink);  --status-success-fill: var(--success-tint);  --status-success-edge: var(--success-edge);
   --status-warning-ink:  var(--warning-ink);  --status-warning-fill: var(--warning-tint);  --status-warning-edge: var(--warning-edge);
@@ -319,9 +325,21 @@ html[data-theme="light"]{color-scheme:light}
   --warning: var(--warning-ink);
   --danger:  var(--danger-ink);
   --info:    var(--info-ink);
-  /* electric cyan deepens on paper */
-  --secondary-400: #009992;
-  --secondary-500: #009992;
+  /* supporting palette swap (Angelo 2026-07-17 round 3):
+     secondary (electric role) = TRUE magenta · tertiary (quiet role) = violet [PROPOSED scale] */
+  --secondary-100: #FFE3F8; --secondary-200: #FFB5EC; --secondary-300: #FF85DF;
+  --secondary-400: #F051D5; --secondary-500: #F051D5; --secondary-600: #C93BB0; --secondary-700: #9A2D87;
+  --tertiary-100: #EFECFB; --tertiary-200: #D8D1F6; --tertiary-300: #9C8FE8;
+  --tertiary-400: #8271D9; --tertiary-500: #6D5AE0; --tertiary-600: #5747B8; --tertiary-700: #423693;
+  --secondary-rgb: 240,81,213;
+  --tertiary-rgb:  109,90,224;
+  --success-rgb:   0,129,92;
+  --warning-rgb:   151,104,0;
+  --danger-rgb:    228,0,0;
+  --info-rgb:      0,119,180;
+  /* glow goes petrol in light */
+  --sh-glow: var(--sh-glow-petrol);
+  --sh-glow-soft: 0 0 40px rgba(12,96,120,0.10);
   /* glass / overlay */
   --glass-sidebar:  rgba(251,252,253,0.82);
   --glass-topbar:   rgba(227,231,236,0.78);

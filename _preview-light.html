@@ -694,10 +694,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Secondary · electric cyan</h2><span class="subsection-num">§ 04.3</span></div>
           <p class="subsection-desc">High-voltage cyan. Use for focus accents, highlighted states, and secondary emphasis — never as a second primary.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#CCFFFC"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#33FFF5"></div><div class="meta"><span class="name">Secondary 300</span><span class="hex">#4FF1EC</span><span class="role">Hover</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--secondary-100)"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--secondary-300)"></div><div class="meta"><span class="name">Secondary 300</span><span class="hex">#4FF1EC</span><span class="role">Hover</span></div></div>
             <div class="swatch"><div class="chip" style="background:var(--secondary-400)"></div><div class="meta"><span class="name">Secondary 500 — Electric</span><span class="hex">#00FFF2</span><span class="role">Accent</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#009992"></div><div class="meta"><span class="name">Secondary 700</span><span class="hex">#04918D</span><span class="role">Deep</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--secondary-700)"></div><div class="meta"><span class="name">Secondary 700</span><span class="hex">#04918D</span><span class="role">Deep</span></div></div>
           </div>
         </div>
 
@@ -705,10 +705,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Tertiary · petrol</h2><span class="subsection-num">§ 04.4</span></div>
           <p class="subsection-desc">Deep petrol teal. Used for default badges, quiet tags, and neutral chips that shouldn’t read as brand but still need color.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#CEEAF1"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#4FA9BF"></div><div class="meta"><span class="name">Tertiary 300</span><span class="hex">#4FA9BF</span><span class="role">Text on dark</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#0C6078"></div><div class="meta"><span class="name">Tertiary 500 — Default</span><span class="hex">#0C6078</span><span class="role">Badge stroke</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#084C61"></div><div class="meta"><span class="name">Tertiary 600</span><span class="hex">#084C61</span><span class="role">Deep</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--tertiary-100)"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--tertiary-300)"></div><div class="meta"><span class="name">Tertiary 300</span><span class="hex">#4FA9BF</span><span class="role">Text on dark</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--tertiary-500)"></div><div class="meta"><span class="name">Tertiary 500 — Default</span><span class="hex">#0C6078</span><span class="role">Badge stroke</span></div></div>
+            <div class="swatch"><div class="chip" style="background:var(--tertiary-600)"></div><div class="meta"><span class="name">Tertiary 600</span><span class="hex">#084C61</span><span class="role">Deep</span></div></div>
           </div>
         </div>
 
@@ -1546,10 +1546,10 @@ Basic UI</div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 13.1</span></div>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
-            <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
+            <span class="badge"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
-            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>Pending</span>
+            <span class="badge badge-warn"><span class="dot"></span>Pending</span>
             <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
             <span class="badge"><span class="dot"></span>Archive</span>
             <span class="badge badge-solid">Featured</span>
@@ -2742,19 +2742,19 @@ flowchart TD
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
               <div style="display:flex;height:40px;border-radius:4px;overflow:hidden;margin-top:var(--s-4)">
-                <div style="flex:1;background:#07090B"></div><div style="flex:1;background:#66195A"></div><div style="flex:1;background:#9A2D87"></div><div style="flex:1;background:#C93BB0"></div><div style="flex:1;background:#F051D5"></div><div style="flex:1;background:#FF85DF"></div><div style="flex:1;background:#FFB5EC"></div>
+                <div style="flex:1;background:var(--obsidian-950)"></div><div style="flex:1;background:var(--magenta-800)"></div><div style="flex:1;background:var(--magenta-700)"></div><div style="flex:1;background:var(--magenta-600)"></div><div style="flex:1;background:var(--magenta-500)"></div><div style="flex:1;background:var(--magenta-300)"></div><div style="flex:1;background:var(--magenta-200)"></div>
               </div>
               <div style="display:flex;justify-content:space-between;font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:10px;letter-spacing:var(--tr-mono);color:var(--text-disabled);margin-top:8px"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
             </div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Categorical</span><span class="s" data-fade>Up to 6 series</span></div>
               <div style="display:flex;gap:6px;margin-top:var(--s-4);flex-wrap:wrap">
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#F051D5;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Cyan</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#FF85DF;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Mint</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#5CC8FF;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Info</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#F6C65B;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Warn</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#FF5B5B;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Danger</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#B8C0CB;border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Neutral</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--magenta-500);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Cyan</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--magenta-300);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Mint</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--info);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Info</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--warning);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Warn</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--danger);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Danger</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--obsidian-200);border-radius:4px;margin-bottom:6px"></div><div class="ty-mono" style="font-size:10px">Neutral</div></div>
               </div>
             </div>
           </div>
@@ -7569,12 +7569,33 @@ try {
       }
     });
   }
+  document.querySelectorAll('.chart-head .t').forEach(function(el){
+      if(!el.dataset.dark) el.dataset.dark=el.textContent;
+    });
+  function syncHeads(){
+    var light = document.documentElement.getAttribute('data-theme')==='light';
+    document.querySelectorAll('.chart-head .t').forEach(function(el){
+      if(!el.dataset.dark) el.dataset.dark=el.textContent;
+      el.textContent = light ? el.dataset.dark.replace(/magenta/i,'petrol') : el.dataset.dark;
+    });
+    document.querySelectorAll('.subsection-title').forEach(function(el){
+      if(!el.dataset.dark) el.dataset.dark=el.textContent;
+      var txt=el.dataset.dark;
+      if(light){
+        txt=txt.replace('Secondary \u00b7 electric cyan','Secondary \u00b7 electric magenta');
+        txt=txt.replace('Tertiary \u00b7 petrol','Tertiary \u00b7 violet');
+        txt=txt.replace('Brand \u00b7 signal','Brand \u00b7 signal (petrol)');
+      }
+      el.textContent=txt;
+    });
+  }
+  var _oldSync=syncSwatches;
+  syncSwatches=function(){_oldSync();syncHeads();};
   window.__amacaSyncSwatches = syncSwatches;
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',syncSwatches); else syncSwatches();
   new MutationObserver(syncSwatches).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
-
 <!-- TEMP PREVIEW TOGGLE — non committare questo file, cancellalo dopo la review -->
 <div id="theme-preview-toggle" style="position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--card);border:1px solid var(--border-strong);box-shadow:var(--e-3)">
   <button data-t="" style="font-family:inherit;font-size:13px;font-weight:500;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;background:none;color:var(--text-secondary)">Dark</button>

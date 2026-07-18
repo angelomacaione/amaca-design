@@ -689,16 +689,16 @@
   display:inline-flex;align-items:center;gap:6px;
   font-family:var(--font-sans);font-size:13px;letter-spacing:var(--tr-snug);
   padding:10px 18px;border-radius:var(--r-md);
-  border:1px solid rgba(12,96,120,0.4);color:var(--tertiary-300);background:rgba(12,96,120,0.12);
+  border:1px solid rgba(var(--tertiary-rgb),0.4);color:var(--tertiary-300);background:rgba(var(--tertiary-rgb),0.12);
   font-weight:500;
 }
 .badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-.badge-success{color:var(--success);border-color:rgba(58,255,199,0.3);background:rgba(58,255,199,0.08)}
-.badge-warn{color:var(--warning);border-color:rgba(246,198,91,0.3);background:rgba(246,198,91,0.08)}
-.badge-danger{color:var(--danger);border-color:rgba(255,91,91,0.3);background:rgba(255,91,91,0.08)}
-.badge-info{color:var(--info);border-color:rgba(92,200,255,0.3);background:rgba(92,200,255,0.08)}
+.badge-success{color:var(--success);border-color:rgba(var(--success-rgb),0.3);background:rgba(var(--success-rgb),0.08)}
+.badge-warn{color:var(--warning);border-color:rgba(var(--warning-rgb),0.3);background:rgba(var(--warning-rgb),0.08)}
+.badge-danger{color:var(--danger);border-color:rgba(var(--danger-rgb),0.3);background:rgba(var(--danger-rgb),0.08)}
+.badge-info{color:var(--info);border-color:rgba(var(--info-rgb),0.3);background:rgba(var(--info-rgb),0.08)}
 .badge-brand{color:var(--mono-accent);border-color:rgba(var(--accent-rgb),0.3);background:rgba(var(--accent-rgb),0.08)}
-.badge-solid{background:var(--accent);color:#fff;border-color:var(--accent)}
+.badge-solid{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
 
 /* ─────────── NAV BAR DEMO ─────────── */
 .navdemo{
@@ -1389,7 +1389,7 @@
       transparent 1px 8px);
   background-color: var(--bg);
 }
-.law-seg-brand{background: #F051D5}
+.law-seg-brand{background: var(--magenta-500)}
 .law-seg-semantic{background: #2EE5A6}
 
 .law-legend{
@@ -1407,7 +1407,7 @@
 }
 .law-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .law-dot-obsidian{background:#3A4452}
-.law-dot-brand{background:#F051D5}
+.law-dot-brand{background:var(--magenta-500)}
 .law-dot-semantic{background:#2EE5A6}
 
 .law-pct-mono{
@@ -2772,9 +2772,9 @@
    Neutral panels lighten; magenta family goes petrol; semantic
    goes ink. Values mirror the [data-theme="light"] token remap.
    ========================================================= */
-[data-theme="light"] [fill="#150310"]{fill:#F7F0F5}
-[data-theme="light"] [fill="#1A0616"]{fill:#F4ECF1}
-[data-theme="light"] [fill="#1F0820"]{fill:#EFE6ED}
+[data-theme="light"] [fill="#150310"]{fill:#F0F4F6}
+[data-theme="light"] [fill="#1A0616"]{fill:#EEF3F5}
+[data-theme="light"] [fill="#1F0820"]{fill:#ECF2F4}
 [data-theme="light"] [fill="#161B22"]{fill:#E7EBF0}
 [data-theme="light"] [fill="#2A313B"]{fill:#CCD3DB}
 [data-theme="light"] [fill="#0B0E13"]{fill:#F4F6F8}
@@ -2794,10 +2794,10 @@
 [data-theme="light"] [fill="#9A2D87"]{fill:#06384A}
 [data-theme="light"] [fill="#66195A"]{fill:#052A38}
 [data-theme="light"] [fill="#00FFF2"]{fill:#009992}
-[data-theme="light"] [fill="#3AFFC7"]{fill:#0B7A54}
-[data-theme="light"] [fill="#F6C65B"]{fill:#8A6200}
-[data-theme="light"] [fill="#FF5B5B"]{fill:#C62A29}
-[data-theme="light"] [fill="#5CC8FF"]{fill:#0A6DAD}
+[data-theme="light"] [fill="#3AFFC7"]{fill:#00815C}
+[data-theme="light"] [fill="#F6C65B"]{fill:#976800}
+[data-theme="light"] [fill="#FF5B5B"]{fill:#E40000}
+[data-theme="light"] [fill="#5CC8FF"]{fill:#0077B4}
 [data-theme="light"] [stroke="#F051D5"]{stroke:#0C6078}
 [data-theme="light"] [stroke="#F868D8"]{stroke:#0A5266}
 [data-theme="light"] [stroke="#FF85DF"]{stroke:#1F85A0}
@@ -2805,7 +2805,7 @@
 [data-theme="light"] [stroke="#2A313B"]{stroke:#CCD3DB}
 [data-theme="light"] [stroke="#5B4A6A"]{stroke:#8A7F96}
 [data-theme="light"] [stroke="#00FFF2"]{stroke:#009992}
-[data-theme="light"] [stroke="#3AFFC7"]{stroke:#0B7A54}
+[data-theme="light"] [stroke="#3AFFC7"]{stroke:#00815C}
 [data-theme="light"] [stroke="rgba(255,255,255,0.05)"],
 [data-theme="light"] [stroke="rgba(255,255,255,0.06)"]{stroke:rgba(16,21,27,0.08)}
 [data-theme="light"] [stroke="rgba(255,255,255,0.08)"]{stroke:rgba(16,21,27,0.10)}
@@ -2816,4 +2816,27 @@
 [data-theme="light"] [stop-color="#C93BB0"]{stop-color:#084C61}
 [data-theme="light"] [stop-color="#9A2D87"]{stop-color:#06384A}
 [data-theme="light"] [stop-color="#66195A"]{stop-color:#052A38}
-[data-theme="light"] [stop-color="#1A0616"]{stop-color:#F4ECF1}
+[data-theme="light"] [stop-color="#1A0616"]{stop-color:#EEF3F5}
+
+
+/* ── Round 3 light refinements (Angelo review 2026-07-17) ── */
+[data-theme="light"] .law-seg-obsidian{background-color:var(--obsidian-200);background-image:repeating-linear-gradient(135deg, rgba(16,21,27,0.10) 0 1px, transparent 1px 8px)}
+[data-theme="light"] .law-dot-obsidian{background:var(--obsidian-400)}
+[data-theme="light"] .law-seg-semantic{background:var(--success)}
+[data-theme="light"] .law-dot-semantic{background:var(--success)}
+[data-theme="light"] .badge{color:var(--tertiary-600)}
+[data-theme="light"] .navdemo .logo .mk{background:var(--grad-signal)}
+[data-theme="light"] .cs-img-hint{background:rgba(251,252,253,0.85);color:var(--obsidian-500);border:1px solid var(--obsidian-300)}
+[data-theme="light"] .lightbox-close{color:var(--obsidian-950);background:rgba(251,252,253,0.75);border-color:var(--obsidian-300)}
+[data-theme="light"] .loader-anim{filter:brightness(0.55) saturate(1.6)}
+[data-theme="light"] .btn-primary .loader-anim,
+[data-theme="light"] .chat-composer-send .loader-anim{filter:brightness(0) invert(1)}
+/* dark-neutral strokes in baked SVG art (pie dividers, connectors) */
+[data-theme="light"] [stroke="#07090B"]{stroke:#F4F6F8}
+[data-theme="light"] [stroke="#0B0E12"]{stroke:#FBFCFD}
+[data-theme="light"] [stroke="#0B0E13"]{stroke:#FBFCFD}
+[data-theme="light"] [stroke="#10141A"]{stroke:#F4F6F8}
+[data-theme="light"] [stroke="#161B22"]{stroke:#E7EBF0}
+[data-theme="light"] [stroke="#F6C65B"]{stroke:#976800}
+[data-theme="light"] [stroke="#FF5B5B"]{stroke:#E40000}
+[data-theme="light"] [stroke="#5CC8FF"]{stroke:#0077B4}
