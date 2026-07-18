@@ -28,6 +28,7 @@
   --obsidian-200: #B8C0CB;      /* tertiary text */
   --obsidian-100: #E3E7EC;      /* primary text on dark */
   --obsidian-050: #F4F6F8;      /* bone */
+  --obsidian-000: #FBFCFD;      /* paper (light card) — v4.0.0 */
 
   /* — BRAND (primary accent: magenta F051D5) — */
   --magenta-100: #FFE3F8;
@@ -62,11 +63,17 @@
   --cube-mint:   #3AFFC7;
   --cube-aqua:   #1FD6F2;
 
-  /* — SEMANTIC — */
+  /* — SEMANTIC (dark-native) — */
   --success:     #3AFFC7;
   --warning:     #F6C65B;
   --danger:      #FF5B5B;
   --info:        #5CC8FF;
+
+  /* — SEMANTIC · light ink + tint + edge (v4.0.0, ratified 2026-07-17) — */
+  --success-ink:  #0B7A54;  --success-tint:  #E0F5EC;  --success-edge:  #BFE7D6;
+  --warning-ink:  #8A6200;  --warning-tint:  #FAF0D6;  --warning-edge:  #EDDFB3;
+  --danger-ink:   #C62A29;  --danger-tint:   #FDE7E6;  --danger-edge:   #F6CCC9;
+  --info-ink:     #0A6DAD;  --info-tint:     #E3F1FB;  --info-edge:     #C4E0F4;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
@@ -137,6 +144,12 @@
   --sh-4: 0 1px 0 0 rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.6);
   --sh-glow: 0 0 0 1px rgba(240,81,213,0.35), 0 0 24px rgba(240,81,213,0.25);
   --sh-glow-soft: 0 0 40px rgba(240,81,213,0.12);
+  /* light-tuned shadows (v4.0.0) — no bright inset, low-key neutral */
+  --sh-1-light: 0 1px 2px rgba(10,15,20,0.06);
+  --sh-2-light: 0 4px 12px rgba(10,15,20,0.10), 0 1px 3px rgba(10,15,20,0.06);
+  --sh-3-light: 0 4px 10px rgba(10,15,20,0.06), 0 12px 32px rgba(10,15,20,0.10);
+  --sh-4-light: 0 8px 20px rgba(10,15,20,0.08), 0 24px 64px rgba(10,15,20,0.12);
+  --sh-glow-petrol: 0 0 0 1px rgba(12,96,120,0.35), 0 0 24px rgba(12,96,120,0.18);
 
   /* — MOTION (Framer-aligned: soft, bouncy, confident) — */
   --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);     /* Framer default ease-out */
@@ -160,6 +173,141 @@
   --sidebar-w: 260px;
   --content-max: 1180px;
   --gutter: 24px;
+
+  /* =======================================================
+     SEMANTIC ROLE LAYER (v4.0.0) — components reference ONLY
+     these aliases for color/elevation. :root = dark (default
+     theme); [data-theme="light"] remaps below. Projection per
+     Amaca canonical 0.2: $modes.theme with {ref} values.
+     ======================================================= */
+  /* surfaces */
+  --bg:             var(--obsidian-950);
+  --surface:        var(--obsidian-900);
+  --surface-raised: var(--obsidian-850);
+  --card:           var(--obsidian-800);
+  /* edges */
+  --border:         var(--obsidian-600);
+  --border-strong:  var(--obsidian-700);
+  --edge-muted:     var(--obsidian-500);
+  --border-input:   var(--obsidian-600);
+  /* text */
+  --text:           var(--obsidian-100);
+  --text-secondary: var(--obsidian-300);
+  --text-tertiary:  var(--obsidian-200);
+  --text-disabled:  var(--obsidian-400);
+  /* accent — dark = magenta neon · light = petrol editorial */
+  --accent:         var(--magenta-500);
+  --accent-hover:   var(--magenta-400);
+  --accent-press:   var(--magenta-600);
+  --on-accent:      var(--obsidian-050);
+  --link:           var(--magenta-400);
+  --link-hover:     var(--magenta-300);
+  --mono-accent:    var(--magenta-400);
+  --focus-halo:     rgba(240,81,213,0.35);
+  --focus-glow:     var(--sh-glow);
+  /* data viz secondary */
+  --viz-secondary:  var(--secondary-400);
+  /* status (ink on fill, edge = border) */
+  --status-success-ink:  var(--success);  --status-success-fill: transparent;  --status-success-edge: var(--success);
+  --status-warning-ink:  var(--warning);  --status-warning-fill: transparent;  --status-warning-edge: var(--warning);
+  --status-danger-ink:   var(--danger);   --status-danger-fill:  transparent;  --status-danger-edge:  var(--danger);
+  --status-info-ink:     var(--info);     --status-info-fill:    transparent;  --status-info-edge:    var(--info);
+  /* elevation */
+  --e-1: var(--sh-1);
+  --e-2: var(--sh-2);
+  --e-3: var(--sh-3);
+  --e-4: var(--sh-4);
+  /* glass / overlay (from 2026-07-17 light exploration) */
+  --glass-sidebar:  rgba(11,14,18,0.85);
+  --glass-topbar:   rgba(7,9,11,0.8);
+  --glass-nav:      rgba(11,14,18,0.8);
+  --scrim:          rgba(7,9,11,0.6);
+  --overlay:        rgba(7,9,11,0.7);
+  --overlay-strong: rgba(7,9,11,0.85);
+  --surface-fade:   rgba(11,14,18,0.6);
+}
+
+/* =========================================================
+   LIGHT MODE (v4.0.0) — [data-theme="light"] on <html>.
+   Semantic aliases ONLY: primitives never change value.
+   Dark stays the default (dark-first, no OS auto-switch).
+   Accent virates to petrol (ratified 2026-07-17); magenta
+   survives as punctual signature (logo, ::selection, max 1
+   brand-moment per page).
+   ========================================================= */
+html[data-theme="light"]{color-scheme:light}
+[data-theme="light"]{
+  /* surfaces — canvas obsidian-100, card obsidian-000 (1.21:1) */
+  --bg:             var(--obsidian-100);
+  --surface:        var(--obsidian-050);
+  --surface-raised: var(--obsidian-000);
+  --card:           var(--obsidian-000);
+  /* edges */
+  --border:         var(--obsidian-200);
+  --border-strong:  var(--obsidian-300);
+  --edge-muted:     var(--obsidian-200);
+  --border-input:   var(--obsidian-300);
+  /* text — 950 16.1:1 · 500 7.95:1 on canvas 100 */
+  --text:           var(--obsidian-950);
+  --text-secondary: var(--obsidian-500);
+  --text-tertiary:  var(--obsidian-400);
+  --text-disabled:  var(--obsidian-300);
+  /* accent — petrol · rest 500 (6.55:1 text AND CTA label: full AA,
+     the § 6.3 exception does not apply in light) · hover 400 */
+  --accent:         var(--tertiary-500);
+  --accent-hover:   var(--tertiary-400);
+  --accent-press:   var(--tertiary-600);
+  --on-accent:      var(--obsidian-050);
+  --link:           var(--tertiary-500);
+  --link-hover:     var(--tertiary-400);
+  --mono-accent:    var(--tertiary-500);
+  --focus-halo:     rgba(12,96,120,0.30);
+  --focus-glow:     var(--sh-glow-petrol);
+  /* data viz secondary — cyan deepens for light (3.25:1 graphic) */
+  --viz-secondary:  var(--secondary-700);
+  /* status — ink + tint fill + tonal edge (ratified D2-A V3) */
+  --status-success-ink:  var(--success-ink);  --status-success-fill: var(--success-tint);  --status-success-edge: var(--success-edge);
+  --status-warning-ink:  var(--warning-ink);  --status-warning-fill: var(--warning-tint);  --status-warning-edge: var(--warning-edge);
+  --status-danger-ink:   var(--danger-ink);   --status-danger-fill:  var(--danger-tint);   --status-danger-edge:  var(--danger-edge);
+  --status-info-ink:     var(--info-ink);     --status-info-fill:    var(--info-tint);     --status-info-edge:    var(--info-edge);
+  /* elevation — light-tuned */
+  --e-1: var(--sh-1-light);
+  --e-2: var(--sh-2-light);
+  --e-3: var(--sh-3-light);
+  --e-4: var(--sh-4-light);
+  /* gradients — petrol signal + soft fog */
+  --grad-signal: linear-gradient(90deg, #0C6078 0%, #1F85A0 100%);
+  --grad-fog: radial-gradient(1200px 600px at 10% -10%, rgba(12,96,120,0.06), transparent 60%),
+              radial-gradient(900px 500px at 90% 110%, rgba(0,255,242,0.04), transparent 60%);
+  /* glass / overlay */
+  --glass-sidebar:  rgba(251,252,253,0.82);
+  --glass-topbar:   rgba(227,231,236,0.78);
+  --glass-nav:      rgba(251,252,253,0.8);
+  --scrim:          rgba(16,21,27,0.32);
+  --overlay:        rgba(251,252,253,0.78);
+  --overlay-strong: rgba(16,21,27,0.55);
+  --surface-fade:   rgba(251,252,253,0.6);
+}
+
+/* Dark-pinned islands: deliberately dark data surfaces keep the
+   dark semantic mapping even in light theme (context override). */
+[data-theme="light"] .slide-frame,
+[data-theme="light"] .hexmap{
+  --bg:var(--obsidian-950); --surface:var(--obsidian-900); --surface-raised:var(--obsidian-850);
+  --card:var(--obsidian-800); --border:var(--obsidian-600); --border-strong:var(--obsidian-700);
+  --edge-muted:var(--obsidian-500); --border-input:var(--obsidian-600);
+  --text:var(--obsidian-100); --text-secondary:var(--obsidian-300); --text-tertiary:var(--obsidian-200); --text-disabled:var(--obsidian-400);
+  --accent:var(--magenta-500); --accent-hover:var(--magenta-400); --accent-press:var(--magenta-600);
+  --on-accent:var(--obsidian-050); --link:var(--magenta-400); --link-hover:var(--magenta-300); --mono-accent:var(--magenta-400);
+  --focus-halo:rgba(240,81,213,0.35); --focus-glow:var(--sh-glow);
+  --viz-secondary:var(--secondary-400);
+  --status-success-ink:var(--success); --status-success-fill:transparent; --status-success-edge:var(--success);
+  --status-warning-ink:var(--warning); --status-warning-fill:transparent; --status-warning-edge:var(--warning);
+  --status-danger-ink:var(--danger);   --status-danger-fill:transparent;  --status-danger-edge:var(--danger);
+  --status-info-ink:var(--info);       --status-info-fill:transparent;    --status-info-edge:var(--info);
+  --e-1:var(--sh-1); --e-2:var(--sh-2); --e-3:var(--sh-3); --e-4:var(--sh-4);
+  --grad-signal: linear-gradient(90deg,#F051D5 0%,#FF85DF 100%);
+  color-scheme: dark;
 }
 
 /* =========================================================
@@ -172,20 +320,20 @@ body{
   font-family:var(--font-sans);
   font-size:var(--t-body);
   line-height:var(--lh-normal);
-  color:var(--obsidian-100);
-  background:var(--obsidian-950);
+  color:var(--text);
+  background:var(--bg);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   font-feature-settings:"ss01","ss02","cv11";
 }
 img,svg{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
-a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
-a:hover{color:var(--magenta-300)}
-::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
+a{color:var(--link);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
+a:hover{color:var(--link-hover)}
+::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* magenta in BOTH themes — punctual brand signature (v4.0.0 P5) · #FFF banned (§ 04.6) */
 
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:4px;border:2px solid var(--obsidian-950)}
-::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:4px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--border)}
