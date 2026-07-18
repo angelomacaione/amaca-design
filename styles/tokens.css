@@ -205,6 +205,15 @@
   --mono-accent:    var(--magenta-400);
   --focus-halo:     rgba(240,81,213,0.35);
   --focus-glow:     var(--sh-glow);
+  --accent-rgb:     240,81,213;
+  --on-accent-alt:  var(--obsidian-950);
+  --accent-deep:    var(--magenta-700);
+  --accent-deepest: var(--magenta-800);
+  --hairline:       var(--obsidian-800);
+  --card-hover:     var(--obsidian-700);
+  --control-knob:   var(--obsidian-200);
+  --text-faint:     var(--obsidian-500);
+  --text-ghost:     var(--obsidian-600);
   /* data viz secondary */
   --viz-secondary:  var(--secondary-400);
   /* status (ink on fill, edge = border) */
@@ -225,6 +234,7 @@
   --overlay:        rgba(7,9,11,0.7);
   --overlay-strong: rgba(7,9,11,0.85);
   --surface-fade:   rgba(11,14,18,0.6);
+  --surface-transparent: rgba(11,14,18,0);
 }
 
 /* =========================================================
@@ -263,6 +273,15 @@ html[data-theme="light"]{color-scheme:light}
   --mono-accent:    var(--tertiary-500);
   --focus-halo:     rgba(12,96,120,0.30);
   --focus-glow:     var(--sh-glow-petrol);
+  --accent-rgb:     12,96,120;
+  --on-accent-alt:  var(--obsidian-050);
+  --accent-deep:    var(--tertiary-700);
+  --accent-deepest: var(--tertiary-700);
+  --hairline:       var(--obsidian-100);
+  --card-hover:     var(--obsidian-050);
+  --control-knob:   var(--obsidian-000);
+  --text-faint:     var(--obsidian-300);
+  --text-ghost:     var(--obsidian-200);
   /* data viz secondary — cyan deepens for light (3.25:1 graphic) */
   --viz-secondary:  var(--secondary-700);
   /* status — ink + tint fill + tonal edge (ratified D2-A V3) */
@@ -286,7 +305,8 @@ html[data-theme="light"]{color-scheme:light}
   --scrim:          rgba(16,21,27,0.32);
   --overlay:        rgba(251,252,253,0.78);
   --overlay-strong: rgba(16,21,27,0.55);
-  --surface-fade:   rgba(251,252,253,0.6);
+  --surface-fade:   rgba(244,246,248,0.6);
+  --surface-transparent: rgba(244,246,248,0);
 }
 
 /* Dark-pinned islands: deliberately dark data surfaces keep the
@@ -300,6 +320,9 @@ html[data-theme="light"]{color-scheme:light}
   --accent:var(--magenta-500); --accent-hover:var(--magenta-400); --accent-press:var(--magenta-600);
   --on-accent:var(--obsidian-050); --link:var(--magenta-400); --link-hover:var(--magenta-300); --mono-accent:var(--magenta-400);
   --focus-halo:rgba(240,81,213,0.35); --focus-glow:var(--sh-glow);
+  --accent-rgb:240,81,213; --on-accent-alt:var(--obsidian-950); --accent-deep:var(--magenta-700); --accent-deepest:var(--magenta-800);
+  --hairline:var(--obsidian-800); --card-hover:var(--obsidian-700); --control-knob:var(--obsidian-200);
+  --text-faint:var(--obsidian-500); --text-ghost:var(--obsidian-600);
   --viz-secondary:var(--secondary-400);
   --status-success-ink:var(--success); --status-success-fill:transparent; --status-success-edge:var(--success);
   --status-warning-ink:var(--warning); --status-warning-fill:transparent; --status-warning-edge:var(--warning);
