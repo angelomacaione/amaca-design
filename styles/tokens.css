@@ -230,6 +230,8 @@
   --status-warning-ink:  var(--warning);  --status-warning-fill: transparent;  --status-warning-edge: var(--warning);
   --status-danger-ink:   var(--danger);   --status-danger-fill:  transparent;  --status-danger-edge:  var(--danger);
   --status-info-ink:     var(--info);     --status-info-fill:    transparent;  --status-info-edge:    var(--info);
+  /* case-study cover gradient — petrol in BOTH themes (Angelo 2026-07-18) */
+  --grad-cover: linear-gradient(135deg, var(--tertiary-700), var(--tertiary-500) 70%, var(--tertiary-300));
   /* elevation */
   --e-1: var(--sh-1);
   --e-2: var(--sh-2);
@@ -300,6 +302,8 @@ html[data-theme="light"]{color-scheme:light}
   --status-warning-ink:  var(--warning-ink);  --status-warning-fill: var(--warning-tint);  --status-warning-edge: var(--warning-edge);
   --status-danger-ink:   var(--danger-ink);   --status-danger-fill:  var(--danger-tint);   --status-danger-edge:  var(--danger-edge);
   --status-info-ink:     var(--info-ink);     --status-info-fill:    var(--info-tint);     --status-info-edge:    var(--info-edge);
+  /* cover gradient — petrol literals (tertiary resolves violet in light) */
+  --grad-cover: linear-gradient(135deg, #06384A, #0C6078 70%, #1F85A0);
   /* elevation — light-tuned */
   --e-1: var(--sh-1-light);
   --e-2: var(--sh-2-light);
