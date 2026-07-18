@@ -7574,5 +7574,31 @@ try {
   new MutationObserver(syncSwatches).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 })();
 </script>
+
+<!-- TEMP PREVIEW TOGGLE — non committare questo file, cancellalo dopo la review -->
+<div id="theme-preview-toggle" style="position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;gap:4px;padding:4px;border-radius:999px;background:var(--card);border:1px solid var(--border-strong);box-shadow:var(--e-3)">
+  <button data-t="" style="font-family:inherit;font-size:13px;font-weight:500;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;background:none;color:var(--text-secondary)">Dark</button>
+  <button data-t="light" style="font-family:inherit;font-size:13px;font-weight:500;border:0;border-radius:999px;padding:8px 16px;cursor:pointer;background:none;color:var(--text-secondary)">Light</button>
+</div>
+<script>
+(function(){
+  var KEY='amaca-preview-theme';
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  if(saved==='light') document.documentElement.setAttribute('data-theme','light');
+  var box=document.getElementById('theme-preview-toggle');
+  var btns=box.querySelectorAll('button');
+  function paint(){
+    var cur=document.documentElement.getAttribute('data-theme')||'';
+    btns.forEach(function(x){var on=x.dataset.t===cur;
+      x.style.background=on?'var(--accent)':'none';
+      x.style.color=on?'var(--on-accent)':'var(--text-secondary)';});
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    try{localStorage.setItem(KEY,b.dataset.t);}catch(e){}
+    location.reload(); /* reload: i diagrammi Mermaid renderizzano al load col tema attivo */
+  });});
+  paint();
+})();
+</script>
 </body>
 </html>
