@@ -2820,6 +2820,7 @@
 
 
 /* ── Round 3 light refinements (Angelo review 2026-07-17) ── */
+[data-theme="light"] .card-header{color:var(--obsidian-400)} /* 10px mono metadata: 5.45:1 (axe fix; dark keeps spec value) */
 [data-theme="light"] .law-seg-obsidian{background-color:var(--obsidian-200);background-image:repeating-linear-gradient(135deg, rgba(16,21,27,0.10) 0 1px, transparent 1px 8px)}
 [data-theme="light"] .law-dot-obsidian{background:var(--obsidian-400)}
 [data-theme="light"] .law-seg-semantic{background:var(--success)}
@@ -2837,6 +2838,8 @@
 [data-theme="light"] [stroke="#10141A"]{stroke:#F4F6F8}
 [data-theme="light"] [stroke="#161B22"]{stroke:#E7EBF0}
 [data-theme="light"] [stroke="#1A0616"]{stroke:#F4F6F8}
+[data-theme="light"] [stroke="#2A1028"]{stroke:#CCD3DB}
+[data-theme="light"] [fill="#0C6078"]{fill:#6D5AE0}
 [data-theme="light"] [stroke="#F6C65B"]{stroke:#976800}
 [data-theme="light"] [stroke="#FF5B5B"]{stroke:#E40000}
 [data-theme="light"] [stroke="#5CC8FF"]{stroke:#0077B4}
