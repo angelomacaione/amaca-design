@@ -214,6 +214,9 @@
   --control-knob:   var(--obsidian-200);
   --text-faint:     var(--obsidian-500);
   --text-ghost:     var(--obsidian-600);
+  --text-emph:      var(--obsidian-050);
+  --control-glyph:  #04201D;
+  --brand-magenta:  #F051D5;   /* punctual signature: logo fog, ::selection — NEVER theme-remapped */
   /* data viz secondary */
   --viz-secondary:  var(--secondary-400);
   /* status (ink on fill, edge = border) */
@@ -282,6 +285,8 @@ html[data-theme="light"]{color-scheme:light}
   --control-knob:   var(--obsidian-000);
   --text-faint:     var(--obsidian-300);
   --text-ghost:     var(--obsidian-200);
+  --text-emph:      var(--obsidian-950);
+  --control-glyph:  var(--obsidian-050);
   /* data viz secondary — cyan deepens for light (3.25:1 graphic) */
   --viz-secondary:  var(--secondary-700);
   /* status — ink + tint fill + tonal edge (ratified D2-A V3) */
@@ -298,6 +303,25 @@ html[data-theme="light"]{color-scheme:light}
   --grad-signal: linear-gradient(90deg, #0C6078 0%, #1F85A0 100%);
   --grad-fog: radial-gradient(1200px 600px at 10% -10%, rgba(12,96,120,0.06), transparent 60%),
               radial-gradient(900px 500px at 90% 110%, rgba(0,255,242,0.04), transparent 60%);
+  /* accent ramp remap — "petrol is the new magenta" (Angelo 2026-07-17).
+     In light the magenta-named accent ramp resolves to the petrol scale;
+     ::selection + logo fog keep true magenta via --brand-magenta. */
+  --magenta-100: #E3F3F7;
+  --magenta-200: #A9D8E3;
+  --magenta-300: #1F85A0;
+  --magenta-400: #0A5266;
+  --magenta-500: #0C6078;
+  --magenta-600: #084C61;
+  --magenta-700: #06384A;
+  --magenta-800: #052A38;
+  /* semantic — same hue, darker ink for light (ratified D2-A) */
+  --success: var(--success-ink);
+  --warning: var(--warning-ink);
+  --danger:  var(--danger-ink);
+  --info:    var(--info-ink);
+  /* electric cyan deepens on paper */
+  --secondary-400: #009992;
+  --secondary-500: #009992;
   /* glass / overlay */
   --glass-sidebar:  rgba(251,252,253,0.82);
   --glass-topbar:   rgba(227,231,236,0.78);
@@ -309,29 +333,7 @@ html[data-theme="light"]{color-scheme:light}
   --surface-transparent: rgba(244,246,248,0);
 }
 
-/* Dark-pinned islands: deliberately dark data surfaces keep the
-   dark semantic mapping even in light theme (context override). */
-[data-theme="light"] .slide-frame,
-[data-theme="light"] .hexmap{
-  --bg:var(--obsidian-950); --surface:var(--obsidian-900); --surface-raised:var(--obsidian-850);
-  --card:var(--obsidian-800); --border:var(--obsidian-600); --border-strong:var(--obsidian-700);
-  --edge-muted:var(--obsidian-500); --border-input:var(--obsidian-600);
-  --text:var(--obsidian-100); --text-secondary:var(--obsidian-300); --text-tertiary:var(--obsidian-200); --text-disabled:var(--obsidian-400);
-  --accent:var(--magenta-500); --accent-hover:var(--magenta-400); --accent-press:var(--magenta-600);
-  --on-accent:var(--obsidian-050); --link:var(--magenta-400); --link-hover:var(--magenta-300); --mono-accent:var(--magenta-400);
-  --focus-halo:rgba(240,81,213,0.35); --focus-glow:var(--sh-glow);
-  --accent-rgb:240,81,213; --on-accent-alt:var(--obsidian-950); --accent-deep:var(--magenta-700); --accent-deepest:var(--magenta-800);
-  --hairline:var(--obsidian-800); --card-hover:var(--obsidian-700); --control-knob:var(--obsidian-200);
-  --text-faint:var(--obsidian-500); --text-ghost:var(--obsidian-600);
-  --viz-secondary:var(--secondary-400);
-  --status-success-ink:var(--success); --status-success-fill:transparent; --status-success-edge:var(--success);
-  --status-warning-ink:var(--warning); --status-warning-fill:transparent; --status-warning-edge:var(--warning);
-  --status-danger-ink:var(--danger);   --status-danger-fill:transparent;  --status-danger-edge:var(--danger);
-  --status-info-ink:var(--info);       --status-info-fill:transparent;    --status-info-edge:var(--info);
-  --e-1:var(--sh-1); --e-2:var(--sh-2); --e-3:var(--sh-3); --e-4:var(--sh-4);
-  --grad-signal: linear-gradient(90deg,#F051D5 0%,#FF85DF 100%);
-  color-scheme: dark;
-}
+/* Dark-pinned islands removed 2026-07-17: slides, hexmap and data-viz panels follow the active theme (Angelo review). */
 
 /* =========================================================
    GLOBAL RESET + BASE
