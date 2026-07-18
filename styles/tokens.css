@@ -216,6 +216,16 @@
   --text-ghost:     var(--obsidian-600);
   --text-emph:      var(--obsidian-050);
   --control-glyph:  #04201D;
+  --on-danger:      #1A0606;   /* btn-danger label */
+  --on-accent-ink:  #1A001A;   /* skip-link label on accent */
+  --law-signal:     #2EE5A6;   /* 85/10/5 semantic segment */
+  --law-neutral:    #3A4452;   /* 85/10/5 obsidian dot */
+  --sh-pop:         0 8px 24px rgba(0,0,0,0.4);      /* popover/dropdown */
+  --sh-drawer:      8px 0 32px rgba(0,0,0,0.4);      /* mobile sidebar */
+  --veil:           rgba(11,14,18,0.72);             /* loader overlay */
+  --media-scrim:    rgba(7,9,11,0.7);                /* chips floating on media — dark in BOTH themes */
+  --cube-rgb:       0,229,209;                       /* logo glow family (theme-invariant) */
+  --accent-2-rgb:   248,104,216;                     /* soft brand wash (cover art) */
   --brand-magenta:  #F051D5;   /* punctual signature: logo fog, ::selection — NEVER theme-remapped */
   --secondary-rgb:  0,255,242;
   --tertiary-rgb:   12,96,120;
@@ -295,6 +305,14 @@ html[data-theme="light"]{color-scheme:light}
   --text-ghost:     var(--obsidian-200);
   --text-emph:      var(--obsidian-950);
   --control-glyph:  var(--obsidian-050);
+  --on-danger:      var(--obsidian-050);
+  --on-accent-ink:  var(--obsidian-050);
+  --law-signal:     var(--success);
+  --law-neutral:    var(--obsidian-400);
+  --sh-pop:         0 8px 24px rgba(10,15,20,0.14);
+  --sh-drawer:      8px 0 32px rgba(10,15,20,0.14);
+  --veil:           rgba(251,252,253,0.72);
+  --accent-2-rgb:   31,133,160;
   /* data viz secondary — magenta electric, graphic grade */
   --viz-secondary:  var(--secondary-600);
   /* status — ink + tint fill + tonal edge (ratified D2-A V3) */
