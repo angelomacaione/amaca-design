@@ -2803,7 +2803,7 @@
 [data-theme="light"] [stroke="#FF85DF"]{stroke:#1F85A0}
 [data-theme="light"] [stroke="#FFB5EC"]{stroke:#A9D8E3}
 [data-theme="light"] [stroke="#2A313B"]{stroke:#CCD3DB}
-[data-theme="light"] [stroke="#5B4A6A"]{stroke:#B8C0CB}
+[data-theme="light"] [stroke="#5B4A6A"]{stroke:#0C6078}
 [data-theme="light"] [stroke="#00FFF2"]{stroke:#009992}
 [data-theme="light"] [stroke="#3AFFC7"]{stroke:#00815C}
 [data-theme="light"] [stroke="rgba(255,255,255,0.05)"],
@@ -2826,6 +2826,8 @@
 [data-theme="light"] .law-dot-semantic{background:var(--success)}
 [data-theme="light"] .badge:not(.badge-solid){color:var(--tertiary-600)}
 [data-theme="light"] .navdemo .logo .mk{background:var(--grad-signal)}
+[data-theme="light"] .btn-primary .loader-anim,
+[data-theme="light"] .chat-composer-send .loader-anim{filter:brightness(0) invert(1)}
 [data-theme="light"] .cs-img-hint{background:rgba(251,252,253,0.85);color:var(--obsidian-500);border:1px solid var(--obsidian-300)}
 [data-theme="light"] .lightbox-close{color:var(--obsidian-950);background:rgba(251,252,253,0.75);border-color:var(--obsidian-300)}
 /* dark-neutral strokes in baked SVG art (pie dividers, connectors) */
