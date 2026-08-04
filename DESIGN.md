@@ -506,7 +506,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open / close | panel grid-rows (spatial) · chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| open | panel grid-rows (spatial) | `--d-slow` · `--ease-decel` | instant |
+| close | panel grid-rows (spatial) | `--d-slow` · `--ease-standard` | instant |
+| open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
 | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
@@ -561,7 +564,8 @@ Use `will-change: transform, width` on the indicator.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open / close | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-standard` | instant |
+| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 
 ### Time input
 
@@ -1255,6 +1259,10 @@ These have all been tried in this system and rejected.
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 
+**Direction is part of the trigger.** A component that both opens and closes, enters and exits, grows and collapses declares **two rows**, not one — the reverse of a reveal is not a reveal played backwards. Opening is system-triggered (`--ease-decel`); closing is user-triggered and rides the pairing (`--ease-standard`). `--ease-accel` belongs to things that *leave the surface* — a toast sliding out, a dismissal — never to something collapsing in place: on a collapse it holds and then drops, which reads as lag, not as leaving.
+
+**Duration follows the object, not the habit.** `--d-slow` is the scale's own bucket for *panel slides*. A panel that rides `--d-base` because `--d-base` is the default will dump most of its height in the first 100ms once the content is tall. Measured on the changelog accordion: 2000px of panel on `--d-base` · `--ease-decel` completes 93% of the collapse in 100ms; the same panel on `--d-slow` reaches 31%. Both are the curve doing exactly what it promises — what was wrong was the duration.
+
 Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `--ease-*`, plus an optional delay) — never raw values. The *Property* column declares the type (`spatial` / `effect`) next to each property, so the Spatial-vs-Effects rule is checkable on the row itself. The *Reduced motion* column uses a closed vocabulary: `instant` (state applies with no transition) · `fade-only` (opacity-only ride on `--d-quick`) · `none` (nothing animates in the first place). The global kill-switch below remains the contract; the column records only how this component lands when it fires.
 
 **Motion index (site-canonical).** The aggregate of every ratified per-component motion spec. Seeded with the site's canonical patterns; every new component ships its rows here in the same release:
@@ -1262,13 +1270,17 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Component | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
-| Accordion | open / close | panel grid-rows (spatial) · chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| Accordion | open | panel grid-rows (spatial) | `--d-slow` · `--ease-decel` | instant |
+| Accordion | close | panel grid-rows (spatial) | `--d-slow` · `--ease-standard` | instant |
+| Accordion | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| Accordion | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
 | Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
-| Lightbox | open / close | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-standard` | instant |
+| Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
+| Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
@@ -1286,10 +1298,12 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
-| Date picker | open / close | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Date picker | day hover | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Date picker | year mode | title chevron rotate 180° (spatial) | `--d-quick` · `--ease-standard` | instant |
-| Time input | open / close | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Time input | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Time input | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -1502,6 +1516,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
+0. **`python3 verify.py` exits clean.** Nineteen deterministic checks — token resolution, raw values, motion pairs, registry coverage, state grammar, version parity across five places, teaching grammar. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter.
 2. Changelog entry in both places: here (`## Changelog
 
@@ -1527,6 +1542,10 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Fixed**
 - **`--font-mono` was never a monospaced stack.** `tokens.css` carried a byte-for-byte copy of `--font-sans`, while this file's frontmatter, § Typography and `tokens.dtcg.json` all declared `ui-monospace, SFMono-Regular, Menlo, monospace` — a correction applied to the DTCG export in v3.1.0 and never propagated to the CSS. The system has run on two typographic identities since: 134 `var(--font-mono)` references rendering Satoshi, and 38 hardcoded monospace stacks in `index.html` rendering a real mono. **The CSS was right and the contract was wrong**: Amaca is a single-typeface system, and the mono *register* is Satoshi plus `--tr-mono`, uppercase and tabular figures. Frontmatter, § Typography and the DTCG file now say so; the 38 hardcoded stacks are gone; a real monospaced stack is now explicitly off-system.
+- **`var(--s-7)` does not exist — two declarations silently dropped.** The spacing scale steps 24 → 32; `.law-card` margin-top and the `.law-rule` mobile padding both referenced a step that isn't there, so the browser discarded the whole declaration. Now `--s-8`. Found by `verify.py`, not by eye — an invalid custom property fails without a symptom.
+- **Seven pressables had no `:focus-visible`** — `.select-trigger`, `.tab`, `.lightbox-close`, `.menu-toggle`, `.replay-btn`, `.navdemo-burger`, `.tp-wheel-item`. § 3.0.1 makes the row mandatory; the CSS didn't have it.
+- **Four components declared open and close on one motion row** (Accordion, Lightbox, Date picker, Time input) and therefore rode the same curve in both directions. Split, per the direction rule now in § 08.3.
+- **`transition: … font-weight var(--d-quick)`** with no easing half — the eighth survivor, found after the first seven were fixed.
 - **The loader inside `.btn-primary` was dark while the label was light.** The dark silhouette was ratified in v2.5.0, when the primary label was still dark; § 6.3 flipped the label to near-white in v2.7.0 and the loader was never revisited, so the two halves of the same button have carried opposite treatments since. Now `brightness(0) invert(1)`, with `--obsidian-050` on the fallback ring and the success check. The rule behind it is now written: anything composed inside `.btn-primary` wears the label's colour.
 - **704 `<code>` elements ran on the browser's monospaced default.** Only two were styled (`.table code`, `.a11y-rule p code`); every other inline fragment fell back to a real monospaced typeface. The § 11.2 rules card showed both a line apart. `code, kbd, samp, pre` now ride the mono register in the reset.
 - **The composer's staged state was two rows tall for one line of text** (§ 16.3). `rows="2"` with a single line left the text at the top and pushed attach and send to the bottom on `align-items: flex-end`, so the two side-by-side demos didn't match and the box read broken. Shipped that way since the composer landed.

@@ -457,9 +457,9 @@
   z-index:var(--z-popover);
   font-family:var(--font-sans);
   opacity:0;transform:translateY(-4px);pointer-events:none;
-  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
-.dp-popover.is-open{opacity:1;transform:translateY(0);pointer-events:auto}
+.dp-popover.is-open{opacity:1;transform:translateY(0);pointer-events:auto;transition:opacity var(--d-quick) var(--ease-decel), transform var(--d-quick) var(--ease-decel)}
 .dp-popover[hidden]{display:none}
 
 /* Header */
@@ -600,9 +600,9 @@
   z-index:var(--z-popover);
   font-family:var(--font-sans);
   opacity:0;transform:translateY(-4px);pointer-events:none;
-  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
-.tp-popover.is-open{opacity:1;transform:translateY(0);pointer-events:auto}
+.tp-popover.is-open{opacity:1;transform:translateY(0);pointer-events:auto;transition:opacity var(--d-quick) var(--ease-decel), transform var(--d-quick) var(--ease-decel)}
 .tp-popover[hidden]{display:none}
 
 .tp-wheels{
@@ -662,7 +662,7 @@
   scroll-snap-align:center;
   scroll-snap-stop:always;
   cursor:pointer;
-  transition:color var(--d-quick) var(--ease-standard), font-weight var(--d-quick);
+  transition:color var(--d-quick) var(--ease-standard), font-weight var(--d-quick) var(--ease-standard);
 }
 .tp-wheel-item.is-active{
   color:var(--obsidian-100);font-weight:600;
@@ -910,9 +910,9 @@
   backdrop-filter:blur(12px);
   opacity:0;
   pointer-events:none;
-  transition:opacity var(--d-quick) var(--ease-standard);
+  transition:opacity var(--d-quick) var(--ease-accel);
 }
-.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox.open{opacity:1;pointer-events:auto;transition:opacity var(--d-quick) var(--ease-decel)}
 .lightbox-content{
   position:relative;
   width:100%;max-width:1400px;
@@ -928,9 +928,9 @@
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-mono);font-size:13px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200);
   transform:scale(0.96);
-  transition:transform var(--d-base) var(--ease-decel);
+  transition:transform var(--d-base) var(--ease-accel);
 }
-.lightbox.open .lightbox-content{transform:scale(1)}
+.lightbox.open .lightbox-content{transform:scale(1);transition:transform var(--d-base) var(--ease-decel)}
 .lightbox-close{
   position:absolute;top:var(--s-3);right:var(--s-3);
   width:36px;height:36px;
@@ -1010,8 +1010,15 @@
 .skip-link:focus{top:12px}
 .btn:focus-visible,
 .nav-item:focus-visible,
+.menu-toggle:focus-visible,
 .swatch:focus-visible,
-.chip:focus-visible {
+.chip:focus-visible,
+.tab:focus-visible,
+.select-trigger:focus-visible,
+.lightbox-close:focus-visible,
+.replay-btn:focus-visible,
+.navdemo-burger:focus-visible,
+.tp-wheel-item:focus-visible {
   outline: 2px solid var(--obsidian-100);
   outline-offset: 3px;
   box-shadow: 0 0 0 4px rgba(240,81,213,0.35);
@@ -1195,8 +1202,12 @@
 
 
 /* ============ ACCORDION ============ */
-.accordion{display:flex;flex-direction:column;border-top:1px solid var(--obsidian-800);border-radius:var(--r-lg);overflow:hidden;background:var(--obsidian-950)}
+/* Separators only. A border-top with no side borders draws a lid with no
+   walls: the radius curves it at the corners and it ends in mid-air. Same
+   discipline as § 3.16 Table — the row rule carries the scan. */
+.accordion{display:flex;flex-direction:column;border-radius:var(--r-lg);overflow:hidden;background:var(--obsidian-950)}
 .acc-item{border-bottom:1px solid var(--obsidian-800);background:transparent;transition:background var(--d-quick) var(--ease-decel)}
+.acc-item:last-child{border-bottom:0}
 .acc-item.is-open{background:rgba(240,81,213,0.04)}
 .acc-trigger{
   display:grid;
@@ -1222,22 +1233,32 @@
   display:inline-flex;align-items:center;justify-content:center;
   width:16px;height:16px;flex:0 0 16px;
   color:var(--obsidian-400);
-  transition:transform var(--d-base) var(--ease-decel), color var(--d-quick) var(--ease-decel);
+  transition:transform var(--d-base) var(--ease-standard), color var(--d-quick) var(--ease-standard);
 }
 .acc-chevron svg{width:14px;height:14px;display:block}
-.acc-item.is-open .acc-chevron{transform:rotate(90deg);color:var(--magenta-400)}
+.acc-item.is-open .acc-chevron{transform:rotate(90deg);color:var(--magenta-400);transition:transform var(--d-base) var(--ease-decel), color var(--d-quick) var(--ease-standard)}
 .acc-label{min-width:0;font-weight:500}
 .acc-num{
   font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);
   color:var(--obsidian-500);text-transform:uppercase;flex-shrink:0;
 }
 .acc-item.is-open .acc-num{color:var(--magenta-400)}
+/* The panel is a panel: --d-slow, the scale's own bucket for panel slides.
+   On --d-base a 2000px collapse dumps ~90% of the height in 100ms with any
+   out-curve — the rows below lurch. Direction decides the curve: the resting
+   rule is the CLOSING ride (user-triggered → --ease-standard, per the § 08.3
+   pairing), the .is-open rule is the OPENING ride (system revealing →
+   --ease-decel). --ease-accel is wrong here: it holds for 150ms and then
+   drops, which reads as lag rather than as leaving. */
 .acc-panel{
   display:grid;
   grid-template-rows:0fr;
-  transition:grid-template-rows var(--d-base) var(--ease-decel);
+  transition:grid-template-rows var(--d-slow) var(--ease-standard);
 }
-.acc-item.is-open .acc-panel{grid-template-rows:1fr}
+.acc-item.is-open .acc-panel{
+  grid-template-rows:1fr;
+  transition:grid-template-rows var(--d-slow) var(--ease-decel);
+}
 .acc-panel-inner{overflow:hidden;min-height:0}
 .acc-panel-body{
   padding:0 var(--s-6) var(--s-6) calc(16px + var(--s-4) + var(--s-6));
@@ -1403,7 +1424,7 @@
 .law-card{
   display:grid;
   gap: var(--s-10);
-  margin-top: var(--s-7);
+  margin-top: var(--s-8);
 }
 
 /* Scroll-in reveal: bar wipes L→R (obsidian → magenta → semantic, in segment order),
@@ -1539,7 +1560,7 @@
   .law-label{font-size: 13px}
   .law-note{font-size: 9px}
   .law-rule p{font-size: 14px}
-  .law-rule{padding: var(--s-6) var(--s-7); gap: var(--s-4)}
+  .law-rule{padding: var(--s-6) var(--s-8); gap: var(--s-4)}
 }
 
 
