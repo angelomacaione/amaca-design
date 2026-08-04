@@ -2899,7 +2899,9 @@
    state change. `--s-3` is the region gap; the negative margin eats it so
    nothing is left behind. */
 .toast.is-collapsing{
-  max-height:0;padding-block:0;border-block-width:0;
+  /* max-height is driven inline by the controller — an inline start value
+     outranks a class end value, so both ends have to live in the same place. */
+  padding-block:0;border-block-width:0;
   margin-bottom:calc(-1 * var(--s-3));
   overflow:hidden;
   transition:max-height var(--d-base) var(--ease-decel),

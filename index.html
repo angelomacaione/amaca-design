@@ -7821,10 +7821,16 @@ try {
       t.classList.remove('is-in');
       t.classList.add('is-out');                        // 1. fade + slide out, --d-quick · --ease-accel
       setTimeout(() => {
-        t.style.maxHeight = t.scrollHeight + 'px';      // 2. pin the height so it has something to animate from
+        // 2. pin the height so there is something to animate FROM.
+        //    The target must also be driven inline: an inline max-height
+        //    outranks .is-collapsing{max-height:0}, so setting the start
+        //    inline and the end in CSS silently wins the start and the
+        //    box never collapses — only padding, border and margin do.
+        t.style.maxHeight = t.scrollHeight + 'px';
         getComputedStyle(t).maxHeight;                  //    flush (§ Code conventions replay pattern)
-        t.classList.add('is-collapsing');               // 3. the stack rises, --d-base · --ease-accel
-        setTimeout(() => { t.style.display = 'none'; }, 380);
+        t.classList.add('is-collapsing');               // 3. the stack rises, --d-base · --ease-decel
+        requestAnimationFrame(() => { t.style.maxHeight = '0px'; });
+        setTimeout(() => { t.style.display = 'none'; }, 420);
       }, 210);
     });
   }
