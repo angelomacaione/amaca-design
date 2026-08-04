@@ -506,8 +506,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open | panel grid-rows (spatial) | `--d-slow` · `--ease-decel` | instant |
-| close | panel grid-rows (spatial) | `--d-slow` · `--ease-standard` | instant |
+| open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
+| close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
 | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
@@ -1091,7 +1091,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 - A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
 - **Same grid as § 3.18**: icon and title on the first row, body returning to the icon's left edge below.
 - **A toast enters and leaves on the same side it lives on** — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.
-- **The stack closes the gap, it never snaps.** Dismissal is two moves, not one: the toast fades and slides out on `--d-quick` · `--ease-accel`, *then* its box collapses (`max-height`, padding, border, and the region gap) on `--d-base` · `--ease-accel` so the toasts below rise into place. Same roll-off shape as the chat message (§ 3.11). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
+- **The stack closes the gap, it never snaps.** Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on `--d-quick` · `--ease-accel` — that is the exit. Its box then collapses on `--d-base` · **`--ease-decel`** — and that is not an exit at all: it is the **repositioning of the toasts below**, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.11). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
 - **The two rides differ in speed, not in path.** In: `.is-in`, `--d-base` · `--ease-decel` — the system announcing itself. Out: `.is-out`, `--d-quick` · `--ease-accel` — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.
 - **The toast keeps its close button.** It is the dismissible half of the pair: § 3.18 Alert has none by contract.
 - Motion: § 08.4.
@@ -1261,6 +1261,16 @@ These have all been tried in this system and rejected.
 
 **Direction is part of the trigger.** A component that both opens and closes, enters and exits, grows and collapses declares **two rows**, not one — the reverse of a reveal is not a reveal played backwards. Opening is system-triggered (`--ease-decel`); closing is user-triggered and rides the pairing (`--ease-standard`). `--ease-accel` belongs to things that *leave the surface* — a toast sliding out, a dismissal — never to something collapsing in place: on a collapse it holds and then drops, which reads as lag, not as leaving.
 
+**Duration follows the distance when the distance varies (RIGID).** Perceived velocity is distance ÷ duration. A component whose content varies by an order of magnitude cannot have one honest duration: measured on this site, the same accordion rule produced a 60px panel at 100 px/s and a 2037px panel at 3395 px/s — 34× apart, from one line of CSS. Such a component picks its duration **token** by measured height, from the closed scale. Only the *choice* is computed; the value is always a token, read off `:root` at runtime per § Code conventions.
+
+| Travelled distance | Duration token |
+|---|---|
+| under `120px` | `--d-base` |
+| `120px` to `600px` | `--d-slow` |
+| over `600px` | `--d-scene` |
+
+The buckets are the contract: a component that scales its duration declares the same three thresholds, and the CSS carries the middle bucket as a fallback so it behaves without JS. This does not license a computed duration — a `calc()` on `--d-*`, or any value between the steps, stays off-system.
+
 **Duration follows the object, not the habit.** `--d-slow` is the scale's own bucket for *panel slides*. A panel that rides `--d-base` because `--d-base` is the default will dump most of its height in the first 100ms once the content is tall. Measured on the changelog accordion: 2000px of panel on `--d-base` · `--ease-decel` completes 93% of the collapse in 100ms; the same panel on `--d-slow` reaches 31%. Both are the curve doing exactly what it promises — what was wrong was the duration.
 
 Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `--ease-*`, plus an optional delay) — never raw values. The *Property* column declares the type (`spatial` / `effect`) next to each property, so the Spatial-vs-Effects rule is checkable on the row itself. The *Reduced motion* column uses a closed vocabulary: `instant` (state applies with no transition) · `fade-only` (opacity-only ride on `--d-quick`) · `none` (nothing animates in the first place). The global kill-switch below remains the contract; the column records only how this component lands when it fires.
@@ -1270,8 +1280,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Component | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
-| Accordion | open | panel grid-rows (spatial) | `--d-slow` · `--ease-decel` | instant |
-| Accordion | close | panel grid-rows (spatial) | `--d-slow` · `--ease-standard` | instant |
+| Accordion | open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
+| Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | Accordion | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | Accordion | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
 | Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
@@ -1309,7 +1319,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Toast | enter | opacity (effect) · translateX 24px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |
-| Toast | dismiss (`.is-collapsing`) | max-height · padding · border · margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
+| Toast | dismiss (`.is-collapsing`) | max-height · padding · border · margin collapse (spatial) — repositions the stack | `--d-base` · `--ease-decel` | instant — still hides |
 | Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger 90ms | instant |
 | Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Tooltip | close (another opens · Escape · scroll) | opacity (effect) · translateY 0→2px (spatial) | `--d-quick` · `--ease-standard` | instant |
@@ -1516,7 +1526,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify.py` exits clean.** Nineteen deterministic checks — token resolution, raw values, motion pairs, registry coverage, state grammar, version parity across five places, teaching grammar. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does.
+0. **`python3 verify-ds.py` exits clean.** Nineteen deterministic checks — token resolution, raw values, motion pairs, registry coverage, state grammar, version parity across five places, teaching grammar. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter.
 2. Changelog entry in both places: here (`## Changelog
 
@@ -1542,6 +1552,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Fixed**
 - **`--font-mono` was never a monospaced stack.** `tokens.css` carried a byte-for-byte copy of `--font-sans`, while this file's frontmatter, § Typography and `tokens.dtcg.json` all declared `ui-monospace, SFMono-Regular, Menlo, monospace` — a correction applied to the DTCG export in v3.1.0 and never propagated to the CSS. The system has run on two typographic identities since: 134 `var(--font-mono)` references rendering Satoshi, and 38 hardcoded monospace stacks in `index.html` rendering a real mono. **The CSS was right and the contract was wrong**: Amaca is a single-typeface system, and the mono *register* is Satoshi plus `--tr-mono`, uppercase and tabular figures. Frontmatter, § Typography and the DTCG file now say so; the 38 hardcoded stacks are gone; a real monospaced stack is now explicitly off-system.
+- **One duration across a 34× range of distances.** The § 15 accordion panel is 60px, the § 24.1 changelog panel is 2037px, and both rode 600ms from the same rule — 100 px/s against 3395 px/s. They read as different components because they were moving at different speeds. Accordion panels now pick their duration token by measured height (§ 08.3): 206 px/s and 1299 px/s, from the same closed scale.
 - **`var(--s-7)` does not exist — two declarations silently dropped.** The spacing scale steps 24 → 32; `.law-card` margin-top and the `.law-rule` mobile padding both referenced a step that isn't there, so the browser discarded the whole declaration. Now `--s-8`. Found by `verify.py`, not by eye — an invalid custom property fails without a symptom.
 - **Seven pressables had no `:focus-visible`** — `.select-trigger`, `.tab`, `.lightbox-close`, `.menu-toggle`, `.replay-btn`, `.navdemo-burger`, `.tp-wheel-item`. § 3.0.1 makes the row mandatory; the CSS didn't have it.
 - **Four components declared open and close on one motion row** (Accordion, Lightbox, Date picker, Time input) and therefore rode the same curve in both directions. Split, per the direction rule now in § 08.3.

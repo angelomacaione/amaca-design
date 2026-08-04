@@ -1243,21 +1243,22 @@
   color:var(--obsidian-500);text-transform:uppercase;flex-shrink:0;
 }
 .acc-item.is-open .acc-num{color:var(--magenta-400)}
-/* The panel is a panel: --d-slow, the scale's own bucket for panel slides.
-   On --d-base a 2000px collapse dumps ~90% of the height in 100ms with any
-   out-curve — the rows below lurch. Direction decides the curve: the resting
-   rule is the CLOSING ride (user-triggered → --ease-standard, per the § 08.3
-   pairing), the .is-open rule is the OPENING ride (system revealing →
-   --ease-decel). --ease-accel is wrong here: it holds for 150ms and then
-   drops, which reads as lag rather than as leaving. */
+/* Duration is chosen by distance (§ 08.3). --acc-d is set on the item by the
+   controller from the measured panel height, picking one of the existing
+   duration tokens — never a computed value. The fallback below is the middle
+   bucket, so the component still behaves without JS.
+   Direction decides the curve: the resting rule is the CLOSING ride
+   (user-triggered → --ease-standard, per the § 08.3 pairing), the .is-open
+   rule is the OPENING ride (system revealing → --ease-decel). --ease-accel is
+   wrong here: it holds for 150ms then drops, which reads as lag, not leaving. */
 .acc-panel{
   display:grid;
   grid-template-rows:0fr;
-  transition:grid-template-rows var(--d-slow) var(--ease-standard);
+  transition:grid-template-rows var(--acc-d, var(--d-slow)) var(--ease-standard);
 }
 .acc-item.is-open .acc-panel{
   grid-template-rows:1fr;
-  transition:grid-template-rows var(--d-slow) var(--ease-decel);
+  transition:grid-template-rows var(--acc-d, var(--d-slow)) var(--ease-decel);
 }
 .acc-panel-inner{overflow:hidden;min-height:0}
 .acc-panel-body{
@@ -2890,17 +2891,21 @@
   transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
 /* Collapse — the stack closes the gap the dismissed toast leaves, it never
-   snaps shut. Same roll-off shape as the chat message (§ 08.4): the fade and
-   slide go first, the box collapses after. `--s-3` is the region gap; the
-   negative margin eats it so nothing is left behind. */
+   snaps shut. Two moves: the fade and slide go first (that is the exit, and
+   exits ride --ease-accel), then the box collapses.
+   The collapse rides --ease-decel, not --ease-accel: it is not the exit of
+   this toast, it is the REPOSITIONING of the ones below it. They are not
+   leaving — they are settling into a new place, which is a system-triggered
+   state change. `--s-3` is the region gap; the negative margin eats it so
+   nothing is left behind. */
 .toast.is-collapsing{
   max-height:0;padding-block:0;border-block-width:0;
   margin-bottom:calc(-1 * var(--s-3));
   overflow:hidden;
-  transition:max-height var(--d-base) var(--ease-accel),
-             padding var(--d-base) var(--ease-accel),
-             margin var(--d-base) var(--ease-accel),
-             border-width var(--d-base) var(--ease-accel);
+  transition:max-height var(--d-base) var(--ease-decel),
+             padding var(--d-base) var(--ease-decel),
+             margin var(--d-base) var(--ease-decel),
+             border-width var(--d-base) var(--ease-decel);
 }
 @media (prefers-reduced-motion: reduce){
   .toast.is-collapsing{transition:none}

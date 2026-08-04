@@ -2,12 +2,17 @@
 """
 Amaca — design system consistency verifier.
 
+Canonical location: the repo root of `angelomacaione/amaca-design`, alongside
+DESIGN.md. A copy lives in the vault at `_Crafting/Amaca/verify-ds.py` so the
+harness survives a lost session — that copy is a MIRROR. Edit here, sync there,
+never the other way round (same direction as DESIGN.md).
+
 Deterministic. No network, no LLM, no dependencies beyond the standard library.
 Run from the repo root:
 
-    python3 verify.py              # human-readable report, exit 1 on any failure
-    python3 verify.py --json       # machine-readable, for CI
-    python3 verify.py --only 03    # run a single check by id
+    python3 verify-ds.py              # human-readable report, exit 1 on failure
+    python3 verify-ds.py --json       # machine-readable, for CI
+    python3 verify-ds.py --only 03    # run a single check by id
 
 Every check below exists because a real drift shipped. The id in brackets is the
 release that would have caught it. This file IS the harness: when a new class of
@@ -63,7 +68,7 @@ def strip_prose(html):
 # TOKEN INTEGRITY
 # ─────────────────────────────────────────────────────────────────────────────
 
-@check("01", "Every var(--token) resolves",
+@check("01", "Every var(--token) resolves, or carries a fallback",
        "v3.4.0: var(--brand) was referenced 13 times and never declared. "
        "The fallback was a plausible grey, so it never read as broken.")
 def c01():
@@ -71,14 +76,14 @@ def c01():
     fails = []
     for path in (COMPONENTS, THEME):
         local = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(path)))
-        for tok in set(re.findall(r"var\((--[a-z0-9-]+)", read(path))):
+        for tok in set(re.findall(r"var\((--[a-z0-9-]+)\s*\)", read(path))):
             if tok not in declared and tok not in local:
                 fails.append(f"{path.name}: var({tok})")
     html = strip_prose(read(INDEX))
     # a custom property set from JS is declared as much as one set in CSS
     local = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(INDEX)))
     local |= set(re.findall(r"setProperty\(\s*['\"](--[a-z0-9-]+)", read(INDEX)))
-    for tok in set(re.findall(r"var\((--[a-z0-9-]+)", html)):
+    for tok in set(re.findall(r"var\((--[a-z0-9-]+)\s*\)", html)):
         if tok not in declared and tok not in local:
             fails.append(f"index.html: var({tok})")
     return fails
@@ -398,6 +403,32 @@ def c19():
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
 
+
+
+@check("20", "Duration-by-distance buckets agree between spec and controller",
+       "§ 08.3: the thresholds are the contract. A component that scales its "
+       "duration and a spec table that disagree is the same class of drift as "
+       "a version stamp that lags — silent, and only visible in motion.")
+def c20():
+    # take the UPPER bound of each row: "120px to 600px" bounds at 600
+    spec = []
+    for row, tok in re.findall(r"\|([^|]*`\d+px`[^|]*)\|\s*`(--d-[a-z]+)`\s*\|", read(DESIGN)):
+        spec.append((re.findall(r"`(\d+)px`", row)[-1], tok))
+    js = re.findall(r"h\s*<\s*(\d+)\s*\?\s*'(--d-[a-z]+)'\s*:\s*\(h\s*<=\s*(\d+)\s*\?\s*'(--d-[a-z]+)'\s*:\s*'(--d-[a-z]+)'",
+                    read(INDEX))
+    if not spec:
+        return ["DESIGN.md: § 08.3 duration-by-distance table not found"]
+    if not js:
+        return ["index.html: accordion controller does not implement the buckets"]
+    lo, t1, hi, t2, t3 = js[0]
+    want = [(lo, t1), (hi, t2)]
+    got = [(a, b) for a, b in spec][:2]
+    fails = []
+    if got != want:
+        fails.append(f"spec says {got}, controller says {want}")
+    if f"`{t3}`" not in read(DESIGN):
+        fails.append(f"controller uses {t3}, absent from the § 08.3 table")
+    return fails
 
 # ─────────────────────────────────────────────────────────────────────────────
 
