@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 3.3.0 · Released: 2026-07-17 · Matches the DESIGN.md frontmatter version
+Version: 3.4.0 · Released: 2026-08-05 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
@@ -35,6 +35,8 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 
 ## Components — reuse, don't reinvent
 Each maps to a class in `components.css` (`.btn-primary`, `.card`, `.field`, `.select`, …); full specs in `DESIGN.md → Components`. One `.btn-primary` per screen. Dropdown/Select placement is viewport-aware (opens below, flips above, never covers adjacent content). **A new `.classname` not in the canonical set is a gap** — surface it (workaround / extend / refactor), never ship a silent variant.
+
+**The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation.
 
 ## Accessibility floor (non-negotiable)
 Color never carries meaning alone (pair with shape + label) · no text < 12px, no body < 14px · every field has a persistent label (placeholder ≠ label) · every image has `alt` · focus follows reading order · no auto-advancing content · touch target 44×44 (32×32 dense desktop). Focus: pressables get a dual-ring (white outline + magenta halo); inputs get the magenta border + glow. On `--magenta-500` use a dark label (`--obsidian-950`, AA) by default; the one ratified exception is `.btn-primary` (light `--obsidian-050` label, scoped to that CTA).
@@ -250,6 +252,18 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --sidebar-w: 260px;
   --content-max: 1180px;
   --gutter: 24px;
+
+  /* — STACKING — closed scale, seven layers, no others (§ 3.0.2).
+     Values match the system as built: this scale names the existing
+     layers, it does not renumber them. In-component stacking below
+     10 (z-index 1 / 2 / 5) is composition, literal by design. — */
+  --z-sticky: 10;
+  --z-scrim: 15;
+  --z-menu: 20;
+  --z-popover: 30;
+  --z-overlay: 100;
+  --z-toast: 200;
+  --z-max: 1000;
 }
 
 /* =========================================================
@@ -272,10 +286,11 @@ img,svg{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
 a:hover{color:var(--magenta-300)}
+input,textarea{caret-color:var(--magenta-500)}
 ::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
 
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:4px;border:2px solid var(--obsidian-950)}
+::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:var(--r-sm);border:2px solid var(--obsidian-950)}
 ::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}

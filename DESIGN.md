@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 3.3.0
-updated: 2026-07-17
+version: 3.4.0
+updated: 2026-08-05
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-07-17
+last_synced: 2026-08-05
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -232,6 +232,22 @@ Single typeface — **Satoshi** — across the whole system. `--font-sans` resol
 
 12-col grid. Sidebar is fixed; content breathes.
 
+### Stacking
+
+**Seven layers. No others.** Every floating component takes its `z-index` from this scale. The values name the system as built — this scale did not renumber anything.
+
+| Token | Value | Layer |
+|---|---|---|
+| `--z-sticky` | `10` | Sticky chrome — sidebar, pinned headers |
+| `--z-scrim` | `15` | Drawer scrim |
+| `--z-menu` | `20` | Mobile drawer, anchored menus (`.select-menu`) |
+| `--z-popover` | `30` | Anchored floating layers — date/time popovers, tooltip |
+| `--z-overlay` | `100` | Full-screen overlays — lightbox |
+| `--z-toast` | `200` | Toast region |
+| `--z-max` | `1000` | Skip link, and nothing else |
+
+**Rule:** in-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same vocabulary-vs-composition split § Code conventions draws for runtime token values. A raw `z-index` of 10 or more is a violation, greppable per line.
+
 ## Elevation & Depth
 
 ### Shadow
@@ -264,9 +280,124 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 **Working range is 8–12px.** If a component asks for more, justify it.
 
+**Sub-scale hairlines (ratified exception).** Shapes 4px or smaller — the nav-label dot, the menu-toggle bars, the pie-legend swatch — carry a literal `1px` / `3px` radius. Below `--r-xs` the scale has no step, and rounding them to 2px changes the shape rather than the corner. Closed list, three instances, greppable. Everything larger takes a token.
+
 ## Components
 
-Every component below maps 1:1 to a class in `styles/components.css`. **Reuse classes; don't reinvent components.**
+Every component below maps 1:1 to a class in `styles/components.css`. **Reuse classes; don't reinvent components.** The registry below is the closed list — if it isn't there, it isn't a component.
+
+### § 3.0 Component registry
+
+**The closed inventory.** The token rule ("is it in § 2? no → stop, ask the owner") is executable because § 2 is a closed list. This table does the same job one level up: it is the closed list of components, so a model can detect non-coverage instead of inventing.
+
+**Four states, no others:**
+
+| State | Meaning | What a generator does |
+|---|---|---|
+| `canonical` | Full spec in this file | Build from the spec. Don't re-derive it from the CSS |
+| `css-only` | Shipped in `components.css`, spec not yet written | Use the class as-is. Never extend it, never add variants. Transitional — every row carries a milestone |
+| `off-system` | Does not exist in the system | **Stop and ask the owner.** Do not invent it |
+| `site-only` | Documentation-site chrome living in `components.css` | Not part of the contract. Treat as `off-system` |
+
+**Closure clause.** A component not listed below is `off-system`. A CSS class not listed below is not a component — it is either a part of a listed component or `site-only`.
+
+| Component | Classes | State | Spec |
+|---|---|---|---|
+| Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` | canonical | § 3.1 |
+| Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-wrap-trail` `.help` | canonical | § 3.2 |
+| Card | `.card` `.card-header` `.card-media` | canonical | § 3.3 |
+| Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
+| Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
+| Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.7 |
+| Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.8 — image only |
+| Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.9 |
+| Dropdown · Select | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` | canonical | § 3.10 |
+| Chat · Messaging | `.chat-*` | canonical | § 3.11 |
+| Loader | `.loader-*` · `.skeleton-line` `.skeleton-stack` | canonical | § 3.12 — Skeleton is a part of the Loader, not a component |
+| Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
+| Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
+| Date picker | `.dp-wrap` `.dp-icon-btn` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
+| Table | `.table` | canonical | § 3.16 |
+| Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
+| Alert | `.alert` `.alert-icon` `.alert-body` `.alert-title` `.alert-dismiss` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
+| Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.19 |
+| Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.20 |
+| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | css-only | spec in v3.5.0 — composition rules |
+| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | css-only | spec in v3.5.0 — § Layout |
+| Breadcrumb | `.breadcrumb` | css-only | spec in v3.5.0 |
+| Skip link | `.skip-link` | css-only | spec in v3.5.0 — behaviour documented in § 6.2 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` | css-only | spec in v3.5.0 — dataviz grammar |
+| Pie | `.pie-wrap` `.pie` `.pie-legend` | css-only | spec in v3.5.0 — dataviz grammar |
+| Brand mark | `.brand` `.brand-mark` `.brand-text` | css-only | spec in v3.5.0 |
+| Info strip | `.info-strip` | deprecated | alias of § 3.18 Alert. Kept working; removal is scheduled for v4.0.0. New markup uses `.alert` |
+| Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
+| Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.chip` `.do` `.dont` `.do-dont` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. `.chip` in particular is a colour swatch on the doc site, **not** a chip/tag component |
+
+**Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
+
+### § 3.0.1 State grammar
+
+**Every interactive component documents its states in one fixed schema** — same six columns everywhere, no prose state specs, no extra columns. This is the § 08.3 motion grammar applied to state.
+
+| State | Background | Border | Foreground | Ring | Other |
+|---|---|---|---|---|---|
+
+**Closed state vocabulary.** `default` · `hover` · `focus-visible` · `active` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list.
+
+**Rules of the grammar:**
+- Cells accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), or `native` (the browser's own treatment, deliberately not overridden). Never raw values. The two ratified rgba() literals — the `0 0 0 3px rgba(240,81,213,0.15)` field glow and the `0 0 0 4px rgba(240,81,213,0.35)` pressable halo — are named in § 6.2 and are cited by name, not re-typed per row.
+- A state **not listed is not styled**: it falls back to `default`. Absence is a statement, not an omission.
+- The **`focus-visible` row is mandatory** for every focusable element. A component whose matrix has no `focus-visible` row does not ship (§ 6 floor #5).
+- The **`error` row is mandatory** for every form control, and error is never carried by colour alone (§ 6 floor #1) — it pairs with helper text (`.help.error`) or `aria-invalid`.
+- **`disabled` must declare `cursor` and opacity** in *Other*. A disabled control that still looks pressable is a defect.
+- **Motion is not repeated here.** How a component travels between states is § Motion's job: user-triggered state changes ride `--d-quick` · `--ease-standard`. The state matrix says *where* the component lands; the motion index says *how*.
+
+#### State index (site-canonical)
+
+The aggregate of every ratified state row. A generator reads this table and never guesses a state value.
+
+| Component | State | Background | Border | Foreground | Ring | Other |
+|---|---|---|---|---|---|---|
+| `.btn` (base) | default | per variant | `1px solid transparent` | per variant | — | `--r-full` |
+| `.btn` | focus-visible | — | — | — | § 6.2 pressable halo | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.btn-primary` | default | `--magenta-500` | `--magenta-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
+| `.btn-primary` | hover | `--magenta-500` (no lighten) | `--magenta-500` | `--obsidian-050` | `--sh-3` + magenta bloom | fill is bounded — § 6.3 |
+| `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
+| `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | |
+| `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards |
+| `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
+| `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
+| `.btn-outline` | hover | — | `--magenta-500` | `--magenta-400` | — | |
+| `.btn-danger` | default | `--danger` | `--danger` | `--obsidian-950` | — | destructive only |
+| `.btn-danger` | hover | `--danger` (brightened) | — | — | — | |
+| `.input` `.textarea` `.select` | default | `--obsidian-850` | `--obsidian-700` | `--obsidian-100` | — | placeholder `--obsidian-400` |
+| `.input` `.textarea` `.select` | focus-visible | — | `--magenta-500` | — | § 6.2 field glow | `outline: none` is replaced, never removed |
+| `.input` `.textarea` `.select` | error | — | `--danger` | — | danger glow on focus | `aria-invalid="true"` + `.help.error` |
+| `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
+| `.select-trigger` | expanded | — | `--magenta-500` | — | § 6.2 field glow | `aria-expanded="true"` |
+| `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
+| `.select-option` | selected | — | — | `--magenta-400` | — | `aria-selected="true"` |
+| `.check` `.switch` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | |
+| `.check` `.radio` | checked | `--magenta-500` (check) · dot `--magenta-500` (radio) | `--magenta-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
+| `.switch` | checked | `--magenta-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
+| `.check` `.switch` `.radio` | focus-visible | — | — | — | § 6.2 pressable halo | ring is on the `input`, not the label |
+| `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals |
+| `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range |
+| `.dp-day` | focus-visible | — | — | — | § 6.2 pressable halo | outline offset `-2px` (inside the 32px cell) |
+| `.dp-day` | selected | `--magenta-500` | — | `--obsidian-950` | — | weight 600 |
+| `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` |
+| `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
+| `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | |
+| `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
+
+### § 3.0.2 Stacking
+
+Seven layers, named in § 2 · Layout. A floating component takes its `z-index` from that scale and from nowhere else. In-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same distinction § Code conventions draws between vocabulary values and composition values.
 
 ### Button
 
@@ -282,7 +413,8 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | `.btn-primary` | `--magenta-500` | `--obsidian-050` | One per screen — the affirmative action |
 | `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
 | `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
-| `.btn-danger` | `--danger` | dark | Destructive only |
+| `.btn-outline` | transparent | `--obsidian-100` | Bordered tertiary — hover borrows the magenta edge |
+| `.btn-danger` | `--danger` | `--obsidian-950` | Destructive only |
 
 **Rules:**
 - One `.btn-primary` per screen. Everything else recedes.
@@ -301,8 +433,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 ```
 
 - Labels are mono-uppercase, `--t-micro`, `--obsidian-400`. Always persistent — placeholder is **not** a label.
-- Focus state: border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
-- Error state: border `--danger`, helper text below in `--danger`.
+- Helper text is `.help`; the error variant is `.help.error`.
+- Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
+- **States: § 3.0.1.** `default` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index. No state is described in prose here.
 
 ### Card
 
@@ -764,6 +897,199 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
 - Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
 
+### Date picker
+
+```html
+<div class="dp-wrap">
+  <div class="input-wrap-trail">
+    <input class="input" type="text" readonly value="12 Aug 2026" aria-haspopup="dialog" aria-expanded="false">
+    <button class="dp-icon-btn" type="button" aria-label="Open calendar"><svg>…</svg></button>
+  </div>
+  <div class="dp-popover" role="dialog" aria-label="Choose a date" hidden>
+    <div class="dp-header">
+      <button class="dp-nav" type="button" aria-label="Previous month"><svg>…</svg></button>
+      <button class="dp-title" type="button" aria-label="Choose year">August 2026 <svg>…</svg></button>
+      <button class="dp-nav" type="button" aria-label="Next month"><svg>…</svg></button>
+    </div>
+    <div class="dp-dow" aria-hidden="true"><span>M</span>…<span>S</span></div>
+    <div class="dp-grid" role="grid">
+      <button class="dp-day is-today" type="button">12</button>
+      …
+    </div>
+    <div class="dp-footer"><button class="dp-today-btn" type="button">Today</button></div>
+  </div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Anchor | `.dp-wrap` | `position: relative` — the popover is anchored, never portalled |
+| Panel | `.dp-popover` | 280px single month · `--obsidian-900` · `--r-lg` · `--sh-3` · `--z-popover` |
+| Header | `.dp-header` `.dp-nav` `.dp-title` | Title is a **button** — it opens the year grid, `[data-mode="years"]` rotates its chevron |
+| Weekday row | `.dp-dow` | Mono, `--obsidian-500`, `aria-hidden` — the day buttons carry the accessible date |
+| Day grid | `.dp-grid` `.dp-day` | 7 columns, 2px gap, 32px cells, tabular numerals |
+| Range | `.dp-range` `.dp-months` `.dp-month-title` | 580px, two months side by side; collapses to one month under 600px |
+| Presets | `.dp-presets` `.dp-preset` | 4 columns of mono-uppercase shortcuts; 2 columns under 600px |
+| Year jump | `.dp-year-grid` `.dp-year` | 3 columns, 36px cells |
+| Footer | `.dp-footer` `.dp-today-btn` | Single "Today" affordance, right-aligned |
+
+**Day state flags** — a closed set, applied on `.dp-day`:
+
+| Flag | Meaning | Treatment |
+|---|---|---|
+| `.is-today` | Today, unselected | `--magenta-400` text on an 8% magenta wash + 2px inset ring |
+| `.is-selected` | The chosen date | `--magenta-500` fill, `--obsidian-950` label, weight 600 |
+| `.is-outside` | Leading/trailing month | `--obsidian-500` |
+| `.is-in-range` | Between range ends | 12% magenta wash, square corners |
+| `.is-range-preview` | Hover preview of a range | 6% magenta wash, square corners |
+| `.is-range-start` `.is-range-end` | Range ends | `--magenta-500` fill, rounded on the outer edge only |
+
+**Rules.**
+- The trigger is a real `<input>` plus a labelled `<button>` — never a bare div. The popover is `role="dialog"` with an accessible name.
+- `.is-today` and `.is-selected` are visually distinct on purpose: today is a ring, selection is a fill. When a range end lands on today, the ring is dropped (the fill already says it).
+- Range corners are geometric, not decorative: square in the middle, rounded at the ends, fully rounded when start and end are the same day.
+- Disabled days are `<button disabled>`, not styled-out divs — keyboard users must be able to tell.
+- State matrix: § 3.0.1. Motion: § 08.4.
+
+### Table
+
+```html
+<table class="table">
+  <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+  <tbody>
+    <tr><td><code>--s-4</code></td><td>16</td><td class="muted">Default content gap</td></tr>
+  </tbody>
+</table>
+```
+
+| Part | Treatment |
+|---|---|
+| Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
+| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
+| Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
+| Row rule | `1px solid --obsidian-800`; the last row drops it |
+| Inline code | `.table code` — mono 12px, `--magenta-400` on `--obsidian-850`, `--r-sm` |
+| Secondary cell | `.muted` — `--obsidian-300` |
+
+**Rules.**
+- No zebra striping. The row rule carries the scan; a second device would double the noise.
+- Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
+- The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.2).
+- A table wider than its container scrolls in a wrapper — never shrink the type to fit.
+- Tables are content, not chrome: no hover row highlight unless the row is a link or a control.
+
+### Checkbox · Switch · Radio
+
+Three controls, one family, one rule: **shape carries the meaning before colour does** (§ 6 floor #1).
+
+```html
+<label class="check"><input type="checkbox" checked> Published</label>
+<label class="switch"><input type="checkbox" checked> Show dates</label>
+<label class="radio"><input type="radio" name="scope" checked> Everyone</label>
+```
+
+| Control | Shape | Checked treatment | Use |
+|---|---|---|---|
+| `.check` | 16px square, `3px` corner | `--magenta-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
+| `.switch` | 32×18 track, `--r-full` | `--magenta-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
+| `.radio` | 16px circle | `--magenta-500` ring + centred `--magenta-500` dot | One-of-many. Always in a named group, always with a default |
+
+**Rules.**
+- Checkbox and radio are told apart by **shape** — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.
+- The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.
+- The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
+- The focus ring lives on the `input`, not the label, so the halo traces the control.
+- A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
+- State matrix: § 3.0.1. Motion: § 08.4.
+
+### Alert
+
+Inline, in flow, addressed to the whole surface — not to one field, and never on a timer.
+
+```html
+<div class="alert alert-warn" role="status">
+  <svg class="alert-icon" aria-hidden="true">…</svg>
+  <div class="alert-body">
+    <div class="alert-title">Draft not published</div>
+    Changes are saved locally until you publish.
+  </div>
+  <button class="alert-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
+</div>
+```
+
+| Variant | Left rule · icon | Use |
+|---|---|---|
+| `.alert` | `--magenta-500` | System voice — the default |
+| `.alert-info` | `--info` | Neutral fact the reader didn't ask for |
+| `.alert-success` | `--success` | Something completed and stayed completed |
+| `.alert-warn` | `--warning` | Something needs attention but nothing is broken |
+| `.alert-danger` | `--danger` | Something is broken or destructive |
+
+**Rules.**
+- **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 10% accent budget on furniture (§ 1.4 / § 8).
+- The icon is mandatory and `aria-hidden` — it is the shape half of "colour never alone" (§ 6 floor #1). The text carries the meaning.
+- `role="status"` for informative, `role="alert"` for danger. Nothing else.
+- An alert **never auto-dismisses** (§ 6 floor #6). It clears when the condition clears or when the reader dismisses it.
+- Dismissible is opt-in: no `.alert-dismiss`, no dismissal.
+- `.info-strip` is the deprecated alias of this component. It still works; new markup uses `.alert`.
+
+### Toast
+
+Transient, stacked, bottom-right. A toast is what an alert becomes when the message is about an action that just happened somewhere else.
+
+```html
+<div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
+  <div class="toast toast-success is-in" role="status">
+    <svg class="toast-icon" aria-hidden="true">…</svg>
+    <div class="toast-body">
+      <div class="toast-title">Draft published</div>
+      Live at amaca.design/blog.
+      <button class="toast-action" type="button">Undo</button>
+    </div>
+    <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
+  </div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
+| Toast | `.toast` | 360px, capped at the viewport minus `--s-8`; full width under 600px |
+| Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.18 |
+| Action | `.toast-action` | At most one. Mono-uppercase, `--magenta-400` |
+
+**Rules.**
+- **Auto-dismiss is opt-in and bounded** (§ 6 floor #6). `data-autohide` is permitted only when the toast carries no action and is not `.toast-danger`; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.
+- The region is `aria-live="polite"`; a `.toast-danger` carries `role="alert"` on the toast itself.
+- Newest enters at the bottom of the stack. Three visible at most — a fourth means the surface should be showing an § 3.18 Alert instead.
+- A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
+- Motion: § 08.4.
+
+### Tooltip
+
+A label for something already visible. Never a container for content.
+
+```html
+<span class="tooltip-wrap">
+  <button class="btn btn-ghost btn-sm" aria-describedby="tt-sync">Sync</button>
+  <span class="tooltip" id="tt-sync" role="tooltip">Pushes local tokens to Figma</span>
+</span>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Anchor | `.tooltip-wrap` | `position: relative`, `inline-flex` — wraps the trigger, doesn't replace it |
+| Bubble | `.tooltip` | 220px max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
+| Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
+
+**Rules.**
+- **Opens on hover and on focus.** `:focus-within` is not optional — a tooltip reachable only by pointer fails § 6 floor #5.
+- The trigger references it with `aria-describedby`; the bubble is `role="tooltip"`. A tooltip with no trigger relationship is decoration.
+- **No interactive content.** No links, no buttons, no form controls — there is no accessible path to reach them.
+- Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in `.help` or in an § 3.18 Alert.
+- No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
+- Plain text only, one or two lines. A tooltip that needs a title is an alert.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -932,6 +1258,17 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
+| Date picker | open / close | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Date picker | day hover | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Date picker | year mode | title chevron rotate 180° (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Time input | open / close | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
+| Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
+| Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
+| Toast | enter | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Toast | dismiss (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
+| Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Alert | dismiss hover | button color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 
 **Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 
@@ -984,8 +1321,9 @@ One pair sits below AA by ratified exception — the primary button label (`--ob
 ### Focus visibility
 
 Two patterns ship:
-- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, `.chip`): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo.
-- **Text inputs** (`.input`, `.textarea`, `.select`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow.
+- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo. Cited across the system as the **pressable halo**.
+- **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow. Cited as the **field glow**. Its error twin swaps the border to `--danger` and the glow to `rgba(255,91,91,0.15)`.
+- **In-cell targets** (`.dp-day`, `.dp-year`): same halo, `outline-offset: -2px` so the ring stays inside the 32px cell.
 
 `.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
 
@@ -1010,6 +1348,23 @@ The floor admits exactly one documented exception.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
 - `!important`: forbidden except in `prefers-reduced-motion` overrides.
+
+### Browser chrome
+
+The surfaces the browser paints that are not components. **Four are styled. Everything else is native and stays native.**
+
+| Surface | Treatment |
+|---|---|
+| `::-webkit-scrollbar` | `10px` track on both axes |
+| `::-webkit-scrollbar-track` | `transparent` — the page shows through |
+| `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `2px solid --obsidian-950` border (the border is what makes it read as inset) |
+| `::-webkit-scrollbar-thumb:hover` | `--obsidian-600` |
+| `::selection` | `--magenta-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 04.6) |
+| `caret-color` | `--magenta-500` on `input` and `textarea` — the browser's default blue is off-system |
+
+**Closure clause.** Browser chrome not listed here is native and is not styled — focus rings on non-components, resize handles, autofill backgrounds, spell-check underlines, `overscroll-behavior`. Overriding one is a system decision, not a component decision.
+
+**Ratified exception — per-component scrollbar hiding.** `scrollbar-width: none` is permitted only where the component already provides its own scroll affordance: `.tp-wheel` (the wheel is the affordance) and `.tabs` under 768px (the tab row bleeds off-edge by design). Two instances, greppable, closed list.
 
 ### HTML
 
@@ -1118,7 +1473,37 @@ The version line at the top of this document is the source of truth. The CSS fil
 **Release checklist (RIGID — every release, no exceptions):**
 
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter.
-2. Changelog entry in both places: here (`## Changelog`) and on the site (§ 23) — new entry ships open, previous entry closes.
+2. Changelog entry in both places: here (`## Changelog
+
+### v3.4.0 — 2026.08.05 (MINOR)
+**Added**
+- **Component registry (§ 3.0)** — the closed inventory of components, with a four-state vocabulary: `canonical` (spec in this file) · `css-only` (shipped in CSS, spec owed, milestone named) · `off-system` (**stop and ask**) · `site-only` (documentation-site chrome, not the contract). Closure clause: a component not in the table is `off-system`; a class not in the table is either a part of a listed component or `site-only`. This is what makes the § 2 token rule executable one level up — a generator can now *detect* non-coverage instead of inventing.
+- **State grammar (§ 3.0.1)** — one fixed six-column schema (state · background · border · foreground · ring · other) with a closed state vocabulary (`default` `hover` `focus-visible` `active` `disabled` `error` `readonly` `loading`), token-only cells, and two RIGID rows: `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. The **state index** aggregates every ratified row. Prose state specs migrated (Button, Input/textarea/select, Select, choice controls, Date picker).
+- **Stacking scale (§ 2 · Layout)** — seven named layers (`--z-sticky` `--z-scrim` `--z-menu` `--z-popover` `--z-overlay` `--z-toast` `--z-max`). The values name the system as built; nothing was renumbered. In-component stacking below 10 stays literal by design. A raw `z-index` of 10 or more is now greppable as a violation.
+- **Browser chrome (§ Code conventions)** — scrollbar, `::selection` and `caret-color` promoted from `tokens.css` into the contract, with a closure clause ("chrome not listed is native and is not styled") and one ratified exception: per-component `scrollbar-width: none` where the component supplies its own scroll affordance (`.tp-wheel`, `.tabs` under 768px). The scrollbar had been specified in CSS since v1 and had **zero** occurrences in this file.
+- **Date picker (§ 3.15)** — the most complex component in the system, shipped since v2 and invisible in the contract until now. Full anatomy (popover, header, day grid, range with two months, presets, year jump, footer), the closed day-flag set (`.is-today` `.is-selected` `.is-outside` `.is-in-range` `.is-range-preview` `.is-range-start` `.is-range-end`), state matrix and motion rows.
+- **Table (§ 3.16)** — frame, mono-uppercase header, row rule, inline code and `.muted` cell. No zebra striping, by rule.
+- **Checkbox · Switch · Radio (§ 3.17)** — one family, one rule: shape carries meaning before colour (square + tick / circle + dot / track + knob). `.radio` is **new**; `.check` and `.switch` were shipped and undocumented. When each commits is now normative: the switch applies immediately, the checkbox applies on submit.
+- **Alert (§ 3.18)** — inline, in flow, never on a timer (§ 6 floor #6). Five variants where semantics ride a 2px left rule plus a mandatory icon and **the fill never changes** — a tinted alert surface would spend the 10% accent budget on furniture.
+- **Toast (§ 3.19)** — transient region at `--z-toast`, `pointer-events: none` so it never blocks the page. Auto-dismiss is opt-in and bounded: permitted only for a toast with no action that is not `.toast-danger`; hover and focus pause the countdown. Three visible at most.
+- **Tooltip (§ 3.20)** — label only. Opens on hover **and** `:focus-within`, `role="tooltip"` bound by `aria-describedby`, no interactive content, no arrow, never the sole carrier of meaning.
+- **`.btn-outline`** — the fifth button variant shipped in v2 and never made it into the § 3.1 variant table.
+
+**Changed**
+- **Input · textarea · select (§ 3.2)** — three prose bullets replaced by a pointer to the state matrix. Error is now marked with `aria-invalid="true"`, and the border follows from it rather than being hand-applied.
+- **Focus visibility (§ 6.2)** — the two ratified rings are now *named* (**pressable halo**, **field glow**) so the state grammar can cite them instead of re-typing the rgba() literal on every row. The choice controls join the pressable list (the ring sits on the `input`, not the label) and in-cell targets (`.dp-day`, `.dp-year`) are documented with their `-2px` inset offset.
+- **`.info-strip` → `.alert`** — the un-specced ancestor is now a deprecated alias of § 3.18. It still works; removal is scheduled for v4.0.0. New markup uses `.alert`.
+
+**Fixed**
+- **The input error state had no CSS.** § 3.2 has promised "border `--danger`" since v2.0.0; `components.css` only ever implemented the helper text. Added `[aria-invalid="true"]` border and focus glow, plus the missing `:disabled` and `[readonly]` treatments.
+- **`.check` and `.switch` had no focus ring.** Both shipped without `:focus-visible` — a § 6 floor #5 violation in the two most-used form controls after the text input. Fixed for all three choice controls.
+- **Raw hex, eight survivors.** `.btn-danger` `#1a0606`, `.badge-solid` `#fff`, `.acc-trigger:hover` `#fff`, `.skip-link` `#1A001A`, the checkbox and switch tick `#04201D` ×2, and four literals in the 85/10/5 law chart → tokens. Two of them (`#fff`) contradicted the no-`#FFF` rule (§ 04.6) that v3.3.0 fixed for `::selection` — these were the remaining instances. `components.css` now contains **zero** raw hex.
+- **Motion token pairs, seven survivors.** `transition: … var(--d-quick)` with no easing half (Date picker nav, title chevron, presets, year cells, today button, checkbox, switch) → full token pairs. The two `transition: all` on the choice controls are now explicit property lists, so the Spatial-vs-Effects rule is checkable per line.
+- **Off-scale radii, ten survivors.** The switch track's `999px` → `--r-full`, the scrollbar thumb's `4px` → `--r-sm`, the checkbox's `3px` → `--r-xs`, and seven exact-match `2px` / `4px` literals → `--r-xs` / `--r-sm` (zero visual change). What remains is the ratified sub-scale hairline list in § Shapes — three shapes of 4px or less, where the scale has no step below `--r-xs`.
+
+**Trigger**
+
+An audit against v3.3.0 found three classes of failure, all with the same root: the token rule is executable because § 2 is a closed list, and there was no equivalent list for components. Spec that existed but was invisible in the contract (the scrollbar); components shipped in CSS and never documented (Date picker, Table, Checkbox, Switch); components that existed nowhere, so a model invented them. § 3.0 closes the inventory and § 3.0.1 gives states the same fixed grammar § 08.3 gave motion. Writing it surfaced the second finding: the audit that closes the registry is also the audit that finds the drift — eight raw hex, seven half-written token pairs, two missing focus rings and an error state documented for four versions but never implemented.`) and on the site (§ 23) — new entry ships open, previous entry closes.
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
 4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
 5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents).

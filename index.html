@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.3.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="ui-monospace,monospace" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.4.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.3.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.4.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -164,7 +164,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#buttons" data-target="buttons"><span class="num">10</span> Buttons</a>
       <a class="nav-item" href="#inputs" data-target="inputs"><span class="num">11</span> Inputs &amp; Forms</a>
       <a class="nav-item" href="#cards" data-target="cards"><span class="num">12</span> Cards</a>
-      <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges &amp; Status</a>
+      <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges &amp; Feedback</a>
       <a class="nav-item" href="#nav" data-target="nav"><span class="num">14</span> Navigation</a>
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">15</span> Accordion</a>
       <a class="nav-item" href="#chat" data-target="chat"><span class="num">16</span> Chat &amp; Messaging</a>
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.3.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.4.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Jul 17, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Aug 5, 2026</span></div>
           </div>
         </div>
 
@@ -578,12 +578,12 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
           </div>
 
-          <div class="info-strip" style="margin-top:var(--s-5);align-items:flex-start">
+          <div class="alert" style="margin-top:var(--s-5);align-items:flex-start">
             <span class="tag" style="white-space:nowrap;padding-top:2px">30-SEC SCAN</span>
             <span>After any generation, grep the code for hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px values (<code>16px</code> instead of <code>var(--s-4)</code>), raw duration literals (<code>600ms</code> instead of <code>var(--d-*)</code> — ratified continuous loops are the only exception), <code>--ease-spring</code> on effect properties (color, background, opacity, shadow — § 08.3 RIGID), new <code>.classname</code> introductions outside the canonical § 3 registry, and missing <code>@media (prefers-reduced-motion: reduce)</code> overrides. Catches most drift regardless of model tier.</span>
           </div>
 
-          <div class="info-strip" style="margin-top:var(--s-4);align-items:flex-start">
+          <div class="alert" style="margin-top:var(--s-4);align-items:flex-start">
             <span class="tag" style="white-space:nowrap;padding-top:2px">A11Y FLOOR · § 06</span>
             <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) defaults to <code>obsidian-950</code> — 6.5:1, AA. One ratified exception (v2.6.0, § 6.3): <code>.btn-primary</code> carries <code>obsidian-050</code> at ≈2.8:1 — kept on perceptual grounds, scoped to that selector only. Every other magenta fill — chips, badges, non-button CTAs — stays dark-text.</span>
           </div>
@@ -827,11 +827,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Pairing rules</h2><span class="subsection-num">§ 05.4</span></div>
-          <div class="info-strip"><span class="tag">Rule 01</span>Headlines always negative track. Never tighter than −4%, never looser than −2%.</div>
+          <div class="alert"><span class="tag">Rule 01</span>Headlines always negative track. Never tighter than −4%, never looser than −2%.</div>
           <div style="height:8px"></div>
-          <div class="info-strip"><span class="tag">Rule 02</span>Mono is metadata only. Timestamps, token names, labels, status — never prose.</div>
+          <div class="alert"><span class="tag">Rule 02</span>Mono is metadata only. Timestamps, token names, labels, status — never prose.</div>
           <div style="height:8px"></div>
-          <div class="info-strip"><span class="tag">Rule 03</span>Italic is for emphasis in running text. Never for UI labels or headlines.</div>
+          <div class="alert"><span class="tag">Rule 03</span>Italic is for emphasis in running text. Never for UI labels or headlines.</div>
         </div>
       </section>
 
@@ -1472,6 +1472,47 @@ Basic UI</div>
             </div>
           </div>
         </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Choice controls</h2><span class="subsection-num">§ 11.5</span></div>
+          <p class="subsection-desc">Three controls, one family. Shape carries the meaning before colour does: square with a tick, circle with a dot, track with a knob. What separates them is not how they look but <strong style="color:var(--obsidian-100)">when they commit</strong> — the switch applies immediately, the checkbox and the radio apply on submit.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+
+            <div class="card" style="padding:var(--s-6)">
+              <div class="label" style="margin-bottom:var(--s-4)">Checkbox — many of many</div>
+              <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+                <label class="check"><input type="checkbox" checked> Published</label>
+                <label class="check"><input type="checkbox"> Show in archive</label>
+                <label class="check"><input type="checkbox" checked disabled> Indexed (locked)</label>
+              </div>
+
+              <div class="label" style="margin:var(--s-6) 0 var(--s-4)">Radio — one of many</div>
+              <div role="radiogroup" aria-label="Visibility" style="display:flex;flex-direction:column;gap:var(--s-4)">
+                <label class="radio"><input type="radio" name="vis-demo" checked> Everyone</label>
+                <label class="radio"><input type="radio" name="vis-demo"> People with the link</label>
+                <label class="radio"><input type="radio" name="vis-demo" disabled> Only me (locked)</label>
+              </div>
+            </div>
+
+            <div class="card" style="padding:var(--s-6)">
+              <div class="label" style="margin-bottom:var(--s-4)">Switch — applies immediately</div>
+              <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+                <label class="switch"><input type="checkbox" checked> Show dates</label>
+                <label class="switch"><input type="checkbox"> Reduced motion override</label>
+                <label class="switch"><input type="checkbox" disabled> Beta features (unavailable)</label>
+              </div>
+
+              <div class="alert alert-info" style="margin-top:var(--s-6)" role="status">
+                <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+                <div class="alert-body">
+                  <div class="alert-title">Switch or checkbox?</div>
+                  If the change needs a Save button, it is a checkbox. The switch is the only one of the three that commits on change.
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Tab through the controls: the focus halo sits on the input, not on the label, so the ring traces the control. The whole label stays the hit target — 44&times;44 on mobile.</p>
+        </div>
       </section>
 
       <!-- ============ CARDS ============ -->
@@ -1538,9 +1579,9 @@ Basic UI</div>
       <!-- ============ BADGES ============ -->
       <section class="section" id="badges">
         <div class="page-header">
-          <div class="page-eyebrow">§ 13 · Components / Badges &amp; Status</div>
+          <div class="page-eyebrow">§ 13 · Components / Badges &amp; Feedback</div>
           <h1 class="page-title">Small labels, <span class="accent">loud signals.</span></h1>
-          <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they're never content.</p>
+          <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they're never content. Alerts, toasts and tooltips are the rest of the feedback family — the same discipline at three different distances from the reader.</p>
         </div>
 
         <div class="subsection">
@@ -1563,6 +1604,84 @@ Basic UI</div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:15px">Project Orion — IoT platform</div><div class="ty-small" style="margin-top:2px">2025–2026 · ongoing</div></div><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0"><div><div style="font-weight:600;font-size:15px">Field observability</div><div class="ty-small" style="margin-top:2px">2023 · 6 months</div></div><span class="badge"><span class="dot"></span>Archive</span></div>
           </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Alert</h2><span class="subsection-num">§ 13.3</span></div>
+          <p class="subsection-desc">Inline, in flow, addressed to the whole surface. <strong style="color:var(--obsidian-100)">The fill never changes</strong> — semantics ride the 2px left rule and the icon, so the accent budget stays spent on actions, not on furniture. An alert never dismisses itself on a timer.</p>
+          <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)">
+            <div class="alert" role="status">
+              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg>
+              <div class="alert-body"><div class="alert-title">System voice</div>The default. No semantic claim, just the system talking.</div>
+            </div>
+            <div class="alert alert-info" role="status">
+              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+              <div class="alert-body"><div class="alert-title">Tokens synced 4 minutes ago</div>A neutral fact the reader didn't ask for.</div>
+            </div>
+            <div class="alert alert-success" role="status">
+              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"/></svg>
+              <div class="alert-body"><div class="alert-title">Bundle re-baked</div>Something completed, and stayed completed.</div>
+            </div>
+            <div class="alert alert-warn" role="status">
+              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 2l6 11H2z"/><path d="M8 6.5v3M8 11v.5"/></svg>
+              <div class="alert-body"><div class="alert-title">Draft not published</div>Attention needed, nothing broken. Changes are saved locally until you publish.</div>
+              <button class="alert-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+            </div>
+            <div class="alert alert-danger" role="alert">
+              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.5M8 11v.5"/></svg>
+              <div class="alert-body"><div class="alert-title">Token file failed to parse</div>Something is broken. <code>tokens.css</code> line 47 — unterminated custom property.</div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">The icon is mandatory and <code>aria-hidden</code> — it is the shape half of &quot;colour never alone&quot;. <code>role="status"</code> for informative, <code>role="alert"</code> for danger, nothing else. Dismissible is opt-in: no dismiss button, no dismissal.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Toast</h2><span class="subsection-num">§ 13.4</span></div>
+          <p class="subsection-desc">What an alert becomes when the message is about an action that just happened somewhere else. Transient, stacked bottom-right, three visible at most. <strong style="color:var(--obsidian-100)">Auto-dismiss is opt-in and bounded</strong>: only for a toast with no action that is not an error, and hover or focus pauses the countdown.</p>
+          <div class="card" style="padding:var(--s-6)">
+            <div style="display:flex;flex-direction:column;gap:var(--s-3);max-width:380px">
+              <div class="toast toast-success is-in" role="status">
+                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"/></svg>
+                <div class="toast-body">
+                  <div class="toast-title">Draft published</div>
+                  Live at amaca.design/blog.
+                  <button class="toast-action" type="button">Undo</button>
+                </div>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+              </div>
+              <div class="toast is-in" role="status">
+                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+                <div class="toast-body"><div class="toast-title">Figma variables updated</div>128 variables written to the Amaca library.</div>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+              </div>
+              <div class="toast toast-danger is-in" role="alert">
+                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.5M8 11v.5"/></svg>
+                <div class="toast-body"><div class="toast-title">Export failed</div>Network timeout after 30s. <button class="toast-action" type="button">Retry</button></div>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+              </div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Shown here in flow for documentation. In an app they live in a single fixed <code>.toast-region</code> at <code>--z-toast</code>, with <code>pointer-events: none</code> on the region so it never blocks the page. A toast is never the only place a result appears — if losing it loses the information, it wasn't a toast.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Tooltip</h2><span class="subsection-num">§ 13.5</span></div>
+          <p class="subsection-desc">A label for something already visible. Never a container for content, never the sole carrier of meaning. Opens on hover <strong style="color:var(--obsidian-100)">and on focus</strong> — a tooltip reachable only by pointer fails the accessibility floor.</p>
+          <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-6);min-height:120px">
+            <span class="tooltip-wrap">
+              <button class="btn btn-secondary btn-sm" type="button" aria-describedby="tt-sync">Sync</button>
+              <span class="tooltip" id="tt-sync" role="tooltip">Pushes local tokens to the Figma library</span>
+            </span>
+            <span class="tooltip-wrap">
+              <button class="btn btn-ghost btn-sm" type="button" aria-describedby="tt-bake">Re-bake</button>
+              <span class="tooltip" id="tt-bake" role="tooltip">Rebuilds every download bundle that embeds a changed file</span>
+            </span>
+            <span class="tooltip-wrap">
+              <span class="badge badge-warn" tabindex="0" aria-describedby="tt-pending"><span class="dot"></span>Pending</span>
+              <span class="tooltip tooltip-bottom" id="tt-pending" role="tooltip">Waiting on a review before it can ship</span>
+            </span>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Tab to each trigger — the tooltip opens on focus, not only on hover. No arrow: the 6px offset and the anchoring do the pointing, and an arrow would be one more shape to maintain at every edge case. Plain text, one or two lines; a tooltip that needs a title is an alert.</p>
         </div>
       </section>
 
@@ -3077,6 +3196,23 @@ flowchart TD
           <p class="ty-small" style="margin-top:var(--s-4)">One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
         </div>
 
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Table</h2><span class="subsection-num">§ 19.9</span></div>
+          <p class="subsection-desc">The plainest data surface in the system, and the one this documentation leans on most. <strong style="color:var(--obsidian-100)">No zebra striping</strong> — the row rule carries the scan, and a second device would double the noise. The header is a label, not a heading: mono-uppercase, the same register as a field label.</p>
+          <table class="table">
+            <thead><tr><th>Part</th><th>Treatment</th><th>Note</th></tr></thead>
+            <tbody>
+              <tr><td>Frame</td><td><code>--obsidian-800</code> border, <code>--r-md</code></td><td class="muted">Overflow hidden, so the radius clips the first and last rows</td></tr>
+              <tr><td>Header</td><td>Mono 10px on <code>--obsidian-850</code></td><td class="muted">Uppercase, <code>--obsidian-400</code>, weight 500</td></tr>
+              <tr><td>Cell</td><td>13px, padding <code>--s-3 --s-4</code></td><td class="muted">Left-aligned, including numbers</td></tr>
+              <tr><td>Row rule</td><td><code>1px solid --obsidian-800</code></td><td class="muted">The last row drops it</td></tr>
+              <tr><td>Inline code</td><td><code>.table code</code></td><td class="muted">Mono 12px, <code>--magenta-400</code></td></tr>
+              <tr><td>Secondary cell</td><td><code>.muted</code></td><td class="muted">This column, throughout</td></tr>
+            </tbody>
+          </table>
+          <p class="ty-small" style="margin-top:var(--s-4)">Pure quantities are the one exception to left alignment: align them right and set <code>tabular-nums</code>. A table wider than its container scrolls in a wrapper — never shrink the type to fit. No hover row highlight unless the row is a link or a control.</p>
+        </div>
+
       </section>
       <section class="section" id="voice">
         <div class="page-header">
@@ -3677,9 +3813,35 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.3.0 -->
+            <!-- v3.4.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-330">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-340">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.4.0 &mdash; Component registry: the inventory closes</span>
+                <span class="acc-num">2026-08-05</span>
+              </button>
+              <div class="acc-panel" id="cl-340" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The token rule works because the token list is closed. Components had no equivalent list, so a model couldn't tell &quot;not covered&quot; from &quot;not yet written&quot; &mdash; it invented. This release closes the component inventory, gives states the same fixed grammar motion got in v3.3.0, and documents seven components that were either shipped-but-invisible or missing entirely.</p>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Component registry (§ 3.0 of the spec)</strong> — the closed inventory of components, with a four-state vocabulary: <em>canonical</em> (spec written) · <em>css-only</em> (shipped in CSS, spec owed, milestone named) · <em>off-system</em> (stop and ask) · <em>site-only</em> (documentation chrome, not the contract). A component not in the table is off-system. This is what makes the token rule executable one level up — a generator can now detect non-coverage instead of inventing.</li><li><strong style="color:var(--obsidian-100)">State grammar</strong> — one fixed six-column schema for every interactive component (state · background · border · foreground · ring · other) with a closed state vocabulary and two RIGID rows: <em>focus-visible</em> is mandatory for anything focusable, <em>error</em> is mandatory for every form control. The state index aggregates every ratified row.</li><li><strong style="color:var(--obsidian-100)">Stacking scale</strong> — seven named layers, from <code>--z-sticky</code> to <code>--z-max</code>. The values name the system as built — nothing was renumbered. A raw z-index of 10 or more is now greppable as a violation.</li><li><strong style="color:var(--obsidian-100)">Browser chrome</strong> — scrollbar, <code>::selection</code> and <code>caret-color</code> promoted from the CSS into the contract, with a closure clause and one ratified exception. The scrollbar had been specified since v1 and had zero occurrences in the spec.</li><li><strong style="color:var(--obsidian-100)">Date picker</strong> — the most complex component in the system, shipped since v2 and invisible in the contract until now — full anatomy, the closed day-flag set, range with two months, presets, year jump.</li><li><strong style="color:var(--obsidian-100)">Table, Checkbox, Switch</strong> — shipped in CSS, never documented. Now canonical, with state matrices.</li><li><strong style="color:var(--obsidian-100)">Radio, Alert, Toast, Tooltip</strong> — four components that existed nowhere. Radio completes the choice-control family (square with a tick, circle with a dot — shape carries meaning before colour). Alert never auto-dismisses and never tints its fill. Toast auto-dismisses only when it carries no action and no error. Tooltip opens on hover and on focus, holds no interactive content, and is never the sole carrier of meaning.</li><li><strong style="color:var(--obsidian-100)"><code>.btn-outline</code></strong> — the fifth button variant, shipped in v2 and never listed in the variant table.</li></ul>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Input states</strong> — three prose bullets replaced by a state matrix. Error is marked with <code>aria-invalid="true"</code> and the border follows from it.</li><li><strong style="color:var(--obsidian-100)">Focus rings are now named</strong> — <em>pressable halo</em> and <em>field glow</em>, so the state grammar cites them instead of re-typing the rgba literal on every row. The choice controls join the pressable list.</li><li><strong style="color:var(--obsidian-100)"><code>.info-strip</code> → <code>.alert</code></strong> — the un-specced ancestor becomes a deprecated alias. Still works; removal scheduled for v4.0.0.</li></ul>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The input error state had no CSS</strong> — the spec has promised a danger border since v2.0.0; only the helper text was ever implemented.</li><li><strong style="color:var(--obsidian-100)">Checkbox and switch had no focus ring</strong> — both shipped without <code>:focus-visible</code> — an accessibility floor violation in the two most-used form controls after the text input.</li><li><strong style="color:var(--obsidian-100)">Raw hex, eight survivors</strong> — including two <code>#fff</code> that contradicted the no-pure-white rule fixed for <code>::selection</code> in v3.3.0. <code>components.css</code> now contains zero raw hex.</li><li><strong style="color:var(--obsidian-100)">Motion token pairs, seven survivors</strong> — transitions carrying a duration with no easing half. The two <code>transition: all</code> on the choice controls are now explicit property lists, so the Spatial-vs-Effects rule is checkable per line.</li></ul>
+                  <h4 style="font-size:15px;margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">An audit against v3.3.0 found three classes of failure with one root cause. Spec that existed but was invisible in the contract (the scrollbar, specified in CSS, zero mentions in the spec). Components shipped in CSS and never documented (Date picker, Table, Checkbox, Switch) &mdash; the model reinvented them though a canon already existed. Components that existed nowhere, so the model invented from scratch. Writing the registry surfaced the second finding: the audit that closes the inventory is also the audit that finds the drift &mdash; eight raw hex, seven half-written token pairs, two missing focus rings, and an error state documented for four versions but never implemented.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:ui-monospace, SFMono-Regular, Menlo, monospace;font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-08-05</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.3.0...v3.4.0" target="_blank" rel="noopener">v3.3.0&hellip;v3.4.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.3.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-330">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.3.0 — Motion grammar: one schema for every component</span>
                 <span class="acc-num">2026-07-17</span>

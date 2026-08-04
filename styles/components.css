@@ -19,7 +19,7 @@
   padding: var(--s-6) var(--s-5);
   display:flex;flex-direction:column;gap:var(--s-8);
   overflow-y:auto;
-  z-index:10;
+  z-index:var(--z-sticky);
 }
 .brand{
   display:flex;align-items:center;gap:var(--s-3);
@@ -46,7 +46,7 @@
   width:3px;
   height:16px;
   background:var(--magenta-500);
-  border-radius:2px;
+  border-radius:var(--r-xs);
   box-shadow:0 0 12px var(--magenta-500);
   transform:translateY(0);
   transition:transform var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard);
@@ -125,7 +125,7 @@
 .breadcrumb .sep{color:var(--obsidian-500)}
 .breadcrumb .active{color:var(--obsidian-100)}
 .topbar-actions{display:flex;align-items:center;gap:var(--s-3);font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
-.topbar-actions .kbd{font-family:var(--font-mono);font-size:10px;padding:3px 6px;border:1px solid var(--obsidian-700);border-radius:4px;color:var(--obsidian-300);background:var(--obsidian-850)}
+.topbar-actions .kbd{font-family:var(--font-mono);font-size:10px;padding:3px 6px;border:1px solid var(--obsidian-700);border-radius:var(--r-sm);color:var(--obsidian-300);background:var(--obsidian-850)}
 
 .content{
   padding: var(--s-12) var(--s-10) var(--s-24);
@@ -305,7 +305,7 @@
   color:var(--obsidian-400);background:var(--obsidian-850);font-weight:500;
 }
 .table tr:last-child td{border-bottom:0}
-.table code{font-family:var(--font-mono);font-size:12px;color:var(--magenta-400);background:var(--obsidian-850);padding:2px 6px;border-radius:4px;letter-spacing:var(--tr-mono)}
+.table code{font-family:var(--font-mono);font-size:12px;color:var(--magenta-400);background:var(--obsidian-850);padding:2px 6px;border-radius:var(--r-sm);letter-spacing:var(--tr-mono)}
 .table .muted{color:var(--obsidian-300)}
 
 /* ─────────── SPACING RULER ─────────── */
@@ -313,7 +313,7 @@
 .ruler-row:last-child{border-bottom:0}
 .ruler-row .tok{font-family:var(--font-mono);font-size:11px;color:var(--magenta-400);letter-spacing:var(--tr-mono)}
 .ruler-row .val{font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300);letter-spacing:var(--tr-mono)}
-.ruler-row .bar{height:16px;background:var(--grad-signal);border-radius:2px;position:relative}
+.ruler-row .bar{height:16px;background:var(--grad-signal);border-radius:var(--r-xs);position:relative}
 .ruler-row .bar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,0.15) 0,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 4px)}
 
 /* ─────────── RADIUS + SHADOW DEMOS ─────────── */
@@ -363,7 +363,7 @@
 .btn-ghost:hover{background:var(--obsidian-800)}
 .btn-outline{background:transparent;color:var(--obsidian-100);border-color:var(--obsidian-600)}
 .btn-outline:hover{border-color:var(--magenta-500);color:var(--magenta-400)}
-.btn-danger{background:var(--danger);color:#1a0606}
+.btn-danger{background:var(--danger);color:var(--obsidian-950)}
 .btn-danger:hover{filter:brightness(1.05)}
 .btn-sm{padding:8px 16px;font-size:13px}
 .btn-lg{padding:18px 34px;font-size:16px}
@@ -404,7 +404,7 @@
   border:1px solid var(--obsidian-700);
   border-radius:var(--r-md);
   box-shadow:0 8px 24px rgba(0,0,0,0.4);
-  z-index:20;max-height:240px;overflow:auto;
+  z-index:var(--z-menu);max-height:240px;overflow:auto;
 }
 .select-menu[hidden]{display:none}
 .select-option{
@@ -415,6 +415,10 @@
 .select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
 .select-option[aria-selected="true"]{color:var(--magenta-400)}
 .input:focus,.textarea:focus,.select:focus{border-color:var(--magenta-500);box-shadow:0 0 0 3px rgba(240,81,213,0.15)}
+.input[aria-invalid="true"],.textarea[aria-invalid="true"],.select[aria-invalid="true"]{border-color:var(--danger)}
+.input[aria-invalid="true"]:focus,.textarea[aria-invalid="true"]:focus,.select[aria-invalid="true"]:focus{border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.15)}
+.input:disabled,.textarea:disabled,.select:disabled{opacity:0.4;cursor:not-allowed}
+.input[readonly],.textarea[readonly]{background:var(--obsidian-900);color:var(--obsidian-300)}
 .input::placeholder{color:var(--obsidian-400)}
 .input-wrap{position:relative}
 .input-wrap .input{padding-left:36px}
@@ -450,7 +454,7 @@
   border-radius:var(--r-lg);
   box-shadow:var(--sh-3);
   padding:var(--s-3);
-  z-index:30;
+  z-index:var(--z-popover);
   font-family:var(--font-sans);
   opacity:0;transform:translateY(-4px);pointer-events:none;
   transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
@@ -473,13 +477,13 @@
 }
 .dp-title:hover{background:var(--obsidian-800)}
 .dp-title:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
-.dp-title svg{width:10px;height:10px;color:var(--obsidian-400);transition:transform var(--d-quick)}
+.dp-title svg{width:10px;height:10px;color:var(--obsidian-400);transition:transform var(--d-quick) var(--ease-standard)}
 .dp-popover[data-mode="years"] .dp-title svg{transform:rotate(180deg)}
 .dp-nav{
   display:grid;place-items:center;
   width:28px;height:28px;border:0;background:transparent;cursor:pointer;
   color:var(--obsidian-300);border-radius:var(--r-sm);
-  transition:color var(--d-quick), background var(--d-quick);
+  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
 .dp-nav:hover:not(:disabled){color:var(--obsidian-100);background:var(--obsidian-800)}
 .dp-nav:disabled{color:var(--obsidian-500);cursor:not-allowed}
@@ -541,7 +545,7 @@
   text-transform:uppercase;color:var(--obsidian-300);
   background:transparent;border:0;cursor:pointer;
   padding:8px 6px;border-radius:var(--r-sm);
-  transition:color var(--d-quick), background var(--d-quick);
+  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
 .dp-preset:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
 .dp-preset:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
@@ -559,7 +563,7 @@
   border:0;background:transparent;cursor:pointer;
   font-family:var(--font-sans);font-size:13px;
   color:var(--obsidian-100);border-radius:var(--r-sm);
-  transition:background var(--d-quick), color var(--d-quick);
+  transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
 }
 .dp-year:hover:not(:disabled):not(.is-selected){background:var(--obsidian-800)}
 .dp-year:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:-2px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
@@ -578,7 +582,7 @@
   text-transform:uppercase;color:var(--obsidian-300);
   background:transparent;border:0;cursor:pointer;
   padding:6px 10px;border-radius:var(--r-sm);
-  transition:color var(--d-quick), background var(--d-quick);
+  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
 .dp-today-btn:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
 .dp-today-btn:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
@@ -593,7 +597,7 @@
   border-radius:var(--r-lg);
   box-shadow:var(--sh-3);
   padding:var(--s-3);
-  z-index:30;
+  z-index:var(--z-popover);
   font-family:var(--font-sans);
   opacity:0;transform:translateY(-4px);pointer-events:none;
   transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
@@ -675,14 +679,41 @@
 
 /* checkbox & switch */
 .check{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--obsidian-100)}
-.check input{appearance:none;width:16px;height:16px;border:1.5px solid var(--obsidian-600);border-radius:3px;background:var(--obsidian-850);display:grid;place-items:center;transition:all var(--d-quick)}
+.check input{appearance:none;width:16px;height:16px;border:1.5px solid var(--obsidian-600);border-radius:var(--r-xs);background:var(--obsidian-850);display:grid;place-items:center;transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
 .check input:checked{background:var(--magenta-500);border-color:var(--magenta-500)}
-.check input:checked::after{content:"";width:10px;height:6px;border:2px solid #04201D;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.check input:checked::after{content:"";width:10px;height:6px;border:2px solid var(--obsidian-950);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .switch{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--obsidian-100)}
-.switch input{appearance:none;width:32px;height:18px;background:var(--obsidian-700);border-radius:999px;position:relative;transition:all var(--d-quick)}
-.switch input::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;background:var(--obsidian-200);border-radius:50%;transition:all var(--d-base) var(--ease-standard)}
+.switch input{appearance:none;width:32px;height:18px;background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;background:var(--obsidian-200);border-radius:var(--r-full);transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
 .switch input:checked{background:var(--magenta-500)}
-.switch input:checked::after{left:16px;background:#04201D}
+.switch input:checked::after{left:16px;background:var(--obsidian-950)}
+
+/* Radio — shape-distinct from the checkbox by contract (§ 6 floor #1:
+   meaning is never carried by color alone). Circle + dot, never a tick. */
+.radio{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--obsidian-100)}
+.radio input{
+  appearance:none;width:16px;height:16px;
+  border:1.5px solid var(--obsidian-600);border-radius:var(--r-full);
+  background:var(--obsidian-850);display:grid;place-items:center;
+  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+}
+.radio input:checked{border-color:var(--magenta-500)}
+.radio input:checked::after{content:"";width:8px;height:8px;border-radius:var(--r-full);background:var(--magenta-500)}
+
+/* Choice controls — shared focus ring and disabled treatment.
+   The § 6.2 pressable pattern, applied to the real focus target (the input). */
+.check input:focus-visible,
+.switch input:focus-visible,
+.radio input:focus-visible{
+  outline:2px solid var(--obsidian-100);outline-offset:3px;
+  box-shadow:0 0 0 4px rgba(240,81,213,0.35);
+}
+.check input:disabled,
+.switch input:disabled,
+.radio input:disabled{opacity:0.4;cursor:not-allowed}
+.check:has(input:disabled),
+.switch:has(input:disabled),
+.radio:has(input:disabled){color:var(--obsidian-400);cursor:not-allowed}
 
 /* ─────────── BADGES ─────────── */
 .badge{
@@ -698,7 +729,7 @@
 .badge-danger{color:var(--danger);border-color:rgba(255,91,91,0.3);background:rgba(255,91,91,0.08)}
 .badge-info{color:var(--info);border-color:rgba(92,200,255,0.3);background:rgba(92,200,255,0.08)}
 .badge-brand{color:var(--magenta-400);border-color:rgba(240,81,213,0.3);background:rgba(240,81,213,0.08)}
-.badge-solid{background:var(--magenta-500);color:#fff;border-color:var(--magenta-500)}
+.badge-solid{background:var(--magenta-500);color:var(--obsidian-050);border-color:var(--magenta-500)}
 
 /* ─────────── NAV BAR DEMO ─────────── */
 .navdemo{
@@ -872,7 +903,7 @@
 
 /* ─────────── LIGHTBOX ─────────── */
 .lightbox{
-  position:fixed;inset:0;z-index:100;
+  position:fixed;inset:0;z-index:var(--z-overlay);
   display:flex;align-items:center;justify-content:center;
   padding:var(--s-8);
   background:rgba(7,9,11,0.85);
@@ -922,7 +953,41 @@
 .grid-demo .cols{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-3)}
 .grid-demo .col{height:80px;background:rgba(240,81,213,0.08);border:1px dashed rgba(240,81,213,0.3);border-radius:var(--r-xs);display:grid;place-items:center;font-family:var(--font-mono);font-size:10px;color:var(--magenta-400);letter-spacing:var(--tr-mono)}
 
-/* ─────────── INFO BAR ─────────── */
+/* ─────────── ALERT — inline, in-flow, never dismissed on a timer ───────────
+   The § 6 floor forbids timed dismissal (#6): an alert stays until the
+   condition clears or the reader dismisses it. Semantics ride the left
+   rule + the icon, never the fill — the surface stays --obsidian-850 in
+   every variant so the 85/10/5 budget is untouched. */
+.alert{
+  display:flex;align-items:flex-start;gap:var(--s-3);
+  padding:10px 14px;background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
+  border-radius:var(--r-md);font-size:13px;color:var(--obsidian-200);
+}
+.alert .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);text-transform:uppercase}
+.alert-icon{flex:0 0 auto;width:16px;height:16px;margin-top:1px;color:var(--magenta-400)}
+.alert-body{flex:1;min-width:0}
+.alert-title{font-weight:600;color:var(--obsidian-100)}
+.alert-dismiss{
+  flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;
+  color:var(--obsidian-400);border-radius:var(--r-sm);background:transparent;border:0;cursor:pointer;
+  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+}
+.alert-dismiss:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
+.alert-dismiss:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
+.alert-dismiss svg{width:12px;height:12px}
+
+.alert-success{border-left-color:var(--success)}
+.alert-success .alert-icon,.alert-success .tag{color:var(--success)}
+.alert-warn{border-left-color:var(--warning)}
+.alert-warn .alert-icon,.alert-warn .tag{color:var(--warning)}
+.alert-danger{border-left-color:var(--danger)}
+.alert-danger .alert-icon,.alert-danger .tag{color:var(--danger)}
+.alert-info{border-left-color:var(--info)}
+.alert-info .alert-icon,.alert-info .tag{color:var(--info)}
+
+/* Legacy alias — `.info-strip` was the un-specced ancestor of `.alert`.
+   Kept working (removal would be MAJOR); scheduled for removal in v4.0.0.
+   New markup uses `.alert`. */
 .info-strip{
   display:flex;align-items:center;gap:var(--s-3);
   padding:10px 14px;background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
@@ -933,8 +998,8 @@
 
 /* ─────────── A11Y: focus visibility + reduced motion ─────────── */
 .skip-link{
-  position:absolute;top:-100px;left:12px;z-index:1000;
-  padding:10px 16px;background:var(--magenta-500);color:#1A001A;
+  position:absolute;top:-100px;left:12px;z-index:var(--z-max);
+  padding:10px 16px;background:var(--magenta-500);color:var(--obsidian-950);
   font-family:var(--font-sans);font-weight:600;font-size:13px;
   border-radius:var(--r-md);text-decoration:none;
 }
@@ -1059,7 +1124,7 @@
   position:fixed;inset:0;
   background:rgba(7,9,11,0.6);
   backdrop-filter:blur(4px);
-  z-index:15;
+  z-index:var(--z-scrim);
   opacity:0;
   transition:opacity var(--d-quick) var(--ease-standard);
 }
@@ -1076,7 +1141,7 @@
     height:100vh;
     transform:translateX(-100%);
     transition:transform var(--d-base) var(--ease-decel);
-    z-index:20;
+    z-index:var(--z-menu);
     border-right:1px solid var(--obsidian-800);
     box-shadow:8px 0 32px rgba(0,0,0,0.4);
   }
@@ -1147,7 +1212,7 @@
   letter-spacing:var(--tr-snug);
   transition:color var(--d-quick) var(--ease-decel);
 }
-.acc-trigger:hover{color:#fff}
+.acc-trigger:hover{color:var(--obsidian-050)}
 .acc-trigger:focus-visible{outline:2px solid var(--magenta-400);outline-offset:-2px}
 .acc-chevron{
   display:inline-flex;align-items:center;justify-content:center;
@@ -1226,7 +1291,7 @@
   color:var(--magenta-300);
   background:var(--obsidian-850);
   padding:1px 6px;
-  border-radius:4px;
+  border-radius:var(--r-sm);
 }
 @media (prefers-reduced-motion: reduce){
   .a11y-rule{transition:none}
@@ -1389,8 +1454,8 @@
       transparent 1px 8px);
   background-color: var(--obsidian-950);
 }
-.law-seg-brand{background: #F051D5}
-.law-seg-semantic{background: #2EE5A6}
+.law-seg-brand{background: var(--magenta-500)}
+.law-seg-semantic{background: var(--success)}
 
 .law-legend{
   display:grid;
@@ -1406,9 +1471,9 @@
   margin-bottom: var(--s-2);
 }
 .law-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.law-dot-obsidian{background:#3A4452}
-.law-dot-brand{background:#F051D5}
-.law-dot-semantic{background:#2EE5A6}
+.law-dot-obsidian{background:var(--obsidian-500)}
+.law-dot-brand{background:var(--magenta-500)}
+.law-dot-semantic{background:var(--success)}
 
 .law-pct-mono{
   font-family: var(--font-mono);
@@ -1907,7 +1972,7 @@
 .chat-waveform .bar{
   flex: 1;
   background: var(--obsidian-400);
-  border-radius: 999px;
+  border-radius:var(--r-full);
   min-height: 4px;
 }
 .chat-bubble-own .chat-waveform .bar{ background: rgba(227,231,236,0.35) }
@@ -2368,7 +2433,7 @@
   justify-content: center;
   gap: var(--s-5);
   background: var(--obsidian-950);
-  z-index: 10;
+  z-index: var(--z-sticky);
 }
 
 /* Skeleton handoff — three-stage composition stand-in */
@@ -2763,3 +2828,97 @@
   .diagram{ padding: var(--s-5) }
   .diagram-canvas{ padding: var(--s-2) 0 }
 }
+
+
+/* =========================================================
+   TOAST — transient, stacked, bottom-right
+   The § 6 floor forbids auto-advancing content (#6). A toast may
+   auto-dismiss only when it carries no action and no error: the
+   dismissal is the reader's by default, `data-autohide` is opt-in
+   and never applies to `.toast-danger`.
+   ========================================================= */
+.toast-region{
+  position:fixed;right:var(--s-6);bottom:var(--s-6);
+  z-index:var(--z-toast);
+  display:flex;flex-direction:column;gap:var(--s-3);
+  width:min(360px, calc(100vw - var(--s-8)));
+  pointer-events:none;
+}
+.toast{
+  pointer-events:auto;
+  display:flex;align-items:flex-start;gap:var(--s-3);
+  padding:var(--s-4);
+  background:var(--obsidian-850);
+  border:1px solid var(--obsidian-700);
+  border-left:2px solid var(--magenta-500);
+  border-radius:var(--r-md);
+  box-shadow:var(--sh-3);
+  font-size:13px;color:var(--obsidian-200);
+  opacity:0;transform:translateY(8px);
+  transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel);
+}
+.toast.is-in{opacity:1;transform:translateY(0)}
+.toast.is-out{
+  opacity:0;transform:translateY(-8px);
+  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
+}
+.toast-icon{flex:0 0 auto;width:16px;height:16px;margin-top:1px;color:var(--magenta-400)}
+.toast-body{flex:1;min-width:0}
+.toast-title{font-weight:600;color:var(--obsidian-100)}
+.toast-action{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;
+  color:var(--magenta-400);background:transparent;border:0;cursor:pointer;
+  padding:6px 0;margin-top:var(--s-2);
+  transition:color var(--d-quick) var(--ease-standard);
+}
+.toast-action:hover{color:var(--magenta-300)}
+.toast-action:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
+.toast-dismiss{
+  flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;
+  color:var(--obsidian-400);border-radius:var(--r-sm);background:transparent;border:0;cursor:pointer;
+  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+}
+.toast-dismiss:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
+.toast-dismiss:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
+.toast-dismiss svg{width:12px;height:12px}
+
+.toast-success{border-left-color:var(--success)}
+.toast-success .toast-icon{color:var(--success)}
+.toast-warn{border-left-color:var(--warning)}
+.toast-warn .toast-icon{color:var(--warning)}
+.toast-danger{border-left-color:var(--danger)}
+.toast-danger .toast-icon{color:var(--danger)}
+
+@media (max-width:600px){
+  .toast-region{left:var(--s-4);right:var(--s-4);bottom:var(--s-4);width:auto}
+}
+
+
+/* =========================================================
+   TOOLTIP — label only, never the sole carrier of meaning
+   Never contains interactive content: the § 6 floor requires the
+   information to survive without hover (#1, #5). Anchored, no arrow.
+   ========================================================= */
+.tooltip-wrap{position:relative;display:inline-flex}
+.tooltip{
+  position:absolute;bottom:calc(100% + 6px);left:50%;
+  transform:translate(-50%, 2px);
+  z-index:var(--z-popover);
+  max-width:220px;width:max-content;
+  padding:6px 10px;
+  background:var(--obsidian-800);
+  border:1px solid var(--obsidian-700);
+  border-radius:var(--r-sm);
+  box-shadow:var(--sh-2);
+  font-family:var(--font-sans);font-size:12px;line-height:var(--lh-snug);
+  color:var(--obsidian-100);
+  opacity:0;pointer-events:none;
+  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+}
+.tooltip-wrap:hover .tooltip,
+.tooltip-wrap:focus-within .tooltip,
+.tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
+.tooltip-bottom{bottom:auto;top:calc(100% + 6px);transform:translate(-50%, -2px)}
+.tooltip-wrap:hover .tooltip-bottom,
+.tooltip-wrap:focus-within .tooltip-bottom,
+.tooltip-bottom.is-open{transform:translate(-50%, 0)}

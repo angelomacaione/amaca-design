@@ -20,6 +20,8 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 ## Components — reuse, don't reinvent
 Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); full specs in `DESIGN.md`. One `.btn-primary` per screen. A new `.classname` not in the canonical set is a gap — surface it (workaround / extend / refactor), never ship a silent variant.
 
+**The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation.
+
 ```css
 .btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
   padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
