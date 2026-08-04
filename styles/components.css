@@ -959,22 +959,26 @@
    rule + the icon, never the fill — the surface stays --obsidian-850 in
    every variant so the 85/10/5 budget is untouched. */
 .alert{
-  display:flex;align-items:flex-start;gap:var(--s-3);
-  padding:10px 14px;background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
+  display:grid;grid-template-columns:auto minmax(0,1fr);
+  column-gap:var(--s-3);row-gap:var(--s-1);align-items:center;
+  padding:var(--s-3) var(--s-4);background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
   border-radius:var(--r-md);font-size:13px;color:var(--obsidian-200);
 }
 .alert .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);color:var(--magenta-400);text-transform:uppercase}
-.alert-icon{flex:0 0 auto;width:16px;height:16px;margin-top:1px;color:var(--magenta-400)}
-.alert-body{flex:1;min-width:0}
-.alert-title{font-weight:600;color:var(--obsidian-100)}
-.alert-dismiss{
-  flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;
-  color:var(--obsidian-400);border-radius:var(--r-sm);background:transparent;border:0;cursor:pointer;
-  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
+.alert-icon{grid-column:1;grid-row:1;width:16px;height:16px;color:var(--magenta-400)}
+.alert-title{grid-column:2;grid-row:1;font-weight:600;color:var(--obsidian-100);min-width:0}
+/* Single-line alert: the body sits beside the icon.
+   Titled alert: the body drops to its own row and returns to the icon's
+   left edge — the title is what the icon labels, not the paragraph. */
+.alert-body{grid-column:2;grid-row:1;min-width:0;overflow-wrap:anywhere}
+.alert:has(.alert-title) .alert-body{grid-column:1 / -1;grid-row:2}
+
+/* Entrance — the system's reveal grammar, opt-in via [data-alert-fade] */
+[data-alert-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
+[data-alert-fade].is-in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){
+  [data-alert-fade]{opacity:1;transform:none;transition:none}
 }
-.alert-dismiss:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
-.alert-dismiss:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:1px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
-.alert-dismiss svg{width:12px;height:12px}
 
 .alert-success{border-left-color:var(--success)}
 .alert-success .alert-icon,.alert-success .tag{color:var(--success)}
@@ -2391,15 +2395,16 @@
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
-/* Tint loader inside primary button for legibility on magenta */
-.btn-primary.is-loading .loader-fallback circle{ stroke: var(--obsidian-950) }
-.btn-primary.is-loading .loader-check svg{ color: var(--obsidian-950) }
-/* Flat obsidian silhouette — cyan on magenta is off-system; at this size detail
-   isn't legible anyway, so we collapse the cubes to a near-black silhouette.
-   Applies whenever a loader is composed inside a primary button — at rest and
-   while loading — so the visual contract holds before the trigger fires too. */
+/* Anything composed inside .btn-primary wears the label's colour.
+   The label is near-white on magenta (--obsidian-050, ratified § 6.3); a loader
+   that stays dark puts two opposite treatments in one button. Cyan on magenta
+   stays off-system either way, and at this size the cube detail isn't legible,
+   so the mark collapses to a flat near-white silhouette. Applies at rest and
+   while loading — the contract holds before the trigger fires too. */
+.btn-primary.is-loading .loader-fallback circle{ stroke: var(--obsidian-050) }
+.btn-primary.is-loading .loader-check svg{ color: var(--obsidian-050) }
 .btn-primary .loader-anim{
-  filter: brightness(0);
+  filter: brightness(0) invert(1);
 }
 
 /* Section overlay variant — sits over a card/region, dims the parent */
@@ -2846,7 +2851,8 @@
 }
 .toast{
   pointer-events:auto;
-  display:flex;align-items:flex-start;gap:var(--s-3);
+  display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+  column-gap:var(--s-3);row-gap:var(--s-1);align-items:center;
   padding:var(--s-4);
   background:var(--obsidian-850);
   border:1px solid var(--obsidian-700);
@@ -2854,17 +2860,34 @@
   border-radius:var(--r-md);
   box-shadow:var(--sh-3);
   font-size:13px;color:var(--obsidian-200);
-  opacity:0;transform:translateY(8px);
+  opacity:0;transform:translateX(24px);
   transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel);
 }
-.toast.is-in{opacity:1;transform:translateY(0)}
+.toast.is-in{opacity:1;transform:translateX(0)}
 .toast.is-out{
-  opacity:0;transform:translateY(-8px);
+  opacity:0;transform:translateX(24px);
   transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
-.toast-icon{flex:0 0 auto;width:16px;height:16px;margin-top:1px;color:var(--magenta-400)}
-.toast-body{flex:1;min-width:0}
-.toast-title{font-weight:600;color:var(--obsidian-100)}
+/* Collapse — the stack closes the gap the dismissed toast leaves, it never
+   snaps shut. Same roll-off shape as the chat message (§ 08.4): the fade and
+   slide go first, the box collapses after. `--s-3` is the region gap; the
+   negative margin eats it so nothing is left behind. */
+.toast.is-collapsing{
+  max-height:0;padding-block:0;border-block-width:0;
+  margin-bottom:calc(-1 * var(--s-3));
+  overflow:hidden;
+  transition:max-height var(--d-base) var(--ease-accel),
+             padding var(--d-base) var(--ease-accel),
+             margin var(--d-base) var(--ease-accel),
+             border-width var(--d-base) var(--ease-accel);
+}
+@media (prefers-reduced-motion: reduce){
+  .toast.is-collapsing{transition:none}
+}
+.toast-icon{grid-column:1;grid-row:1;width:16px;height:16px;color:var(--magenta-400)}
+.toast-title{grid-column:2;grid-row:1;font-weight:600;color:var(--obsidian-100);min-width:0}
+.toast-body{grid-column:2;grid-row:1;min-width:0;overflow-wrap:anywhere}
+.toast:has(.toast-title) .toast-body{grid-column:1 / -1;grid-row:2}
 .toast-action{
   font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;
   color:var(--magenta-400);background:transparent;border:0;cursor:pointer;
@@ -2874,7 +2897,7 @@
 .toast-action:hover{color:var(--magenta-300)}
 .toast-action:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px;box-shadow:0 0 0 4px rgba(240,81,213,0.35)}
 .toast-dismiss{
-  flex:0 0 auto;display:grid;place-items:center;width:20px;height:20px;
+  grid-column:3;grid-row:1;display:grid;place-items:center;width:20px;height:20px;
   color:var(--obsidian-400);border-radius:var(--r-sm);background:transparent;border:0;cursor:pointer;
   transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
@@ -2915,10 +2938,9 @@
   opacity:0;pointer-events:none;
   transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
 }
-.tooltip-wrap:hover .tooltip,
-.tooltip-wrap:focus-within .tooltip,
+/* Open state is a class, never :hover — the RIGID single-open rule
+   (§ 3.20) cannot be expressed in CSS alone. The controller opens on
+   pointerenter and focusin and closes every other tooltip first. */
 .tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
 .tooltip-bottom{bottom:auto;top:calc(100% + 6px);transform:translate(-50%, -2px)}
-.tooltip-wrap:hover .tooltip-bottom,
-.tooltip-wrap:focus-within .tooltip-bottom,
 .tooltip-bottom.is-open{transform:translate(-50%, 0)}

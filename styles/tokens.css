@@ -195,6 +195,9 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
 a:hover{color:var(--magenta-300)}
 input,textarea{caret-color:var(--magenta-500)}
+/* Single-typeface system: code, keys and samples ride the mono register
+   (Satoshi + --tr-mono), never the browser's monospaced default (§ 05). */
+code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
 ::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
 
 /* scrollbar */

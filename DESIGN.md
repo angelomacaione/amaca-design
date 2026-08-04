@@ -38,7 +38,7 @@ colors:
   magenta-800: "#66195A"
 typography:
   font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
-  font-mono: "ui-monospace, SFMono-Regular, Menlo, monospace"
+  font-mono: "Satoshi, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
   t-display: "112px"
   t-h1: "76px"
   t-h2: "52px"
@@ -162,7 +162,13 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 
 ## Typography
 
-Single typeface — **Satoshi** — across the whole system. `--font-sans` resolves to Satoshi; the system uses a generic monospace stack (`ui-monospace, SFMono-Regular, Menlo, monospace`) only for tabular numerics and code captions.
+Single typeface — **Satoshi** — across the whole system. Both family tokens resolve to it.
+
+**`--font-mono` is a register, not a typeface.** The name is historical and is kept for compatibility; the value is Satoshi, same as `--font-sans`. What makes the mono register read as mono is the *treatment*, not the family: `--tr-mono` letter-spacing (`0.06em`), uppercase, small sizes (`--t-micro` / `--t-caption`), and `font-variant-numeric: tabular-nums` where figures must align. Labels, badges, timestamps, token names, breadcrumbs and table headers all ride it.
+
+**`code`, `kbd`, `samp`, `pre` ride the register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-mono); letter-spacing: var(--tr-mono)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same § 11.2 card.
+
+**A real monospaced stack is off-system.** `ui-monospace, SFMono-Regular, Menlo, monospace` hardcoded anywhere is a violation — it introduces a second typeface into a single-typeface system, and it does so invisibly, because at 10–12px uppercase the two read almost alike until you put them side by side.
 
 | Token | Size | Typical use |
 |---|---|---|
@@ -320,7 +326,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Date picker | `.dp-wrap` `.dp-icon-btn` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
 | Table | `.table` | canonical | § 3.16 |
 | Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
-| Alert | `.alert` `.alert-icon` `.alert-body` `.alert-title` `.alert-dismiss` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
+| Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
 | Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.19 |
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.20 |
 | Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | css-only | spec in v3.5.0 — composition rules |
@@ -398,6 +404,26 @@ The aggregate of every ratified state row. A generator reads this table and neve
 ### § 3.0.2 Stacking
 
 Seven layers, named in § 2 · Layout. A floating component takes its `z-index` from that scale and from nowhere else. In-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same distinction § Code conventions draws between vocabulary values and composition values.
+
+### § 3.0.3 Teaching grammar
+
+**How the system explains itself is part of the system.** A component is documented on four surfaces and no others. The list is closed for the same reason § 3.0 is closed: without it, the next section imitates whatever the last one happened to do, and the documentation drifts faster than the code.
+
+| Surface | Job | When | Constraint |
+|---|---|---|---|
+| **Framing prose** | Why the component exists, what it is for | One per subsection, always | Two or three sentences. Never how-to — that is what the spec is for |
+| **Do / Don't** | Rules that can be got wrong | Every component with at least one contestable rule | Always in pairs. A Do without its Don't states a preference, not a rule |
+| **Demo caption** | The replay affordance | Only where a demo has a choreography with a beginning | Fixed form: *"Click [Replay] to re-trigger animations."* Nothing else goes here |
+| **Contract card** | Discrete values a generator must not guess — input grids, digit rules, allowed keys | Where the rule is a table, not a sentence | Mono register (`--font-mono` + `--tr-mono` + uppercase label). Never a hardcoded font stack |
+
+**Rules of the grammar:**
+- **A rule never lives in a demo caption.** The caption carries the replay affordance and nothing else. A rule in prose under a demo is invisible to a reader scanning for rules and invisible to a machine parsing them — it is the documentation equivalent of a hardcoded value.
+- **Framing prose is mandatory, not decorative.** A subsection with a demo and no framing tells the reader what the component looks like and never what it is for.
+- **Do / Don't comes in pairs.** The Don't is where the knowledge is: anyone can guess the Do.
+- **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
+- An explanation that fits none of these four is `off-system`. Add a surface deliberately, or use one of these.
+
+**Known debt (v3.4.0).** The site does not yet meet this rule: 41 of 90 subsections have no framing prose, Do / Don't exists in 6 sections of 24, and § Motion still carries six rule paragraphs as demo captions — the exact anti-pattern this section names. Scheduled for v3.5.0. The rule ships first so that nothing new is written against the old habit.
 
 ### Button
 
@@ -774,7 +800,7 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 - If you need a finite wait with a deterministic end state, transition to `[data-loader-state="success"]` and let the check carry the resolution.
 
 **Inside `.btn-primary`:**
-- Cyan-on-magenta is off-system. The selector `.btn-primary .loader-anim` applies `filter: brightness(0)` to collapse the cubes to a near-black silhouette (~`--obsidian-950`). Alpha is preserved.
+- **Anything composed inside `.btn-primary` wears the label's colour.** The label is near-white on magenta (`--obsidian-050`, ratified § 6.3), so the loader is too: `.btn-primary .loader-anim` applies `filter: brightness(0) invert(1)` — a flat near-white silhouette, alpha preserved — and the fallback ring and the success check take `--obsidian-050`. Cyan-on-magenta stays off-system either way; at this size the cube detail isn't legible, so the mark reads as a silhouette by design.
 - Applies at rest **and** while loading — the visual contract holds before the trigger fires too.
 - Inside `.btn-primary.is-loading`, the fallback ring and check icon also tint to `--obsidian-950` for the same reason.
 
@@ -1009,13 +1035,12 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 ```html
 <div class="alert alert-warn" role="status">
   <svg class="alert-icon" aria-hidden="true">…</svg>
-  <div class="alert-body">
-    <div class="alert-title">Draft not published</div>
-    Changes are saved locally until you publish.
-  </div>
-  <button class="alert-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
+  <div class="alert-title">Draft not published</div>
+  <div class="alert-body">Changes are saved locally until you publish.</div>
 </div>
 ```
+
+**Layout.** Two columns — icon, content — on a grid, the content column `minmax(0, 1fr)` so a long word can't push the box past its container. In a **titled** alert the icon labels the *title*, so the title sits beside it and the body drops to a second row that returns to the **icon's left edge**. Indenting the paragraph to the title's x makes the block read lopsided: a wide ragged column hanging off a short label. In a **single-line** alert (no `.alert-title`) the body stays beside the icon. `.alert-title` and `.alert-body` are siblings, never nested.
 
 | Variant | Left rule · icon | Use |
 |---|---|---|
@@ -1029,8 +1054,8 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 - **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 10% accent budget on furniture (§ 1.4 / § 8).
 - The icon is mandatory and `aria-hidden` — it is the shape half of "colour never alone" (§ 6 floor #1). The text carries the meaning.
 - `role="status"` for informative, `role="alert"` for danger. Nothing else.
-- An alert **never auto-dismisses** (§ 6 floor #6). It clears when the condition clears or when the reader dismisses it.
-- Dismissible is opt-in: no `.alert-dismiss`, no dismissal.
+- **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.19 Toast — that is the whole difference between the two components.
+- **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
 - `.info-strip` is the deprecated alias of this component. It still works; new markup uses `.alert`.
 
 ### Toast
@@ -1041,12 +1066,9 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 <div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
   <div class="toast toast-success is-in" role="status">
     <svg class="toast-icon" aria-hidden="true">…</svg>
-    <div class="toast-body">
-      <div class="toast-title">Draft published</div>
-      Live at amaca.design/blog.
-      <button class="toast-action" type="button">Undo</button>
-    </div>
+    <div class="toast-title">Draft published</div>
     <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
+    <div class="toast-body">Live at amaca.design/blog. <button class="toast-action" type="button">Undo</button></div>
   </div>
 </div>
 ```
@@ -1063,6 +1085,11 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 - The region is `aria-live="polite"`; a `.toast-danger` carries `role="alert"` on the toast itself.
 - Newest enters at the bottom of the stack. Three visible at most — a fourth means the surface should be showing an § 3.18 Alert instead.
 - A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
+- **Same grid as § 3.18**: icon and title on the first row, body returning to the icon's left edge below.
+- **A toast enters and leaves on the same side it lives on** — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.
+- **The stack closes the gap, it never snaps.** Dismissal is two moves, not one: the toast fades and slides out on `--d-quick` · `--ease-accel`, *then* its box collapses (`max-height`, padding, border, and the region gap) on `--d-base` · `--ease-accel` so the toasts below rise into place. Same roll-off shape as the chat message (§ 3.11). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
+- **The two rides differ in speed, not in path.** In: `.is-in`, `--d-base` · `--ease-decel` — the system announcing itself. Out: `.is-out`, `--d-quick` · `--ease-accel` — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.
+- **The toast keeps its close button.** It is the dismissible half of the pair: § 3.18 Alert has none by contract.
 - Motion: § 08.4.
 
 ### Tooltip
@@ -1083,7 +1110,8 @@ A label for something already visible. Never a container for content.
 | Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
 
 **Rules.**
-- **Opens on hover and on focus.** `:focus-within` is not optional — a tooltip reachable only by pointer fails § 6 floor #5.
+- **Opens on hover and on focus.** A tooltip reachable only by pointer fails § 6 floor #5.
+- **At most one tooltip is open at a time (RIGID).** Opening one closes every other — two bubbles on screen overlap, and an overlapped label is a label that can't be read. `Escape` closes; scrolling closes. This cannot be expressed in CSS (`:hover` has no memory of the others), so the open state is the `.is-open` class and a controller owns it. A tooltip that opens on a bare `:hover` rule is off-system.
 - The trigger references it with `aria-describedby`; the bubble is `role="tooltip"`. A tooltip with no trigger relationship is decoration.
 - **No interactive content.** No links, no buttons, no form controls — there is no accessible path to reach them.
 - Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in `.help` or in an § 3.18 Alert.
@@ -1265,10 +1293,12 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
-| Toast | enter | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
-| Toast | dismiss (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
+| Toast | enter | opacity (effect) · translateX 24px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |
+| Toast | dismiss (`.is-collapsing`) | max-height · padding · border · margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
+| Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger 90ms | instant |
 | Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
-| Alert | dismiss hover | button color · background (effect) | `--d-quick` · `--ease-standard` | instant |
+| Tooltip | close (another opens · Escape · scroll) | opacity (effect) · translateY 0→2px (spatial) | `--d-quick` · `--ease-standard` | instant |
 
 **Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 
@@ -1480,13 +1510,14 @@ The version line at the top of this document is the source of truth. The CSS fil
 - **Component registry (§ 3.0)** — the closed inventory of components, with a four-state vocabulary: `canonical` (spec in this file) · `css-only` (shipped in CSS, spec owed, milestone named) · `off-system` (**stop and ask**) · `site-only` (documentation-site chrome, not the contract). Closure clause: a component not in the table is `off-system`; a class not in the table is either a part of a listed component or `site-only`. This is what makes the § 2 token rule executable one level up — a generator can now *detect* non-coverage instead of inventing.
 - **State grammar (§ 3.0.1)** — one fixed six-column schema (state · background · border · foreground · ring · other) with a closed state vocabulary (`default` `hover` `focus-visible` `active` `disabled` `error` `readonly` `loading`), token-only cells, and two RIGID rows: `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. The **state index** aggregates every ratified row. Prose state specs migrated (Button, Input/textarea/select, Select, choice controls, Date picker).
 - **Stacking scale (§ 2 · Layout)** — seven named layers (`--z-sticky` `--z-scrim` `--z-menu` `--z-popover` `--z-overlay` `--z-toast` `--z-max`). The values name the system as built; nothing was renumbered. In-component stacking below 10 stays literal by design. A raw `z-index` of 10 or more is now greppable as a violation.
+- **Teaching grammar (§ 3.0.3)** — the closed list of the four surfaces a component is documented on: framing prose, Do / Don't, demo caption, contract card. Written after an audit of the site found five competing grammars and no rule saying which to use: 41 of 90 subsections with no framing prose, Do / Don't in 6 sections of 24, and `ty-small` doing two incompatible jobs — the 38-character replay caption, and rule paragraphs up to 541 characters. RIGID: a rule never lives in a demo caption, and a subsection with no entrance choreography gets no replay button.
 - **Browser chrome (§ Code conventions)** — scrollbar, `::selection` and `caret-color` promoted from `tokens.css` into the contract, with a closure clause ("chrome not listed is native and is not styled") and one ratified exception: per-component `scrollbar-width: none` where the component supplies its own scroll affordance (`.tp-wheel`, `.tabs` under 768px). The scrollbar had been specified in CSS since v1 and had **zero** occurrences in this file.
 - **Date picker (§ 3.15)** — the most complex component in the system, shipped since v2 and invisible in the contract until now. Full anatomy (popover, header, day grid, range with two months, presets, year jump, footer), the closed day-flag set (`.is-today` `.is-selected` `.is-outside` `.is-in-range` `.is-range-preview` `.is-range-start` `.is-range-end`), state matrix and motion rows.
 - **Table (§ 3.16)** — frame, mono-uppercase header, row rule, inline code and `.muted` cell. No zebra striping, by rule.
 - **Checkbox · Switch · Radio (§ 3.17)** — one family, one rule: shape carries meaning before colour (square + tick / circle + dot / track + knob). `.radio` is **new**; `.check` and `.switch` were shipped and undocumented. When each commits is now normative: the switch applies immediately, the checkbox applies on submit.
-- **Alert (§ 3.18)** — inline, in flow, never on a timer (§ 6 floor #6). Five variants where semantics ride a 2px left rule plus a mandatory icon and **the fill never changes** — a tinted alert surface would spend the 10% accent budget on furniture.
-- **Toast (§ 3.19)** — transient region at `--z-toast`, `pointer-events: none` so it never blocks the page. Auto-dismiss is opt-in and bounded: permitted only for a toast with no action that is not `.toast-danger`; hover and focus pause the countdown. Three visible at most.
-- **Tooltip (§ 3.20)** — label only. Opens on hover **and** `:focus-within`, `role="tooltip"` bound by `aria-describedby`, no interactive content, no arrow, never the sole carrier of meaning.
+- **Alert (§ 3.18)** — inline, in flow, never on a timer (§ 6 floor #6). Five variants where semantics ride a 2px left rule plus a mandatory icon and **the fill never changes** — a tinted alert surface would spend the 10% accent budget on furniture. Three-column grid: the icon labels the *title*, so a titled alert drops its body to a second row that returns to the icon's left edge rather than hanging indented off a short label. **Not dismissible at all** — not on a timer and not by the reader: a close button would let someone hide a state that is still true. If the reader must be able to make it go away, it is a toast. That is the whole line between the two components.
+- **Toast (§ 3.19)** — transient region at `--z-toast`, `pointer-events: none` so it never blocks the page. It enters and leaves on the side it lives on — 24px from the right, opacity with it — and the exit retraces the entry on the same axis. The two rides differ in speed, not in path: in on `--d-base` · `--ease-decel`, out on `--d-quick` · `--ease-accel`. Auto-dismiss is opt-in and bounded: permitted only for a toast with no action that is not `.toast-danger`; hover and focus pause the countdown. Three visible at most.
+- **Tooltip (§ 3.20)** — label only. Opens on hover **and** on focus, `role="tooltip"` bound by `aria-describedby`, no interactive content, no arrow, never the sole carrier of meaning. **At most one open at a time (RIGID)** — opening one closes every other, and `Escape` or a scroll closes it. Two overlapping bubbles make both unreadable; `:hover` has no memory of the others, so the open state is a class and a controller owns it.
 - **`.btn-outline`** — the fifth button variant shipped in v2 and never made it into the § 3.1 variant table.
 
 **Changed**
@@ -1495,6 +1526,14 @@ The version line at the top of this document is the source of truth. The CSS fil
 - **`.info-strip` → `.alert`** — the un-specced ancestor is now a deprecated alias of § 3.18. It still works; removal is scheduled for v4.0.0. New markup uses `.alert`.
 
 **Fixed**
+- **`--font-mono` was never a monospaced stack.** `tokens.css` carried a byte-for-byte copy of `--font-sans`, while this file's frontmatter, § Typography and `tokens.dtcg.json` all declared `ui-monospace, SFMono-Regular, Menlo, monospace` — a correction applied to the DTCG export in v3.1.0 and never propagated to the CSS. The system has run on two typographic identities since: 134 `var(--font-mono)` references rendering Satoshi, and 38 hardcoded monospace stacks in `index.html` rendering a real mono. **The CSS was right and the contract was wrong**: Amaca is a single-typeface system, and the mono *register* is Satoshi plus `--tr-mono`, uppercase and tabular figures. Frontmatter, § Typography and the DTCG file now say so; the 38 hardcoded stacks are gone; a real monospaced stack is now explicitly off-system.
+- **The loader inside `.btn-primary` was dark while the label was light.** The dark silhouette was ratified in v2.5.0, when the primary label was still dark; § 6.3 flipped the label to near-white in v2.7.0 and the loader was never revisited, so the two halves of the same button have carried opposite treatments since. Now `brightness(0) invert(1)`, with `--obsidian-050` on the fallback ring and the success check. The rule behind it is now written: anything composed inside `.btn-primary` wears the label's colour.
+- **704 `<code>` elements ran on the browser's monospaced default.** Only two were styled (`.table code`, `.a11y-rule p code`); every other inline fragment fell back to a real monospaced typeface. The § 11.2 rules card showed both a line apart. `code, kbd, samp, pre` now ride the mono register in the reset.
+- **The composer's staged state was two rows tall for one line of text** (§ 16.3). `rows="2"` with a single line left the text at the top and pushed attach and send to the bottom on `align-items: flex-end`, so the two side-by-side demos didn't match and the box read broken. Shipped that way since the composer landed.
+- **`var(--brand)` does not exist — 13 uses.** § 11.2 and § 11.3 coloured their digit labels with an undeclared token. The fallback was a plausible grey, so it never read as broken. Now `--magenta-400`.
+- **153 raw px in inline styles** → tokens at exact parity (`font-size:15px` → `--t-body` ×82, `10px` → `--t-micro` ×39, `border-radius:4px` → `--r-sm` ×32). 115 off-scale literals remain, scheduled with the § 3.0.3 debt.
+- **A replay button on a demo with no choreography** (§ 19.4 Palette ramps) — removed. It taught that an entrance existed.
+
 - **The input error state had no CSS.** § 3.2 has promised "border `--danger`" since v2.0.0; `components.css` only ever implemented the helper text. Added `[aria-invalid="true"]` border and focus glow, plus the missing `:disabled` and `[readonly]` treatments.
 - **`.check` and `.switch` had no focus ring.** Both shipped without `:focus-visible` — a § 6 floor #5 violation in the two most-used form controls after the text input. Fixed for all three choice controls.
 - **Raw hex, eight survivors.** `.btn-danger` `#1a0606`, `.badge-solid` `#fff`, `.acc-trigger:hover` `#fff`, `.skip-link` `#1A001A`, the checkbox and switch tick `#04201D` ×2, and four literals in the 85/10/5 law chart → tokens. Two of them (`#fff`) contradicted the no-`#FFF` rule (§ 04.6) that v3.3.0 fixed for `::selection` — these were the remaining instances. `components.css` now contains **zero** raw hex.
