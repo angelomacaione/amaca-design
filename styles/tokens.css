@@ -160,6 +160,18 @@
   --sidebar-w: 260px;
   --content-max: 1180px;
   --gutter: 24px;
+
+  /* — STACKING — closed scale, seven layers, no others (§ 3.0.2).
+     Values match the system as built: this scale names the existing
+     layers, it does not renumber them. In-component stacking below
+     10 (z-index 1 / 2 / 5) is composition, literal by design. — */
+  --z-sticky: 10;
+  --z-scrim: 15;
+  --z-menu: 20;
+  --z-popover: 30;
+  --z-overlay: 100;
+  --z-toast: 200;
+  --z-max: 1000;
 }
 
 /* =========================================================
@@ -182,10 +194,14 @@ img,svg{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:var(--magenta-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
 a:hover{color:var(--magenta-300)}
+input,textarea{caret-color:var(--magenta-500)}
+/* Single-typeface system: code, keys and samples ride the mono register
+   (Satoshi + --tr-mono), never the browser's monospaced default (§ 05). */
+code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
 ::selection{background:var(--magenta-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
 
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:4px;border:2px solid var(--obsidian-950)}
+::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:var(--r-sm);border:2px solid var(--obsidian-950)}
 ::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}
