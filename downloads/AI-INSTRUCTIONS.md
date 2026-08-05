@@ -25,7 +25,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 - **Five principles:** clarity before cleverness · evidence over opinion · precision is a feeling (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · quiet then loud · motion is a material (feedback, never decoration).
 
 ## Components — reuse, don't reinvent
-`.btn-primary` (one per screen) · `.btn-secondary/ghost/danger` · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · `.field` + `.field-label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · `.badge` · tabs · accordion · loader · chat. A class name outside this set is a gap — flag it, don't ship a silent variant.
+`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · `.field` + `.field-label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · `.badge` · `.check` / `.switch` / `.radio` (square+tick / track+knob / circle+dot — shape before colour) · `.table` (no zebra) · `.alert` (never on a timer, fill never tinted) · `.toast` · `.tooltip` (opens on hover **and** focus) · date picker · tabs · accordion · loader · chat. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
 
 ```html
 <button class="btn btn-primary">Save</button>

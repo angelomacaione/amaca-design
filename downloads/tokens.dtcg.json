@@ -548,12 +548,12 @@
   "grad-cube": {
     "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
     "$type": "other",
-    "$description": "CSS gradient \u2014 no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
   },
   "grad-signal": {
     "$value": "linear-gradient(90deg, #F051D5 0%, #FF85DF 100%)",
     "$type": "other",
-    "$description": "CSS gradient \u2014 no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
   },
   "grad-fog": {
     "$value": "radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),\n                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%)",
@@ -572,12 +572,15 @@
   },
   "font-mono": {
     "$value": [
-      "ui-monospace",
-      "SFMono-Regular",
-      "Menlo",
-      "monospace"
+      "Satoshi",
+      "ui-sans-serif",
+      "system-ui",
+      "-apple-system",
+      "Segoe UI",
+      "sans-serif"
     ],
-    "$type": "fontFamily"
+    "$type": "fontFamily",
+    "$description": "Register, not a typeface. Resolves to Satoshi, same as font-sans; the mono reading comes from tr-mono letter-spacing, uppercase and tabular figures. A real monospaced stack is off-system (single-typeface system)."
   },
   "t-micro": {
     "$value": {
@@ -682,27 +685,27 @@
   "tr-tight": {
     "$value": "-0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em \u2014 DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
   },
   "tr-snug": {
     "$value": "-0.02em",
     "$type": "other",
-    "$description": "Letter-spacing in em \u2014 DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
   },
   "tr-normal": {
     "$value": "0em",
     "$type": "other",
-    "$description": "Letter-spacing in em \u2014 DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
   },
   "tr-wide": {
     "$value": "0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em \u2014 DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
   },
   "tr-mono": {
     "$value": "0.06em",
     "$type": "other",
-    "$description": "Letter-spacing in em \u2014 DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
   },
   "s-0": {
     "$value": {
@@ -1271,7 +1274,7 @@
       "unit": "ms"
     },
     "$type": "duration",
-    "$description": "data draw-on: chart tracing, count-up, progressive data reveals (\u00a7 12.2, \u00a7 19)"
+    "$description": "data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19)"
   },
   "loader-xs": {
     "$value": {
