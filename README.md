@@ -1,8 +1,8 @@
 # Amaca — Design System
 
-The personal design system of [Angelo Macaione](https://amaca.design). Motion-first. AI-readable. Built in the open.
+A published, versioned design system by [Angelo Macaione](https://angelomacaione.com). Motion-first. AI-readable. Built in the open.
 
-**Live:** [amaca.design](https://amaca.design)
+**Live:** [amaca.design](https://amaca.design) · **Why it exists:** [the story behind the system](https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me)
 
 ---
 
@@ -10,17 +10,31 @@ The personal design system of [Angelo Macaione](https://amaca.design). Motion-fi
 
 Amaca is not a UI kit for download. It is the source of truth for how I design, write, and ship — documented in public so the work can be seen, audited, and learned from.
 
-Two things make it specific. Motion is a foundation, not a finish — five durations, four easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
+Two things make it specific. Motion is a foundation, not a finish — six durations, four easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and as installable rules for every major coding tool.
 
-## Use it with AI — two formats
+## Use it with AI
 
-The system is built to be dropped into an AI coding stack. Same spec inside, two postures:
+The spec is one file. Everything else in [`downloads/`](downloads/) is a projection of it, shaped for a specific runtime. Same rules inside, different envelope.
 
-**The skill — enforced workflow.** [`amaca-frontend.skill`](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.skill) ([universal .zip](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/amaca-frontend.zip)). A 6-step workflow that reads the spec, maps intent against canonical tokens, generates `var(--token)` references only, and runs 13 verification checks before handing off. Multi-target: HTML, React via Tailwind v4 `@theme`, Figma Variables. For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue.
+**The spec — raw context.** [`DESIGN.md`](DESIGN.md) (~150 KB). Tokens, components, principles, motion grammar, accessibility rules — flat Markdown with YAML frontmatter, in the Google Labs `design.md` standard. Paste into any system prompt: ChatGPT Custom GPT, Gemini Gems, any chat model with file upload.
 
-**The spec — raw context.** [`DESIGN.md`](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md) (~40 KB). Tokens, components, principles, motion specs, accessibility rules — flat Markdown with YAML frontmatter. Paste into any system prompt: ChatGPT Custom GPT, Gemini Gems, any chat model with file upload.
+**The skill — enforced workflow.** [`downloads/amaca-frontend.skill`](downloads/amaca-frontend.skill) ([universal .zip](downloads/amaca-frontend.zip)). A 6-step workflow that reads the spec, maps intent against canonical tokens, generates `var(--token)` references only, and runs verification checks before handing off. Multi-target: HTML, React via Tailwind v4 `@theme`, Figma Variables. For Cowork, Claude Code, Cursor, VS Code (Copilot), Continue.
 
-Per-runtime install instructions, model capability tiers, and a 30-second compliance scan live at [amaca.design → § 03 Documentation](https://amaca.design/#documentation).
+**Per-tool rule files.** Drop the one your stack reads:
+
+| File | Runtime |
+|---|---|
+| [`downloads/AGENTS.md`](downloads/AGENTS.md) | The universal agent standard — Codex, Cursor, Copilot, Gemini CLI, Aider, Windsurf, Zed |
+| [`downloads/CLAUDE.md`](downloads/CLAUDE.md) | Claude Code |
+| [`downloads/.cursor/rules/`](downloads/.cursor/rules/) | Cursor — scoped `.mdc` rules for core, HTML and React |
+| [`downloads/.github/`](downloads/.github/) | GitHub Copilot — repo instructions + per-language instruction files |
+| [`downloads/amaca-figma.md`](downloads/amaca-figma.md) | The Figma agent — in-canvas generate + audit, in a verify loop |
+| [`downloads/AI-INSTRUCTIONS.md`](downloads/AI-INSTRUCTIONS.md) | Self-contained paste-in for any chat model |
+| [`downloads/tokens.dtcg.json`](downloads/tokens.dtcg.json) | W3C DTCG — Style Dictionary, Tokens Studio |
+
+Pre-packed `.zip` bundles per tool live in [`downloads/zips/`](downloads/zips/). Per-runtime install instructions, model capability tiers, and a 30-second compliance scan are at [amaca.design → § 03 Documentation](https://amaca.design/#documentation).
+
+Machine index: [`llms.txt`](llms.txt) and [`llms-full.txt`](llms-full.txt).
 
 ## React — native
 
@@ -34,11 +48,11 @@ Tailwind v4 `@theme` is first-class. One line wires the full token scale into a 
 
 ## What's inside
 
-**Foundations** — color, typography, spacing, radius & shadow, motion, grid & layout. One pass, zero drift.
+**Foundations** — color, typography, layout, elevation & depth, shapes, motion. One pass, zero drift.
 
-**Components** — buttons, inputs & forms (incl. masked date/time pickers and range selection), cards, badges, navigation, accordion, chat & messaging, loader, diagrams.
+**Components** — a registry with a state grammar: buttons, inputs & forms (incl. masked date/time pickers and range selection), cards, badges, navigation, accordion, chat & messaging, loader, diagrams.
 
-**Applied** — data visualization, voice & tone, accessibility, case study template. The system in practice.
+**Applied** — do's and don'ts, iconography, accessibility, code conventions, multi-deploy compatibility, IDE integration. The system in practice.
 
 ## Five principles
 
@@ -59,7 +73,7 @@ Deliberately minimal. No framework, no build step, no dependencies to audit.
 * [Satoshi](https://www.fontshare.com/fonts/satoshi) typeface, served from `/fonts`
 * [Motion One](https://motion.dev) for orchestrated animations
 * [Lottie](https://lottiefiles.com) for the brand mark
-* Mermaid + ELK for token-themed diagrams (§ 18)
+* Mermaid + ELK for token-themed diagrams
 * Hosted on [Vercel](https://vercel.com), DNS via Cloudflare
 
 ## Repository structure
@@ -67,12 +81,24 @@ Deliberately minimal. No framework, no build step, no dependencies to audit.
 ```
 ├── index.html              # The document itself
 ├── DESIGN.md               # Machine-readable spec — the source of truth for AI runtimes
-├── amaca-frontend.skill    # Installable skill bundle (Anthropic runtimes)
-├── amaca-frontend.zip      # Universal mirror of the skill
+├── verify-ds.py            # Compliance harness — run before shipping
+├── llms.txt                # Machine index of the public surface
+├── llms-full.txt           # Expanded machine index, version-stamped
 ├── styles/
 │   ├── tokens.css          # Design tokens (color, type, space, motion)
 │   ├── theme.css           # Tailwind v4 @theme projection of tokens.css
 │   └── components.css      # Component styles
+├── downloads/              # Per-runtime projections of the spec
+│   ├── amaca-frontend.skill    # Installable skill bundle (Anthropic runtimes)
+│   ├── amaca-frontend.zip      # Universal mirror of the skill
+│   ├── AGENTS.md               # Universal agent rules
+│   ├── CLAUDE.md               # Claude Code
+│   ├── AI-INSTRUCTIONS.md      # Paste-in for any chat model
+│   ├── amaca-figma.md          # Figma agent skill
+│   ├── tokens.dtcg.json        # W3C DTCG tokens
+│   ├── .cursor/rules/          # Cursor scoped rules
+│   ├── .github/                # Copilot instructions
+│   └── zips/                   # Pre-packed bundle per tool
 ├── fonts/                  # Satoshi typeface, all weights
 └── assets/                 # Logo and static assets
 ```
@@ -98,10 +124,10 @@ python3 -m http.server 8000
 
 Two [SemVer](https://semver.org) streams, one rule each.
 
-* **Spec** — pinned to the system release. The site at v2.6.1 ships v2.6.1 of `DESIGN.md`. MAJOR for breaking token changes, MINOR for additions, PATCH for fixes.
+* **Spec** — pinned to the system release. The site at v3.4.0 ships v3.4.0 of `DESIGN.md`. MAJOR for breaking token changes, MINOR for additions, PATCH for fixes.
 * **Skill** — versioned independently. Its SemVer covers workflow changes: posture rules, verification checks, deploy targets.
 
-Current: **system v2.7.2 · skill v1.1.5** — full history in the [public changelog](https://amaca.design/#changelog).
+Current spec: **v3.4.0**. Both streams, with every token delta, are in the [public changelog](https://amaca.design/#changelog).
 
 ## License
 
@@ -113,7 +139,7 @@ The **Satoshi typeface** is the property of [Indian Type Foundry](https://www.fo
 
 ## Credits
 
-Designed, written, and built by [Angelo Macaione](https://amaca.design).
+Designed, written, and built by [Angelo Macaione](https://angelomacaione.com).
 
 Typeface: Satoshi by Indian Type Foundry.
 Motion: [Motion One](https://motion.dev) by Matt Perry.
