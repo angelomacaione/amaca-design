@@ -13,6 +13,10 @@
 
 ## Use with AI tools
 - [AGENTS.md](https://amaca.design/downloads/AGENTS.md): the agent rules (token discipline, the laws, the a11y floor, the verify checklist) on the AGENTS.md standard.
+- [CLAUDE.md](https://amaca.design/downloads/CLAUDE.md): the same rules as Claude Code repo memory.
+- [AI-INSTRUCTIONS.md](https://amaca.design/downloads/AI-INSTRUCTIONS.md): self-contained paste-in for ChatGPT, Gemini and app builders — token values inlined, no filesystem needed.
+- [amaca-frontend agent skill (amaca-frontend.skill)](https://amaca.design/downloads/amaca-frontend.skill): the multi-target build skill (HTML/CSS, React + Tailwind v4, Figma Variables) on the Agent Skills open standard. Upload to Claude, or unpack it under `.agents/skills/` where Cursor 2.4+ and Codex read it — it also ships unpacked inside the IDE bundle.
+- [IDE bundle (amaca-ide.zip)](https://amaca.design/downloads/zips/amaca-ide.zip): the drop-in repo layout — `.cursor/rules/*.mdc` (core always on, html and react glob-scoped), `.github/copilot-instructions.md` + per-target `instructions/`, `AGENTS.md`, and `.agents/skills/amaca-frontend/`.
 - [Figma agent skill — /amaca-figma (amaca-figma.md)](https://amaca.design/downloads/amaca-figma.md): in-canvas custom skill for the Figma agent — generate + audit in a verify loop; it fetches this site's llms-full.txt before acting.
 - [Amaca compiler (amaca.ai)](https://amaca.ai): compile any design system into the same AI-tool rules (Cursor, Copilot, Claude, AGENTS.md, DTCG).
 

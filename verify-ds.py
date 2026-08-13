@@ -39,7 +39,14 @@ CHECKS = []
 def check(cid, title, why, debt=None):
     """debt: the release that clears this, when the gap is already declared in
     the spec. Declared debt is reported but does not fail the run — a harness
-    that always screams stops being read."""
+    that always screams stops being read.
+
+    The date is a promise, and it EXPIRES: once the frontmatter reaches the named
+    release, the debt stops suppressing and the findings block like any other.
+    Until v3.5.0 the suppression was unconditional (`ok = not fails or bool(debt)`),
+    so a debt dated v3.5.0 would have stayed silent at v9.0.0 — the mechanism the
+    docs describe as 'declared and dated' was only declared. Deferring is still
+    allowed; it just has to be done on purpose, by moving the date."""
     def deco(fn):
         CHECKS.append({"id": cid, "title": title, "why": why, "debt": debt, "fn": fn})
         return fn
@@ -48,6 +55,25 @@ def check(cid, title, why, debt=None):
 
 def read(p):
     return p.read_text(encoding="utf-8") if p.exists() else ""
+
+
+def _ver(s):
+    m = re.search(r"(\d+)\.(\d+)\.(\d+)", s or "")
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
+def debt_is_live(debt):
+    """True while a declared debt still suppresses — i.e. the release it names is
+    still ahead of the frontmatter version. At or past that release the promise
+    has come due and the findings block like any other."""
+    if not debt:
+        return False
+    want = _ver(debt)
+    cur = _ver(re.search(r"^version:\s*(\S+)", read(DESIGN), re.M).group(1)
+               if re.search(r"^version:\s*(\S+)", read(DESIGN), re.M) else None)
+    if not (want and cur):
+        return True          # can't date it → keep suppressing, never fail on a parse miss
+    return cur < want
 
 
 def inline_styles(html):
@@ -109,7 +135,7 @@ def c02():
 
 @check("03", "No raw px where a token has the same value",
        "v3.4.0: 153 exact-parity literals in inline styles — font-size:15px "
-       "where --t-body is 15px. Zero visual change, pure drift.", debt="v3.5.0")
+       "where --t-body is 15px. Zero visual change, pure drift.", debt="v3.6.0")
 def c03():
     FAMILY = {"font-size": "--t-", "border-radius": "--r-",
               "gap": "--s-", "padding": "--s-", "margin": "--s-"}
@@ -357,7 +383,7 @@ def c16():
 @check("17", "A rule never lives in a demo caption",
        "§ 3.0.3: the caption carries the replay affordance and nothing else. "
        "A rule in prose under a demo is invisible to a reader scanning for "
-       "rules and to a machine parsing them.", debt="v3.5.0")
+       "rules and to a machine parsing them.", debt="v3.6.0")
 def c17():
     CANON = "Click Replay to re-trigger animations."
     fails = []
@@ -373,7 +399,7 @@ def c17():
 
 @check("18", "Every subsection carries framing prose",
        "§ 3.0.3: a subsection with a demo and no framing tells the reader what "
-       "the component looks like and never what it is for.", debt="v3.5.0")
+       "the component looks like and never what it is for.", debt="v3.6.0")
 def c18():
     html = read(INDEX)
     fails = []
@@ -430,6 +456,34 @@ def c20():
         fails.append(f"controller uses {t3}, absent from the § 08.3 table")
     return fails
 
+@check("21", "The document's own version line agrees with its frontmatter",
+       "§ Versioning names this line the source of truth — 'The version line at "
+       "the top of this document is the source of truth' — and check 14 counts "
+       "five places without counting it. It read 3.2.0 while the system shipped "
+       "3.4.0: the canonical contract declared itself two minors behind, through "
+       "two releases, and the gate that exists to catch exactly this passed. A "
+       "check that names five places and misses the sixth is worse than no check, "
+       "because it is believed.")
+def c21():
+    design = read(DESIGN)
+    m = re.search(r"^version:\s*(\S+)", design, re.M)
+    if not m:
+        return ["DESIGN.md: no version in frontmatter"]
+    v = m.group(1)
+    stamp = re.search(r"^>\s*\*\*Version\*\*\s*(\S+)\s*(?:&mdash;|—|-)\s*(\S+)", design, re.M)
+    if not stamp:
+        return ["DESIGN.md: the '> **Version** X.Y.Z — YYYY.MM.DD' line is missing"]
+    fails = []
+    if stamp.group(1) != v:
+        fails.append(f"DESIGN.md: the version line reads {stamp.group(1)}, frontmatter is {v}")
+    # the same line carries a date; it must agree with `updated` in the frontmatter
+    upd = re.search(r"^updated:\s*(\S+)", design, re.M)
+    if upd:
+        want = upd.group(1).replace("-", ".")
+        if stamp.group(2) != want:
+            fails.append(f"DESIGN.md: the version line is dated {stamp.group(2)}, `updated` is {want}")
+    return fails
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
@@ -447,7 +501,7 @@ def main():
             fails = c["fn"]() or []
             results.append({**{k: c[k] for k in ("id", "title", "why", "debt")},
                             "failures": fails,
-                            "ok": not fails or bool(c["debt"])})
+                            "ok": not fails or debt_is_live(c["debt"])})
         except Exception as e:  # a broken check must never pass silently
             results.append({**{k: c[k] for k in ("id", "title", "why", "debt")},
                             "failures": [f"CHECK ERRORED: {e!r}"], "ok": False})
@@ -461,9 +515,11 @@ def main():
     print("  " + "─" * W)
     bad = 0
     for r in results:
-        declared = r.get("debt") and r["failures"]
+        declared = r.get("debt") and r["failures"] and r["ok"]
         mark = "DEBT" if declared else ("PASS" if r["ok"] else "FAIL")
         suffix = f"   ({len(r['failures'])} open, cleared in {r['debt']})" if declared else ""
+        if r.get("debt") and r["failures"] and not r["ok"]:
+            suffix = f"   ({len(r['failures'])} open — debt {r['debt']} has come due)"
         print(f"  [{mark}] {r['id']}  {r['title']}{suffix}")
         if not r["ok"]:
             bad += 1

@@ -56,12 +56,12 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Shared source** — same `AI-INSTRUCTIONS.md` as the App builder bundle; both baked from one source via `build-paste-in-bundles.sh`.
 
 ### IDE (Cursor, Copilot, Codex…) · `zips/amaca-ide.zip`
-- **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md`.
+- **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md` · **`.agents/skills/amaca-frontend/`** (new in v3.5.0) — the `amaca-frontend` agent skill, unpacked.
 - **For** — Cursor, GitHub Copilot, and the AGENTS.md-reading IDE agents.
-- **Get it / where it goes** — `.cursor/rules/*` → `.cursor/rules/`; `.github/*` → `.github/`; `AGENTS.md` → repo root.
-- **Use** — `amaca-core.mdc` is always in scope (token discipline + a11y floor); the target files auto-attach only on the files they govern (`amaca-html.mdc` on CSS/HTML, `amaca-react.mdc` on JSX/TSX). Copilot reads `copilot-instructions.md` repo-wide and the per-target `instructions/` on matching files.
-- **Verify** — edit a `.tsx`; `amaca-react.mdc` + core attach (no HTML rule leaks in), tokens used by name, canonical classes, gaps surfaced instead of invented.
-- **Pairs with** — `tokens.css` / `DESIGN.md` (referenced by the rules).
+- **Get it / where it goes** — `.cursor/rules/*` → `.cursor/rules/`; `.github/*` → `.github/`; `.agents/*` → `.agents/`; `AGENTS.md` → repo root.
+- **Use** — `amaca-core.mdc` is always in scope (token discipline + a11y floor); the target files auto-attach only on the files they govern (`amaca-html.mdc` on CSS/HTML, `amaca-react.mdc` on JSX/TSX). Copilot reads `copilot-instructions.md` repo-wide and the per-target `instructions/` on matching files. **The skill is the third layer**: since Cursor 2.4 the Agent Skills standard is a first-class input, read from `.agents/skills/` (also `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`) — `.agents/` is the vendor-neutral path, so the same folder serves Cursor and Codex. Rules steer generation; the skill runs a procedure, and carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) that a rules file cannot. Invoke it with `/amaca-frontend`.
+- **Verify** — edit a `.tsx`; `amaca-react.mdc` + core attach (no HTML rule leaks in), tokens used by name, canonical classes, gaps surfaced instead of invented. Type `/` in the agent chat: `amaca-frontend` is listed.
+- **Pairs with** — `tokens.css` / `DESIGN.md` (referenced by the rules **and** by the skill: the skill folder deliberately ships without its own copy of `DESIGN.md`, since this bundle already carries it at root and a second copy is a second thing that can drift).
 
 ### App builder (Figma Make, v0, Lovable…) · `zips/amaca-appbuilder.zip`
 - **What** — same self-contained `AI-INSTRUCTIONS.md` paste-in (these builders have no filesystem).

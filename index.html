@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.4.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.5.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.4.0 · DESIGN SYSTEM</span>
+        <span class="meta">V3.5.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.4.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">3.5.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Aug 5, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Aug 13, 2026</span></div>
           </div>
         </div>
 
@@ -394,9 +394,9 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <div style="flex:1;min-width:0">
                   <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">IDE</div>
                   <h3 style="font-size:var(--t-h6);margin:var(--s-1) 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Cursor · Copilot</h3>
-                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">.cursor/rules/amaca.mdc (auto-attaches on UI files) + .github/copilot-instructions.md.</p>
+                  <p style="color:var(--obsidian-300);line-height:var(--lh-normal);margin:0;font-size:var(--t-small)">Scoped rules — amaca-core.mdc always on, amaca-html.mdc and amaca-react.mdc on the files they govern — plus .github/copilot-instructions.md and the agent skill Cursor reads from .agents/skills/.</p>
                 </div>
-                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-ide.zip" download style="flex-shrink:0">amaca.mdc</a>
+                <a class="btn btn-primary btn-sm" href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/zips/amaca-ide.zip" download style="flex-shrink:0">amaca-ide.zip</a>
               </div>
               <div class="card" style="padding:var(--s-5) var(--s-6);display:flex;align-items:center;gap:var(--s-4)">
                 <div style="flex:1;min-width:0">
@@ -3863,9 +3863,35 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.4.0 -->
+            <!-- v3.5.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-340">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-350">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v3.5.0 &mdash; The skill reaches the IDE, and the gate learns to expire</span>
+                <span class="acc-num">2026-08-13</span>
+              </button>
+              <div class="acc-panel" id="cl-350" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. No token changed. Cursor started reading agent skills in January and the IDE download never caught up, so it shipped the constraints without the procedure. Fixing that led to three pieces of drift in this repo that every gate reported green: the version line the spec calls canonical, a download button named after a file deleted three releases ago, and a debt mechanism whose deadlines never arrived.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The agent skill reaches the IDE</strong> &mdash; since Cursor 2.4 the Agent Skills standard is a first-class input, read from <code>.cursor/skills/</code>, <code>.agents/skills/</code> and, for compatibility, <code>.claude/skills/</code> and <code>.codex/skills/</code>. <code>amaca-ide.zip</code> now carries <code>amaca-frontend</code> unpacked under <code>.agents/skills/amaca-frontend/</code> &mdash; the vendor-neutral path, so one folder serves Cursor and Codex alike. The spec is not duplicated inside it: the bundle already ships <code>DESIGN.md</code> at root, and a second copy is a second thing that can drift. The three wirings compose rather than compete &mdash; the paste-in, the scoped <code>.mdc</code> layer, and the skill, which carries the multi-target workflow a rules file structurally cannot.</li><li><strong style="color:var(--obsidian-100)">Check 21 &mdash; the document's own version line</strong> &mdash; check 14 is called <em>one version, five places</em>. The spec calls a sixth place the source of truth, and no check covered it. Now one does, comparing the version and its date against the frontmatter.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The contract declared itself two minors behind, for two releases</strong> &mdash; the version line read 3.2.0 while the frontmatter and the whole site read 3.4.0. Every stamp the harness could see was correct; the only one it could not see was the one the spec calls canonical.</li><li><strong style="color:var(--obsidian-100)">Declared debt never came due</strong> &mdash; the gate suppressed a check whenever a debt was declared, and never compared the release it named to the current version. A debt dated v3.5.0 would have stayed silent at v9.0.0. The mechanism described as <em>declared and dated</em> was only declared &mdash; the date was decorative, and 71 open findings would never have surfaced on their own. Deadlines now expire: at or past the release it names, a debt blocks like anything else. Deferring stays legitimate; it has to be done on purpose, by moving the date.</li><li><strong style="color:var(--obsidian-100)">The checklist counted nineteen checks</strong> &mdash; the harness has twenty-one.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The IDE download card and its button</strong> &mdash; the card read <code>.cursor/rules/amaca.mdc</code> and the button was labelled <code>amaca.mdc</code>, a file replaced in v3.1.0 by the core / html / react split. The site had been offering a download named after a file that had not existed for three releases.</li><li><strong style="color:var(--obsidian-100)"><code>llms.txt</code> indexed three AI-tool entry points out of seven</strong> &mdash; <code>CLAUDE.md</code>, the paste-in, the <code>amaca-frontend</code> skill and the IDE bundle were all missing. An index that omits four of the surfaces it exists to advertise teaches a retrieving agent that they do not exist.</li><li><strong style="color:var(--obsidian-100)">Debt re-dated to v3.6.0</strong> &mdash; the seven <em>css-only</em> registry rows, the teaching-grammar note, and checks 03, 17 and 18. Deliberate deferral, not drift: with the expiry fixed, the new date is a real deadline.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
+                  <p style="margin:0">A competitive watch found that Cursor had changed its primary input shape in January and nobody noticed, because every run re-read the page about rules &mdash; which by construction cannot mention a format arriving beside it. Checking what we actually emit against what Cursor actually reads deflated the alarm and left one real gap. Pointing the same reflex at this repo &mdash; verify the artefact, not the description of it &mdash; found the other three. All of them had the shape this system knows best: no symptom, and a gate reporting green.</p>
+
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-08-13</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.4.0...v3.5.0" target="_blank" rel="noopener">v3.4.0&hellip;v3.5.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.4.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-340">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.4.0 &mdash; Component registry: the inventory closes</span>
                 <span class="acc-num">2026-08-05</span>
