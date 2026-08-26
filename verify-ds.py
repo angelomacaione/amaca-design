@@ -19,9 +19,11 @@ release that would have caught it. This file IS the harness: when a new class of
 drift is found, it gets a check here in the same commit that fixes it.
 """
 
+import hashlib
 import json
 import re
 import sys
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -32,6 +34,8 @@ THEME = ROOT / "styles" / "theme.css"
 INDEX = ROOT / "index.html"
 LLMS_FULL = ROOT / "llms-full.txt"
 DTCG = ROOT / "downloads" / "tokens.dtcg.json"
+PLUGIN_ZIP = ROOT / "downloads" / "zips" / "amaca-plugin.zip"
+MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 
 CHECKS = []
 
@@ -39,7 +43,14 @@ CHECKS = []
 def check(cid, title, why, debt=None):
     """debt: the release that clears this, when the gap is already declared in
     the spec. Declared debt is reported but does not fail the run — a harness
-    that always screams stops being read."""
+    that always screams stops being read.
+
+    The date is a promise, and it EXPIRES: once the frontmatter reaches the named
+    release, the debt stops suppressing and the findings block like any other.
+    Until v3.5.0 the suppression was unconditional (`ok = not fails or bool(debt)`),
+    so a debt dated v3.5.0 would have stayed silent at v9.0.0 — the mechanism the
+    docs describe as 'declared and dated' was only declared. Deferring is still
+    allowed; it just has to be done on purpose, by moving the date."""
     def deco(fn):
         CHECKS.append({"id": cid, "title": title, "why": why, "debt": debt, "fn": fn})
         return fn
@@ -48,6 +59,70 @@ def check(cid, title, why, debt=None):
 
 def read(p):
     return p.read_text(encoding="utf-8") if p.exists() else ""
+
+
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+           "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+
+def _pretty(iso):
+    """2026-08-17 -> 'Aug 17, 2026' — the § Overview page-meta spelling."""
+    y, m, d = iso.split("-")
+    return f"{_MONTHS[int(m) - 1]} {int(d)}, {y}"
+
+
+def _plugin_names():
+    """(zip member prefix, plugin name) for the baked Agent Plugin package.
+
+    The name is read from the marketplace entry, never hardcoded here: the
+    package root inside the zip is the plugin name, and two places that spell
+    the same name independently are two places that can disagree."""
+    try:
+        entry = json.loads(read(MARKETPLACE))["plugins"][0]
+        name = entry["name"]
+    except Exception:
+        return None, None
+    return f"{name}/", name
+
+
+def _plugin_manifests():
+    """[(member path, parsed dict or None)] for the two manifests in the zip.
+
+    Reads the BAKED artifact, not the sources it was baked from — the whole
+    point is to catch a bundle that was re-baked before the last edit."""
+    prefix, _ = _plugin_names()
+    if prefix is None or not PLUGIN_ZIP.exists():
+        return []
+    out = []
+    try:
+        with zipfile.ZipFile(PLUGIN_ZIP) as z:
+            for rel in ("plugin.json", ".claude-plugin/plugin.json"):
+                try:
+                    out.append((rel, json.loads(z.read(prefix + rel))))
+                except Exception:
+                    out.append((rel, None))
+    except Exception:
+        return [("plugin.json", None), (".claude-plugin/plugin.json", None)]
+    return out
+
+
+def _ver(s):
+    m = re.search(r"(\d+)\.(\d+)\.(\d+)", s or "")
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
+def debt_is_live(debt):
+    """True while a declared debt still suppresses — i.e. the release it names is
+    still ahead of the frontmatter version. At or past that release the promise
+    has come due and the findings block like any other."""
+    if not debt:
+        return False
+    want = _ver(debt)
+    cur = _ver(re.search(r"^version:\s*(\S+)", read(DESIGN), re.M).group(1)
+               if re.search(r"^version:\s*(\S+)", read(DESIGN), re.M) else None)
+    if not (want and cur):
+        return True          # can't date it → keep suppressing, never fail on a parse miss
+    return cur < want
 
 
 def inline_styles(html):
@@ -109,7 +184,7 @@ def c02():
 
 @check("03", "No raw px where a token has the same value",
        "v3.4.0: 153 exact-parity literals in inline styles — font-size:15px "
-       "where --t-body is 15px. Zero visual change, pure drift.", debt="v3.5.0")
+       "where --t-body is 15px. Zero visual change, pure drift.", debt="v3.6.0")
 def c03():
     FAMILY = {"font-size": "--t-", "border-radius": "--r-",
               "gap": "--s-", "padding": "--s-", "margin": "--s-"}
@@ -292,9 +367,13 @@ def c13():
 # RELEASE COHERENCE
 # ─────────────────────────────────────────────────────────────────────────────
 
-@check("14", "One version, five places",
+@check("14", "One version, everywhere it is stated",
        "§ Versioning step 3: the § Overview page-meta stamp has drifted twice "
-       "(v1.1.0 and v3.3.0). It is the one that always drifts.")
+       "(v1.1.0 and v3.3.0). It is the one that always drifts. Named 'five "
+       "places' until v3.5.0, when the plugin manifests became the seventh and "
+       "eighth — the check was renamed rather than re-counted, because a title "
+       "that carries a number goes stale the moment a place is added, and check "
+       "21 exists precisely because one did.")
 def c14():
     design = read(DESIGN)
     m = re.search(r"^version:\s*(\S+)", design, re.M)
@@ -316,6 +395,13 @@ def c14():
     top = re.search(r"^### v(\S+)", design[design.find("## Changelog"):], re.M)
     if top and top.group(1) != v:
         fails.append(f"DESIGN.md: top changelog entry is v{top.group(1)}, frontmatter is {v}")
+    # the two plugin manifests, read from the baked package: a stale bundle is
+    # invisible to every other check, and this one is baked from the spec.
+    for path, man in _plugin_manifests():
+        if man is None:
+            fails.append(f"amaca-plugin.zip: {path} is missing or unparseable")
+        elif man.get("version") != v:
+            fails.append(f"amaca-plugin.zip: {path} reads {man.get('version')}, frontmatter is {v}")
     return fails
 
 
@@ -357,7 +443,7 @@ def c16():
 @check("17", "A rule never lives in a demo caption",
        "§ 3.0.3: the caption carries the replay affordance and nothing else. "
        "A rule in prose under a demo is invisible to a reader scanning for "
-       "rules and to a machine parsing them.", debt="v3.5.0")
+       "rules and to a machine parsing them.", debt="v3.6.0")
 def c17():
     CANON = "Click Replay to re-trigger animations."
     fails = []
@@ -373,7 +459,7 @@ def c17():
 
 @check("18", "Every subsection carries framing prose",
        "§ 3.0.3: a subsection with a demo and no framing tells the reader what "
-       "the component looks like and never what it is for.", debt="v3.5.0")
+       "the component looks like and never what it is for.", debt="v3.6.0")
 def c18():
     html = read(INDEX)
     fails = []
@@ -430,6 +516,190 @@ def c20():
         fails.append(f"controller uses {t3}, absent from the § 08.3 table")
     return fails
 
+@check("21", "The document's own version line agrees with its frontmatter",
+       "§ Versioning names this line the source of truth — 'The version line at "
+       "the top of this document is the source of truth' — and check 14 counts "
+       "five places without counting it. It read 3.2.0 while the system shipped "
+       "3.4.0: the canonical contract declared itself two minors behind, through "
+       "two releases, and the gate that exists to catch exactly this passed. A "
+       "check that names five places and misses the sixth is worse than no check, "
+       "because it is believed.")
+def c21():
+    design = read(DESIGN)
+    m = re.search(r"^version:\s*(\S+)", design, re.M)
+    if not m:
+        return ["DESIGN.md: no version in frontmatter"]
+    v = m.group(1)
+    stamp = re.search(r"^>\s*\*\*Version\*\*\s*(\S+)\s*(?:&mdash;|—|-)\s*(\S+)", design, re.M)
+    if not stamp:
+        return ["DESIGN.md: the '> **Version** X.Y.Z — YYYY.MM.DD' line is missing"]
+    fails = []
+    if stamp.group(1) != v:
+        fails.append(f"DESIGN.md: the version line reads {stamp.group(1)}, frontmatter is {v}")
+    # the same line carries a date; it must agree with `updated` in the frontmatter
+    upd = re.search(r"^updated:\s*(\S+)", design, re.M)
+    if upd:
+        want = upd.group(1).replace("-", ".")
+        if stamp.group(2) != want:
+            fails.append(f"DESIGN.md: the version line is dated {stamp.group(2)}, `updated` is {want}")
+    return fails
+
+
+@check("22", "The plugin package is installable, and its pin matches the bytes",
+       "v3.5.0 ships an Agent Plugin whose marketplace entry installs it from a "
+       "zip over HTTPS with a SHA-256 pin. Nothing else in this repo can see "
+       "inside that zip: a bundle re-baked before the last edit, or a pin left "
+       "over from the previous bake, would ship silently. Three of the rules "
+       "below were found empirically against `claude plugin validate` on "
+       "2026-08-17 — the folder/name match and the absent CLAUDE.md are not "
+       "enforced by any external linter, and the mismatch case passes there.")
+def c22():
+    prefix, name = _plugin_names()
+    if prefix is None:
+        return [".claude-plugin/marketplace.json: missing, unparseable, or has no plugins"]
+    if not PLUGIN_ZIP.exists():
+        return [f"{PLUGIN_ZIP.name}: missing — run downloads/build-plugin-bundle.sh"]
+
+    fails = []
+    pin = json.loads(read(MARKETPLACE))["plugins"][0].get("source", {}).get("sha256")
+    actual = hashlib.sha256(PLUGIN_ZIP.read_bytes()).hexdigest()
+    if not pin:
+        fails.append("marketplace.json: the archive source has no sha256 pin")
+    elif pin != actual:
+        fails.append(f"marketplace.json: sha256 pin is {pin[:12]}…, the zip is {actual[:12]}… "
+                     "— re-bake happened after the pin was written, or the other way round")
+
+    with zipfile.ZipFile(PLUGIN_ZIP) as z:
+        members = set(z.namelist())
+        for required in ("plugin.json", ".claude-plugin/plugin.json"):
+            if prefix + required not in members:
+                fails.append(f"{PLUGIN_ZIP.name}: {required} is missing from the package")
+        # Claude Code warns on this and --strict fails: context belongs in a skill.
+        for forbidden in ("CLAUDE.md", "package.json"):
+            if prefix + forbidden in members:
+                fails.append(f"{PLUGIN_ZIP.name}: {forbidden} must not sit at the plugin root")
+
+        skills = {m[len(prefix) + len("skills/"):].split("/")[0]
+                  for m in members if m.startswith(prefix + "skills/") and m.endswith("/SKILL.md")}
+        if not skills:
+            fails.append(f"{PLUGIN_ZIP.name}: no skills/<name>/SKILL.md — nothing to install")
+        for sk in sorted(skills):
+            # Agent Plugins discovers skills BY DIRECTORY and never recurses; the
+            # Agent Skills spec requires the directory to equal the frontmatter
+            # name. `claude plugin validate` passes on a mismatch — verified.
+            body = z.read(f"{prefix}skills/{sk}/SKILL.md").decode("utf-8", "replace")
+            fm = re.search(r"^name:\s*(\S+)", body, re.M)
+            if not fm:
+                fails.append(f"{PLUGIN_ZIP.name}: skills/{sk}/SKILL.md has no name in its frontmatter")
+            elif fm.group(1) != sk:
+                fails.append(f"{PLUGIN_ZIP.name}: skills/{sk}/ holds a skill named "
+                             f"{fm.group(1)} — the directory is the discovery unit, they must match")
+
+        names = {p: (m or {}).get("name") for p, m in _plugin_manifests()}
+        for path, got in names.items():
+            if got != name:
+                fails.append(f"{PLUGIN_ZIP.name}: {path} names the plugin {got}, "
+                             f"the marketplace entry says {name}")
+    return fails
+
+
+@check("23", "One release date, everywhere it is stated",
+       "The v3.5.0 re-stamp touched eight places across four files, and only two "
+       "of them were covered by a check. The version has had a guard since "
+       "v1.1.0 and still drifted twice; the date had none at all. Same failure "
+       "mode, same fix: name every place, once, here.")
+def c23():
+    design = read(DESIGN)
+    m = re.search(r"^updated:\s*(\S{10})", design, re.M)
+    if not m:
+        return ["DESIGN.md: no `updated` in frontmatter"]
+    iso = m.group(1)                                   # 2026-08-17
+    dotted = iso.replace("-", ".")                     # 2026.08.17
+    fails = []
+
+    if not re.search(rf"^last_synced:\s*{re.escape(iso)}\s*$", design, re.M):
+        fails.append(f"DESIGN.md: `last_synced` does not read {iso}")
+    top = re.search(r"^### v\S+ — (\S+)", design[design.find("## Changelog"):], re.M)
+    if top and top.group(1) != dotted:
+        fails.append(f"DESIGN.md: the top changelog entry is dated {top.group(1)}, `updated` is {dotted}")
+
+    html = read(INDEX)
+    for label, pat in {
+        "§ Overview page-meta Updated": rf'<span class="k">Updated</span><span class="v">\s*{re.escape(_pretty(iso))}',
+        "changelog entry stamp": rf'<span class="acc-num">{re.escape(iso)}</span>',
+        "changelog RELEASED line": rf"RELEASED &middot; </span>{re.escape(iso)}",
+    }.items():
+        if not re.search(pat, html):
+            fails.append(f"index.html: {label} does not read {iso}")
+
+    if not re.search(rf"Released:\s*{re.escape(iso)}\b", read(LLMS_FULL)):
+        fails.append(f"llms-full.txt: the Released line does not read {iso}")
+    return fails
+
+@check("24", "No bundle ships a stale copy of a file that lives in this repo",
+       "Ten download bundles embed copies of DESIGN.md, the token files and the "
+       "rules files. Nothing verified them: the release checklist says re-bake "
+       "last, and that instruction was the only guard. It is not enough — this "
+       "check was written the moment a DESIGN.md edit silently staled five zips, "
+       "and on its first run it also found tokens.dtcg.json inside "
+       "amaca-dtcg.zip already 248 bytes behind, shipped that way and unnoticed. "
+       "A bundle is a copy, and every copy needs a check or it drifts.")
+def c24():
+    # basename inside a bundle -> the one file in this repo it must equal
+    sources = {
+        "DESIGN.md": DESIGN,
+        "tokens.css": TOKENS,
+        "theme.css": THEME,
+        "tokens.dtcg.json": DTCG,
+        "AGENTS.md": ROOT / "downloads" / "AGENTS.md",
+        "CLAUDE.md": ROOT / "downloads" / "CLAUDE.md",
+        "AI-INSTRUCTIONS.md": ROOT / "downloads" / "AI-INSTRUCTIONS.md",
+        "amaca-figma.md": ROOT / "downloads" / "amaca-figma.md",
+        "amaca-frontend.skill": ROOT / "downloads" / "amaca-frontend.skill",
+    }
+    want = {n: p.read_bytes() for n, p in sources.items() if p.exists()}
+
+    bundles = sorted((ROOT / "downloads" / "zips").glob("*.zip"))
+    skill = ROOT / "downloads" / "amaca-frontend.skill"
+    if skill.exists():
+        bundles.append(skill)
+
+    fails = []
+    for b in bundles:
+        try:
+            with zipfile.ZipFile(b) as z:
+                for member in z.namelist():
+                    if member.endswith("/"):
+                        continue
+                    base = member.rsplit("/", 1)[-1]
+                    if base not in want:
+                        continue
+                    if z.read(member) != want[base]:
+                        fails.append(f"{b.name}: {member} is stale — re-bake after the last edit")
+        except zipfile.BadZipFile:
+            fails.append(f"{b.name}: not a readable zip")
+
+    # The published digests must be the digests of the published bytes. A hash
+    # file is a promise like any other stamp, and stamps drift.
+    sums = ROOT / "downloads" / "zips" / "SHA256SUMS"
+    if not sums.exists():
+        fails.append("downloads/zips/SHA256SUMS: missing — run downloads/refresh-bundles.sh")
+    else:
+        listed = {}
+        for line in read(sums).splitlines():
+            parts = line.split()
+            if len(parts) == 2:
+                listed[parts[1].lstrip("*")] = parts[0]
+        for z in sorted((ROOT / "downloads" / "zips").glob("*.zip")):
+            got = hashlib.sha256(z.read_bytes()).hexdigest()
+            if z.name not in listed:
+                fails.append(f"SHA256SUMS: {z.name} is not listed")
+            elif listed[z.name] != got:
+                fails.append(f"SHA256SUMS: {z.name} is listed as {listed[z.name][:12]}…, "
+                             f"the file is {got[:12]}…")
+    return fails
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
@@ -447,7 +717,7 @@ def main():
             fails = c["fn"]() or []
             results.append({**{k: c[k] for k in ("id", "title", "why", "debt")},
                             "failures": fails,
-                            "ok": not fails or bool(c["debt"])})
+                            "ok": not fails or debt_is_live(c["debt"])})
         except Exception as e:  # a broken check must never pass silently
             results.append({**{k: c[k] for k in ("id", "title", "why", "debt")},
                             "failures": [f"CHECK ERRORED: {e!r}"], "ok": False})
@@ -461,9 +731,11 @@ def main():
     print("  " + "─" * W)
     bad = 0
     for r in results:
-        declared = r.get("debt") and r["failures"]
+        declared = r.get("debt") and r["failures"] and r["ok"]
         mark = "DEBT" if declared else ("PASS" if r["ok"] else "FAIL")
         suffix = f"   ({len(r['failures'])} open, cleared in {r['debt']})" if declared else ""
+        if r.get("debt") and r["failures"] and not r["ok"]:
+            suffix = f"   ({len(r['failures'])} open — debt {r['debt']} has come due)"
         print(f"  [{mark}] {r['id']}  {r['title']}{suffix}")
         if not r["ok"]:
             bad += 1

@@ -1,0 +1,19 @@
+{
+  "name": "amaca",
+  "owner": {
+    "name": "Angelo Macaione",
+    "url": "https://amaca.design"
+  },
+  "description": "The Amaca design system, packaged for AI agents.",
+  "plugins": [
+    {
+      "name": "amaca-design",
+      "description": "Token-only Amaca rules for AI agents — HTML/CSS, React (Tailwind v4 @theme), Figma Variables.",
+      "source": {
+        "source": "archive",
+        "url": "https://amaca.design/downloads/zips/amaca-plugin.zip",
+        "sha256": "26746ff205b8c10b639d0cc94364fb692734ad2496573111b2b4f1994032ef89"
+      }
+    }
+  ]
+}
