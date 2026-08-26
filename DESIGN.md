@@ -1,11 +1,11 @@
 ---
 name: Amaca
 version: 3.5.0
-updated: 2026-08-13
+updated: 2026-08-26
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-08-13
+last_synced: 2026-08-26
 deploy_targets: [html, react, figma]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.5.0 — 2026.08.13
+> **Version** 3.5.0 — 2026.08.26
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1539,10 +1539,12 @@ The version line at the top of this document is the source of truth. The CSS fil
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog
 
-### v3.5.0 — 2026.08.13 (MINOR)
+### v3.5.0 — 2026.08.26 (MINOR)
 **Added**
 - **The agent skill reaches the IDE (§ Cursor).** Since **Cursor 2.4** (January 2026) the Agent Skills open standard is a first-class input in Cursor, loaded from `.cursor/skills/`, `.agents/skills/` and — for compatibility — from `.claude/skills/` and `.codex/skills/`. The IDE download shipped rules and no skill, so a Cursor user got the constraints without the procedure. `amaca-ide.zip` now carries `amaca-frontend` unpacked under **`.agents/skills/amaca-frontend/`** — `.agents/` is the vendor-neutral path, so one folder serves Cursor and Codex alike. `DESIGN.md` is not duplicated inside it: the bundle already ships it at root, and a second copy is a second thing that can drift. The three wirings compose rather than compete — the single-file paste, the scoped `.mdc` layer, and the skill, which carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) a rules file structurally cannot. Cursor's `/migrate-to-skills` migrates only *dynamic* rules (`alwaysApply: false` with no `globs`), so neither shipped `.mdc` shape is touched.
 - **Check 21 — the document's own version line.** § Versioning names the `> **Version**` line under the title the source of truth. Check 14 is called *one version, five places* and counts hero SVG, header meta, § Overview page-meta, `llms-full.txt` and the top changelog entry. The sixth place — the one the spec calls canonical — was in no check. Check 21 covers it, comparing both the version and its date against the frontmatter.
+- **The skill becomes installable — `amaca-plugin.zip` (§ IDE integration).** **Agent Plugins 1.0** was published on 6 August 2026 by a steering committee from Amazon, Cursor, Microsoft, OpenAI and Vercel, with Google joining the same day: one vendor-neutral way to package agent skills and MCP servers, read at launch by Cursor, OpenAI Codex, GitHub Copilot, VS Code and Kiro. Anthropic is not at that table and Claude Code keeps its own format — but the two manifests sit at different paths, `plugin.json` at the package root and `.claude-plugin/plugin.json` beside it, so they never collide. The result is **one package, two manifests, one skill**, not two packages: `skills/amaca-frontend/SKILL.md` is read by both worlds unchanged. Verified rather than assumed — `claude plugin validate --strict` passes clean on the emitted artifact and never reports the root `plugin.json`. Two deliberate absences. The spec ships *inside* the skill here, in a single copy, unlike `amaca-ide.zip` whose root is the user's repo: a plugin root is an install directory nobody browses, so the spec belongs where the skill reads it. And `CLAUDE.md` is not in the package at all — Claude Code warns on it and fails `--strict`, with a message that gives the reason: context belongs in a skill, which is exactly where it already is.
+- **The repo is a plugin marketplace (§ IDE integration).** `.claude-plugin/marketplace.json` makes the system installable in two lines — `/plugin marketplace add angelomacaione/amaca-design`, then `/plugin install amaca-design@amaca` — from the published zip over HTTPS, with a **SHA-256 pin**, no npm and no clone. The pin is not ceremony: Agent Plugins defines a package format and puts distribution, provenance and trust **explicitly outside** its contract, so verifiable integrity is the publisher's job or nobody's. Check 22 recomputes the digest against the bytes on disk, because a hash nobody re-checks is a hash that goes stale silently — which is the same failure the version line taught this release.
 
 **Fixed**
 - **The contract declared itself two minors behind, for two releases.** The version line read `3.2.0 — 2026.07.14` while the frontmatter said 3.4.0 and the site said 3.4.0. Every stamp the harness could see was right; the only one it could not see was the one § Versioning calls the source of truth. Now 3.5.0, and check 21 makes it ungreppable-by-accident.
