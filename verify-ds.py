@@ -402,6 +402,15 @@ def c14():
             fails.append(f"amaca-plugin.zip: {path} is missing or unparseable")
         elif man.get("version") != v:
             fails.append(f"amaca-plugin.zip: {path} reads {man.get('version')}, frontmatter is {v}")
+    # tokens.dtcg.json — the one deliverable that shipped with no version at all
+    # until v4.0.0. It stamps itself in $extensions.amaca.version so a consumer
+    # can date the file without asking us; a stamp nobody re-checks goes stale.
+    try:
+        stamp = json.loads(read(DTCG)).get("$extensions", {}).get("amaca", {}).get("version")
+    except Exception:
+        stamp = None
+    if stamp != v:
+        fails.append(f"tokens.dtcg.json: $extensions.amaca.version reads {stamp}, frontmatter is {v}")
     return fails
 
 
@@ -697,6 +706,248 @@ def c24():
             elif listed[z.name] != got:
                 fails.append(f"SHA256SUMS: {z.name} is listed as {listed[z.name][:12]}…, "
                              f"the file is {got[:12]}…")
+    return fails
+
+
+@check("25", "The DTCG file is a complete, faithful projection of tokens.css",
+       "2026-08-26 audit: seven z-* tokens lived in tokens.css and not in "
+       "tokens.dtcg.json — 120 declared, 113 projected. Check 24 catches a stale "
+       "copy inside a bundle; nothing compared the projection to its source, so a "
+       "Style Dictionary consumer received the system minus its whole stacking "
+       "grammar, with no way to notice.")
+def c25():
+    fails = []
+    decls = {}
+    for m in re.finditer(r"(--[a-z0-9-]+)\s*:\s*([^;]+);", read(TOKENS)):
+        decls[m.group(1)[2:]] = re.sub(r"/\*[\s\S]*?\*/", "", m.group(2)).strip()
+    try:
+        doc = json.loads(read(DTCG))
+    except Exception as e:
+        return [f"tokens.dtcg.json: unparseable — {e!r}"]
+    if "$schema" not in doc:
+        fails.append("tokens.dtcg.json: no $schema — the file cannot say what it is")
+    tokens = {k: v for k, v in doc.items()
+              if not k.startswith("$") and isinstance(v, dict) and "$value" in v}
+    for k in doc:
+        if not k.startswith("$") and k not in tokens:
+            fails.append(f"tokens.dtcg.json: '{k}' is neither a $-member nor a token — "
+                         "the file is flat by contract (ratified 2026-08-29)")
+
+    for name in sorted(set(decls) - set(tokens)):
+        fails.append(f"--{name}: declared in tokens.css, missing from the DTCG projection")
+    for name in sorted(set(tokens) - set(decls)):
+        fails.append(f"{name}: in the DTCG file, no such custom property in tokens.css")
+
+    def close(a, b, tol=2e-3):
+        return abs(float(a) - float(b)) <= tol
+
+    def fnum(x):
+        return f"{float(x):g}"
+
+    def hex_rgb(h):
+        h = h.lstrip("#")
+        return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+
+    def css_color(s):
+        s = s.strip()
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", s):
+            return hex_rgb(s), 1.0
+        m = re.fullmatch(r"rgba?\(([^)]*)\)", s)
+        if not m:
+            return None
+        p = [x.strip() for x in m.group(1).split(",")]
+        return [float(x) / 255 for x in p[:3]], (float(p[3]) if len(p) == 4 else 1.0)
+
+    def split_top(s):
+        out, depth, cur = [], 0, ""
+        for ch in s:
+            depth += ch == "("
+            depth -= ch == ")"
+            if ch == "," and depth == 0:
+                out.append(cur)
+                cur = ""
+            else:
+                cur += ch
+        out.append(cur)
+        return [x.strip() for x in out]
+
+    def norm(s):
+        s = re.sub(r"\s+", " ", str(s).strip().lower())
+        return re.sub(r"\s*([(),:])\s*", r"\1", s)
+
+    def bad(name, why):
+        fails.append(f"--{name}: tokens.css and the DTCG token disagree — {why}")
+
+    for name in sorted(set(decls) & set(tokens)):
+        cssv, tok = decls[name], tokens[name]
+        typ, val = tok.get("$type"), tok.get("$value")
+        if typ == "color":
+            hexv = (val or {}).get("hex", "")
+            if hexv.lower() != cssv.lower():
+                bad(name, f"hex reads {hexv or '(none)'}, CSS reads {cssv}")
+            elif not all(close(a, b) for a, b in
+                         zip(val.get("components", [9, 9, 9]), hex_rgb(hexv))):
+                bad(name, "components[] do not match the token's own hex")
+        elif typ in ("dimension", "duration"):
+            want = fnum(val["value"]) + val["unit"]
+            got = cssv if cssv != "0" else "0" + val["unit"]
+            if norm(got) != norm(want):
+                bad(name, f"{want} vs CSS {cssv}")
+        elif typ == "number":
+            try:
+                ok = close(val, cssv, 0)
+            except ValueError:
+                ok = False
+            if not ok:
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "cubicBezier":
+            m = re.fullmatch(r"cubic-bezier\(([^)]*)\)", cssv)
+            pts = [float(x) for x in m.group(1).split(",")] if m else []
+            if len(pts) != 4 or any(not close(a, b, 1e-6) for a, b in zip(pts, val)):
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "fontFamily":
+            fams = [x.strip().strip("\'\"") for x in split_top(cssv)]
+            if fams != list(val):
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "shadow":
+            # DTCG allows a single shadow as an object, multiples as an array
+            if isinstance(val, dict):
+                val = [val]
+            layers = split_top(cssv)
+            ok = len(layers) == len(val)
+            for lay, want in zip(layers, val) if ok else []:
+                cm = re.search(r"(rgba?\([^)]*\)|#[0-9a-fA-F]{6})", lay)
+                col = css_color(cm.group(1)) if cm else None
+                rest = (lay[:cm.start()] + lay[cm.end():]) if cm else lay
+                inset = "inset" in rest.split()
+                nums = [float(re.sub(r"px$", "", x)) for x in rest.split() if x != "inset"]
+                nums += [0.0] * (4 - len(nums))
+                wnums = [want[k]["value"] for k in ("offsetX", "offsetY", "blur", "spread")]
+                wcol = want.get("color", {})
+                if (col is None or inset != bool(want.get("inset"))
+                        or any(not close(a, b) for a, b in zip(nums, wnums))
+                        or any(not close(a, b) for a, b in
+                               zip(col[0], wcol.get("components", [9, 9, 9])))
+                        or not close(col[1], wcol.get("alpha", 1))):
+                    ok = False
+            if not ok:
+                bad(name, "shadow layers differ")
+        elif norm(val) != norm(cssv):
+            bad(name, f"{val!r} vs CSS {cssv!r}")
+    return fails
+
+
+@check("26", "Every class § 3 emits exists in the CSS, and declared surfaces match it",
+       "2026-08-27: § Card's example emitted .card-meta, a class the CSS did not "
+       "know (.card-header shipped instead), and declared surfaces one ramp step "
+       "lighter than the rendered ones, with a hover shadow the CSS never applied. "
+       "Writing this check found a fourth: § 3.4 emitted .badge-live/.badge-draft, "
+       "dead names for .badge-success/.badge-warn. The spec is the surface models "
+       "read — a defect there multiplies per generation, and the gate stayed green: "
+       "check 10 walks CSS -> registry, nothing walked spec -> CSS.")
+def c26():
+    fails = []
+    design = read(DESIGN)
+    css = read(COMPONENTS) + read(TOKENS)
+    sel_classes = set(re.findall(r"\.([A-Za-z][\w-]*)", css))
+    # a class can be a JS hook with no style by design (e.g. template.diagram-src:
+    # a <template> never paints). The site's scripts are part of the shipped
+    # surface, so classes they select join the universe.
+    scripts = "\n".join(re.findall(r"<script[^>]*>([\s\S]*?)</script>", read(INDEX)))
+    sel_classes |= set(re.findall(r"\.([A-Za-z][\w-]*)", scripts))
+
+    start = design.find("## Components")
+    end = design.find("\n## ", start + 1)
+    region = design[start:end]
+
+    # (a) every class the spec instructs a generator to write: html examples
+    #     plus the registry's parts columns (canonical and css-only rows).
+    cited = set()
+    for m in re.finditer(r"```html\n([\s\S]*?)```", region):
+        for cm in re.finditer(r'class="([^"]*)"', m.group(1)):
+            cited.update(cm.group(1).split())
+    for row in re.finditer(r"^\|[^|]+\|([^|]+)\|\s*(?:canonical|css-only)\s*\|", region, re.M):
+        cited.update(re.findall(r"`\.([\w-]+)`", row.group(1)))
+    for cls in sorted(cited):
+        if cls not in sel_classes:
+            fails.append(f".{cls}: § 3 instructs a generator to write it; "
+                         "no such selector in the CSS")
+
+    # (b) declared surfaces, bound to the nearest ### heading and resolved to the
+    #     component's first registry class. Only sections using the idiom are read.
+    reg = {}
+    for row in re.finditer(r"^\|\s*([^|`]+?)\s*\|([^|]*`\.[^|]*)\|", region, re.M):
+        classes = re.findall(r"`\.([\w-]+)`", row.group(2))
+        if classes:
+            reg[row.group(1).strip()] = classes[0]
+
+    def section_of(pos):
+        heads = list(re.finditer(r"^### (.+)$", region[:pos], re.M))
+        return heads[-1].group(1).strip() if heads else None
+
+    def css_block(cls, pseudo=""):
+        m = re.search(r"\." + re.escape(cls) + re.escape(pseudo) + r"\s*\{([^}]*)\}", css)
+        return m.group(1) if m else None
+
+    surf = r"^- Background: `--([\w-]+)`\. Border: `1px solid --([\w-]+)`\. Radius: `--([\w-]+)`\."
+    for m in re.finditer(surf, region, re.M):
+        head = section_of(m.start())
+        cls = reg.get(head)
+        if not cls:
+            fails.append(f"§ {head}: declares surfaces, no registry row binds them to a class")
+            continue
+        block = css_block(cls)
+        if block is None:
+            fails.append(f"§ {head}: .{cls} has no rule block in the CSS")
+            continue
+        for prop, tok in (("background", m.group(1)), ("border", m.group(2)),
+                          ("border-radius", m.group(3))):
+            if not re.search(prop + r"\s*:[^;]*var\(--" + tok + r"\)", block):
+                fails.append(f"§ {head}: spec declares {prop} --{tok}; .{cls} in the CSS does not")
+
+    hov = r"^- Hover: border shifts to `--([\w-]+)`, shadow `--([\w-]+)`\."
+    for m in re.finditer(hov, region, re.M):
+        head = section_of(m.start())
+        cls = reg.get(head)
+        block = css_block(cls, ":hover") if cls else None
+        if block is None:
+            fails.append(f"§ {head}: declares a hover, .{cls or '?'}:hover has no rule block")
+            continue
+        for prop, tok in (("border-color", m.group(1)), ("box-shadow", m.group(2))):
+            if not re.search(prop + r"\s*:[^;]*var\(--" + tok + r"\)", block):
+                fails.append(f"§ {head}: hover declares {prop} --{tok}; .{cls}:hover does not")
+    return fails
+
+
+@check("27", "Every id in the document is unique",
+       "v3.5.0 session, fixed in v4.0.0: id=\"main-content\" sat on both <main> "
+       "and the .content div inside it. That id is the skip link's target, so the "
+       "jump the a11y floor promises was ambiguous — and no check looked at ids.")
+def c27():
+    html = read(INDEX)
+    ids = re.findall(r'\sid="([^"]+)"', html)
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    return [f'index.html: id="{i}" appears {ids.count(i)} times' for i in dupes]
+
+
+@check("28", "Every rgb()/rgba() speaks a token's color, or pure black/white",
+       "v4.0.0 promotion audit (Brand mark): the logo glow rode "
+       "rgba(0,229,209,0.4) — #00E5D1, a color no token declares — and two more "
+       "uses of the same triplet hid in gradients. Check 02 greps hex, so an "
+       "off-system color written as rgba was invisible to the gate. Alpha is "
+       "composition and stays free; the base color must come from the palette.")
+def c28():
+    toks = read(TOKENS)
+    palette = {(0, 0, 0), (255, 255, 255)}  # shade and highlight, the sh-* ingredients
+    for h in re.findall(r"#([0-9a-fA-F]{6})\b", toks):
+        palette.add(tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)))
+    fails = []
+    for fname, body in (("tokens.css", toks), ("components.css", read(COMPONENTS))):
+        for m in re.finditer(r"rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)", body):
+            trip = tuple(int(x) for x in m.groups())
+            if trip not in palette:
+                line = body[:m.start()].count("\n") + 1
+                fails.append(f"{fname}:{line}: rgba{trip} is no token's color")
     return fails
 
 
