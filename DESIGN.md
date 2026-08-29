@@ -313,7 +313,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 |---|---|---|---|
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` | canonical | § 3.1 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-wrap-trail` `.help` | canonical | § 3.2 |
-| Card | `.card` `.card-header` `.card-media` | canonical | § 3.3 |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
@@ -455,7 +455,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ```html
 <label class="field">
-  <span class="field-label">EMAIL</span>
+  <span class="label">EMAIL</span>
   <input class="input" type="email" placeholder="you@studio">
 </label>
 ```
@@ -478,6 +478,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+- **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -486,8 +487,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 ### Badge
 
 ```html
-<span class="badge badge-live"><span class="dot"></span> Live</span>
-<span class="badge badge-draft">Draft</span>
+<span class="badge badge-success"><span class="dot"></span> Live</span>
+<span class="badge badge-warn">Draft</span>
 ```
 
 - Always Satoshi, always paired with a dot when live.
@@ -573,7 +574,7 @@ Use `will-change: transform, width` on the indicator.
 
 ```html
 <label class="field">
-  <span class="field-label">ORARIO</span>
+  <span class="label">ORARIO</span>
   <input class="input" type="text" id="time-input"
     placeholder="es. 18:00"
     autocomplete="off"
@@ -856,7 +857,7 @@ flowchart TD
 ```
 
 **Required classes:**
-- `.diagram` — figure shell, consistent with `.card` (§ 3.3): `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
+- `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
 - `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--magenta-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).

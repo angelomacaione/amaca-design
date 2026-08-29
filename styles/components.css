@@ -206,14 +206,14 @@
 
 /* ─────────── GENERIC CARD ─────────── */
 .card{
-  background:var(--obsidian-900);
-  border:1px solid var(--obsidian-800);
+  background:var(--obsidian-800);
+  border:1px solid var(--obsidian-700);
   border-radius:var(--r-lg);
   padding:var(--s-6);
   position:relative;
-  transition:border-color var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+  transition:border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-quick) var(--ease-standard);
 }
-.card:hover{border-color:var(--obsidian-700)}
+.card:hover{border-color:var(--obsidian-600);box-shadow:var(--sh-2)}
 .card-media{
   margin:var(--s-2) 0 var(--s-5);
   border-radius:var(--r-md);
@@ -232,10 +232,14 @@
   .card-media > *{transition:none}
   .card:hover .card-media > *{transform:none}
 }
-.card-header{
+.card-meta{
   display:flex;align-items:center;justify-content:space-between;
   margin-bottom:var(--s-4);
   font-family:var(--font-mono);font-size:10px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);
+}
+.card-actions{
+  display:flex;gap:var(--s-3);
+  margin-top:var(--s-6);
 }
 
 /* grids */

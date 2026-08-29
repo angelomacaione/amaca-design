@@ -837,6 +837,88 @@ def c25():
     return fails
 
 
+@check("26", "Every class § 3 emits exists in the CSS, and declared surfaces match it",
+       "2026-08-27: § Card's example emitted .card-meta, a class the CSS did not "
+       "know (.card-header shipped instead), and declared surfaces one ramp step "
+       "lighter than the rendered ones, with a hover shadow the CSS never applied. "
+       "Writing this check found a fourth: § 3.4 emitted .badge-live/.badge-draft, "
+       "dead names for .badge-success/.badge-warn. The spec is the surface models "
+       "read — a defect there multiplies per generation, and the gate stayed green: "
+       "check 10 walks CSS -> registry, nothing walked spec -> CSS.")
+def c26():
+    fails = []
+    design = read(DESIGN)
+    css = read(COMPONENTS) + read(TOKENS)
+    sel_classes = set(re.findall(r"\.([A-Za-z][\w-]*)", css))
+    # a class can be a JS hook with no style by design (e.g. template.diagram-src:
+    # a <template> never paints). The site's scripts are part of the shipped
+    # surface, so classes they select join the universe.
+    scripts = "\n".join(re.findall(r"<script[^>]*>([\s\S]*?)</script>", read(INDEX)))
+    sel_classes |= set(re.findall(r"\.([A-Za-z][\w-]*)", scripts))
+
+    start = design.find("## Components")
+    end = design.find("\n## ", start + 1)
+    region = design[start:end]
+
+    # (a) every class the spec instructs a generator to write: html examples
+    #     plus the registry's parts columns (canonical and css-only rows).
+    cited = set()
+    for m in re.finditer(r"```html\n([\s\S]*?)```", region):
+        for cm in re.finditer(r'class="([^"]*)"', m.group(1)):
+            cited.update(cm.group(1).split())
+    for row in re.finditer(r"^\|[^|]+\|([^|]+)\|\s*(?:canonical|css-only)\s*\|", region, re.M):
+        cited.update(re.findall(r"`\.([\w-]+)`", row.group(1)))
+    for cls in sorted(cited):
+        if cls not in sel_classes:
+            fails.append(f".{cls}: § 3 instructs a generator to write it; "
+                         "no such selector in the CSS")
+
+    # (b) declared surfaces, bound to the nearest ### heading and resolved to the
+    #     component's first registry class. Only sections using the idiom are read.
+    reg = {}
+    for row in re.finditer(r"^\|\s*([^|`]+?)\s*\|([^|]*`\.[^|]*)\|", region, re.M):
+        classes = re.findall(r"`\.([\w-]+)`", row.group(2))
+        if classes:
+            reg[row.group(1).strip()] = classes[0]
+
+    def section_of(pos):
+        heads = list(re.finditer(r"^### (.+)$", region[:pos], re.M))
+        return heads[-1].group(1).strip() if heads else None
+
+    def css_block(cls, pseudo=""):
+        m = re.search(r"\." + re.escape(cls) + re.escape(pseudo) + r"\s*\{([^}]*)\}", css)
+        return m.group(1) if m else None
+
+    surf = r"^- Background: `--([\w-]+)`\. Border: `1px solid --([\w-]+)`\. Radius: `--([\w-]+)`\."
+    for m in re.finditer(surf, region, re.M):
+        head = section_of(m.start())
+        cls = reg.get(head)
+        if not cls:
+            fails.append(f"§ {head}: declares surfaces, no registry row binds them to a class")
+            continue
+        block = css_block(cls)
+        if block is None:
+            fails.append(f"§ {head}: .{cls} has no rule block in the CSS")
+            continue
+        for prop, tok in (("background", m.group(1)), ("border", m.group(2)),
+                          ("border-radius", m.group(3))):
+            if not re.search(prop + r"\s*:[^;]*var\(--" + tok + r"\)", block):
+                fails.append(f"§ {head}: spec declares {prop} --{tok}; .{cls} in the CSS does not")
+
+    hov = r"^- Hover: border shifts to `--([\w-]+)`, shadow `--([\w-]+)`\."
+    for m in re.finditer(hov, region, re.M):
+        head = section_of(m.start())
+        cls = reg.get(head)
+        block = css_block(cls, ":hover") if cls else None
+        if block is None:
+            fails.append(f"§ {head}: declares a hover, .{cls or '?'}:hover has no rule block")
+            continue
+        for prop, tok in (("border-color", m.group(1)), ("box-shadow", m.group(2))):
+            if not re.search(prop + r"\s*:[^;]*var\(--" + tok + r"\)", block):
+                fails.append(f"§ {head}: hover declares {prop} --{tok}; .{cls}:hover does not")
+    return fails
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
