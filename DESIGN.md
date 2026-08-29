@@ -1629,6 +1629,8 @@ Three ways to wire Amaca into Cursor, and they compose.
 
 **The agent skill** (new in v3.5.0) — since Cursor 2.4 the Agent Skills open standard is a first-class input, loaded from `.cursor/skills/`, `.agents/skills/` and, for compatibility, from `.claude/skills/` and `.codex/skills/`. The IDE download now ships `amaca-frontend` unpacked under `.agents/skills/amaca-frontend/` — `.agents/` being the vendor-neutral path, so the same folder serves Cursor and Codex. The skill carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) that a rules file cannot: rules steer generation, the skill runs a procedure.
 
+**The skill verifies its own output** (new in v4.0.0) — the bundle ships `scripts/verify-output.py`, a deterministic, stdlib-only check of the artifact the skill just generated: token resolution, hex outside `:root`, px parity, registry closure, one primary, focus-visible, reduced-motion, the z scale, durations, spring-on-effects, no emoji. The closed lists are read from the bundle's own `tokens.css` and this file, so the verifier travels with the spec it enforces. It answers a different question from `verify-ds.py` — one generated artifact versus the system itself — and the two share no code, by rule. Output is deliverable only on exit 0.
+
 The three are additive, not alternatives. Note that Cursor's `/migrate-to-skills` converts only *dynamic* rules — `alwaysApply: false` with no `globs` — so neither shipped `.mdc` shape is affected: the core is `alwaysApply: true`, the target files carry `globs`. `.cursorrules` (single legacy file) is deprecated and no longer documented by Cursor; it is not shipped.
 
 ### Claude Code / `CLAUDE.md`
