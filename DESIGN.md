@@ -6,7 +6,7 @@ author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
 last_synced: 2026-08-26
-deploy_targets: [html, react, figma]
+deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
   neutral: "#07090B"
@@ -116,6 +116,8 @@ A11y:     Color + shape + label. Persistent labels. 44×44 touch. No auto-advanc
 ## Colors
 
 All tokens live in `styles/tokens.css` and are exposed as CSS custom properties. **Reference by name, never copy the value.**
+
+`downloads/tokens.dtcg.json` is the same vocabulary as a **generated projection** — DTCG types, one token per custom property, never edited by hand. Direction is one-way: `tokens.css` is the source and the JSON follows it, in the same commit. Check 25 holds the round-trip — every custom property has its DTCG token and vice versa, values matching — and the file stamps its own release in `$extensions.amaca.version`, which check 14 keeps in step with this frontmatter.
 
 ### Color · neutrals (Obsidian scale)
 
@@ -1531,7 +1533,7 @@ This file follows strict SemVer.
 - **MINOR** — new tokens, new components, new principles.
 - **PATCH** — wording, typo, clarification, contrast recalculation.
 
-The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
+The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment; `tokens.dtcg.json` carries it in `$extensions.amaca.version`.
 
 **Release checklist (RIGID — every release, no exceptions):**
 
@@ -1605,7 +1607,7 @@ A competitive watch on the compiler's target surface found that Cursor had chang
 An audit against v3.3.0 found three classes of failure, all with the same root: the token rule is executable because § 2 is a closed list, and there was no equivalent list for components. Spec that existed but was invisible in the contract (the scrollbar); components shipped in CSS and never documented (Date picker, Table, Checkbox, Switch); components that existed nowhere, so a model invented them. § 3.0 closes the inventory and § 3.0.1 gives states the same fixed grammar § 08.3 gave motion. Writing it surfaced the second finding: the audit that closes the registry is also the audit that finds the drift — eight raw hex, seven half-written token pairs, two missing focus rings and an error state documented for four versions but never implemented.`) and on the site (§ 23) — new entry ships open, previous entry closes.
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
 4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
-5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents).
+5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents; `tokens.dtcg.json` lives in the dtcg zip and moves with `tokens.css` — regenerated, never hand-edited).
 6. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
 7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 

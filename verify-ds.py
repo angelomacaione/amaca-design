@@ -402,6 +402,15 @@ def c14():
             fails.append(f"amaca-plugin.zip: {path} is missing or unparseable")
         elif man.get("version") != v:
             fails.append(f"amaca-plugin.zip: {path} reads {man.get('version')}, frontmatter is {v}")
+    # tokens.dtcg.json — the one deliverable that shipped with no version at all
+    # until v4.0.0. It stamps itself in $extensions.amaca.version so a consumer
+    # can date the file without asking us; a stamp nobody re-checks goes stale.
+    try:
+        stamp = json.loads(read(DTCG)).get("$extensions", {}).get("amaca", {}).get("version")
+    except Exception:
+        stamp = None
+    if stamp != v:
+        fails.append(f"tokens.dtcg.json: $extensions.amaca.version reads {stamp}, frontmatter is {v}")
     return fails
 
 
@@ -697,6 +706,134 @@ def c24():
             elif listed[z.name] != got:
                 fails.append(f"SHA256SUMS: {z.name} is listed as {listed[z.name][:12]}…, "
                              f"the file is {got[:12]}…")
+    return fails
+
+
+@check("25", "The DTCG file is a complete, faithful projection of tokens.css",
+       "2026-08-26 audit: seven z-* tokens lived in tokens.css and not in "
+       "tokens.dtcg.json — 120 declared, 113 projected. Check 24 catches a stale "
+       "copy inside a bundle; nothing compared the projection to its source, so a "
+       "Style Dictionary consumer received the system minus its whole stacking "
+       "grammar, with no way to notice.")
+def c25():
+    fails = []
+    decls = {}
+    for m in re.finditer(r"(--[a-z0-9-]+)\s*:\s*([^;]+);", read(TOKENS)):
+        decls[m.group(1)[2:]] = re.sub(r"/\*[\s\S]*?\*/", "", m.group(2)).strip()
+    try:
+        doc = json.loads(read(DTCG))
+    except Exception as e:
+        return [f"tokens.dtcg.json: unparseable — {e!r}"]
+    if "$schema" not in doc:
+        fails.append("tokens.dtcg.json: no $schema — the file cannot say what it is")
+    tokens = {k: v for k, v in doc.items()
+              if not k.startswith("$") and isinstance(v, dict) and "$value" in v}
+    for k in doc:
+        if not k.startswith("$") and k not in tokens:
+            fails.append(f"tokens.dtcg.json: '{k}' is neither a $-member nor a token — "
+                         "the file is flat by contract (ratified 2026-08-29)")
+
+    for name in sorted(set(decls) - set(tokens)):
+        fails.append(f"--{name}: declared in tokens.css, missing from the DTCG projection")
+    for name in sorted(set(tokens) - set(decls)):
+        fails.append(f"{name}: in the DTCG file, no such custom property in tokens.css")
+
+    def close(a, b, tol=2e-3):
+        return abs(float(a) - float(b)) <= tol
+
+    def fnum(x):
+        return f"{float(x):g}"
+
+    def hex_rgb(h):
+        h = h.lstrip("#")
+        return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+
+    def css_color(s):
+        s = s.strip()
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", s):
+            return hex_rgb(s), 1.0
+        m = re.fullmatch(r"rgba?\(([^)]*)\)", s)
+        if not m:
+            return None
+        p = [x.strip() for x in m.group(1).split(",")]
+        return [float(x) / 255 for x in p[:3]], (float(p[3]) if len(p) == 4 else 1.0)
+
+    def split_top(s):
+        out, depth, cur = [], 0, ""
+        for ch in s:
+            depth += ch == "("
+            depth -= ch == ")"
+            if ch == "," and depth == 0:
+                out.append(cur)
+                cur = ""
+            else:
+                cur += ch
+        out.append(cur)
+        return [x.strip() for x in out]
+
+    def norm(s):
+        s = re.sub(r"\s+", " ", str(s).strip().lower())
+        return re.sub(r"\s*([(),:])\s*", r"\1", s)
+
+    def bad(name, why):
+        fails.append(f"--{name}: tokens.css and the DTCG token disagree — {why}")
+
+    for name in sorted(set(decls) & set(tokens)):
+        cssv, tok = decls[name], tokens[name]
+        typ, val = tok.get("$type"), tok.get("$value")
+        if typ == "color":
+            hexv = (val or {}).get("hex", "")
+            if hexv.lower() != cssv.lower():
+                bad(name, f"hex reads {hexv or '(none)'}, CSS reads {cssv}")
+            elif not all(close(a, b) for a, b in
+                         zip(val.get("components", [9, 9, 9]), hex_rgb(hexv))):
+                bad(name, "components[] do not match the token's own hex")
+        elif typ in ("dimension", "duration"):
+            want = fnum(val["value"]) + val["unit"]
+            got = cssv if cssv != "0" else "0" + val["unit"]
+            if norm(got) != norm(want):
+                bad(name, f"{want} vs CSS {cssv}")
+        elif typ == "number":
+            try:
+                ok = close(val, cssv, 0)
+            except ValueError:
+                ok = False
+            if not ok:
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "cubicBezier":
+            m = re.fullmatch(r"cubic-bezier\(([^)]*)\)", cssv)
+            pts = [float(x) for x in m.group(1).split(",")] if m else []
+            if len(pts) != 4 or any(not close(a, b, 1e-6) for a, b in zip(pts, val)):
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "fontFamily":
+            fams = [x.strip().strip("\'\"") for x in split_top(cssv)]
+            if fams != list(val):
+                bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "shadow":
+            # DTCG allows a single shadow as an object, multiples as an array
+            if isinstance(val, dict):
+                val = [val]
+            layers = split_top(cssv)
+            ok = len(layers) == len(val)
+            for lay, want in zip(layers, val) if ok else []:
+                cm = re.search(r"(rgba?\([^)]*\)|#[0-9a-fA-F]{6})", lay)
+                col = css_color(cm.group(1)) if cm else None
+                rest = (lay[:cm.start()] + lay[cm.end():]) if cm else lay
+                inset = "inset" in rest.split()
+                nums = [float(re.sub(r"px$", "", x)) for x in rest.split() if x != "inset"]
+                nums += [0.0] * (4 - len(nums))
+                wnums = [want[k]["value"] for k in ("offsetX", "offsetY", "blur", "spread")]
+                wcol = want.get("color", {})
+                if (col is None or inset != bool(want.get("inset"))
+                        or any(not close(a, b) for a, b in zip(nums, wnums))
+                        or any(not close(a, b) for a, b in
+                               zip(col[0], wcol.get("components", [9, 9, 9])))
+                        or not close(col[1], wcol.get("alpha", 1))):
+                    ok = False
+            if not ok:
+                bad(name, "shadow layers differ")
+        elif norm(val) != norm(cssv):
+            bad(name, f"{val!r} vs CSS {cssv!r}")
     return fails
 
 
