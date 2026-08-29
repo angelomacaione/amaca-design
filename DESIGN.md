@@ -460,7 +460,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 </label>
 ```
 
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-400`. Always persistent — placeholder is **not** a label.
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
 - **States: § 3.0.1.** `default` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index. No state is described in prose here.
