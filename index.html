@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V3.5.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.0.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V3.5.0 · DESIGN SYSTEM</span>
+        <span class="meta">V4.0.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">3.5.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.0.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Aug 26, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Aug 29, 2026</span></div>
           </div>
         </div>
 
@@ -3908,9 +3908,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v3.5.0 -->
+            <!-- v4.0.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-350">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-400">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.0.0 &mdash; The rendered system aligns to its contract</span>
+                <span class="acc-num">2026-08-29</span>
+              </button>
+              <div class="acc-panel" id="cl-400" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MAJOR. The first real run of the installed plugin put the contract in front of a generator: it declared two divergences between the Card spec and the CSS, and a human eye found the third &mdash; an anatomy the spec did not have, so the generator invented spacing. A DTCG audit the day before had found seven tokens missing from the projection. Same lacuna from three angles in two days: the inventories were guarded, the projections and declarations were not.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Breaking</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The card renders the surfaces the spec always declared</strong> &mdash; background <code>--obsidian-800</code>, border <code>--obsidian-700</code>, hover <code>--obsidian-600</code> with <code>--sh-2</code>. The token table already said <code>--obsidian-800</code> &rarr; Card; the CSS had shipped one ramp step darker, shadowless, since the section was written. Decided on a measured render, not on token names.</li><li><strong style="color:var(--obsidian-100)"><code>.card-header</code> becomes <code>.card-meta</code>, no alias</strong> &mdash; the spec taught a class the CSS did not know, so a generator following the contract emitted an unstyled div. The spec name wins, cleanly.</li><li><strong style="color:var(--obsidian-100)">The mono-label register collapses to <code>--t-caption</code></strong> &mdash; a de facto 11px register lived off-scale in 21 CSS rules and 46 site spots. Chart-head titles and the brand name (14px) join <code>--t-body</code>; the chart card adopts the card ramp; skip-link and pie-legend geometry collapse to scale steps.</li><li><strong style="color:var(--obsidian-100)"><code>.info-strip</code> is removed</strong> &mdash; the v3.4.0 promise, <em>removal scheduled for v4.0.0</em>, is kept.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Seven promotions</strong> &mdash; Page shell, Grid system, Breadcrumb, Skip link, Chart card, Pie, Brand mark: every <code>css-only</code> row cleared at its milestone, each promotion an audit, and each audit found something &mdash; a sticky topbar on a raw z-index, a brand glow in a color no token declares, a skip jump that did not clear the topbar it exists to skip, a section entrance running under reduced motion. Fixed with the promotion that found them.</li><li><strong style="color:var(--obsidian-100)">The debt came due, and cleared</strong> &mdash; 126 exact-parity px literals now read their token; six rules left their demo captions and became framing prose, verbatim; 41 subsections gained the prose that says what the thing is for. Zero findings in declared debt, for the first time since the mechanism exists.</li><li><strong style="color:var(--obsidian-100)">The DTCG projection is contractualized</strong> &mdash; the seven <code>z-*</code> tokens enter <code>tokens.dtcg.json</code>, the file stamps its own release, <code>dtcg</code> joins <code>deploy_targets</code>, and the spec declares the direction: a generated projection of <code>tokens.css</code>, never edited by hand.</li><li><strong style="color:var(--obsidian-100)">Checks 25&ndash;28</strong> &mdash; the DTCG round-trip; every class the spec emits exists in the CSS and declared surfaces match it; every id unique; every rgba speaks a token&rsquo;s color. Each born from the drift it now prevents; all four mutation-tested before first use.</li><li><strong style="color:var(--obsidian-100)">The skill verifies its own output</strong> &mdash; <code>amaca-frontend</code> v1.2.0 ships <code>scripts/verify-output.py</code>: deterministic, stdlib-only, reading the closed lists from the bundle&rsquo;s own spec copies. Output is deliverable only on exit 0. A control described in prose is not a control; now it is executable.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Dead names the spec taught</strong> &mdash; <code>.badge-live</code>/<code>.badge-draft</code> and <code>.field-label</code>, examples and live site spans rendering unstyled, one of them styled in <code>llms-full.txt</code> by a rule the CSS never had. All aligned to the shipped names; check 26 makes the class unrepeatable.</li><li><strong style="color:var(--obsidian-100)">The stat count-up rode a curve the rule does not name</strong> &mdash; hardcoded 1200ms and easeOutCubic against a RIGID rule declaring <code>--d-draw</code> &middot; <code>--ease-decel</code>. It now reads the duration off <code>:root</code> at run time and solves the declared bezier exactly.</li><li><strong style="color:var(--obsidian-100)">The pie demos pasted hex</strong> &mdash; 24 attribute literals, all token values written by hand, now <code>var()</code> styles with <code>role="img"</code> on both charts.</li><li><strong style="color:var(--obsidian-100)"><code>id="main-content"</code> was duplicated</strong> &mdash; the skip target was ambiguous, and the jump did not clear the sticky topbar. One id, on the content wrapper; check 27 guards uniqueness.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-08-29</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v3.5.0...v4.0.0" target="_blank" rel="noopener">v3.5.0&hellip;v4.0.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v3.5.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-350">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v3.5.0 &mdash; The skill reaches the IDE, and the gate learns to expire</span>
                 <span class="acc-num">2026-08-26</span>

@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 3.5.0
-updated: 2026-08-26
+version: 4.0.0
+updated: 2026-08-29
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-08-26
+last_synced: 2026-08-29
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.5.0 — 2026.08.26
+> **Version** 4.0.0 — 2026.08.29
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1669,6 +1669,34 @@ The version line at the top of this document is the source of truth. The CSS fil
 0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog
+
+### v4.0.0 — 2026.08.29 (MAJOR)
+**Breaking**
+- **The card renders the surfaces § 3.3 always declared** — background `--obsidian-800`, border `--obsidian-700`, hover `--obsidian-600` with `--sh-2`. The § 2 token table already said `--obsidian-800` → Card; the CSS had shipped one ramp step darker, shadowless, since the section was written. Decided on a measured render, not on token names. The transition now carries `box-shadow`, per the § 3.3 motion row.
+- **`.card-header` is renamed `.card-meta`, no alias.** The spec taught `.card-meta` and the CSS knew only `.card-header` — a generator following the contract emitted an unstyled div. The spec name wins, cleanly: one name, zero doubles.
+- **The mono-label register collapses to `--t-caption`.** A de facto 11px register lived in 21 CSS rules and 46 site spots, off-scale between `--t-micro` and `--t-caption`; § Navigation claimed `--t-micro` while the site rendered 11. All of it now rides the declared scale. `.chart-head` titles and the brand name (14px, also off-scale) join `--t-body`; skip-link and pie-legend geometry collapse to scale steps.
+- **Chart card adopts the card ramp** — it rendered the ramp the Card just left. The two cards of the system are one object again.
+- **`.info-strip` is removed.** The v3.4.0 promise — *removal scheduled for v4.0.0* — is kept. New markup has used `.alert` for two releases.
+
+**Added**
+- **Seven promotions, §§ 3.21–3.27** — Page shell, Grid system, Breadcrumb, Skip link, Chart card, Pie, Brand mark: every `css-only` row cleared at its milestone, each promotion an audit, and each audit found something. The topbar — sticky chrome — rode a raw `z-index: 5` while the scale's own row names *pinned headers*; the brand glow was `#00E5D1` at 0.40, a color no token declares, invisible to check 02 because it was written as rgba; the skip jump landed on a `<main>` that contains the topbar it exists to skip; the `.section` entrance ran under reduced motion. All fixed with the promotion that found them.
+- **Card-with-action anatomy** (§ 3.3) — `.card-actions`, body → CTA at `--s-6`, at most one action per card. The gap the first marketplace run exposed by inventing the spacing the spec did not have.
+- **The state vocabulary gains `focus`** (§ 3.0.1) — legal only where an element exists solely for the keyboard; today the skip link alone.
+- **The DTCG projection is contractualized** — the seven `z-*` tokens enter `tokens.dtcg.json` (flat, `$type: number`, `$extensions.amaca.role`), the file stamps itself via `$schema` and `$extensions.amaca.version`, `dtcg` joins `deploy_targets`, and § Colors declares the direction: a generated projection of `tokens.css`, never edited by hand.
+- **Checks 25–28** — the DTCG round-trip (every custom property has its token and vice versa, values matching); every class § 3 emits exists in the CSS and declared surfaces match it; every id unique; every rgb()/rgba() speaks a token's color or pure black/white. Each born from the drift it now prevents; all four mutation-tested before first use.
+- **The skill verifies its own output** — `amaca-frontend` v1.2.0 ships `scripts/verify-output.py` (§ IDE integration): deterministic, stdlib-only, reading the closed lists from the bundle's own spec copies. Output is deliverable only on exit 0. A control described in prose is not a control; now it is executable.
+
+**Fixed**
+- **The v3.6.0-dated debt cleared in full.** Check 03: 126 exact-parity px literals now read their token. Check 17: six rules left their demo captions and became framing prose, verbatim. Check 18: 41 subsections gained the prose that says what the thing is for. Zero findings in declared debt for the first time since the mechanism exists.
+- **Dead names the spec taught** — `.badge-live` / `.badge-draft` (examples and one live site badge, unstyled) → `.badge-success` / `.badge-warn`; `.field-label` (two spec examples, one live span, and an `llms-full.txt` rule `components.css` never had) → `.label`. Check 26 makes the class unrepeatable.
+- **The stat count-up rode a curve the rule does not name.** `countUp` hardcoded 1200ms and easeOutCubic against a RIGID rule declaring `--d-draw` · `--ease-decel`. It now reads the duration off `:root` at run time and solves the declared bezier exactly.
+- **`id="main-content"` was duplicated** — on `<main>` and on `.content` — making the skip target ambiguous. One id, on `.content`, so the jump clears the sticky topbar; check 27 guards uniqueness.
+- **The pie demos pasted hex** — 24 attribute literals, all token values written by hand — now `var()` styles, with `role="img"` on both charts. The § 13 rule applies to data exactly as to chrome.
+- **§ 3.2 label color** reads the rendered `--obsidian-300`; the spec had claimed the scale's disabled-text step.
+
+**Trigger**
+
+The first real run of the installed plugin (2026-08-27) put the contract in front of a generator: the skill declared two divergences between § Card and the CSS, and a human eye found the third — an anatomy the spec did not have, so the generator invented spacing. The day before, a DTCG audit had found seven tokens missing from the projection. The same lacuna from three angles in two days: the inventories were guarded, the projections and declarations were not. This release aligns the rendered system to its contract — MAJOR because rendered values change — clears the debt that came due with it, and arms four checks plus a shipped output verifier so that each class of drift, once fixed, cannot return unseen.
 
 ### v3.5.0 — 2026.08.26 (MINOR)
 **Added**
