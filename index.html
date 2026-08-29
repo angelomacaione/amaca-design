@@ -196,7 +196,7 @@ html{scroll-behavior:smooth}
   <div class="sidebar-scrim" id="sidebar-scrim" aria-hidden="true"></div>
 
   <!-- ============ MAIN ============ -->
-  <main class="main" id="main-content">
+  <main class="main">
     <div class="topbar">
       <button type="button" class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span class="menu-toggle-bars"><span></span><span></span><span></span></span>
@@ -455,21 +455,21 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <ol style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-3)">
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">01 · COWORK / CLAUDE CODE<br/><span style="color:var(--obsidian-400)">ANY ANTHROPIC RUNTIME</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">01 · COWORK / CLAUDE CODE<br/><span style="color:var(--obsidian-400)">ANY ANTHROPIC RUNTIME</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the .skill bundle in.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Settings → Capabilities → Skills → upload <code>amaca-frontend.skill</code>. Restart the session. Invoke with <code>amaca-frontend</code> or just describe an Amaca task — the skill auto-triggers on context.</p>
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">02 · FIGMA<br/><span style="color:var(--obsidian-400)">— AGENT SKILL</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">02 · FIGMA<br/><span style="color:var(--obsidian-400)">— AGENT SKILL</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Install it like the Claude skill, invoke /amaca-figma.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">In any Figma file: prompt box → attachment icon → <em>Skills</em> → <em>Add skill</em> → upload <code>amaca-figma.md</code>. Then <code>/amaca-figma</code>: it fetches the live spec first, generates with Amaca Variables, and self-audits in a verify loop — or audits a selection on canvas evidence. Code-side sync (tokens pushed as Variables over the Figma MCP) stays available through the <code>amaca-frontend</code> skill.</p>
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03 · GOOGLE STITCH<br/><span style="color:var(--obsidian-400)">— DESIGN.MD</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03 · GOOGLE STITCH<br/><span style="color:var(--obsidian-400)">— DESIGN.MD</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Paste the spec into the project box.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Download <code>DESIGN.md</code> — the spec ships in the Google Labs <code>design.md</code> standard. On Stitch's <em>Start with your project</em> screen, paste it into the <em>existing DESIGN.md</em> box (or upload the file). Pick the most capable model for brand fidelity.</p>
@@ -477,16 +477,16 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">04 · CURSOR / VS CODE / WINDSURF · CONTINUE / AIDER<br/><span style="color:var(--obsidian-400)">— EDITORS &amp; ASSISTANTS</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">04 · CURSOR / VS CODE / WINDSURF · CONTINUE / AIDER<br/><span style="color:var(--obsidian-400)">— EDITORS &amp; ASSISTANTS</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the spec at your tool's rules path.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">These read markdown rules from your repo. Unzip <code>amaca-ide.zip</code> at the repo root — since v3.1.0 it ships core + per-target rules, attached only to the files they govern:</p>
                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-2);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-snug)">
-                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.cursor/rules/amaca-core.mdc · amaca-html.mdc · amaca-react.mdc</code></li>
-                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor · Codex <span style="color:var(--obsidian-400)">(skill)</span></span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.agents/skills/amaca-frontend/</code></li>
-                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">VS Code (Copilot)</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.github/copilot-instructions.md + instructions/amaca-*.instructions.md</code></li>
-                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Windsurf</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">.windsurf/rules/amaca.md</code></li>
-                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Aider</span><code style="font-family:var(--font-mono);font-size:11px;color:var(--obsidian-300)">CONVENTIONS.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor</span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">.cursor/rules/amaca-core.mdc · amaca-html.mdc · amaca-react.mdc</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor · Codex <span style="color:var(--obsidian-400)">(skill)</span></span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">.agents/skills/amaca-frontend/</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">VS Code (Copilot)</span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">.github/copilot-instructions.md + instructions/amaca-*.instructions.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Windsurf</span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">.windsurf/rules/amaca.md</code></li>
+                  <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Aider</span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">CONVENTIONS.md</code></li>
                   <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Continue</span><span style="color:var(--obsidian-400)">rules in config</span></li>
                 </ul>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:var(--s-3) 0 0;font-size:var(--t-small)">The runtime reads it as instructions and grounds on the spec.</p>
@@ -494,7 +494,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">05 · GEMINI ADVANCED<br/><span style="color:var(--obsidian-400)">— GEMS</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">05 · GEMINI ADVANCED<br/><span style="color:var(--obsidian-400)">— GEMS</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Spec as knowledge, instructions as system prompt.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a new Gem. Paste the SKILL.md body (without YAML frontmatter) into <em>Instructions</em>. Upload DESIGN.md as the Gem's knowledge file. Save. That Gem now speaks Amaca for any frontend task.</p>
@@ -502,7 +502,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">06 · CHATGPT<br/><span style="color:var(--obsidian-400)">— CUSTOM GPT</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">06 · CHATGPT<br/><span style="color:var(--obsidian-400)">— CUSTOM GPT</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Same pattern as Gems.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a Custom GPT. SKILL.md body as instructions. DESIGN.md as knowledge file. Same result.</p>
@@ -510,7 +510,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">07 · ONE-OFF<br/><span style="color:var(--obsidian-400)">ANY LLM CHAT</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">07 · ONE-OFF<br/><span style="color:var(--obsidian-400)">ANY LLM CHAT</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Attach and prefix.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Drop DESIGN.md inline in the chat. Prefix your prompt with <em>"Use this as the canonical reference for tokens, components, and voice — generate strictly compliant frontend code."</em> Lighter than the skill but works when nothing else does.</p>
@@ -518,7 +518,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">08 · REPLIT / LOVABLE / V0 / BOLT / BASE44<br/><span style="color:var(--obsidian-400)">— APP BUILDERS</span></div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">08 · REPLIT / LOVABLE / V0 / BOLT / BASE44<br/><span style="color:var(--obsidian-400)">— APP BUILDERS</span></div>
               <div>
                 <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Feed the tokens, not the skill.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Prompt-to-app builders impose their own stack (usually React + Tailwind + shadcn) and treat a pasted spec as soft context. Give them the Tailwind <code>@theme</code> tokens as the project foundation — those travel; the enforcement workflow does not. Replit is closest (its Agent reads project files — drop a rules file). Base44 is the tightest (locked stack). Compliance is model- and platform-gated: a frontier model + tokens-as-foundation gets most of the way — verify with the § 03.3 scan.</p>
@@ -612,12 +612,12 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="grid grid-2" style="gap:var(--s-4);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400)">UTILITIES</div>
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">bg-magenta-500 · text-obsidian-950 · rounded-md</code>
+              <code style="font-family:var(--font-mono);font-size:var(--t-caption);background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">bg-magenta-500 · text-obsidian-950 · rounded-md</code>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Every token resolves to a utility class against the same <code>var()</code> chain the CSS surface uses. No CSS modules, no translation layer.</p>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400)">IMPORT</div>
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">@import "amaca-design/styles/theme.css";</code>
+              <code style="font-family:var(--font-mono);font-size:var(--t-caption);background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:block">@import "amaca-design/styles/theme.css";</code>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">One line wires the full token scale into a Tailwind v4 project. <code>theme.css</code> is a <code>@theme</code> projection of <code>tokens.css</code> — <code>var()</code> aliases, no duplicated literals.</p>
             </div>
           </div>
@@ -625,7 +625,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="card doc-row" style="padding:var(--s-5) var(--s-6);margin-top:var(--s-4);display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);align-items:start">
             <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300);padding-top:4px">OPTIONAL PROJECTION<br/><span style="color:var(--obsidian-400)">design.md / W3C DTCG</span></div>
             <div style="display:flex;flex-direction:column;gap:var(--s-3)">
-              <code style="font-family:var(--font-mono);font-size:11px;background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:inline-block;width:fit-content;max-width:100%">tokens.json</code>
+              <code style="font-family:var(--font-mono);font-size:var(--t-caption);background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-sm);padding:var(--s-2) var(--s-3);color:var(--obsidian-100);overflow-x:auto;white-space:nowrap;display:inline-block;width:fit-content;max-width:100%">tokens.json</code>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The Google <code>design.md</code> / W3C DTCG export stays available as an optional, generated projection for lint, diff, and cross-tool interop — not the thing that unlocks React. Same one-way model: derived from <code>tokens.css</code>, not authored separately.</p>
             </div>
           </div>
@@ -1301,14 +1301,14 @@ Basic UI</div>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
                 <span style="color:var(--magenta-400)">H1</span><span>max <code>2</code></span>
                 <span style="color:var(--magenta-400)">H2</span><span>max <code>3</code> if H1 = <code>2</code>, else <code>0–9</code></span>
                 <span style="color:var(--magenta-400)">M1</span><span>max <code>5</code></span>
                 <span style="color:var(--magenta-400)">M2</span><span><code>0–9</code></span>
               </div>
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
               <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
                 <li><code>maxlength="5"</code> + <code>inputmode="numeric"</code> are required.</li>
                 <li>The <code>:</code> is inserted automatically — users only type digits.</li>
@@ -1392,7 +1392,7 @@ Basic UI</div>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
                 <span style="color:var(--magenta-400)">D1</span><span>max <code>3</code></span>
                 <span style="color:var(--magenta-400)">D2</span><span>max <code>1</code> if D1 = <code>3</code>; if D1 = <code>0</code>, must be <code>1–9</code>; else <code>0–9</code></span>
@@ -1400,7 +1400,7 @@ Basic UI</div>
                 <span style="color:var(--magenta-400)">M2</span><span>max <code>2</code> if M1 = <code>1</code>; if M1 = <code>0</code>, must be <code>1–9</code>; else <code>0–9</code></span>
                 <span style="color:var(--magenta-400)">Y1–4</span><span><code>0–9</code></span>
               </div>
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
               <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
                 <li><code>maxlength="10"</code> + <code>inputmode="numeric"</code> required.</li>
                 <li>Slashes are inserted automatically — users only type digits.</li>
@@ -1455,7 +1455,7 @@ Basic UI</div>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">SELECTION RULES</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">SELECTION RULES</div>
               <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
                 <li>Click 1 → start. Hover preview shows tentative range.</li>
                 <li>Click 2 ≥ start → commits end.</li>
@@ -1463,14 +1463,14 @@ Basic UI</div>
                 <li>Same-day click twice → single-day range.</li>
                 <li><kbd>Esc</kbd> → cancel pending selection &amp; close.</li>
               </ul>
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">PRESETS</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">PRESETS</div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
                 <span style="color:var(--magenta-400)">Today</span><span>start = end = today</span>
                 <span style="color:var(--magenta-400)">Last 7 days</span><span>today − 6 → today (inclusive)</span>
                 <span style="color:var(--magenta-400)">Last 30 days</span><span>today − 29 → today</span>
                 <span style="color:var(--magenta-400)">Last month</span><span>full previous calendar month</span>
               </div>
-              <div style="color:var(--obsidian-500);font-size:11px;letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
+              <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin:var(--s-5) 0 var(--s-3)">CONTRACT</div>
               <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
                 <li>Two inputs: <code>data-range-start</code> &amp; <code>data-range-end</code> inside a <code>data-range-group</code> wrapper.</li>
                 <li>Same digit-by-digit mask as § 11.3.</li>
@@ -1543,7 +1543,7 @@ Basic UI</div>
             </div>
             <div class="card">
               <div class="card-meta" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
-              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
@@ -2865,50 +2865,50 @@ flowchart TD
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
               <div class="pie-wrap">
-                <svg data-fade-chart class="pie" viewBox="0 0 220 220" aria-label="Traffic sources donut chart">
+                <svg data-fade-chart class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">
                   <g transform="translate(110 110)">
                     <!-- track -->
-                    <circle r="80" fill="none" stroke="#161B22" stroke-width="26"/>
+                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
                     <!-- slices: ring segments with 2px rounded corners, ~3px circumference gap -->
-                    <path data-pie-slice data-pie-pct="48" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#F051D5"/>
-                    <path data-pie-slice data-pie-pct="27" data-pie-start="48" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#FF85DF"/>
-                    <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#5CC8FF"/>
-                    <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#0C6078"/>
+                    <path data-pie-slice data-pie-pct="48" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-500)"/>
+                    <path data-pie-slice data-pie-pct="27" data-pie-start="48" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-300)"/>
+                    <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--info)"/>
+                    <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--tertiary-500)"/>
                   </g>
                   <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
-                    <text data-pie-total data-count-to="12.4" data-decimals="1" x="110" y="108" font-size="34" font-weight="700" fill="#E3E7EC" letter-spacing="-1">0.0</text>
-                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#8A94A3" letter-spacing="1.5">VISITS · K</text>
+                    <text data-pie-total data-count-to="12.4" data-decimals="1" x="110" y="108" font-size="34" font-weight="700" style="fill:var(--obsidian-100)" letter-spacing="-1">0.0</text>
+                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1.5">VISITS · K</text>
                   </g>
                 </svg>
                 <ul class="pie-legend">
-                  <li data-fade><span class="sw" style="background:#F051D5"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#FF85DF"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#5CC8FF"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#0C6078"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-500)"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-300)"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--info)"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--tertiary-500)"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
                 </ul>
               </div>
             </div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption · Q1–Q4</span><span class="s" data-fade>Tokens shipped</span></div>
               <div class="pie-wrap">
-                <svg data-fade-chart class="pie" viewBox="0 0 220 220" aria-label="Adoption donut chart">
+                <svg data-fade-chart class="pie" viewBox="0 0 220 220" role="img" aria-label="Adoption donut chart">
                   <g transform="translate(110 110)">
-                    <circle r="80" fill="none" stroke="#161B22" stroke-width="26"/>
-                    <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#F051D5"/>
-                    <path data-pie-slice data-pie-pct="32" data-pie-start="38" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#C93BB0"/>
-                    <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#9A2D87"/>
-                    <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" fill="#66195A"/>
+                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
+                    <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-500)"/>
+                    <path data-pie-slice data-pie-pct="32" data-pie-start="38" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-600)"/>
+                    <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-700)"/>
+                    <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--magenta-800)"/>
                   </g>
                   <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
-                    <text data-pie-total data-count-to="274" x="110" y="108" font-size="34" font-weight="700" fill="#E3E7EC" letter-spacing="-1">0</text>
-                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" fill="#8A94A3" letter-spacing="1.5">TOKENS</text>
+                    <text data-pie-total data-count-to="274" x="110" y="108" font-size="34" font-weight="700" style="fill:var(--obsidian-100)" letter-spacing="-1">0</text>
+                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1.5">TOKENS</text>
                   </g>
                 </svg>
                 <ul class="pie-legend">
-                  <li data-fade><span class="sw" style="background:#F051D5"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#C93BB0"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#9A2D87"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
-                  <li data-fade><span class="sw" style="background:#66195A"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-500)"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-600)"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-700)"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
+                  <li data-fade><span class="sw" style="background:var(--magenta-800)"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
                 </ul>
               </div>
             </div>
@@ -3889,7 +3889,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">A competitive watch found that Cursor had changed its primary input shape in January and nobody noticed, because every run re-read the page about rules &mdash; which by construction cannot mention a format arriving beside it. Checking what we actually emit against what Cursor actually reads deflated the alarm and left one real gap. Pointing the same reflex at this repo &mdash; verify the artefact, not the description of it &mdash; found the other three. All of them had the shape this system knows best: no symptom, and a gate reporting green.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-08-26</span>
                     <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
@@ -3924,7 +3924,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">An audit against v3.3.0 found three classes of failure with one root cause. Spec that existed but was invisible in the contract (the scrollbar, specified in CSS, zero mentions in the spec). Components shipped in CSS and never documented (Date picker, Table, Checkbox, Switch) &mdash; the model reinvented them though a canon already existed. Components that existed nowhere, so the model invented from scratch. Writing the registry surfaced the second finding: the audit that closes the inventory is also the audit that finds the drift &mdash; eight raw hex, seven half-written token pairs, two missing focus rings, and an error state documented for four versions but never implemented.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-08-05</span>
                     <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
@@ -3969,7 +3969,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">The foundations lived in § 08 but per-component motion rules were scattered across component sections with no uniform grammar — the exact pathology a machine-readable system can't afford. A verified research pass over how the leading systems structure motion (spring schemes, composite tokens, intent annotations, kill-switch contracts) shaped the schema; the strongest patterns — Atlassian's intent bundles, M3's spatial/effects taxonomy, Polaris's per-token guidance — landed as Amaca rules.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-17</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4013,7 +4013,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills standard this repo already targets — the deliverable is loadable as-is. Occupying the in-canvas surface extends multi-deploy to where designers work. The skill is advisory by nature (the agent is non-deterministic); the deterministic gate remains the <code>amaca-frontend</code> bundle.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-14</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SKILL · </span><a href="https://raw.githubusercontent.com/angelomacaione/amaca-design/main/downloads/amaca-figma.md" target="_blank" rel="noopener" download>amaca-figma.md</a></span>
@@ -4055,7 +4055,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">Reconciling the hand-authored gold against the compiler's current output surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted <code>llms.txt</code>. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All close to parity — the flagship eats its own output.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-07-06</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4096,7 +4096,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Data Viz · interactive hex world map (§ 19.8)</strong> — the public-domain Natural Earth 1:110m land rasterised into a token-styled honeycomb (d3-geo + world-atlas), status nodes placed at true longitude/latitude, click-to-inspect node card, labeled legend.</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-22</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4127,7 +4127,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">A native <code>&lt;select&gt;</code> sitting just above a chat composer covered the input with its option popup. The fix is a placement contract, ratified into § Components → Dropdown / Select, that any control near a viewport edge or above must-see content follows.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-21</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4160,7 +4160,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">Follow-up to the v2.7.1 APCA work: would a semibold label improve accessibility? WCAG 2 is weight-blind, APCA rewards weight, the system has no 600 cut — a side-by-side evaluation closed the question in Medium's favor.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-12</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4196,7 +4196,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">An accessibility question — is there an accessible non-pure white on magenta-500? — led to measuring the exception with both models. No light color can pass WCAG 2 on this fill; APCA inverts the ranking in the light label's favor. The floor's only exception is now its most evidence-based section.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-12</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4233,7 +4233,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">An external motion audit read every animation path in the codebase and found the virtuous pattern — tokens read off <code>:root</code> at runtime — already canonized in § 18, while the Motion One blocks next to it still carried hand-copied values. Extending the system's own best pattern to its most animated surfaces is the whole release.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-12</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4267,7 +4267,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">An external audit (2026-06-11) read the live document end to end and found three sections still describing the system as it was before v2.0.0 and v2.6.0. A spec that sells enforcement can't disagree with itself — reconciling the copy to the ratified decisions is the whole release.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-11</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4307,7 +4307,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">The multi-deploy docs (v2.5.0) needed a system map and there was no on-system way to draw one. The open question — how to theme an auto-layout library without pasting hex into its config — is closed by reading tokens off <code>:root</code> at runtime. That is the rationale for § 18.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-06</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4345,7 +4345,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">The amaca-frontend skill reached v1.1 and its reference docs cited a § 13 and a Tailwind v4 <code>@theme</code> projection that did not yet exist — the skill shipped ahead of its contract. § 13 and <code>theme.css</code> close that gap: the contract the skill already references is now real and canonical.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-06-02</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4391,7 +4391,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">Operating the system across multiple AI runtimes — Cowork, Cursor, ChatGPT, Gemini — surfaced a single point of friction: the docs assumed one delivery mode (paste the spec) when in practice two exist, with very different enforcement guarantees. v2.4.0 closes that gap and pre-loads the v2.5.0+ Tailwind roadmap so the next minor release lands against a documented surface, not a blank one.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-25</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4439,7 +4439,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Loader semantics</strong> — Every loader carries <code>role="status"</code> with a contextual <code>aria-label</code>. The cycling label variant updates the host's <code>aria-label</code> in lockstep with the visible phrase, so screen readers hear the real wait rather than a generic "Loading".</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-22</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4495,7 +4495,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Trigger</h4>
                   <p style="margin:0">A real implementation — pipeline-dashboard, 2026-05-12 — surfaced two under-specified areas. Closing those gaps is the rationale for the spec-side updates in § 3.7 and § 3.10.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-12</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4547,7 +4547,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
                   <p style="margin:0">v2.1.0 follows v2.0.0 directly. The internal v2.0.1 patch (stepper hardening, outcome card stat refactor, staggered text reveals) was never publicly tagged — its contents are folded into this release alongside the new additions. From v2.1.0 onward the system continues to follow strict SemVer.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
                     <span><span style="color:var(--obsidian-400)">COMPARE · </span><a href="https://github.com/angelomacaione/amaca-design/compare/v2.0.0...v2.1.0" target="_blank" rel="noopener">v2.0.0…v2.1.0</a></span>
@@ -4630,7 +4630,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
                   <p style="margin:0">v2.0.0 follows v1.2.0 directly. Internal iterations between (drafts at v1.2.1 and beyond) have been consolidated into this release. From v2.0.0, the system follows strict <a href="https://semver.org" target="_blank" rel="noopener">SemVer</a> with no skipped numbers in public releases.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-05-07</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4689,7 +4689,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Note on history</h4>
                   <p style="margin:0">This release consolidates internal iterations after v1.1.0 that were not shipped publicly. From v1.2.0 onward, the system follows strict SemVer.</p>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-28</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                     <span><span style="color:var(--obsidian-400)">SPEC · </span><a href="https://amaca.design/design.md" target="_blank" rel="noopener">design.md</a></span>
@@ -4738,7 +4738,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Branch protection</strong> — Ruleset activated on <code>main</code> (PR-only merges).</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-24</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                   </div>
@@ -4793,7 +4793,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                     <li><strong style="color:var(--obsidian-100)">Versioning</strong> — SemVer adopted.</li>
                   </ul>
 
-                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:11px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED · </span>2026-04-23</span>
                     <span><span style="color:var(--obsidian-400)">LIVE · </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
                   </div>
@@ -7047,7 +7047,7 @@ new MutationObserver(muts => {
       timers.forEach(clearTimeout); timers = [];
       chatBubble.innerHTML = originalHTML;
       timers.push(setTimeout(function(){
-        chatBubble.innerHTML = '<span>Sure — generating the magenta ramp now. Want it scoped to <code style="font-size:11px;padding:1px 4px;background:var(--obsidian-900);border:1px solid var(--obsidian-700);border-radius:var(--r-xs);color:var(--magenta-300)">--magenta-*</code>?</span>';
+        chatBubble.innerHTML = '<span>Sure — generating the magenta ramp now. Want it scoped to <code style="font-size:var(--t-caption);padding:1px 4px;background:var(--obsidian-900);border:1px solid var(--obsidian-700);border-radius:var(--r-xs);color:var(--magenta-300)">--magenta-*</code>?</span>';
       }, 2200));
       timers.push(setTimeout(function(){
         chatBubble.innerHTML = originalHTML;
@@ -7545,11 +7545,29 @@ try {
       var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
       function fmt(v){ return pre + Math.abs(v).toFixed(dec) + suf; }
       if (reduce){ el.textContent = fmt(target); return; }
-      var dur = 1200, t0 = null;                                  // --d-draw: count-up / data draw-on
+      // duration read off :root at run time (--d-draw), never re-typed — the
+      // runtime-token anti-drift rule; the curve IS --ease-decel, solved below.
+      var dur = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--d-draw')) || 1200;
+      var t0 = null;
+      // cubic-bezier(0.16, 1, 0.3, 1) — the declared --ease-decel, exact
+      function bezier(x1, y1, x2, y2){
+        function sample(t, a, b){ return ((1 - 3*b + 3*a)*t*t*t) + ((3*b - 6*a)*t*t) + (3*a*t); }
+        function slope(t, a, b){ return 3*(1 - 3*b + 3*a)*t*t + 2*(3*b - 6*a)*t + 3*a; }
+        return function(x){
+          var t = x;
+          for (var i = 0; i < 5; i++){
+            var s = slope(t, x1, x2);
+            if (s === 0) break;
+            t -= (sample(t, x1, x2) - x) / s;
+          }
+          return sample(t, y1, y2);
+        };
+      }
+      var ease = bezier(0.16, 1, 0.3, 1);
       el.textContent = fmt(0);
       function step(ts){
         if (t0 === null) t0 = ts;
-        var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);  // easeOutCubic
+        var p = Math.min(1, (ts - t0) / dur), e = ease(p);
         el.textContent = (p < 1) ? fmt(target * e) : fmt(target);
         if (p < 1) requestAnimationFrame(step);
       }

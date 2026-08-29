@@ -919,6 +919,38 @@ def c26():
     return fails
 
 
+@check("27", "Every id in the document is unique",
+       "v3.5.0 session, fixed in v4.0.0: id=\"main-content\" sat on both <main> "
+       "and the .content div inside it. That id is the skip link's target, so the "
+       "jump the a11y floor promises was ambiguous — and no check looked at ids.")
+def c27():
+    html = read(INDEX)
+    ids = re.findall(r'\sid="([^"]+)"', html)
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    return [f'index.html: id="{i}" appears {ids.count(i)} times' for i in dupes]
+
+
+@check("28", "Every rgb()/rgba() speaks a token's color, or pure black/white",
+       "v4.0.0 promotion audit (Brand mark): the logo glow rode "
+       "rgba(0,229,209,0.4) — #00E5D1, a color no token declares — and two more "
+       "uses of the same triplet hid in gradients. Check 02 greps hex, so an "
+       "off-system color written as rgba was invisible to the gate. Alpha is "
+       "composition and stays free; the base color must come from the palette.")
+def c28():
+    toks = read(TOKENS)
+    palette = {(0, 0, 0), (255, 255, 255)}  # shade and highlight, the sh-* ingredients
+    for h in re.findall(r"#([0-9a-fA-F]{6})\b", toks):
+        palette.add(tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)))
+    fails = []
+    for fname, body in (("tokens.css", toks), ("components.css", read(COMPONENTS))):
+        for m in re.finditer(r"rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)", body):
+            trip = tuple(int(x) for x in m.groups())
+            if trip not in palette:
+                line = body[:m.start()].count("\n") + 1
+                fails.append(f"{fname}:{line}: rgba{trip} is no token's color")
+    return fails
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 def main():
