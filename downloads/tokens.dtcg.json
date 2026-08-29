@@ -1,4 +1,12 @@
 {
+  "$schema": "https://tr.designtokens.org/format/",
+  "$description": "Amaca design tokens - DTCG projection of styles/tokens.css. Generated from the CSS, never edited by hand; the round-trip is guarded by verify-ds.py check 25.",
+  "$extensions": {
+    "amaca": {
+      "version": "4.0.0",
+      "source": "styles/tokens.css"
+    }
+  },
   "obsidian-950": {
     "$value": {
       "colorSpace": "srgb",
@@ -1324,5 +1332,75 @@
       "unit": "px"
     },
     "$type": "dimension"
+  },
+  "z-sticky": {
+    "$value": 10,
+    "$type": "number",
+    "$description": "Sticky chrome - sidebar, pinned headers",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-scrim": {
+    "$value": 15,
+    "$type": "number",
+    "$description": "Drawer scrim",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-menu": {
+    "$value": 20,
+    "$type": "number",
+    "$description": "Mobile drawer, anchored menus (.select-menu)",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-popover": {
+    "$value": 30,
+    "$type": "number",
+    "$description": "Anchored floating layers - date/time popovers, tooltip",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-overlay": {
+    "$value": 100,
+    "$type": "number",
+    "$description": "Full-screen overlays - lightbox",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-toast": {
+    "$value": 200,
+    "$type": "number",
+    "$description": "Toast region",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
+  },
+  "z-max": {
+    "$value": 1000,
+    "$type": "number",
+    "$description": "Skip link, and nothing else",
+    "$extensions": {
+      "amaca": {
+        "role": "z-index"
+      }
+    }
   }
 }

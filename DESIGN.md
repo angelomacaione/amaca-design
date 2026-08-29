@@ -1,12 +1,12 @@
 ---
 name: Amaca
-version: 3.5.0
-updated: 2026-08-26
+version: 4.0.0
+updated: 2026-08-29
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-08-26
-deploy_targets: [html, react, figma]
+last_synced: 2026-08-29
+deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
   neutral: "#07090B"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 3.5.0 — 2026.08.26
+> **Version** 4.0.0 — 2026.08.29
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -116,6 +116,8 @@ A11y:     Color + shape + label. Persistent labels. 44×44 touch. No auto-advanc
 ## Colors
 
 All tokens live in `styles/tokens.css` and are exposed as CSS custom properties. **Reference by name, never copy the value.**
+
+`downloads/tokens.dtcg.json` is the same vocabulary as a **generated projection** — DTCG types, one token per custom property, never edited by hand. Direction is one-way: `tokens.css` is the source and the JSON follows it, in the same commit. Check 25 holds the round-trip — every custom property has its DTCG token and vice versa, values matching — and the file stamps its own release in `$extensions.amaca.version`, which check 14 keeps in step with this frontmatter.
 
 ### Color · neutrals (Obsidian scale)
 
@@ -254,6 +256,8 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **Rule:** in-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same vocabulary-vs-composition split § Code conventions draws for runtime token values. A raw `z-index` of 10 or more is a violation, greppable per line.
 
+**Grids.** The layout grid and its column presets are components, not conventions — spec in § 3.22.
+
 ## Elevation & Depth
 
 ### Shadow
@@ -311,7 +315,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 |---|---|---|---|
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` | canonical | § 3.1 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-wrap-trail` `.help` | canonical | § 3.2 |
-| Card | `.card` `.card-header` `.card-media` | canonical | § 3.3 |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
@@ -329,13 +333,13 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
 | Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.19 |
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.20 |
-| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | css-only | spec in v3.6.0 — composition rules |
-| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | css-only | spec in v3.6.0 — § Layout |
-| Breadcrumb | `.breadcrumb` | css-only | spec in v3.6.0 |
-| Skip link | `.skip-link` | css-only | spec in v3.6.0 — behaviour documented in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` | css-only | spec in v3.6.0 — dataviz grammar |
-| Pie | `.pie-wrap` `.pie` `.pie-legend` | css-only | spec in v3.6.0 — dataviz grammar |
-| Brand mark | `.brand` `.brand-mark` `.brand-text` | css-only | spec in v3.6.0 |
+| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | canonical | § 3.21 |
+| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
+| Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
+| Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` | canonical | § 3.25 |
+| Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
+| Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Info strip | `.info-strip` | deprecated | alias of § 3.18 Alert. Kept working; removal is scheduled for v4.0.0. New markup uses `.alert` |
 | Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
@@ -350,7 +354,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | State | Background | Border | Foreground | Ring | Other |
 |---|---|---|---|---|---|
 
-**Closed state vocabulary.** `default` · `hover` · `focus-visible` · `active` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list.
+**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`.
 
 **Rules of the grammar:**
 - Cells accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), or `native` (the browser's own treatment, deliberately not overridden). Never raw values. The two ratified rgba() literals — the `0 0 0 3px rgba(240,81,213,0.15)` field glow and the `0 0 0 4px rgba(240,81,213,0.35)` pressable halo — are named in § 6.2 and are cited by name, not re-typed per row.
@@ -400,6 +404,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
 | `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | |
 | `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
+| `.skip-link` | default | `--magenta-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
+| `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
 
 ### § 3.0.2 Stacking
 
@@ -453,12 +459,12 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ```html
 <label class="field">
-  <span class="field-label">EMAIL</span>
+  <span class="label">EMAIL</span>
   <input class="input" type="email" placeholder="you@studio">
 </label>
 ```
 
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-400`. Always persistent — placeholder is **not** a label.
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
 - **States: § 3.0.1.** `default` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index. No state is described in prose here.
@@ -476,6 +482,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+- **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -484,8 +491,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 ### Badge
 
 ```html
-<span class="badge badge-live"><span class="dot"></span> Live</span>
-<span class="badge badge-draft">Draft</span>
+<span class="badge badge-success"><span class="dot"></span> Live</span>
+<span class="badge badge-warn">Draft</span>
 ```
 
 - Always Satoshi, always paired with a dot when live.
@@ -496,7 +503,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 - **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
 - **Top nav** for marketing only.
-- **Breadcrumb** in mono, `--t-micro`, separators in `--obsidian-500`.
+- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.23.
 
 ### Accordion
 
@@ -571,7 +578,7 @@ Use `will-change: transform, width` on the indicator.
 
 ```html
 <label class="field">
-  <span class="field-label">ORARIO</span>
+  <span class="label">ORARIO</span>
   <input class="input" type="text" id="time-input"
     placeholder="es. 18:00"
     autocomplete="off"
@@ -854,7 +861,7 @@ flowchart TD
 ```
 
 **Required classes:**
-- `.diagram` — figure shell, consistent with `.card` (§ 3.3): `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
+- `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
 - `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--magenta-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
@@ -1122,6 +1129,125 @@ A label for something already visible. Never a container for content.
 - No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
 - Plain text only, one or two lines. A tooltip that needs a title is an alert.
 
+### Page shell
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Design system navigation">…</aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">…</div>
+      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
+    </div>
+    <div class="content" id="main-content">
+      <section class="section active">…</section>
+    </div>
+  </main>
+</div>
+```
+
+- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
+- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. Scrim: `--obsidian-950` at 0.8 over a 16px backdrop blur; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.23) on the left and `.topbar-actions` on the right.
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
+- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.24; uniqueness is check 27).
+- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+
+### Grid system
+
+```html
+<div class="grid grid-3">…</div>
+```
+
+- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
+- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
+- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
+- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
+
+### Breadcrumb
+
+```html
+<div class="breadcrumb">
+  <span>Work</span><span class="sep">/</span><span class="active">Case study</span>
+</div>
+```
+
+- Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
+- In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
+- ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
+
+### Skip link
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+```
+
+- First focusable element in the document. Parked above the viewport (`top: -100px`, a composition offset) and lands at `--s-3` on focus. It appears and disappears instantly, by design — easing a jump affordance would delay the jump. No motion rows.
+- `--magenta-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
+- Target: the unique `id="main-content"` on `.content` (§ 3.21) — past the sticky topbar, straight to the content. Behaviour: § 6.2. Uniqueness: check 27.
+- **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
+
+### Chart card
+
+```html
+<div class="chart-card">
+  <div class="chart-head"><span class="t">Retention · D30</span><span class="s">CS-017</span></div>
+  <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
+  <div class="chart-delta">+2.4 vs Q2</div>
+</div>
+```
+
+- The card ramp (§ 3.3): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
+- `.chart-head` — a baseline-aligned pair, `margin-bottom: --s-5`: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
+- `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
+- `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
+- **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
+
+### Pie
+
+```html
+<div class="pie-wrap">
+  <svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">…</svg>
+  <ul class="pie-legend">
+    <li><span class="sw" style="background:var(--magenta-500)"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
+  </ul>
+</div>
+```
+
+- `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
+- `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.13).
+- `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
+- `.sw` — 10px swatch, 3px radius (§ Shapes hairline list) · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-draw` (§ 6 floor #1).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
+
+### Brand mark
+
+```html
+<div class="brand">
+  <div class="brand-mark"><img src="…" alt="Amaca"></div>
+  <div class="brand-text"><span class="name">Amaca</span><span class="meta">Design system</span></div>
+</div>
+```
+
+- One per shell, at the head of the rail; hairline `--obsidian-800` below, padding-bottom `--s-6`, gap `--s-3`.
+- `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
+- `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
+- Static. The animated brand-mark loop belongs to the Loader (§ 3.12) and its ratified motion row — this one does not move.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -1280,6 +1406,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Component | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
+| Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
+| Pie | legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Accordion | open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | Accordion | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
@@ -1500,6 +1629,8 @@ Three ways to wire Amaca into Cursor, and they compose.
 
 **The agent skill** (new in v3.5.0) — since Cursor 2.4 the Agent Skills open standard is a first-class input, loaded from `.cursor/skills/`, `.agents/skills/` and, for compatibility, from `.claude/skills/` and `.codex/skills/`. The IDE download now ships `amaca-frontend` unpacked under `.agents/skills/amaca-frontend/` — `.agents/` being the vendor-neutral path, so the same folder serves Cursor and Codex. The skill carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) that a rules file cannot: rules steer generation, the skill runs a procedure.
 
+**The skill verifies its own output** (new in v4.0.0) — the bundle ships `scripts/verify-output.py`, a deterministic, stdlib-only check of the artifact the skill just generated: token resolution, hex outside `:root`, px parity, registry closure, one primary, focus-visible, reduced-motion, the z scale, durations, spring-on-effects, no emoji. The closed lists are read from the bundle's own `tokens.css` and this file, so the verifier travels with the spec it enforces. It answers a different question from `verify-ds.py` — one generated artifact versus the system itself — and the two share no code, by rule. Output is deliverable only on exit 0.
+
 The three are additive, not alternatives. Note that Cursor's `/migrate-to-skills` converts only *dynamic* rules — `alwaysApply: false` with no `globs` — so neither shipped `.mdc` shape is affected: the core is `alwaysApply: true`, the target files carry `globs`. `.cursorrules` (single legacy file) is deprecated and no longer documented by Cursor; it is not shipped.
 
 ### Claude Code / `CLAUDE.md`
@@ -1531,13 +1662,41 @@ This file follows strict SemVer.
 - **MINOR** — new tokens, new components, new principles.
 - **PATCH** — wording, typo, clarification, contrast recalculation.
 
-The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment.
+The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment; `tokens.dtcg.json` carries it in `$extensions.amaca.version`.
 
 **Release checklist (RIGID — every release, no exceptions):**
 
 0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog
+
+### v4.0.0 — 2026.08.29 (MAJOR)
+**Breaking**
+- **The card renders the surfaces § 3.3 always declared** — background `--obsidian-800`, border `--obsidian-700`, hover `--obsidian-600` with `--sh-2`. The § 2 token table already said `--obsidian-800` → Card; the CSS had shipped one ramp step darker, shadowless, since the section was written. Decided on a measured render, not on token names. The transition now carries `box-shadow`, per the § 3.3 motion row.
+- **`.card-header` is renamed `.card-meta`, no alias.** The spec taught `.card-meta` and the CSS knew only `.card-header` — a generator following the contract emitted an unstyled div. The spec name wins, cleanly: one name, zero doubles.
+- **The mono-label register collapses to `--t-caption`.** A de facto 11px register lived in 21 CSS rules and 46 site spots, off-scale between `--t-micro` and `--t-caption`; § Navigation claimed `--t-micro` while the site rendered 11. All of it now rides the declared scale. `.chart-head` titles and the brand name (14px, also off-scale) join `--t-body`; skip-link and pie-legend geometry collapse to scale steps.
+- **Chart card adopts the card ramp** — it rendered the ramp the Card just left. The two cards of the system are one object again.
+- **`.info-strip` is removed.** The v3.4.0 promise — *removal scheduled for v4.0.0* — is kept. New markup has used `.alert` for two releases.
+
+**Added**
+- **Seven promotions, §§ 3.21–3.27** — Page shell, Grid system, Breadcrumb, Skip link, Chart card, Pie, Brand mark: every `css-only` row cleared at its milestone, each promotion an audit, and each audit found something. The topbar — sticky chrome — rode a raw `z-index: 5` while the scale's own row names *pinned headers*; the brand glow was `#00E5D1` at 0.40, a color no token declares, invisible to check 02 because it was written as rgba; the skip jump landed on a `<main>` that contains the topbar it exists to skip; the `.section` entrance ran under reduced motion. All fixed with the promotion that found them.
+- **Card-with-action anatomy** (§ 3.3) — `.card-actions`, body → CTA at `--s-6`, at most one action per card. The gap the first marketplace run exposed by inventing the spacing the spec did not have.
+- **The state vocabulary gains `focus`** (§ 3.0.1) — legal only where an element exists solely for the keyboard; today the skip link alone.
+- **The DTCG projection is contractualized** — the seven `z-*` tokens enter `tokens.dtcg.json` (flat, `$type: number`, `$extensions.amaca.role`), the file stamps itself via `$schema` and `$extensions.amaca.version`, `dtcg` joins `deploy_targets`, and § Colors declares the direction: a generated projection of `tokens.css`, never edited by hand.
+- **Checks 25–28** — the DTCG round-trip (every custom property has its token and vice versa, values matching); every class § 3 emits exists in the CSS and declared surfaces match it; every id unique; every rgb()/rgba() speaks a token's color or pure black/white. Each born from the drift it now prevents; all four mutation-tested before first use.
+- **The skill verifies its own output** — `amaca-frontend` v1.2.0 ships `scripts/verify-output.py` (§ IDE integration): deterministic, stdlib-only, reading the closed lists from the bundle's own spec copies. Output is deliverable only on exit 0. A control described in prose is not a control; now it is executable.
+
+**Fixed**
+- **The v3.6.0-dated debt cleared in full.** Check 03: 126 exact-parity px literals now read their token. Check 17: six rules left their demo captions and became framing prose, verbatim. Check 18: 41 subsections gained the prose that says what the thing is for. Zero findings in declared debt for the first time since the mechanism exists.
+- **Dead names the spec taught** — `.badge-live` / `.badge-draft` (examples and one live site badge, unstyled) → `.badge-success` / `.badge-warn`; `.field-label` (two spec examples, one live span, and an `llms-full.txt` rule `components.css` never had) → `.label`. Check 26 makes the class unrepeatable.
+- **The stat count-up rode a curve the rule does not name.** `countUp` hardcoded 1200ms and easeOutCubic against a RIGID rule declaring `--d-draw` · `--ease-decel`. It now reads the duration off `:root` at run time and solves the declared bezier exactly.
+- **`id="main-content"` was duplicated** — on `<main>` and on `.content` — making the skip target ambiguous. One id, on `.content`, so the jump clears the sticky topbar; check 27 guards uniqueness.
+- **The pie demos pasted hex** — 24 attribute literals, all token values written by hand — now `var()` styles, with `role="img"` on both charts. The § 13 rule applies to data exactly as to chrome.
+- **§ 3.2 label color** reads the rendered `--obsidian-300`; the spec had claimed the scale's disabled-text step.
+
+**Trigger**
+
+The first real run of the installed plugin (2026-08-27) put the contract in front of a generator: the skill declared two divergences between § Card and the CSS, and a human eye found the third — an anatomy the spec did not have, so the generator invented spacing. The day before, a DTCG audit had found seven tokens missing from the projection. The same lacuna from three angles in two days: the inventories were guarded, the projections and declarations were not. This release aligns the rendered system to its contract — MAJOR because rendered values change — clears the debt that came due with it, and arms four checks plus a shipped output verifier so that each class of drift, once fixed, cannot return unseen.
 
 ### v3.5.0 — 2026.08.26 (MINOR)
 **Added**
@@ -1605,7 +1764,7 @@ A competitive watch on the compiler's target surface found that Cursor had chang
 An audit against v3.3.0 found three classes of failure, all with the same root: the token rule is executable because § 2 is a closed list, and there was no equivalent list for components. Spec that existed but was invisible in the contract (the scrollbar); components shipped in CSS and never documented (Date picker, Table, Checkbox, Switch); components that existed nowhere, so a model invented them. § 3.0 closes the inventory and § 3.0.1 gives states the same fixed grammar § 08.3 gave motion. Writing it surfaced the second finding: the audit that closes the registry is also the audit that finds the drift — eight raw hex, seven half-written token pairs, two missing focus rings and an error state documented for four versions but never implemented.`) and on the site (§ 23) — new entry ships open, previous entry closes.
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
 4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
-5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents).
+5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents; `tokens.dtcg.json` lives in the dtcg zip and moves with `tokens.css` — regenerated, never hand-edited).
 6. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
 7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 

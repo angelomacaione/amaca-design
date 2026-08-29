@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 3.5.0 · Released: 2026-08-26 · Matches the DESIGN.md frontmatter version
+Version: 4.0.0 · Released: 2026-08-29 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
@@ -56,13 +56,13 @@ Color never carries meaning alone (pair with shape + label) · no text < 12px, n
 ```
 ```html
 <label class="field">
-  <span class="field-label">EMAIL</span>
+  <span class="label">EMAIL</span>
   <input class="input" type="email" placeholder="you@studio">
 </label>
 ```
 ```css
-.field-label{ font-family:var(--font-mono); font-size:var(--t-micro);
-  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-400); }
+.label{ font-family:var(--font-mono); font-size:10px;
+  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-300); }
 .input{ background:var(--obsidian-900); border:1px solid var(--obsidian-700);
   border-radius:var(--r-md); padding:var(--s-3) var(--s-4); color:var(--obsidian-100); }
 .input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
