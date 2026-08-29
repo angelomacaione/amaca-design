@@ -235,6 +235,7 @@ html{scroll-behavior:smooth}
             <h2 class="subsection-title">What's inside</h2>
             <span class="subsection-num">§ 01.1</span>
           </div>
+          <p class="subsection-desc">The system in three layers — hard tokens at the base, components built strictly from them, and the applied patterns that compose both. Each layer cites the one below it, never the reverse.</p>
           <div class="grid grid-3">
             <div class="card">
               <div class="card-meta"><span>01 · Foundations</span><span>06</span></div>
@@ -259,6 +260,7 @@ html{scroll-behavior:smooth}
             <h2 class="subsection-title">The mark</h2>
             <span class="subsection-num">§ 01.2</span>
           </div>
+          <p class="subsection-desc">The symbol: three isometric cubes in motion forming a triangle, one cube per product. It ships as a fixed asset, and the shell renders it inside the brand tile.</p>
           <div class="grid grid-2" style="gap:var(--s-6);align-items:stretch">
             <div class="card" style="display:flex;align-items:center;justify-content:center;padding:var(--s-16);background:radial-gradient(400px 300px at 50% 50%, rgba(240,81,213,0.08), transparent 70%), var(--obsidian-900)">
               <img src="assets/logo.gif" alt="Amaca logo" style="width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(240,81,213,0.35))"/>
@@ -308,7 +310,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Interfaces are not static. Neither is this document.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-body)">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every entrance in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:12px;letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span>, the signature ease, living at <code>--ease-decel</code> since v2.0.0 — so the whole document feels like a single instrument, played deliberately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every entrance in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:var(--t-caption);letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span>, the signature ease, living at <code>--ease-decel</code> since v2.0.0 — so the whole document feels like a single instrument, played deliberately.</p>
             </div>
             <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
               <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
@@ -457,21 +459,21 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">01 · COWORK / CLAUDE CODE<br/><span style="color:var(--obsidian-400)">ANY ANTHROPIC RUNTIME</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the .skill bundle in.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the .skill bundle in.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Settings → Capabilities → Skills → upload <code>amaca-frontend.skill</code>. Restart the session. Invoke with <code>amaca-frontend</code> or just describe an Amaca task — the skill auto-triggers on context.</p>
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">02 · FIGMA<br/><span style="color:var(--obsidian-400)">— AGENT SKILL</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Install it like the Claude skill, invoke /amaca-figma.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Install it like the Claude skill, invoke /amaca-figma.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">In any Figma file: prompt box → attachment icon → <em>Skills</em> → <em>Add skill</em> → upload <code>amaca-figma.md</code>. Then <code>/amaca-figma</code>: it fetches the live spec first, generates with Amaca Variables, and self-audits in a verify loop — or audits a selection on canvas evidence. Code-side sync (tokens pushed as Variables over the Figma MCP) stays available through the <code>amaca-frontend</code> skill.</p>
               </div>
             </li>
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">03 · GOOGLE STITCH<br/><span style="color:var(--obsidian-400)">— DESIGN.MD</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Paste the spec into the project box.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Paste the spec into the project box.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Download <code>DESIGN.md</code> — the spec ships in the Google Labs <code>design.md</code> standard. On Stitch's <em>Start with your project</em> screen, paste it into the <em>existing DESIGN.md</em> box (or upload the file). Pick the most capable model for brand fidelity.</p>
                 <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.3 capability tiers.</p>
               </div>
@@ -479,7 +481,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">04 · CURSOR / VS CODE / WINDSURF · CONTINUE / AIDER<br/><span style="color:var(--obsidian-400)">— EDITORS &amp; ASSISTANTS</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the spec at your tool's rules path.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Drop the spec at your tool's rules path.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">These read markdown rules from your repo. Unzip <code>amaca-ide.zip</code> at the repo root — since v3.1.0 it ships core + per-target rules, attached only to the files they govern:</p>
                 <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-2);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-snug)">
                   <li style="display:grid;grid-template-columns:minmax(140px,auto) minmax(0,1fr);gap:var(--s-3)"><span style="color:var(--obsidian-100)">Cursor</span><code style="font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300)">.cursor/rules/amaca-core.mdc · amaca-html.mdc · amaca-react.mdc</code></li>
@@ -496,7 +498,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">05 · GEMINI ADVANCED<br/><span style="color:var(--obsidian-400)">— GEMS</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Spec as knowledge, instructions as system prompt.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Spec as knowledge, instructions as system prompt.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a new Gem. Paste the SKILL.md body (without YAML frontmatter) into <em>Instructions</em>. Upload DESIGN.md as the Gem's knowledge file. Save. That Gem now speaks Amaca for any frontend task.</p>
                 <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.3 capability tiers.</p>
               </div>
@@ -504,7 +506,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">06 · CHATGPT<br/><span style="color:var(--obsidian-400)">— CUSTOM GPT</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Same pattern as Gems.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Same pattern as Gems.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Create a Custom GPT. SKILL.md body as instructions. DESIGN.md as knowledge file. Same result.</p>
                 <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.3 capability tiers.</p>
               </div>
@@ -512,7 +514,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">07 · ONE-OFF<br/><span style="color:var(--obsidian-400)">ANY LLM CHAT</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Attach and prefix.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Attach and prefix.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Drop DESIGN.md inline in the chat. Prefix your prompt with <em>"Use this as the canonical reference for tokens, components, and voice — generate strictly compliant frontend code."</em> Lighter than the skill but works when nothing else does.</p>
                 <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:var(--s-3) 0 0">Frontier-tier model required. On lighter models the spec is read as passive context, not instructions — see § 03.3 capability tiers.</p>
               </div>
@@ -520,7 +522,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
               <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:4px">08 · REPLIT / LOVABLE / V0 / BOLT / BASE44<br/><span style="color:var(--obsidian-400)">— APP BUILDERS</span></div>
               <div>
-                <h3 style="font-size:18px;margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Feed the tokens, not the skill.</h3>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Feed the tokens, not the skill.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Prompt-to-app builders impose their own stack (usually React + Tailwind + shadcn) and treat a pasted spec as soft context. Give them the Tailwind <code>@theme</code> tokens as the project foundation — those travel; the enforcement workflow does not. Replit is closest (its Agent reads project files — drop a rules file). Base44 is the tightest (locked stack). Compliance is model- and platform-gated: a frontier model + tokens-as-foundation gets most of the way — verify with the § 03.3 scan.</p>
               </div>
             </li>
@@ -558,7 +560,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--magenta-500);box-shadow:0 0 12px var(--magenta-500)"></span>
                 <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400)">FRONTIER · RECOMMENDED</span>
               </div>
-              <h3 style="font-size:20px;margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Production-grade enforcement.</h3>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Production-grade enforcement.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Opus 4.x, Claude Sonnet 4.x, GPT-5, Gemini 3 Pro. Explicit tool calls to read DESIGN.md, syntactic token registry checks, gap-surfacing protocol invoked correctly, voice register maintained.</p>
               <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:0">Validated empirically: Gemini 3.1 Pro held strict Amaca compliance on a design-tool runtime.</p>
               <div style="display:flex;gap:var(--s-6);padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);margin-top:auto;flex-wrap:wrap;row-gap:var(--s-4)">
@@ -578,7 +580,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--obsidian-500)"></span>
                 <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">LIGHTWEIGHT · BEST-EFFORT</span>
               </div>
-              <h3 style="font-size:20px;margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Usable output, partial compliance.</h3>
+              <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Usable output, partial compliance.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Haiku, GPT-5 mini, Gemini 3 Flash. Token references are mostly canonical, principles are cited, structure is sound. Expect two weaknesses:</p>
               <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-3);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-loose)">
                 <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-3);align-items:start"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400);padding-top:3px">01</span><span><strong style="color:var(--obsidian-100);font-weight:500">Class name proliferation.</strong> New classes where canonical components would compose.</span></li>
@@ -734,6 +736,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Usage matrix</h2><span class="subsection-num">§ 04.6</span></div>
+          <p class="subsection-desc">One row per color token: value, sanctioned use, and the misuse to refuse. The 85/10/5 law decides the proportions; this matrix decides the placements.</p>
           <table class="table">
             <thead><tr><th>Token</th><th>Value</th><th>Use</th><th>Don't</th></tr></thead>
             <tbody>
@@ -802,6 +805,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Display scale</h2><span class="subsection-num">§ 05.1</span></div>
+          <p class="subsection-desc">The display end of the scale — hero and headline steps with size, leading, tracking, and weight declared per row. Negative tracking is part of the voice at this size, not a tweak.</p>
           <div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-display</span>112 / 1.05 / -4%<br/>Black · 900</div><p class="sample ty-display">Reshape.</p></div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-h1</span>76 / 1.05 / -4%<br/>Bold · 700</div><p class="sample ty-h1">Design that compounds.</p></div>
@@ -814,6 +818,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Text scale</h2><span class="subsection-num">§ 05.2</span></div>
+          <p class="subsection-desc">The text scale, lede to micro: the steps running copy actually uses. Each row declares its size and leading — reference the token, never the number.</p>
           <div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-lead</span>18 / 1.65<br/>Regular · 400</div><p class="sample ty-lead">Lede paragraph. Sits under page titles. Used once per page to set the register before body text takes over.</p></div>
             <div class="type-specimen"><div class="spec"><span class="token">--t-body</span>15 / 1.45<br/>Regular · 400</div><p class="sample ty-body">Body copy. Reads comfortably at 62–72 characters per line. Default for paragraphs, long-form notes, and case studies. Leading stays loose to respect the dark background — tight type on dark surfaces strains eyes.</p></div>
@@ -824,6 +829,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Weights available</h2><span class="subsection-num">§ 05.3</span></div>
+          <p class="subsection-desc">The Satoshi weights the system ships. One typeface carries every register — the mono voice is Satoshi too, tracked and upper-cased, never a second family.</p>
           <div class="grid grid-3">
             <div class="card"><div style="font-weight:300;font-size:26px;margin-bottom:8px">Light 300</div><div class="ty-mono" style="font-size:var(--t-micro)">Satoshi-Light</div></div>
             <div class="card"><div style="font-weight:400;font-size:26px;margin-bottom:8px">Regular 400</div><div class="ty-mono" style="font-size:var(--t-micro)">Satoshi-Regular</div></div>
@@ -836,6 +842,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Pairing rules</h2><span class="subsection-num">§ 05.4</span></div>
+          <p class="subsection-desc">Numbered rules for combining the scale: tracking bounds, weight pairings, the register mixes that hold. Pair inside them.</p>
           <div class="alert"><span class="tag">Rule 01</span>Headlines always negative track. Never tighter than −4%, never looser than −2%.</div>
           <div style="height:8px"></div>
           <div class="alert"><span class="tag">Rule 02</span>Mono is metadata only. Timestamps, token names, labels, status — never prose.</div>
@@ -854,6 +861,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 06.1</span></div>
+          <p class="subsection-desc">The spacing scale: a 4px grid from <code>--s-0</code> to <code>--s-32</code>. Every gap, inset, and rhythm in the system is one of these steps.</p>
           <div class="card">
             <div class="ruler-row"><span class="tok">--s-0</span><span class="val">0 px</span><div class="bar" style="width:1px;background:var(--obsidian-600)"></div></div>
             <div class="ruler-row"><span class="tok">--s-1</span><span class="val">4 px</span><div class="bar" style="width:4px"></div></div>
@@ -874,6 +882,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Where to reach</h2><span class="subsection-num">§ 06.2</span></div>
+          <p class="subsection-desc">Where to reach on the scale for the common cases — icon gaps, button padding, card rhythm, section breath. The fastest route from a layout decision to its token.</p>
           <table class="table">
             <thead><tr><th>Context</th><th>Token</th><th>Notes</th></tr></thead>
             <tbody>
@@ -898,20 +907,22 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 07.1</span></div>
+          <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
           <div class="grid grid-4">
             <div class="demo-tile" style="border-radius:0"><div class="name">None</div><div class="tok">--r-none · 0</div></div>
-            <div class="demo-tile" style="border-radius:2px"><div class="name">Extra-small</div><div class="tok">--r-xs · 2px</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-xs)"><div class="name">Extra-small</div><div class="tok">--r-xs · 2px</div></div>
             <div class="demo-tile" style="border-radius:var(--r-sm)"><div class="name">Small</div><div class="tok">--r-sm · 4px</div></div>
-            <div class="demo-tile" style="border-radius:8px"><div class="name">Medium</div><div class="tok">--r-md · 8px</div></div>
-            <div class="demo-tile" style="border-radius:12px"><div class="name">Large</div><div class="tok">--r-lg · 12px</div></div>
-            <div class="demo-tile" style="border-radius:16px"><div class="name">X-large</div><div class="tok">--r-xl · 16px</div></div>
-            <div class="demo-tile" style="border-radius:24px"><div class="name">2X-large</div><div class="tok">--r-2xl · 24px</div></div>
-            <div class="demo-tile" style="border-radius:999px"><div class="name">Full</div><div class="tok">--r-full</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-md)"><div class="name">Medium</div><div class="tok">--r-md · 8px</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-lg)"><div class="name">Large</div><div class="tok">--r-lg · 12px</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-xl)"><div class="name">X-large</div><div class="tok">--r-xl · 16px</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-2xl)"><div class="name">2X-large</div><div class="tok">--r-2xl · 24px</div></div>
+            <div class="demo-tile" style="border-radius:var(--r-full)"><div class="name">Full</div><div class="tok">--r-full</div></div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 07.2</span></div>
+          <p class="subsection-desc">Four shadow levels and the two brand glows. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline.</p>
           <div class="grid grid-3">
             <div class="demo-tile" style="box-shadow:var(--sh-1);border-radius:var(--r-md)"><div class="name">Level 1</div><div class="tok">--sh-1 · subtle</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-2);border-radius:var(--r-md)"><div class="name">Level 2</div><div class="tok">--sh-2 · card</div></div>
@@ -933,6 +944,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 08.1</span></div>
+          <p class="subsection-desc">The motion vocabulary at a glance: four easings and where each belongs, with the durations they usually ride. The pairing rules are in § 08.3.</p>
           <div class="card">
             <div class="motion-row">
               <div class="label">STANDARD
@@ -961,6 +973,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Duration tokens</h2><span class="subsection-num">§ 08.2</span></div>
+          <p class="subsection-desc">Six duration tokens, each named for a job. Stat count-up is a RIGID rule: numeric stats and KPIs compose from zero to their target riding <code>--d-draw</code> · <code>--ease-decel</code> and land exactly on the final value; under reduced motion they jump straight to it.</p>
           <table class="table">
             <thead><tr><th>Token</th><th>ms</th><th>Use</th></tr></thead>
             <tbody>
@@ -972,11 +985,11 @@ Basic UI</div>
               <tr><td><code>--d-draw</code></td><td>1200</td><td class="muted">Chart draw-on, count-up, progressive data reveals</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Stat count-up is a RIGID rule: numeric stats and KPIs compose from zero to their target riding <code>--d-draw</code> · <code>--ease-decel</code> and land exactly on the final value; under reduced motion they jump straight to it.</p>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Easing tokens &amp; pairing</h2><span class="subsection-num">§ 08.3</span></div>
+          <p class="subsection-desc">The trigger decides the pairing: user-triggered states ride <code>--d-quick</code> · <code>--ease-standard</code>; system-triggered transitions — content entering, leaving, or moving without a direct pointer cause — ride <code>--d-base</code> · <code>--ease-decel</code>. Spatial vs Effects is a RIGID rule: every animated property has a type, and the type gates the easing. Spatial properties — transform, position, size, shape — may use any easing, including <code>--ease-spring</code>. Effect properties — color, background, opacity, shadow — use no-overshoot curves only; <code>--ease-spring</code> on an effect property is off-system, and greppable per line.</p>
           <table class="table">
             <thead><tr><th>Token</th><th>Curve</th><th>Use</th></tr></thead>
             <tbody>
@@ -986,13 +999,11 @@ Basic UI</div>
               <tr><td><code>--ease-spring</code></td><td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td class="muted">Pop-in, delight, overshoot — spatial properties only</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">The trigger decides the pairing: user-triggered states ride <code>--d-quick</code> · <code>--ease-standard</code>; system-triggered transitions — content entering, leaving, or moving without a direct pointer cause — ride <code>--d-base</code> · <code>--ease-decel</code>.</p>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Spatial vs Effects is a RIGID rule: every animated property has a type, and the type gates the easing. Spatial properties — transform, position, size, shape — may use any easing, including <code>--ease-spring</code>. Effect properties — color, background, opacity, shadow — use no-overshoot curves only; <code>--ease-spring</code> on an effect property is off-system, and greppable per line.</p>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion per component</h2><span class="subsection-num">§ 08.4</span></div>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-bottom:var(--s-4)">Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs. The Motion column accepts token pairs only; the Property column declares the type (spatial / effect) so the rule above is checkable on the row itself; the Reduced motion column uses a closed vocabulary — <code>instant</code> · <code>fade-only</code> · <code>none</code> — recording only how the component lands when the global kill-switch (§ 21.3) fires.</p>
+          <p class="subsection-desc">Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs. The Motion column accepts token pairs only; the Property column declares the type (spatial / effect) so the rule above is checkable on the row itself; the Reduced motion column uses a closed vocabulary — <code>instant</code> · <code>fade-only</code> · <code>none</code> — recording only how the component lands when the global kill-switch (§ 21.3) fires. Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops are a ratified class: they run while the component is mounted, on per-component literal clocks — the <code>--d-*</code> scale describes perceived transitions, not idle rhythm. Mechanical loops ride <code>linear</code> (or <code>steps</code>), never an easing curve; every loop is ratified by its own <em>loop</em> row above, and a loop literal without a row is drift — the raw-duration grep exception covers exactly this list, nothing else.</p>
           <table class="table">
             <thead><tr><th>Component</th><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
@@ -1023,7 +1034,6 @@ Basic UI</div>
               <tr><td>A11y caret (demo)</td><td>idle (loop)</td><td class="muted">caret opacity blink (effect)</td><td class="muted">1s · steps(1) · infinite</td><td class="muted">stopped by the kill-switch</td></tr>
             </tbody>
           </table>
-          <p class="ty-small" style="color:var(--obsidian-300);margin-top:var(--s-3)">Seeded with the site-canonical patterns; every new component ships its rows here — and in DESIGN.md § Motion — in the same release. Continuous loops are a ratified class: they run while the component is mounted, on per-component literal clocks — the <code>--d-*</code> scale describes perceived transitions, not idle rhythm. Mechanical loops ride <code>linear</code> (or <code>steps</code>), never an easing curve; every loop is ratified by its own <em>loop</em> row above, and a loop literal without a row is drift — the raw-duration grep exception covers exactly this list, nothing else.</p>
         </div>
       </section>
 
@@ -1037,6 +1047,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The grid</h2><span class="subsection-num">§ 09.1</span></div>
+          <p class="subsection-desc">The page grid — twelve columns compressing to eight, then four. Columns are page anatomy; the component grid presets in § 09.3 handle everything inside a section.</p>
           <div class="card grid-demo-card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs aria-label="Breakpoint">
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="grid-bp-desktop">Desktop · 12</button>
@@ -1084,6 +1095,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Breakpoints</h2><span class="subsection-num">§ 09.2</span></div>
+          <p class="subsection-desc">The four breakpoints with their columns and gutters. Layout changes at these widths and nowhere else.</p>
           <table class="table">
             <thead><tr><th>Name</th><th>Min width</th><th>Columns</th><th>Gutter</th></tr></thead>
             <tbody>
@@ -1097,6 +1109,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Common layouts</h2><span class="subsection-num">§ 09.3</span></div>
+          <p class="subsection-desc">The compositions the system ships — sidebar and content, hero three-up, editorial split — and how each reflows down the breakpoints.</p>
           <div class="card grid-demo-card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs aria-label="Layout breakpoint">
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="layouts-desktop">Desktop · 12</button>
@@ -1116,7 +1129,7 @@ Basic UI</div>
                   </div>
                   <div class="card">
                     <div class="card-meta"><span>Hero · three-up</span><span>Landing</span></div>
-                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:var(--r-sm);height:40px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;flex:1"><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div></div></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:var(--r-sm);height:40px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-1);flex:1"><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div></div></div>
                   </div>
                   <div class="card">
                     <div class="card-meta"><span>Editorial · split</span><span>Case study</span></div>
@@ -1135,7 +1148,7 @@ Basic UI</div>
                   </div>
                   <div class="card">
                     <div class="card-meta"><span>Hero · three-up</span><span>Landing</span></div>
-                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:var(--r-sm);height:34px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;flex:1"><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div></div></div>
+                    <div style="display:flex;flex-direction:column;gap:6px;height:80px"><div style="background:rgba(240,81,213,0.15);border:1px dashed rgba(240,81,213,0.3);border-radius:var(--r-sm);height:34px"></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-1);flex:1"><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div><div style="background:var(--obsidian-850);border-radius:var(--r-sm)"></div></div></div>
                   </div>
                   <div class="card">
                     <div class="card-meta"><span>Editorial · split</span><span>Case study</span></div>
@@ -1177,27 +1190,30 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 10.1</span></div>
+          <p class="subsection-desc">The button variants, one job each. One primary per screen; everything else supports it.</p>
           <div class="card" style="padding:var(--s-10);display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center">
-            <button class="btn btn-primary" style="padding: 12px 24px">Primary action</button>
-            <button class="btn btn-secondary" style="padding: 12px 24px">Secondary</button>
-            <button class="btn btn-outline" style="padding: 12px 24px">Outline</button>
-            <button class="btn btn-ghost" style="padding: 12px 24px">Ghost</button>
-            <button class="btn btn-danger" style="padding: 12px 24px">Delete project</button>
-            <button class="btn btn-primary" style="padding: 12px 24px" disabled>Disabled</button>
+            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)">Primary action</button>
+            <button class="btn btn-secondary" style="padding: var(--s-3) var(--s-6)">Secondary</button>
+            <button class="btn btn-outline" style="padding: var(--s-3) var(--s-6)">Outline</button>
+            <button class="btn btn-ghost" style="padding: var(--s-3) var(--s-6)">Ghost</button>
+            <button class="btn btn-danger" style="padding: var(--s-3) var(--s-6)">Delete project</button>
+            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)" disabled>Disabled</button>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Sizes</h2><span class="subsection-num">§ 10.2</span></div>
+          <p class="subsection-desc">Three sizes — 32, 40, 48 — and the default is the middle one. Size signals density, not importance: the variant does that.</p>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm">Small · 32</button>
-            <button class="btn btn-primary" style="padding: 12px 24px">Default · 40</button>
-            <button class="btn btn-primary btn-lg" style="padding: 16px 32px">Large · 48</button>
+            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)">Default · 40</button>
+            <button class="btn btn-primary btn-lg" style="padding: var(--s-4) var(--s-8)">Large · 48</button>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">With icons</h2><span class="subsection-num">§ 10.3</span></div>
+          <p class="subsection-desc">Icon-and-label compositions, leading and trailing. The gap is <code>--s-2</code>, always; the label stays.</p>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
             <button class="btn btn-primary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg> New case study</button>
             <button class="btn btn-outline">View all <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3l5 5-5 5"/></svg></button>
@@ -1217,6 +1233,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Fields</h2><span class="subsection-num">§ 11.1</span></div>
+          <p class="subsection-desc">Every field in one place — text, search, select, textarea — labels persistent, helper text below. States live in the contract's state matrix; error is <code>aria-invalid</code>, never color alone.</p>
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div class="field" style="margin-bottom:var(--s-4)">
@@ -1300,7 +1317,7 @@ Basic UI</div>
                 <span class="help error">Required when the field is mandatory and left empty on submit.</span>
               </div>
             </div>
-            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-300)">
               <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
                 <span style="color:var(--magenta-400)">H1</span><span>max <code>2</code></span>
@@ -1391,7 +1408,7 @@ Basic UI</div>
                 <span class="help error">Not a real date — calendar validation runs on blur, after the mask.</span>
               </div>
             </div>
-            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-300)">
               <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">DIGIT-BY-DIGIT RULES</div>
               <div style="display:grid;grid-template-columns:auto 1fr;gap:var(--s-2) var(--s-4);align-items:baseline">
                 <span style="color:var(--magenta-400)">D1</span><span>max <code>3</code></span>
@@ -1454,7 +1471,7 @@ Basic UI</div>
                 <span class="help" data-range-help>Select start and end. Range count appears here.</span>
               </div>
             </div>
-            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:12px;line-height:var(--lh-loose);color:var(--obsidian-300)">
+            <div class="card" style="padding:var(--s-6);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-300)">
               <div style="color:var(--obsidian-500);font-size:var(--t-caption);letter-spacing:var(--tr-mono);margin-bottom:var(--s-3)">SELECTION RULES</div>
               <ul style="margin:0;padding-left:var(--s-4);display:flex;flex-direction:column;gap:var(--s-2)">
                 <li>Click 1 → start. Hover preview shows tentative range.</li>
@@ -1533,25 +1550,26 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Project card</h2><span class="subsection-num">§ 12.1</span></div>
+          <p class="subsection-desc">The project card: micro-header, media, title, body, and at most one action. Surfaces ride the card ramp; the media scales on hover, the card itself never lifts.</p>
           <div class="grid grid-3">
             <div class="card">
               <div class="card-meta" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
               <div class="card-actions" data-fade><button type="button" class="btn btn-secondary">Open case file</button></div>
             </div>
             <div class="card">
               <div class="card-meta" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:1px dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
             <div class="card">
               <div class="card-meta" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Field · observability app</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:13px;margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
+              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-projects" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
@@ -1559,6 +1577,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Stat card</h2><span class="subsection-num">§ 12.2</span></div>
+          <p class="subsection-desc">The stat card: a quiet data surface on the same ramp as the project card. One number, one accent at most, and the delta keeps its sign — color never carries direction alone.</p>
           <div class="grid grid-4">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Retention · D30</span><span class="s" data-fade>CS-017</span></div>
@@ -1595,6 +1614,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 13.1</span></div>
+          <p class="subsection-desc">The badge variants: semantic color plus the dot. Shape and label carry the state; the tint reinforces it.</p>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
             <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
@@ -1608,6 +1628,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">In context</h2><span class="subsection-num">§ 13.2</span></div>
+          <p class="subsection-desc">Badges in running context — rows, cards, headers — where they annotate a noun rather than announce a state.</p>
           <div class="card" style="padding:var(--s-6)">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:var(--t-body)">Arc Automotive HMI</div><div class="ty-small" style="margin-top:2px">2024–2025 · 18 months</div></div><span class="badge badge-success"><span class="dot"></span>Shipped</span></div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:var(--t-body)">Project Orion — IoT platform</div><div class="ty-small" style="margin-top:2px">2025–2026 · ongoing</div></div><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
@@ -1756,6 +1777,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 14.1</span></div>
+          <p class="subsection-desc">The marketing top bar and how it degrades: full nav down to the burger, badge and call-to-action last to leave.</p>
           <div class="card grid-demo-card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs aria-label="Navigation breakpoint">
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="nav-desktop">Desktop · 12</button>
@@ -1835,6 +1857,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Breadcrumbs</h2><span class="subsection-num">§ 14.2</span></div>
+          <p class="subsection-desc">Breadcrumbs in the mono register: the path recedes, the current page is lit. Component spec: § 3.23 in the contract.</p>
           <div class="card" style="padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)">
             <div class="breadcrumb"><span>Work</span><span class="sep">/</span><span>Case studies</span><span class="sep">/</span><span class="active">Arc Automotive HMI</span></div>
             <div class="breadcrumb"><span>Journal</span><span class="sep">/</span><span>2026</span><span class="sep">/</span><span class="active">On systems that outlive the work</span></div>
@@ -1843,6 +1866,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Tabs</h2><span class="subsection-num">§ 14.3</span></div>
+          <p class="subsection-desc">Tabs with one shared indicator that travels — 2px of magenta, transform-driven. The panel swaps as the indicator lands.</p>
           <div class="card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs>
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="cs-overview">Overview</button>
@@ -1874,7 +1898,7 @@ Basic UI</div>
           <p class="subsection-desc">Used inside case-study briefs and project requirements lists. Opening one panel closes the others — keeps the eye anchored. First item is open on mount so the surface never reads as inert.</p>
           <div class="accordion" data-accordion>
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="acc-1" style="border-radius: 0px; padding: 16px 24px 16px 20px">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="acc-1" style="border-radius: 0px; padding: var(--s-4) var(--s-6) var(--s-4) var(--s-5)">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">Expandable topics</span>
                 <span class="acc-num">01 / 04</span>
@@ -1968,6 +1992,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy &amp; rules</h2><span class="subsection-num">§ 15.3</span></div>
+          <p class="subsection-desc">Each part of the accordion with the rule that governs it — hit target, single control, chevron direction, duration by measured height.</p>
           <table class="table">
             <thead><tr><th style="width:24%">Part</th><th>Rule</th></tr></thead>
             <tbody>
@@ -2745,13 +2770,14 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 19.1</span></div>
+          <p class="subsection-desc">Line and area: one series lit, the rest recede. The draw-on traces once on reveal — data motion is information, not decoration.</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t" data-fade>Task time · Arc HMI</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Median, seconds to complete priority flow</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge" data-fade>2026 baseline</span></div>
+              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>2026 baseline</span></div>
             </div>
             <svg data-fade-chart viewBox="0 0 700 260" style="width:100%;height:auto">
               <defs>
@@ -2811,6 +2837,7 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 19.2</span></div>
+          <p class="subsection-desc">Bars for comparison, labeled at the value. One accent series against neutrals — 85/10/5 applies to data too.</p>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
@@ -2861,6 +2888,7 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 19.3</span></div>
+          <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.26 in the contract.</p>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
@@ -2918,6 +2946,7 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 19.4</span></div>
+          <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series — and nothing outside them.</p>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
@@ -2942,13 +2971,14 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 19.5</span></div>
+          <p class="subsection-desc">The gantt: workstreams across weeks, diamonds for milestones. Time reads left to right on the neutral grid; state reads from the fill.</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t" data-fade>Project · Orion launch</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Five workstreams across twelve weeks. Diamonds mark milestones. Dashed line is today.</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge" data-fade>5 lanes</span></div>
+              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>5 lanes</span></div>
             </div>
             <svg viewBox="0 0 700 290" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
               <defs>
@@ -3067,13 +3097,14 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 19.6</span></div>
+          <p class="subsection-desc">The stepper: completed segments fill, the active step breathes, upcoming stay quiet. Progress is shape and fill first, color second.</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t" data-fade>Checkout · order flow</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Five steps. Completed segments fill in. The active step pulses; upcoming stays outlined.</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge" data-fade>Step 3 of 5</span></div>
+              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>Step 3 of 5</span></div>
             </div>
             <svg class="stepper-svg" viewBox="0 0 700 170" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
               <defs>
@@ -3165,13 +3196,14 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 19.7</span></div>
+          <p class="subsection-desc">The linear meter: animates from zero to its target on view and lands exactly — the stat count-up contract, horizontal. The percentage is stated in text beside the bar.</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t" data-fade>Checkout · completion</div>
                 <div class="ty-small" data-fade style="margin-top:4px">Linear meter. Animates from 0 to its target on view.</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge" data-fade>60% complete</span></div>
+              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>60% complete</span></div>
             </div>
             <svg viewBox="0 0 700 80" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
               <defs>
@@ -3233,14 +3265,14 @@ flowchart TD
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 19.8</span></div>
-          <p class="subsection-desc">A dot-density world drawn as a honeycomb. The landmass isn't hand-drawn: it's the public-domain <strong style="color:var(--obsidian-100)">Natural Earth 1:110m</strong> dataset (loaded as TopoJSON via <code>world-atlas</code>), rasterised into the hex grid by canvas sampling — the canonical d3 dotted-map pipeline — and every node is placed at its true longitude / latitude. The land is a single neutral obsidian fill — quiet, the 85% — so the status hexes are the only thing that reads as data. Every fill is a token, no hardcoded hex; color is always paired with a label in the legend (§ 6 #1).</p>
+          <p class="subsection-desc">A dot-density world drawn as a honeycomb. The landmass isn't hand-drawn: it's the public-domain <strong style="color:var(--obsidian-100)">Natural Earth 1:110m</strong> dataset (loaded as TopoJSON via <code>world-atlas</code>), rasterised into the hex grid by canvas sampling — the canonical d3 dotted-map pipeline — and every node is placed at its true longitude / latitude. The land is a single neutral obsidian fill — quiet, the 85% — so the status hexes are the only thing that reads as data. Every fill is a token, no hardcoded hex; color is always paired with a label in the legend (§ 6 #1). One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
                 <div class="t">Deployments · worldwide</div>
                 <div class="ty-small" style="margin-top:4px">Edge nodes by status · 2026 Q2</div>
               </div>
-              <div style="display:flex;gap:8px"><span class="badge badge-success"><span class="dot"></span> Live</span></div>
+              <div style="display:flex;gap:var(--s-2)"><span class="badge badge-success"><span class="dot"></span> Live</span></div>
             </div>
             <div class="hexmap" data-hexmap>
               <svg class="hexmap-svg" id="hexmap-svg" role="img" aria-label="Honeycomb world map of edge deployments by status. Most nodes are primary hubs across North America, Europe, Asia and Africa; a handful flag high load or an active incident; two dense clusters sit over North America and Europe, and one over the Indian Ocean region."></svg>
@@ -3253,7 +3285,6 @@ flowchart TD
               <span class="hm-key"><span class="hm-sw hm-cluster"></span> Dense cluster</span>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
         </div>
 
         <div class="subsection">
@@ -3285,16 +3316,18 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 20.1</span></div>
+          <p class="subsection-desc">The voice attributes, each with the grammar that enforces it — active voice, subject before verb, claims tied to evidence.</p>
           <div class="grid grid-4">
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers when you have them, scope when you don't.</p></div>
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">03</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Honest</h4><p class="ty-small" style="margin:0">Name the tradeoffs. Name the dead ends. No mythologizing.</p></div>
-            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">04</div><h4 style="font-size:20px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Considered</h4><p class="ty-small" style="margin:0">No filler, no flourish. Every sentence earns its place.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">01</div><h4 style="font-size:var(--t-h6);margin:0 0 6px;letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">02</div><h4 style="font-size:var(--t-h6);margin:0 0 6px;letter-spacing:var(--tr-snug)">Specific</h4><p class="ty-small" style="margin:0">Numbers when you have them, scope when you don't.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">03</div><h4 style="font-size:var(--t-h6);margin:0 0 6px;letter-spacing:var(--tr-snug)">Honest</h4><p class="ty-small" style="margin:0">Name the tradeoffs. Name the dead ends. No mythologizing.</p></div>
+            <div class="card"><div class="ty-mono" style="color:var(--magenta-400);margin-bottom:8px">04</div><h4 style="font-size:var(--t-h6);margin:0 0 6px;letter-spacing:var(--tr-snug)">Considered</h4><p class="ty-small" style="margin:0">No filler, no flourish. Every sentence earns its place.</p></div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 20.2</span></div>
+          <p class="subsection-desc">Voice by example: the same message said in-system and off-system, side by side.</p>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This pattern didn't work in early testing. Users read 'send' as destructive, so we changed the label to 'queue for review."</p></div>
             <div class="dont"><div class="hd"><span>✗</span>Don't</div><p>"Through iterative exploration and rigorous testing, we arrived at an optimal labeling solution that better aligned with user mental models."</p></div>
@@ -3307,6 +3340,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 20.3</span></div>
+          <p class="subsection-desc">The lexicon: the word to use, the words it replaces, and why. Concrete beats inflated everywhere copy ships.</p>
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
             <tbody>
@@ -3839,6 +3873,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         <!-- § 23.4 — rules -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 23.4</span></div>
+          <p class="subsection-desc">The presentation rules: one magenta moment per slide, neutrals for everything else, evidence over adjectives.</p>
           <div class="do-dont">
             <div class="do">
               <div class="hd"><span>✓</span>Do</div>
@@ -4570,7 +4605,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Breaking changes</h4>
                   <p style="margin:0 0 var(--s-4)">This release shifts the <strong style="color:var(--obsidian-100)">values</strong> of the motion system. Token <strong style="color:var(--obsidian-100)">names</strong> are unchanged. If you reference Amaca tokens in another project, audit motion before upgrading.</p>
 
-                  <h4 style="font-size:13px;margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Easing values reassigned</h4>
+                  <h4 style="font-size:var(--t-small);margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Easing values reassigned</h4>
                   <p style="margin:0 0 var(--s-4)">The four easing tokens kept their names. The curves under them moved to better match what the names mean.</p>
                   <table class="table table-contrast" style="margin-bottom:var(--s-4)">
                     <thead><tr><th style="width:30%">Token</th><th>Before</th><th>After</th></tr></thead>
@@ -4584,7 +4619,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <p style="margin:0 0 var(--s-4)">The curve <code>cubic-bezier(0.16, 1, 0.3, 1)</code> — the system signature — now lives where it semantically belongs: <code>--ease-decel</code>. Use it for entrances and reveals, where the slow tail in the curve has always been doing decel work. <code>--ease-standard</code> is now the Framer ease, sized for everyday UI state changes (hover, focus, button press).</p>
                   <p style="margin:0 0 var(--s-5)"><strong style="color:var(--obsidian-100)">Migration:</strong> if a component was relying on <code>--ease-standard</code> <em>to behave like the old signature curve</em>, switch it to <code>--ease-decel</code>. If it was using <code>--ease-standard</code> for generic UI feedback, leave it — the new curve does the job.</p>
 
-                  <h4 style="font-size:13px;margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Duration values rebalanced</h4>
+                  <h4 style="font-size:var(--t-small);margin:var(--s-5) 0 var(--s-3);letter-spacing:var(--tr-snug);color:var(--obsidian-200)">Duration values rebalanced</h4>
                   <p style="margin:0 0 var(--s-4)">The five duration tokens have been restretched. Names unchanged — only values shift. The new scale stretches the slower end (more breathing room on entrances and orchestrated reveals) and grounds the faster end on round numbers.</p>
                   <table class="table table-contrast" style="margin-bottom:var(--s-4)">
                     <thead><tr><th style="width:30%">Token</th><th>Before</th><th>After</th></tr></thead>
@@ -7047,7 +7082,7 @@ new MutationObserver(muts => {
       timers.forEach(clearTimeout); timers = [];
       chatBubble.innerHTML = originalHTML;
       timers.push(setTimeout(function(){
-        chatBubble.innerHTML = '<span>Sure — generating the magenta ramp now. Want it scoped to <code style="font-size:var(--t-caption);padding:1px 4px;background:var(--obsidian-900);border:1px solid var(--obsidian-700);border-radius:var(--r-xs);color:var(--magenta-300)">--magenta-*</code>?</span>';
+        chatBubble.innerHTML = '<span>Sure — generating the magenta ramp now. Want it scoped to <code style="font-size:var(--t-caption);padding:1px var(--s-1);background:var(--obsidian-900);border:1px solid var(--obsidian-700);border-radius:var(--r-xs);color:var(--magenta-300)">--magenta-*</code>?</span>';
       }, 2200));
       timers.push(setTimeout(function(){
         chatBubble.innerHTML = originalHTML;
