@@ -953,6 +953,30 @@ def c28():
 
 # ─────────────────────────────────────────────────────────────────────────────
 
+@check("29", "A download that states its own version agrees with its own history",
+       "2026-09-09: downloads/amaca-figma.md carried metadata.version 1.4 while "
+       "its Version history had led with v1.5 since 2026-08-05 — the body shipped, "
+       "the stamp did not. Check 14 counts the places the SYSTEM states its "
+       "version and check 21 the document's own line; neither reaches into the "
+       "frontmatter of a deliverable that versions independently. Anyone who "
+       "installed it read 1.4 and got the 1.5 body, and the site's last word on "
+       "the skill was still v1.4. A deliverable that carries its own SemVer needs "
+       "its own parity guard.")
+def c29():
+    fails = []
+    for path in sorted((ROOT / "downloads").glob("*.md")):
+        text = read(path)
+        stamp = re.search(r"^\s*version:\s*[\"']?(\d+\.\d+(?:\.\d+)?)[\"']?\s*$", text, re.M)
+        if not stamp:
+            continue                      # a download without its own SemVer is out of scope
+        top = re.search(r"^- \*\*v(\d+\.\d+(?:\.\d+)?)\b", text, re.M)
+        if not top:
+            fails.append(f"{path.name}: states version {stamp.group(1)} and has no Version history to agree with")
+            continue
+        if stamp.group(1) != top.group(1):
+            fails.append(f"{path.name}: frontmatter says {stamp.group(1)}, its history leads with v{top.group(1)}")
+    return fails
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

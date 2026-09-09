@@ -1262,6 +1262,7 @@ When you generate UI code, you must:
 6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship. When it does ship, spec it in the § Motion grammar — token pair, property type (spatial/effect), reduced-motion behavior — and remember `--ease-spring` rides spatial properties only.
 7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
 8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
+9. **Reproduce a composite value verbatim.** A gradient, a shadow, a font stack is a value with *parts* — stops, layers, families. Copying its shape instead of its content invents a value, it does not simplify one: a shadow that drops its inset layer, a gradient with two stops where the token declares three, a font stack two families short. When you materialize the token layer, **count the parts** and compare each against § 2. Rule 1 forbids inventing a value where a token exists; this one forbids misquoting the token you did use — and it is the harder failure to see, because the layer still reads as token-only.
 
 ### Principles · five rules, exceptions earn their keep
 
@@ -1353,6 +1354,7 @@ These have all been tried in this system and rejected.
 | Raw duration literal (`600ms`) in component CSS | Use `var(--d-*)`. Ratified continuous loops are the only exception. |
 | `--ease-spring` on an effect property (color, background, opacity, shadow) | Spatial properties only — § Motion RIGID. |
 | `font-size: 14px` in component CSS | Use `var(--t-small)` (13px) or `var(--t-body)` (15px) — pick a side. |
+| A composite token retyped with fewer parts — a shadow without its inset layer, a gradient missing a stop, a shortened font stack | The layer reads as token-only and is off-system in the value itself. Count the parts (§ Do's #9). |
 
 > **Extension sections** — beyond the eight canonical `design.md` sections. They carry Amaca's full spec where the standard has no slot; consumers that only read the canonical eight can ignore them safely.
 
