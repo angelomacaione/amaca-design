@@ -61,6 +61,20 @@ def read(p):
     return p.read_text(encoding="utf-8") if p.exists() else ""
 
 
+def _changelog(design):
+    """The body of § Changelog, anchored on the heading at line start.
+
+    A plain find("## Changelog") also matches the inline citation inside the
+    § Versioning release checklist, and that is how three release entries came
+    to live inside step 2 and stayed invisible for three releases: the naive
+    slice began at the citation, so the first `### v` it saw was the misplaced
+    entry itself and check 14 read it as agreement. The check was right; its
+    slice was not. 2026-09-11.
+    """
+    m = re.search(r"^## Changelog\s*$", design, re.M)
+    return design[m.start():] if m else ""
+
+
 _MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
@@ -392,7 +406,7 @@ def c14():
             fails.append(f"index.html: {name} does not read {v}")
     if not re.search(rf"Version:\s*{re.escape(v)}\b", read(LLMS_FULL)):
         fails.append(f"llms-full.txt: version line does not read {v}")
-    top = re.search(r"^### v(\S+)", design[design.find("## Changelog"):], re.M)
+    top = re.search(r"^### v(\S+)", _changelog(design), re.M)
     if top and top.group(1) != v:
         fails.append(f"DESIGN.md: top changelog entry is v{top.group(1)}, frontmatter is {v}")
     # the two plugin manifests, read from the baked package: a stale bundle is
@@ -421,7 +435,7 @@ def c15():
     design = read(DESIGN)
     html = read(INDEX)
     fails = []
-    m = re.search(r"^### v(\S+)", design[design.find("## Changelog"):], re.M)
+    m = re.search(r"^### v(\S+)", _changelog(design), re.M)
     site = re.search(r'<span class="acc-label">v(\S+?)\s*(?:&mdash;|—)', html)
     if m and site and m.group(1) != site.group(1):
         fails.append(f"top entry differs: spec v{m.group(1)} vs site v{site.group(1)}")
@@ -628,7 +642,7 @@ def c23():
 
     if not re.search(rf"^last_synced:\s*{re.escape(iso)}\s*$", design, re.M):
         fails.append(f"DESIGN.md: `last_synced` does not read {iso}")
-    top = re.search(r"^### v\S+ — (\S+)", design[design.find("## Changelog"):], re.M)
+    top = re.search(r"^### v\S+ — (\S+)", _changelog(design), re.M)
     if top and top.group(1) != dotted:
         fails.append(f"DESIGN.md: the top changelog entry is dated {top.group(1)}, `updated` is {dotted}")
 
