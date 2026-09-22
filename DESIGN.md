@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 4.0.0
-updated: 2026-08-29
+version: 4.1.0
+updated: 2026-09-23
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-08-29
+last_synced: 2026-09-23
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.0.0 — 2026.08.29
+> **Version** 4.1.0 — 2026.09.23
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -340,10 +340,10 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` | canonical | § 3.25 |
 | Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
-| Info strip | `.info-strip` | deprecated | alias of § 3.18 Alert. Kept working; removal is scheduled for v4.0.0. New markup uses `.alert` |
+| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
 | Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.chip` `.do` `.dont` `.do-dont` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. `.chip` in particular is a colour swatch on the doc site, **not** a chip/tag component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -354,7 +354,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | State | Background | Border | Foreground | Ring | Other |
 |---|---|---|---|---|---|
 
-**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`.
+**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`.
 
 **Rules of the grammar:**
 - Cells accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), or `native` (the browser's own treatment, deliberately not overridden). Never raw values. The two ratified rgba() literals — the `0 0 0 3px rgba(240,81,213,0.15)` field glow and the `0 0 0 4px rgba(240,81,213,0.35)` pressable halo — are named in § 6.2 and are cited by name, not re-typed per row.
@@ -406,6 +406,15 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
 | `.skip-link` | default | `--magenta-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
 | `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
+| `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` |
+| `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
+| `.chip` (pressable) | focus-visible | — | — | — | § 6.2 pressable halo | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
+| `.chip` (pressable) | selected | — | `--magenta-500` | `--magenta-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.28 |
+| `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
+| `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
+| `.chip-dismiss` | focus-visible | — | — | — | § 6.2 pressable halo | outline offset `-1px`, inside the chip's own box |
 
 ### § 3.0.2 Stacking
 
@@ -1067,7 +1076,6 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 - `role="status"` for informative, `role="alert"` for danger. Nothing else.
 - **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.19 Toast — that is the whole difference between the two components.
 - **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
-- `.info-strip` is the deprecated alias of this component. It still works; new markup uses `.alert`.
 
 ### Toast
 
@@ -1247,6 +1255,50 @@ A label for something already visible. Never a container for content.
 - `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
 - `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
 - Static. The animated brand-mark loop belongs to the Loader (§ 3.12) and its ratified motion row — this one does not move.
+
+
+### Chip
+
+A compact label for **one value that belongs to something else** — a tag on a post, a facet on a result set, a recipient already entered in a field. Where a badge reports a state the system computed, a chip carries a value a person chose, which is why a chip can be pressed or removed and a badge never is.
+
+```html
+<span class="chip"><span class="chip-dot"></span> Design systems</span>
+
+<button class="chip" aria-pressed="true">Motion</button>
+
+<span class="chip chip-info">
+  Angelo Macaione
+  <button class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button>
+</span>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Object | `.chip` | `--r-full`, label at `--t-small`, padding `--s-1` `--s-3`, `inline-flex` with `--s-1` between parts |
+| Leading dot | `.chip-dot` | Optional. The same part as the Badge dot, in the variant's colour |
+| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes |
+
+| Variant | Border · dot · text accent | Use |
+|---|---|---|
+| `.chip` | `--obsidian-700` · text `--obsidian-100` | Neutral — the default, and most chips |
+| `.chip-brand` | `--magenta-500` · text `--magenta-400` | The one chip that spends the accent — see the 85 / 10 / 5 law |
+| `.chip-success` | `--success` | A value that resolved |
+| `.chip-warn` | `--warning` | A value that needs attention |
+| `.chip-danger` | `--danger` | A value that is broken or destructive |
+| `.chip-info` | `--info` | A neutral fact the reader didn't ask for |
+
+**Rules.**
+- **The fill never carries the variant.** Every chip sits on `--obsidian-800`; the variant rides the border, the dot and the text — the same discipline as § 3.18 Alert, for the same reason. A row of filled semantic chips is the accent budget spent on furniture.
+- **`--r-full`, always.** A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.
+- **The label rides `--t-small`.** `--t-micro` is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.
+- **A chip is either pressable or dismissible, never both (RIGID).** Both roles want the 44×44 target, and two of them cannot live inside one 28px object without one swallowing the other. A filter chip is a `<button>` and the whole object is the target; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip.
+- **The touch target grows, the chip does not.** At `--t-small` the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.
+- **A filter chip declares `aria-pressed`,** and a group of them is a `role="group"` with an accessible name. Selection lands on the border and the text (`--magenta-500` · `--magenta-400`), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.
+- **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.19 is for things that happened somewhere else).
+- **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
+- **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
+
+**Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.4 Badge, and the giveaway is that nobody can remove it.
 
 ## Do's and Don'ts
 
@@ -1454,6 +1506,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger 90ms | instant |
 | Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Tooltip | close (another opens · Escape · scroll) | opacity (effect) · translateY 0→2px (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Chip | hover (pressable) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
 
 **Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 
@@ -1678,6 +1734,20 @@ The version line at the top of this document is the source of truth. The CSS fil
 7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.1.0 — 2026.09.23 (MINOR)
+**Added**
+- **Chip, § 3.28.** The registry taught that `.chip` was doc-site chrome — *"a colour swatch on the doc site, **not** a chip/tag component"* — and it was right about the class and wrong about the system: a chip is one of the components a generator reaches for first. It now exists as a contract: six variants on the Badge's semantic set, an optional dot and an optional dismiss, states from the § 3.0.1 grammar, motion rows in the index. The doc-site swatch is renamed **`.swatch-chip`** and falls under the `.swatch*` glob it already belonged beside, which frees `.chip` for the component and costs the site one class name. The rule that earns its keep: a chip is **either pressable or dismissible, never both** — two 44×44 targets do not fit inside a 28px object, and the pattern that wants both is a list row.
+- **The state vocabulary gains `selected`** (§ 3.0.1). Legal where an element carries a persistent choice the reader made — the date picker day, the select option, the filter chip — always mirrored by `aria-selected` or `aria-pressed`, and never a synonym for `active`. It arrives two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before the vocabulary sentence was written, so *"it may not invent a state outside this list"* was already false about the file's own table. The filter chip is what made the gap visible.
+- **Composite values are reproduced verbatim** — AI-agent rule #9 in § Do's and Don'ts, plus its Anti-patterns row and check 29. A gradient, a shadow or a font stack is a value with *parts*; copying its shape instead of its content invents a value rather than simplifying one. Rule 1 forbids inventing a value where a token exists — #9 forbids misquoting the token you did use, which is harder to see because the layer still reads as token-only. Appended as #9 rather than inserted at #3 on purpose: the numbering is cited from outside.
+
+**Fixed**
+- **The changelog slice reads the heading, not its citation.** `verify-ds.py` anchored § Changelog with a naive `find("## Changelog")`, which matched the citation inside step 2 of the § Versioning release checklist — so the first `### v` checks 14, 15 and 23 saw was an entry misplaced inside the checklist itself. Three releases of structural drift that the harness validated instead of catching. The v4.0.0, v3.5.0 and v3.4.0 entries move to the top of § Changelog where they belong, and step 2, truncated mid-sentence, is closed.
+- **`.info-strip` leaves the contract.** v4.0.0 removed the class and said so; the § 3.0 registry kept its row as `deprecated` with *"removal is scheduled for v4.0.0"*, and § 3.18 still told the reader it works. The spec described a class that no longer exists, in the one table whose whole job is to be the closed list. Both lines removed.
+
+**Trigger**
+
+The DS manager on amaca.ai rendered amaca-design with the Chip cell empty — correctly, because the contract said `site-only`. An empty cell in a projection is the cheapest possible way to find out that a component the system needs was never declared: the roster already knew `chip` as an id, the spec did not know it as a component, and the two disagreed silently until something drew them side by side. Writing the spec then surfaced two more things the file was wrong about — a state it used without naming, and a class it taught after removing it. All three are the same failure with different surfaces: the inventories were guarded, the sentences about them were not.
 
 ### v4.0.0 — 2026.08.29 (MAJOR)
 **Breaking**
