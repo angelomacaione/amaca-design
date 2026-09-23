@@ -1234,6 +1234,24 @@ def c33():
             fails.append(f"{cells[1]} ({cells[4]}): canonical, but no element on the site uses any of its classes")
     return fails
 
+@check("34", "Every sidebar label fits on one line",
+       "v4.1.0: adding the Chip renamed § 13 to 'Badges, Chips & Feedback', and "
+       "the label wrapped to two lines in the nav — shipped and seen live. "
+       "§ Navigation now states the rule: at most two nouns joined by '&', at "
+       "most 16 characters, the length of 'Chat & Messaging', the longest label "
+       "that fit. Measured at 1440px the budget is wider; the rule is kept to "
+       "what already fits so it holds at every width the sidebar renders.")
+def c34():
+    import html as _html
+    fails = []
+    for m in re.finditer(r'<a class="nav-item[^"]*"[^>]*>\s*<span class="num">\d+</span>\s*([^<]+)</a>', read(INDEX)):
+        label = _html.unescape(m.group(1)).strip()
+        if len(label) > 16:
+            fails.append(f"nav label '{label}' is {len(label)} characters — at most 16")
+        if "," in label or label.count("&") > 1:
+            fails.append(f"nav label '{label}' names more than two things — join at most two with '&'")
+    return fails
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
