@@ -760,7 +760,10 @@
              background var(--d-quick) var(--ease-standard);
 }
 /* the 44x44 floor is reached by an inset: the visible box stays on the type scale */
-.chip::before{content:"";position:absolute;inset:50% 0 auto 0;transform:translateY(-50%);height:44px;pointer-events:none}
+/* Only a target grows: the pressable chip, and the dismiss inside a removable one.
+   v4.1.0 had the inset on every .chip with pointer-events:none, which extends
+   nothing — a pseudo-element that ignores the pointer is not a hit area. */
+button.chip::before{content:"";position:absolute;top:50%;left:50%;width:max(100%,44px);height:44px;transform:translate(-50%,-50%)}
 .chip .chip-dot{width:6px;height:6px;border-radius:var(--r-full);background:currentColor;flex:none}
 .chip-dense{font-size:var(--t-micro);padding:var(--s-1) var(--s-2)}
 .chip-brand{color:var(--magenta-400);border-color:rgba(240,81,213,0.3);background:rgba(240,81,213,0.08)}
@@ -781,6 +784,8 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   color:var(--obsidian-400);line-height:var(--lh-tight);
   transition:color var(--d-quick) var(--ease-standard);
 }
+.chip-dismiss{position:relative}
+.chip-dismiss::before{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
 .chip-dismiss:hover{color:var(--obsidian-100)}
 .chip-dismiss:focus-visible{
   outline:2px solid var(--obsidian-100);outline-offset:-1px;

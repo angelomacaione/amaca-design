@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=27">
-<link rel="stylesheet" href="styles/components.css?v=81">
+<link rel="stylesheet" href="styles/components.css?v=82">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -164,7 +164,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#buttons" data-target="buttons"><span class="num">10</span> Buttons</a>
       <a class="nav-item" href="#inputs" data-target="inputs"><span class="num">11</span> Inputs &amp; Forms</a>
       <a class="nav-item" href="#cards" data-target="cards"><span class="num">12</span> Cards</a>
-      <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges &amp; Feedback</a>
+      <a class="nav-item" href="#badges" data-target="badges"><span class="num">13</span> Badges, Chips &amp; Feedback</a>
       <a class="nav-item" href="#nav" data-target="nav"><span class="num">14</span> Navigation</a>
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">15</span> Accordion</a>
       <a class="nav-item" href="#chat" data-target="chat"><span class="num">16</span> Chat &amp; Messaging</a>
@@ -1614,7 +1614,7 @@ Basic UI</div>
       <!-- ============ BADGES ============ -->
       <section class="section" id="badges">
         <div class="page-header">
-          <div class="page-eyebrow">§ 13 · Components / Badges &amp; Feedback</div>
+          <div class="page-eyebrow">§ 13 · Components / Badges, Chips &amp; Feedback</div>
           <h1 class="page-title">Small labels, <span class="accent">loud signals.</span></h1>
           <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they're never content. Alerts, toasts and tooltips are the rest of the feedback family — the same discipline at three different distances from the reader.</p>
         </div>
@@ -1725,7 +1725,63 @@ Basic UI</div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 13.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Chip</h2><span class="subsection-num">§ 13.6</span></div>
+          <p class="subsection-desc">A compact label for one value that belongs to something else — a tag on a post, a facet on a result set, a recipient already entered. Where a badge reports what the system computed, a chip carries what a person chose. Six variants on the badge's tint, an optional dot; most chips are neutral and static.</p>
+          <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)">
+            <span class="chip">Design systems</span>
+            <span class="chip"><span class="chip-dot"></span> Motion</span>
+            <span class="chip chip-brand"><span class="chip-dot"></span> Amaca</span>
+            <span class="chip chip-success">Resolved</span>
+            <span class="chip chip-warn">Needs review</span>
+            <span class="chip chip-danger">Broken link</span>
+            <span class="chip chip-info">Auto-imported</span>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Filter chips</h2><span class="subsection-num">§ 13.7</span></div>
+          <p class="subsection-desc">Pressable chips narrow a set. Each is a button that holds its state in <code>aria-pressed</code>, and the row is a named group. Selection lands on the border and the label, so a row of six selections still spends no fill.</p>
+          <div class="card" style="padding:var(--s-8)">
+            <div role="group" aria-label="Filter case studies by discipline" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)" data-chip-filter>
+              <button type="button" class="chip" aria-pressed="true">Product design</button>
+              <button type="button" class="chip" aria-pressed="false">Motion</button>
+              <button type="button" class="chip" aria-pressed="true">Design systems</button>
+              <button type="button" class="chip" aria-pressed="false">Research</button>
+              <button type="button" class="chip" aria-pressed="false" disabled>Hardware</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Removable chips</h2><span class="subsection-num">§ 13.8</span></div>
+          <p class="subsection-desc">Values entered into a field. The chip itself stays static; the dismiss is the only target and its label names the value it removes. The field announces the removal in its own live region, and a long collection collapses behind a trailing count.</p>
+          <div class="card" style="padding:var(--s-8)">
+            <div class="field" style="max-width:520px">
+              <span class="label" id="chip-recipients-label">Recipients</span>
+              <div role="group" aria-labelledby="chip-recipients-label" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)" data-chip-removable>
+                <span class="chip">Angelo Macaione <button type="button" class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button></span>
+                <span class="chip">Design team <button type="button" class="chip-dismiss" aria-label="Remove Design team">&times;</button></span>
+                <span class="chip chip-info">Reviewers <button type="button" class="chip-dismiss" aria-label="Remove Reviewers">&times;</button></span>
+                <button type="button" class="chip" aria-label="Show 3 more recipients">+3</button>
+              </div>
+              <span class="help" data-chip-live aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="do-dont" style="margin-top:var(--s-6)">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Use a chip for a value someone entered, chose or can take back. It may be pressable or removable — one of the two, never both.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Use a chip to report status the system computed. That is a badge, and the giveaway is that nobody can remove it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 13.9</span></div>
           <p class="subsection-desc">The three feedback components differ by how long the message is true, and that is what decides which one you reach for. An alert states a condition; a toast reports an event; a tooltip labels a thing already on screen.</p>
 
           <div class="do-dont">
@@ -3927,7 +3983,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                   <p>MINOR. The DS manager rendered this system with the Chip cell empty &mdash; correctly, because the contract said <code>site-only</code>. An empty cell in a projection is the cheapest way to learn that a component the system needs was never declared. Writing the spec then surfaced two more things the file was wrong about: a state it used without naming, and a class it taught after removing it. Three surfaces, one failure &mdash; the inventories were guarded, the sentences about them were not.</p>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Chip, a component at last</strong> &mdash; the registry taught that <code>.chip</code> was doc-site chrome, <em>&ldquo;a colour swatch on the doc site, not a chip/tag component&rdquo;</em> &mdash; right about the class, wrong about the system. It is now a contract: six variants on the Badge&rsquo;s semantic set and its two tint strengths, an optional dot, an optional dismiss, states from the state grammar, motion rows in the index. The doc-site swatch is renamed <code>.swatch-chip</code>. A chip carries a value a person put there; status the system computed stays a <code>.badge</code>. At most one affordance &mdash; pressable or dismissible, never both, because two 44&times;44 targets do not fit in a 28px object.</li><li><strong style="color:var(--obsidian-100)">The state vocabulary gains <code>selected</code></strong> &mdash; legal where an element carries a persistent choice the reader made, always mirrored by <code>aria-selected</code> or <code>aria-pressed</code>, never a synonym for <code>active</code>. Two releases late: the state index already carried it for the date-picker day and the select option, so the sentence claiming a closed list was false about its own table.</li><li><strong style="color:var(--obsidian-100)">Composite values are reproduced verbatim</strong> &mdash; AI-agent rule #9 and check 29. A gradient, a shadow or a font stack is a value with <em>parts</em>; copying its shape instead of its content invents a value rather than simplifying one.</li><li><strong style="color:var(--obsidian-100)">Icon-only button, <code>.btn-icon</code></strong> &mdash; a square at its size&rsquo;s height, <code>aria-label</code> mandatory, a tooltip when the glyph is not universal. The icon-and-label anatomy the site has drawn in &sect; 10.3 is declared with it.</li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Button sizes are declared, and rendered: 32 &middot; 40 &middot; 48</strong> &mdash; the spec said 32 and 44, this site labelled 32, 40 and 48, and the CSS rendered 35, 51 and 60. Heights now sit on <code>--s-8</code>, <code>--s-10</code> and <code>--s-12</code>, and every button reaches 44 on a coarse pointer. A rendered change shipped in a minor by decision: no stated size matched the rendered one, so none was there to depend on.</li></ul>
-                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The changelog slice reads the heading, not its citation</strong> &mdash; the harness anchored the changelog with a naive string find that matched the citation inside the release checklist, so three releases of structural drift were validated instead of caught.</li><li><strong style="color:var(--obsidian-100)">The Button section never pointed to its states</strong> &mdash; the state index carried <code>.btn | disabled</code> and the CSS implemented it, but the component section stopped at variants, sizes and focus. A reader of that section alone &mdash; the amaca.ai compiler &mdash; concluded the disabled button did not exist. It now points to the state grammar as Input does, and its example carries a disabled button. No value changes.</li><li><strong style="color:var(--obsidian-100)">The snippets agents copy verbatim had drifted from the CSS they quote</strong> &mdash; every <em>&ldquo;reuse these verbatim&rdquo;</em> block in the rules files and <code>llms-full.txt</code> disagreed with <code>components.css</code>: a <code>--r-md</code> button the CSS draws round, a <code>--magenta-600</code> hover the ratified exception forbids, no disabled state, the wrong input surface, and <code>.field-label</code>, a name v4.0.0 removed from one copy and not the other seven. The snippets now quote the CSS rule for rule; check 30 holds them to it.</li><li><strong style="color:var(--obsidian-100)">The skill taught a different button</strong> &mdash; <code>amaca-frontend</code>&rsquo;s React, HTML and Figma references drifted from the state index on the disabled fill, the label, the hover, the radius and the focus halo, and listed states the index does not carry. Realigned, with the restated lists replaced by pointers to the index.</li><li><strong style="color:var(--obsidian-100)">The skill&rsquo;s version went backwards</strong> &mdash; v1.2.0 shipped with v4.0.0 and the README never recorded it, so this release first stamped v1.1.11 while the site still read v1.1.9. The skill ships as v1.2.1; check 31 holds its five stated versions to one, and check 24 now sees the copy the IDE zip carries unpacked, which sat one version behind.</li><li><strong style="color:var(--obsidian-100)"><code>tokens.css</code> erased Tailwind on every button</strong> &mdash; its element reset sat unlayered, and an unlayered rule beats every layered one, so a button built from <code>theme.css</code> utilities rendered transparent and borderless. The base rules now live in <code>@layer base</code>; the site renders identically, measured element by element. Check 32 keeps them there.</li><li><strong style="color:var(--obsidian-100)">The CSS never carried its version</strong> &mdash; the versioning rules said both stylesheets stamp it in their leading comment; neither ever did. The rule now says what is true: the release tag versions the CSS.</li><li><strong style="color:var(--obsidian-100)"><code>.info-strip</code> leaves the contract</strong> &mdash; v4.0.0 removed the class and said so, while the registry kept its row and the Alert section still told the reader it works &mdash; and <code>components.css</code> still shipped the rule. It is gone now, as announced; check 10 reads only the registry, which also added the missing <code>.dp-range</code> row.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The changelog slice reads the heading, not its citation</strong> &mdash; the harness anchored the changelog with a naive string find that matched the citation inside the release checklist, so three releases of structural drift were validated instead of caught.</li><li><strong style="color:var(--obsidian-100)">The Chip shipped without a demo</strong> &mdash; canonical in the contract and in the CSS, absent from this site: not one chip on the page. It now has three demos in &sect; 13 &mdash; variants, filter chips, removable chips &mdash; and the inset that was meant to grow the touch target carried <code>pointer-events: none</code>, so it grew nothing. Only the targets grow now: the pressable chip and the dismiss. Check 33 holds every canonical component to a demo.</li><li><strong style="color:var(--obsidian-100)">The Button section never pointed to its states</strong> &mdash; the state index carried <code>.btn | disabled</code> and the CSS implemented it, but the component section stopped at variants, sizes and focus. A reader of that section alone &mdash; the amaca.ai compiler &mdash; concluded the disabled button did not exist. It now points to the state grammar as Input does, and its example carries a disabled button. No value changes.</li><li><strong style="color:var(--obsidian-100)">The snippets agents copy verbatim had drifted from the CSS they quote</strong> &mdash; every <em>&ldquo;reuse these verbatim&rdquo;</em> block in the rules files and <code>llms-full.txt</code> disagreed with <code>components.css</code>: a <code>--r-md</code> button the CSS draws round, a <code>--magenta-600</code> hover the ratified exception forbids, no disabled state, the wrong input surface, and <code>.field-label</code>, a name v4.0.0 removed from one copy and not the other seven. The snippets now quote the CSS rule for rule; check 30 holds them to it.</li><li><strong style="color:var(--obsidian-100)">The skill taught a different button</strong> &mdash; <code>amaca-frontend</code>&rsquo;s React, HTML and Figma references drifted from the state index on the disabled fill, the label, the hover, the radius and the focus halo, and listed states the index does not carry. Realigned, with the restated lists replaced by pointers to the index.</li><li><strong style="color:var(--obsidian-100)">The skill&rsquo;s version went backwards</strong> &mdash; v1.2.0 shipped with v4.0.0 and the README never recorded it, so this release first stamped v1.1.11 while the site still read v1.1.9. The skill ships as v1.2.1; check 31 holds its five stated versions to one, and check 24 now sees the copy the IDE zip carries unpacked, which sat one version behind.</li><li><strong style="color:var(--obsidian-100)"><code>tokens.css</code> erased Tailwind on every button</strong> &mdash; its element reset sat unlayered, and an unlayered rule beats every layered one, so a button built from <code>theme.css</code> utilities rendered transparent and borderless. The base rules now live in <code>@layer base</code>; the site renders identically, measured element by element. Check 32 keeps them there.</li><li><strong style="color:var(--obsidian-100)">The CSS never carried its version</strong> &mdash; the versioning rules said both stylesheets stamp it in their leading comment; neither ever did. The rule now says what is true: the release tag versions the CSS.</li><li><strong style="color:var(--obsidian-100)"><code>.info-strip</code> leaves the contract</strong> &mdash; v4.0.0 removed the class and said so, while the registry kept its row and the Alert section still told the reader it works &mdash; and <code>components.css</code> still shipped the rule. It is gone now, as announced; check 10 reads only the registry, which also added the missing <code>.dp-range</code> row.</li></ul>
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
                     <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-23</span>
                     <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
@@ -8027,6 +8083,24 @@ try {
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   document.addEventListener('scroll', close, {passive:true, capture:true});
+})();
+</script>
+<script>
+/* § 13.7-13.8 chip demos: filter toggles aria-pressed; dismiss removes the chip and announces it in the field's live region. */
+(function(){
+  document.querySelectorAll('[data-chip-filter] button.chip').forEach(function(b){
+    b.addEventListener('click',function(){ if(b.disabled) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true' ? 'false' : 'true'); });
+  });
+  document.querySelectorAll('[data-chip-removable]').forEach(function(group){
+    var live = group.parentElement.querySelector('[data-chip-live]');
+    group.addEventListener('click',function(e){
+      var btn = e.target.closest('.chip-dismiss'); if(!btn) return;
+      var chip = btn.closest('.chip'); var name = btn.getAttribute('aria-label').replace(/^Remove /,'');
+      var next = chip.nextElementSibling && chip.nextElementSibling.querySelector ? (chip.nextElementSibling.querySelector('.chip-dismiss') || chip.nextElementSibling) : null;
+      chip.remove(); if(live) live.textContent = name + ' removed';
+      if(next && next.focus) next.focus();
+    });
+  });
 })();
 </script>
 </body>
