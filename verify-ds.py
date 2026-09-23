@@ -1201,6 +1201,39 @@ def c32():
             fails.append(f"tokens.css: `{sel}` is outside any @layer — it will override Tailwind utilities")
     return fails
 
+@check("33", "Every canonical component has a demo on the site",
+       "v4.1.0: the Chip entered the contract as § 3.28 — registry row "
+       "canonical, state rows, motion rows, CSS — and shipped with no demo on "
+       "amaca.design at all: not one .chip element in index.html, no nav entry. "
+       "The release skill says a component's demo is part of the component; "
+       "nothing checked it, and the release that existed because of the Chip "
+       "went out without showing it. A canonical row with no rendered instance "
+       "is the invisibility the registry exists to prevent.")
+def c33():
+    full = read(DESIGN)
+    a = full.find("### § 3.0 Component registry")
+    b = full.find("### § 3.0.1", a)
+    reg = full[a:b] if a >= 0 and b > a else ""
+    html = read(INDEX)
+    used = set()
+    for m in re.finditer(r'class="([^"]+)"', html):
+        used.update(m.group(1).split())
+    fails = []
+    for line in reg.splitlines():
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) < 5 or "canonical" not in cells[3]:
+            continue
+        names = re.findall(r"`\.([a-zA-Z0-9_-]+?)(\*)?`", cells[2])
+        if not names:
+            continue
+        def hit(n, glob):
+            if glob or n.endswith("-"):
+                return any(u.startswith(n) for u in used)
+            return n in used
+        if not any(hit(n, g) for n, g in names):
+            fails.append(f"{cells[1]} ({cells[4]}): canonical, but no element on the site uses any of its classes")
+    return fails
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
