@@ -177,6 +177,13 @@
 /* =========================================================
    GLOBAL RESET + BASE
    ========================================================= */
+/* Base rules ride a cascade layer named `base` (v4.1.0). Unlayered, they beat
+   every layered rule regardless of specificity, so under Tailwind v4 the
+   element reset `button{background:none;border:0;color:inherit}` silently
+   erased bg-*, border-* and text-* on every button, and `a{color}` did the
+   same to links. In `base`, Tailwind utilities win as they should, and
+   unlayered components.css still wins exactly as before. */
+@layer base {
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
 html{color-scheme:dark}
@@ -205,3 +212,4 @@ code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:var(--r-sm);border:2px solid var(--obsidian-950)}
 ::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}
+}

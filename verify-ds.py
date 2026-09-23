@@ -672,6 +672,7 @@ def c24():
     sources = {
         "DESIGN.md": DESIGN,
         "tokens.css": TOKENS,
+        "components.css": COMPONENTS,   # v4.1.0: amaca-react-css.zip shipped a pre-v4.0.0 copy, unguarded
         "theme.css": THEME,
         "tokens.dtcg.json": DTCG,
         "AGENTS.md": ROOT / "downloads" / "AGENTS.md",
@@ -679,7 +680,24 @@ def c24():
         "AI-INSTRUCTIONS.md": ROOT / "downloads" / "AI-INSTRUCTIONS.md",
         "amaca-figma.md": ROOT / "downloads" / "amaca-figma.md",
         "amaca-frontend.skill": ROOT / "downloads" / "amaca-frontend.skill",
+        "amaca-core.mdc": ROOT / "downloads" / ".cursor" / "rules" / "amaca-core.mdc",
+        "amaca-html.mdc": ROOT / "downloads" / ".cursor" / "rules" / "amaca-html.mdc",
+        "amaca-react.mdc": ROOT / "downloads" / ".cursor" / "rules" / "amaca-react.mdc",
+        "copilot-instructions.md": ROOT / "downloads" / ".github" / "copilot-instructions.md",
+        "amaca-html.instructions.md": ROOT / "downloads" / ".github" / "instructions" / "amaca-html.instructions.md",
+        "amaca-react.instructions.md": ROOT / "downloads" / ".github" / "instructions" / "amaca-react.instructions.md",
     }
+    # v4.1.0: the IDE zip carries the skill UNPACKED under .agents/skills/, and
+    # a basename map cannot see it — its README.md collides with the bundle's
+    # own. It sat one skill version behind the .skill it was cut from. Members
+    # under skills/amaca-frontend/ are held to the .skill's own members.
+    skill_members = {}
+    skill_zip = ROOT / "downloads" / "amaca-frontend.skill"
+    if skill_zip.exists():
+        with zipfile.ZipFile(skill_zip) as sz:
+            for n in sz.namelist():
+                if n.startswith("amaca-frontend/") and not n.endswith("/"):
+                    skill_members[n[len("amaca-frontend/"):]] = sz.read(n)
     want = {n: p.read_bytes() for n, p in sources.items() if p.exists()}
 
     bundles = sorted((ROOT / "downloads" / "zips").glob("*.zip"))
@@ -693,6 +711,14 @@ def c24():
             with zipfile.ZipFile(b) as z:
                 for member in z.namelist():
                     if member.endswith("/"):
+                        continue
+                    sm = re.search(r"(?:^|/)skills/amaca-frontend/(.+)$", member)
+                    if sm and b != skill_zip:
+                        exp = skill_members.get(sm.group(1))
+                        if exp is None:
+                            fails.append(f"{b.name}: {member} has no counterpart in amaca-frontend.skill")
+                        elif z.read(member) != exp:
+                            fails.append(f"{b.name}: {member} is stale against amaca-frontend.skill — re-bake")
                         continue
                     base = member.rsplit("/", 1)[-1]
                     if base not in want:
@@ -989,6 +1015,183 @@ def c29():
             continue
         if stamp.group(1) != top.group(1):
             fails.append(f"{path.name}: frontmatter says {stamp.group(1)}, its history leads with v{top.group(1)}")
+    return fails
+
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Every file that hands an agent a CSS snippet "to reuse verbatim".
+SNIPPET_FILES = [
+    LLMS_FULL,
+    ROOT / "downloads" / "AGENTS.md",
+    ROOT / "downloads" / "CLAUDE.md",
+    ROOT / "downloads" / "AI-INSTRUCTIONS.md",
+    ROOT / "downloads" / ".cursor" / "rules" / "amaca-core.mdc",
+    ROOT / "downloads" / ".cursor" / "rules" / "amaca-html.mdc",
+    ROOT / "downloads" / ".github" / "copilot-instructions.md",
+    ROOT / "downloads" / ".github" / "instructions" / "amaca-html.instructions.md",
+]
+# The React reference button, which ships in three copies.
+REACT_COPIES = [
+    ("amaca-frontend.skill:REACT.md", None),
+    ("downloads/.cursor/rules/amaca-react.mdc", ROOT / "downloads" / ".cursor" / "rules" / "amaca-react.mdc"),
+    ("downloads/.github/instructions/amaca-react.instructions.md",
+     ROOT / "downloads" / ".github" / "instructions" / "amaca-react.instructions.md"),
+]
+
+
+def _strip_at_blocks(css):
+    """Drop @media / @supports / @keyframes blocks, braces balanced, so a
+    reduced-motion override never reads as the rule's resting value."""
+    out, i = [], 0
+    while True:
+        j = css.find("@", i)
+        if j < 0:
+            out.append(css[i:]); break
+        k = css.find("{", j)
+        semi = css.find(";", j)
+        if k < 0 or (0 <= semi < k):       # @import / @charset: no block
+            out.append(css[i:(semi + 1 if semi >= 0 else len(css))])
+            i = semi + 1 if semi >= 0 else len(css); continue
+        out.append(css[i:j])
+        depth, p = 0, k
+        while p < len(css):
+            if css[p] == "{": depth += 1
+            elif css[p] == "}":
+                depth -= 1
+                if depth == 0: break
+            p += 1
+        i = p + 1
+    return "".join(out)
+
+
+def _css_rules(css):
+    css = _strip_at_blocks(re.sub(r"/\*.*?\*/", "", css, flags=re.S))
+    rules = {}
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        decls = {}
+        for d in m.group(2).split(";"):
+            if ":" not in d:
+                continue
+            k, v = d.split(":", 1)
+            decls[k.strip()] = re.sub(r"\s*,\s*", ",", re.sub(r"\s+", " ", v.strip()))
+        for sel in m.group(1).split(","):
+            rules.setdefault(re.sub(r"\s+", " ", sel.strip()), {}).update(decls)
+    return rules
+
+
+@check("30", "Every snippet an agent is told to copy verbatim matches components.css",
+       "v4.1.0: the amaca.ai compiler reported the disabled button missing. The "
+       "contract had it; the snippets did not. Eight rules files and llms-full.txt "
+       "each carried a 'reuse these verbatim' block, and every copy had drifted "
+       "from the CSS it claimed to quote: a --r-md button the CSS draws "
+       "--r-full, a --magenta-600 hover the § 6.3 exception forbids, no disabled "
+       "state, an --obsidian-900 input the CSS renders --obsidian-850, and "
+       ".field-label — a class v4.0.0 removed from the spec and from "
+       "llms-full.txt but not from these. Check 26 guards the classes § 3 emits; "
+       "nothing guarded the values a snippet hands to an agent, and an agent "
+       "follows the snippet before it reads the spec. The three copies of the "
+       "React reference button are held to one string for the same reason.")
+def c30():
+    css = _css_rules(read(COMPONENTS))
+    fails = []
+    for path in SNIPPET_FILES:
+        text = read(path)
+        rel = path.relative_to(ROOT)
+        for block in re.findall(r"```css\n(.*?)```", text, re.S):
+            for sel, decls in _css_rules(block).items():
+                if sel not in css:
+                    fails.append(f"{rel}: teaches {sel}, which components.css does not define")
+                    continue
+                for prop, val in decls.items():
+                    got = css[sel].get(prop)
+                    if got != val:
+                        fails.append(f"{rel}: {sel} {{ {prop}: {val} }} — components.css says "
+                                     f"{got if got is not None else '(not set)'}")
+
+    def button_classes(text):
+        m = re.search(r'<button\s+className="([^"]*bg-magenta-500[^"]*)"', text)
+        return " ".join(m.group(1).split()) if m else None
+
+    skill = ROOT / "downloads" / "amaca-frontend.skill"
+    seen = {}
+    for label, path in REACT_COPIES:
+        if path is None:
+            if not skill.exists():
+                continue
+            with zipfile.ZipFile(skill) as z:
+                text = z.read("amaca-frontend/REACT.md").decode("utf-8")
+        else:
+            text = read(path)
+        cls = button_classes(text)
+        if cls is None:
+            fails.append(f"{label}: no React reference button found")
+        else:
+            seen[label] = cls
+    if len(set(seen.values())) > 1:
+        ref = next(iter(seen))
+        for label, cls in seen.items():
+            if cls != seen[ref]:
+                fails.append(f"{label}: React reference button differs from {ref}")
+    return fails
+
+
+@check("31", "The skill states one version, everywhere it is stated",
+       "v4.1.0: amaca-frontend v1.2.0 shipped on 2026-08-29 and its README never "
+       "recorded it — the next re-bake stamped v1.1.11, a version lower than the "
+       "one already out, and the site's § 03 card still read CURRENT v1.1.9 with "
+       "NEXT v1.2 two releases after v1.2.0 shipped. Check 29 guards downloads "
+       "that carry their own frontmatter; the skill carries its version in its "
+       "README title, its README body, two histories and a site card, and none "
+       "of the five was checked against the others.")
+def c31():
+    skill = ROOT / "downloads" / "amaca-frontend.skill"
+    if not skill.exists():
+        return []
+    with zipfile.ZipFile(skill) as z:
+        readme = z.read("amaca-frontend/README.md").decode("utf-8")
+        skmd = z.read("amaca-frontend/SKILL.md").decode("utf-8")
+
+    def vt(v):
+        return tuple(int(x) for x in (v.split(".") + ["0", "0"])[:3])
+
+    def top(text):
+        vs = re.findall(r"^- \*\*v(\d+(?:\.\d+)*)\*\* \(\d{4}-", text, re.M)  # released entries; "(planned" rows excluded
+        return max(vs, key=vt) if vs else None
+
+    stated = {}
+    m = re.search(r"^# amaca-frontend skill — v(\d+(?:\.\d+)*)", readme, re.M)
+    stated["README title"] = m.group(1) if m else None
+    m = re.search(r"The \*\*skill\*\* is `v(\d+(?:\.\d+)*)`", readme)
+    stated["README body"] = m.group(1) if m else None
+    stated["README history (highest)"] = top(readme)
+    stated["SKILL.md history (highest)"] = top(skmd)
+    m = re.search(r"VERSIONING — SKILL.*?CURRENT · <span[^>]*>v(\d+(?:\.\d+)*)</span>", read(INDEX), re.S)
+    stated["index.html § 03 CURRENT"] = m.group(1) if m else None
+
+    fails = [f"{k}: not found" for k, v in stated.items() if v is None]
+    vals = {k: v for k, v in stated.items() if v}
+    if len({vt(v) for v in vals.values()}) > 1:
+        fails.append("skill version disagrees: " + " · ".join(f"{k} v{v}" for k, v in vals.items()))
+    return fails
+
+
+@check("32", "tokens.css keeps its element rules inside a cascade layer",
+       "v4.1.0: the React reference button, compiled with Tailwind v4 against "
+       "theme.css, rendered transparent, borderless and pointer-cursored when "
+       "disabled. tokens.css carried its reset unlayered — "
+       "button{background:none;border:0;color:inherit;cursor:pointer} — and an "
+       "unlayered rule beats every layered one whatever its specificity, so it "
+       "erased Tailwind's bg-*, border-* and disabled:* utilities on every "
+       "button, and a{color} did the same to links. Measured, not assumed: the "
+       "rendered site diffed element by element at zero after the move into "
+       "@layer base, and the Tailwind button became identical to .btn-primary.")
+def c32():
+    body = _strip_at_blocks(re.sub(r"/\*.*?\*/", "", read(TOKENS), flags=re.S))
+    fails = []
+    for m in re.finditer(r"([^{}]+)\{[^{}]*\}", body):
+        sel = " ".join(m.group(1).split())
+        if sel != ":root":
+            fails.append(f"tokens.css: `{sel}` is outside any @layer — it will override Tailwind utilities")
     return fails
 
 def main():

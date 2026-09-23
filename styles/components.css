@@ -352,10 +352,10 @@
 
 /* ─────────── BUTTONS (the component itself) ─────────── */
 .btn{
-  display:inline-flex;align-items:center;gap:var(--s-2);
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);
   font-family:var(--font-sans);font-size:var(--t-body);font-weight:500;
-  letter-spacing:var(--tr-snug);
-  padding:14px 28px;border-radius:var(--r-full);
+  letter-spacing:var(--tr-snug);line-height:1;
+  min-height:var(--s-10);padding:0 var(--s-6);border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
   border:1px solid transparent;
   white-space:nowrap;
@@ -372,8 +372,17 @@
 .btn-outline:hover{border-color:var(--magenta-500);color:var(--magenta-400)}
 .btn-danger{background:var(--danger);color:var(--obsidian-950)}
 .btn-danger:hover{filter:brightness(1.05)}
-.btn-sm{padding:var(--s-2) var(--s-4);font-size:var(--t-small)}
-.btn-lg{padding:18px 34px;font-size:16px}
+.btn-sm{min-height:var(--s-8);padding:0 var(--s-4);font-size:var(--t-small)}
+.btn-lg{min-height:var(--s-12);padding:0 var(--s-8)}
+/* Icon-only: a square at the size's height. aria-label is mandatory (§ 3.1). */
+.btn-icon{width:var(--s-10);padding:0}
+.btn-sm.btn-icon{width:var(--s-8)}
+.btn-lg.btn-icon{width:var(--s-12)}
+/* Touch: the § 6 floor asks 44x44 on coarse pointers; dense desktop keeps 32. */
+@media (pointer:coarse){
+  .btn:not(.btn-lg){min-height:44px}
+  .btn-icon:not(.btn-lg){min-width:44px}
+}
 
 /* ─────────── INPUTS ─────────── */
 .field{display:flex;flex-direction:column;gap:6px}
