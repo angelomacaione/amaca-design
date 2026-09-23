@@ -1252,6 +1252,74 @@ def c34():
             fails.append(f"nav label '{label}' names more than two things — join at most two with '&'")
     return fails
 
+
+def _site_sections():
+    """(id, body) for every <section class="section"> of index.html."""
+    html = read(INDEX)
+    out = []
+    for part in re.split(r'(?=<section class="section" id=")', html)[1:]:
+        sid = re.match(r'<section class="section" id="([^"]+)"', part).group(1)
+        out.append((sid, part.split("</section>")[0]))
+    return out
+
+
+@check("35", "A component section keeps its Do / Don't pairs together",
+       "v4.1.0: the Chip's Do / Don't shipped under § 13.8 while § 13 already "
+       "had its own Do / Don't subsection at § 13.9 — two rule blocks in one "
+       "section, seen live. § 3.0.3 makes Do / Don't a surface; a reader "
+       "scanning a section for its rules, and a model parsing them, look in one "
+       "place. Scoped to Components sections, where one subsection collects "
+       "the rules of every component the section shows.")
+def c35():
+    import html as _html
+    fails = []
+    for sid, body in _site_sections():
+        if not re.search(r'page-eyebrow">§ \d+ · Components', body):
+            continue
+        subs = body.split('<div class="subsection">')[1:]
+        titles = []
+        for sub in subs:
+            if 'class="do-dont"' not in sub:
+                continue
+            t = re.search(r'subsection-title">([^<]+)<', sub)
+            titles.append(_html.unescape(t.group(1)) if t else "?")
+        homes = [t for t in titles if t == "Do / Don't"]
+        strays = [t for t in titles if t != "Do / Don't"]
+        if homes and strays:
+            fails.append(f"#{sid}: Do / Don't pairs outside the section's Do / Don't subsection, under: {', '.join(strays)}")
+        if len(homes) > 1:
+            fails.append(f"#{sid}: {len(homes)} Do / Don't subsections — one per section")
+    return fails
+
+
+@check("36", "Section numbers agree: nav, eyebrow and subsections, without gaps",
+       "v4.1.0: three Chip subsections were inserted into § 13 and the "
+       "existing Do / Don't renumbered from 13.6 to 13.9 by hand. Nothing "
+       "checked that the sequence stayed whole or that the section kept the "
+       "number the nav gives it. A gap or a duplicate is invisible in review "
+       "and obvious to a reader following a citation.")
+def c36():
+    html = read(INDEX)
+    nav = {m.group(1): int(m.group(2)) for m in re.finditer(
+        r'<a class="nav-item[^"]*" href="#[^"]+" data-target="([^"]+)"><span class="num">(\d+)</span>', html)}
+    fails = []
+    for sid, body in _site_sections():
+        n = nav.get(sid)
+        eb = re.search(r'page-eyebrow">§ (\d+)', body)
+        if n is not None and eb and int(eb.group(1)) != n:
+            fails.append(f"#{sid}: eyebrow says § {eb.group(1)}, the nav says {n:02d}")
+        nums = re.findall(r'<span class="subsection-num">§ (\d+)\.(\d+)', body)
+        if not nums:
+            continue
+        majors = {int(a) for a, _ in nums}
+        minors = [int(b) for _, b in nums]
+        if n is not None and majors != {n}:
+            fails.append(f"#{sid}: subsections numbered § {sorted(majors)}, the section is § {n}")
+        start = minors[0]
+        if start not in (0, 1) or minors != list(range(start, start + len(minors))):
+            fails.append(f"#{sid}: subsection sequence {minors} has a gap or a duplicate")
+    return fails
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
