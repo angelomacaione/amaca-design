@@ -1048,15 +1048,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .alert-info{border-left-color:var(--info)}
 .alert-info .alert-icon,.alert-info .tag{color:var(--info)}
 
-/* Legacy alias — `.info-strip` was the un-specced ancestor of `.alert`.
-   Kept working (removal would be MAJOR); scheduled for removal in v4.0.0.
-   New markup uses `.alert`. */
-.info-strip{
-  display:flex;align-items:center;gap:var(--s-3);
-  padding:10px 14px;background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
-  border-radius:var(--r-md);font-size:var(--t-small);color:var(--obsidian-200);
-}
-.info-strip .tag{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400);text-transform:uppercase}
 
 
 /* ─────────── A11Y: focus visibility + reduced motion ─────────── */

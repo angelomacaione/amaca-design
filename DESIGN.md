@@ -327,7 +327,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Loader | `.loader-*` · `.skeleton-line` `.skeleton-stack` | canonical | § 3.12 — Skeleton is a part of the Loader, not a component |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
-| Date picker | `.dp-wrap` `.dp-icon-btn` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
+| Date picker | `.dp-wrap` `.dp-icon-btn` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
 | Table | `.table` | canonical | § 3.16 |
 | Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
@@ -1728,7 +1728,7 @@ This file follows strict SemVer.
 - **MINOR** — new tokens, new components, new principles.
 - **PATCH** — wording, typo, clarification, contrast recalculation.
 
-The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry the same version in their leading comment; `tokens.dtcg.json` carries it in `$extensions.amaca.version`.
+The version line at the top of this document is the source of truth. The CSS files (`tokens.css`, `components.css`) carry no version stamp of their own — they are versioned by the tag of the release that ships them; `tokens.dtcg.json` carries it in `$extensions.amaca.version`.
 
 **Release checklist (RIGID — every release, no exceptions):**
 
@@ -1761,7 +1761,8 @@ The version line at the top of this document is the source of truth. The CSS fil
 - **The skill taught a different button.** `amaca-frontend`'s React reference drew the primary with a grey disabled fill, an `--obsidian-100` label, a `magenta-600` hover, `rounded-md` and a `0.3` halo; its card pattern offered two variants the registry does not have; HTML.md carried the same focus drift; FIGMA.md listed Button and Input states the § 3.0.1 index does not carry. All realigned to the index, and the restated state lists replaced by pointers to § 3.0.1 so they cannot go stale again.
 - **The skill's version went backwards.** v1.2.0 shipped with v4.0.0 and its README never recorded it, so this release first stamped v1.1.11 — lower than the version already out — while § 03 still read CURRENT v1.1.9. The skill ships as **v1.2.1**; **check 31** holds its five stated versions to one. And the IDE zip carries the skill unpacked under `.agents/skills/`, where the basename map of check 24 could not see it: it sat one skill version behind. Check 24 now holds unpacked skill members to the `.skill` they were cut from, and the Cursor and Copilot rules files to their sources. It also guards `components.css`: `amaca-react-css.zip` was still shipping a copy older than v4.0.0 — the off-palette brand glow that release removed included.
 - **`tokens.css` erased Tailwind on every button.** Its reset — `button{background:none;border:0;color:inherit;cursor:pointer}` — sat unlayered, and an unlayered rule beats every layered rule whatever its specificity. A React button built from `theme.css` utilities rendered transparent, borderless, and pointer-cursored when disabled; `a{color}` did the same to links. The base rules now live in `@layer base`: Tailwind utilities win as they should, and the site, where `components.css` is unlayered too, renders identically — measured, zero computed-style differences across every element of every section. **Check 32** keeps element rules in `tokens.css` inside a layer. No token value changes.
-- **`.info-strip` leaves the contract.** v4.0.0 removed the class and said so; the § 3.0 registry kept its row as `deprecated` with *"removal is scheduled for v4.0.0"*, and § 3.18 still told the reader it works. The spec described a class that no longer exists, in the one table whose whole job is to be the closed list. Both lines removed.
+- **§ Versioning claimed the CSS files carry the version in their leading comment.** Neither ever did. The sentence now says what is true: the CSS is versioned by the release tag, and the DTCG file is the one projection that stamps itself.
+- **`.info-strip` leaves the contract.** v4.0.0 removed the class and said so; the § 3.0 registry kept its row as `deprecated` with *"removal is scheduled for v4.0.0"*, and § 3.18 still told the reader it works. The spec described a class that no longer exists, in the one table whose whole job is to be the closed list. Both lines removed. **And the CSS still shipped the rule**: v4.0.0 announced the removal in both changelogs and never made it in `components.css`. Check 10 read the whole document for coverage, so the changelog entry announcing the removal counted as the class's registration. The rule is gone now, as announced — no markup on the site or in any download uses it — and check 10 reads only the § 3.0 registry, which also surfaced `.dp-range`, specced in § 3.15 and missing from the Date picker row; it is added.
 
 **Trigger**
 

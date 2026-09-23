@@ -323,7 +323,14 @@ def c09():
        "§ 3.0: the registry is the closed inventory. A class with no row means "
        "a generator cannot tell 'not covered' from 'not yet written'.")
 def c10():
-    design = read(DESIGN)
+    # v4.1.0: the lookup ran over the whole document, so a class named only in
+    # the changelog counted as registered — `.info-strip` stayed in the CSS a
+    # full release after v4.0.0 announced its removal, "covered" by the entry
+    # that announced it. Coverage is a row in § 3.0, nothing else.
+    full = read(DESIGN)
+    a = full.find("### § 3.0 Component registry")
+    b = full.find("### § 3.0.1", a)
+    design = full[a:b] if a >= 0 and b > a else full
     classes = sorted(set(re.findall(r"^\.([a-zA-Z][a-zA-Z0-9_-]*)", read(COMPONENTS), re.M)))
 
     def covered(c):
