@@ -447,6 +447,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 <button class="btn btn-ghost">Ghost</button>
 <button class="btn btn-secondary">Secondary</button>
 <button class="btn btn-danger">Destructive</button>
+<button class="btn btn-primary" disabled>Unavailable</button>
 ```
 
 | Variant | Background | Text | Use |
@@ -461,6 +462,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - One `.btn-primary` per screen. Everything else recedes.
 - Sizes: `.btn-sm` (compact), default (32px), `.btn-lg` (44px touch target).
 - Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled`, values in the state index. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
 - Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
@@ -1744,6 +1746,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Fixed**
 - **The changelog slice reads the heading, not its citation.** `verify-ds.py` anchored § Changelog with a naive `find("## Changelog")`, which matched the citation inside step 2 of the § Versioning release checklist — so the first `### v` checks 14, 15 and 23 saw was an entry misplaced inside the checklist itself. Three releases of structural drift that the harness validated instead of catching. The v4.0.0, v3.5.0 and v3.4.0 entries move to the top of § Changelog where they belong, and step 2, truncated mid-sentence, is closed.
+- **The Button section never pointed to its states.** The § 3.0.1 index has carried `.btn | disabled` — `opacity 0.4` · `cursor: not-allowed` — and `components.css` has implemented it; § Button listed variants, sizes and focus and stopped there, while § Input names its states and points to the index. A reader of the component section alone — the amaca.ai compiler, in this case — concluded that the disabled button did not exist. The section now points to § 3.0.1 as Input does, and its example carries a disabled button. No value changes.
 - **`.info-strip` leaves the contract.** v4.0.0 removed the class and said so; the § 3.0 registry kept its row as `deprecated` with *"removal is scheduled for v4.0.0"*, and § 3.18 still told the reader it works. The spec described a class that no longer exists, in the one table whose whole job is to be the closed list. Both lines removed.
 
 **Trigger**
