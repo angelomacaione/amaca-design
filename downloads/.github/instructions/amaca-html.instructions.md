@@ -14,10 +14,17 @@ Applies on CSS/HTML/Vue/Svelte files. The token discipline, 85/10/5 law, a11y fl
 - **Reuse canonical classes** (`.btn-primary` once per screen, `.card`, `.field`, `.select`); full specs in `DESIGN.md → Components`. A new class not in the canonical set is a gap — surface it, never ship a silent variant.
 
 ```css
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
   font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
-  transition:background var(--d-quick) var(--ease-standard); }
-.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  letter-spacing:var(--tr-snug); line-height:1;
+  min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
+  transition:all var(--d-quick) var(--ease-standard);
+  border:1px solid transparent; white-space:nowrap; }
+.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
   box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
 ```

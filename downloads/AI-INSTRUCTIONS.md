@@ -25,20 +25,35 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 - **Five principles:** clarity before cleverness · evidence over opinion · precision is a feeling (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · quiet then loud · motion is a material (feedback, never decoration).
 
 ## Components — reuse, don't reinvent
-`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · `.field` + `.field-label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · `.badge` · `.check` / `.switch` / `.radio` (square+tick / track+knob / circle+dot — shape before colour) · `.table` (no zebra) · `.alert` (never on a timer, fill never tinted) · `.toast` · `.tooltip` (opens on hover **and** focus) · date picker · tabs · accordion · loader · chat. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
+`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · `.field` + `.label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · `.badge` · `.check` / `.switch` / `.radio` (square+tick / track+knob / circle+dot — shape before colour) · `.table` (no zebra) · `.alert` (never on a timer, fill never tinted) · `.toast` · `.tooltip` (opens on hover **and** focus) · date picker · tabs · accordion · loader · chat. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
 
 ```html
 <button class="btn btn-primary">Save</button>
-<label class="field"><span class="field-label">EMAIL</span><input class="input" type="email"></label>
+<button class="btn btn-primary" disabled>Save</button>
+<label class="field"><span class="label">EMAIL</span><input class="input" type="email"></label>
 ```
 ```css
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
   font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
-  transition:background var(--d-quick) var(--ease-standard); }
-.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  letter-spacing:var(--tr-snug); line-height:1;
+  min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
+  transition:all var(--d-quick) var(--ease-standard);
+  border:1px solid transparent; white-space:nowrap; }
+.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
   box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
+.label{ font-family:var(--font-mono); font-size:var(--t-micro);
+  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md); color:var(--obsidian-100); padding:10px var(--s-3);
+  font-family:var(--font-sans); font-size:14px; outline:none;
+  transition:all var(--d-quick) var(--ease-standard); width:100%; }
 .input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+.input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
 
 ## Accessibility floor (non-negotiable)

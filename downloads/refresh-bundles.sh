@@ -24,6 +24,7 @@ cd "$(dirname "$0")"
 declare -A SRC=(
   ["DESIGN.md"]="../DESIGN.md"
   ["tokens.css"]="../styles/tokens.css"
+  ["components.css"]="../styles/components.css"
   ["theme.css"]="../styles/theme.css"
   ["tokens.dtcg.json"]="tokens.dtcg.json"
   ["AGENTS.md"]="AGENTS.md"
@@ -31,7 +32,20 @@ declare -A SRC=(
   ["AI-INSTRUCTIONS.md"]="AI-INSTRUCTIONS.md"
   ["amaca-figma.md"]="amaca-figma.md"
   ["amaca-frontend.skill"]="amaca-frontend.skill"
+  ["amaca-core.mdc"]=".cursor/rules/amaca-core.mdc"
+  ["amaca-html.mdc"]=".cursor/rules/amaca-html.mdc"
+  ["amaca-react.mdc"]=".cursor/rules/amaca-react.mdc"
+  ["copilot-instructions.md"]=".github/copilot-instructions.md"
+  ["amaca-html.instructions.md"]=".github/instructions/amaca-html.instructions.md"
+  ["amaca-react.instructions.md"]=".github/instructions/amaca-react.instructions.md"
 )
+
+# The IDE zip carries the skill UNPACKED (.agents/skills/amaca-frontend/). A
+# basename map cannot see those members — its README.md collides with the
+# bundle's own — and until v4.1.0 they sat one skill version behind. Members
+# under skills/amaca-frontend/ are refreshed from the .skill itself, extracted
+# here after the skill step so they carry its newest content.
+SKILLDIR=""
 
 # The release date, as a zip timestamp — read from the spec, never typed here.
 STAMP="$(sed -n 's/^updated:[[:space:]]*//p' ../DESIGN.md | head -1 | tr -d '-')0000"
@@ -42,7 +56,13 @@ refresh() {  # $1 = archive path
   unzip -q "$arch" -d "$stage"
   while IFS= read -r -d '' f; do
     local base; base="$(basename "$f")"
-    local src="${SRC[$base]:-}"
+    local rel="${f#$stage/}"
+    local src
+    if [ -n "$SKILLDIR" ] && [[ "$rel" =~ (^|/)skills/amaca-frontend/(.+)$ ]]; then
+      src="$SKILLDIR/amaca-frontend/${BASH_REMATCH[2]}"
+    else
+      src="${SRC[$base]:-}"
+    fi
     [ -n "$src" ] || continue
     [ -f "$src" ] || continue
     cmp -s "$src" "$f" && continue
@@ -74,6 +94,9 @@ cmp -s amaca-frontend.skill amaca-frontend.zip || {
   cat amaca-frontend.skill > amaca-frontend.zip
   echo "  synced    amaca-frontend.zip (twin of the .skill)"
 }
+
+SKILLDIR="$(mktemp -d)"
+unzip -q amaca-frontend.skill -d "$SKILLDIR"
 
 echo "bundles:"
 for z in zips/*.zip; do
