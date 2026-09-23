@@ -262,7 +262,7 @@
   transition:transform var(--d-quick) var(--ease-standard);
 }
 .swatch:hover{transform:translateY(-2px)}
-.swatch .chip{height:96px}
+.swatch .swatch-chip{height:96px}
 .swatch .meta{padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;gap:2px}
 .swatch .name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
 .swatch .hex{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300);letter-spacing:var(--tr-mono)}
@@ -352,10 +352,10 @@
 
 /* ─────────── BUTTONS (the component itself) ─────────── */
 .btn{
-  display:inline-flex;align-items:center;gap:var(--s-2);
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);
   font-family:var(--font-sans);font-size:var(--t-body);font-weight:500;
-  letter-spacing:var(--tr-snug);
-  padding:14px 28px;border-radius:var(--r-full);
+  letter-spacing:var(--tr-snug);line-height:1;
+  min-height:var(--s-10);padding:0 var(--s-6);border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
   border:1px solid transparent;
   white-space:nowrap;
@@ -372,8 +372,17 @@
 .btn-outline:hover{border-color:var(--magenta-500);color:var(--magenta-400)}
 .btn-danger{background:var(--danger);color:var(--obsidian-950)}
 .btn-danger:hover{filter:brightness(1.05)}
-.btn-sm{padding:var(--s-2) var(--s-4);font-size:var(--t-small)}
-.btn-lg{padding:18px 34px;font-size:16px}
+.btn-sm{min-height:var(--s-8);padding:0 var(--s-4);font-size:var(--t-small)}
+.btn-lg{min-height:var(--s-12);padding:0 var(--s-8)}
+/* Icon-only: a square at the size's height. aria-label is mandatory (§ 3.1). */
+.btn-icon{width:var(--s-10);padding:0}
+.btn-sm.btn-icon{width:var(--s-8)}
+.btn-lg.btn-icon{width:var(--s-12)}
+/* Touch: the § 6 floor asks 44x44 on coarse pointers; dense desktop keeps 32. */
+@media (pointer:coarse){
+  .btn:not(.btn-lg){min-height:44px}
+  .btn-icon:not(.btn-lg){min-width:44px}
+}
 
 /* ─────────── INPUTS ─────────── */
 .field{display:flex;flex-direction:column;gap:6px}
@@ -738,6 +747,49 @@
 .badge-brand{color:var(--magenta-400);border-color:rgba(240,81,213,0.3);background:rgba(240,81,213,0.08)}
 .badge-solid{background:var(--magenta-500);color:var(--obsidian-050);border-color:var(--magenta-500)}
 
+/* ─────────── CHIPS ─────────── */
+/* § 3.28 — a value a person put there. Status the system computed is a .badge. */
+.chip{
+  display:inline-flex;align-items:center;gap:var(--s-1);position:relative;
+  font-family:var(--font-sans);font-size:var(--t-small);font-weight:500;
+  letter-spacing:var(--tr-snug);line-height:var(--lh-snug);white-space:nowrap;
+  padding:var(--s-1) var(--s-3);border-radius:var(--r-full);
+  border:1px solid var(--obsidian-700);background:var(--obsidian-800);color:var(--obsidian-100);
+  transition:border-color var(--d-quick) var(--ease-standard),
+             color var(--d-quick) var(--ease-standard),
+             background var(--d-quick) var(--ease-standard);
+}
+/* the 44x44 floor is reached by an inset: the visible box stays on the type scale */
+.chip::before{content:"";position:absolute;inset:50% 0 auto 0;transform:translateY(-50%);height:44px;pointer-events:none}
+.chip .chip-dot{width:6px;height:6px;border-radius:var(--r-full);background:currentColor;flex:none}
+.chip-dense{font-size:var(--t-micro);padding:var(--s-1) var(--s-2)}
+.chip-brand{color:var(--magenta-400);border-color:rgba(240,81,213,0.3);background:rgba(240,81,213,0.08)}
+.chip-success{color:var(--success);border-color:rgba(58,255,199,0.3);background:rgba(58,255,199,0.08)}
+.chip-warn{color:var(--warning);border-color:rgba(246,198,91,0.3);background:rgba(246,198,91,0.08)}
+.chip-danger{color:var(--danger);border-color:rgba(255,91,91,0.3);background:rgba(255,91,91,0.08)}
+.chip-info{color:var(--info);border-color:rgba(92,200,255,0.3);background:rgba(92,200,255,0.08)}
+/* pressable = the whole object is the target. Never combined with a dismiss. */
+button.chip{cursor:pointer}
+button.chip:hover{border-color:var(--obsidian-600)}
+button.chip:active{background:var(--obsidian-700)}
+button.chip[aria-pressed="true"]{border-color:var(--magenta-500);color:var(--magenta-400)}
+button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
+/* dismissible = the chip is static and the button is the only target */
+.chip-dismiss{
+  all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);
+  color:var(--obsidian-400);line-height:var(--lh-tight);
+  transition:color var(--d-quick) var(--ease-standard);
+}
+.chip-dismiss:hover{color:var(--obsidian-100)}
+.chip-dismiss:focus-visible{
+  outline:2px solid var(--obsidian-100);outline-offset:-1px;
+  box-shadow:0 0 0 4px rgba(240,81,213,0.35);
+}
+@media (prefers-reduced-motion: reduce){
+  .chip,.chip-dismiss{transition:none}
+}
+
 /* ─────────── NAV BAR DEMO ─────────── */
 .navdemo{
   display:flex;align-items:center;justify-content:space-between;
@@ -996,15 +1048,6 @@
 .alert-info{border-left-color:var(--info)}
 .alert-info .alert-icon,.alert-info .tag{color:var(--info)}
 
-/* Legacy alias — `.info-strip` was the un-specced ancestor of `.alert`.
-   Kept working (removal would be MAJOR); scheduled for removal in v4.0.0.
-   New markup uses `.alert`. */
-.info-strip{
-  display:flex;align-items:center;gap:var(--s-3);
-  padding:10px 14px;background:var(--obsidian-850);border:1px solid var(--obsidian-800);border-left:2px solid var(--magenta-500);
-  border-radius:var(--r-md);font-size:var(--t-small);color:var(--obsidian-200);
-}
-.info-strip .tag{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400);text-transform:uppercase}
 
 
 /* ─────────── A11Y: focus visibility + reduced motion ─────────── */

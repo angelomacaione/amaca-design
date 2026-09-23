@@ -23,15 +23,27 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
 **The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation. **`--font-mono` is a register, not a typeface** — it resolves to Satoshi, same as `--font-sans`; the mono reading comes from `--tr-mono`, uppercase and tabular figures. A hardcoded `ui-monospace, …` stack is off-system: Amaca is a single-typeface system.
 
 ```css
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
   font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
-  transition:background var(--d-quick) var(--ease-standard); }
-.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  letter-spacing:var(--tr-snug); line-height:1;
+  min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
+  transition:all var(--d-quick) var(--ease-standard);
+  border:1px solid transparent; white-space:nowrap; }
+.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
   box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
-.field-label{ font-family:var(--font-mono); font-size:var(--t-micro);
-  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-400); }
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
+.label{ font-family:var(--font-mono); font-size:var(--t-micro);
+  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md); color:var(--obsidian-100); padding:10px var(--s-3);
+  font-family:var(--font-sans); font-size:14px; outline:none;
+  transition:all var(--d-quick) var(--ease-standard); width:100%; }
 .input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+.input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
 
 ## Accessibility floor (non-negotiable)

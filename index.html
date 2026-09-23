@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=26">
-<link rel="stylesheet" href="styles/components.css?v=79">
+<link rel="stylesheet" href="styles/tokens.css?v=27">
+<link rel="stylesheet" href="styles/components.css?v=81">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.0.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.1.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.0.0 · DESIGN SYSTEM</span>
+        <span class="meta">V4.1.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.0.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.1.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Aug 29, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Sep 23, 2026</span></div>
           </div>
         </div>
 
@@ -644,11 +644,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.1.9 re-bundles on the current spec — multi-target across HTML, React, and Figma, and teaches the stat count-up motion rule. The in-canvas Figma skill (amaca-figma) versions separately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.2.1 re-bundles on the current spec — multi-target across HTML, React, and Figma — and since v1.2.0 it verifies its own output before handing it over. The in-canvas Figma skill (amaca-figma) versions separately.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.1.9</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.2.1</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
-                <span>NEXT · <span style="color:var(--obsidian-100)">v1.2</span></span>
+                <span>NEXT · <span style="color:var(--obsidian-100)">v1.3</span></span>
               </div>
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
@@ -671,14 +671,14 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Brand · signal</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The magenta range. Use for primary actions, links, data emphasis, and gradients. Never for body text.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#FFE3F8"></div><div class="meta"><span class="name">Magenta 100</span><span class="hex">#FFE3F8</span><span class="role">Surface · tint</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#FFB5EC"></div><div class="meta"><span class="name">Magenta 200</span><span class="hex">#FFB5EC</span><span class="role">Soft · hover bg</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#FF85DF"></div><div class="meta"><span class="name">Magenta 300</span><span class="hex">#FF85DF</span><span class="role">Link hover</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#F868D8"></div><div class="meta"><span class="name">Magenta 400</span><span class="hex">#F868D8</span><span class="role">Accent · eyebrow</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#F051D5"></div><div class="meta"><span class="name">Magenta 500 — Primary</span><span class="hex">#F051D5</span><span class="role">Brand · actions</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#C93BB0"></div><div class="meta"><span class="name">Magenta 600</span><span class="hex">#C93BB0</span><span class="role">Pressed</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#9A2D87"></div><div class="meta"><span class="name">Magenta 700</span><span class="hex">#9A2D87</span><span class="role">Deep · shade</span></div></div>
-            <div class="swatch"><div class="chip" style="background:var(--grad-signal)"></div><div class="meta"><span class="name">Grad · Signal</span><span class="hex">500 → 300</span><span class="role">Brand · gradient</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#FFE3F8"></div><div class="meta"><span class="name">Magenta 100</span><span class="hex">#FFE3F8</span><span class="role">Surface · tint</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#FFB5EC"></div><div class="meta"><span class="name">Magenta 200</span><span class="hex">#FFB5EC</span><span class="role">Soft · hover bg</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#FF85DF"></div><div class="meta"><span class="name">Magenta 300</span><span class="hex">#FF85DF</span><span class="role">Link hover</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#F868D8"></div><div class="meta"><span class="name">Magenta 400</span><span class="hex">#F868D8</span><span class="role">Accent · eyebrow</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#F051D5"></div><div class="meta"><span class="name">Magenta 500 — Primary</span><span class="hex">#F051D5</span><span class="role">Brand · actions</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#C93BB0"></div><div class="meta"><span class="name">Magenta 600</span><span class="hex">#C93BB0</span><span class="role">Pressed</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#9A2D87"></div><div class="meta"><span class="name">Magenta 700</span><span class="hex">#9A2D87</span><span class="role">Deep · shade</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:var(--grad-signal)"></div><div class="meta"><span class="name">Grad · Signal</span><span class="hex">500 → 300</span><span class="role">Brand · gradient</span></div></div>
           </div>
         </div>
 
@@ -686,18 +686,18 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Obsidian · neutrals</h2><span class="subsection-num">§ 04.2</span></div>
           <p class="subsection-desc">The working surface. Twelve-step scale from page bedrock to bone. Body text lives at 100; metadata at 300; edges at 700.</p>
           <div class="grid grid-6">
-            <div class="swatch"><div class="chip" style="background:#07090B"></div><div class="meta"><span class="name">Obsidian 950</span><span class="hex">#07090B</span><span class="role">Page</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#0B0E12"></div><div class="meta"><span class="name">Obsidian 900</span><span class="hex">#0B0E12</span><span class="role">Surface</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#10141A"></div><div class="meta"><span class="name">Obsidian 850</span><span class="hex">#10141A</span><span class="role">Elevated</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#161B22"></div><div class="meta"><span class="name">Obsidian 800</span><span class="hex">#161B22</span><span class="role">Card</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#1E242D"></div><div class="meta"><span class="name">Obsidian 700</span><span class="hex">#1E242D</span><span class="role">Border</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#2A313B"></div><div class="meta"><span class="name">Obsidian 600</span><span class="hex">#2A313B</span><span class="role">Divider</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#3A4451"></div><div class="meta"><span class="name">Obsidian 500</span><span class="hex">#3A4451</span><span class="role">Edge</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#5B6573"></div><div class="meta"><span class="name">Obsidian 400</span><span class="hex">#5B6573</span><span class="role">Disabled</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#8A94A3"></div><div class="meta"><span class="name">Obsidian 300</span><span class="hex">#8A94A3</span><span class="role">Secondary</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#B8C0CB"></div><div class="meta"><span class="name">Obsidian 200</span><span class="hex">#B8C0CB</span><span class="role">Tertiary</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#E3E7EC"></div><div class="meta"><span class="name">Obsidian 100</span><span class="hex">#E3E7EC</span><span class="role">Body text</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#F4F6F8"></div><div class="meta"><span class="name">Obsidian 050</span><span class="hex">#F4F6F8</span><span class="role">Bone</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#07090B"></div><div class="meta"><span class="name">Obsidian 950</span><span class="hex">#07090B</span><span class="role">Page</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#0B0E12"></div><div class="meta"><span class="name">Obsidian 900</span><span class="hex">#0B0E12</span><span class="role">Surface</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#10141A"></div><div class="meta"><span class="name">Obsidian 850</span><span class="hex">#10141A</span><span class="role">Elevated</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#161B22"></div><div class="meta"><span class="name">Obsidian 800</span><span class="hex">#161B22</span><span class="role">Card</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#1E242D"></div><div class="meta"><span class="name">Obsidian 700</span><span class="hex">#1E242D</span><span class="role">Border</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#2A313B"></div><div class="meta"><span class="name">Obsidian 600</span><span class="hex">#2A313B</span><span class="role">Divider</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#3A4451"></div><div class="meta"><span class="name">Obsidian 500</span><span class="hex">#3A4451</span><span class="role">Edge</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#5B6573"></div><div class="meta"><span class="name">Obsidian 400</span><span class="hex">#5B6573</span><span class="role">Disabled</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#8A94A3"></div><div class="meta"><span class="name">Obsidian 300</span><span class="hex">#8A94A3</span><span class="role">Secondary</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#B8C0CB"></div><div class="meta"><span class="name">Obsidian 200</span><span class="hex">#B8C0CB</span><span class="role">Tertiary</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#E3E7EC"></div><div class="meta"><span class="name">Obsidian 100</span><span class="hex">#E3E7EC</span><span class="role">Body text</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#F4F6F8"></div><div class="meta"><span class="name">Obsidian 050</span><span class="hex">#F4F6F8</span><span class="role">Bone</span></div></div>
           </div>
         </div>
 
@@ -705,10 +705,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Secondary · electric cyan</h2><span class="subsection-num">§ 04.3</span></div>
           <p class="subsection-desc">High-voltage cyan. Use for focus accents, highlighted states, and secondary emphasis — never as a second primary.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#CCFFFC"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#33FFF5"></div><div class="meta"><span class="name">Secondary 300</span><span class="hex">#4FF1EC</span><span class="role">Hover</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#00FFF2"></div><div class="meta"><span class="name">Secondary 500 — Electric</span><span class="hex">#00FFF2</span><span class="role">Accent</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#009992"></div><div class="meta"><span class="name">Secondary 700</span><span class="hex">#04918D</span><span class="role">Deep</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#CCFFFC"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#33FFF5"></div><div class="meta"><span class="name">Secondary 300</span><span class="hex">#4FF1EC</span><span class="role">Hover</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#00FFF2"></div><div class="meta"><span class="name">Secondary 500 — Electric</span><span class="hex">#00FFF2</span><span class="role">Accent</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#009992"></div><div class="meta"><span class="name">Secondary 700</span><span class="hex">#04918D</span><span class="role">Deep</span></div></div>
           </div>
         </div>
 
@@ -716,10 +716,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Tertiary · petrol</h2><span class="subsection-num">§ 04.4</span></div>
           <p class="subsection-desc">Deep petrol teal. Used for default badges, quiet tags, and neutral chips that shouldn’t read as brand but still need color.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#CEEAF1"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#4FA9BF"></div><div class="meta"><span class="name">Tertiary 300</span><span class="hex">#4FA9BF</span><span class="role">Text on dark</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#0C6078"></div><div class="meta"><span class="name">Tertiary 500 — Default</span><span class="hex">#0C6078</span><span class="role">Badge stroke</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#084C61"></div><div class="meta"><span class="name">Tertiary 600</span><span class="hex">#084C61</span><span class="role">Deep</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#CEEAF1"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#4FA9BF"></div><div class="meta"><span class="name">Tertiary 300</span><span class="hex">#4FA9BF</span><span class="role">Text on dark</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#0C6078"></div><div class="meta"><span class="name">Tertiary 500 — Default</span><span class="hex">#0C6078</span><span class="role">Badge stroke</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#084C61"></div><div class="meta"><span class="name">Tertiary 600</span><span class="hex">#084C61</span><span class="role">Deep</span></div></div>
           </div>
         </div>
 
@@ -727,10 +727,10 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Semantic · signals</h2><span class="subsection-num">§ 04.5</span></div>
           <p class="subsection-desc">Reserved for feedback only — success, warning, danger, info. Never use as decoration.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="chip" style="background:#3AFFC7"></div><div class="meta"><span class="name">Success</span><span class="hex">#3AFFC7</span><span class="role">Confirm · saved</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#F6C65B"></div><div class="meta"><span class="name">Warning</span><span class="hex">#F6C65B</span><span class="role">Caution · pending</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#FF5B5B"></div><div class="meta"><span class="name">Danger</span><span class="hex">#FF5B5B</span><span class="role">Error · destructive</span></div></div>
-            <div class="swatch"><div class="chip" style="background:#5CC8FF"></div><div class="meta"><span class="name">Info</span><span class="hex">#5CC8FF</span><span class="role">Info · neutral state</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#3AFFC7"></div><div class="meta"><span class="name">Success</span><span class="hex">#3AFFC7</span><span class="role">Confirm · saved</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#F6C65B"></div><div class="meta"><span class="name">Warning</span><span class="hex">#F6C65B</span><span class="role">Caution · pending</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#FF5B5B"></div><div class="meta"><span class="name">Danger</span><span class="hex">#FF5B5B</span><span class="role">Error · destructive</span></div></div>
+            <div class="swatch"><div class="swatch-chip" style="background:#5CC8FF"></div><div class="meta"><span class="name">Info</span><span class="hex">#5CC8FF</span><span class="role">Info · neutral state</span></div></div>
           </div>
         </div>
 
@@ -1192,12 +1192,12 @@ Basic UI</div>
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 10.1</span></div>
           <p class="subsection-desc">The button variants, one job each. One primary per screen; everything else supports it.</p>
           <div class="card" style="padding:var(--s-10);display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center">
-            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)">Primary action</button>
-            <button class="btn btn-secondary" style="padding: var(--s-3) var(--s-6)">Secondary</button>
-            <button class="btn btn-outline" style="padding: var(--s-3) var(--s-6)">Outline</button>
-            <button class="btn btn-ghost" style="padding: var(--s-3) var(--s-6)">Ghost</button>
-            <button class="btn btn-danger" style="padding: var(--s-3) var(--s-6)">Delete project</button>
-            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)" disabled>Disabled</button>
+            <button class="btn btn-primary">Primary action</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-outline">Outline</button>
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-danger">Delete project</button>
+            <button class="btn btn-primary" disabled>Disabled</button>
           </div>
         </div>
 
@@ -1206,19 +1206,26 @@ Basic UI</div>
           <p class="subsection-desc">Three sizes — 32, 40, 48 — and the default is the middle one. Size signals density, not importance: the variant does that.</p>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);align-items:center;flex-wrap:wrap">
             <button class="btn btn-primary btn-sm">Small · 32</button>
-            <button class="btn btn-primary" style="padding: var(--s-3) var(--s-6)">Default · 40</button>
-            <button class="btn btn-primary btn-lg" style="padding: var(--s-4) var(--s-8)">Large · 48</button>
+            <button class="btn btn-primary">Default · 40</button>
+            <button class="btn btn-primary btn-lg">Large · 48</button>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">With icons</h2><span class="subsection-num">§ 10.3</span></div>
-          <p class="subsection-desc">Icon-and-label compositions, leading and trailing. The gap is <code>--s-2</code>, always; the label stays.</p>
+          <p class="subsection-desc">Icon-and-label compositions, leading and trailing, and the icon-only square for toolbars where the meaning is universal. The icon-only button is named by its <code>aria-label</code>; the icon itself is hidden from assistive tech.</p>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
             <button class="btn btn-primary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg> New case study</button>
             <button class="btn btn-outline">View all <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3l5 5-5 5"/></svg></button>
             <button class="btn btn-secondary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 8l3 3 7-7"/></svg> Approved</button>
             <button class="btn btn-ghost"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="8" r="6"/><path d="M8 5v3M8 10.5v.5"/></svg> Help</button>
+          </div>
+          <div class="card" style="padding:var(--s-8);margin-top:var(--s-4);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
+            <button class="btn btn-secondary btn-icon btn-sm" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+            <button class="btn btn-secondary btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+            <button class="btn btn-secondary btn-icon btn-lg" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+            <button class="btn btn-ghost btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+            <button class="btn btn-outline btn-icon" aria-label="Add item" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
           </div>
         </div>
       </section>
@@ -3908,9 +3915,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.0.0 -->
+            <!-- v4.1.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-400">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-410">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.1.0 &mdash; Chip enters the contract</span>
+                <span class="acc-num">2026-09-23</span>
+              </button>
+              <div class="acc-panel" id="cl-410" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The DS manager rendered this system with the Chip cell empty &mdash; correctly, because the contract said <code>site-only</code>. An empty cell in a projection is the cheapest way to learn that a component the system needs was never declared. Writing the spec then surfaced two more things the file was wrong about: a state it used without naming, and a class it taught after removing it. Three surfaces, one failure &mdash; the inventories were guarded, the sentences about them were not.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Chip, a component at last</strong> &mdash; the registry taught that <code>.chip</code> was doc-site chrome, <em>&ldquo;a colour swatch on the doc site, not a chip/tag component&rdquo;</em> &mdash; right about the class, wrong about the system. It is now a contract: six variants on the Badge&rsquo;s semantic set and its two tint strengths, an optional dot, an optional dismiss, states from the state grammar, motion rows in the index. The doc-site swatch is renamed <code>.swatch-chip</code>. A chip carries a value a person put there; status the system computed stays a <code>.badge</code>. At most one affordance &mdash; pressable or dismissible, never both, because two 44&times;44 targets do not fit in a 28px object.</li><li><strong style="color:var(--obsidian-100)">The state vocabulary gains <code>selected</code></strong> &mdash; legal where an element carries a persistent choice the reader made, always mirrored by <code>aria-selected</code> or <code>aria-pressed</code>, never a synonym for <code>active</code>. Two releases late: the state index already carried it for the date-picker day and the select option, so the sentence claiming a closed list was false about its own table.</li><li><strong style="color:var(--obsidian-100)">Composite values are reproduced verbatim</strong> &mdash; AI-agent rule #9 and check 29. A gradient, a shadow or a font stack is a value with <em>parts</em>; copying its shape instead of its content invents a value rather than simplifying one.</li><li><strong style="color:var(--obsidian-100)">Icon-only button, <code>.btn-icon</code></strong> &mdash; a square at its size&rsquo;s height, <code>aria-label</code> mandatory, a tooltip when the glyph is not universal. The icon-and-label anatomy the site has drawn in &sect; 10.3 is declared with it.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Button sizes are declared, and rendered: 32 &middot; 40 &middot; 48</strong> &mdash; the spec said 32 and 44, this site labelled 32, 40 and 48, and the CSS rendered 35, 51 and 60. Heights now sit on <code>--s-8</code>, <code>--s-10</code> and <code>--s-12</code>, and every button reaches 44 on a coarse pointer. A rendered change shipped in a minor by decision: no stated size matched the rendered one, so none was there to depend on.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The changelog slice reads the heading, not its citation</strong> &mdash; the harness anchored the changelog with a naive string find that matched the citation inside the release checklist, so three releases of structural drift were validated instead of caught.</li><li><strong style="color:var(--obsidian-100)">The Button section never pointed to its states</strong> &mdash; the state index carried <code>.btn | disabled</code> and the CSS implemented it, but the component section stopped at variants, sizes and focus. A reader of that section alone &mdash; the amaca.ai compiler &mdash; concluded the disabled button did not exist. It now points to the state grammar as Input does, and its example carries a disabled button. No value changes.</li><li><strong style="color:var(--obsidian-100)">The snippets agents copy verbatim had drifted from the CSS they quote</strong> &mdash; every <em>&ldquo;reuse these verbatim&rdquo;</em> block in the rules files and <code>llms-full.txt</code> disagreed with <code>components.css</code>: a <code>--r-md</code> button the CSS draws round, a <code>--magenta-600</code> hover the ratified exception forbids, no disabled state, the wrong input surface, and <code>.field-label</code>, a name v4.0.0 removed from one copy and not the other seven. The snippets now quote the CSS rule for rule; check 30 holds them to it.</li><li><strong style="color:var(--obsidian-100)">The skill taught a different button</strong> &mdash; <code>amaca-frontend</code>&rsquo;s React, HTML and Figma references drifted from the state index on the disabled fill, the label, the hover, the radius and the focus halo, and listed states the index does not carry. Realigned, with the restated lists replaced by pointers to the index.</li><li><strong style="color:var(--obsidian-100)">The skill&rsquo;s version went backwards</strong> &mdash; v1.2.0 shipped with v4.0.0 and the README never recorded it, so this release first stamped v1.1.11 while the site still read v1.1.9. The skill ships as v1.2.1; check 31 holds its five stated versions to one, and check 24 now sees the copy the IDE zip carries unpacked, which sat one version behind.</li><li><strong style="color:var(--obsidian-100)"><code>tokens.css</code> erased Tailwind on every button</strong> &mdash; its element reset sat unlayered, and an unlayered rule beats every layered one, so a button built from <code>theme.css</code> utilities rendered transparent and borderless. The base rules now live in <code>@layer base</code>; the site renders identically, measured element by element. Check 32 keeps them there.</li><li><strong style="color:var(--obsidian-100)">The CSS never carried its version</strong> &mdash; the versioning rules said both stylesheets stamp it in their leading comment; neither ever did. The rule now says what is true: the release tag versions the CSS.</li><li><strong style="color:var(--obsidian-100)"><code>.info-strip</code> leaves the contract</strong> &mdash; v4.0.0 removed the class and said so, while the registry kept its row and the Alert section still told the reader it works &mdash; and <code>components.css</code> still shipped the rule. It is gone now, as announced; check 10 reads only the registry, which also added the missing <code>.dp-range</code> row.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-23</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.0.0...v4.1.0" target="_blank" rel="noopener">v4.0.0&hellip;v4.1.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.0.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-400">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.0.0 &mdash; The rendered system aligns to its contract</span>
                 <span class="acc-num">2026-08-29</span>

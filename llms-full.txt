@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 4.0.0 · Released: 2026-08-29 · Matches the DESIGN.md frontmatter version
+Version: 4.1.0 · Released: 2026-09-23 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
@@ -44,15 +44,22 @@ Color never carries meaning alone (pair with shape + label) · no text < 12px, n
 ## Snippets — reuse these verbatim (token-only)
 ```html
 <button class="btn btn-primary">Save</button>
+<button class="btn btn-primary" disabled>Save</button>
 ```
 ```css
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  padding:var(--s-3) var(--s-5); border-radius:var(--r-md);
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
   font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
-  transition:background var(--d-quick) var(--ease-standard); }
-.btn-primary:hover{ background:var(--magenta-600); }
-.btn-primary:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  letter-spacing:var(--tr-snug); line-height:1;
+  min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
+  transition:all var(--d-quick) var(--ease-standard);
+  border:1px solid transparent; white-space:nowrap; }
+.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
   box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
+  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
 ```
 ```html
 <label class="field">
@@ -61,11 +68,14 @@ Color never carries meaning alone (pair with shape + label) · no text < 12px, n
 </label>
 ```
 ```css
-.label{ font-family:var(--font-mono); font-size:10px;
-  text-transform:uppercase; letter-spacing:var(--tr-mono); color:var(--obsidian-300); }
-.input{ background:var(--obsidian-900); border:1px solid var(--obsidian-700);
-  border-radius:var(--r-md); padding:var(--s-3) var(--s-4); color:var(--obsidian-100); }
+.label{ font-family:var(--font-mono); font-size:var(--t-micro);
+  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
+  border-radius:var(--r-md); color:var(--obsidian-100); padding:10px var(--s-3);
+  font-family:var(--font-sans); font-size:14px; outline:none;
+  transition:all var(--d-quick) var(--ease-standard); width:100%; }
 .input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+.input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
 
 ## Voice

@@ -4,7 +4,7 @@ description: "Apply and audit the Amaca Design System (amaca.design) inside Figm
 license: MIT
 metadata:
   author: angelomacaione
-  version: "1.4"
+  version: "1.5"
   canonical: https://amaca.design
 ---
 
