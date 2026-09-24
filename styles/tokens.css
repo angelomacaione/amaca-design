@@ -71,6 +71,9 @@
      (badge, chip): color-mix(in srgb, var(--hue) calc(var(--tint-*) * 100%), transparent) */
   --tint-fill:   0.08;
   --tint-edge:   0.3;
+  /* the default badge's deep hue (--tertiary-500) needs the heavier mix */
+  --tint-fill-deep: 0.12;
+  --tint-edge-deep: 0.4;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);

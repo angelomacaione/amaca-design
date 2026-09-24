@@ -320,7 +320,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.1 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-wrap-trail` `.help` | canonical | § 3.2 |
 | Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
-| Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` `.badge-neutral` | canonical | § 3.4 |
+| Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.7 |
@@ -361,7 +361,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 **Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `checked` · `expanded` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`. `checked` and `expanded` (added v4.3.0) were in the state index before they were in this list — the same trap `selected` fell into, and check 42 now closes it. `checked` belongs to a control whose value is on or off (check, radio, switch) and is always mirrored by `:checked` or `aria-checked`. `expanded` belongs to a trigger that owns a popup (the select trigger) and is always mirrored by `aria-expanded="true"`.
 
 **Rules of the grammar:**
-- Value cells (Background, Border, Foreground, Ring) accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), `native` (the browser's own treatment, deliberately not overridden), or the CSS keywords `none` and `transparent`. Never raw values, and never a description in place of a value. The focus rings are tokens since v4.2.0 — `--ring-halo`, `--ring-field`, `--ring-field-danger` (§ 2 Shadow, § 6.2); a row cites the token, never the rgba() it resolves to. Composition that is not a colour or a shadow (`opacity`, `filter`, offsets) lives in *Other*. A tint is written `--hue` × `--tint-fill` (or × `--tint-edge`): the hue mixed with transparent at that strength, `color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)`.
+- Value cells (Background, Border, Foreground, Ring) accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), `native` (the browser's own treatment, deliberately not overridden), or the CSS keywords `none` and `transparent`. Never raw values, and never a description in place of a value. The focus rings are tokens since v4.2.0 — `--ring-halo`, `--ring-field`, `--ring-field-danger` (§ 2 Shadow, § 6.2); a row cites the token, never the rgba() it resolves to. Composition that is not a colour or a shadow (`opacity`, `filter`, offsets) lives in *Other*. A tint is written `--hue` × `--tint-fill` (or × `--tint-edge`, or their `-deep` pair): the hue mixed with transparent at that strength, `color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)`.
 - A state **not listed is not styled**: it falls back to `default`. Absence is a statement, not an omission.
 - The **`focus-visible` row is mandatory** for every focusable element. A component whose matrix has no `focus-visible` row does not ship (§ 6 floor #5).
 - The **`error` row is mandatory** for every form control, and error is never carried by colour alone (§ 6 floor #1) — it pairs with helper text (`.help.error`) or `aria-invalid`.
@@ -390,14 +390,13 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
-| `.badge` | default | `--tertiary-500` × `--tint-fill` | `--tertiary-500` × `--tint-edge` | `--tertiary-300` | — | `--r-md` · static: a badge has no hover or focus |
-| `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | live |
-| `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | draft |
-| `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | broken |
+| `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · default, archive · static: a badge has no hover or focus |
+| `.badge-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | live · the accent — § 1 budget |
+| `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped |
+| `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | pending |
+| `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker |
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact |
-| `.badge-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | the accent — § 1 budget |
-| `.badge-neutral` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-400` | — | archived |
-| `.badge-solid` | default | `--magenta-500` | `--magenta-500` | `--obsidian-950` | — | featured · dark label, § 6.3 |
+| `.badge-solid` | default | `--magenta-500` | `--magenta-500` | `--obsidian-050` | — | featured · light label, ratified § 6.3 |
 | `.input` `.textarea` `.select` | default | `--obsidian-850` | `--obsidian-700` | `--obsidian-100` | — | placeholder `--obsidian-400` |
 | `.input` `.textarea` `.select` | focus-visible | — | `--magenta-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
@@ -496,7 +495,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
 - Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
 - **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.12's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
-- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
+- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
 ### Input · textarea · select
@@ -542,7 +541,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ```html
 <div class="card">
-  <div class="card-meta"><span>PROJ-014 · 2025.10</span><span class="badge badge-success"><span class="dot"></span>Live</span></div>
+  <div class="card-meta"><span>PROJ-014 · 2025.10</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
   <h3>Card title</h3>
   <p>Body…</p>
   <div class="card-actions"><button type="button" class="btn btn-secondary">Open case file</button></div>
@@ -560,29 +559,28 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ### Badge
 
-Status the system computed — live, draft, broken — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28); the two are one family and share a register.
+Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28).
 
 ```html
-<span class="badge badge-success"><span class="dot"></span>Live</span>
-<span class="badge badge-warn"><span class="dot"></span>Draft</span>
-<span class="badge badge-neutral">Archived</span>
+<span class="badge badge-brand"><span class="dot"></span>Live</span>
+<span class="badge badge-warn"><span class="dot"></span>Pending</span>
+<span class="badge"><span class="dot"></span>Archive</span>
 ```
 
 | Variant | Surface | Use |
 |---|---|---|
-| `.badge` | `--tertiary-500` × `--tint-fill` / `--tint-edge`, text `--tertiary-300` | Default — a quiet tag |
-| `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Live |
-| `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Draft, pending |
-| `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Broken |
+| `.badge` | `--tertiary-500` × `--tint-fill-deep` / `--tint-edge-deep`, text `--tertiary-300` | Default — a quiet tag; archive |
+| `.badge-brand` | `--magenta-500` × `--tint-fill` / `--tint-edge`, text `--magenta-400` | Live — spends the accent |
+| `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Shipped |
+| `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Pending |
+| `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Blocker |
 | `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | A neutral fact |
-| `.badge-brand` | `--magenta-500` × `--tint-fill` / `--tint-edge`, text `--magenta-400` | New — spends the accent |
-| `.badge-neutral` | `--obsidian-800` on `--obsidian-700`, text `--obsidian-400` | Archived |
-| `.badge-solid` | `--magenta-500` fill, text `--obsidian-950` | Featured — one filled accent per viewport |
+| `.badge-solid` | `--magenta-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
 
-- **The Chip's register (v4.3.0).** `--t-small`, weight 500, `--tr-snug`, `--lh-snug`, sentence case (`text-transform: none`, so a badge inside the mono-uppercase `.card-meta` keeps it); padding `--s-1` `--s-3`, gap `--s-1`. The corner is the badge's own, `--r-md`, so the two stay distinguishable at a glance: the chip is round, the badge is square-cornered.
-- **A tint is the hue at the family's two strengths**, `--tint-fill` for the surface and `--tint-edge` for the border, text on the full token. Never a hand-written rgba.
-- **The dot marks a live status** (`.dot`, 6px, `currentColor`). A badge that only classifies — default, new, archived, featured — carries none.
-- **The solid badge takes a dark label.** The light label on magenta is ratified for `.btn-primary` alone (§ 6.3).
+- **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `10px 18px`, gap `6px` (raw by design, § Code conventions); corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
+- **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
+- **The dot** (`.dot`, 6px, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
+- **The solid badge takes the light label**, `--obsidian-050` on `--magenta-500`: the second ratified exception of § 6.3, bounded like the first.
 - **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
 
 ### Navigation
@@ -1640,7 +1638,7 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
 | `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
-One pair sits below AA by ratified exception — the primary button label (`--obsidian-050` on `--magenta-500`, ≈ 2.8 : 1). See § 6.3.
+One pair sits below AA by ratified exception — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1), the primary button label and the solid badge. See § 6.3.
 
 ### Focus visibility
 
@@ -1653,9 +1651,11 @@ Two patterns ship:
 
 ### Ratified exceptions
 
-The floor admits exactly one documented exception.
+The floor admits one documented exception pair, on two selectors.
 
-**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--magenta-500`. (`.badge-solid` used to, and was cited here; since v4.3.0 it takes the dark label.)
+**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--magenta-500`.
+
+**`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--magenta-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.4), a text label that carries the meaning on its own, weight 500, fill bounded to `--magenta-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
 
 **APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
 
@@ -1675,6 +1675,7 @@ The floor admits exactly one documented exception.
   | `14px` font-size | `.input` `.textarea` `.select`, `.select-option`, `.check` `.switch` `.radio` labels | between `--t-small` (13) and `--t-body` (15) |
   | `10px` | field block padding, `.select-option` inline padding, choice-control label gap | between `--s-2` (8) and `--s-3` (12) |
   | `36px` | `.select` `padding-right` (chevron reserve), `.input-wrap .input` `padding-left` (icon inset) | between `--s-8` (32) and `--s-10` (40) |
+| `10px 18px` padding, `6px` gap | `.badge` | between `--s-2` / `--s-3`, `--s-4` / `--s-5`, and `--s-1` / `--s-2` |
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
@@ -1828,25 +1829,25 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ### v4.3.0 — 2026.09.24 (MINOR)
 
-The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file disagreed with itself or with the CSS. Four of them, the Select, had already shipped in v4.2.2, and one detail of those was still open. The rest follow here. Most are the contract catching up with what the CSS draws. One is a visible change taken by decision: the badge's register.
+The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file disagreed with itself or with the CSS. Four of them, the Select, had already shipped in v4.2.2, and one detail of those was still open. The rest follow here. The rule for all of them: where the contract and the site disagree, the site wins and the contract is rewritten. The only visible changes are the textarea placeholder, which showed the browser's default, and two inline styles taken out of the badge demo; both are under Fixed.
 
 **Changed**
-- **The badge takes the Chip's register** (§ 3.4). The spec said `--t-micro`, uppercase, `--tr-mono`. The CSS drew `--t-small`, sentence case, `--tr-snug` and `padding: 10px 18px`, which made a badge 40.8px tall next to a 25.6px chip that § 3.28 calls the same family. The badge now uses the Chip's type, tracking, line-height, padding (`--s-1` `--s-3`) and gap. It keeps its own `--r-md` corner. **Every badge renders shorter**, which § Versioning classes as MAJOR. It ships in a minor by explicit decision: neither description matched the other, so there was no single declared value to depend on. The base badge moves to the family's two tint strengths (from 0.12 / 0.4). The solid badge takes a dark label, because the light label on magenta is ratified for `.btn-primary` alone (§ 6.3).
+- **The badge contract describes the badge the site draws** (§ 3.4). The spec said `--t-micro`, uppercase, `--tr-mono`, and roles the site never used. It now states the CSS: `--t-small`, `--tr-snug`, padding `10px 18px`, gap `6px`, `--r-md`; Live on brand, Shipped on success, Pending on warn, Blocker on danger, Archive on the default; the dot on every status badge. Not one pixel of the badge changes.
+- **§ 6.3 names `.badge-solid` as the second selector of the ratified pair.** It has always drawn `--obsidian-050` on `--magenta-500`. The exception, its bounds and its compliance mode now cover it by name, and every agent file says so.
 
 **Added**
-- **`--tint-fill` and `--tint-edge`**, the two alphas every tinted label wears. Badge and chip variants mix their hue with them through `color-mix()`; eleven hand-written rgba pairs are gone.
-- **`.badge-neutral`**, for archived: `--obsidian-400` on the card surfaces. Without it, the contract's archived colour had no class, so the site used the tertiary default instead.
+- **`--tint-fill` and `--tint-edge`** (0.08 / 0.3), the two alphas the tinted labels wear, and **`--tint-fill-deep` / `--tint-edge-deep`** (0.12 / 0.4) for the default badge's deep hue. Badge and chip variants mix their hue with them through `color-mix()`; thirteen hand-written rgba pairs are gone, at the same values.
 - **State-index rows** for `.card` (default, hover) and for every badge variant. Tints are written `--hue` × `--tint-fill`, and the grammar names the operator.
 - **`checked` and `expanded` in the closed vocabulary**, each with its mirror (`:checked` / `aria-checked`, `aria-expanded`). The table had used both since before the list existed, the same trap as `selected` in v4.1.0. **Check 42** now holds every state in the table to the list.
 - **HTML examples the compiler can read.** § Input now shows `.help`, `.help.error` with `aria-invalid`, an `.input-wrap` with its icon, a `textarea` with `rows` and a native `<select class="select">`. § Card shows a badge inside `.card-meta` and a `.card-actions` with its button.
 
 **Fixed**
-- **Live and Archived were the wrong colours on the site.** The site drew Live as brand magenta and Archived as the tertiary default. They now follow the contract: Live `--success`, Archived `.badge-neutral`. The § 13.1 demo also lost three inline styles left from v1.1.4: a cyan Default, a warn background at 0.1, and a danger `opacity: 1`.
+- **The § 13.1 demo lost three inline styles left from v1.1.4**: a cyan Default, a warn background at 0.1, and a danger `opacity: 1`. The Default badge now shows the class it demonstrates, and Pending the warn fill every other warn badge wears.
 - **The error demo in § 11.1 was painted by an inline style**, against its own section's rule. It now carries `aria-invalid="true"` and a `.help.error` tied to it with `aria-describedby`.
 - **The switch track carried a stroke in the state index it never had on the site: the family's default row now splits, `.switch` is fill-only.** Its knob, `--obsidian-200`, is declared beside it, the anatomy says "no border", and **check 43** keeps it that way. The checkbox corner reads `--r-xs`, which is what the CSS draws; the table used to say "3px", and `--r-xs` is 2px. The focus row names the 2px outline at offset 3 that sits beside the halo.
 - **A Select menu that fitted could still scroll.** The height came from `scrollHeight`, which rounds and leaves out the border. It is now measured with `getBoundingClientRect()`, rounded up, and the menu scrolls only when it is really shortened. Check 41 carries the rule.
 - **Check 40 reads only `<link>` tags.** The changelog quotes the old `?v=82` as text; `release.py bust` is restricted the same way.
-- **The contract now says what the site draws: select trigger focus, chip tints, danger border, menu surface, badge-solid in § 6.3; textarea placeholder follows the field.** The trigger's keyboard focus is the pressable ring, not the field glow, and has its own row. The five tinted chips and the four alert variants have rows. The danger button's border is the base's transparent one, not `--danger`. The menu surface has a row, and its shadow is a token, `--sh-menu`, with the same value, used by the menu and the native picker. § 6.3 no longer cites `.badge-solid` as a light-on-magenta precedent. § 3.0.1 names the switch knob's `--d-base` travel as the one exception to `--d-quick`. The one visible fix: `.textarea::placeholder` joins `.input::placeholder`, where the demo had shown the browser's default. Hand-written px in the controls became tokens where one has the identical value (`--s-3`, `--r-full`). The rest are listed under § Code conventions as *raw by design*.
+- **The contract now says what the site draws: select trigger focus, chip tints, danger border, menu surface, badge-solid in § 6.3; textarea placeholder follows the field.** The trigger's keyboard focus is the pressable ring, not the field glow, and has its own row. The five tinted chips and the four alert variants have rows. The danger button's border is the base's transparent one, not `--danger`. The menu surface has a row, and its shadow is a token, `--sh-menu`, with the same value, used by the menu and the native picker. § 6.3 names `.badge-solid` beside `.btn-primary`. § 3.0.1 names the switch knob's `--d-base` travel as the one exception to `--d-quick`. The one visible fix: `.textarea::placeholder` joins `.input::placeholder`, where the demo had shown the browser's default. Hand-written px in the controls became tokens where one has the identical value (`--s-3`, `--r-full`). The rest are listed under § Code conventions as *raw by design*.
 - **Checks 44–46.** Check 44: every token a state-index cell names is painted by `components.css`, for that component, state and property. Check 45: a placeholder colour in the index has its `::placeholder` rule. Check 46: every variant-table selector has an index row. On the v4.2.2 tree they report the danger border, the switch stroke, the textarea placeholder and nine variants with no row.
 
 ### v4.2.2 — 2026.09.24 (PATCH)

@@ -1353,9 +1353,9 @@ def c37():
         for col, v in zip(cols, c[2:6]):
             if v in keywords:
                 continue
-            if "×" in v and not re.search(r"×\s*`--tint-(?:fill|edge)`", v):
+            if "×" in v and not re.search(r"×\s*`--tint-(?:fill|edge)(?:-deep)?`", v):
                 fails.append(f"{where} · {col}: '×' composes a hue with a tint strength — "
-                             "the right operand must be `--tint-fill` or `--tint-edge`")
+                             "the right operand must be `--tint-fill` / `--tint-edge` (or their -deep pair)")
             for t in re.findall(r"--[a-z0-9-]+", v):
                 if t not in toks:
                     fails.append(f"{where} · {col}: {t} is not declared in tokens.css")
