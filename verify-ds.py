@@ -1320,6 +1320,181 @@ def c36():
             fails.append(f"#{sid}: subsection sequence {minors} has a gap or a duplicate")
     return fails
 
+@check("37", "Every value cell of the state index is a value, not a description",
+       "v4.2.0: the .btn-primary hover read '`--sh-3` + magenta bloom' in the Ring "
+       "column. 'magenta bloom' named no token and no ratified literal; the CSS drew "
+       "a 4px magenta ring at 0.18 that the spec had never stated, so a generator "
+       "reading the index — the table § 3.0.1 says it reads instead of guessing — "
+       "had to guess. The same audit found two siblings: '`--danger` (brightened)' "
+       "for a filter, and 'danger glow on focus' for an rgba nobody had named. The "
+       "grammar already said 'tokens only'; nothing read the cells.")
+def c37():
+    text = read(DESIGN)
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    toks = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(TOKENS)))
+    keywords = {"—", "none", "transparent", "native", "per variant"}
+    paren_ok = {"label", "check", "radio", "tick", "knob", "track", "on focus"}
+    words_ok = {"+", "·", "dot", "left", "rule", "per", "variant"}
+    cols = ("Background", "Border", "Foreground", "Ring")
+    fails, rows = [], 0
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("|") or line.startswith("|---") or line.startswith("| Component"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if len(c) < 7:
+            fails.append(f"state index row has {len(c)} cells, the schema has 7: {line[:60]}")
+            continue
+        rows += 1
+        where = f"{c[0]} | {c[1]}"
+        for col, v in zip(cols, c[2:6]):
+            if v in keywords:
+                continue
+            for t in re.findall(r"--[a-z0-9-]+", v):
+                if t not in toks:
+                    fails.append(f"{where} · {col}: {t} is not declared in tokens.css")
+            if re.search(r"rgba?\(|hsla?\(|#[0-9a-fA-F]{3,8}\b", v):
+                fails.append(f"{where} · {col}: raw colour in '{v}' — cite the token")
+            bare = re.sub(r"`[^`]*`", "", v)
+            for p in re.findall(r"\(([^)]*)\)", bare):
+                if p not in paren_ok:
+                    fails.append(f"{where} · {col}: '({p})' modifies the value in words — "
+                                 "a modified value is a different value; name it, or move "
+                                 "the composition to Other")
+            prose = [w for w in re.sub(r"\([^)]*\)", "", bare).split() if w not in words_ok]
+            if prose:
+                fails.append(f"{where} · {col}: '{' '.join(prose)}' is a description, not a value")
+            elif not re.search(r"--[a-z0-9-]+|transparent|none", v):
+                fails.append(f"{where} · {col}: '{v}' carries no token")
+    if rows == 0:
+        fails.append("state index: no rows parsed — the check would pass on an empty table")
+    return fails
+
+
+@check("38", "No file re-types the value of a ring or glow token",
+       "v4.2.0: the field glow and the pressable halo were 'ratified literals', "
+       "cited by name in the spec and re-typed as rgba() in twenty CSS rules, nine "
+       "agent snippets and two skill references. The site's own error demos had "
+       "already drifted to 0.12 against the 0.15 the CSS draws, in three inline "
+       "styles and two runtime handlers — a literal that is copied is a literal "
+       "that drifts. They are tokens now; this check keeps every copy a reference.")
+def c38():
+    decl = {}
+    for m in re.finditer(r"(--(?:ring|sh-glow)[a-z0-9-]*)\s*:\s*([^;]+);", read(TOKENS)):
+        decl[m.group(1)] = m.group(2).strip()
+
+    def norm(s):
+        return re.sub(r"\s*,\s*", ",", re.sub(r"\s+", " ", s.strip()))
+
+    needles = {}
+    for name, val in decl.items():
+        n = norm(val)
+        needles[n] = name
+        needles[n.replace(" ", "_")] = name          # Tailwind arbitrary-value form
+    near = []                                         # same ring, any alpha: the 0.12 error demos
+    for name, val in decl.items():
+        m = re.fullmatch(r"0 0 0 (\d+)px rgba\((\d+),(\d+),(\d+),[0-9.]+\)", norm(val))
+        if m:
+            sp, r, g, b_ = m.groups()
+            core = rf"0 0 0 {sp}px rgba\({r},{g},{b_},[0-9.]+\)"
+            near.append((re.compile(core), name))
+            near.append((re.compile(core.replace(" ", "_")), name))
+    files = [COMPONENTS, INDEX, LLMS_FULL]
+    dl = ROOT / "downloads"
+    files += [dl / f for f in ("AGENTS.md", "CLAUDE.md", "AI-INSTRUCTIONS.md")]
+    files += sorted((dl / ".cursor").rglob("*.mdc")) + sorted((dl / ".github").rglob("*.md"))
+    skill = dl / "amaca-frontend.skill"
+    texts = [((p.relative_to(ROOT).as_posix() if ROOT in p.parents else p.name), read(p))
+             for p in files if p.exists()]
+    if skill.exists():
+        with zipfile.ZipFile(skill) as z:
+            for n in z.namelist():
+                if n.endswith((".md", ".py")) and not n.endswith("DESIGN.md"):
+                    texts.append((f"amaca-frontend.skill:{n}", z.read(n).decode("utf-8")))
+    fails = []
+    for label, text in texts:
+        for ln, line in enumerate(text.splitlines(), 1):
+            if re.match(r"\s*--[a-z0-9-]+\s*:", line):
+                continue                              # a token declaration, e.g. llms-full's token table
+            flat = norm(line)
+            for needle, name in needles.items():
+                if needle in flat:
+                    fails.append(f"{label}:{ln} re-types {name} — write var({name})")
+                    break
+            else:
+                for rx, name in near:
+                    if rx.search(flat):
+                        fails.append(f"{label}:{ln} draws {name}'s ring at another alpha — "
+                                     f"a near-copy is a drift; write var({name})")
+                        break
+    return fails
+
+
+@check("39", "A component that lists its states lists the rows the state index carries",
+       "v4.2.0: the site rendered a Button in `loading` and § 3.12 composed it, "
+       "while § 3.1 listed four states and the state index had no `.btn | loading` "
+       "row. A reader of the Button section — the amaca.ai compiler — drew the state "
+       "as absent, faithfully. v4.1.0 had already named this class for `selected` "
+       "in § 3.0.1 and fixed it by hand; nothing compared the two lists.")
+def c39():
+    text = read(DESIGN)
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    vocab = {"default", "hover", "focus", "focus-visible", "active", "selected",
+             "disabled", "error", "readonly", "loading", "checked", "expanded"}
+    index = []
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if line.startswith("| `"):
+            c = [x.strip() for x in line.strip().strip("|").split("|")]
+            sels = set(re.findall(r"`\.([a-z0-9-]+)`", c[0]))
+            states = {s.strip() for s in c[1].split("·")}
+            index.append((sels, states))
+    css = read(COMPONENTS)
+    fails, seen = [], 0
+    for m in re.finditer(r"^- \*\*States: § 3\.0\.1\.?\*\*[ —-]*(.*)$", text, re.M):
+        head = text.rfind("\n### ", 0, m.start())
+        sect = text[head:m.start()]
+        name = sect.split("\n", 2)[1].lstrip("# ").strip()
+        code = re.search(r"```html\n(.*?)```", sect, re.S)
+        classes = set()
+        if code:
+            for attr in re.findall(r'class="([^"]+)"', code.group(1)):
+                classes |= set(attr.split())
+        listed = {w for w in re.findall(r"`([a-z-]+)`", m.group(1).split(",")[0]) if w in vocab}
+        rows = set()
+        for sels, states in index:
+            if sels & classes:
+                rows |= states
+        if not classes or not rows:
+            fails.append(f"§ {name}: states listed, but no state-index row matches its example's classes")
+            continue
+        seen += 1
+        if listed - rows:
+            fails.append(f"§ {name}: lists {sorted(listed - rows)} with no row in the state index")
+        if rows - listed:
+            fails.append(f"§ {name}: the state index carries {sorted(rows - listed)}, the section does not list it")
+        # the CSS is the third witness: a `.x.is-<state>` rule is a state the system renders
+        proxy = {"focus": "focus-visible"}          # .btn.is-focus draws focus-visible on the static § 6.2 demo
+        drawn = set()
+        for cls, st in re.findall(r"\.([a-z0-9-]+)\.is-([a-z-]+)", css):
+            st = proxy.get(st, st)
+            if cls in classes and st in vocab:
+                drawn.add(st)
+        for st in sorted(drawn - rows):
+            fails.append(f"§ {name}: components.css renders `{st}` (.is-{st}) and the state index has no row for it")
+        for st in sorted(drawn - listed):
+            fails.append(f"§ {name}: components.css renders `{st}` and the section does not list it")
+    if seen == 0:
+        fails.append("no '**States: § 3.0.1.**' line matched — the check would pass on nothing")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

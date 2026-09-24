@@ -58,7 +58,14 @@ def touched_sections(base):
         a = int(m.group(1)); b = a + max(int(m.group(2) or 1), 1) - 1
         hit.update(sid for sid, s, e in ranges if not (b < s or a > e))
     css_diff = git("diff", "-U0", f"{base}...HEAD", "--", "styles/components.css", "styles/tokens.css")
-    classes = set(re.findall(r"^[+-][^+-].*?\.([a-zA-Z][\w-]+)", css_diff, re.M))
+    # Every class on every changed line. The first version matched `.*?\.` after the
+    # +/- sign, which needs a character before the dot: a rule that starts the line
+    # (`+.btn-primary{...}`) lost its own selector and yielded at most one later class.
+    # On v4.2.0 it saw `textarea` alone, and the Buttons section — the one visible
+    # change of the release — was not rendered. 2026-09-24.
+    changed = "\n".join(l[1:] for l in css_diff.splitlines()
+                        if l[:1] in "+-" and not l.startswith(("+++", "---")))
+    classes = set(re.findall(r"\.([a-zA-Z][\w-]+)", changed))
     for sid, s, e in ranges:
         body = "\n".join(src.split("\n")[s - 1:e])
         if any(re.search(rf'class="[^"]*(?<![\w-]){re.escape(c)}(?![\w-])', body) for c in classes):
