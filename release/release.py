@@ -223,7 +223,8 @@ def tag_cmd(args):
 # had already stood still once for four commits. The ?v is now the file's own
 # content hash: it changes exactly when the bytes do, and verify-ds.py check 40
 # recomputes it, so a stale one cannot ship. Touches only the HTML; never git.
-LINK_RE = re.compile(r'(href="(?:\./)?styles/([\w.-]+\.css))(?:\?v=[^"]*)?"')
+# Only a <link> tag loads a stylesheet; the changelog quotes old keys as text (v4.3.0).
+LINK_RE = re.compile(r'(<link\b[^>]*\bhref="(?:\./)?styles/([\w.-]+\.css))(?:\?v=[^"]*)?"')
 SKIP_DIRS = {".git", ".release", "Claude outputs", "node_modules"}
 
 

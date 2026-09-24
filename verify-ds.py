@@ -1336,7 +1336,7 @@ def c37():
     toks = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(TOKENS)))
     keywords = {"—", "none", "transparent", "native", "per variant"}
     paren_ok = {"label", "check", "radio", "tick", "knob", "track", "on focus"}
-    words_ok = {"+", "·", "dot", "left", "rule", "per", "variant"}
+    words_ok = {"+", "·", "dot", "left", "rule", "per", "variant", "×"}   # × = tint: hue × --tint-fill / --tint-edge (v4.3.0)
     cols = ("Background", "Border", "Foreground", "Ring")
     fails, rows = [], 0
     for line in text[i:].splitlines()[1:]:
@@ -1353,6 +1353,9 @@ def c37():
         for col, v in zip(cols, c[2:6]):
             if v in keywords:
                 continue
+            if "×" in v and not re.search(r"×\s*`--tint-(?:fill|edge)`", v):
+                fails.append(f"{where} · {col}: '×' composes a hue with a tint strength — "
+                             "the right operand must be `--tint-fill` or `--tint-edge`")
             for t in re.findall(r"--[a-z0-9-]+", v):
                 if t not in toks:
                     fails.append(f"{where} · {col}: {t} is not declared in tokens.css")
@@ -1507,7 +1510,8 @@ def c39():
        "`release/release.py bust`; this check recomputes it, so it changes exactly "
        "when the bytes do and cannot be forgotten.")
 def c40():
-    link = re.compile(r'href="(?:\./)?styles/([\w.-]+\.css)(?:\?v=([^"]*))?"')
+    # only what a page loads: a <link> tag. The changelog quotes old keys (?v=82) as text.
+    link = re.compile(r'<link\b[^>]*\bhref="(?:\./)?styles/([\w.-]+\.css)(?:\?v=([^"]*))?"')
     skip = {".git", ".release", "Claude outputs", "node_modules"}
     pages = [p for p in ROOT.rglob("*.html") if not (set(p.relative_to(ROOT).parts) & skip)]
     fails, seen = [], 0
@@ -1564,6 +1568,8 @@ def c41():
         ("flips only when it does not fit below and above has more room",
          r"need\s*>\s*below\s*&&\s*above\s*>\s*below"),
         ("caps max-height at the room on the chosen side", r"Math\.min\(cap,\s*flip\s*\?\s*above\s*:\s*below\)"),
+        ("measures the natural height with getBoundingClientRect, rounded up", r"Math\.ceil\(menu\.getBoundingClientRect\(\)\.height\)"),
+        ("scrolls only when the menu is really shortened", r"natural\s*<=\s*room\s*\?\s*natural"),
         ("clamps horizontally to the viewport", r"Math\.min\(Math\.max\(r\.left"),
         ("closes on resize", r"addEventListener\('resize'"),
         ("closes on page scroll, captured", r"addEventListener\('scroll',\s*\w+,\s*true\)"),
@@ -1578,6 +1584,38 @@ def c41():
     css = read(COMPONENTS)
     if not re.search(r"\.select-menu\.is-fixed\s*\{[^}]*position:\s*fixed", css):
         fails.append("components.css: no `.select-menu.is-fixed{position:fixed}` for the script to switch to")
+    return fails
+
+
+@check("42", "Every state the state index uses is in the closed vocabulary",
+       "v4.3.0: the amaca.ai compiler read `checked` on the check, radio and switch "
+       "rows and `expanded` on the select trigger, and found neither in the list "
+       "§ 3.0.1 calls closed. v4.1.0 had fixed the same trap for `selected` by "
+       "hand, noting that the sentence was false about the file's own table; "
+       "nothing held the table to the sentence, so it happened twice more.")
+def c42():
+    text = read(DESIGN)
+    m = re.search(r"\*\*Closed state vocabulary\.\*\*(.*?)\. A component", text, re.S)
+    if not m:
+        return ["DESIGN.md: no '**Closed state vocabulary.**' sentence to read"]
+    vocab = set(re.findall(r"`([a-z-]+)`", m.group(1)))
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    fails, rows = [], 0
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("| `"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        rows += 1
+        for st in (x.strip() for x in c[1].split("·")):
+            if st not in vocab:
+                fails.append(f"{c[0]} | {st}: not in the closed vocabulary of § 3.0.1 — "
+                             "name it there, with its rule, or use a state that is")
+    if rows == 0:
+        fails.append("state index: no rows parsed — the check would pass on nothing")
     return fails
 
 

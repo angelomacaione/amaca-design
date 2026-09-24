@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=f7dd8249">
-<link rel="stylesheet" href="styles/components.css?v=2ff2fb5c">
+<link rel="stylesheet" href="styles/tokens.css?v=4a3e5156">
+<link rel="stylesheet" href="styles/components.css?v=f3c05b19">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.2.2</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.2.2 · DESIGN SYSTEM</span>
+        <span class="meta">V4.3.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.2.2</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.3.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
@@ -1288,8 +1288,8 @@ Basic UI</div>
               </div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label">Error state</label>
-                <input class="input" value="bad-url" style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
-                <span class="help error">Slug must be lowercase with hyphens.</span>
+                <input class="input" value="bad-url" aria-invalid="true" aria-describedby="slug-error"/>
+                <span class="help error" id="slug-error">Slug must be lowercase with hyphens.</span>
               </div>
               <div style="display:flex;gap:var(--s-5);margin-top:var(--s-2)">
                 <label class="check"><input type="checkbox" checked/> Published</label>
@@ -1572,7 +1572,7 @@ Basic UI</div>
           <p class="subsection-desc">The project card: micro-header, media, title, body, and at most one action. Surfaces ride the card ramp; the media scales on hover, the card itself never lifts.</p>
           <div class="grid grid-3">
             <div class="card">
-              <div class="card-meta" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
+              <div class="card-meta" data-fade><span>CS-017 · 2025</span><span class="badge badge-success"><span class="dot"></span>Live</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
@@ -1585,7 +1585,7 @@ Basic UI</div>
               <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
             <div class="card">
-              <div class="card-meta" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
+              <div class="card-meta" data-fade><span>CS-015 · 2024</span><span class="badge badge-neutral">Archived</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div></div>
               <h4 data-fade style="font-size:19px;margin:0 0 6px;letter-spacing:var(--tr-snug)">Field · observability app</h4>
               <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
@@ -1635,12 +1635,13 @@ Basic UI</div>
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 13.1</span></div>
           <p class="subsection-desc">The badge variants: semantic color plus the dot. Shape and label carry the state; the tint reinforces it.</p>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
-            <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
-            <span class="badge badge-brand"><span class="dot"></span>Live</span>
-            <span class="badge badge-success"><span class="dot"></span>Shipped</span>
-            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>Pending</span>
-            <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
-            <span class="badge"><span class="dot"></span>Archive</span>
+            <span class="badge">Default</span>
+            <span class="badge badge-success"><span class="dot"></span>Live</span>
+            <span class="badge badge-warn"><span class="dot"></span>Draft</span>
+            <span class="badge badge-danger"><span class="dot"></span>Broken</span>
+            <span class="badge badge-info"><span class="dot"></span>Beta</span>
+            <span class="badge badge-brand">New</span>
+            <span class="badge badge-neutral">Archived</span>
             <span class="badge badge-solid">Featured</span>
           </div>
         </div>
@@ -1651,7 +1652,7 @@ Basic UI</div>
           <div class="card" style="padding:var(--s-6)">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:var(--t-body)">Arc Automotive HMI</div><div class="ty-small" style="margin-top:2px">2024–2025 · 18 months</div></div><span class="badge badge-success"><span class="dot"></span>Shipped</span></div>
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0;border-bottom:1px solid var(--obsidian-800)"><div><div style="font-weight:600;font-size:var(--t-body)">Project Orion — IoT platform</div><div class="ty-small" style="margin-top:2px">2025–2026 · ongoing</div></div><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0"><div><div style="font-weight:600;font-size:var(--t-body)">Field observability</div><div class="ty-small" style="margin-top:2px">2023 · 6 months</div></div><span class="badge"><span class="dot"></span>Archive</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0"><div><div style="font-weight:600;font-size:var(--t-body)">Field observability</div><div class="ty-small" style="margin-top:2px">2023 · 6 months</div></div><span class="badge badge-neutral">Archived</span></div>
           </div>
         </div>
 
@@ -3984,9 +3985,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.2.2 -->
+            <!-- v4.3.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-422">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-430">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.3.0 &mdash; What the compiler read, the file now says</span>
+                <span class="acc-num">2026-09-24</span>
+              </button>
+              <div class="acc-panel" id="cl-430" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR, with one visible change taken by decision. The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file disagreed with itself or with its CSS. The Select ones had already shipped in v4.2.2. The rest follow here.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The badge takes the Chip&rsquo;s register</strong> &mdash; the spec described one badge and the CSS drew another, 40.8px tall beside a 25.6px chip of the same family. It now shares the chip&rsquo;s type, tracking, padding and gap and keeps its own corner, so every badge renders shorter. The solid badge takes a dark label: the light one on magenta belongs to the primary button alone.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Two tint tokens, <code>--tint-fill</code> and <code>--tint-edge</code></strong> &mdash; badge and chip variants mix their hue with them. Eleven hand-written rgba pairs are gone.</li><li><strong style="color:var(--obsidian-100)"><code>.badge-neutral</code></strong> for archived, and state-index rows for the card and every badge variant.</li><li><strong style="color:var(--obsidian-100)"><code>checked</code> and <code>expanded</code> join the closed state vocabulary</strong>, with check 42 holding the table to the list.</li><li><strong style="color:var(--obsidian-100)">Examples the compiler can read</strong> &mdash; helper and error text, an input with an icon, a textarea, a native select, and a card with a badge and an action.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Live and Archived had the wrong colours</strong> on this site. The status demo also lost three inline styles left from v1.1.4.</li><li><strong style="color:var(--obsidian-100)">The error demo followed its own rule</strong> &mdash; <code>aria-invalid</code> and a linked helper, no inline paint.</li><li><strong style="color:var(--obsidian-100)">The switch got its own row</strong>, with its track and knob declared. The checkbox corner and the focus outline now match the CSS.</li><li><strong style="color:var(--obsidian-100)">A Select menu that fits no longer scrolls</strong> &mdash; its height is measured and rounded up.</li><li><strong style="color:var(--obsidian-100)">The cache-key check reads only <code>&lt;link&gt;</code> tags.</strong></li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.2.2...v4.3.0" target="_blank" rel="noopener">v4.2.2&hellip;v4.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.2.2 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-422">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.2.2 &mdash; The Select demo does what its contract says</span>
                 <span class="acc-num">2026-09-24</span>
@@ -5760,14 +5784,20 @@ new MutationObserver(muts => {
       menu.style.top = '0px'; menu.style.left = '0px';
       const o = menu.getBoundingClientRect();
       const cap = parseFloat(getComputedStyle(menu).maxHeight) || Infinity;
-      const need = Math.min(menu.scrollHeight, cap);
+      // The natural height, borders included, rounded up: scrollHeight rounds and
+      // skips the border, so a menu that fits could get a max-height a fraction
+      // short of itself and grow a scrollbar it does not need.
+      menu.style.maxHeight = 'none';
+      const natural = Math.ceil(menu.getBoundingClientRect().height);
+      const need = Math.min(natural, cap);
       const below = vh - r.bottom - gap - edge;
       const above = r.top - gap - edge;
       const flip = need > below && above > below;
-      const h = Math.max(0, Math.min(cap, flip ? above : below));
+      const room = Math.max(0, Math.min(cap, flip ? above : below));
       const w = Math.min(r.width, vw - 2 * edge);
       const x = Math.min(Math.max(r.left, edge), vw - edge - w);
-      menu.style.maxHeight = h + 'px';
+      // Scroll only when the menu is really shortened.
+      menu.style.maxHeight = (natural <= room ? natural : Math.floor(room)) + 'px';
       menu.style.width = w + 'px';
       const y = flip ? r.top - gap - menu.offsetHeight : r.bottom + gap;   // offsetHeight: the rendered box, borders included
       menu.style.left = (x - o.left) + 'px';

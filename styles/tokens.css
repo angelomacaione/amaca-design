@@ -67,6 +67,10 @@
   --warning:     #F6C65B;
   --danger:      #FF5B5B;
   --info:        #5CC8FF;
+  /* tint strengths (v4.3.0) — the two alphas every tinted label wears
+     (badge, chip): color-mix(in srgb, var(--hue) calc(var(--tint-*) * 100%), transparent) */
+  --tint-fill:   0.08;
+  --tint-edge:   0.3;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);

@@ -3,7 +3,7 @@
   "$description": "Amaca design tokens - DTCG projection of styles/tokens.css. Generated from the CSS, never edited by hand; the round-trip is guarded by verify-ds.py check 25.",
   "$extensions": {
     "amaca": {
-      "version": "4.2.2",
+      "version": "4.3.0",
       "source": "styles/tokens.css"
     }
   },
@@ -552,6 +552,14 @@
       "hex": "#5CC8FF"
     },
     "$type": "color"
+  },
+  "tint-fill": {
+    "$value": 0.08,
+    "$type": "number"
+  },
+  "tint-edge": {
+    "$value": 0.3,
+    "$type": "number"
   },
   "grad-cube": {
     "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",

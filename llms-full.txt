@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 4.2.2 · Released: 2026-09-24 · Matches the DESIGN.md frontmatter version
+Version: 4.3.0 · Released: 2026-09-24 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
@@ -169,6 +169,10 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --warning:     #F6C65B;
   --danger:      #FF5B5B;
   --info:        #5CC8FF;
+  /* tint strengths (v4.3.0) — the two alphas every tinted label wears
+     (badge, chip): color-mix(in srgb, var(--hue) calc(var(--tint-*) * 100%), transparent) */
+  --tint-fill:   0.08;
+  --tint-edge:   0.3;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
