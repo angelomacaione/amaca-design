@@ -47,7 +47,7 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
 ```
 
 ## Accessibility floor (non-negotiable)
-Color never carries meaning alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order · no auto-advance · touch 44×44 (32×32 dense). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one ratified exception is `.btn-primary` (light label, scoped to that CTA).
+Color never carries meaning alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order · no auto-advance · touch 44×44 (32×32 dense). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
 
 ## Conventions & voice
 Semantic HTML first — `<button>`/`<a>`, **never `<div onclick>`**; close every tag, double-quote attributes; files `kebab-case`. Imperative/terse in code; **no AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Never ship: gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.

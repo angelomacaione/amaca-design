@@ -135,6 +135,7 @@
   --shadow-sh-4: var(--sh-4);
   --shadow-sh-glow: var(--sh-glow);
   --shadow-sh-glow-soft: var(--sh-glow-soft);
+  --shadow-sh-menu: var(--sh-menu);
   --shadow-ring-halo: var(--ring-halo);
   --shadow-ring-field: var(--ring-field);
   --shadow-ring-field-danger: var(--ring-field-danger);
