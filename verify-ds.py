@@ -1495,6 +1495,43 @@ def c39():
     return fails
 
 
+@check("40", "Every stylesheet the site loads carries its own content hash as ?v",
+       "v4.2.0 changed components.css and tokens.css and shipped them under the "
+       "same ?v=82 and ?v=27 as v4.1.0. A returning visitor kept the old primary "
+       "hover; one holding the old tokens.css beside the new components.css had "
+       "--ring-halo, --ring-field and --ring-field-danger undefined, so every focus "
+       "ring vanished — an accessibility regression no render in the sandbox could "
+       "see, because a fresh browser has no cache. The hand-bumped counter had "
+       "already stood still once, ?v=79 across four commits that touched the CSS. "
+       "The ?v is now the first 8 hex of the file's sha256, written by "
+       "`release/release.py bust`; this check recomputes it, so it changes exactly "
+       "when the bytes do and cannot be forgotten.")
+def c40():
+    link = re.compile(r'href="(?:\./)?styles/([\w.-]+\.css)(?:\?v=([^"]*))?"')
+    skip = {".git", ".release", "Claude outputs", "node_modules"}
+    pages = [p for p in ROOT.rglob("*.html") if not (set(p.relative_to(ROOT).parts) & skip)]
+    fails, seen = [], 0
+    for page in pages:
+        rel = page.relative_to(ROOT).as_posix()
+        for m in link.finditer(read(page)):
+            seen += 1
+            name, v = m.group(1), m.group(2)
+            css = ROOT / "styles" / name
+            if not css.exists():
+                fails.append(f"{rel} loads styles/{name}, which does not exist")
+                continue
+            want = hashlib.sha256(css.read_bytes()).hexdigest()[:8]
+            if v is None:
+                fails.append(f"{rel}: styles/{name} has no ?v — a changed file would be served "
+                             f"from cache; run `python3 release/release.py bust`")
+            elif v != want:
+                fails.append(f"{rel}: styles/{name}?v={v}, the file's hash is {want} — "
+                             f"run `python3 release/release.py bust`")
+    if seen == 0:
+        fails.append("no page loads a stylesheet from styles/ — the check would pass on nothing")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
