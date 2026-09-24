@@ -1,6 +1,6 @@
 ---
 name: Amaca
-version: 4.3.0
+version: 4.3.1
 updated: 2026-09-24
 author: Angelo Macaione
 license: MIT
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.3.0 — 2026.09.24
+> **Version** 4.3.1 — 2026.09.24
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -390,7 +390,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
-| `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · default, archive · static: a badge has no hover or focus |
+| `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus |
 | `.badge-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | live · the accent — § 1 budget |
 | `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped |
 | `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | pending |
@@ -533,6 +533,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 ```
 
 - Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
+- **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.1). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
 - **States: § 3.0.1.** `default` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index. No state is described in prose here.
@@ -562,10 +563,17 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28).
 
 ```html
+<span class="badge"><span class="dot"></span>Default</span>
 <span class="badge badge-brand"><span class="dot"></span>Live</span>
+<span class="badge badge-success"><span class="dot"></span>Shipped</span>
 <span class="badge badge-warn"><span class="dot"></span>Pending</span>
+<span class="badge badge-danger"><span class="dot"></span>Blocker</span>
 <span class="badge"><span class="dot"></span>Archive</span>
+<span class="badge badge-solid">Featured</span>
+<span class="badge badge-info"><span class="dot"></span>Info</span>
 ```
+
+The example is the § 13.1 demo, badge for badge; check 47 holds the two together.
 
 | Variant | Surface | Use |
 |---|---|---|
@@ -574,12 +582,12 @@ Status the system computed — live, shipped, pending, blocker — shown next to
 | `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Shipped |
 | `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Pending |
 | `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Blocker |
-| `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | A neutral fact |
 | `.badge-solid` | `--magenta-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
+| `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | Info — a neutral fact |
 
-- **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `10px 18px`, gap `6px` (raw by design, § Code conventions); corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
+- **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
 - **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
-- **The dot** (`.dot`, 6px, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
+- **The dot** (`.dot`, `--s-1` square, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
 - **The solid badge takes the light label**, `--obsidian-050` on `--magenta-500`: the second ratified exception of § 6.3, bounded like the first.
 - **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
 
@@ -724,7 +732,7 @@ Default choice. Use when options are fixed, short, no custom rendering required.
 **Style contract:**
 - `appearance: none; -webkit-appearance: none; -moz-appearance: none`
 - Background: inline SVG chevron (down) as `background-image`, **canonical stroke `%238A94A3`**, 12×12 viewBox, `stroke-width:2.5`. Positioned `right 12px center`, size `12px 12px`.
-- `padding-right: 36px` to reserve space for the chevron.
+- `padding-right: var(--s-8)` to reserve space for the chevron.
 - Same border / radius / focus glow as `.input` (§ 3.2).
 
 **Placement — progressive enhancement (v4.2.2).** Where the customizable select ships (`@supports (appearance: base-select)`, Chromium today), `select.select` and its `::picker(select)` take `appearance: base-select`. The picker then follows variant B's placement rule: it opens below the control and flips above only when the bottom edge would clip it (`position-try-order: normal` + `position-try-fallbacks: flip-block`; the UA default instead picks the roomier side). It carries the same surface as `.select-menu`, and `::picker-icon` is hidden so the background chevron stays the only chevron. Elsewhere the OS popup stays, and the exception above still applies.
@@ -1486,7 +1494,7 @@ These have all been tried in this system and rejected.
 | Cubic-bezier literal in component CSS | Use `var(--ease-*)`. Always. |
 | Raw duration literal (`600ms`) in component CSS | Use `var(--d-*)`. Ratified continuous loops are the only exception. |
 | `--ease-spring` on an effect property (color, background, opacity, shadow) | Spatial properties only — § Motion RIGID. |
-| `font-size: 14px` in component CSS | Use `var(--t-small)` (13px) or `var(--t-body)` (15px) — pick a side. |
+| `font-size: 14px` in component CSS | Off the scale. The nearest token wins; at equal distance, the smaller: `var(--t-small)` (13px). |
 | A composite token retyped with fewer parts — a shadow without its inset layer, a gradient missing a stop, a shortened font stack | The layer reads as token-only and is off-system in the value itself. Count the parts (§ Do's #9). |
 
 > **Extension sections** — beyond the eight canonical `design.md` sections. They carry Amaca's full spec where the standard has no slot; consumers that only read the canonical eight can ignore them safely.
@@ -1668,14 +1676,7 @@ The floor admits one documented exception pair, on two selectors.
 ### CSS
 
 - **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
-- **Raw by design, no token at this step (ratified v4.3.0).** Values the form controls draw that sit between two steps of a closed scale. None is rounded to the nearest token: that would change what the site renders. Each is listed here, so the token-only rule stays true.
-
-  | Value | Where | Why no token |
-  |---|---|---|
-  | `14px` font-size | `.input` `.textarea` `.select`, `.select-option`, `.check` `.switch` `.radio` labels | between `--t-small` (13) and `--t-body` (15) |
-  | `10px` | field block padding, `.select-option` inline padding, choice-control label gap | between `--s-2` (8) and `--s-3` (12) |
-  | `36px` | `.select` `padding-right` (chevron reserve), `.input-wrap .input` `padding-left` (icon inset) | between `--s-8` (32) and `--s-10` (40) |
-| `10px 18px` padding, `6px` gap | `.badge` | between `--s-2` / `--s-3`, `--s-4` / `--s-5`, and `--s-1` / `--s-2` |
+- **On the scale, always (ratified v4.3.1).** A value that falls between two steps of a closed scale snaps to the nearest token; at equal distance, to the smaller one. There is no raw-by-design list: a value kept off the scale is a value the contract cannot state.
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
@@ -1826,6 +1827,20 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.3.1 — 2026.09.24 (PATCH)
+
+The badge contract says everything the demo draws, and the last raw values in the controls go on the scale.
+
+**Changed**
+- **Everything on the scale.** The raw-by-design list of v4.3.0 is gone. Each value snaps to the nearest token and, at equal distance, to the smaller: `14px` → `--t-small` (fields, select options, check / switch / radio labels), `10px` → `--s-2` (field block padding, option inline padding, choice-control gap), `36px` → `--s-8` (select chevron reserve, icon inset). The badge: padding `10px 18px` → `--s-2` `--s-4`, gap `6px` → `--s-1`, dot `6px` → `--s-1`; the chip dot follows, since § 3.28 calls it the same part. **This renders** (measured at 1440): type in fields, options and choice controls goes from 14 to 13px; a single-line field stays 40px, now declared as `min-height: var(--s-10)` like the default button instead of a sum of paddings (the paddings alone gave 35); a textarea from 94 to 86px; a badge from 40.8 to 36.8px tall and 8px narrower; badge and chip dots from 6 to 4px. Taken in a patch by decision, like the ring order in v4.2.0.
+
+**Added**
+- **`.badge-info` on the site.** It was declared and never shown; § 13.1 now ends with an Info badge.
+- **Check 47**: every variant of the § Badge table appears in its HTML example. **Check 48**: every badge in the § 13.1 demo has a row in the state index.
+
+**Fixed**
+- **The § Badge example is the § 13.1 demo**, badge for badge and with its labels. The `.badge | default` row names padding, gap and dot.
 
 ### v4.3.0 — 2026.09.24 (MINOR)
 

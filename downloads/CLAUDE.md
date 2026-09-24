@@ -39,8 +39,8 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
 .label{ font-family:var(--font-mono); font-size:var(--t-micro);
   letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
 .input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
-  border-radius:var(--r-md); color:var(--obsidian-100); padding:10px var(--s-3);
-  font-family:var(--font-sans); font-size:14px; outline:none;
+  border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
+  font-family:var(--font-sans); font-size:var(--t-small); outline:none;
   transition:all var(--d-quick) var(--ease-standard); width:100%; }
 .input:focus{ border-color:var(--magenta-500); box-shadow:var(--ring-field); }
 .input:disabled{ opacity:0.4; cursor:not-allowed; }
