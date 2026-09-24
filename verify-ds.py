@@ -1836,6 +1836,86 @@ def c46():
     return fails
 
 
+
+_BADGE_SPAN = re.compile(r'<span class="(badge(?: [\w-]+)*)"[^>]*>\s*(<span class="dot"></span>)?\s*([^<]+?)\s*</span>')
+
+
+def _badge_example():
+    """[(classes, label, dot)] of the § Badge HTML example, and the § Badge variant classes."""
+    text = read(DESIGN)
+    i = text.find("\n### Badge\n")
+    if i < 0:
+        return None, None
+    sec = text[i + 1:]
+    j = sec.find("\n### ", 1)
+    sec = sec[:j] if j > 0 else sec
+    m = re.search(r"```html\n(.*?)```", sec, re.S)
+    example = [(c, l, bool(d)) for c, d, l in _BADGE_SPAN.findall(m.group(1))] if m else []
+    variants = []
+    t = re.search(r"^\| Variant \|[^\n]*\n\|[-| ]+\n((?:\|[^\n]*\n)+)", sec, re.M)
+    if t:
+        for line in t.group(1).splitlines():
+            variants += re.findall(r"`\.([\w-]+)`", line.strip().strip("|").split("|")[0])
+    return example, variants
+
+
+def _badge_demo():
+    """[(classes, label, dot)] of the § 13.1 status demo: the first card of #badges made only of badges."""
+    html = read(INDEX)
+    i = html.find('id="badges"')
+    if i < 0:
+        return None
+    for m in re.finditer(r'<div class="card"[^>]*>((?:\s*<span class="badge[^"]*"[^>]*>(?:<span class="dot"></span>)?[^<]*</span>)+)\s*</div>', html[i:]):
+        return [(c, l, bool(d)) for c, d, l in _BADGE_SPAN.findall(m.group(1))]
+    return None
+
+
+@check("47", "The § Badge HTML example is the § 13.1 demo, and shows every variant of its table",
+       "v4.3.1: after v4.3.0 the § Badge example carried three badges while the "
+       "demo drew seven, and `.badge-info` sat in the variant table with no "
+       "example and no demo. A generator copies the example, so a variant the "
+       "example leaves out is a variant it never reaches for, and an example "
+       "that differs from the demo teaches a second badge set.")
+def c47():
+    example, variants = _badge_example()
+    if example is None:
+        return ["DESIGN.md: no '### Badge' section"]
+    fails = []
+    if not example:
+        fails.append("§ Badge: no ```html example with badges")
+    shown = {cl for c, _, _ in example for cl in c.split() if cl != "badge"} | ({"badge"} if any(c == "badge" for c, _, _ in example) else set())
+    for v in variants:
+        if v not in shown:
+            fails.append(f".{v}: in the § Badge variant table, absent from its HTML example")
+    demo = _badge_demo()
+    if not demo:
+        fails.append("index.html: § 13.1 status demo not found")
+    elif demo != example:
+        fails.append("§ Badge example ≠ § 13.1 demo — example: "
+                     + ", ".join(f"{l} ({c})" for c, l, _ in example)
+                     + " · demo: " + ", ".join(f"{l} ({c})" for c, l, _ in demo))
+    return fails
+
+
+@check("48", "Every badge in the § 13.1 demo has a row in the state index",
+       "v4.3.1: the demo is what the site draws and the state index is what a "
+       "generator reads; a badge class the demo paints with no index row is a "
+       "badge the compiler has to guess. Checked from the demo side, so a class "
+       "the site starts using cannot skip the table.")
+def c48():
+    demo = _badge_demo()
+    if not demo:
+        return ["index.html: § 13.1 status demo not found"]
+    indexed = set()
+    for c in _index_rows(read(DESIGN)):
+        indexed |= set(re.findall(r"`\.([\w-]+)`", c[0]))
+    fails = []
+    for c, label, _ in demo:
+        cls = c.split()[-1]
+        if cls not in indexed:
+            fails.append(f"§ 13.1 '{label}': .{cls} has no state-index row")
+    return sorted(set(fails))
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

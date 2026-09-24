@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=5c04b84e">
-<link rel="stylesheet" href="styles/components.css?v=23f44231">
+<link rel="stylesheet" href="styles/components.css?v=07248c6c">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.1</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.3.0 · DESIGN SYSTEM</span>
+        <span class="meta">V4.3.1 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.3.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.3.1</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
@@ -1653,6 +1653,7 @@ Basic UI</div>
             <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
             <span class="badge"><span class="dot"></span>Archive</span>
             <span class="badge badge-solid">Featured</span>
+            <span class="badge badge-info"><span class="dot"></span>Info</span>
           </div>
         </div>
 
@@ -3995,9 +3996,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.3.0 -->
+            <!-- v4.3.1 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-430">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-431">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.3.1 &mdash; Everything on the scale</span>
+                <span class="acc-num">2026-09-24</span>
+              </button>
+              <div class="acc-panel" id="cl-431" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>PATCH, with a visible change taken by decision. The badge contract says everything the demo draws, and the last raw values in the controls go on the scale: the nearest token, and at equal distance the smaller.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">No raw-by-design list</strong> &mdash; fields, select options and choice controls move from 14px to <code>--t-small</code>, their 10px to <code>--s-2</code>, the 36px reserves to <code>--s-8</code>. A field keeps its 40px, now declared as <code>min-height: var(--s-10)</code> like the button. The badge takes <code>--s-2</code> <code>--s-4</code> padding, a <code>--s-1</code> gap and a <code>--s-1</code> dot; the chip dot follows.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">An Info badge in &sect; 13.1</strong> &mdash; declared, never shown until now.</li><li><strong style="color:var(--obsidian-100)">Checks 47 and 48</strong> &mdash; the &sect; Badge example matches its variant table, and every demo badge has a state-index row.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The &sect; Badge example is the &sect; 13.1 demo</strong>, badge for badge, and the default row names padding, gap and dot.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.3.0...v4.3.1" target="_blank" rel="noopener">v4.3.0&hellip;v4.3.1</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.3.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-430">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.3.0 &mdash; What the compiler read, the file now says</span>
                 <span class="acc-num">2026-09-24</span>
