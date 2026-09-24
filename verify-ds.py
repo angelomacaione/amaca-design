@@ -1532,6 +1532,55 @@ def c40():
     return fails
 
 
+@check("41", "A component's lettered variants each have a demo, and the Select demo does what its contract says",
+       "v4.2.2: § Dropdown / Select has promised viewport-aware placement since "
+       "v2.8.0 (below, flip above, clamp height and width, close on scroll and "
+       "resize) and a first open on the selected option. The site's demo did none "
+       "of it: an absolute menu that always opened below, focus on the first "
+       "option, Tab that left the menu open. Variant A had no demo at all, and "
+       "check 33 could not see it, because both variants share the `.select` "
+       "class and the variant B trigger satisfied it. A demo is the contract "
+       "a reader actually tries; this holds each lettered variant to an element "
+       "on the site and the variant B script to the behaviours the contract names.")
+def c41():
+    design, site = read(DESIGN), read(INDEX)
+    fails = []
+    # (a) every '#### X. Name — `<tag class="cls">`' variant has that element on the site
+    variants = re.findall(r"^#### ([A-Z])\. ([^\n—]+?)\s+—\s+`<([a-z]+) class=\"([\w-]+)\">`", design, re.M)
+    if not variants:
+        fails.append("DESIGN.md: no lettered variant heading of the form '#### A. Name — `<tag class=\"cls\">`'")
+    for letter, name, tag, cls in variants:
+        if not re.search(rf'<{tag}\b[^>]*\bclass="(?:[^"]*\s)?{re.escape(cls)}(?:\s[^"]*)?"', site):
+            fails.append(f"variant {letter} ({name.strip()}): no <{tag} class=\"{cls}\"> on the site — "
+                         "a variant with no demo is invisible")
+    # (b) the custom-select demo script implements the placement, focus and dismissal rules
+    m = re.search(r"<script>\s*// --- custom select dropdowns.*?</script>", site, re.S)
+    if not m:
+        return fails + ["index.html: the custom select script ('// --- custom select dropdowns') is gone"]
+    js = m.group(0)
+    needs = [
+        ("measures the trigger", r"trigger\.getBoundingClientRect\(\)"),
+        ("fixes the menu to it", r"classList\.add\('is-fixed'\)"),
+        ("flips only when it does not fit below and above has more room",
+         r"need\s*>\s*below\s*&&\s*above\s*>\s*below"),
+        ("caps max-height at the room on the chosen side", r"Math\.min\(cap,\s*flip\s*\?\s*above\s*:\s*below\)"),
+        ("clamps horizontally to the viewport", r"Math\.min\(Math\.max\(r\.left"),
+        ("closes on resize", r"addEventListener\('resize'"),
+        ("closes on page scroll, captured", r"addEventListener\('scroll',\s*\w+,\s*true\)"),
+        ("ignores scroll inside the menu", r"menu\.contains\(e\.target\)"),
+        ("first open lands on the selected option", r"getAttribute\('aria-selected'\)\s*===\s*'true'"),
+        ("Tab closes the menu", r"e\.key\s*===\s*'Tab'"),
+        ("reads the gap off :root, never a literal", r"tok\('--s-1'\)"),
+    ]
+    for what, rx in needs:
+        if not re.search(rx, js):
+            fails.append(f"custom select demo, missing: {what} — § Dropdown / Select requires it")
+    css = read(COMPONENTS)
+    if not re.search(r"\.select-menu\.is-fixed\s*\{[^}]*position:\s*fixed", css):
+        fails.append("components.css: no `.select-menu.is-fixed{position:fixed}` for the script to switch to")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
