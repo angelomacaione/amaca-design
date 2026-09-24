@@ -1210,6 +1210,36 @@
     },
     "$type": "shadow"
   },
+  "sh-menu": {
+    "$value": {
+      "color": {
+        "colorSpace": "srgb",
+        "components": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "alpha": 0.4
+      },
+      "offsetX": {
+        "value": 0,
+        "unit": "px"
+      },
+      "offsetY": {
+        "value": 8,
+        "unit": "px"
+      },
+      "blur": {
+        "value": 24,
+        "unit": "px"
+      },
+      "spread": {
+        "value": 0,
+        "unit": "px"
+      }
+    },
+    "$type": "shadow"
+  },
   "ring-halo": {
     "$value": {
       "color": {

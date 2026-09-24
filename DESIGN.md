@@ -270,6 +270,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sh-4` | Modal / drawer |
 | `--sh-glow` | Brand bloom — the `.btn-primary` hover, listed before `--sh-3` so the bloom paints over the drop |
 | `--sh-glow-soft` | Ambient brand glow (rare) |
+| `--sh-menu` | Select menu and native picker — a floating list over content |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -365,7 +366,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 - The **`focus-visible` row is mandatory** for every focusable element. A component whose matrix has no `focus-visible` row does not ship (§ 6 floor #5).
 - The **`error` row is mandatory** for every form control, and error is never carried by colour alone (§ 6 floor #1) — it pairs with helper text (`.help.error`) or `aria-invalid`.
 - **`disabled` must declare `cursor` and opacity** in *Other*. A disabled control that still looks pressable is a defect.
-- **Motion is not repeated here.** How a component travels between states is § Motion's job: user-triggered state changes ride `--d-quick` · `--ease-standard`. The state matrix says *where* the component lands; the motion index says *how*.
+- **Motion is not repeated here.** How a component travels between states is § Motion's job: user-triggered state changes ride `--d-quick` · `--ease-standard`. One exception: the switch knob travels on `--d-base` (spatial); its colours change on `--d-quick`. The state matrix says *where* the component lands; the motion index says *how*.
 
 #### State index (site-canonical)
 
@@ -385,7 +386,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
 | `.btn-outline` | hover | — | `--magenta-500` | `--magenta-400` | — | |
-| `.btn-danger` | default | `--danger` | `--danger` | `--obsidian-950` | — | destructive only |
+| `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
@@ -403,6 +404,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
 | `.select-trigger` | expanded | — | `--magenta-500` | — | `--ring-field` | `aria-expanded="true"` |
+| `.select-trigger` | focus-visible | — | `--magenta-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
+| `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
 | `.select-option` | selected | — | — | `--magenta-400` | — | `aria-selected="true"` |
 | `.check` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | |
@@ -417,11 +420,20 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.dp-day` | selected | `--magenta-500` | — | `--obsidian-950` | — | weight 600 |
 | `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` |
 | `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
+| `.alert-info` | default | — | left rule `--info` | — | — | icon `--info` |
+| `.alert-success` | default | — | left rule `--success` | — | — | icon `--success` |
+| `.alert-warn` | default | — | left rule `--warning` | — | — | icon `--warning` |
+| `.alert-danger` | default | — | left rule `--danger` | — | — | icon `--danger` |
 | `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | |
 | `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
 | `.skip-link` | default | `--magenta-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
 | `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
 | `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` |
+| `.chip-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | |
+| `.chip-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | |
+| `.chip-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | |
+| `.chip-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | |
+| `.chip-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | |
 | `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
@@ -739,6 +751,7 @@ Reach for this only when native can't carry the requirement: search/filter insid
 
 **Behavior:**
 - `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
+- **Keyboard focus on the trigger is the pressable ring**, not the field glow: the `.input` `.textarea` `.select` | focus-visible row of the state index does not apply to `.select-trigger`, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from `.select:focus`.
 - `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it — measure the menu's natural height with `getBoundingClientRect()` rounded up (not `scrollHeight`, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
 - `.select-option[aria-selected="true"]` rendered in `--magenta-400`. Hover/focus background is `--obsidian-800`.
 - Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
@@ -1642,7 +1655,7 @@ Two patterns ship:
 
 The floor admits exactly one documented exception.
 
-**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` and `.badge-solid` already paint near-white on `--magenta-500`.
+**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is not licensed anywhere else: body text, links, and every non-CTA surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--magenta-500`. (`.badge-solid` used to, and was cited here; since v4.3.0 it takes the dark label.)
 
 **APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
 
@@ -1655,6 +1668,13 @@ The floor admits exactly one documented exception.
 ### CSS
 
 - **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
+- **Raw by design, no token at this step (ratified v4.3.0).** Values the form controls draw that sit between two steps of a closed scale. None is rounded to the nearest token: that would change what the site renders. Each is listed here, so the token-only rule stays true.
+
+  | Value | Where | Why no token |
+  |---|---|---|
+  | `14px` font-size | `.input` `.textarea` `.select`, `.select-option`, `.check` `.switch` `.radio` labels | between `--t-small` (13) and `--t-body` (15) |
+  | `10px` | field block padding, `.select-option` inline padding, choice-control label gap | between `--s-2` (8) and `--s-3` (12) |
+  | `36px` | `.select` `padding-right` (chevron reserve), `.input-wrap .input` `padding-left` (icon inset) | between `--s-8` (32) and `--s-10` (40) |
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
@@ -1794,7 +1814,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track, a state index that matches the stylesheet. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -1826,6 +1846,8 @@ The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file di
 - **The switch track carried a stroke in the state index it never had on the site: the family's default row now splits, `.switch` is fill-only.** Its knob, `--obsidian-200`, is declared beside it, the anatomy says "no border", and **check 43** keeps it that way. The checkbox corner reads `--r-xs`, which is what the CSS draws; the table used to say "3px", and `--r-xs` is 2px. The focus row names the 2px outline at offset 3 that sits beside the halo.
 - **A Select menu that fitted could still scroll.** The height came from `scrollHeight`, which rounds and leaves out the border. It is now measured with `getBoundingClientRect()`, rounded up, and the menu scrolls only when it is really shortened. Check 41 carries the rule.
 - **Check 40 reads only `<link>` tags.** The changelog quotes the old `?v=82` as text; `release.py bust` is restricted the same way.
+- **The contract now says what the site draws: select trigger focus, chip tints, danger border, menu surface, badge-solid in § 6.3; textarea placeholder follows the field.** The trigger's keyboard focus is the pressable ring, not the field glow, and has its own row. The five tinted chips and the four alert variants have rows. The danger button's border is the base's transparent one, not `--danger`. The menu surface has a row, and its shadow is a token, `--sh-menu`, with the same value, used by the menu and the native picker. § 6.3 no longer cites `.badge-solid` as a light-on-magenta precedent. § 3.0.1 names the switch knob's `--d-base` travel as the one exception to `--d-quick`. The one visible fix: `.textarea::placeholder` joins `.input::placeholder`, where the demo had shown the browser's default. Hand-written px in the controls became tokens where one has the identical value (`--s-3`, `--r-full`). The rest are listed under § Code conventions as *raw by design*.
+- **Checks 44–46.** Check 44: every token a state-index cell names is painted by `components.css`, for that component, state and property. Check 45: a placeholder colour in the index has its `::placeholder` rule. Check 46: every variant-table selector has an index row. On the v4.2.2 tree they report the danger border, the switch stroke, the textarea placeholder and nine variants with no row.
 
 ### v4.2.2 — 2026.09.24 (PATCH)
 

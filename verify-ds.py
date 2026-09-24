@@ -1667,6 +1667,175 @@ def c43():
     return fails
 
 
+def _index_rows(text):
+    i = text.find("#### State index")
+    rows = []
+    if i < 0:
+        return rows
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if line.startswith("| `"):
+            c = [x.strip() for x in line.strip().strip("|").split("|")]
+            if len(c) >= 7:
+                rows.append(c)
+    return rows
+
+
+def _css_rule_list(css):
+    """[(single selector, {prop: value})] — selector lists split, comments dropped."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    out = []
+    for m in re.finditer(r"([^{}@]+)\{([^{}]*)\}", css):
+        decls = {}
+        for d in m.group(2).split(";"):
+            if ":" in d:
+                k, v = d.split(":", 1)
+                decls[k.strip().lower()] = v.strip()
+        for sel in m.group(1).split(","):
+            out.append((sel.strip(), decls))
+    return out
+
+
+_STATE_MARK = {
+    "hover": [":hover"], "focus-visible": [":focus-visible", ":focus"], "focus": [":focus"],
+    "active": [":active"], "checked": [":checked"], "disabled": [":disabled"],
+    "selected": ['[aria-selected="true"]', '[aria-pressed="true"]', ".is-selected"],
+    "expanded": ['[aria-expanded="true"]'], "error": ['[aria-invalid="true"]'],
+    "readonly": ["[readonly]"], "loading": [".is-loading"],
+}
+_ALL_MARKS = [m for ms in _STATE_MARK.values() for m in ms]
+_PROPS = {"Background": ("background", "background-color"),
+          "Border": ("border", "border-color", "border-top", "border-top-color", "border-left", "border-left-color"),
+          "Foreground": ("color",), "Ring": ("box-shadow",)}
+_SCOPE = ("btn", "input", "textarea", "select", "card", "badge", "chip", "check", "radio", "switch", "alert")
+_ALIAS = {"select-trigger": ("select-trigger", "select")}
+
+
+@check("44", "The state index says what components.css paints",
+       "v4.3.0: the amaca.ai compiler read the state index and drew what it said. "
+       "It said the danger button had a --danger border (the CSS keeps the base's "
+       "transparent one), gave the switch the checkbox's stroke, and had no row for "
+       "the select trigger's focus, the menu surface or the chip tints the CSS "
+       "paints. Checks 37-43 held the table to its own grammar; nothing held it to "
+       "the stylesheet. Every token a value cell names must be painted, by a rule "
+       "for that component in that state, on that property.")
+def c44():
+    rules = _css_rule_list(read(COMPONENTS))
+    fails = []
+
+    def matches(sel, cls, state):
+        if not re.search(rf"\.{re.escape(cls)}(?![\w-])", sel):
+            return False
+        marks = _STATE_MARK.get(state, [])
+        if state == "default":
+            return not any(mk in sel for mk in _ALL_MARKS)
+        return any(mk in sel for mk in marks)
+
+    def painted(cls, states, props, token, after=None):
+        for sel, decls in rules:
+            if after is True and "::after" not in sel:
+                continue
+            if after is False and "::after" in sel:
+                continue
+            if not any(matches(sel, c, st) for c in _ALIAS.get(cls, (cls,)) for st in states):
+                continue
+            for p in props:
+                if p in decls and token in decls[p]:
+                    return True
+        return False
+
+    def tint_hue(cls):
+        for sel, decls in rules:
+            if re.fullmatch(rf"\.{re.escape(cls)}", sel) and "--tint-hue" in decls:
+                return decls["--tint-hue"]
+        return ""
+
+    for c in _index_rows(read(DESIGN)):
+        classes = re.findall(r"`\.([\w-]+)`", c[0])
+        if not classes or not any(cl.split("-")[0] in _SCOPE for cl in classes):
+            continue
+        states = [s.strip() for s in c[1].split("·")]
+        for col, cell in zip(("Background", "Border", "Foreground", "Ring"), c[2:6]):
+            if cell in ("—", "none", "transparent", "native", "per variant") or "--" not in cell:
+                continue
+            for seg in cell.split(" · "):
+                toks = re.findall(r"--[a-z0-9-]+", seg)
+                if not toks:
+                    continue
+                q = re.search(r"\((\w[\w ]*)\)", seg)
+                qual = q.group(1) if q else ""
+                for cls in classes:
+                    if qual in ("check", "tick") and cls != "check":
+                        continue
+                    if qual == "radio" and cls != "radio":
+                        continue
+                    if qual in ("knob", "track") and cls != "switch":
+                        continue
+                    if "×" in seg:                      # hue × --tint-*: hue via --tint-hue, strength in the mix
+                        hue, strength = toks[0], toks[-1]
+                        if hue not in tint_hue(cls):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: the CSS does not set --tint-hue to {hue} on .{cls}")
+                        base = cls.split("-")[0]
+                        if not (painted(cls, states, _PROPS[col], strength) or painted(base, states, _PROPS[col], strength)):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: no {', '.join(_PROPS[col])} mixes {strength} for .{cls}")
+                        continue
+                    if qual == "knob" or (qual == "" and seg.startswith("dot ")) or qual == "tick":
+                        props, after = ("background", "border", "border-color"), True
+                    elif qual == "label":
+                        props, after = ("color",), False
+                    else:
+                        props, after = _PROPS[col], None
+                    for t in toks:
+                        if not painted(cls, states, props, f"var({t})", after):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: {t} — components.css paints no "
+                                         f"{'/'.join(props)} with it on .{cls} in that state")
+    return fails
+
+
+@check("45", "A field the state index gives a placeholder colour has a ::placeholder rule",
+       "v4.3.0: the state index gave `.input` `.textarea` `.select` a placeholder in "
+       "`--obsidian-400`; components.css styled `.input::placeholder` alone, so the "
+       "§ 11.1 textarea showed the browser's default grey. A <select> has no "
+       "placeholder and is exempt.")
+def c45():
+    css = read(COMPONENTS)
+    fails = []
+    for c in _index_rows(read(DESIGN)):
+        m = re.search(r"placeholder `(--[a-z0-9-]+)`", c[6])
+        if not m:
+            continue
+        tok = m.group(1)
+        for cls in re.findall(r"`\.([\w-]+)`", c[0]):
+            if cls == "select":
+                continue
+            rule = re.search(rf"(?:^|[,}}\s])\.{cls}::placeholder[^{{]*\{{([^}}]*)\}}", css, re.M)
+            if not rule or f"var({tok})" not in rule.group(1):
+                fails.append(f".{cls}: the state index says placeholder {tok}, components.css has no "
+                             f".{cls}::placeholder painting it")
+    return fails
+
+
+@check("46", "Every selector in a component's variant table has a row in the state index",
+       "v4.3.0: § 3.28 listed five tinted chip variants and the state index carried "
+       "none of them; § 3.4 and its badge variants were in the same position until "
+       "this release. A generator reads the index, not the prose table, so a "
+       "variant with no row is a variant it must guess.")
+def c46():
+    text = read(DESIGN)
+    indexed = set()
+    for c in _index_rows(text):
+        indexed |= set(re.findall(r"`\.([\w-]+)`", c[0]))
+    fails = []
+    for m in re.finditer(r"^\| Variant \|[^\n]*\n\|[-| ]+\n((?:\|[^\n]*\n)+)", text, re.M):
+        for line in m.group(1).splitlines():
+            first = line.strip().strip("|").split("|")[0]
+            for cls in re.findall(r"`\.([\w-]+)`", first):
+                if cls not in indexed:
+                    fails.append(f".{cls}: in a variant table, no row in the state index")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
