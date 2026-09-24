@@ -423,6 +423,11 @@
   z-index:var(--z-menu);max-height:240px;overflow:auto;
 }
 .select-menu[hidden]{display:none}
+/* Viewport-aware placement (§ Dropdown / Select, variant B): the script fixes the
+   menu to the trigger's rect and writes top, left, width and max-height inline at
+   open, corrected for a transformed ancestor. right:auto releases the absolute
+   default. */
+.select-menu.is-fixed{position:fixed;right:auto}
 .select-option{
   padding:var(--s-2) 10px;border-radius:calc(var(--r-md) - var(--r-xs));
   font-family:var(--font-sans);font-size:14px;color:var(--obsidian-100);
@@ -430,6 +435,35 @@
 }
 .select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
 .select-option[aria-selected="true"]{color:var(--magenta-400)}
+/* Native select placement, progressive enhancement (v4.2.2). Where the
+   customizable select ships (Chromium 135+), the picker is a styleable popover
+   anchored to the control: it opens below and flips above when the bottom edge
+   would clip it, the same rule variant B implements in script. Elsewhere the OS
+   popup stays. Scoped to select.select so the variant B trigger (button.select)
+   is untouched; the closed control keeps its background chevron. */
+@supports (appearance: base-select){
+  select.select,select.select::picker(select){appearance:base-select}
+  select.select{line-height:normal}   /* base-select sets its own; normal gives the 40px box of .input and the variant B trigger */
+  select.select::picker-icon{display:none}
+  select.select::picker(select){
+    position-try-order:normal;   /* the UA default picks the roomier side; the contract opens below unless it does not fit */
+    position-try-fallbacks:flip-block;
+    margin-block:var(--s-1);padding:var(--s-1);
+    max-height:240px;overflow:auto;
+    background:var(--obsidian-850);
+    border:1px solid var(--obsidian-700);
+    border-radius:var(--r-md);
+    box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  }
+  select.select option{
+    padding:var(--s-2) 10px;border-radius:calc(var(--r-md) - var(--r-xs));
+    font-family:var(--font-sans);font-size:14px;color:var(--obsidian-100);
+    cursor:pointer;transition:background var(--d-quick) var(--ease-standard);
+  }
+  select.select option::checkmark{display:none}
+  select.select option:hover,select.select option:focus-visible{background:var(--obsidian-800);outline:none}
+  select.select option:checked{color:var(--magenta-400)}
+}
 .input:focus,.textarea:focus,.select:focus{border-color:var(--magenta-500);box-shadow:var(--ring-field)}
 .input[aria-invalid="true"],.textarea[aria-invalid="true"],.select[aria-invalid="true"]{border-color:var(--danger)}
 .input[aria-invalid="true"]:focus,.textarea[aria-invalid="true"]:focus,.select[aria-invalid="true"]:focus{border-color:var(--danger);box-shadow:var(--ring-field-danger)}

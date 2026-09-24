@@ -1,6 +1,6 @@
 ---
 name: Amaca
-version: 4.2.1
+version: 4.2.2
 updated: 2026-09-24
 author: Angelo Macaione
 license: MIT
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.2.1 — 2026.09.24
+> **Version** 4.2.2 — 2026.09.24
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -664,6 +664,8 @@ Default choice. Use when options are fixed, short, no custom rendering required.
 - `padding-right: 36px` to reserve space for the chevron.
 - Same border / radius / focus glow as `.input` (§ 3.2).
 
+**Placement — progressive enhancement (v4.2.2).** Where the customizable select ships (`@supports (appearance: base-select)`, Chromium today), `select.select` and its `::picker(select)` take `appearance: base-select`. The picker then follows variant B's placement rule: it opens below the control and flips above only when the bottom edge would clip it (`position-try-order: normal` + `position-try-fallbacks: flip-block`; the UA default instead picks the roomier side). It carries the same surface as `.select-menu`, and `::picker-icon` is hidden so the background chevron stays the only chevron. Elsewhere the OS popup stays, and the exception above still applies.
+
 #### B. Custom listbox
 
 Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (avatars, badges, two-line items), grouped headings beyond `<optgroup>`.
@@ -684,20 +686,20 @@ Reach for this only when native can't carry the requirement: search/filter insid
 
 **Behavior:**
 - `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
-- `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** when there isn't room below; clamp `max-height` to the available space (internal scroll) and clamp horizontally to the viewport, so the menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect when the control may sit near a viewport edge or above important content; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
+- `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
 - `.select-option[aria-selected="true"]` rendered in `--magenta-400`. Hover/focus background is `--obsidian-800`.
 - Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
 
 **Keyboard:**
 - `Enter`/`Space` on trigger opens.
-- `↓`/`↑` navigate options. First open lands on the currently selected option (or first if none).
+- `↓`/`↑` navigate options; `Home`/`End` jump to the first and last. First open lands on the currently selected option (`aria-selected="true"`), or the first if none.
 - `Enter` on focused option commits + closes; trigger receives focus back.
 - `Esc` closes without committing; trigger receives focus back.
 - `Tab` from open menu closes and proceeds.
 
 **Dismissal:**
 - Click outside the `[data-select]` wrapper closes the menu.
-- A **fixed-position** (viewport-aware) menu also closes on `scroll` and `resize` — its anchored coordinates would otherwise drift from the trigger.
+- A **fixed-position** (viewport-aware) menu also closes on `resize`, and on a page `scroll` that moves the trigger. Its anchored coordinates would otherwise drift from the trigger. Scrolling **inside the menu** never closes it.
 - Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
 
 ### Chat & Messaging
@@ -1738,16 +1740,32 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
 4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
-5. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents; `tokens.dtcg.json` lives in the dtcg zip and moves with `tokens.css` — regenerated, never hand-edited).
-6. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
-7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
+5. **Every edited stylesheet gets a new cache key.** After the last edit to `styles/*.css`, run `python3 release/release.py bust`: it writes each file's content hash as its `?v` in the site's HTML, and check 40 refuses a stale one. v4.2.0 shipped both stylesheets under the v4.1.0 keys and erased the focus rings for returning visitors.
+6. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents; `tokens.dtcg.json` lives in the dtcg zip and moves with `tokens.css` — regenerated, never hand-edited).
+7. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
+8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.2.2 — 2026.09.24 (PATCH)
+
+The Dropdown / Select demo now does what its contract has said since v2.8.0. No token and no component contract changed; § Dropdown / Select gains two clarifications and one keyboard pair.
+
+**Fixed**
+- **Variant B's demo ignored its own placement rule.** The contract has asked for a viewport-aware menu since v2.8.0: below by default, flipped above when there is no room, height clamped to the space, width clamped to the viewport, and a close on scroll and resize. The site's menu was `position:absolute` and always opened below, so near the bottom of the viewport it went off-screen. Its first open landed on the first option instead of the selected one, and `Tab` left the menu open. The demo now fixes the menu to the trigger's rect and applies each rule, measured in the browser: below with a 4px gap; flipped above with the same gap; `max-height` clamped to the room left (98px with the trigger mid-screen in a 390×260 viewport), with internal scroll; clamped to 8px from each edge at 390px; open after an internal scroll; closed after a page scroll that moved the trigger and after a resize.
+- **A transformed ancestor broke `position:fixed`.** The section's entrance animation leaves an identity transform, which makes the section the containing block of a fixed element: the first fixed menu opened 300px to the right and thousands of pixels down. `place()` now measures where `(0,0)` lands and subtracts it, and the contract names the trap.
+- **Variant A had no demo.** § 11.1 now shows a native `<select class="select">` beside the custom listbox. Check 33 had not noticed the gap, because both variants share `.select` and the variant B trigger satisfied it.
+
+**Added**
+- **The native picker follows the same rule where the platform allows** (`@supports (appearance: base-select)`, Chromium). It opens below and flips above only when clipped, using `position-try-order: normal` + `flip-block`: the UA default picks the roomier side, which in the measure flipped the picker at mid-viewport. It carries the `.select-menu` surface. Elsewhere the OS popup stays. The closed control goes from 39px to 40px in Chromium, the height of `.input` and the variant B trigger.
+- **`Home` / `End`** in the listbox, as in the WAI-ARIA listbox pattern.
+- **Check 41.** Every lettered variant in the contract has its element on the site, and the variant B script carries the placement, focus and dismissal rules the contract names. It was mutation-tested on the v4.2.1 tree and reports all thirteen gaps.
+- **Release checklist step 5**: run `release.py bust` after the last CSS edit (queued from v4.2.1).
 
 ### v4.2.1 — 2026.09.24 (PATCH)
 
