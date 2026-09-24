@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=f7dd8249">
-<link rel="stylesheet" href="styles/components.css?v=9b58290a">
+<link rel="stylesheet" href="styles/components.css?v=2ff2fb5c">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.2.1</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.2.2</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.2.1 · DESIGN SYSTEM</span>
+        <span class="meta">V4.2.2 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.2.1</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.2.2</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
@@ -1243,7 +1243,7 @@ Basic UI</div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Fields</h2><span class="subsection-num">§ 11.1</span></div>
-          <p class="subsection-desc">Every field in one place — text, search, select, textarea — labels persistent, helper text below. States live in the contract's state matrix; error is <code>aria-invalid</code>, never color alone.</p>
+          <p class="subsection-desc">Every field in one place — text, search, both select variants (native and custom listbox), textarea — labels persistent, helper text below. States live in the contract's state matrix; error is <code>aria-invalid</code>, never color alone.</p>
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6)">
               <div class="field" style="margin-bottom:var(--s-4)">
@@ -1257,8 +1257,17 @@ Basic UI</div>
                   <input class="input" placeholder="Search the archive…"/>
                 </div>
               </div>
+              <div class="field" style="margin-bottom:var(--s-4)">
+                <label class="label" for="priority-native">Priority — native select</label>
+                <select class="select" id="priority-native">
+                  <option>Low</option>
+                  <option selected>Normal</option>
+                  <option>High</option>
+                  <option>Urgent</option>
+                </select>
+              </div>
               <div class="field">
-                <label class="label" id="status-label">Status</label>
+                <label class="label" id="status-label">Status — custom listbox</label>
                 <div class="select-wrap" data-select>
                   <button type="button" class="select select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="status-label">
                     <span class="select-value">Draft</span>
@@ -3975,9 +3984,31 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.2.1 -->
+            <!-- v4.2.2 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-421">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-422">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.2.2 &mdash; The Select demo does what its contract says</span>
+                <span class="acc-num">2026-09-24</span>
+              </button>
+              <div class="acc-panel" id="cl-422" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>PATCH. No token and no component contract changed. The Dropdown / Select contract has asked for a viewport-aware menu since v2.8.0, and the demo on this page never did it.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The custom listbox follows its placement rule</strong> &mdash; fixed to the trigger, below by default, flipped above only when it does not fit and above has more room, height clamped to the space with internal scroll, width clamped to the viewport. The first open lands on the selected option, <code>Tab</code> closes the menu, and a page scroll or a resize closes it while an internal scroll does not. Every rule was measured in the browser.</li><li><strong style="color:var(--obsidian-100)">A transformed ancestor broke <code>position:fixed</code></strong> &mdash; the section's entrance animation leaves a transform, so the first fixed menu opened hundreds of pixels away. The script now corrects for it, and the contract names the trap.</li><li><strong style="color:var(--obsidian-100)">The native variant had no demo</strong> &mdash; &sect; 11.1 now shows a native select beside the custom one.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The native picker follows the same rule where the platform allows</strong> &mdash; with <code>appearance: base-select</code> (Chromium) it opens below and flips above only when clipped. Elsewhere the OS popup stays.</li><li><strong style="color:var(--obsidian-100)"><code>Home</code> / <code>End</code></strong> in the listbox, and <strong style="color:var(--obsidian-100)">check 41</strong>: every lettered variant has a demo, and the Select demo carries the rules its contract names.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.2.1...v4.2.2" target="_blank" rel="noopener">v4.2.1&hellip;v4.2.2</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.2.1 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-421">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.2.1 &mdash; The stylesheets carry their own cache key</span>
                 <span class="acc-num">2026-09-24</span>
@@ -5696,57 +5727,120 @@ new MutationObserver(muts => {
 })();
 </script>
 <script>
-// --- custom select dropdowns ---
+// --- custom select dropdowns — § Dropdown / Select, variant B ---
+// Placement is the contract's, measured at open: fixed to the trigger's rect;
+// below by default, flipped above only when the menu does not fit below AND
+// above has more room; max-height = min(the CSS cap, room on the chosen side),
+// internal scroll beyond it; clamped horizontally to the viewport. A fixed menu
+// closes on page scroll and resize (its coordinates would drift from the
+// trigger), never on its own internal scroll. Gap and edge margin are read off
+// :root at open time (runtime-token anti-drift), never copied here.
 (function(){
-  document.querySelectorAll('[data-select]').forEach(function(wrap){
+  const wraps = Array.from(document.querySelectorAll('[data-select]'));
+  function tok(name){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0; }
+  function closeOthers(keep){ wraps.forEach(function(w){ if(w !== keep && w._close) w._close(false); }); }
+
+  wraps.forEach(function(wrap){
     const trigger = wrap.querySelector('.select-trigger');
     const menu = wrap.querySelector('.select-menu');
     const value = wrap.querySelector('.select-value');
-    const opts = wrap.querySelectorAll('.select-option');
-    function close(){
-      menu.hidden = true;
-      trigger.setAttribute('aria-expanded','false');
+    const opts = Array.from(wrap.querySelectorAll('.select-option'));
+    opts.forEach(function(o){ o.tabIndex = -1; });
+
+    let anchor = null;
+    function place(){
+      const gap = tok('--s-1'), edge = tok('--s-2');
+      const r = trigger.getBoundingClientRect();
+      const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+      menu.classList.add('is-fixed');
+      ['top','left','width','maxHeight'].forEach(function(p){ menu.style[p] = ''; });
+      // A transformed ancestor (the section's entrance animation leaves one)
+      // becomes the containing block of a fixed element. Measure where (0,0)
+      // lands and subtract it, so the math below stays in viewport space.
+      menu.style.top = '0px'; menu.style.left = '0px';
+      const o = menu.getBoundingClientRect();
+      const cap = parseFloat(getComputedStyle(menu).maxHeight) || Infinity;
+      const need = Math.min(menu.scrollHeight, cap);
+      const below = vh - r.bottom - gap - edge;
+      const above = r.top - gap - edge;
+      const flip = need > below && above > below;
+      const h = Math.max(0, Math.min(cap, flip ? above : below));
+      const w = Math.min(r.width, vw - 2 * edge);
+      const x = Math.min(Math.max(r.left, edge), vw - edge - w);
+      menu.style.maxHeight = h + 'px';
+      menu.style.width = w + 'px';
+      const y = flip ? r.top - gap - menu.offsetHeight : r.bottom + gap;   // offsetHeight: the rendered box, borders included
+      menu.style.left = (x - o.left) + 'px';
+      menu.style.top = (y - o.top) + 'px';
+      menu.dataset.placement = flip ? 'above' : 'below';
+      anchor = { top: r.top, left: r.left };
     }
+    function reveal(o){
+      o.focus({preventScroll: true});
+      if(o.offsetTop < menu.scrollTop) menu.scrollTop = o.offsetTop;
+      else if(o.offsetTop + o.offsetHeight > menu.scrollTop + menu.clientHeight)
+        menu.scrollTop = o.offsetTop + o.offsetHeight - menu.clientHeight;
+    }
+    // Close when the page moves the trigger, not on every scroll event: the
+    // menu's own internal scroll never closes it, and a scroll that leaves the
+    // anchor where it was (a late smooth-scroll frame) is not a drift.
+    function onScroll(e){
+      if(e.target === menu || menu.contains(e.target)) return;
+      const r = trigger.getBoundingClientRect();
+      if(anchor && (Math.abs(r.top - anchor.top) > 1 || Math.abs(r.left - anchor.left) > 1)) close(false);
+    }
+    function onResize(){ close(false); }
     function open(){
-      // close any other open selects
-      document.querySelectorAll('[data-select] .select-menu:not([hidden])').forEach(function(m){
-        if(m!==menu){ m.hidden = true; m.closest('[data-select]').querySelector('.select-trigger').setAttribute('aria-expanded','false'); }
-      });
+      closeOthers(wrap);
       menu.hidden = false;
-      trigger.setAttribute('aria-expanded','true');
+      trigger.setAttribute('aria-expanded', 'true');
+      place();
+      window.addEventListener('scroll', onScroll, true);
+      window.addEventListener('resize', onResize);
+      reveal(opts.find(function(o){ return o.getAttribute('aria-selected') === 'true'; }) || opts[0]);
     }
+    function close(refocus){
+      if(menu.hidden) return;
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-fixed');
+      ['top','left','width','maxHeight'].forEach(function(p){ menu.style[p] = ''; });
+      delete menu.dataset.placement;
+      anchor = null;
+      window.removeEventListener('scroll', onScroll, true);
+      window.removeEventListener('resize', onResize);
+      if(refocus) trigger.focus();
+    }
+    function commit(o){
+      opts.forEach(function(x){ x.setAttribute('aria-selected', 'false'); });
+      o.setAttribute('aria-selected', 'true');
+      value.textContent = o.dataset.value || o.textContent;
+      close(true);
+    }
+    wrap._close = close;
+
     trigger.addEventListener('click', function(e){
       e.stopPropagation();
-      if(menu.hidden) open(); else close();
-    });
-    opts.forEach(function(opt){
-      opt.addEventListener('click', function(e){
-        e.stopPropagation();
-        opts.forEach(function(o){ o.setAttribute('aria-selected','false'); });
-        opt.setAttribute('aria-selected','true');
-        value.textContent = opt.dataset.value || opt.textContent;
-        close();
-      });
+      if(menu.hidden) open(); else close(false);
     });
     trigger.addEventListener('keydown', function(e){
-      if(e.key==='Enter' || e.key===' ' || e.key==='ArrowDown'){ e.preventDefault(); open(); menu.querySelector('.select-option').focus(); }
+      if(e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown'){ e.preventDefault(); if(menu.hidden) open(); }
+    });
+    opts.forEach(function(o){
+      o.addEventListener('click', function(e){ e.stopPropagation(); commit(o); });
     });
     menu.addEventListener('keydown', function(e){
-      const items = Array.from(opts);
-      const i = items.indexOf(document.activeElement);
-      if(e.key==='ArrowDown'){ e.preventDefault(); items[Math.min(i+1,items.length-1)].focus(); }
-      else if(e.key==='ArrowUp'){ e.preventDefault(); items[Math.max(i-1,0)].focus(); }
-      else if(e.key==='Escape'){ close(); trigger.focus(); }
-      else if(e.key==='Enter' || e.key===' '){ e.preventDefault(); document.activeElement.click(); trigger.focus(); }
-    });
-    opts.forEach(function(o){ o.tabIndex = -1; });
-  });
-  document.addEventListener('click', function(){
-    document.querySelectorAll('[data-select] .select-menu:not([hidden])').forEach(function(m){
-      m.hidden = true;
-      m.closest('[data-select]').querySelector('.select-trigger').setAttribute('aria-expanded','false');
+      const i = opts.indexOf(document.activeElement);
+      if(e.key === 'ArrowDown'){ e.preventDefault(); reveal(opts[Math.min(i + 1, opts.length - 1)]); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); reveal(opts[Math.max(i - 1, 0)]); }
+      else if(e.key === 'Home'){ e.preventDefault(); reveal(opts[0]); }
+      else if(e.key === 'End'){ e.preventDefault(); reveal(opts[opts.length - 1]); }
+      else if(e.key === 'Escape'){ e.preventDefault(); close(true); }
+      else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(i > -1) commit(opts[i]); }
+      else if(e.key === 'Tab'){ close(false); }   // no preventDefault: focus proceeds to the next stop
     });
   });
+  document.addEventListener('click', function(){ closeOthers(null); });
 })();
 </script>
 <script>
