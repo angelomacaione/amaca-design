@@ -15,7 +15,7 @@ This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand ac
 
 **Laws:** 85/10/5 (≤5% magenta, one CTA per viewport) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
 
-**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one ratified exception is `.btn-primary` (light label, scoped to that CTA).
+**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
 
 **Voice:** imperative and terse in specs/code; no AI tells ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".
 

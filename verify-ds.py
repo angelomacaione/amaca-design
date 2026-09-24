@@ -1336,7 +1336,7 @@ def c37():
     toks = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(TOKENS)))
     keywords = {"—", "none", "transparent", "native", "per variant"}
     paren_ok = {"label", "check", "radio", "tick", "knob", "track", "on focus"}
-    words_ok = {"+", "·", "dot", "left", "rule", "per", "variant"}
+    words_ok = {"+", "·", "dot", "left", "rule", "per", "variant", "×"}   # × = tint: hue × --tint-fill / --tint-edge (v4.3.0)
     cols = ("Background", "Border", "Foreground", "Ring")
     fails, rows = [], 0
     for line in text[i:].splitlines()[1:]:
@@ -1353,6 +1353,9 @@ def c37():
         for col, v in zip(cols, c[2:6]):
             if v in keywords:
                 continue
+            if "×" in v and not re.search(r"×\s*`--tint-(?:fill|edge)(?:-deep)?`", v):
+                fails.append(f"{where} · {col}: '×' composes a hue with a tint strength — "
+                             "the right operand must be `--tint-fill` / `--tint-edge` (or their -deep pair)")
             for t in re.findall(r"--[a-z0-9-]+", v):
                 if t not in toks:
                     fails.append(f"{where} · {col}: {t} is not declared in tokens.css")
@@ -1507,7 +1510,8 @@ def c39():
        "`release/release.py bust`; this check recomputes it, so it changes exactly "
        "when the bytes do and cannot be forgotten.")
 def c40():
-    link = re.compile(r'href="(?:\./)?styles/([\w.-]+\.css)(?:\?v=([^"]*))?"')
+    # only what a page loads: a <link> tag. The changelog quotes old keys (?v=82) as text.
+    link = re.compile(r'<link\b[^>]*\bhref="(?:\./)?styles/([\w.-]+\.css)(?:\?v=([^"]*))?"')
     skip = {".git", ".release", "Claude outputs", "node_modules"}
     pages = [p for p in ROOT.rglob("*.html") if not (set(p.relative_to(ROOT).parts) & skip)]
     fails, seen = [], 0
@@ -1564,6 +1568,8 @@ def c41():
         ("flips only when it does not fit below and above has more room",
          r"need\s*>\s*below\s*&&\s*above\s*>\s*below"),
         ("caps max-height at the room on the chosen side", r"Math\.min\(cap,\s*flip\s*\?\s*above\s*:\s*below\)"),
+        ("measures the natural height with getBoundingClientRect, rounded up", r"Math\.ceil\(menu\.getBoundingClientRect\(\)\.height\)"),
+        ("scrolls only when the menu is really shortened", r"natural\s*<=\s*room\s*\?\s*natural"),
         ("clamps horizontally to the viewport", r"Math\.min\(Math\.max\(r\.left"),
         ("closes on resize", r"addEventListener\('resize'"),
         ("closes on page scroll, captured", r"addEventListener\('scroll',\s*\w+,\s*true\)"),
@@ -1578,6 +1584,255 @@ def c41():
     css = read(COMPONENTS)
     if not re.search(r"\.select-menu\.is-fixed\s*\{[^}]*position:\s*fixed", css):
         fails.append("components.css: no `.select-menu.is-fixed{position:fixed}` for the script to switch to")
+    return fails
+
+
+@check("42", "Every state the state index uses is in the closed vocabulary",
+       "v4.3.0: the amaca.ai compiler read `checked` on the check, radio and switch "
+       "rows and `expanded` on the select trigger, and found neither in the list "
+       "§ 3.0.1 calls closed. v4.1.0 had fixed the same trap for `selected` by "
+       "hand, noting that the sentence was false about the file's own table; "
+       "nothing held the table to the sentence, so it happened twice more.")
+def c42():
+    text = read(DESIGN)
+    m = re.search(r"\*\*Closed state vocabulary\.\*\*(.*?)\. A component", text, re.S)
+    if not m:
+        return ["DESIGN.md: no '**Closed state vocabulary.**' sentence to read"]
+    vocab = set(re.findall(r"`([a-z-]+)`", m.group(1)))
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    fails, rows = [], 0
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("| `"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        rows += 1
+        for st in (x.strip() for x in c[1].split("·")):
+            if st not in vocab:
+                fails.append(f"{c[0]} | {st}: not in the closed vocabulary of § 3.0.1 — "
+                             "name it there, with its rule, or use a state that is")
+    if rows == 0:
+        fails.append("state index: no rows parsed — the check would pass on nothing")
+    return fails
+
+
+@check("43", "The switch track is fill-only, in the state index and in the CSS",
+       "v4.3.0: the check, switch and radio shared one default row, so the state "
+       "index gave the switch the checkbox's `1.5px --obsidian-600` stroke and "
+       "`--obsidian-850` fill. The CSS never drew either: the track is "
+       "`--obsidian-700` with no border. The amaca.ai compiler rendered the "
+       "switch the table described, which is not the switch the site shows.")
+def c43():
+    text = read(DESIGN)
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    fails, default_bg, seen = [], None, 0
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("| `"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if "`.switch`" not in c[0]:
+            continue
+        seen += 1
+        if c[3] not in ("none", "—"):
+            fails.append(f"{c[0]} | {c[1]}: border '{c[3]}' — the switch track has no stroke")
+        if c[1] == "default" and c[0] == "`.switch`":
+            m = re.search(r"`(--[a-z0-9-]+)`", c[2])
+            default_bg = m.group(1) if m else None
+    if seen == 0:
+        fails.append("state index: no row names `.switch`")
+    if default_bg is None:
+        fails.append("state index: no row of its own for `.switch | default` — a shared row hides the track")
+    css = read(COMPONENTS)
+    rule = re.search(r"\.switch input\s*\{([^}]*)\}", css)
+    if not rule:
+        return fails + ["components.css: no `.switch input` rule"]
+    body = rule.group(1)
+    m = re.search(r"background:\s*var\((--[a-z0-9-]+)\)", body)
+    if default_bg and (not m or m.group(1) != default_bg):
+        fails.append(f"state index says the switch track is {default_bg}, components.css draws "
+                     f"{m.group(1) if m else 'no token background'}")
+    if re.search(r"(?<![-\w])border\s*:", body) and not re.search(r"border\s*:\s*(0|none)\b", body):
+        fails.append("components.css: `.switch input` declares a border — the track is fill-only")
+    for shared in re.finditer(r"([^{}]*\.switch input[^{}]*)\{([^}]*)\}", css):
+        sel, decl = shared.group(1), shared.group(2)
+        if "," in sel and re.search(r"(?<![-\w])border(?:-color)?\s*:", decl) and not re.search(r":(checked|disabled|focus)", sel):
+            fails.append(f"components.css: a rule shared with the switch gives it a border: {sel.strip()[:60]}")
+    return fails
+
+
+def _index_rows(text):
+    i = text.find("#### State index")
+    rows = []
+    if i < 0:
+        return rows
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if line.startswith("| `"):
+            c = [x.strip() for x in line.strip().strip("|").split("|")]
+            if len(c) >= 7:
+                rows.append(c)
+    return rows
+
+
+def _css_rule_list(css):
+    """[(single selector, {prop: value})] — selector lists split, comments dropped."""
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    out = []
+    for m in re.finditer(r"([^{}@]+)\{([^{}]*)\}", css):
+        decls = {}
+        for d in m.group(2).split(";"):
+            if ":" in d:
+                k, v = d.split(":", 1)
+                decls[k.strip().lower()] = v.strip()
+        for sel in m.group(1).split(","):
+            out.append((sel.strip(), decls))
+    return out
+
+
+_STATE_MARK = {
+    "hover": [":hover"], "focus-visible": [":focus-visible", ":focus"], "focus": [":focus"],
+    "active": [":active"], "checked": [":checked"], "disabled": [":disabled"],
+    "selected": ['[aria-selected="true"]', '[aria-pressed="true"]', ".is-selected"],
+    "expanded": ['[aria-expanded="true"]'], "error": ['[aria-invalid="true"]'],
+    "readonly": ["[readonly]"], "loading": [".is-loading"],
+}
+_ALL_MARKS = [m for ms in _STATE_MARK.values() for m in ms]
+_PROPS = {"Background": ("background", "background-color"),
+          "Border": ("border", "border-color", "border-top", "border-top-color", "border-left", "border-left-color"),
+          "Foreground": ("color",), "Ring": ("box-shadow",)}
+_SCOPE = ("btn", "input", "textarea", "select", "card", "badge", "chip", "check", "radio", "switch", "alert")
+_ALIAS = {"select-trigger": ("select-trigger", "select")}
+
+
+@check("44", "The state index says what components.css paints",
+       "v4.3.0: the amaca.ai compiler read the state index and drew what it said. "
+       "It said the danger button had a --danger border (the CSS keeps the base's "
+       "transparent one), gave the switch the checkbox's stroke, and had no row for "
+       "the select trigger's focus, the menu surface or the chip tints the CSS "
+       "paints. Checks 37-43 held the table to its own grammar; nothing held it to "
+       "the stylesheet. Every token a value cell names must be painted, by a rule "
+       "for that component in that state, on that property.")
+def c44():
+    rules = _css_rule_list(read(COMPONENTS))
+    fails = []
+
+    def matches(sel, cls, state):
+        if not re.search(rf"\.{re.escape(cls)}(?![\w-])", sel):
+            return False
+        marks = _STATE_MARK.get(state, [])
+        if state == "default":
+            return not any(mk in sel for mk in _ALL_MARKS)
+        return any(mk in sel for mk in marks)
+
+    def painted(cls, states, props, token, after=None):
+        for sel, decls in rules:
+            if after is True and "::after" not in sel:
+                continue
+            if after is False and "::after" in sel:
+                continue
+            if not any(matches(sel, c, st) for c in _ALIAS.get(cls, (cls,)) for st in states):
+                continue
+            for p in props:
+                if p in decls and token in decls[p]:
+                    return True
+        return False
+
+    def tint_hue(cls):
+        for sel, decls in rules:
+            if re.fullmatch(rf"\.{re.escape(cls)}", sel) and "--tint-hue" in decls:
+                return decls["--tint-hue"]
+        return ""
+
+    for c in _index_rows(read(DESIGN)):
+        classes = re.findall(r"`\.([\w-]+)`", c[0])
+        if not classes or not any(cl.split("-")[0] in _SCOPE for cl in classes):
+            continue
+        states = [s.strip() for s in c[1].split("·")]
+        for col, cell in zip(("Background", "Border", "Foreground", "Ring"), c[2:6]):
+            if cell in ("—", "none", "transparent", "native", "per variant") or "--" not in cell:
+                continue
+            for seg in cell.split(" · "):
+                toks = re.findall(r"--[a-z0-9-]+", seg)
+                if not toks:
+                    continue
+                q = re.search(r"\((\w[\w ]*)\)", seg)
+                qual = q.group(1) if q else ""
+                for cls in classes:
+                    if qual in ("check", "tick") and cls != "check":
+                        continue
+                    if qual == "radio" and cls != "radio":
+                        continue
+                    if qual in ("knob", "track") and cls != "switch":
+                        continue
+                    if "×" in seg:                      # hue × --tint-*: hue via --tint-hue, strength in the mix
+                        hue, strength = toks[0], toks[-1]
+                        if hue not in tint_hue(cls):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: the CSS does not set --tint-hue to {hue} on .{cls}")
+                        base = cls.split("-")[0]
+                        if not (painted(cls, states, _PROPS[col], strength) or painted(base, states, _PROPS[col], strength)):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: no {', '.join(_PROPS[col])} mixes {strength} for .{cls}")
+                        continue
+                    if qual == "knob" or (qual == "" and seg.startswith("dot ")) or qual == "tick":
+                        props, after = ("background", "border", "border-color"), True
+                    elif qual == "label":
+                        props, after = ("color",), False
+                    else:
+                        props, after = _PROPS[col], None
+                    for t in toks:
+                        if not painted(cls, states, props, f"var({t})", after):
+                            fails.append(f"{c[0]} | {c[1]} · {col}: {t} — components.css paints no "
+                                         f"{'/'.join(props)} with it on .{cls} in that state")
+    return fails
+
+
+@check("45", "A field the state index gives a placeholder colour has a ::placeholder rule",
+       "v4.3.0: the state index gave `.input` `.textarea` `.select` a placeholder in "
+       "`--obsidian-400`; components.css styled `.input::placeholder` alone, so the "
+       "§ 11.1 textarea showed the browser's default grey. A <select> has no "
+       "placeholder and is exempt.")
+def c45():
+    css = read(COMPONENTS)
+    fails = []
+    for c in _index_rows(read(DESIGN)):
+        m = re.search(r"placeholder `(--[a-z0-9-]+)`", c[6])
+        if not m:
+            continue
+        tok = m.group(1)
+        for cls in re.findall(r"`\.([\w-]+)`", c[0]):
+            if cls == "select":
+                continue
+            rule = re.search(rf"(?:^|[,}}\s])\.{cls}::placeholder[^{{]*\{{([^}}]*)\}}", css, re.M)
+            if not rule or f"var({tok})" not in rule.group(1):
+                fails.append(f".{cls}: the state index says placeholder {tok}, components.css has no "
+                             f".{cls}::placeholder painting it")
+    return fails
+
+
+@check("46", "Every selector in a component's variant table has a row in the state index",
+       "v4.3.0: § 3.28 listed five tinted chip variants and the state index carried "
+       "none of them; § 3.4 and its badge variants were in the same position until "
+       "this release. A generator reads the index, not the prose table, so a "
+       "variant with no row is a variant it must guess.")
+def c46():
+    text = read(DESIGN)
+    indexed = set()
+    for c in _index_rows(text):
+        indexed |= set(re.findall(r"`\.([\w-]+)`", c[0]))
+    fails = []
+    for m in re.finditer(r"^\| Variant \|[^\n]*\n\|[-| ]+\n((?:\|[^\n]*\n)+)", text, re.M):
+        for line in m.group(1).splitlines():
+            first = line.strip().strip("|").split("|")[0]
+            for cls in re.findall(r"`\.([\w-]+)`", first):
+                if cls not in indexed:
+                    fails.append(f".{cls}: in a variant table, no row in the state index")
     return fails
 
 
