@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=f7dd8249">
-<link rel="stylesheet" href="styles/components.css?v=2ff2fb5c">
+<link rel="stylesheet" href="styles/tokens.css?v=5c04b84e">
+<link rel="stylesheet" href="styles/components.css?v=23f44231">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.2.2</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.2.2 · DESIGN SYSTEM</span>
+        <span class="meta">V4.3.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,7 +222,7 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.2.2</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.3.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
@@ -596,7 +596,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
           <div class="alert" style="margin-top:var(--s-4);align-items:flex-start">
             <span class="tag" style="white-space:nowrap;padding-top:2px">A11Y FLOOR · § 06</span>
-            <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) defaults to <code>obsidian-950</code> — 6.5:1, AA. One ratified exception (v2.6.0, § 6.3): <code>.btn-primary</code> carries <code>obsidian-050</code> at ≈2.8:1 — kept on perceptual grounds, scoped to that selector only. Every other magenta fill — chips, badges, non-button CTAs — stays dark-text.</span>
+            <span>Brand-fill text contrast: text on <code>magenta-500</code> (#F051D5) defaults to <code>obsidian-950</code> — 6.5:1, AA. One ratified exception (v2.6.0, § 6.3): <code>.btn-primary</code> and <code>.badge-solid</code> carry <code>obsidian-050</code> at ≈2.8:1 — kept on perceptual grounds, scoped to those two selectors. Every other magenta fill — chips, tinted badges, non-button CTAs — stays dark-text.</span>
           </div>
 
           <div class="card" style="padding:var(--s-6);margin-top:var(--s-4)">
@@ -1288,8 +1288,8 @@ Basic UI</div>
               </div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label">Error state</label>
-                <input class="input" value="bad-url" style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
-                <span class="help error">Slug must be lowercase with hyphens.</span>
+                <input class="input" value="bad-url" aria-invalid="true" aria-describedby="slug-error"/>
+                <span class="help error" id="slug-error">Slug must be lowercase with hyphens.</span>
               </div>
               <div style="display:flex;gap:var(--s-5);margin-top:var(--s-2)">
                 <label class="check"><input type="checkbox" checked/> Published</label>
@@ -1549,6 +1549,17 @@ Basic UI</div>
                 </div>
               </div>
 
+              <div class="do-dont">
+                <div class="do">
+                  <div class="hd"><span>✓</span>Do</div>
+                  <p>Let the fill carry the switch&rsquo;s state: the quiet track when off, magenta when on.</p>
+                </div>
+                <div class="dont">
+                  <div class="hd"><span>✕</span>Don't</div>
+                  <p>Put a stroke on the switch track. The fill carries the state; a border makes it read as a checkbox that lost its tick.</p>
+                </div>
+              </div>
+
               <div class="alert alert-info" style="margin-top:auto" role="status">
                 <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
                 <div class="alert-title">Switch or checkbox?</div>
@@ -1635,11 +1646,11 @@ Basic UI</div>
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 13.1</span></div>
           <p class="subsection-desc">The badge variants: semantic color plus the dot. Shape and label carry the state; the tint reinforces it.</p>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:10px">
-            <span class="badge" style="color: rgb(0, 255, 242); border-color: rgba(0, 255, 242, 0.3); background-color: rgba(0, 255, 242, 0.1)"><span class="dot"></span>Default</span>
+            <span class="badge"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
-            <span class="badge badge-warn" style="background-color: rgba(246, 198, 91, 0.1)"><span class="dot"></span>Pending</span>
-            <span class="badge badge-danger" style="opacity: 1"><span class="dot"></span>Blocker</span>
+            <span class="badge badge-warn"><span class="dot"></span>Pending</span>
+            <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
             <span class="badge"><span class="dot"></span>Archive</span>
             <span class="badge badge-solid">Featured</span>
           </div>
@@ -3452,7 +3463,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 21.1</span></div>
-          <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. One pair sits below AA by ratified exception — the primary button label, documented below and in the v2.6.0 release.</p>
+          <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. One pair sits below AA by ratified exception — the primary button label and the solid badge, documented below and in the v2.6.0 release.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
             <tbody>
@@ -3470,7 +3481,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               <tr><td><code>info</code> <span class="on">on</span> <code>obsidian-900</code></td><td class="num">10.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Info badge, neutral signal</td></tr>
             </tbody>
           </table>
-          <p class="muted" style="font-size:var(--t-caption);color:var(--obsidian-300);margin-top:var(--s-3);line-height:var(--lh-loose)">* Ratified exception, § 6.3: below the 4.5:1 AA bar, kept on perceptual grounds — on high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to <code>.btn-primary</code> only. Under APCA (the WCAG 3 candidate method) the ranking inverts: the light label scores Lc 55.8 vs 47.4 for the dark one — the perceptual model agrees.</p>
+          <p class="muted" style="font-size:var(--t-caption);color:var(--obsidian-300);margin-top:var(--s-3);line-height:var(--lh-loose)">* Ratified exception, § 6.3: below the 4.5:1 AA bar, kept on perceptual grounds — on high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to <code>.btn-primary</code> and <code>.badge-solid</code>. Under APCA (the WCAG 3 candidate method) the ranking inverts: the light label scores Lc 55.8 vs 47.4 for the dark one — the perceptual model agrees.</p>
         </div>
 
         <div class="subsection">
@@ -3984,9 +3995,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.2.2 -->
+            <!-- v4.3.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-422">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-430">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.3.0 &mdash; What the compiler read, the file now says</span>
+                <span class="acc-num">2026-09-24</span>
+              </button>
+              <div class="acc-panel" id="cl-430" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file disagreed with itself or with its CSS. The Select ones had already shipped in v4.2.2. The rest follow here, under one rule: where the contract and the site disagree, the site wins and the contract is rewritten.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The badge contract describes the badge this site draws</strong> &mdash; its own register, Live on brand, Archive on the default, the dot on every status badge. Not one pixel of the badge changes.</li><li><strong style="color:var(--obsidian-100)">&sect; 6.3 names <code>.badge-solid</code> beside <code>.btn-primary</code></strong> &mdash; the solid badge has always worn the light label on magenta; the ratified exception now covers it by name.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Four tint tokens</strong> &mdash; <code>--tint-fill</code> / <code>--tint-edge</code> for the variants, <code>--tint-fill-deep</code> / <code>--tint-edge-deep</code> for the default badge. Thirteen hand-written rgba pairs are gone, at the same values.</li><li><strong style="color:var(--obsidian-100)">State-index rows</strong> for the card and every badge variant.</li><li><strong style="color:var(--obsidian-100)"><code>checked</code> and <code>expanded</code> join the closed state vocabulary</strong>, with check 42 holding the table to the list.</li><li><strong style="color:var(--obsidian-100)">Examples the compiler can read</strong> &mdash; helper and error text, an input with an icon, a textarea, a native select, and a card with a badge and an action.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The status demo lost three inline styles</strong> left from v1.1.4: Default now shows its class, Pending the warn fill.</li><li><strong style="color:var(--obsidian-100)">The error demo followed its own rule</strong> &mdash; <code>aria-invalid</code> and a linked helper, no inline paint.</li><li><strong style="color:var(--obsidian-100)">The switch track carried a stroke in the state index it never had on the site</strong> &mdash; the family&rsquo;s default row now splits, <code>.switch</code> is fill-only. The checkbox corner and the focus outline now match the CSS.</li><li><strong style="color:var(--obsidian-100)">A Select menu that fits no longer scrolls</strong> &mdash; its height is measured and rounded up.</li><li><strong style="color:var(--obsidian-100)">The cache-key check reads only <code>&lt;link&gt;</code> tags.</strong></li><li><strong style="color:var(--obsidian-100)">The contract now says what the site draws</strong> &mdash; select trigger focus, chip tints, danger border, menu surface, badge-solid in &sect; 6.3; textarea placeholder follows the field. Checks 44&ndash;46 hold the state index to the stylesheet.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.2.2...v4.3.0" target="_blank" rel="noopener">v4.2.2&hellip;v4.3.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.2.2 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-422">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.2.2 &mdash; The Select demo does what its contract says</span>
                 <span class="acc-num">2026-09-24</span>
@@ -5760,14 +5794,20 @@ new MutationObserver(muts => {
       menu.style.top = '0px'; menu.style.left = '0px';
       const o = menu.getBoundingClientRect();
       const cap = parseFloat(getComputedStyle(menu).maxHeight) || Infinity;
-      const need = Math.min(menu.scrollHeight, cap);
+      // The natural height, borders included, rounded up: scrollHeight rounds and
+      // skips the border, so a menu that fits could get a max-height a fraction
+      // short of itself and grow a scrollbar it does not need.
+      menu.style.maxHeight = 'none';
+      const natural = Math.ceil(menu.getBoundingClientRect().height);
+      const need = Math.min(natural, cap);
       const below = vh - r.bottom - gap - edge;
       const above = r.top - gap - edge;
       const flip = need > below && above > below;
-      const h = Math.max(0, Math.min(cap, flip ? above : below));
+      const room = Math.max(0, Math.min(cap, flip ? above : below));
       const w = Math.min(r.width, vw - 2 * edge);
       const x = Math.min(Math.max(r.left, edge), vw - edge - w);
-      menu.style.maxHeight = h + 'px';
+      // Scroll only when the menu is really shortened.
+      menu.style.maxHeight = (natural <= room ? natural : Math.floor(room)) + 'px';
       menu.style.width = w + 'px';
       const y = flip ? r.top - gap - menu.offsetHeight : r.bottom + gap;   // offsetHeight: the rendered box, borders included
       menu.style.left = (x - o.left) + 'px';

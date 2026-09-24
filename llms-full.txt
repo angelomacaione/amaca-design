@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 4.2.2 · Released: 2026-09-24 · Matches the DESIGN.md frontmatter version
+Version: 4.3.0 · Released: 2026-09-24 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
 
 ================================================================================
@@ -39,7 +39,7 @@ Each maps to a class in `components.css` (`.btn-primary`, `.card`, `.field`, `.s
 **The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation. **`--font-mono` is a register, not a typeface** — it resolves to Satoshi, same as `--font-sans`; the mono reading comes from `--tr-mono`, uppercase and tabular figures. A hardcoded `ui-monospace, …` stack is off-system: Amaca is a single-typeface system.
 
 ## Accessibility floor (non-negotiable)
-Color never carries meaning alone (pair with shape + label) · no text < 12px, no body < 14px · every field has a persistent label (placeholder ≠ label) · every image has `alt` · focus follows reading order · no auto-advancing content · touch target 44×44 (32×32 dense desktop). Focus: pressables get a dual-ring (white outline + magenta halo); inputs get the magenta border + glow. On `--magenta-500` use a dark label (`--obsidian-950`, AA) by default; the one ratified exception is `.btn-primary` (light `--obsidian-050` label, scoped to that CTA).
+Color never carries meaning alone (pair with shape + label) · no text < 12px, no body < 14px · every field has a persistent label (placeholder ≠ label) · every image has `alt` · focus follows reading order · no auto-advancing content · touch target 44×44 (32×32 dense desktop). Focus: pressables get a dual-ring (white outline + magenta halo); inputs get the magenta border + glow. On `--magenta-500` use a dark label (`--obsidian-950`, AA) by default; the ratified exception is `.btn-primary` and `.badge-solid` (light `--obsidian-050` label, scoped to those two).
 
 ## Snippets — reuse these verbatim (token-only)
 ```html
@@ -169,6 +169,13 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --warning:     #F6C65B;
   --danger:      #FF5B5B;
   --info:        #5CC8FF;
+  /* tint strengths (v4.3.0) — the two alphas every tinted label wears
+     (badge, chip): color-mix(in srgb, var(--hue) calc(var(--tint-*) * 100%), transparent) */
+  --tint-fill:   0.08;
+  --tint-edge:   0.3;
+  /* the default badge's deep hue (--tertiary-500) needs the heavier mix */
+  --tint-fill-deep: 0.12;
+  --tint-edge-deep: 0.4;
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
@@ -239,6 +246,7 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --sh-4: 0 1px 0 0 rgba(255,255,255,0.06) inset, 0 24px 64px rgba(0,0,0,0.6);
   --sh-glow: 0 0 0 1px rgba(240,81,213,0.35), 0 0 24px rgba(240,81,213,0.25);
   --sh-glow-soft: 0 0 40px rgba(240,81,213,0.12);
+  --sh-menu: 0 8px 24px rgba(0,0,0,0.4);   /* select menu and native picker (v4.3.0) */
   /* focus rings (v4.2.0) — the two § 6.2 literals and the error twin, now named */
   --ring-halo: 0 0 0 4px rgba(240,81,213,0.35);
   --ring-field: 0 0 0 3px rgba(240,81,213,0.15);
