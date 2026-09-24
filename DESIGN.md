@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 4.1.0
-updated: 2026-09-23
+version: 4.2.0
+updated: 2026-09-24
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-09-23
+last_synced: 2026-09-24
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.1.0 — 2026.09.23
+> **Version** 4.2.0 — 2026.09.24
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -268,8 +268,11 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sh-2` | Hover lift |
 | `--sh-3` | Floating panel |
 | `--sh-4` | Modal / drawer |
-| `--sh-glow` | Focus state on brand elements |
+| `--sh-glow` | Brand bloom — the `.btn-primary` hover, listed before `--sh-3` so the bloom paints over the drop |
 | `--sh-glow-soft` | Ambient brand glow (rare) |
+| `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
+| `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
+| `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
 
 Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
 
@@ -357,7 +360,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 **Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`.
 
 **Rules of the grammar:**
-- Cells accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), or `native` (the browser's own treatment, deliberately not overridden). Never raw values. The two ratified rgba() literals — the `0 0 0 3px rgba(240,81,213,0.15)` field glow and the `0 0 0 4px rgba(240,81,213,0.35)` pressable halo — are named in § 6.2 and are cited by name, not re-typed per row.
+- Value cells (Background, Border, Foreground, Ring) accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), `native` (the browser's own treatment, deliberately not overridden), or the CSS keywords `none` and `transparent`. Never raw values, and never a description in place of a value. The focus rings are tokens since v4.2.0 — `--ring-halo`, `--ring-field`, `--ring-field-danger` (§ 2 Shadow, § 6.2); a row cites the token, never the rgba() it resolves to. Composition that is not a colour or a shadow (`opacity`, `filter`, offsets) lives in *Other*.
 - A state **not listed is not styled**: it falls back to `default`. Absence is a statement, not an omission.
 - The **`focus-visible` row is mandatory** for every focusable element. A component whose matrix has no `focus-visible` row does not ship (§ 6 floor #5).
 - The **`error` row is mandatory** for every form control, and error is never carried by colour alone (§ 6 floor #1) — it pairs with helper text (`.help.error`) or `aria-invalid`.
@@ -371,10 +374,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | Component | State | Background | Border | Foreground | Ring | Other |
 |---|---|---|---|---|---|---|
 | `.btn` (base) | default | per variant | `1px solid transparent` | per variant | — | `--r-full` |
-| `.btn` | focus-visible | — | — | — | § 6.2 pressable halo | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.btn` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.12 · `pointer-events: none` · `disabled` + `aria-label` |
 | `.btn-primary` | default | `--magenta-500` | `--magenta-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
-| `.btn-primary` | hover | `--magenta-500` (no lighten) | `--magenta-500` | `--obsidian-050` | `--sh-3` + magenta bloom | fill is bounded — § 6.3 |
+| `.btn-primary` | hover | `--magenta-500` | `--magenta-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
 | `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
 | `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | |
 | `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards |
@@ -382,23 +386,23 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
 | `.btn-outline` | hover | — | `--magenta-500` | `--magenta-400` | — | |
 | `.btn-danger` | default | `--danger` | `--danger` | `--obsidian-950` | — | destructive only |
-| `.btn-danger` | hover | `--danger` (brightened) | — | — | — | |
+| `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.input` `.textarea` `.select` | default | `--obsidian-850` | `--obsidian-700` | `--obsidian-100` | — | placeholder `--obsidian-400` |
-| `.input` `.textarea` `.select` | focus-visible | — | `--magenta-500` | — | § 6.2 field glow | `outline: none` is replaced, never removed |
-| `.input` `.textarea` `.select` | error | — | `--danger` | — | danger glow on focus | `aria-invalid="true"` + `.help.error` |
+| `.input` `.textarea` `.select` | focus-visible | — | `--magenta-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
+| `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
-| `.select-trigger` | expanded | — | `--magenta-500` | — | § 6.2 field glow | `aria-expanded="true"` |
+| `.select-trigger` | expanded | — | `--magenta-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
 | `.select-option` | selected | — | — | `--magenta-400` | — | `aria-selected="true"` |
 | `.check` `.switch` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | |
 | `.check` `.radio` | checked | `--magenta-500` (check) · dot `--magenta-500` (radio) | `--magenta-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
 | `.switch` | checked | `--magenta-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
-| `.check` `.switch` `.radio` | focus-visible | — | — | — | § 6.2 pressable halo | ring is on the `input`, not the label |
+| `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | ring is on the `input`, not the label |
 | `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals |
 | `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range |
-| `.dp-day` | focus-visible | — | — | — | § 6.2 pressable halo | outline offset `-2px` (inside the 32px cell) |
+| `.dp-day` | focus-visible | — | — | — | `--ring-halo` | outline offset `-2px` (inside the 32px cell) |
 | `.dp-day` | selected | `--magenta-500` | — | `--obsidian-950` | — | weight 600 |
 | `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` |
 | `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
@@ -408,13 +412,13 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
 | `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` |
 | `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
-| `.chip` (pressable) | focus-visible | — | — | — | § 6.2 pressable halo | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
 | `.chip` (pressable) | selected | — | `--magenta-500` | `--magenta-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.28 |
 | `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
-| `.chip-dismiss` | focus-visible | — | — | — | § 6.2 pressable halo | outline offset `-1px`, inside the chip's own box |
+| `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box |
 
 ### § 3.0.2 Stacking
 
@@ -448,6 +452,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 <button class="btn btn-secondary">Secondary</button>
 <button class="btn btn-danger">Destructive</button>
 <button class="btn btn-primary" disabled>Unavailable</button>
+<button class="btn btn-primary is-loading" disabled aria-label="Submitting">Submit <span class="loader loader-xs" role="status" aria-hidden="true">…</span></button>
 <button class="btn btn-secondary"><svg class="icon" aria-hidden="true">…</svg> New case study</button>
 <button class="btn btn-ghost btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
 ```
@@ -466,8 +471,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Touch.** On a coarse pointer every `.btn` grows to at least 44px tall and every `.btn-icon` 44px wide — the § 6 floor. `.btn-lg` already clears it; dense desktop keeps 32.
 - **Icon + label.** `<svg class="icon">` leading or trailing, 14px, `currentColor`, `aria-hidden="true"`; the gap is `--s-2`, always, and the label stays.
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
-- Focus: dual-ring (white outline + magenta halo). Never remove `outline` without re-implementing focus visibility.
-- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled`, values in the state index. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
+- Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.12's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
 - Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). Never use a light label on magenta elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
@@ -761,7 +766,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 **Composer:**
 - `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
 - `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--magenta-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
-- Composer focus-within: border shifts to `--magenta-500` + 3px halo `rgba(240,81,213,0.15)` — same focus treatment as `.input`.
+- Composer focus-within: border shifts to `--magenta-500` + `--ring-field` — same focus treatment as `.input`.
 - Enter sends. `⇧ Enter` inserts a newline.
 - Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
 
@@ -1571,8 +1576,8 @@ One pair sits below AA by ratified exception — the primary button label (`--ob
 ### Focus visibility
 
 Two patterns ship:
-- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: 0 0 0 4px rgba(240,81,213,0.35)` halo. Cited across the system as the **pressable halo**.
-- **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--magenta-500` + `0 0 0 3px rgba(240,81,213,0.15)` glow. Cited as the **field glow**. Its error twin swaps the border to `--danger` and the glow to `rgba(255,91,91,0.15)`.
+- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: var(--ring-halo)`. Cited across the system as the **pressable halo**; the token holds `0 0 0 4px` magenta at 0.35.
+- **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--magenta-500` + `box-shadow: var(--ring-field)` (`0 0 0 3px` magenta at 0.15). Cited as the **field glow**. Its error twin swaps the border to `--danger` and the ring to `--ring-field-danger`.
 - **In-cell targets** (`.dp-day`, `.dp-year`): same halo, `outline-offset: -2px` so the ring stays inside the 32px cell.
 
 `.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
@@ -1733,7 +1738,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -1743,6 +1748,23 @@ The version line at the top of this document is the source of truth. The CSS fil
 7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.2.0 — 2026.09.24 (MINOR)
+
+The DS manager on amaca.ai showed the Button's `loading` dot unlit. That was faithful to the source: the site rendered a button in `loading`, § 3.12 composed one, and the Button section and the state index never named the state. Reading the state index to fix it turned up a second problem. The primary's hover ring read *magenta bloom*, a phrase with no value behind it, while the CSS drew a 4px magenta ring at 0.18 that the spec had never stated. Two siblings sat in the same table. The grammar said *tokens only*, and no check read the cells.
+
+**Added**
+- **Focus rings are tokens: `--ring-halo`, `--ring-field`, `--ring-field-danger`** (§ 2 Shadow, § 6.2). They carry the same values as the two literals that were ratified *and named* in v3.4.0, plus the field glow's error twin, which was never named. Values are unchanged, so nothing renders differently. The literals had been re-typed in twenty CSS rules, nine agent snippets and two skill references; all of them now use `var()`. `theme.css` exposes the tokens to Tailwind as `shadow-ring-*`, and the DTCG projection carries them.
+- **`loading` is a declared Button state** (§ 3.0.1, § 3.1). It gets a `.btn | loading` row, a place in the Button's state list and a loading button in the § 3.1 example. The composition stays in § 3.12, and the Button points to it.
+- **Checks 37–39.** Check 37 requires every value cell of the state index to be a value, not a description. Check 38 flags any file that re-types a ring or glow token, or draws the same ring at another alpha. Check 39 holds the states a component lists to the rows the index carries and to the `.is-*` states the CSS renders. All three were mutation-tested against the v4.1.0 tree, and each finds that release's drift.
+
+**Changed**
+- **The `.btn-primary` hover is `--sh-glow` over `--sh-3`.** Before, `--sh-3` sat with an undeclared 4px ring at 0.18. `--sh-glow` is a 1px ring at 0.35 plus a 24px bloom at 0.25, so **the hover renders differently**, which § Versioning classes as MAJOR. It ships in v4.2.0 by explicit decision, on the v4.1.0 precedent: the value it replaces was never declared, so no consumer could have depended on it. The order was measured, not assumed. The first shadow in a list paints on top, and with `--sh-3` first its black drop dimmed the bloom to about half and ended it within 12px. With `--sh-glow` first, the bloom holds to about 16px. `--sh-glow` was declared for *focus on brand elements*, yet no component used it; its row now names the use it has. The resting primary drops its transparent zero-spread partner: the hover interpolates without it, measured frame by frame.
+- **The state grammar names its value cells.** Background, Border, Foreground and Ring accept a token, `—`, `native`, `none` or `transparent`, and never a description in place of a value. Composition that is not a colour or a shadow goes to *Other*: the `.btn-danger` hover now reads `filter: brightness(1.05)` there, where its Background cell said *(brightened)*.
+
+**Fixed**
+- **The site's error demos drew a different ring than the CSS.** Three inline styles and two runtime handlers in the date inputs painted the error glow at 0.12, while `components.css` draws 0.15. Every one of them now reads `var(--ring-field-danger)`.
+- **The skill follows**: `amaca-frontend` v1.2.2. REACT.md and HTML.md reference the tokens, and the React verification rule no longer tolerates an rgba() halo in an arbitrary value.
 
 ### v4.1.0 — 2026.09.23 (MINOR)
 **Added**

@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.1.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.2.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.1.0 · DESIGN SYSTEM</span>
+        <span class="meta">V4.2.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.1.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.2.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Sep 23, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Sep 24, 2026</span></div>
           </div>
         </div>
 
@@ -644,9 +644,9 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--magenta-400)">VERSIONING — SKILL</div>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.2.1 re-bundles on the current spec — multi-target across HTML, React, and Figma — and since v1.2.0 it verifies its own output before handing it over. The in-canvas Figma skill (amaca-figma) versions separately.</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Decoupled from spec version. The skill's own SemVer covers workflow changes — new posture rules, verification checks, deploy targets. v1.2.2 re-bundles on the current spec — multi-target across HTML, React, and Figma — and since v1.2.0 it verifies its own output before handing it over. The in-canvas Figma skill (amaca-figma) versions separately.</p>
               <div style="display:flex;align-items:center;gap:var(--s-3);margin-top:auto;padding-top:var(--s-3);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);flex-wrap:wrap;row-gap:var(--s-2)">
-                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.2.1</span></span>
+                <span>CURRENT · <span style="color:var(--obsidian-100)">v1.2.2</span></span>
                 <span style="color:var(--obsidian-600)">→</span>
                 <span>NEXT · <span style="color:var(--obsidian-100)">v1.3</span></span>
               </div>
@@ -922,14 +922,17 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 07.2</span></div>
-          <p class="subsection-desc">Four shadow levels and the two brand glows. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline.</p>
+          <p class="subsection-desc">Four shadow levels, the two brand glows and the three focus rings. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline; the rings exist only for focus and are never used as depth.</p>
           <div class="grid grid-3">
             <div class="demo-tile" style="box-shadow:var(--sh-1);border-radius:var(--r-md)"><div class="name">Level 1</div><div class="tok">--sh-1 · subtle</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-2);border-radius:var(--r-md)"><div class="name">Level 2</div><div class="tok">--sh-2 · card</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-3);border-radius:var(--r-md)"><div class="name">Level 3</div><div class="tok">--sh-3 · popover</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-4);border-radius:var(--r-md)"><div class="name">Level 4</div><div class="tok">--sh-4 · modal</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-glow);border-radius:var(--r-md)"><div class="name">Glow</div><div class="tok">--sh-glow · focus</div></div>
+            <div class="demo-tile" style="box-shadow:var(--sh-glow);border-radius:var(--r-md)"><div class="name">Glow</div><div class="tok">--sh-glow · primary hover</div></div>
             <div class="demo-tile" style="box-shadow:var(--sh-glow-soft);border-radius:var(--r-md)"><div class="name">Glow soft</div><div class="tok">--sh-glow-soft</div></div>
+            <div class="demo-tile" style="box-shadow:var(--ring-halo);border-radius:var(--r-md)"><div class="name">Ring halo</div><div class="tok">--ring-halo · pressables</div></div>
+            <div class="demo-tile" style="box-shadow:var(--ring-field);border-radius:var(--r-md)"><div class="name">Ring field</div><div class="tok">--ring-field · inputs</div></div>
+            <div class="demo-tile" style="box-shadow:var(--ring-field-danger);border-radius:var(--r-md)"><div class="name">Ring field danger</div><div class="tok">--ring-field-danger · invalid</div></div>
           </div>
         </div>
       </section>
@@ -1276,7 +1279,7 @@ Basic UI</div>
               </div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label">Error state</label>
-                <input class="input" value="bad-url" style="border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.12)"/>
+                <input class="input" value="bad-url" style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
                 <span class="help error">Slug must be lowercase with hyphens.</span>
               </div>
               <div style="display:flex;gap:var(--s-5);margin-top:var(--s-2)">
@@ -1320,7 +1323,7 @@ Basic UI</div>
                   maxlength="5"
                   inputmode="numeric"
                   aria-invalid="true"
-                  style="border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.12)"/>
+                  style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
                 <span class="help error">Required when the field is mandatory and left empty on submit.</span>
               </div>
             </div>
@@ -1402,7 +1405,7 @@ Basic UI</div>
                       maxlength="10"
                       inputmode="numeric"
                       aria-invalid="true"
-                      style="border-color:var(--danger);box-shadow:0 0 0 3px rgba(255,91,91,0.12)"/>
+                      style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
                     <button type="button" class="dp-icon-btn" aria-label="Open calendar" tabindex="-1">
                       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="2" y="3" width="12" height="11" rx="1.5"/>
@@ -3467,8 +3470,8 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <table class="table table-contrast">
             <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
             <tbody>
-              <tr><td><code>.btn, .nav-item,<br>.swatch, .chip</code></td><td class="muted"><code>outline: 2px solid obsidian-100; offset: 3px</code> + <code>0 0 0 4px rgba(magenta,.35)</code> halo</td><td class="num">16.1<span class="unit">:1</span></td></tr>
-              <tr><td><code>.input, .textarea,<br>.select</code></td><td class="muted">Border shifts to <code>magenta-500</code> + <code>0 0 0 3px rgba(magenta,.15)</code> glow</td><td class="num">6.5<span class="unit">:1</span></td></tr>
+              <tr><td><code>.btn, .nav-item,<br>.swatch, .chip</code></td><td class="muted"><code>outline: 2px solid obsidian-100; offset: 3px</code> + <code>--ring-halo</code></td><td class="num">16.1<span class="unit">:1</span></td></tr>
+              <tr><td><code>.input, .textarea,<br>.select</code></td><td class="muted">Border shifts to <code>magenta-500</code> + <code>--ring-field</code>; <code>--ring-field-danger</code> when invalid</td><td class="num">6.5<span class="unit">:1</span></td></tr>
               <tr><td><code>.cs-img</code></td><td class="muted">Border <code>magenta-500</code> + wide <code>48px</code> glow (case-study imagery)</td><td class="num">6.5<span class="unit">:1</span></td></tr>
               <tr><td><code>.skip-link</code></td><td class="muted">Off-screen at <code>top: -100px</code>; jumps to <code>top: 12px</code> on focus</td><td class="num">6.5<span class="unit">:1</span></td></tr>
             </tbody>
@@ -3972,9 +3975,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.1.0 -->
+            <!-- v4.2.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-410">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-420">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.2.0 &mdash; The rings become tokens</span>
+                <span class="acc-num">2026-09-24</span>
+              </button>
+              <div class="acc-panel" id="cl-420" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR, with one rendered change shipped by decision. The DS manager on amaca.ai showed the Button&rsquo;s <code>loading</code> dot unlit. That was faithful to the source: this site rendered a button in <code>loading</code>, and the contract never named the state. Reading the state index to fix it turned up a second problem. The primary&rsquo;s hover ring read <em>magenta bloom</em>, a phrase with no value behind it, while the CSS drew a ring the spec had never stated. The grammar said <em>tokens only</em>, and no check read the cells.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Focus rings are tokens</strong> &mdash; <code>--ring-halo</code>, <code>--ring-field</code>, <code>--ring-field-danger</code>. They carry the same values as the two literals named in v3.4.0, plus the error twin, which was never named, so nothing renders differently. The literals had been re-typed in twenty CSS rules, nine agent snippets and two skill references; all of them now use <code>var()</code>. Tailwind reaches them as <code>shadow-ring-*</code>, and the DTCG projection carries them.</li><li><strong style="color:var(--obsidian-100)"><code>loading</code> is a declared Button state</strong> &mdash; it gets a row in the state index, a place in the Button&rsquo;s state list and a loading button in its example. The composition stays with the Loader, and the Button points to it.</li><li><strong style="color:var(--obsidian-100)">Checks 37&ndash;39</strong> &mdash; check 37: every value cell of the state index is a value, not a description. Check 38: no file re-types a ring or glow token, or draws the same ring at another alpha. Check 39: the states a component lists match the index rows and the <code>.is-*</code> states the CSS renders. Each was mutation-tested and finds v4.1.0&rsquo;s drift.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The primary hover is <code>--sh-glow</code> over <code>--sh-3</code></strong> &mdash; it replaces an undeclared 4px ring at 0.18, so <strong>the hover renders differently</strong>. It ships in a minor by decision, on the v4.1.0 precedent: nothing had been declared for a consumer to depend on. The order was measured. The first shadow paints on top, and with <code>--sh-3</code> first its drop dimmed the bloom to about half.</li><li><strong style="color:var(--obsidian-100)">The state grammar names its value cells</strong> &mdash; a value cell holds a token, <code>&mdash;</code>, <code>native</code>, <code>none</code> or <code>transparent</code>, and never a description. The danger hover&rsquo;s <em>(brightened)</em> now reads <code>filter: brightness(1.05)</code> under <em>Other</em>.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">The error demos drew a different ring than the CSS</strong> &mdash; three inline styles and two runtime handlers painted the error glow at 0.12 against the 0.15 the CSS draws. They now read the token.</li><li><strong style="color:var(--obsidian-100)">The skill follows</strong> &mdash; <code>amaca-frontend</code> v1.2.2 references the ring tokens, and its React verification rule no longer tolerates an rgba() halo.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-24</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.1.0...v4.2.0" target="_blank" rel="noopener">v4.1.0&hellip;v4.2.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.1.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-410">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.1.0 &mdash; Chip enters the contract</span>
                 <span class="acc-num">2026-09-23</span>
@@ -6039,7 +6065,7 @@ new MutationObserver(muts => {
       const valid = parsed && (!min || parsed >= min) && (!max || parsed <= max);
       if(!valid){
         this.style.borderColor = 'var(--danger)';
-        this.style.boxShadow = '0 0 0 3px rgba(255,91,91,0.12)';
+        this.style.boxShadow = 'var(--ring-field-danger)';
         this.setAttribute('aria-invalid', 'true');
       } else {
         this.style.borderColor = '';
@@ -6486,7 +6512,7 @@ new MutationObserver(muts => {
           [startInput, endInput].forEach(function(i){ i.style.borderColor=''; i.style.boxShadow=''; i.removeAttribute('aria-invalid'); });
         } else if(this.value){
           this.style.borderColor = 'var(--danger)';
-          this.style.boxShadow = '0 0 0 3px rgba(255,91,91,0.12)';
+          this.style.boxShadow = 'var(--ring-field-danger)';
           this.setAttribute('aria-invalid', 'true');
         }
       });
