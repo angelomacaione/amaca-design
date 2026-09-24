@@ -17,9 +17,9 @@ Applies on JSX/TSX files. The token discipline, 85/10/5 law, a11y floor, and nev
 <button className="inline-flex items-center justify-center gap-2 bg-magenta-500 text-obsidian-050 border border-magenta-500
   min-h-10 pointer-coarse:min-h-11 px-6 leading-none rounded-full shadow-sh-2 font-sans text-body font-medium tracking-snug
   transition-all duration-quick ease-standard
-  hover:shadow-[var(--sh-3),0_0_0_4px_rgba(240,81,213,0.18)]
+  hover:shadow-[var(--sh-glow),var(--sh-3)]
   focus-visible:outline-2 focus-visible:outline-obsidian-100 focus-visible:outline-offset-3
-  focus-visible:shadow-[0_0_0_4px_rgba(240,81,213,0.35)]
+  focus-visible:shadow-ring-halo
   disabled:opacity-40 disabled:cursor-not-allowed motion-reduce:transition-none">
   Save
 </button>

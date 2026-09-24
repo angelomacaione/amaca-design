@@ -24,9 +24,9 @@ Reference example (token-only):
   border:1px solid transparent; white-space:nowrap; }
 .btn:disabled{ opacity:0.4; cursor:not-allowed; }
 .btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
-  box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+  box-shadow:var(--ring-halo); }
 .btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+  border-color:var(--magenta-500); box-shadow:var(--sh-2); }
 .btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
+  border-color:var(--magenta-500); box-shadow:var(--sh-glow), var(--sh-3); }
 ```

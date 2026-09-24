@@ -31,18 +31,18 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
   border:1px solid transparent; white-space:nowrap; }
 .btn:disabled{ opacity:0.4; cursor:not-allowed; }
 .btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
-  box-shadow:0 0 0 4px rgba(240,81,213,0.35); }
+  box-shadow:var(--ring-halo); }
 .btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-2), 0 0 0 0 rgba(240,81,213,0); }
+  border-color:var(--magenta-500); box-shadow:var(--sh-2); }
 .btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-3), 0 0 0 4px rgba(240,81,213,0.18); }
+  border-color:var(--magenta-500); box-shadow:var(--sh-glow), var(--sh-3); }
 .label{ font-family:var(--font-mono); font-size:var(--t-micro);
   letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
 .input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
   border-radius:var(--r-md); color:var(--obsidian-100); padding:10px var(--s-3);
   font-family:var(--font-sans); font-size:14px; outline:none;
   transition:all var(--d-quick) var(--ease-standard); width:100%; }
-.input:focus{ border-color:var(--magenta-500); box-shadow:0 0 0 3px rgba(240,81,213,0.15); }
+.input:focus{ border-color:var(--magenta-500); box-shadow:var(--ring-field); }
 .input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
 
