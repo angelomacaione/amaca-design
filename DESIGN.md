@@ -405,8 +405,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.select-trigger` | expanded | — | `--magenta-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
 | `.select-option` | selected | — | — | `--magenta-400` | — | `aria-selected="true"` |
-| `.check` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | check corner `--r-xs` · radio `--r-full` |
-| `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-200` (knob) | — | label `--obsidian-100` · track `--r-full` |
+| `.check` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | |
+| `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` |
 | `.check` `.radio` | checked | `--magenta-500` (check) · dot `--magenta-500` (radio) | `--magenta-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
 | `.switch` | checked | `--magenta-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
 | `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label |
@@ -1105,7 +1105,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 | Control | Shape | Checked treatment | Use |
 |---|---|---|---|
 | `.check` | 16px square, `--r-xs` corner | `--magenta-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
-| `.switch` | 32×18 track, `--r-full` | `--magenta-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
+| `.switch` | 32×18, `--r-full`, no border | `--magenta-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
 | `.radio` | 16px circle | `--magenta-500` ring + centred `--magenta-500` dot | One-of-many. Always in a named group, always with a default |
 
 **Rules.**
@@ -1114,6 +1114,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
+- **Do / Don't.** Do let the fill carry the switch's state — `--obsidian-700` off, `--magenta-500` on. Don't: stroke on the switch track — the fill carries the state.
 - State matrix: § 3.0.1. Motion: § 08.4.
 
 ### Alert
@@ -1793,7 +1794,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -1822,7 +1823,7 @@ The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file di
 **Fixed**
 - **Live and Archived were the wrong colours on the site.** The site drew Live as brand magenta and Archived as the tertiary default. They now follow the contract: Live `--success`, Archived `.badge-neutral`. The § 13.1 demo also lost three inline styles left from v1.1.4: a cyan Default, a warn background at 0.1, and a danger `opacity: 1`.
 - **The error demo in § 11.1 was painted by an inline style**, against its own section's rule. It now carries `aria-invalid="true"` and a `.help.error` tied to it with `aria-describedby`.
-- **The switch had the checkbox's row.** Its track is `--obsidian-700` with no border, and its knob `--obsidian-200` was never declared. The switch now has its own default row. The checkbox corner reads `--r-xs`, which is what the CSS draws; the table used to say "3px", and `--r-xs` is 2px. The focus row names the 2px outline at offset 3 that sits beside the halo.
+- **The switch track carried a stroke in the state index it never had on the site: the family's default row now splits, `.switch` is fill-only.** Its knob, `--obsidian-200`, is declared beside it, the anatomy says "no border", and **check 43** keeps it that way. The checkbox corner reads `--r-xs`, which is what the CSS draws; the table used to say "3px", and `--r-xs` is 2px. The focus row names the 2px outline at offset 3 that sits beside the halo.
 - **A Select menu that fitted could still scroll.** The height came from `scrollHeight`, which rounds and leaves out the border. It is now measured with `getBoundingClientRect()`, rounded up, and the menu scrolls only when it is really shortened. Check 41 carries the rule.
 - **Check 40 reads only `<link>` tags.** The changelog quotes the old `?v=82` as text; `release.py bust` is restricted the same way.
 

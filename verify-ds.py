@@ -1619,6 +1619,54 @@ def c42():
     return fails
 
 
+@check("43", "The switch track is fill-only, in the state index and in the CSS",
+       "v4.3.0: the check, switch and radio shared one default row, so the state "
+       "index gave the switch the checkbox's `1.5px --obsidian-600` stroke and "
+       "`--obsidian-850` fill. The CSS never drew either: the track is "
+       "`--obsidian-700` with no border. The amaca.ai compiler rendered the "
+       "switch the table described, which is not the switch the site shows.")
+def c43():
+    text = read(DESIGN)
+    i = text.find("#### State index")
+    if i < 0:
+        return ["DESIGN.md: no '#### State index' heading"]
+    fails, default_bg, seen = [], None, 0
+    for line in text[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("| `"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if "`.switch`" not in c[0]:
+            continue
+        seen += 1
+        if c[3] not in ("none", "—"):
+            fails.append(f"{c[0]} | {c[1]}: border '{c[3]}' — the switch track has no stroke")
+        if c[1] == "default" and c[0] == "`.switch`":
+            m = re.search(r"`(--[a-z0-9-]+)`", c[2])
+            default_bg = m.group(1) if m else None
+    if seen == 0:
+        fails.append("state index: no row names `.switch`")
+    if default_bg is None:
+        fails.append("state index: no row of its own for `.switch | default` — a shared row hides the track")
+    css = read(COMPONENTS)
+    rule = re.search(r"\.switch input\s*\{([^}]*)\}", css)
+    if not rule:
+        return fails + ["components.css: no `.switch input` rule"]
+    body = rule.group(1)
+    m = re.search(r"background:\s*var\((--[a-z0-9-]+)\)", body)
+    if default_bg and (not m or m.group(1) != default_bg):
+        fails.append(f"state index says the switch track is {default_bg}, components.css draws "
+                     f"{m.group(1) if m else 'no token background'}")
+    if re.search(r"(?<![-\w])border\s*:", body) and not re.search(r"border\s*:\s*(0|none)\b", body):
+        fails.append("components.css: `.switch input` declares a border — the track is fill-only")
+    for shared in re.finditer(r"([^{}]*\.switch input[^{}]*)\{([^}]*)\}", css):
+        sel, decl = shared.group(1), shared.group(2)
+        if "," in sel and re.search(r"(?<![-\w])border(?:-color)?\s*:", decl) and not re.search(r":(checked|disabled|focus)", sel):
+            fails.append(f"components.css: a rule shared with the switch gives it a border: {sel.strip()[:60]}")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
