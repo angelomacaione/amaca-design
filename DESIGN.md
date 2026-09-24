@@ -1,6 +1,6 @@
 ---
 name: Amaca
-version: 4.2.0
+version: 4.2.1
 updated: 2026-09-24
 author: Angelo Macaione
 license: MIT
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.2.0 — 2026.09.24
+> **Version** 4.2.1 — 2026.09.24
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -1738,7 +1738,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -1748,6 +1748,14 @@ The version line at the top of this document is the source of truth. The CSS fil
 7. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.2.1 — 2026.09.24 (PATCH)
+
+No token, component or rule changed. The site was loading the new stylesheets under old URLs.
+
+**Fixed**
+- **The v4.2.0 stylesheets shipped under the v4.1.0 cache keys.** `index.html` still loaded `components.css?v=82` and `tokens.css?v=27`, the same URLs as before, although both files had changed. A returning visitor kept the old primary hover, the undeclared 4px ring. The dangerous case was a browser holding the old `tokens.css` next to the new `components.css`: `--ring-halo`, `--ring-field` and `--ring-field-danger` were undefined, so the focus rings disappeared, which is a § 6 floor failure. No render in the sandbox could show it, because a fresh browser has no cache. The counter had stood still once before, `?v=79` across four commits that touched the CSS.
+- **`?v` is now the file's content hash**: the first 8 hex of its sha256, written by `python3 release/release.py bust` after the last CSS edit. It changes exactly when the bytes change. **Check 40** recomputes it for every stylesheet the site loads, so a stale key cannot ship. It was mutation-tested: on the v4.2.0 `index.html` it reports both stale keys.
 
 ### v4.2.0 — 2026.09.24 (MINOR)
 
