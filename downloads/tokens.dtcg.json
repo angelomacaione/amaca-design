@@ -3,7 +3,7 @@
   "$description": "Amaca design tokens - DTCG projection of styles/tokens.css. Generated from the CSS, never edited by hand; the round-trip is guarded by verify-ds.py check 25.",
   "$extensions": {
     "amaca": {
-      "version": "4.2.0",
+      "version": "4.2.1",
       "source": "styles/tokens.css"
     }
   },
