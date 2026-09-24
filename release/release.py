@@ -4,6 +4,7 @@ Amaca release gate — the git half of a release, made mechanical.
 
     python3 release/release.py preflight      # on the release branch, before the PR
     python3 release/release.py tag CODE       # on main, after the PR is merged
+    python3 release/release.py bust           # after the last CSS edit: ?v = content hash
 
 Why this exists. On 2026-09-23 v4.1.0 shipped through nine avoidable steps:
 a release branch based on history that main had squashed away (a PR full of
@@ -214,8 +215,56 @@ def tag_cmd(args):
     print(f"\n  Released {tag}. The review record is cleared.\n")
 
 
+# --- cache-bust -------------------------------------------------------------
+# v4.2.0 changed components.css and tokens.css and shipped them under the same
+# ?v=82 / ?v=27 as v4.1.0: a returning visitor kept the old hover ring, and one
+# holding the old tokens.css with the new components.css had the three
+# --ring-* tokens undefined, so every focus ring vanished. A hand-bumped counter
+# had already stood still once for four commits. The ?v is now the file's own
+# content hash: it changes exactly when the bytes do, and verify-ds.py check 40
+# recomputes it, so a stale one cannot ship. Touches only the HTML; never git.
+LINK_RE = re.compile(r'(href="(?:\./)?styles/([\w.-]+\.css))(?:\?v=[^"]*)?"')
+SKIP_DIRS = {".git", ".release", "Claude outputs", "node_modules"}
+
+
+def css_hash(name):
+    import hashlib
+    with open(os.path.join(ROOT, "styles", name), "rb") as fh:
+        return hashlib.sha256(fh.read()).hexdigest()[:8]
+
+
+def site_html():
+    for d, dirs, files in os.walk(ROOT):
+        dirs[:] = [x for x in dirs if x not in SKIP_DIRS]
+        for f in files:
+            if f.endswith(".html"):
+                yield os.path.join(d, f)
+
+
+def bust(args):
+    print("\n  AMACA — cache-bust\n")
+    changed = 0
+    for path in site_html():
+        text = open(path, encoding="utf-8").read()
+
+        def sub(m):
+            name = m.group(2)
+            if not os.path.exists(os.path.join(ROOT, "styles", name)):
+                fail(f"{os.path.relpath(path, ROOT)} loads styles/{name}, which does not exist")
+            return f'{m.group(1)}?v={css_hash(name)}"'
+        new = LINK_RE.sub(sub, text)
+        if new != text:
+            with open(path, "w", encoding="utf-8") as fh:
+                fh.write(new)
+            changed += 1
+        for m in LINK_RE.finditer(new):
+            ok(f"{os.path.relpath(path, ROOT)}: styles/{m.group(2)}?v={css_hash(m.group(2))}")
+    print(f"\n  {changed} file(s) rewritten.\n")
+
+
 if __name__ == "__main__":
-    if len(sys.argv) < 2 or sys.argv[1] not in ("preflight", "tag"):
+    cmds = {"preflight": preflight, "tag": tag_cmd, "bust": bust}
+    if len(sys.argv) < 2 or sys.argv[1] not in cmds:
         print(__doc__)
         sys.exit(2)
-    (preflight if sys.argv[1] == "preflight" else tag_cmd)(sys.argv[2:])
+    cmds[sys.argv[1]](sys.argv[2:])
