@@ -1916,6 +1916,96 @@ def c48():
             fails.append(f"§ 13.1 '{label}': .{cls} has no state-index row")
     return sorted(set(fails))
 
+
+def _rm_blocks(css):
+    """Bodies of every @media (prefers-reduced-motion: reduce) block, braces balanced."""
+    out = []
+    for m in re.finditer(r"@media\s*\(\s*prefers-reduced-motion\s*:\s*reduce\s*\)\s*\{", css):
+        depth, p = 1, m.end()
+        while p < len(css) and depth:
+            if css[p] == "{": depth += 1
+            elif css[p] == "}": depth -= 1
+            p += 1
+        out.append((m.start(), p, css[m.end():p - 1]))
+    return out
+
+
+@check("49", "A reduced-motion override strips a transform from every trigger of the rule that sets it",
+       "v4.3.2: `.card:hover .card-media > *, .card:focus-within .card-media > *` "
+       "scale the card's media; the reduced-motion block reset `.card:hover` only. "
+       "With motion reduced, tabbing to the card's action still zoomed the media — "
+       "a keyboard-only defect nobody sees with a mouse. When an override names one "
+       "interaction trigger of a grouped transform rule, it has to name them all.")
+def c49():
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    stripped = set()
+    for _, _, body in _rm_blocks(css):
+        for sel, decls in _css_rule_list(body):
+            if decls.get("transform", "").replace("!important", "").strip() == "none":
+                stripped.add(re.sub(r"\s+", " ", sel))
+    fails = []
+    for m in re.finditer(r"([^{}@]+)\{([^{}]*)\}", _strip_at_blocks(css)):
+        decls = {k.strip().lower(): v.strip() for k, v in
+                 (d.split(":", 1) for d in m.group(2).split(";") if ":" in d)}
+        tf = decls.get("transform")
+        if not tf or tf == "none":
+            continue
+        group = [re.sub(r"\s+", " ", s.strip()) for s in m.group(1).split(",")]
+        # Triggers are interaction pseudo-classes. A resting pre-entrance state
+        # (the chat group at scale 0.92) is not a trigger and is out of scope.
+        if not all(re.search(r":(hover|focus|focus-within|focus-visible|active)\b", s) for s in group):
+            continue
+        covered = [s for s in group if s in stripped]
+        if covered:
+            for s in group:
+                if s not in stripped:
+                    fails.append(f"{s}: sets transform {tf}; the reduced-motion override strips "
+                                 f"{', '.join(covered)} but not this trigger")
+    return fails
+
+
+def _important_exceptions():
+    """Selectors of the ratified !important list in § Code conventions."""
+    text = read(DESIGN)
+    i = text.find("- `!important`:")
+    if i < 0:
+        return None
+    sels = []
+    for line in text[i:].splitlines()[1:]:
+        if not line.startswith("  - "):
+            break
+        m = re.match(r"  - `([^`]+)`", line)
+        if m:
+            sels.append(m.group(1).strip())
+    return sels
+
+
+@check("50", "Every !important sits in a reduced-motion override or in the ratified list",
+       "v4.3.2: § Code conventions said !important was forbidden outside reduced "
+       "motion, and components.css carried four rules that used it anyway "
+       "(.card-media > *, .doc-row, .spec-card, .btn.is-loading). No check counted "
+       "them, so the rule was a sentence. The list of exceptions is now closed and "
+       "lives in the contract; a new !important either joins it by decision or fails.")
+def c50():
+    allowed = _important_exceptions()
+    if allowed is None:
+        return ["DESIGN.md: no '- `!important`:' bullet in § Code conventions"]
+    fails = []
+    for path in (TOKENS, COMPONENTS):
+        css = re.sub(r"/\*.*?\*/", lambda m: " " * len(m.group(0)), read(path), flags=re.S)
+        rm = [(a, b) for a, b, _ in _rm_blocks(css)]
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+            if "!important" not in m.group(2):
+                continue
+            if any(a <= m.start(2) < b for a, b in rm):
+                continue
+            sels = [re.sub(r"\s+", " ", s.strip()) for s in re.sub(r"^.*@media[^{]*\{", "", m.group(1), flags=re.S).split(",")]
+            for s in sels:
+                if s not in allowed:
+                    line = css.count("\n", 0, m.start(2)) + 1
+                    fails.append(f"{path.name}:{line} {s}: !important outside reduced motion, not in the ratified list")
+    return fails
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
