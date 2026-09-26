@@ -233,7 +233,8 @@
 }
 @media (prefers-reduced-motion: reduce){
   .card-media > *{transition:none}
-  .card:hover .card-media > *{transform:none}
+  .card:hover .card-media > *,
+  .card:focus-within .card-media > *{transform:none}
 }
 .card-meta{
   display:flex;align-items:center;justify-content:space-between;
