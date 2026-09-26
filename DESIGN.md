@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 4.3.1
-updated: 2026-09-24
+version: 4.3.2
+updated: 2026-09-26
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-09-24
+last_synced: 2026-09-26
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -79,7 +79,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.3.1 — 2026.09.24
+> **Version** 4.3.2 — 2026.09.26
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -542,21 +542,26 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ```html
 <div class="card">
-  <div class="card-meta"><span>PROJ-014 · 2025.10</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
-  <h3>Card title</h3>
-  <p>Body…</p>
+  <div class="card-meta"><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
+  <div class="card-media"><img src="cover.jpg" alt="The center stack of the Arc HMI"></div>
+  <h3>Arc · Automotive HMI</h3>
+  <p>Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
   <div class="card-actions"><button type="button" class="btn btn-secondary">Open case file</button></div>
 </div>
 ```
 
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
+- **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
+- **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 
 ### Badge
 
@@ -1561,6 +1566,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
@@ -1680,7 +1687,11 @@ The floor admits one documented exception pair, on two selectors.
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
-- `!important`: forbidden except in `prefers-reduced-motion` overrides.
+- `!important`: forbidden except in `prefers-reduced-motion` overrides and the ratified exceptions below (v4.3.2). The list is closed and check 50 holds it; each entry names what it has to outrank.
+  - `.card-media > *` — `margin` — outranks a media child's own margin, inline or from an element rule, so nothing offsets the child inside the clip (§ Card).
+  - `.doc-row` (≤720px) — `grid-template-columns` · `gap` · `padding` — outranks the inline grid the site's install rows carry, to stack them in one column on mobile.
+  - `.spec-card` (≤720px) — `grid-template-columns` · `gap` — no instance on the site since v2.4.1; ratified as it stands, and removing the rule is its own decision.
+  - `.btn.is-loading` — `color: transparent` — outranks every variant's label colour, hover included, so the label keeps its width without showing (§ 3.12).
 
 ### Browser chrome
 
@@ -1816,7 +1827,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 **Release checklist (RIGID — every release, no exceptions):**
 
-0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track, a state index that matches the stylesheet. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track, a state index that matches the stylesheet, reduced-motion overrides that cover every trigger of a transform, `!important` only where ratified. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -1827,6 +1838,22 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v4.3.2 — 2026.09.26 (PATCH)
+
+The card's media, written down: the anatomy, the example and the zoom the site already draws — and the trigger reduced motion had missed.
+
+**Added**
+- **§ Card › media.** `.card-media` was in the registry (§ 3.0) with no anatomy: now it has one — between micro-header and title, `--s-2` / `--s-5` margin, `--r-md`, `overflow: hidden`, one full-width child whose height is its own.
+- **The § Card example carries the media**: the first § 12.1 card, with an `<img>` in place of the demo's decorative placeholder.
+- **Motion rows for the media zoom**, in § Card and in the motion index: hover · focus-within, scale 1→1.05 and back, `--d-slow` · `--ease-decel`, none under reduced motion. The zoom stays inside the clip; border, radius and size of the card do not move.
+- **Check 49**: a reduced-motion override strips a transform from every trigger of the rule that sets it. **Check 50**: every `!important` sits in a reduced-motion override or in the ratified list.
+
+**Changed**
+- **Four `!important` exceptions ratified** in § Code conventions — `.card-media > *`, `.doc-row`, `.spec-card`, `.btn.is-loading` — each with what it outranks. The rule said *reduced motion only*; the stylesheet had four more, and nothing counted them.
+
+**Fixed**
+- **Reduced motion stops the keyboard zoom too.** The override stripped the transform from `.card:hover` only: with `prefers-reduced-motion: reduce`, tabbing to a card's action still scaled its media to 1.05 (measured in Chromium). `.card:focus-within` joins the override. Nothing changes for anyone else.
 
 ### v4.3.1 — 2026.09.24 (PATCH)
 
