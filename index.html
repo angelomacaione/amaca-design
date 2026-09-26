@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=5c04b84e">
-<link rel="stylesheet" href="styles/components.css?v=07248c6c">
+<link rel="stylesheet" href="styles/components.css?v=6e09c031">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -123,7 +123,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.1</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V4.3.2</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -135,7 +135,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V4.3.1 · DESIGN SYSTEM</span>
+        <span class="meta">V4.3.2 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -222,11 +222,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">4.3.1</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">4.3.2</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Sep 24, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Sep 26, 2026</span></div>
           </div>
         </div>
 
@@ -3512,7 +3512,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <tbody>
               <tr><td><code>*, *::before, *::after</code></td><td class="muted">Global (all elements)</td><td class="muted"><code>animation-duration</code> + <code>transition-duration</code> → <code>0.01ms !important</code></td></tr>
               <tr><td><code>[data-fade]</code></td><td class="muted">Section reveals</td><td class="muted">Skip fade-in — final state painted immediately</td></tr>
-              <tr><td><code>.card-media</code></td><td class="muted">Media tiles on hover</td><td class="muted">Strip <code>transform: scale</code> — no zoom</td></tr>
+              <tr><td><code>.card-media</code></td><td class="muted">Media tiles on hover and focus-within</td><td class="muted">Strip <code>transform: scale</code> on both triggers — no zoom</td></tr>
               <tr><td><code>.cs-img</code></td><td class="muted">Case-study imagery</td><td class="muted">Strip caption <code>transform: scale</code> on hover/focus</td></tr>
               <tr><td><code>.tab-indicator,<br>.tab-panel</code></td><td class="muted">Tab switcher</td><td class="muted">No indicator slide, no panel translate — instant swap</td></tr>
               <tr><td><code>.lightbox</code></td><td class="muted">Image overlay</td><td class="muted">No transition on open/close</td></tr>
@@ -3996,9 +3996,32 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v4.3.1 -->
+            <!-- v4.3.2 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-431">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-432">
+                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-label">v4.3.2 &mdash; The card&rsquo;s media, written down</span>
+                <span class="acc-num">2026-09-26</span>
+              </button>
+              <div class="acc-panel" id="cl-432" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>PATCH. The anatomy, the example and the zoom the site already draws, now in the contract &mdash; and the trigger reduced motion had missed.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">&sect; Card &rsaquo; media</strong> &mdash; <code>.card-media</code> between micro-header and title: <code>--s-2</code> / <code>--s-5</code> margin, <code>--r-md</code>, <code>overflow: hidden</code>, one full-width child.</li><li><strong style="color:var(--obsidian-100)">The &sect; Card example carries the media</strong>, as the first &sect; 12.1 card does.</li><li><strong style="color:var(--obsidian-100)">Motion rows for the media zoom</strong> &mdash; hover and focus-within, scale 1&rarr;1.05 and back on <code>--d-slow</code> &middot; <code>--ease-decel</code>, none under reduced motion. The zoom stays inside the clip.</li><li><strong style="color:var(--obsidian-100)">Checks 49 and 50</strong> &mdash; a reduced-motion override covers every trigger of a transform; every <code>!important</code> is in a reduced-motion override or in the ratified list.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Four <code>!important</code> exceptions ratified</strong> &mdash; <code>.card-media &gt; *</code>, <code>.doc-row</code>, <code>.spec-card</code>, <code>.btn.is-loading</code>, each with what it outranks.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Reduced motion stops the keyboard zoom too</strong> &mdash; tabbing to a card&rsquo;s action no longer scales its media when motion is reduced. Nothing changes for anyone else.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-09-26</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v4.3.1...v4.3.2" target="_blank" rel="noopener">v4.3.1&hellip;v4.3.2</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v4.3.1 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-431">
                 <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                 <span class="acc-label">v4.3.1 &mdash; Everything on the scale</span>
                 <span class="acc-num">2026-09-24</span>
