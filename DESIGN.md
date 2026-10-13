@@ -175,11 +175,20 @@ Role aliases on the obsidian ramp: no new values, a name for what each step does
 | `--danger` | `#FF5B5B` | Error / destructive only |
 | `--info` | `#5CC8FF` | Inline info, links in long-form |
 
-**The 85/10/5 law:** ~85% of any surface uses `--obsidian-*`. ~10% supporting/semantic. ≤5% `--primary-*`. Violations are visible at a glance.
+**The 85/10/5 law (§ Law, L1):** ≥ 85% of any surface uses `--obsidian-*`. ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together. ≤ 5% is semantic. Violations are visible at a glance.
 
 ## Typography
 
 Single typeface — **Satoshi** — across the whole system. Both family tokens resolve to it.
+
+**Usage**
+
+*Use it when*
+- Long-form text left-aligned, at most 80 characters per line.
+
+*Use something else when*
+- Body text centred or wider than 80 characters → left-align it and cap the measure.
+
 
 **`--font-mono` is a register, not a typeface.** The name is historical and is kept for compatibility; the value is Satoshi, same as `--font-sans`. What makes the mono register read as mono is the *treatment*, not the family: `--tr-mono` letter-spacing (`0.06em`), uppercase, small sizes (`--t-micro` / `--t-caption`), and `font-variant-numeric: tabular-nums` where figures must align. Labels, badges, timestamps, token names, breadcrumbs and table headers all ride it.
 
@@ -296,6 +305,15 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 ### Shadow
 
+**Usage**
+
+*Use it when*
+- Depth: an element that sits above another, on the elevation scale.
+
+*Use something else when*
+- Emphasis → type weight or colour, never a shadow.
+
+
 | Token | Use |
 |---|---|
 | `--sh-1` | Resting card |
@@ -314,6 +332,16 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 ## Shapes
 
 ### Radius
+
+**Usage**
+
+*Use it when*
+- Rectangles inside the 8–12px working range; `--r-xl` for modal and drawer, `--r-2xl` for a hero block.
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, status dots).
+
+*Use something else when*
+- A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
+
 
 | Token | Px | Use |
 |---|---|---|
@@ -410,7 +438,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
 | Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -511,11 +539,12 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ### § 3.0.3 Teaching grammar
 
-**How the system explains itself is part of the system.** A component is documented on four surfaces and no others. The list is closed for the same reason § 3.0 is closed: without it, the next section imitates whatever the last one happened to do, and the documentation drifts faster than the code.
+**How the system explains itself is part of the system.** A component is documented on five surfaces and no others. The list is closed for the same reason § 3.0 is closed: without it, the next section imitates whatever the last one happened to do, and the documentation drifts faster than the code.
 
 | Surface | Job | When | Constraint |
 |---|---|---|---|
 | **Framing prose** | Why the component exists, what it is for | One per subsection, always | Two or three sentences. Never how-to — that is what the spec is for |
+| **Usage** | When to use the component, and what to use instead | Every component section, right under the framing prose | Two lists, *Use it when* and *Use something else when*; every line of the second ends with the alternative after an arrow (→) |
 | **Do / Don't** | Rules that can be got wrong | Every component with at least one contestable rule | Always in pairs. A Do without its Don't states a preference, not a rule |
 | **Demo caption** | The replay affordance | Only where a demo has a choreography with a beginning | Fixed form: *"Click [Replay] to re-trigger animations."* Nothing else goes here |
 | **Contract card** | Discrete values a generator must not guess — input grids, digit rules, allowed keys | Where the rule is a table, not a sentence | Mono register (`--font-mono` + `--tr-mono` + uppercase label). Never a hardcoded font stack |
@@ -525,11 +554,22 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Framing prose is mandatory, not decorative.** A subsection with a demo and no framing tells the reader what the component looks like and never what it is for.
 - **Do / Don't comes in pairs.** The Don't is where the knowledge is: anyone can guess the Do.
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
-- An explanation that fits none of these four is `off-system`. Add a surface deliberately, or use one of these.
+- An explanation that fits none of these five is `off-system`. Add a surface deliberately, or use one of these.
 
-**Known debt (v3.4.0).** The site does not yet meet this rule: 41 of 90 subsections have no framing prose, Do / Don't exists in 6 sections of 24, and § Motion still carries six rule paragraphs as demo captions — the exact anti-pattern this section names. Scheduled for v3.6.0. The rule ships first so that nothing new is written against the old habit.
+**Status (v5.0.0).** The debt declared in v3.4.0 is closed: all 102 subsections carry framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears in 10 of 44 sections: pairs are written where a rule is contestable, never to fill a quota.
 
 ### Button
+
+**Usage**
+
+*Use it when*
+- The affirmative action of the screen, as the one `.btn-primary`.
+- Any action on the current page: submit, save, open, apply. *(Carbon, Atlassian, GOV.UK)*
+
+*Use something else when*
+- Going to another page or resource → Link. *(Carbon, Atlassian)*
+- An icon-only button whose glyph is not universal and has no tooltip → a labelled button.
+
 
 ```html
 <button class="btn btn-primary">Primary</button>
@@ -562,6 +602,18 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
 ### Input · textarea · select
+
+**Usage**
+
+*Use it when*
+- Free text on a single line: a name, a search, a URL. *(Carbon)*
+- Always with a persistent label; the placeholder is never the label.
+
+*Use something else when*
+- The answer runs over several lines → the textarea. *(GOV.UK, Carbon)*
+- The answer comes from a known list → Select or Radio. *(Carbon)*
+- A time or a date → Time input, Date picker.
+
 
 ```html
 <label class="field">
@@ -603,6 +655,17 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ### Card
 
+**Usage**
+
+*Use it when*
+- One project or one stat: micro-header, title, body, at most one action.
+- A concept the reader scans and acts on as one unit. *(Polaris, Carbon)*
+
+*Use something else when*
+- Secondary information shown on demand → Popover or Modal. *(Carbon)*
+- A gradient background → never; the surface stays on the obsidian ramp.
+
+
 ```html
 <div class="card">
   <div class="card-meta"><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
@@ -629,6 +692,17 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 ### Badge
 
 Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28).
+
+**Usage**
+
+*Use it when*
+- A status the system computed, next to the thing it describes.
+- The solid variant: the one featured accent of the viewport.
+
+*Use something else when*
+- A value a person chose → Chip.
+- It needs hover or focus → Button or Chip.
+
 
 ```html
 <span class="badge"><span class="dot"></span>Default</span>
@@ -661,12 +735,33 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 
 ### Navigation
 
+**Usage**
+
+*Use it when*
+- The sidebar for documentation; the top bar for marketing.
+- The sidebar when there are more than five destinations. *(Carbon)*
+
+*Use something else when*
+- A linear journey with an order → Stepper. *(GOV.UK)*
+
+
 - **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
 - **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (§ 13 is *Chips & Feedback*: badges, alerts, toasts and tooltips are the feedback) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
 - **Top nav** for marketing only.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.23.
 
 ### Accordion
+
+**Usage**
+
+*Use it when*
+- Dense reference content: headers scanned first, read selectively.
+- Multi-open sparingly, when answers are compared side by side.
+
+*Use something else when*
+- Content the reader will read in full → a page with headings. *(Carbon)*
+- Switching quickly between sections → Tabs. *(GOV.UK)*
+
 
 - Single-open by default.
 - Chevron rotates 90° on expand.
@@ -682,6 +777,17 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
 ### Tabs
+
+**Usage**
+
+*Use it when*
+- Related views of one page, read one at a time. *(Carbon, GOV.UK)*
+
+*Use something else when*
+- Moving between pages → Navigation. *(GOV.UK, Atlassian)*
+- A linear process → Stepper. *(Carbon)*
+- The reader needs several sections open at once → Accordion. *(GOV.UK)*
+
 
 ```html
 <div class="tabs" role="tablist" data-tabs>
@@ -737,6 +843,15 @@ Use `will-change: transform, width` on the indicator.
 
 ### Time input
 
+**Usage**
+
+*Use it when*
+- A time of day, HH:MM in 24 hours, formatted as it is typed.
+
+*Use something else when*
+- A date and a time together → pair it with the Date picker. *(Atlassian)*
+
+
 ```html
 <label class="field">
   <span class="label">ORARIO</span>
@@ -782,6 +897,16 @@ document.getElementById("time-input").addEventListener("input", function () {
 ### Dropdown / Select
 
 Two variants. Pick the smallest that covers the requirement.
+
+**Usage**
+
+*Use it when*
+- Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.
+- Four or more options, or little room on screen. *(Polaris, Carbon)*
+
+*Use something else when*
+- Two or three options → Radio, all of them visible. *(Carbon, Polaris)*
+
 
 #### A. Native enhanced — `<select class="select">`
 
@@ -845,6 +970,16 @@ Reach for this only when native can't carry the requirement: search/filter insid
 ### Chat & Messaging
 
 For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
+
+**Usage**
+
+*Use it when*
+- Conversational interfaces: a chatbot, an assistant.
+
+*Use something else when*
+- A one-way notice from the system → Toast or Alert.
+- Reference content the reader consults, not a dialogue → a page or Accordion.
+
 
 ```html
 <div class="chat-stage" aria-label="Conversation with Amaca">
@@ -930,6 +1065,17 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 The brand mark (Lottie / GIF) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
 
+**Usage**
+
+*Use it when*
+- A real wait; the large size for full-page waits, the extra-small inline and in buttons.
+
+*Use something else when*
+- A wait under 200 ms → show the result, no loader.
+- A wait past 800 ms → the skeleton.
+- Progress is known → Progress. *(Carbon)*
+
+
 ```html
 <span class="loader loader-md" role="status" aria-label="Loading">
   <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" />
@@ -1008,6 +1154,15 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
 
+**Usage**
+
+*Use it when*
+- Flowcharts and system architecture, box and line with grouping.
+
+*Use something else when*
+- Sequence, tree or ER diagrams → out of scope.
+
+
 ```html
 <figure class="diagram" data-anim="pending">
   <div class="diagram-canvas" role="img" aria-label="…description…">
@@ -1079,6 +1234,15 @@ flowchart TD
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
 
+**Usage**
+
+*Use it when*
+- Slide decks on the system, advanced by hand.
+
+*Use something else when*
+- Auto-advance → never (accessibility floor #6).
+
+
 **Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = mono + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
 
 **Eight layouts** — a single `.slide` + a modifier:
@@ -1099,6 +1263,16 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
 
 ### Date picker
+
+**Usage**
+
+*Use it when*
+- A single date or a range, typed or picked from the calendar.
+- Dates near today, where the relation to other days matters. *(Carbon)*
+
+*Use something else when*
+- A date the reader already knows, such as a birth date → typed Text inputs, no calendar. *(GOV.UK, Carbon)*
+
 
 ```html
 <div class="dp-wrap">
@@ -1154,6 +1328,17 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 ### Table
 
+**Usage**
+
+*Use it when*
+- Content, not chrome.
+- Comparing values across rows and columns. *(GOV.UK, Atlassian)*
+
+*Use something else when*
+- Laying out a page → Grid. *(GOV.UK)*
+- Key facts about one item → List. *(GOV.UK)*
+
+
 ```html
 <table class="table">
   <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
@@ -1183,6 +1368,36 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 Three controls, one family, one rule: **shape carries the meaning before colour does** (§ 6 floor #1).
 
+**Usage · Checkbox**
+
+*Use it when*
+- Many of many; the value applies on submit.
+- A single opt-in, such as accepting terms. *(GOV.UK)*
+
+*Use something else when*
+- The change applies immediately → Switch.
+- Only one option can be chosen → Radio. *(GOV.UK)*
+
+**Usage · Radio**
+
+*Use it when*
+- One of many, always in a named group with a default.
+
+*Use something else when*
+- Several options can be chosen → Checkbox. *(GOV.UK, Carbon)*
+- Four or more options and little room → Select. *(Polaris)*
+
+**Usage · Switch**
+
+*Use it when*
+- One of two, applied immediately: a setting, not a form value.
+- Turning a preference on or off with instant save. *(Atlassian, Carbon, Primer)*
+
+*Use something else when*
+- The change needs a Save button → Checkbox.
+- More than two options → Radio or Select. *(Carbon)*
+
+
 ```html
 <label class="check"><input type="checkbox" checked> Published</label>
 <label class="switch"><input type="checkbox" checked> Show dates</label>
@@ -1208,6 +1423,17 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 
 Inline, in flow, addressed to the whole surface — not to one field, and never on a timer.
 
+**Usage**
+
+*Use it when*
+- A condition that applies to the whole surface, inline, as long as it is true.
+
+*Use something else when*
+- The reader must be able to dismiss it → Toast.
+- It concerns one field → the field's `.help.error`.
+- Two alerts on one surface → merge them into one. *(Primer)*
+
+
 ```html
 <div class="alert alert-warn" role="status">
   <svg class="alert-icon" aria-hidden="true">…</svg>
@@ -1227,7 +1453,7 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 | `.alert-danger` | `--danger` | Something is broken or destructive |
 
 **Rules.**
-- **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 10% accent budget on furniture (§ 1.4 / § 8).
+- **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 5% semantic budget on furniture (§ Law, L1).
 - The icon is mandatory and `aria-hidden` — it is the shape half of "colour never alone" (§ 6 floor #1). The text carries the meaning.
 - `role="status"` for informative, `role="alert"` for danger. Nothing else.
 - **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.19 Toast — that is the whole difference between the two components.
@@ -1236,6 +1462,17 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 ### Toast
 
 Transient, stacked, bottom-right. A toast is what an alert becomes when the message is about an action that just happened somewhere else.
+
+**Usage**
+
+*Use it when*
+- An event that just happened somewhere else.
+
+*Use something else when*
+- A fourth message in the stack → Alert.
+- It is the only record of the information → keep it somewhere durable.
+- A critical message that needs an action → Modal. *(Atlassian, Carbon)*
+
 
 ```html
 <div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
@@ -1270,6 +1507,18 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 ### Tooltip
 
 A label for something already visible. Never a container for content.
+
+**Usage**
+
+*Use it when*
+- A label for something already on screen.
+- Only on interactive elements, such as an icon-only button. *(Atlassian, Primer)*
+
+*Use something else when*
+- The information is needed to finish the task → `.help` or Alert.
+- It needs a title → Alert.
+- It holds a link or a button → Popover. *(Carbon, Atlassian)*
+
 
 ```html
 <span class="tooltip-wrap">
@@ -1336,6 +1585,17 @@ A label for something already visible. Never a container for content.
 
 ### Breadcrumb
 
+**Usage**
+
+*Use it when*
+- A hierarchy deeper than two levels. *(Carbon, GOV.UK)*
+
+*Use something else when*
+- A flat site → Navigation alone. *(GOV.UK)*
+- Progress through a flow → Stepper. *(GOV.UK, Carbon)*
+- As the only navigation → it sits beside Navigation, never instead. *(Atlassian)*
+
+
 ```html
 <div class="breadcrumb">
   <span>Work</span><span class="sep">/</span><span class="active">Case study</span>
@@ -1358,6 +1618,18 @@ A label for something already visible. Never a container for content.
 - **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
 
 ### Chart card
+
+**Usage · Charts**
+
+*Use it when*
+- Bars for comparison, labelled at the value; the donut for composition.
+- Lines for trends over time and for several series. *(Carbon, UK Analysis Function)*
+- Areas for cumulative totals. *(ONS)*
+
+*Use something else when*
+- Several time series → lines, not bars. *(UK Analysis Function)*
+- Five points or fewer → bars, not a line. *(ONS)*
+
 
 ```html
 <div class="chart-card">
@@ -1417,6 +1689,18 @@ A label for something already visible. Never a container for content.
 
 A compact label for **one value that belongs to something else** — a tag on a post, a facet on a result set, a recipient already entered in a field. Where a badge reports a state the system computed, a chip carries a value a person chose, which is why a chip can be pressed or removed and a badge never is.
 
+**Usage**
+
+*Use it when*
+- A value someone entered, chose or can take back: a tag, a facet, a recipient.
+- Pressable chips narrow a set.
+
+*Use something else when*
+- A status the system computed → Badge.
+- Pressable and dismissible at once → a list row.
+- A link to another page → Link. *(Carbon)*
+
+
 ```html
 <span class="chip"><span class="chip-dot"></span> Design systems</span>
 
@@ -1465,7 +1749,7 @@ When you generate UI code, you must:
 
 1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
 2. **Reference tokens by CSS variable name** (`var(--primary-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
-3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
+3. **Match the five principles (§ Principles), in their order of precedence.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
 4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
 5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
 6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship. When it does ship, spec it in the § Motion grammar — token pair, property type (spatial/effect), reduced-motion behavior — and remember `--ease-spring` rides spatial properties only.
@@ -1477,30 +1761,47 @@ When you generate UI code, you must:
 
 Every output is graded against these. Cite the number when explaining a tradeoff.
 
+**Precedence.** When two principles pull in opposite directions, the higher one wins: Clarity, Evidence, Motion, Precision, Quiet. Laws are not weighed against principles: a law is not negotiated (§ Law).
+
 #### Clarity before cleverness
 The obvious answer, on purpose. If the user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
+
+- **In:** A labelled button · A verbose variable name · Four explicit lines over one trick
+- **Out:** An icon-only button whose glyph is not universal · A metaphor the reader has to decode
 
 **For agents:** prefer a labeled button over an icon-only button. Prefer a verbose variable name over a clever one. Prefer 4 lines of explicit code over 1 line of trick.
 
 #### Evidence over opinion
 Every decision shows its work. The dead end is part of the file too. When you make a choice, leave a trace — a comment, a token reference, a link to the spec.
 
+- **In:** The answer to “why” as a principle, a token or a commit · A one-line comment on a non-obvious choice
+- **Out:** “Because it looks better”
+
 **For agents:** when the user asks "why," answer with the principle number, the token reference, or the prior commit. Never "because it looks better."
+
+#### Motion is a material
+Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
+
+- **In:** Motion that reports a change of state: enter, exit, focus, error · Entrances on `--ease-decel`, exits on `--ease-accel`, state changes on `--ease-standard`, `--ease-spring` for emphasis
+- **Out:** Motion with no state change behind it · A decorative loop
+
+**For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut. Entrances ride `--ease-decel`, exits `--ease-accel`, state changes `--ease-standard`; `--ease-spring` is for emphasis and relevant interactions such as pressing a primary, on spatial properties only (L8).
 
 #### Precision is a feeling
 Rigor the eye picks up before the mind does. Spacing on a 4px grid. Type on the scale. Motion on the curve. When they're locked, the work reads as considered before a word is parsed.
+
+- **In:** Every value on a scale: `var(--s-3)`
+- **Out:** `padding: 14px` · A value between two steps
 
 **For agents:** never use values that aren't on a scale. `padding: 14px` is wrong; `padding: var(--s-3) var(--s-4)` is right.
 
 #### Quiet, then loud
 Restraint is what makes accents land. Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them.
 
-**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--primary-*`. If you're using magenta on more than one element per viewport, you're decorating.
+- **In:** Neutral surfaces, one accent where the work needs it · One primary action per screen
+- **Out:** Primary on more than one element per viewport · Accent borders, glowing dividers, tinted furniture
 
-#### Motion is a material
-Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
-
-**For agents:** motion communicates state change (entering, exiting, focus, error). Motion that doesn't communicate gets cut.
+**For agents:** the **85 / 10 / 5** law (L1): ≥ 85% of any surface is `--obsidian-*`, ≤ 10% is `--primary-*` and cyan together, ≤ 5% is semantic. One primary action per screen (L3); a landing may carry one per section. Primary spent on anything else is decoration.
 
 ### Voice & tone
 
@@ -1534,36 +1835,69 @@ When generating copy:
 3. **Don't decorate sentences.** "We crafted this with care" → cut.
 4. **Italics are rare.** Reserved for genuine emphasis, never for vibes.
 
-### The 85 / 10 / 5 law
+### Conventions
 
-Every screen, every component, every full-bleed surface should resolve to roughly:
+How the system is written: naming, structure, units, files. Each convention carries a severity (`error` stops the output, `warn` is flagged in review, `info` steers) and the check that could hold it, named from the compiler's check catalogue (`lint`, `token-exists`, `parity`, `count`, `none`). The full code rules are in § Code conventions.
 
-- **85% Obsidian** — backgrounds, borders, body text, neutral UI
-- **10% supporting** — cyan/petrol/semantic, mono labels, links in long-form
-- **≤5% Magenta** — one CTA per viewport, focus rings, brand moments
+| Id | Convention | Severity | Check | Source |
+| --- | --- | --- | --- | --- |
+| C1 | Token names: `--{family}-{step}` for primitives, `--{role}-{variant}` for semantics; a closed vocabulary of modifiers; no value inside a role name | `error` | `none` | § Colors · semantic |
+| C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `none` | § Code conventions · CSS |
+| C3 | `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`) | `warn` | `none` | § Code conventions · HTML |
+| C4 | Canonical, semantic HTML: every tag closed, every attribute double-quoted, `<button>` for actions, `<a>` for navigation, never `<div onclick>`; ARIA only when HTML can't say it | `error` | `lint` | § Code conventions · HTML |
+| C5 | Files: `tokens.css` → `components.css`, a third file only past 150 lines; kebab-case, named after the role (`card.css`, not `box.css`) | `warn` | `none` | § Code conventions · CSS, File naming |
+| C6 | Media queries mobile-first, scoped inside the component block, only at the `--bp-*` widths | `error` | `lint` | § Code conventions · CSS · check 53 |
+| C7 | `!important` only on the closed list | `error` | `count` | § Code conventions · CSS · check 50 |
+| C8 | Browser chrome: four surfaces styled, everything else native | `error` | `count` | § Code conventions · Browser chrome |
+| C9 | Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero | `info` | `none` | § Code conventions · JavaScript |
+| C10 | One number: a site section and its DESIGN.md § 3 entry share it | `info` | `parity` | § Components |
 
-If the magenta budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), the design is loud. Cut and earn the accent back.
+### Law
 
-### Anti-patterns · what not to ship
+A principle guides a judgement; a law is measured and enforced. Laws are not weighed against principles. Each law has an id, a severity (`error` stops the output, `warn` is flagged in review), the principle it serves and what holds it.
 
-These have all been tried in this system and rejected.
+| Id | Rule | Severity | Principle | Check | Source |
+| --- | --- | --- | --- | --- | --- |
+| L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
+| L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
+| L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier | § Principles · Quiet, then loud |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 | § For the AI agent #1–2 · § Code conventions |
+| L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
+| L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
+| L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
+| L8 | Motion grammar: six durations and four easings, no others. `--ease-decel` for entrances, `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
-| Don't | Why |
-|---|---|
-| Gradient backgrounds on cards | Decorative; violates § 1.4 |
-| Emoji in UI copy | Voice mismatch (§ 5) and a11y noise |
-| Drop shadows for emphasis | Use type weight or color, not shadow |
-| Border-radius > 16px on small components | Reads as toy; § 2.6 working range is 8–12 |
-| Multi-color icons | Iconography is monochrome (§ 4) |
-| Carousels, auto-advance | A11y floor #6 |
-| Centered body text > 80ch | Unreadable; left-align long-form |
-| Placeholder-as-label | A11y floor #3 |
-| Filled "magenta accents" wider than 5% of viewport | Violates 85/10/5 law |
-| Cubic-bezier literal in component CSS | Use `var(--ease-*)`. Always. |
-| Raw duration literal (`600ms`) in component CSS | Use `var(--d-*)`. Ratified continuous loops are the only exception. |
-| `--ease-spring` on an effect property (color, background, opacity, shadow) | Spatial properties only — § Motion RIGID. |
-| `font-size: 14px` in component CSS | Off the scale. The nearest token wins; at equal distance, the smaller: `var(--t-small)` (13px). |
-| A composite token retyped with fewer parts — a shadow without its inset layer, a gradient missing a stop, a shortened font stack | The layer reads as token-only and is off-system in the value itself. Count the parts (§ Do's #9). |
+#### L1 · The 85 / 10 / 5 law, in detail
+
+Every screen, every component, every full-bleed surface resolves to:
+
+- **≥ 85% Obsidian** — page, surfaces, type: backgrounds, borders, body text, neutral UI
+- **≤ 10% Primary + Cyan, combined** — CTA, focus, emphasis
+- **≤ 5% Semantic** — feedback only
+
+If a layout violates this rule, it's decoration, not hierarchy. If the primary budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), cut and earn the accent back.
+
+#### Where the v4.3.2 Anti-patterns live
+
+The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line in the Usage of the component it concerns.
+
+| Was | Now |
+| --- | --- |
+| Gradient backgrounds on cards | Card · Usage |
+| Emoji in UI copy | Law L6 |
+| Drop shadows for emphasis | Shadow · Usage |
+| Border-radius > 16px on small components | Radius · Usage (the pill is a shape) |
+| Multi-color icons | § Iconography |
+| Carousels, auto-advance | Law L2 (floor #6) |
+| Centered body text > 80ch | Typography · Usage |
+| Placeholder-as-label | Law L2 (floor #3) · Text input · Usage |
+| Filled primary accents wider than the budget | Law L1 |
+| Cubic-bezier literal in component CSS | Law L4 |
+| Raw duration literal in component CSS | Law L4 |
+| `--ease-spring` on an effect property | Law L8 |
+| `font-size: 14px` in component CSS | Law L4 |
+| A composite token retyped with fewer parts | Law L5 |
 
 > **Extension sections** — beyond the eight canonical `design.md` sections. They carry Amaca's full spec where the standard has no slot; consumers that only read the canonical eight can ignore them safely.
 
@@ -1585,7 +1919,7 @@ These have all been tried in this system and rejected.
 | `--ease-standard` | `cubic-bezier(0.22, 1, 0.36, 1)` | Default for user-triggered states — hover, press, focus (Framer ease) |
 | `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
 | `--ease-decel` | `cubic-bezier(0.16, 1, 0.3, 1)` | Default for system-triggered transitions — entrances, reveals (the system signature) |
-| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Pop-in, delight, overshoot — spatial properties only, see below |
+| `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Emphasis and relevant interactions (pressing a primary), pop-in, overshoot — spatial properties only, see below |
 
 **Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`.
 

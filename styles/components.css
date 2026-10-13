@@ -882,6 +882,19 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .do .hd, .dont .hd{display:flex;align-items:center;gap:var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;margin-bottom:var(--s-3)}
 .do .hd{color:var(--success)}
 .dont .hd{color:var(--danger)}
+/* Usage — when to use a component, and what to use instead (site chrome, § 3.0.3). Neutral on purpose: it is not a Do / Don't. */
+.usage{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4);margin-bottom:var(--s-16)}
+@media (max-width:900px){.usage{grid-template-columns:1fr}}
+.usage-col{border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-lg);padding:var(--s-5);background:var(--surface-sunken)}
+.usage .hd{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300);margin-bottom:var(--s-3)}
+.usage ul{margin:0;padding-left:var(--s-5);display:grid;gap:var(--s-2);color:var(--obsidian-200);font-size:var(--t-body);line-height:var(--lh-normal)}
+.usage-ref{color:var(--obsidian-300);font-size:var(--t-small)}
+.usage-flat{margin:var(--s-5) 0 0;gap:var(--s-5)}
+.usage-flat .usage-col{border:0;padding:0;background:transparent}
+.usage-flat ul{font-size:var(--t-small);color:var(--obsidian-300)}
+.table-registry td{vertical-align:top}
+.table-registry .muted{font-size:var(--t-caption);margin-top:var(--s-1)}
+.table-registry .badge{white-space:nowrap}
 .do p, .dont p{margin:0;font-size:var(--t-small);color:var(--obsidian-100);line-height:var(--lh-loose)}
 
 /* ─────────── CASE STUDY APPLIED ─────────── */

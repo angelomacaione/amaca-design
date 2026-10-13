@@ -21,7 +21,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 **Motion (6 durations, 4 easings):** `--d-instant 100 / -quick 200 / -base 350 / -slow 600 / -scene 900 / -draw 1200`. `--ease-standard cubic-bezier(0.22,1,0.36,1)` UI · `--ease-accel (0.7,0,0.84,0)` exits · `--ease-decel (0.16,1,0.3,1)` entrances (signature) · `--ease-spring (0.34,1.56,0.64,1)` — **spatial properties only** (transform/size), never color/opacity/shadow. User-triggered states ride `--d-quick`+`--ease-standard`; system-triggered reveals `--d-base`+`--ease-decel`. Always add a `@media (prefers-reduced-motion: reduce)` fallback.
 
 ## Laws
-- **85 / 10 / 5:** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
+- **85 / 10 / 5:** ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic. One primary action per screen (a landing may carry one per section); primary on anything else = decorating.
 - **Five principles:** clarity before cleverness · evidence over opinion · precision is a feeling (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · quiet then loud · motion is a material (feedback, never decoration).
 
 ## Components — reuse, don't reinvent
@@ -63,6 +63,6 @@ Color never alone (+ shape + label) · no text < 12px, no body < 14px · persist
 Semantic HTML first — `<button>`/`<a>`, never `<div onclick>`; close every tag, double-quote attributes; `kebab-case` files. Imperative, terse copy; **no AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Never ship: gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
 
 ## Self-check before returning code
-Every value is a `var(--token)` — no raw hex/px/`cubic-bezier`; ≤5% magenta (one CTA); a11y floor holds (labels, contrast, 44×44); every transition has a `prefers-reduced-motion` fallback.
+Every value is a `var(--token)` — no raw hex/px/`cubic-bezier`; 85/10/5 holds (one primary action per screen); a11y floor holds (labels, contrast, 44×44); every transition has a `prefers-reduced-motion` fallback.
 
 — Amaca · MIT · [amaca.design](https://amaca.design)

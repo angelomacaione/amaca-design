@@ -51,7 +51,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **For** — ChatGPT, Gemini, Microsoft Copilot, and any chat AI with no filesystem.
 - **Get it / where it goes** — paste the contents into the system prompt / custom-instructions / knowledge box.
 - **Use** — it works standalone (no companion files); a self-check section keeps output token-true.
-- **Verify** — ask for a component; it outputs `var(--token)` and the exact brand hex, ≤5% magenta.
+- **Verify** — ask for a component; it outputs `var(--token)` and the exact brand hex, 85/10/5 respected.
 - **Pairs with** — nothing required; attach `DESIGN.md` for the full component specs.
 - **Shared source** — same `AI-INSTRUCTIONS.md` as the App builder bundle; both baked from one source via `build-paste-in-bundles.sh`.
 

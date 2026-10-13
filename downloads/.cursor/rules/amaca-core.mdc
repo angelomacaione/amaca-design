@@ -13,7 +13,7 @@ This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand ac
 
 **Token roles** (full scales in `tokens.css`): brand `--primary-500` (#F051D5) = primary/CTA/focus · neutral `--obsidian-950` page → `--obsidian-050` bone, text `--obsidian-100` · supporting (rare) `--secondary-400` cyan / `--tertiary-500` petrol / `--success|warning|danger|info` (feedback only) · type Satoshi `--t-micro 10 … --t-body 15 … --t-h1 76` (one H1/page) · spacing 4px grid `--s-1 4 … --s-32 128` · radius `--r-md 8` / `--r-lg 12` · motion 6 durations + 4 easings (`--ease-decel` signature), always with a `prefers-reduced-motion` fallback.
 
-**Laws:** 85/10/5 (≤5% magenta, one CTA per viewport) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
+**Laws:** 85/10/5 (≥85% obsidian, ≤10% primary + cyan, ≤5% semantic; one primary action per screen) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
 
 **A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--primary-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
 

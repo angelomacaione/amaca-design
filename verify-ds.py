@@ -19,6 +19,7 @@ release that would have caught it. This file IS the harness: when a new class of
 drift is found, it gets a check here in the same commit that fixes it.
 """
 
+from html import unescape
 import hashlib
 import json
 import re
@@ -2114,6 +2115,238 @@ def c53():
                 if w not in bps:
                     fails.append(f"{where}: {m.group(0).strip()} uses {w}px, not a --bp-* token")
     return fails
+
+
+# ───────────── v5.0.0 phase 2b: Usage, Principles, Conventions, Law ─────────────
+
+PRINCIPLES = ["Clarity before cleverness", "Evidence over opinion", "Motion is a material",
+              "Precision is a feeling", "Quiet, then loud"]
+
+
+def _md_section(design, head):
+    a = design.index(head)
+    nxt = re.search(r"\n### |\n## ", design[a + len(head):])
+    return design[a:a + len(head) + (nxt.start() if nxt else len(design))]
+
+
+def _html_section(html, sid):
+    a = html.index('<section class="section" id="%s"' % sid)
+    return html[a:html.index("</section>", a)]
+
+
+def _text(fragment):
+    t = re.sub(r"<[^>]+>", "", fragment)
+    return re.sub(r"\s+", " ", unescape(t)).strip()
+
+
+@check("54", "Five principles, in the order of precedence, the same in the contract and on the site",
+       "v5.0.0: the For-the-AI-agent list told generators to match 'the seven principles' while "
+       "§ Principles listed five, and the site and the contract ranked them differently. "
+       "Precedence is the rule a generator uses when two principles collide, so the order is "
+       "part of the contract and both surfaces have to carry the same one.")
+def c54():
+    fails = []
+    design = read(DESIGN)
+    sec = design[design.index("### Principles"):design.index("### Voice & tone")]
+    got = re.findall(r"^#### (.+)$", sec, re.M)
+    if got != PRINCIPLES:
+        fails.append(f"DESIGN.md § Principles: {got} ≠ {PRINCIPLES}")
+    for name in PRINCIPLES:
+        i = sec.find("#### " + name)
+        if i < 0:
+            continue
+        body = sec[i:sec.find("\n#### ", i + 5) if sec.find("\n#### ", i + 5) > 0 else len(sec)]
+        for k in ("- **In:**", "- **Out:**", "**For agents:**"):
+            if k not in body:
+                fails.append(f"DESIGN.md § Principles · {name}: no {k}")
+    html = _html_section(read(INDEX), "principles")
+    labels = re.findall(r">0(\d) · ([A-Z ,]+)<", html)
+    want = [(str(i), n.upper()) for i, n in enumerate(PRINCIPLES, 1)]
+    if labels != want:
+        fails.append(f"site § Principles: cards {labels} ≠ {want}")
+    for p in [DESIGN, INDEX, ROOT / "llms-full.txt"] + sorted((ROOT / "downloads").rglob("*.md")):
+        t = read(p)
+        if p == DESIGN:
+            t = t[:t.find("## Changelog")]
+        if re.search(r"\bseven principles\b", t, re.I):
+            fails.append(f"{p.relative_to(ROOT)}: says 'seven principles'")
+    return fails
+
+
+def _usage_md(design):
+    """{label: (use[], else[])} for every **Usage…** block in DESIGN.md (changelog excluded)."""
+    body = design[:design.find("## Changelog")]
+    out = {}
+    for m in re.finditer(r"^\*\*(Usage[^*]*)\*\*\n\n\*Use it when\*\n((?:- .*\n)+)\n\*Use something else when\*\n((?:- .*\n)*)", body, re.M):
+        clean = lambda block: [re.sub(r"\s*\*\([^)]*\)\*$", "", l[2:]).replace("`", "").strip()
+                               for l in block.strip("\n").split("\n") if l.startswith("- ")]
+        out[f"{m.group(1)}@{m.start()}"] = (clean(m.group(2)), clean(m.group(3)))
+    return out
+
+
+def _usage_site(html):
+    """{section id: (use[], else[])} for the .usage block under each page header."""
+    out = {}
+    for m in re.finditer(r'<section class="section" id="([a-z-]+)"', html):
+        sec = html[m.start():html.index("</section>", m.start())]
+        u = re.search(r'<div class="usage">(.*?)</div></div>', sec, re.S)
+        if not u:
+            continue
+        cols = re.findall(r'<div class="usage-col"><div class="hd">([^<]+)</div><ul>(.*?)</ul>', sec[u.start():], re.S)[:2]
+        lis = lambda ul: [_text(re.sub(r'<span class="usage-ref">.*?</span>', "", li)) for li in re.findall(r"<li>(.*?)</li>", ul, re.S)]
+        out[m.group(1)] = tuple(lis(c[1]) for c in cols)
+    return out
+
+
+# Site sections whose § 3 entry arrives with phase 3 of v5.0.0; their Usage lives on the site
+# only until then. The exemption expires with the release (debt_is_live).
+USAGE_SITE_ONLY = {"progress", "stepper", "timeline", "maps", "casestudy"}
+
+
+@check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
+       "v5.0.0: when to use a component, and what to use instead, lived in scattered Do / Don't "
+       "pairs and an Anti-patterns table, and the compiler read none of it as usage. Usage is now "
+       "a surface of its own (§ 3.0.3): two lists under the framing prose, the second always "
+       "naming the alternative after an arrow. Two copies of one rule drift unless they are "
+       "compared, so the check compares them line by line.")
+def c55():
+    fails = []
+    html = read(INDEX)
+    nav = html[html.index('<aside'):html.index('</aside>')]
+    groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_ids = [i for g, body in groups if unescape(g) in comp_groups for i in re.findall(r'data-target="([a-z-]+)"', body)]
+    site = _usage_site(html)
+    for sid in comp_ids:
+        if sid not in site:
+            fails.append(f"site #{sid}: no Usage block under the page header")
+        elif len(site[sid]) != 2 or not all(site[sid]):
+            fails.append(f"site #{sid}: Usage needs both lists, each with at least one line")
+    md = _usage_md(read(DESIGN))
+    md_lines = set()
+    for label, (use, other) in md.items():
+        if not use or not other:
+            fails.append(f"DESIGN.md {label.split('@')[0]}: both lists need at least one line")
+        for l in other:
+            if "→" not in l:
+                fails.append(f"DESIGN.md {label.split('@')[0]}: '{l}' names no alternative (→)")
+        md_lines |= set(use) | set(other)
+    site_lines = set()
+    for sid, cols in site.items():
+        for l in (x for c in cols for x in c):
+            site_lines.add(l)
+            if l not in md_lines and not (sid in USAGE_SITE_ONLY and debt_is_live("5.0.0")):
+                fails.append(f"site #{sid}: '{l}' is not in DESIGN.md")
+    for l in sorted(md_lines - site_lines):
+        fails.append(f"DESIGN.md: '{l}' is not on the site")
+    return fails
+
+
+def _registry_md(design, head):
+    sec = _md_section(design, head)
+    rows = []
+    for line in sec.split("\n"):
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if line.startswith("|") and re.fullmatch(r"[LC]\d+", c[0]):
+            rows.append((c[0], c[1].replace("`", ""), c[2].strip("`")))
+    return rows
+
+
+def _registry_site(html, sid):
+    sec = _html_section(html, sid)
+    t = sec[sec.index('<table class="table table-registry">'):]
+    t = t[:t.index("</table>")]
+    rows = []
+    for tr in re.findall(r"<tr>(.*?)</tr>", t, re.S)[1:]:
+        td = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)
+        rule = re.sub(r'<div class="muted">.*?</div>', "", td[1], flags=re.S)
+        rows.append((_text(td[0]), _text(rule), _text(td[2])))
+    return rows
+
+
+@check("56", "The Law and the Conventions are one registry each: same ids, rules and severities on both surfaces",
+       "v5.0.0: the Law was one card (85/10/5) on the site and a list of rules scattered through "
+       "the contract, with no ids and no severity, so neither a reviewer nor the compiler could "
+       "tell a hard rule from a preference. The registries give every rule an id and a severity "
+       "on the compiler's scale (error, warn, info); this check holds the site and DESIGN.md to "
+       "the same rows.")
+def c56():
+    fails = []
+    design, html = read(DESIGN), read(INDEX)
+    words = {"five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}
+    for head, sid, prefix in (("### Law\n", "law", "L"), ("### Conventions\n", "conventions", "C")):
+        md, site = _registry_md(design, head), _registry_site(html, sid)
+        ids = [r[0] for r in md]
+        if ids != [f"{prefix}{i}" for i in range(1, len(ids) + 1)]:
+            fails.append(f"DESIGN.md {head.strip()}: ids {ids} are not {prefix}1…{prefix}n in order")
+        for r in md:
+            if r[2] not in ("error", "warn", "info"):
+                fails.append(f"DESIGN.md {r[0]}: severity '{r[2]}' is not error / warn / info")
+        if md != site:
+            for a, b in zip(md, site):
+                if a != b:
+                    fails.append(f"{a[0]}: DESIGN.md {a[1:]} ≠ site {b[1:]}")
+            if len(md) != len(site):
+                fails.append(f"{head.strip()}: {len(md)} rows in DESIGN.md, {len(site)} on the site")
+    m = re.search(r'<h1 class="page-title">(\w+) rules', _html_section(html, "law"))
+    if m and words.get(m.group(1).lower()) != len(_registry_md(design, "### Law\n")):
+        fails.append(f"site § Law: the title says '{m.group(1)} rules', the registry has {len(_registry_md(design, '### Law'+chr(10)))}")
+    return fails
+
+
+# The pill is a shape (v5.0.0): --r-full makes a pill or a circle. Every use is listed; a new one
+# is added here on purpose, with the component that needs it.
+R_FULL_RATIFIED = {
+    ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
+    ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
+    ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot",
+}
+
+
+@check("57", "--r-full is a shape: only pills and circles on the ratified list use it",
+       "v5.0.0: the contract said 'radius above 16px reads as a toy' while the button and the chip "
+       "were drawn at --r-full, and a generator could not tell which rule won. The pill is a "
+       "shape, not a large radius: rectangles stay in the 8–12px working range, and --r-full "
+       "belongs to the pills and circles listed here.")
+def c57():
+    fails = []
+    sources = [("components.css", read(COMPONENTS))]
+    sources += [("index.html <style>", m.group(1)) for m in re.finditer(r"<style[^>]*>(.*?)</style>", read(INDEX), re.S)]
+    for where, css in sources:
+        css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+            if "--r-full" not in m.group(2):
+                continue
+            for sel in (x.strip() for x in m.group(1).split(",")):
+                if sel and sel not in R_FULL_RATIFIED:
+                    fails.append(f"{where}: {sel} uses --r-full and is not on the ratified pill list")
+    for m in re.finditer(r'<([a-z]+)([^>]*)style="([^"]*--r-full[^"]*)"', read(INDEX)):
+        if 'class="demo-tile"' not in m.group(2):
+            fails.append(f"index.html inline: <{m.group(1)}{m.group(2)[:60]}> uses --r-full")
+    return fails
+
+
+@check("58", "The 85 / 10 / 5 law has one definition, everywhere it is stated",
+       "v5.0.0: the site said ≤ 10% primary and cyan, ≤ 5% semantic; DESIGN.md and every agent "
+       "file said ≈ 10% supporting, ≤ 5% primary. The same law, two budgets, and the compiler "
+       "emitted the wrong one. The site's reading is the law (Angelo, 2026-10-13).")
+def c58():
+    fails = []
+    bad = [r"~\s*10%\s*supporting", r"10%\s*supporting", r"≤\s*5%\s*`?--primary", r"≤\s*5%\s*magenta",
+           r"5%\s*magenta", r"5%\s*accent", r"~\s*85%"]
+    files = [DESIGN, INDEX, ROOT / "llms-full.txt"]
+    files += sorted(p for ext in ("*.md", "*.mdc", "*.txt", "*.sh") for p in (ROOT / "downloads").rglob(ext))
+    for p in files:
+        t = read(p)
+        if p == DESIGN:
+            t = t[:t.find("## Changelog")]
+        if p == INDEX and 'id="changelog"' in t:
+            t = t[:t.index('<section class="section" id="changelog"')]
+        for pat in bad:
+            for m in re.finditer(pat, t, re.I):
+                fails.append(f"{p.relative_to(ROOT)}: '{t[max(0, m.start()-20):m.end()+20].strip()}' — the old budget")
+    return fails
+
 
 def main():
     args = sys.argv[1:]

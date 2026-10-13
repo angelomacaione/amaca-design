@@ -13,7 +13,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 - **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` (default) / `--r-lg 12` (cards). **Motion:** 6 durations `--d-instant…--d-draw`, 4 easings `--ease-standard / -accel / -decel (signature) / -spring` — no others.
 
 ## The laws
-1. **85 / 10 / 5.** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
+1. **85 / 10 / 5.** ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic. One primary action per screen (a landing may carry one per section); primary on anything else = decorating.
 2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Values off a scale break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
 3. **Motion is feedback, not decoration** — if it doesn't communicate a state change, cut it. **Always provide a `prefers-reduced-motion: reduce` fallback** (gate JS-driven animation too). `--ease-spring` rides **spatial** properties only — transform, size, position; never color, background, opacity, or shadow.
 4. **Stat count-up (site-canonical, RIGID).** Numeric stats/KPIs count up from zero to their target on entrance (`--d-draw` · `--ease-decel`) and land exactly on the final value — a static stat number where a count-up belongs is off-system. Under reduced motion the counter jumps straight to the target.

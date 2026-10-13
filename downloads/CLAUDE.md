@@ -13,7 +13,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 - **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` / `--r-lg 12`. **Motion:** 6 durations, 4 easings (`--ease-decel` = signature) — no others; `--ease-spring` = spatial properties only.
 
 ## The laws
-1. **85 / 10 / 5** — ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport).
+1. **85 / 10 / 5** — ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic (one primary action per screen; a landing may carry one per section).
 2. **Clarity before cleverness · evidence over opinion · precision is a feeling · quiet then loud · motion is a material.** Off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓).
 3. **Motion is feedback, not decoration**; always provide a `prefers-reduced-motion: reduce` fallback (gate JS animation too). `--ease-spring` rides **spatial** properties only — transform, size, position; never color, background, opacity, or shadow.
 

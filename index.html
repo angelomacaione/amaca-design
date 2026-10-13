@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=96fbf8df">
-<link rel="stylesheet" href="styles/components.css?v=e097ab41">
+<link rel="stylesheet" href="styles/components.css?v=2f1fed56">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -223,7 +223,8 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">37</span> Accessibility</a>
       <a class="nav-item" href="#principles" data-target="principles"><span class="num">38</span> Principles</a>
       <a class="nav-item" href="#voice" data-target="voice"><span class="num">39</span> Voice</a>
-      <a class="nav-item" href="#law" data-target="law"><span class="num">40</span> Law</a>
+      <a class="nav-item" href="#conventions" data-target="conventions"><span class="num">40</span> Conventions</a>
+      <a class="nav-item" href="#law" data-target="law"><span class="num">41</span> Law</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -722,6 +723,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Satoshi, <span class="accent">at every scale.</span></h1>
           <p class="page-lede">One typeface carries the whole voice. Light through Black, with a monospace companion for metadata and engineering context. Tight letter-spacing at display sizes, loose leading at body.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Long-form text left-aligned, at most 80 characters per line.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Body text centred or wider than 80 characters → left-align it and cap the measure.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Display scale</h2><span class="subsection-num">§ 02.1</span></div>
           <p class="subsection-desc">The display end of the scale — hero and headline steps with size, leading, tracking, and weight declared per row. Negative tracking is part of the voice at this size, not a tweak.</p>
@@ -820,6 +822,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Soft corners, <span class="accent">a short scale.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Pills and dots take <code>--r-full</code>; everything else stays on the scale.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for modal and drawer, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, status dots).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
@@ -842,6 +845,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Depth, <span class="accent">not decoration.</span></h1>
           <p class="page-lede">Shadows are low-key, inset-first, reserved for the hierarchy of surfaces — never for emphasis.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Depth: an element that sits above another, on the elevation scale.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Emphasis → type weight or colour, never a shadow.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 05.1</span></div>
           <p class="subsection-desc">Four shadow levels, the two brand glows and the three focus rings. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline; the rings exist only for focus and are never used as depth.</p>
@@ -1107,6 +1111,7 @@ Basic UI</div>
           <h1 class="page-title">Action, <span class="accent">ranked.</span></h1>
           <p class="page-lede">One primary per screen. Everything else recedes. Five variants × three sizes × states.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The affirmative action of the screen, as the one <code>.btn-primary</code>.</li><li>Any action on the current page: submit, save, open, apply. <span class="usage-ref">Carbon, Atlassian, GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Going to another page or resource → Link. <span class="usage-ref">Carbon, Atlassian</span></li><li>An icon-only button whose glyph is not universal and has no tooltip → a labelled button.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 08.1</span></div>
           <p class="subsection-desc">The button variants, one job each. One primary per screen; everything else supports it.</p>
@@ -1155,6 +1160,7 @@ Basic UI</div>
           <h1 class="page-title">Fields that <span class="accent">stay out of the way.</span></h1>
           <p class="page-lede">Every field draws its outline at 3:1 against its fill; the focus glow carries the attention load. Labels in mono keep them distinct from content.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Free text on a single line: a name, a search, a URL. <span class="usage-ref">Carbon</span></li><li>Always with a persistent label; the placeholder is never the label.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The answer runs over several lines → the textarea. <span class="usage-ref">GOV.UK, Carbon</span></li><li>The answer comes from a known list → Select or Radio. <span class="usage-ref">Carbon</span></li><li>A time or a date → Time input, Date picker.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Fields</h2><span class="subsection-num">§ 09.1</span></div>
           <p class="subsection-desc">Text, search and textarea, each with a persistent label and the helper text below. States live in the contract&rsquo;s state matrix; error is <code>aria-invalid</code>, never color alone.</p>
@@ -1185,6 +1191,7 @@ Basic UI</div>
           <h1 class="page-title">Choices, <span class="accent">in one place.</span></h1>
           <p class="page-lede">A closed list of options behind one trigger. The menu opens below and flips only when the room runs out.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.</li><li>Four or more options, or little room on screen. <span class="usage-ref">Polaris, Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Two or three options → Radio, all of them visible. <span class="usage-ref">Carbon, Polaris</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 10.1</span></div>
           <p class="subsection-desc">Two variants: the native <code>&lt;select&gt;</code> for short lists, the custom listbox when options need a look of their own. Both open below the trigger and flip only when there is no room.</p>
@@ -1218,6 +1225,7 @@ Basic UI</div>
           <h1 class="page-title">Many of many, <span class="accent">applied on submit.</span></h1>
           <p class="page-lede">A square with a tick. The value commits when the form is sent, never on change.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Many of many; the value applies on submit.</li><li>A single opt-in, such as accepting terms. <span class="usage-ref">GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The change applies immediately → Switch.</li><li>Only one option can be chosen → Radio. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 11.1</span></div>
           <p class="subsection-desc">A square with a tick: many of many. The value applies when the form is submitted. Shape carries the meaning before colour does. What separates the three choice controls is <strong style="color:var(--obsidian-100)">when they commit</strong>.</p>
@@ -1236,6 +1244,7 @@ Basic UI</div>
           <h1 class="page-title">One of many, <span class="accent">with a default.</span></h1>
           <p class="page-lede">A circle with a dot, always in a named group. Like the checkbox, it applies on submit.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One of many, always in a named group with a default.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several options can be chosen → Checkbox. <span class="usage-ref">GOV.UK, Carbon</span></li><li>Four or more options and little room → Select. <span class="usage-ref">Polaris</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 12.1</span></div>
           <p class="subsection-desc">A circle with a dot: one of many, always in a named group with a default. Like the checkbox, it applies on submit.</p>
@@ -1254,6 +1263,7 @@ Basic UI</div>
           <h1 class="page-title">On or off, <span class="accent">right now.</span></h1>
           <p class="page-lede">A track with a knob, and the only choice control that commits on change. If it needs a Save button, it is a checkbox.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One of two, applied immediately: a setting, not a form value.</li><li>Turning a preference on or off with instant save. <span class="usage-ref">Atlassian, Carbon, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The change needs a Save button → Checkbox.</li><li>More than two options → Radio or Select. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 13.1</span></div>
           <p class="subsection-desc">A track with a knob: the only choice control that applies immediately, on change.</p>
@@ -1289,6 +1299,7 @@ Basic UI</div>
           <h1 class="page-title">Dates, <span class="accent">typed or picked.</span></h1>
           <p class="page-lede">A single date or a range, typed digit by digit or picked from the calendar popover.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A single date or a range, typed or picked from the calendar.</li><li>Dates near today, where the relation to other days matters. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A date the reader already knows, such as a birth date → typed Text inputs, no calendar. <span class="usage-ref">GOV.UK, Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Date input</h2><span class="subsection-num">§ 14.1</span></div>
           <p class="subsection-desc">DD/MM/YYYY, single date. Typed input is digit-by-digit masked (slashes auto-insert) and the trailing icon opens a calendar popover that stays in sync. No native <code>type="date"</code> — the browser picker doesn't respect the system. Optional <code>min</code>/<code>max</code> attributes constrain both the typed value and the picker.</p>
@@ -1457,6 +1468,7 @@ Basic UI</div>
           <h1 class="page-title">Time, <span class="accent">without the native picker.</span></h1>
           <p class="page-lede">HH:MM in 24 hours, formatted as you type, bounded so an invalid time cannot be entered.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A time of day, HH:MM in 24 hours, formatted as it is typed.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A date and a time together → pair it with the Date picker. <span class="usage-ref">Atlassian</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Time input</h2><span class="subsection-num">§ 15.1</span></div>
           <p class="subsection-desc">HH:MM, 24h. Auto-formats as you type — the colon is inserted after the second digit, and each position is bounded so an invalid time is impossible to enter. No <code>type="time"</code>: the native picker doesn't respect the system.</p>
@@ -1520,6 +1532,7 @@ Basic UI</div>
           <h1 class="page-title">Small labels, <span class="accent">loud signals.</span></h1>
           <p class="page-lede">Always Satoshi, always paired with a dot when live. Badges are feedback; they&rsquo;re never content.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A status the system computed, next to the thing it describes.</li><li>The solid variant: the one featured accent of the viewport.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A value a person chose → Chip.</li><li>It needs hover or focus → Button or Chip.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 16.1</span></div>
           <p class="subsection-desc">The badge variants: semantic color plus the dot. Shape and label carry the state; the tint reinforces it.</p>
@@ -1550,6 +1563,7 @@ Basic UI</div>
           <h1 class="page-title">A value someone <span class="accent">chose.</span></h1>
           <p class="page-lede">A chip carries a value a person put there: a filter, a tag, a removable choice. Status the system computed is a badge.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A value someone entered, chose or can take back: a tag, a facet, a recipient.</li><li>Pressable chips narrow a set.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A status the system computed → Badge.</li><li>Pressable and dismissible at once → a list row.</li><li>A link to another page → Link. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Chip</h2><span class="subsection-num">§ 17.1</span></div>
           <p class="subsection-desc">A compact label for one value that belongs to something else — a tag on a post, a facet on a result set, a recipient already entered. Where a badge reports what the system computed, a chip carries what a person chose. Six variants on the badge's tint, an optional dot; most chips are neutral and static.</p>
@@ -1612,6 +1626,7 @@ Basic UI</div>
           <h1 class="page-title">Inline, <span class="accent">in context.</span></h1>
           <p class="page-lede">An alert states a condition where it applies, and stays as long as the condition is true.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A condition that applies to the whole surface, inline, as long as it is true.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The reader must be able to dismiss it → Toast.</li><li>It concerns one field → the field's <code>.help.error</code>.</li><li>Two alerts on one surface → merge them into one. <span class="usage-ref">Primer</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Alert</h2><span class="subsection-num">§ 18.1</span></div>
           <p class="subsection-desc">Inline, in flow, addressed to the whole surface. <strong style="color:var(--obsidian-100)">The fill never changes</strong> — semantics ride the 2px left rule and the icon, so the accent budget stays spent on actions, not on furniture. An alert is never dismissible — not on a timer, and not by the reader either.</p>
@@ -1674,6 +1689,7 @@ Basic UI</div>
           <h1 class="page-title">An event, <span class="accent">at the edge.</span></h1>
           <p class="page-lede">A toast reports something that just happened. It notifies; it is never the record.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>An event that just happened somewhere else.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A fourth message in the stack → Alert.</li><li>It is the only record of the information → keep it somewhere durable.</li><li>A critical message that needs an action → Modal. <span class="usage-ref">Atlassian, Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Toast</h2><span class="subsection-num">§ 19.1</span></div>
           <p class="subsection-desc">What an alert becomes when the message is about an action that just happened somewhere else. Transient, stacked bottom-right, three visible at most. <strong style="color:var(--obsidian-100)">Auto-dismiss is opt-in and bounded</strong>: only for a toast with no action that is not an error, and hover or focus pauses the countdown.</p>
@@ -1723,6 +1739,7 @@ Basic UI</div>
           <h1 class="page-title">How far, <span class="accent">at a glance.</span></h1>
           <p class="page-lede">A track and a fill on the primary, drawn on as the value arrives.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A wait with a known end, longer than about three seconds. <span class="usage-ref">Atlassian, Carbon, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A short or unknown wait → Loader. <span class="usage-ref">Atlassian, Carbon</span></li><li>Content arriving into a known layout → Skeleton. <span class="usage-ref">Carbon</span></li><li>Steps the reader takes → Stepper. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 20.1</span></div>
           <p class="subsection-desc">The linear meter: animates from zero to its target on view and lands exactly — the stat count-up contract, horizontal. The percentage is stated in text beside the bar.</p>
@@ -1764,6 +1781,7 @@ Basic UI</div>
           <h1 class="page-title">The logo, <span class="accent">in motion as a promise.</span></h1>
           <p class="page-lede">A loader is a contract: <em>something is happening, don't leave</em>. The Amaca logo carries that contract at four scales — inside a button, beside an input, over a card, across the viewport. Under <code>prefers-reduced-motion</code> the Lottie steps aside and a single magenta ring spins in its place.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A real wait; the large size for full-page waits, the extra-small inline and in buttons.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A wait under 200 ms → show the result, no loader.</li><li>A wait past 800 ms → the skeleton.</li><li>Progress is known → Progress. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <!-- § 17.1 Scale -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 21.1</span></div>
@@ -2093,6 +2111,7 @@ Basic UI</div>
           <h1 class="page-title">A label, <span class="accent">on demand.</span></h1>
           <p class="page-lede">Opens on hover and on focus, one at a time. It labels a thing already on screen; it never holds anything the reader must reach.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A label for something already on screen.</li><li>Only on interactive elements, such as an icon-only button. <span class="usage-ref">Atlassian, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The information is needed to finish the task → <code>.help</code> or Alert.</li><li>It needs a title → Alert.</li><li>It holds a link or a button → Popover. <span class="usage-ref">Carbon, Atlassian</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Tooltip</h2><span class="subsection-num">§ 22.1</span></div>
           <p class="subsection-desc">A label for something already visible. Never a container for content, never the sole carrier of meaning. Opens on hover <strong style="color:var(--obsidian-100)">and on focus</strong> — a tooltip reachable only by pointer fails the accessibility floor.</p>
@@ -2132,6 +2151,7 @@ Basic UI</div>
           <h1 class="page-title">Wayfinding, <span class="accent">un-decorated.</span></h1>
           <p class="page-lede">Top nav for marketing. Sidebar nav for dense documentation (this system uses its own). Breadcrumbs in mono — always.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The sidebar for documentation; the top bar for marketing.</li><li>The sidebar when there are more than five destinations. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A linear journey with an order → Stepper. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 23.1</span></div>
           <p class="subsection-desc">The marketing top bar and how it degrades: full nav down to the burger, badge and call-to-action last to leave.</p>
@@ -2219,6 +2239,7 @@ Basic UI</div>
           <h1 class="page-title">One view, <span class="accent">several panels.</span></h1>
           <p class="page-lede">Tabs switch panels in place, and the indicator travels to the selected tab.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Related views of one page, read one at a time. <span class="usage-ref">Carbon, GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Moving between pages → Navigation. <span class="usage-ref">GOV.UK, Atlassian</span></li><li>A linear process → Stepper. <span class="usage-ref">Carbon</span></li><li>The reader needs several sections open at once → Accordion. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Tabs</h2><span class="subsection-num">§ 24.1</span></div>
           <p class="subsection-desc">Tabs with one shared indicator that travels — 2px of magenta, transform-driven. The panel swaps as the indicator lands.</p>
@@ -2246,6 +2267,7 @@ Basic UI</div>
           <h1 class="page-title">Where you are, <span class="accent">in mono.</span></h1>
           <p class="page-lede">The path back to the top, in the mono register — always.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A hierarchy deeper than two levels. <span class="usage-ref">Carbon, GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A flat site → Navigation alone. <span class="usage-ref">GOV.UK</span></li><li>Progress through a flow → Stepper. <span class="usage-ref">GOV.UK, Carbon</span></li><li>As the only navigation → it sits beside Navigation, never instead. <span class="usage-ref">Atlassian</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Breadcrumbs</h2><span class="subsection-num">§ 25.1</span></div>
           <p class="subsection-desc">Breadcrumbs in the mono register: the path recedes, the current page is lit. Component spec: § 3.23 in the contract.</p>
@@ -2262,6 +2284,7 @@ Basic UI</div>
           <h1 class="page-title">Step by step, <span class="accent">in order.</span></h1>
           <p class="page-lede">A linear progress indicator for multi-step flows: forms, onboarding, checkout.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A linear flow: forms, onboarding, checkout.</li><li>Three or more steps. <span class="usage-ref">Carbon, Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Fewer than three steps → a Next button. <span class="usage-ref">Atlassian, Carbon</span></li><li>Steps that can be done in any order → Tabs. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 26.1</span></div>
           <p class="subsection-desc">The stepper: completed segments fill, the active step breathes, upcoming stay quiet. Progress is shape and fill first, color second.</p>
@@ -2368,6 +2391,7 @@ Basic UI</div>
           <h1 class="page-title">Containers with <span class="accent">metadata bones.</span></h1>
           <p class="page-lede">Every card carries a micro-header with context — project code, date, index. The case-file influence sits here, quietly.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One project or one stat: micro-header, title, body, at most one action.</li><li>A concept the reader scans and acts on as one unit. <span class="usage-ref">Polaris, Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Secondary information shown on demand → Popover or Modal. <span class="usage-ref">Carbon</span></li><li>A gradient background → never; the surface stays on the obsidian ramp.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Project card</h2><span class="subsection-num">§ 27.1</span></div>
           <p class="subsection-desc">The project card: micro-header, media, title, body, and at most one action. Surfaces ride the card ramp; the media scales on hover, the card itself never lifts.</p>
@@ -2430,6 +2454,7 @@ Basic UI</div>
           <h1 class="page-title">Disclosure, <span class="accent">on demand.</span></h1>
           <p class="page-lede">For dense reference content where users scan headers first and read selectively. Single-open by default; chevron rotates 90° on expand. Keyboard-operable, prefers-reduced-motion safe.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Dense reference content: headers scanned first, read selectively.</li><li>Multi-open sparingly, when answers are compared side by side.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Content the reader will read in full → a page with headings. <span class="usage-ref">Carbon</span></li><li>Switching quickly between sections → Tabs. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Default · single-open</h2><span class="subsection-num">§ 28.1</span></div>
           <p class="subsection-desc">Used inside case-study briefs and project requirements lists. Opening one panel closes the others — keeps the eye anchored. First item is open on mount so the surface never reads as inert.</p>
@@ -2550,6 +2575,7 @@ Basic UI</div>
           <h1 class="page-title">Conversations that <span class="accent">earn their bubbles.</span></h1>
           <p class="page-lede">A chatbot interface lives or dies on cadence. Bubbles land with a small spring overshoot, typing indicators promise a reply, and the conversation never overcrowds the surface — older messages roll off after three exchanges. Own bubbles use <code>--primary-700</code> (deep brand), so <code>--primary-500</code> stays reserved for CTAs and focus.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Conversational interfaces: a chatbot, an assistant.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A one-way notice from the system → Toast or Alert.</li><li>Reference content the reader consults, not a dialogue → a page or Accordion.</li></ul></div></div>
         <!-- § 16.1 Anatomy -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 29.1</span></div>
@@ -2783,6 +2809,7 @@ Basic UI</div>
           <h1 class="page-title">Rows that <span class="accent">read in one pass.</span></h1>
           <p class="page-lede">Quiet lines, numbers in tabular figures, labels in the mono register.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Content, not chrome.</li><li>Comparing values across rows and columns. <span class="usage-ref">GOV.UK, Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Laying out a page → Grid. <span class="usage-ref">GOV.UK</span></li><li>Key facts about one item → List. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Table</h2><span class="subsection-num">§ 30.1</span></div>
           <p class="subsection-desc">The plainest data surface in the system, and the one this documentation leans on most. <strong style="color:var(--obsidian-100)">No zebra striping</strong> — the row rule carries the scan, and a second device would double the noise. The header is a label, not a heading: mono-uppercase, the same register as a field label.</p>
@@ -2807,6 +2834,7 @@ Basic UI</div>
           <h1 class="page-title">Charts that <span class="accent">respect the surface.</span></h1>
           <p class="page-lede">Dark canvas. One accent hue per chart. Grid lines at 8% opacity. Numbers in Satoshi, axis labels in mono.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Bars for comparison, labelled at the value; the donut for composition.</li><li>Lines for trends over time and for several series. <span class="usage-ref">Carbon, UK Analysis Function</span></li><li>Areas for cumulative totals. <span class="usage-ref">ONS</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several time series → lines, not bars. <span class="usage-ref">UK Analysis Function</span></li><li>Five points or fewer → bars, not a line. <span class="usage-ref">ONS</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 31.1</span></div>
           <p class="subsection-desc">Line and area: one series lit, the rest recede. The draw-on traces once on reveal — data motion is information, not decoration.</p>
@@ -3009,6 +3037,7 @@ Basic UI</div>
           <h1 class="page-title">Time, <span class="accent">laid end to end.</span></h1>
           <p class="page-lede">Tasks on one shared time axis, so overlap and sequence read at a glance.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Tasks on one shared time axis, so overlap and sequence read at a glance.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Dates with no duration and no overlap → List or Table.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 32.1</span></div>
           <p class="subsection-desc">The gantt: workstreams across weeks, diamonds for milestones. Time reads left to right on the neutral grid; state reads from the fill.</p>
@@ -3142,6 +3171,7 @@ Basic UI</div>
           <h1 class="page-title">Places, <span class="accent">on a hex grid.</span></h1>
           <p class="page-lede">Geographic data on an equal-area hex map: one hue, intensity by value.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The pattern in the data is geographic. <span class="usage-ref">ONS</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Data for only a few areas → a bar chart. <span class="usage-ref">ONS</span></li><li>Geographic data with no geographic pattern → another chart. <span class="usage-ref">ONS</span></li></ul></div></div>
         <style id="hexmap-styles">
         .hexmap{position:relative;width:100%;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}
         .hexmap-svg{width:100%;height:auto;display:block}
@@ -3205,6 +3235,7 @@ Basic UI</div>
           <h1 class="page-title">Structure, <span class="accent">drawn on the same grid.</span></h1>
           <p class="page-lede">Flowcharts and system maps from a textual source — auto-laid-out, then themed entirely from tokens. The library only ever sees values read off <code>:root</code> at runtime, so there is no hardcoded hex anywhere: the single source of truth stays <code>tokens.css</code>. Everything is neutral obsidian; exactly one magenta node marks the narrative entry. On scroll, nodes cascade in, then the edges that connect them.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Flowcharts and system architecture, box and line with grouping.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Sequence, tree or ER diagrams → out of scope.</li></ul></div></div>
         <!-- § 18.1 Flowchart -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 34.1</span></div>
@@ -3390,6 +3421,7 @@ flowchart TD
           <h1 class="page-title">Slides that <span class="accent">hold the system.</span></h1>
           <p class="page-lede">Eight canonical layouts on a fixed 1920×1080 canvas. Same tokens, same 85/10/5 restraint as every other surface — the deck just happens to be 16:9. One magenta moment per slide; everything else stays obsidian.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Slide decks on the system, advanced by hand.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Auto-advance → never (accessibility floor #6).</li></ul></div></div>
         <!-- § 23.1 — demo deck -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 35.1</span></div>
@@ -3582,7 +3614,7 @@ flowchart TD
               <tr><td><code>.slide-brand</code></td><td class="muted">Top-left lockup — logo mark + “Amaca” wordmark. Present on every slide.</td></tr>
               <tr><td><code>.slide-foot</code></td><td class="muted">Footer rail — project · date (left), page <code>NN / total</code> (right). Mono, <code>--obsidian-400</code>; the live page index tints <code>--primary-400</code>.</td></tr>
               <tr><td>Type</td><td class="muted">Its own optical scale — the UI scale (§ 05) is tuned for an 1180px column, not a 1920px canvas. Titles 64–150px, body 30px, mono chrome 20–24px.</td></tr>
-              <tr><td>Accent</td><td class="muted">≤5% magenta — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (§ 08).</td></tr>
+              <tr><td>Accent</td><td class="muted">One primary moment per slide — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (85/10/5, § 41).</td></tr>
             </tbody>
           </table>
           <p class="subsection-desc" style="margin-top:var(--s-6)">Layout modifiers — each is a single class on <code>.slide</code>:</p>
@@ -3632,6 +3664,7 @@ flowchart TD
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The starting frame for every case study.</li><li>A project told as a narrative: intro, an accordion with the project data, text alternating with images, closure and references.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A project shown in a grid among others → Card (project).</li></ul></div></div>
         <div class="cs-hero">
           <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
           <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
@@ -3789,7 +3822,7 @@ flowchart TD
         <div class="page-header">
           <div class="page-eyebrow">§ 38 · Guidelines / Principles</div>
           <h1 class="page-title">Five rules. <span class="accent">Exceptions earn their keep.</span></h1>
-          <p class="page-lede">These are the principles I keep returning to. They're not absolute — design systems live in tension between rules and exceptions — but they're the questions I ask first when something feels off.</p>
+          <p class="page-lede">These are the principles I keep returning to. They're not absolute — design systems live in tension between rules and exceptions — but they're the questions I ask first when something feels off. They are ranked: when two pull in opposite directions, the higher number wins. Laws are not weighed against them.</p>
         </div>
         <div class="grid grid-2" style="gap:var(--s-6)">
           <div class="card" style="padding:var(--s-8)">
@@ -3797,28 +3830,21 @@ flowchart TD
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">The obvious answer, on purpose.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">If a user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
 </p>
+        <div class="usage usage-flat"><div class="usage-col"><div class="hd">In</div><ul><li>A labelled button</li><li>A verbose variable name</li><li>Four explicit lines over one trick</li></ul></div><div class="usage-col"><div class="hd">Out</div><ul><li>An icon-only button whose glyph is not universal</li><li>A metaphor the reader has to decode</li></ul></div></div>
           </div>
           <div class="card" style="padding:var(--s-8)">
             <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">02 · EVIDENCE OVER OPINION</div>
             <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Every decision shows its work.</h3>
             <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Case studies document the path, not just the destination. Sketches, data, dead ends — the version that didn't ship is part of the file too.</p>
-          </div>
-          <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">03 · PRECISION IS A FEELING</div>
-            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Rigor the eye picks up before the mind does.</h3>
-            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
-          </div>
-          <div class="card" style="padding:var(--s-8)">
-            <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">04 · QUIET, THEN LOUD</div>
-            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Restraint is what makes accents land.</h3>
-            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
+        <div class="usage usage-flat"><div class="usage-col"><div class="hd">In</div><ul><li>The answer to “why” as a principle, a token or a commit</li><li>A one-line comment on a non-obvious choice</li></ul></div><div class="usage-col"><div class="hd">Out</div><ul><li>“Because it looks better”</li></ul></div></div>
           </div>
           <div class="card motion-card" style="grid-column:1 / -1;padding:var(--s-8);display:grid;gap:var(--s-8);align-items:center">
             <div>
-              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">05 · MOTION IS A MATERIAL</div>
+              <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">03 · MOTION IS A MATERIAL</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Interfaces are not static. Neither is this document.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-body)">The way something arrives, settles, responds carries meaning. Motion in this system is consistent and intentional — every transition follows the same rhythm, so the whole document reads as one instrument.</p>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Every entrance in this system breathes on the same curve — <span style="font-family:var(--font-mono);color:var(--obsidian-100);font-size:var(--t-caption);letter-spacing:var(--tr-mono)">CUBIC-BEZIER(0.16, 1, 0.3, 1)</span>, the signature ease, living at <code>--ease-decel</code> since v2.0.0 — so the whole document feels like a single instrument, played deliberately.</p>
+        <div class="usage usage-flat"><div class="usage-col"><div class="hd">In</div><ul><li>Motion that reports a change of state: enter, exit, focus, error</li><li>Entrances on <code>--ease-decel</code>, exits on <code>--ease-accel</code>, state changes on <code>--ease-standard</code>, <code>--ease-spring</code> for emphasis</li></ul></div><div class="usage-col"><div class="hd">Out</div><ul><li>Motion with no state change behind it</li><li>A decorative loop</li></ul></div></div>
             </div>
             <div aria-hidden="true" class="motion-chart" style="position:relative;display:grid;place-items:center">
               <svg viewBox="0 0 160 160" style="width:100%;height:100%;display:block">
@@ -3841,6 +3867,18 @@ flowchart TD
                 <text x="8" y="98" fill="#5B6573" font-family="Satoshi" font-size="9" letter-spacing="1" transform="rotate(-90 8 98)">VALUE</text>
               </svg>
             </div>
+          </div>
+          <div class="card" style="padding:var(--s-8)">
+            <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">04 · PRECISION IS A FEELING</div>
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Rigor the eye picks up before the mind does.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Spacing, timing, typographic rhythm — when they're locked, the work reads as considered before a single word is parsed. The rules are in Foundations.</p>
+        <div class="usage usage-flat"><div class="usage-col"><div class="hd">In</div><ul><li>Every value on a scale: <code>var(--s-3)</code></li></ul></div><div class="usage-col"><div class="hd">Out</div><ul><li><code>padding: 14px</code></li><li>A value between two steps</li></ul></div></div>
+          </div>
+          <div class="card" style="padding:var(--s-8)">
+            <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-4)">05 · QUIET, THEN LOUD</div>
+            <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-3);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Restraint is what makes accents land.</h3>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them, never as decoration.</p>
+        <div class="usage usage-flat"><div class="usage-col"><div class="hd">In</div><ul><li>Neutral surfaces, one accent where the work needs it</li><li>One primary action per screen</li></ul></div><div class="usage-col"><div class="hd">Out</div><ul><li>Primary on more than one element per viewport</li><li>Accent borders, glowing dividers, tinted furniture</li></ul></div></div>
           </div>
         </div>
       </section>
@@ -3905,14 +3943,27 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
       </section>
 
-      <section class="section" id="law">
+      <section class="section" id="conventions">
         <div class="page-header">
-          <div class="page-eyebrow">§ 40 · Guidelines / Law</div>
-          <h1 class="page-title">85 / 10 / 5, <span class="accent">measured.</span></h1>
-          <p class="page-lede">The proportion every surface resolves to. A principle guides a judgement; the law is measured.</p>
+          <div class="page-eyebrow">§ 40 · Guidelines / Conventions</div>
+          <h1 class="page-title">Written one way, <span class="accent">read by anyone.</span></h1>
+          <p class="page-lede">How the system is written: naming, structure, units, files. The same shape the Amaca Compiler reads, so a generator and a person follow one set of rules.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 40.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 40.1</span></div>
+          <p class="subsection-desc">Each convention carries a severity and the kind of check that can hold it, from the compiler&rsquo;s catalogue. The full code rules live in DESIGN.md § Code conventions.</p>
+          <table class="table table-registry"><thead><tr><th>Id</th><th>Convention</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>C1</code></td><td>Token names: <code>--{family}-{step}</code> for primitives, <code>--{role}-{variant}</code> for semantics; a closed vocabulary of modifiers; no value inside a role name<div class="muted">§ Colors · semantic</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C2</code></td><td>Classes BEM-ish and pragmatic: <code>.card</code>, <code>.card-meta</code>; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise <code>.is-*</code><div class="muted">§ Code conventions · CSS</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C3</code></td><td><code>data-*</code> for state hooks (<code>data-fade</code>, <code>data-step-dot</code>, <code>data-replay</code>)<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C4</code></td><td>Canonical, semantic HTML: every tag closed, every attribute double-quoted, <code>&lt;button&gt;</code> for actions, <code>&lt;a&gt;</code> for navigation, never <code>&lt;div onclick&gt;</code>; ARIA only when HTML can't say it<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C5</code></td><td>Files: <code>tokens.css</code> → <code>components.css</code>, a third file only past 150 lines; kebab-case, named after the role (<code>card.css</code>, not <code>box.css</code>)<div class="muted">§ Code conventions · CSS, File naming</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C6</code></td><td>Media queries mobile-first, scoped inside the component block, only at the <code>--bp-*</code> widths<div class="muted">§ Code conventions · CSS · check 53</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C7</code></td><td><code>!important</code> only on the closed list<div class="muted">§ Code conventions · CSS · check 50</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C8</code></td><td>Browser chrome: four surfaces styled, everything else native<div class="muted">§ Code conventions · Browser chrome</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C9</code></td><td>Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero<div class="muted">§ Code conventions · JavaScript</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C10</code></td><td>One number: a site section and its DESIGN.md § 3 entry share it<div class="muted">§ Components</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>parity</code></td></tr></tbody></table>
+        </div>
+      </section>
+
+      <section class="section" id="law">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 41 · Guidelines / Law</div>
+          <h1 class="page-title">Nine rules, <span class="accent">measured.</span></h1>
+          <p class="page-lede">A principle guides a judgement; a law is measured and enforced. Each rule has an id, a severity, the principle it serves and what holds it. The first is the proportion every surface resolves to.</p>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 41.1</span></div>
           <p class="subsection-desc">The proportion rule for every screen, slide, and case study. Obsidian is the ground; brand and signal are accents.</p>
 
           <div class="law-card">
@@ -3954,6 +4005,11 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               <p>≥ 85% Obsidian, ≤ 10% Magenta + Cyan combined, ≤ 5% semantic. If a layout violates this rule, it's decoration, not hierarchy.</p>
             </blockquote>
           </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 41.2</span></div>
+          <p class="subsection-desc"><code>error</code> stops the output; <code>warn</code> is flagged in review. The check column names the harness check or the verifier that holds the rule.</p>
+          <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and four easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
         </div>
       </section>
 
