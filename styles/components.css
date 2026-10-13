@@ -3065,3 +3065,9 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
 .tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1));transform:translate(-50%, -2px)}
 .tooltip-bottom.is-open{transform:translate(-50%, 0)}
+
+/* § 21.1 — a swatch beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
+   Swatch before the name, as every legend in the system (.pie-legend .sw, .diagram-legend-swatch);
+   swatch and name are one unit that never breaks across lines. */
+.table-contrast .tok{display:inline-flex;align-items:center;gap:var(--s-1);white-space:nowrap}
+.table-contrast .tok-sw{flex:none;width:var(--s-3);height:var(--s-3);border-radius:var(--r-xs);background:var(--sw, transparent);border:var(--bw-1) solid var(--border-strong)}
