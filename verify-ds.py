@@ -1249,7 +1249,7 @@ def c33():
 def c34():
     import html as _html
     fails = []
-    for m in re.finditer(r'<a class="nav-item[^"]*"[^>]*>\s*<span class="num">\d+</span>\s*([^<]+)</a>', read(INDEX)):
+    for m in re.finditer(r'<a class="nav-item[^"]*"[^>]*>\s*<span class="num">[^<]+</span>\s*([^<]+)</a>', read(INDEX)):
         label = _html.unescape(m.group(1)).strip()
         if len(label) > 16:
             fails.append(f"nav label '{label}' is {len(label)} characters — at most 16")
@@ -1279,7 +1279,8 @@ def c35():
     import html as _html
     fails = []
     for sid, body in _site_sections():
-        if not re.search(r'page-eyebrow">§ \d+ · Components', body):
+        # v5.0.0: components are grouped by type (Actions, Inputs, Feedback, ...), not under one 'Components' label
+        if not re.search(r'page-eyebrow">§ \d+ · (Actions|Inputs|Feedback|Overlays|Navigation|Containers|Data display|Media|Layout &amp; templates) /', body):
             continue
         subs = body.split('<div class="subsection">')[1:]
         titles = []
@@ -1867,7 +1868,7 @@ def _badge_example():
 def _badge_demo():
     """[(classes, label, dot)] of the § 13.1 status demo: the first card of #badges made only of badges."""
     html = read(INDEX)
-    i = html.find('id="badges"')
+    i = html.find('id="badge"')
     if i < 0:
         return None
     for m in re.finditer(r'<div class="card"[^>]*>((?:\s*<span class="badge[^"]*"[^>]*>(?:<span class="dot"></span>)?[^<]*</span>)+)\s*</div>', html[i:]):
