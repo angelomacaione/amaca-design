@@ -14,8 +14,8 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **What** — the Amaca rules as a Claude skill + a `CLAUDE.md` for Claude Code.
 - **For** — Claude (Cowork, Claude Code) and Anthropic-stack runtimes.
 - **Get it / where it goes** — install `amaca-frontend.skill` via Settings → Capabilities → Skills; drop `CLAUDE.md` at repo root (it can `@import DESIGN.md`).
-- **Use** — "build with Amaca …"; output references `var(--magenta-500)` + the 85/10/5 law, zero hardcoded hex.
-- **Verify** — ask for a primary button: it uses `var(--magenta-500)`, dual-ring focus, no raw hex/px.
+- **Use** — "build with Amaca …"; output references `var(--primary-500)` + the 85/10/5 law, zero hardcoded hex.
+- **Verify** — ask for a primary button: it uses `var(--primary-500)`, dual-ring focus, no raw hex/px.
 - **Pairs with** — `tokens.css` (bundled), `DESIGN.md` (the spec it enforces).
 
 ### Figma agent — /amaca-figma skill · `zips/amaca-figma.zip`
@@ -86,11 +86,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 ## Tokens & formats
 
 ### Tailwind · `zips/amaca-tailwind.zip`
-- **What** — every token as a Tailwind v4 `@theme` block (`theme.css`) → `bg-magenta-500`, `p-4`, `rounded-lg`.
+- **What** — every token as a Tailwind v4 `@theme` block (`theme.css`) → `bg-primary-500`, `p-4`, `rounded-lg`.
 - **For** — React/Vue/Svelte on Tailwind v4.
 - **Get it / where it goes** — `npm install github:angelomacaione/amaca-design`; `@import "amaca-design/styles/theme.css";` after `@import "tailwindcss";`.
 - **Use** — write the utilities; Tailwind generates them from the `@theme` names.
-- **Verify** — `npm run build`; `bg-magenta-500` resolves to `#F051D5`, a typo like `bg-magenta-550` produces nothing.
+- **Verify** — `npm run build`; `bg-primary-500` resolves to `#F051D5`, a typo like `bg-primary-550` produces nothing.
 - **Pairs with** — `tokens.css` (raw `var()` fallback), the IDE/Claude rules that enforce token-only use.
 
 ### React / CSS · `zips/amaca-react-css.zip`
@@ -106,7 +106,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **For** — Style Dictionary, Tokens Studio, and any DTCG-aware pipeline.
 - **Get it / where it goes** — feed `tokens.dtcg.json` into your token build.
 - **Use** — transform to any target (CSS, iOS, Android) from one source.
-- **Verify** — it parses as valid DTCG 2025.10; `magenta-500` carries sRGB components with `#F051D5` as hex fallback.
+- **Verify** — it parses as valid DTCG 2025.10; `primary-500` carries sRGB components with `#F051D5` as hex fallback.
 - **Pairs with** — `theme.css` (the Tailwind projection), `DESIGN.md`.
 
 ---

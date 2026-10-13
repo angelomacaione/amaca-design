@@ -19,12 +19,12 @@ Applies on CSS/HTML/Vue/Svelte files. The token discipline, 85/10/5 law, a11y fl
   letter-spacing:var(--tr-snug); line-height:1;
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
-  border:1px solid transparent; white-space:nowrap; }
+  border:var(--bw-1) solid transparent; white-space:nowrap; }
 .btn:disabled{ opacity:0.4; cursor:not-allowed; }
-.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+.btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
   box-shadow:var(--ring-halo); }
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-2); }
-.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-glow), var(--sh-3); }
+.btn-primary{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-2); }
+.btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
 ```

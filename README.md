@@ -30,7 +30,7 @@ Tailwind v4 `@theme` is first-class. One line wires the full token scale into a 
 @import "amaca-design/styles/theme.css";
 ```
 
-`theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-magenta-500`, `rounded-md`) against the same chain the CSS surface uses.
+`theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-primary-500`, `rounded-md`) against the same chain the CSS surface uses.
 
 ## What's inside
 

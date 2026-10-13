@@ -828,6 +828,11 @@ def c25():
     for name in sorted(set(decls) & set(tokens)):
         cssv, tok = decls[name], tokens[name]
         typ, val = tok.get("$type"), tok.get("$value")
+        # v5.0.0: a role alias is a DTCG reference "{x}" and a CSS var(--x), never a value
+        if isinstance(val, str) and re.fullmatch(r"\{[a-z0-9-]+\}", val):
+            if norm(cssv) != norm(f"var(--{val[1:-1]})"):
+                bad(name, f"DTCG references {val}, CSS reads {cssv}")
+            continue
         if typ == "color":
             hexv = (val or {}).get("hex", "")
             if hexv.lower() != cssv.lower():
@@ -1116,7 +1121,7 @@ def c30():
                                      f"{got if got is not None else '(not set)'}")
 
     def button_classes(text):
-        m = re.search(r'<button\s+className="([^"]*bg-magenta-500[^"]*)"', text)
+        m = re.search(r'<button\s+className="([^"]*bg-primary-500[^"]*)"', text)
         return " ".join(m.group(1).split()) if m else None
 
     skill = ROOT / "downloads" / "amaca-frontend.skill"
@@ -2004,6 +2009,109 @@ def c50():
                 if s not in allowed:
                     line = css.count("\n", 0, m.start(2)) + 1
                     fails.append(f"{path.name}:{line} {s}: !important outside reduced motion, not in the ratified list")
+    return fails
+
+_PX_PROPS = re.compile(r"^(padding|margin)(-[a-z-]+)?$|^(gap|row-gap|column-gap|top|right|bottom|left|inset(-[a-z]+)?|outline-offset|font-size)$"
+                       r"|^border(-[a-z]+)*-radius$|^border(-(top|right|bottom|left|inline|block)(-(start|end))?)?(-width)?$|^outline(-width)?$")
+# § Shapes: the three sub-scale hairlines, ratified closed list
+_PX_RATIFIED = {(".nav-label::before", "border-radius"), (".menu-toggle-bars span", "border-radius"), (".pie-legend .sw", "border-radius")}
+
+def _px_decls(css, where):
+    css = re.sub(r"/\*.*?\*/", lambda m: " " * len(m.group(0)), css, flags=re.S)
+    out = []
+    for m in re.finditer(r"([^{}]*)\{([^{}]*)\}", css):
+        sel = re.sub(r"\s+", " ", re.sub(r"^.*@media[^{]*\{", "", m.group(1), flags=re.S).strip())
+        for d in m.group(2).split(";"):
+            if ":" not in d:
+                continue
+            p, v = d.split(":", 1)
+            p = p.strip().lower()
+            if p.startswith("--") or not _PX_PROPS.match(p):
+                continue
+            if re.search(r"(?<![\w.#-])-?\d+(\.\d+)?px", v) and (sel, p) not in _PX_RATIFIED:
+                out.append(f"{where}: {sel or '(inline)'} {{ {p}: {v.strip()} }}")
+    return out
+
+
+@check("51", "Every space, type size, radius and border width is a token, in the CSS and in the site",
+       "v5.0.0: v4.3.1 ratified 'on the scale, always' and the inventory still counted 214 "
+       "hand-written px in components.css and 121 in the site's inline styles: 6px gaps, 14px "
+       "labels, 1.5px outlines, each one a value the contract could not state. The rule was a "
+       "sentence; this check is the rule. Exempt by decision: the three sub-scale hairline radii "
+       "(§ Shapes), the presentation canvas (a fixed 1920x1080 slide with its own type), the "
+       "fluid-heading tokens (the px live in tokens.css), and dimensions (width/height), which "
+       "follow the § Size rule instead.")
+def c51():
+    fails = _px_decls(read(COMPONENTS), "components.css")
+    html = read(INDEX)
+    pm = re.search(r'<section class="section[^"]*" id="presentations"', html)
+    if pm:
+        html = html[:pm.start()] + html[html.index("</section>", pm.start()):]
+    for m in re.finditer(r"(<style[^>]*>)(.*?)</style>", html, re.S):
+        if 'id="pres-styles"' in m.group(1):
+            continue
+        fails += _px_decls(m.group(2), "index.html <style>")
+    for m in re.finditer(r'style="([^"]*)"', html):
+        fails += _px_decls("x{" + m.group(1) + "}", "index.html style=")
+    return fails
+
+
+def _hex_lum(h):
+    h = h.lstrip("#")
+    c = [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
+    return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+
+
+@check("52", "A control's resting outline reads at 3:1 against its own fill (WCAG 1.4.11)",
+       "v5.0.0: the unchecked checkbox and radio drew --obsidian-600 on --obsidian-850, 1.41:1. "
+       "WCAG 1.4.11 asks 3:1 for the boundary that identifies a control; the § 6 floor covered "
+       "text contrast and nothing measured the outline. Found by eye on a render of the "
+       "border-width decision, not by any check, which is why this one exists.")
+def c52():
+    src = read(TOKENS)
+    raw = dict(re.findall(r"(--[\w-]+):\s*([^;]+);", re.sub(r"/\*.*?\*/", "", src, flags=re.S)))
+    def resolve(tok, depth=0):
+        v = raw.get(tok, "").strip()
+        m = re.fullmatch(r"var\((--[\w-]+)\)", v)
+        return resolve(m.group(1), depth + 1) if m and depth < 5 else v
+    css = read(COMPONENTS)
+    fails = []
+    for sel in (".input,.textarea,.select", ".check input", ".radio input"):
+        m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
+        if not m:
+            fails.append(f"components.css: no '{sel}' rule"); continue
+        b = re.search(r"border:[^;]*var\((--[\w-]+)\)", m.group(1))
+        f = re.search(r"background:\s*var\((--[\w-]+)\)", m.group(1))
+        if not (b and f):
+            fails.append(f"components.css: {sel} has no token border or fill to measure"); continue
+        hb, hf = resolve(b.group(1)), resolve(f.group(1))
+        if not (re.fullmatch(r"#[0-9A-Fa-f]{6}", hb) and re.fullmatch(r"#[0-9A-Fa-f]{6}", hf)):
+            fails.append(f"{sel}: {b.group(1)} or {f.group(1)} does not resolve to a hex"); continue
+        lb, lf = _hex_lum(hb), _hex_lum(hf)
+        r = (max(lb, lf) + 0.05) / (min(lb, lf) + 0.05)
+        if r < 3:
+            fails.append(f"{sel}: {b.group(1)} on {f.group(1)} = {r:.2f}:1, below 3:1")
+    return fails
+
+
+@check("53", "Every @media width is one of the three breakpoint tokens",
+       "v5.0.0: the CSS and the site queried five widths (480, 600, 720, 860, 900) and the "
+       "contract named none of them, so the compiler modelled no responsive behaviour and a "
+       "generator picked its own. Media queries cannot read var(); the tokens are the contract "
+       "and this check is how the queries keep to it.")
+def c53():
+    bps = {v for k, v in re.findall(r"--(bp-[a-z]+):\s*(\d+)px", read(TOKENS))}
+    if not bps:
+        return ["tokens.css: no --bp-* tokens"]
+    fails = []
+    sources = [("components.css", re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S))]
+    sources += [("index.html <style>", m.group(1)) for m in re.finditer(r"<style[^>]*>(.*?)</style>", read(INDEX), re.S)]
+    for where, css in sources:
+        for m in re.finditer(r"@media[^{]*", css):
+            for w in re.findall(r"(?:max|min)-width:\s*(\d+)px", m.group(0)):
+                if w not in bps:
+                    fails.append(f"{where}: {m.group(0).strip()} uses {w}px, not a --bp-* token")
     return fails
 
 def main():

@@ -175,7 +175,47 @@
     "$type": "color",
     "$description": "bone"
   },
-  "magenta-100": {
+  "surface": {
+    "$value": "{obsidian-950}",
+    "$type": "color",
+    "$description": "the page"
+  },
+  "surface-sunken": {
+    "$value": "{obsidian-900}",
+    "$type": "color",
+    "$description": "sidebar, wells"
+  },
+  "surface-field": {
+    "$value": "{obsidian-850}",
+    "$type": "color",
+    "$description": "inputs and controls at rest"
+  },
+  "surface-raised": {
+    "$value": "{obsidian-800}",
+    "$type": "color",
+    "$description": "card, menu, modal"
+  },
+  "border-subtle": {
+    "$value": "{obsidian-800}",
+    "$type": "color",
+    "$description": "dividers, table rows"
+  },
+  "border": {
+    "$value": "{obsidian-700}",
+    "$type": "color",
+    "$description": "card, chip, panel"
+  },
+  "border-strong": {
+    "$value": "{obsidian-600}",
+    "$type": "color",
+    "$description": "hover, emphasis"
+  },
+  "border-input": {
+    "$value": "{obsidian-400}",
+    "$type": "color",
+    "$description": "a control's outline: 3:1 on its fill (WCAG 1.4.11)"
+  },
+  "primary-100": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -188,7 +228,7 @@
     },
     "$type": "color"
   },
-  "magenta-200": {
+  "primary-200": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -201,7 +241,7 @@
     },
     "$type": "color"
   },
-  "magenta-300": {
+  "primary-300": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -214,7 +254,7 @@
     },
     "$type": "color"
   },
-  "magenta-400": {
+  "primary-400": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -227,7 +267,7 @@
     },
     "$type": "color"
   },
-  "magenta-500": {
+  "primary-500": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -241,7 +281,7 @@
     "$type": "color",
     "$description": "primary brand"
   },
-  "magenta-600": {
+  "primary-600": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -254,7 +294,7 @@
     },
     "$type": "color"
   },
-  "magenta-700": {
+  "primary-700": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -267,7 +307,7 @@
     },
     "$type": "color"
   },
-  "magenta-800": {
+  "primary-800": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -323,12 +363,12 @@
     "$value": {
       "colorSpace": "srgb",
       "components": [
-        0.0,
+        0.098,
         1.0,
-        0.949
+        0.9529
       ],
       "alpha": 1,
-      "hex": "#00FFF2"
+      "hex": "#19FFF3"
     },
     "$type": "color"
   },
@@ -690,6 +730,41 @@
     },
     "$type": "dimension"
   },
+  "t-display-fluid": {
+    "$value": "clamp(48px, 14vw, 80px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h1-fluid": {
+    "$value": "clamp(40px, 9vw, 64px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h2-fluid": {
+    "$value": "clamp(32px, 9vw, 48px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h3-fluid": {
+    "$value": "clamp(26px, 7vw, 36px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h4-fluid": {
+    "$value": "clamp(22px, 6vw, 28px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h5-fluid": {
+    "$value": "clamp(var(--t-lead), 5vw, 22px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-lead-fluid": {
+    "$value": "clamp(16px, 3.6vw, var(--t-h6))",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
   "lh-tight": {
     "$value": 1.05,
     "$type": "number"
@@ -709,31 +784,45 @@
   "tr-tight": {
     "$value": "-0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for display text."
   },
   "tr-snug": {
     "$value": "-0.02em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for headings."
   },
   "tr-normal": {
     "$value": "0em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for body text."
   },
   "tr-wide": {
     "$value": "0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for small caps."
   },
   "tr-mono": {
     "$value": "0.06em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for all-caps mono labels."
   },
   "s-0": {
     "$value": {
       "value": 0,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "s-px": {
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "s-0-5": {
+    "$value": {
+      "value": 2,
       "unit": "px"
     },
     "$type": "dimension"
@@ -881,6 +970,76 @@
   "r-full": {
     "$value": {
       "value": 999,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bw-1": {
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bw-2": {
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "focus-width": {
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "focus-offset": {
+    "$value": {
+      "value": 3,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-xs": {
+    "$value": {
+      "value": 14,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-sm": {
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-md": {
+    "$value": {
+      "value": 20,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-lg": {
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "target-dense": {
+    "$value": {
+      "value": 32,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "target-touch": {
+    "$value": {
+      "value": 44,
       "unit": "px"
     },
     "$type": "dimension"
@@ -1465,6 +1624,27 @@
   "gutter": {
     "$value": {
       "value": 24,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-sm": {
+    "$value": {
+      "value": 480,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-md": {
+    "$value": {
+      "value": 720,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-lg": {
+    "$value": {
+      "value": 900,
       "unit": "px"
     },
     "$type": "dimension"

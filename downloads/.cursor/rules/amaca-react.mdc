@@ -14,14 +14,14 @@ Scoped rules for React (Vue/Svelte applicable) on Tailwind v4. The token discipl
 
 | token | namespaced | utilities |
 |---|---|---|
-| `--magenta-500` | `--color-magenta-500` | `bg-magenta-500`, `text-magenta-500`, `border-magenta-500` |
+| `--primary-500` | `--color-primary-500` | `bg-primary-500`, `text-primary-500`, `border-primary-500` |
 | `--obsidian-800` | `--color-obsidian-800` | `bg-obsidian-800`, … |
 | `--s-4` | `--spacing-4` | `p-4`, `px-4`, `gap-4`, … |
 | `--r-md` | `--radius-md` | `rounded-md` |
 | `--t-body` | `--text-body` | `text-body` |
 | `--d-quick` / `--ease-decel` | `--duration-quick` / `--ease-decel` | `duration-quick` / `ease-decel` |
 
-**Never hand-copy a token value into JS** — read it off `:root` at runtime (`getComputedStyle(document.documentElement).getPropertyValue('--magenta-500')`) or use the utility class. A literal hex/px in a component is a violation.
+**Never hand-copy a token value into JS** — read it off `:root` at runtime (`getComputedStyle(document.documentElement).getPropertyValue('--primary-500')`) or use the utility class. A literal hex/px in a component is a violation.
 
 **Motion:** gate JS-driven animation behind `prefers-reduced-motion: reduce` too, not just CSS transitions.
 
@@ -34,7 +34,7 @@ export function PrimaryButton({ children, ...props }: ButtonProps) {
   return (
     <button
       className="
-        inline-flex items-center justify-center gap-2 bg-magenta-500 text-obsidian-050 border border-magenta-500
+        inline-flex items-center justify-center gap-2 bg-primary-500 text-obsidian-050 border border-primary-500
         min-h-10 pointer-coarse:min-h-11 px-6 leading-none rounded-full shadow-sh-2 font-sans text-body font-medium tracking-snug
         transition-all duration-quick ease-standard
         hover:shadow-[var(--sh-glow),var(--sh-3)]

@@ -8,7 +8,7 @@
 
 ## Tokens
 - [tokens.css](https://amaca.design/styles/tokens.css): every token as a CSS custom property (`var(--token)`), plus the reset and base.
-- [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-magenta-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
+- [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-primary-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
 - [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): the W3C DTCG token file for Style Dictionary / Tokens Studio pipelines.
 
 ## Use with AI tools

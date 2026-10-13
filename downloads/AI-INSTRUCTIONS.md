@@ -8,7 +8,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Neutrals (Obsidian):** `--obsidian-950 #07090B` page · `-900 #0B0E12` surface · `-850 #10141A` elevated · `-800 #161B22` card · `-700 #1E242D` border-strong · `-600 #2A313B` border · `-500 #3A4451` muted · `-400 #5B6573` disabled text · `-300 #8A94A3` secondary text · `-200 #B8C0CB` tertiary text · `-100 #E3E7EC` primary text on dark · `-050 #F4F6F8` bone.
 
-**Brand (Magenta):** `--magenta-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A`.
+**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A`.
 
 **Supporting (rare):** `--secondary-400 #00FFF2` cyan (data-viz only) · `--tertiary-500 #0C6078` petrol · `--success #3AFFC7` · `--warning #F6C65B` · `--danger #FF5B5B` · `--info #5CC8FF`. Semantic colors are feedback-only.
 
@@ -38,26 +38,26 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
   letter-spacing:var(--tr-snug); line-height:1;
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
-  border:1px solid transparent; white-space:nowrap; }
+  border:var(--bw-1) solid transparent; white-space:nowrap; }
 .btn:disabled{ opacity:0.4; cursor:not-allowed; }
-.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+.btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
   box-shadow:var(--ring-halo); }
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-2); }
-.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-glow), var(--sh-3); }
+.btn-primary{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-2); }
+.btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
 .label{ font-family:var(--font-mono); font-size:var(--t-micro);
   letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
-.input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
+.input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
   border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;
   transition:all var(--d-quick) var(--ease-standard); width:100%; }
-.input:focus{ border-color:var(--magenta-500); box-shadow:var(--ring-field); }
+.input:focus{ border-color:var(--primary-500); box-shadow:var(--ring-field); }
 .input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
 
 ## Accessibility floor (non-negotiable)
-Color never alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order, dual-ring on pressables · no auto-advancing content · touch 44×44 (32×32 dense). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
+Color never alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order, dual-ring on pressables · no auto-advancing content · touch 44×44 (32×32 dense). On `--primary-500` use a dark label (`--obsidian-950`, AA); the one exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
 
 ## Conventions & voice
 Semantic HTML first — `<button>`/`<a>`, never `<div onclick>`; close every tag, double-quote attributes; `kebab-case` files. Imperative, terse copy; **no AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Never ship: gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.

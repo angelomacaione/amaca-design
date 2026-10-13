@@ -28,14 +28,14 @@ colors:
   obsidian-200: "#B8C0CB"
   obsidian-100: "#E3E7EC"
   obsidian-050: "#F4F6F8"
-  magenta-100: "#FFE3F8"
-  magenta-200: "#FFB5EC"
-  magenta-300: "#FF85DF"
-  magenta-400: "#F868D8"
-  magenta-500: "#F051D5"
-  magenta-600: "#C93BB0"
-  magenta-700: "#9A2D87"
-  magenta-800: "#66195A"
+  primary-100: "#FFE3F8"
+  primary-200: "#FFB5EC"
+  primary-300: "#FF85DF"
+  primary-400: "#F868D8"
+  primary-500: "#F051D5"
+  primary-600: "#C93BB0"
+  primary-700: "#9A2D87"
+  primary-800: "#66195A"
 typography:
   font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
   font-mono: "Satoshi, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
@@ -101,7 +101,7 @@ Keep this file at repo root. Update the version line on every breaking change. T
 When pasted into an IDE assistant, these one-liners cover 80% of decisions.
 
 ```
-Color:    --obsidian-* for surfaces & text. --magenta-500 for CTAs only. 85/10/5.
+Color:    --obsidian-* for surfaces & text. --primary-500 for CTAs only. 85/10/5.
 Type:     Satoshi everywhere. Scale: micro 10 / small 13 / body 15 / lead 18 / h6-h1.
 Spacing:  4px grid. Tokens: --s-1 (4) … --s-32 (128). No raw px.
 Radius:   --r-md (8) for inputs/buttons, --r-lg (12) for cards. Range 8–12.
@@ -126,41 +126,56 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--obsidian-950` | `#07090B` | Page background |
 | `--obsidian-900` | `#0B0E12` | Surface |
 | `--obsidian-850` | `#10141A` | Elevated surface |
-| `--obsidian-800` | `#161B22` | Card |
-| `--obsidian-700` | `#1E242D` | Border strong |
-| `--obsidian-600` | `#2A313B` | Border |
+| `--obsidian-800` | `#161B22` | Card · subtle border |
+| `--obsidian-700` | `#1E242D` | Border |
+| `--obsidian-600` | `#2A313B` | Border strong |
 | `--obsidian-500` | `#3A4451` | Muted edge |
-| `--obsidian-400` | `#5B6573` | Disabled text |
+| `--obsidian-400` | `#5B6573` | Disabled text · control outline |
 | `--obsidian-300` | `#8A94A3` | Secondary text |
 | `--obsidian-200` | `#B8C0CB` | Tertiary text |
 | `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
 
+### Color · semantic (v5.0.0)
+
+Role aliases on the obsidian ramp: no new values, a name for what each step does. A component reaches for the role; the ramp stays the vocabulary of values. Role names follow Atlassian's elevation and border tokens. Until v5.0.0 the ramp's own comments called `--obsidian-700` the strong border and `--obsidian-600` the normal one; the CSS has always used them the other way round, and the comments now say what the CSS does.
+
+| Token | Resolves to | Role |
+|---|---|---|
+| `--surface` | `--obsidian-950` | The page |
+| `--surface-sunken` | `--obsidian-900` | Sidebar, wells |
+| `--surface-field` | `--obsidian-850` | Inputs and choice controls at rest |
+| `--surface-raised` | `--obsidian-800` | Card, menu, modal |
+| `--border-subtle` | `--obsidian-800` | Dividers, table rows |
+| `--border` | `--obsidian-700` | Card, chip, panel |
+| `--border-strong` | `--obsidian-600` | Hover, emphasis |
+| `--border-input` | `--obsidian-400` | A control's outline — 3.13 : 1 on `--surface-field`, the WCAG 1.4.11 floor (§ 6) |
+
 ### Color · brand (Magenta primary)
 
 | Token | Hex | Use |
 |---|---|---|
-| `--magenta-100` | `#FFE3F8` | Tints, soft highlights |
-| `--magenta-200` | `#FFB5EC` | |
-| `--magenta-300` | `#FF85DF` | Hover state on magenta links |
-| `--magenta-400` | `#F868D8` | Links on dark, mono accents |
-| `--magenta-500` | `#F051D5` | **Primary brand · CTAs · focus rings** |
-| `--magenta-600` | `#C93BB0` | Pressed state |
-| `--magenta-700` | `#9A2D87` | Deep brand accents |
-| `--magenta-800` | `#66195A` | Reserved |
+| `--primary-100` | `#FFE3F8` | Tints, soft highlights |
+| `--primary-200` | `#FFB5EC` | |
+| `--primary-300` | `#FF85DF` | Hover state on magenta links |
+| `--primary-400` | `#F868D8` | Links on dark, mono accents |
+| `--primary-500` | `#F051D5` | **Primary brand · CTAs · focus rings** |
+| `--primary-600` | `#C93BB0` | Pressed state |
+| `--primary-700` | `#9A2D87` | Deep brand accents |
+| `--primary-800` | `#66195A` | Reserved |
 
 ### Color · supporting
 
 | Token | Hex | Role |
 |---|---|---|
-| `--secondary-400` | `#00FFF2` | Electric cyan (rare; data viz only) |
+| `--secondary-500` | `#00FFF2` | Electric cyan (rare; data viz only). The ramp's `--secondary-400` was a copy of this value until v5.0.0; it is now `#19FFF3`, one step between 300 and 500 |
 | `--tertiary-500` | `#0C6078` | Petrol teal (deep dive accents) |
 | `--success` | `#3AFFC7` | Confirmation only |
 | `--warning` | `#F6C65B` | Caution only |
 | `--danger` | `#FF5B5B` | Error / destructive only |
 | `--info` | `#5CC8FF` | Inline info, links in long-form |
 
-**The 85/10/5 law:** ~85% of any surface uses `--obsidian-*`. ~10% supporting/semantic. ≤5% `--magenta-*`. Violations are visible at a glance.
+**The 85/10/5 law:** ~85% of any surface uses `--obsidian-*`. ~10% supporting/semantic. ≤5% `--primary-*`. Violations are visible at a glance.
 
 ## Typography
 
@@ -187,6 +202,18 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--t-caption` | `12px` | Smallest readable text |
 | `--t-micro` | `10px` | Mono labels, eyebrows, kbd keys |
 
+**Fluid headings (v5.0.0).** Below the 860px breakpoint the headings ride a fluid clamp; the px live in these tokens and nowhere else. Above it the fixed scale applies.
+
+| Token | Value | Use |
+|---|---|---|
+| `--t-display-fluid` | `clamp(48px, 14vw, 80px)` | Display, small screens |
+| `--t-h1-fluid` | `clamp(40px, 9vw, 64px)` | Page title, small screens |
+| `--t-h2-fluid` | `clamp(32px, 9vw, 48px)` | |
+| `--t-h3-fluid` | `clamp(26px, 7vw, 36px)` | |
+| `--t-h4-fluid` | `clamp(22px, 6vw, 28px)` | Subsection title, small screens |
+| `--t-h5-fluid` | `clamp(var(--t-lead), 5vw, 22px)` | |
+| `--t-lead-fluid` | `clamp(16px, 3.6vw, var(--t-h6))` | Page lede, small screens |
+
 | Line height | Value | Use |
 |---|---|---|
 | `--lh-tight` | `1.05` | Display text |
@@ -204,7 +231,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **Rules:**
 - One H1 per page. Always.
-- Mono labels: 10px, uppercase, `--tr-mono`, `--magenta-400` for brand context or `--obsidian-400` for neutral.
+- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-400` for neutral.
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
 
 ## Layout
@@ -214,6 +241,8 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | Token | Px | Common use |
 |---|---|---|
 | `--s-0` | `0` | |
+| `--s-px` | `1` | Hairline offsets, visually-hidden clip (v5.0.0) |
+| `--s-0-5` | `2` | Micro gaps, knob inset, label-to-meta (v5.0.0) |
 | `--s-1` | `4` | Hairline gap (icon ↔ text) |
 | `--s-2` | `8` | Tight pair |
 | `--s-3` | `12` | Inline gap |
@@ -228,7 +257,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--s-24` | `96` | Hero spacing |
 | `--s-32` | `128` | Long-form vertical breathing |
 
-**Rule:** every margin, padding, gap is a token. No `13px`, no `20px;` literals in component CSS.
+**Rule:** every margin, padding, gap is a token. No `13px`, no `20px;` literals in component CSS — and none in the site's inline styles either (v5.0.0). Below `--s-1` the scale has two steps, `--s-px` and `--s-0-5`, the pattern of Polaris (`space-025` / `space-050`), Tailwind (`px` / `0.5`) and Carbon (`spacing-01`); a value under 4px snaps to them, not to zero.
 
 ### Layout
 
@@ -237,6 +266,11 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sidebar-w` | `260px` | Sidebar nav width |
 | `--content-max` | `1180px` | Max content width |
 | `--gutter` | `24px` | Column gutter |
+| `--bp-sm` | `480px` | Breakpoint: phone |
+| `--bp-md` | `720px` | Breakpoint: small tablet |
+| `--bp-lg` | `900px` | Breakpoint: tablet; the fluid headings start below it |
+
+**Breakpoints (v5.0.0).** Three, and every `@media` width in the CSS and the site is one of them — media queries cannot read `var()`, so the tokens are the contract and check 53 holds the queries to them. Until v5.0.0 the site used five (480, 600, 720, 860, 900); 600 snapped to 480 and 860 to 900 by the scale rule.
 
 12-col grid. Sidebar is fixed; content breathes.
 
@@ -293,6 +327,35 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 | `--r-full` | `999px` | Pills, status dots |
 
 **Working range is 8–12px.** If a component asks for more, justify it.
+
+### Border width (v5.0.0)
+
+| Token | Px | Use |
+|---|---|---|
+| `--bw-1` | `1` | Every hairline: card, field, divider, control outline |
+| `--bw-2` | `2` | Emphasis lines: the tab indicator, the checkbox tick |
+
+Two steps, the pattern of Primer (`thin` / `thick`) and Atlassian (`border.width` / `border.width.selected`). A width between them snaps by the same rule as every scale; v5.0.0 moved the 1.5px choice-control outline to `--bw-1`.
+
+### Focus (v5.0.0)
+
+| Token | Value | Use |
+|---|---|---|
+| `--focus-width` | `2px` | The pressable ring's outline width (§ 6.2) |
+| `--focus-offset` | `3px` | The pressable ring's offset (§ 6.2) |
+
+### Size (v5.0.0)
+
+Dimensions that are part of a component's contract take a token; the widths of the documentation site's demo layouts are site geometry and stay outside the rule.
+
+| Token | Px | Use |
+|---|---|---|
+| `--icon-xs` | `14` | Icon beside a label in a button (§ 3.1) |
+| `--icon-sm` | `16` | Inline icon, control glyph |
+| `--icon-md` | `20` | Standalone icon |
+| `--icon-lg` | `24` | Icon in a large control or an empty state |
+| `--target-dense` | `32` | Hit area on dense desktop (§ 6, floor #7) |
+| `--target-touch` | `44` | Hit area on touch (§ 6, floor #7) |
 
 **Sub-scale hairlines (ratified exception).** Shapes 4px or smaller — the nav-label dot, the menu-toggle bars, the pie-legend swatch — carry a literal `1px` / `3px` radius. Below `--r-xs` the scale has no step, and rounding them to 2px changes the shape rather than the corner. Closed list, three instances, greppable. Everything larger takes a token.
 
@@ -378,45 +441,45 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.12 · `pointer-events: none` · `disabled` + `aria-label` |
-| `.btn-primary` | default | `--magenta-500` | `--magenta-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
-| `.btn-primary` | hover | `--magenta-500` | `--magenta-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
+| `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
+| `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
 | `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
 | `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | |
 | `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards |
 | `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
-| `.btn-outline` | hover | — | `--magenta-500` | `--magenta-400` | — | |
+| `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | |
 | `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus |
-| `.badge-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | live · the accent — § 1 budget |
+| `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget |
 | `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped |
 | `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | pending |
 | `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker |
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact |
-| `.badge-solid` | default | `--magenta-500` | `--magenta-500` | `--obsidian-050` | — | featured · light label, ratified § 6.3 |
-| `.input` `.textarea` `.select` | default | `--obsidian-850` | `--obsidian-700` | `--obsidian-100` | — | placeholder `--obsidian-400` |
-| `.input` `.textarea` `.select` | focus-visible | — | `--magenta-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
+| `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured · light label, ratified § 6.3 |
+| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` |
+| `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
-| `.select-trigger` | expanded | — | `--magenta-500` | — | `--ring-field` | `aria-expanded="true"` |
-| `.select-trigger` | focus-visible | — | `--magenta-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
+| `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
+| `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
-| `.select-option` | selected | — | — | `--magenta-400` | — | `aria-selected="true"` |
-| `.check` `.radio` | default | `--obsidian-850` | `1.5px --obsidian-600` | `--obsidian-100` (label) | — | |
+| `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` |
+| `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | |
 | `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` |
-| `.check` `.radio` | checked | `--magenta-500` (check) · dot `--magenta-500` (radio) | `--magenta-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
-| `.switch` | checked | `--magenta-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
+| `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
+| `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
 | `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label |
 | `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals |
 | `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range |
 | `.dp-day` | focus-visible | — | — | — | `--ring-halo` | outline offset `-2px` (inside the 32px cell) |
-| `.dp-day` | selected | `--magenta-500` | — | `--obsidian-950` | — | weight 600 |
+| `.dp-day` | selected | `--primary-500` | — | `--obsidian-950` | — | weight 600 |
 | `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` |
 | `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
 | `.alert-info` | default | — | left rule `--info` | — | — | icon `--info` |
@@ -425,10 +488,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.alert-danger` | default | — | left rule `--danger` | — | — | icon `--danger` |
 | `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | |
 | `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
-| `.skip-link` | default | `--magenta-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
+| `.skip-link` | default | `--primary-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
 | `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
 | `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` |
-| `.chip-brand` | default | `--magenta-500` × `--tint-fill` | `--magenta-500` × `--tint-edge` | `--magenta-400` | — | |
+| `.chip-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | |
 | `.chip-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | |
 | `.chip-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | |
 | `.chip-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | |
@@ -436,7 +499,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
-| `.chip` (pressable) | selected | — | `--magenta-500` | `--magenta-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.28 |
+| `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.28 |
 | `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
@@ -481,7 +544,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 | Variant | Background | Text | Use |
 |---|---|---|---|
-| `.btn-primary` | `--magenta-500` | `--obsidian-050` | One per screen — the affirmative action |
+| `.btn-primary` | `--primary-500` | `--obsidian-050` | One per screen — the affirmative action |
 | `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
 | `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
 | `.btn-outline` | transparent | `--obsidian-100` | Bordered tertiary — hover borrows the magenta edge |
@@ -495,7 +558,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
 - Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
 - **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.12's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
-- Primary label is near-white (`--obsidian-050`) on `--magenta-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--magenta-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
+- Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
 ### Input · textarea · select
@@ -583,17 +646,17 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 | Variant | Surface | Use |
 |---|---|---|
 | `.badge` | `--tertiary-500` × `--tint-fill-deep` / `--tint-edge-deep`, text `--tertiary-300` | Default — a quiet tag; archive |
-| `.badge-brand` | `--magenta-500` × `--tint-fill` / `--tint-edge`, text `--magenta-400` | Live — spends the accent |
+| `.badge-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | Live — spends the accent |
 | `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Shipped |
 | `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Pending |
 | `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Blocker |
-| `.badge-solid` | `--magenta-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
+| `.badge-solid` | `--primary-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
 | `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | Info — a neutral fact |
 
 - **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
 - **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
 - **The dot** (`.dot`, `--s-1` square, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
-- **The solid badge takes the light label**, `--obsidian-050` on `--magenta-500`: the second ratified exception of § 6.3, bounded like the first.
+- **The solid badge takes the light label**, `--obsidian-050` on `--primary-500`: the second ratified exception of § 6.3, bounded like the first.
 - **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
 
 ### Navigation
@@ -764,7 +827,7 @@ Reach for this only when native can't carry the requirement: search/filter insid
 - `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
 - **Keyboard focus on the trigger is the pressable ring**, not the field glow: the `.input` `.textarea` `.select` | focus-visible row of the state index does not apply to `.select-trigger`, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from `.select:focus`.
 - `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it — measure the menu's natural height with `getBoundingClientRect()` rounded up (not `scrollHeight`, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
-- `.select-option[aria-selected="true"]` rendered in `--magenta-400`. Hover/focus background is `--obsidian-800`.
+- `.select-option[aria-selected="true"]` rendered in `--primary-400`. Hover/focus background is `--obsidian-800`.
 - Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
 
 **Keyboard:**
@@ -812,7 +875,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 **Required classes:**
 - `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
 - `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
-- `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--magenta-700` fill, `--obsidian-050` text — 6.26:1).
+- `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
 - `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
 - `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
 - `.chat-meta` — sender + time row, only on the first bubble of a streak.
@@ -820,9 +883,9 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - `.chat-sr-only` — visually-hidden sender prefix inside every bubble (`"Amaca said: "` / `"You said: "` / `"Amaca sent a file: "`). The avatar streak-suppression rule means screen readers would otherwise lose sender identity on bot follow-ups.
 
 **Reserved colors:**
-- Own bubbles fill with `--magenta-700` — the deep brand accent.
-- The brighter `--magenta-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
-- A previous "hot last" rule (paint only the latest own bubble magenta-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
+- Own bubbles fill with `--primary-700` — the deep brand accent.
+- The brighter `--primary-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
+- A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
 
 **Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
 
@@ -844,8 +907,8 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 **Composer:**
 - `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
-- `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--magenta-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
-- Composer focus-within: border shifts to `--magenta-500` + `--ring-field` — same focus treatment as `.input`.
+- `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--primary-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
+- Composer focus-within: border shifts to `--primary-500` + `--ring-field` — same focus treatment as `.input`.
 - Enter sends. `⇧ Enter` inserts a newline.
 - Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
 
@@ -888,7 +951,7 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 **Required classes:**
 - `.loader` — root. `display: inline-flex`, vertical-align: middle. Size mod (`.loader-xs` / `-sm` / `-md` / `-lg`) sets both width and height.
 - `.loader-anim` — the moving brand mark. Width/height 100%, `object-fit: contain` so the source ratio is preserved at any size.
-- `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--magenta-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
+- `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--primary-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
 - `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent.
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -964,7 +1027,7 @@ flowchart TD
 **Required classes:**
 - `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
-- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--magenta-400`.
+- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
 
 **Theming — no hardcoded hex:**
@@ -982,7 +1045,7 @@ flowchart TD
 | Cluster fill · border | `--obsidian-850` · `--obsidian-700` |
 | Node radius · font | `--r-md` · Satoshi (`--font-sans`) |
 | Node label · edge label | `--t-small` · ≥ `--t-caption` (12) |
-| Focus node border | `--magenta-500` · one per diagram |
+| Focus node border | `--primary-500` · one per diagram |
 | State nodes | `--success` · `--warning` · `--danger` |
 
 **Shapes & routing:**
@@ -1075,12 +1138,12 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 | Flag | Meaning | Treatment |
 |---|---|---|
-| `.is-today` | Today, unselected | `--magenta-400` text on an 8% magenta wash + 2px inset ring |
-| `.is-selected` | The chosen date | `--magenta-500` fill, `--obsidian-950` label, weight 600 |
+| `.is-today` | Today, unselected | `--primary-400` text on an 8% magenta wash + 2px inset ring |
+| `.is-selected` | The chosen date | `--primary-500` fill, `--obsidian-950` label, weight 600 |
 | `.is-outside` | Leading/trailing month | `--obsidian-500` |
 | `.is-in-range` | Between range ends | 12% magenta wash, square corners |
 | `.is-range-preview` | Hover preview of a range | 6% magenta wash, square corners |
-| `.is-range-start` `.is-range-end` | Range ends | `--magenta-500` fill, rounded on the outer edge only |
+| `.is-range-start` `.is-range-end` | Range ends | `--primary-500` fill, rounded on the outer edge only |
 
 **Rules.**
 - The trigger is a real `<input>` plus a labelled `<button>` — never a bare div. The popover is `role="dialog"` with an accessible name.
@@ -1106,7 +1169,7 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 | Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
 | Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
-| Inline code | `.table code` — mono 12px, `--magenta-400` on `--obsidian-850`, `--r-sm` |
+| Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
 | Secondary cell | `.muted` — `--obsidian-300` |
 
 **Rules.**
@@ -1128,9 +1191,9 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 
 | Control | Shape | Checked treatment | Use |
 |---|---|---|---|
-| `.check` | 16px square, `--r-xs` corner | `--magenta-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
-| `.switch` | 32×18, `--r-full`, no border | `--magenta-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
-| `.radio` | 16px circle | `--magenta-500` ring + centred `--magenta-500` dot | One-of-many. Always in a named group, always with a default |
+| `.check` | 16px square, `--r-xs` corner | `--primary-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
+| `.switch` | 32×18, `--r-full`, no border | `--primary-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
+| `.radio` | 16px circle | `--primary-500` ring + centred `--primary-500` dot | One-of-many. Always in a named group, always with a default |
 
 **Rules.**
 - Checkbox and radio are told apart by **shape** — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.
@@ -1138,7 +1201,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
-- **Do / Don't.** Do let the fill carry the switch's state — `--obsidian-700` off, `--magenta-500` on. Don't: stroke on the switch track — the fill carries the state.
+- **Do / Don't.** Do let the fill carry the switch's state — `--obsidian-700` off, `--primary-500` on. Don't: stroke on the switch track — the fill carries the state.
 - State matrix: § 3.0.1. Motion: § 08.4.
 
 ### Alert
@@ -1157,7 +1220,7 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 
 | Variant | Left rule · icon | Use |
 |---|---|---|
-| `.alert` | `--magenta-500` | System voice — the default |
+| `.alert` | `--primary-500` | System voice — the default |
 | `.alert-info` | `--info` | Neutral fact the reader didn't ask for |
 | `.alert-success` | `--success` | Something completed and stayed completed |
 | `.alert-warn` | `--warning` | Something needs attention but nothing is broken |
@@ -1190,7 +1253,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 | Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
 | Toast | `.toast` | 360px, capped at the viewport minus `--s-8`; full width under 600px |
 | Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.18 |
-| Action | `.toast-action` | At most one. Mono-uppercase, `--magenta-400` |
+| Action | `.toast-action` | At most one. Mono-uppercase, `--primary-400` |
 
 **Rules.**
 - **Auto-dismiss is opt-in and bounded** (§ 6 floor #6). `data-autohide` is permitted only when the toast carries no action and is not `.toast-danger`; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.
@@ -1290,7 +1353,7 @@ A label for something already visible. Never a container for content.
 ```
 
 - First focusable element in the document. Parked above the viewport (`top: -100px`, a composition offset) and lands at `--s-3` on focus. It appears and disappears instantly, by design — easing a jump affordance would delay the jump. No motion rows.
-- `--magenta-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
+- `--primary-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
 - Target: the unique `id="main-content"` on `.content` (§ 3.21) — past the sticky topbar, straight to the content. Behaviour: § 6.2. Uniqueness: check 27.
 - **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
 
@@ -1320,7 +1383,7 @@ A label for something already visible. Never a container for content.
 <div class="pie-wrap">
   <svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">…</svg>
   <ul class="pie-legend">
-    <li><span class="sw" style="background:var(--magenta-500)"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
+    <li><span class="sw" style="background:var(--primary-500)"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
   </ul>
 </div>
 ```
@@ -1374,7 +1437,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 | Variant | Surface | Use |
 |---|---|---|
 | `.chip` | `--obsidian-800` on `--obsidian-700`, text `--obsidian-100` | Neutral — the default, and most chips |
-| `.chip-brand` | `--magenta-500` × `--tint-fill` / `--tint-edge`, text `--magenta-400` | The one chip that spends the accent — see the 85 / 10 / 5 law |
+| `.chip-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | The one chip that spends the accent — see the 85 / 10 / 5 law |
 | `.chip-success` | `--success` × `--tint-fill` / `--tint-edge` | A value that resolved |
 | `.chip-warn` | `--warning` × `--tint-fill` / `--tint-edge` | A value that needs attention |
 | `.chip-danger` | `--danger` × `--tint-fill` / `--tint-edge` | A value that is broken or destructive |
@@ -1387,7 +1450,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **The label rides `--t-small`.** `--t-micro` is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.
 - **A chip carries at most one affordance, never two (RIGID).** Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a `<button>` and the whole object is the target; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: *"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks"*. It is a decision, not a law — Calcite and Fluent ship the combination deliberately.
 - **The touch target grows, the chip does not.** At `--t-small` the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.
-- **A filter chip declares `aria-pressed`,** and a group of them is a `role="group"` with an accessible name. Selection lands on the border and the text (`--magenta-500` · `--magenta-400`), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.
+- **A filter chip declares `aria-pressed`,** and a group of them is a `role="group"` with an accessible name. Selection lands on the border and the text (`--primary-500` · `--primary-400`), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.
 - **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.19 is for things that happened somewhere else).
 - **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
@@ -1401,7 +1464,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 When you generate UI code, you must:
 
 1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
-2. **Reference tokens by CSS variable name** (`var(--magenta-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
+2. **Reference tokens by CSS variable name** (`var(--primary-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
 3. **Match the seven principles in § 1.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
 4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
 5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
@@ -1432,7 +1495,7 @@ Rigor the eye picks up before the mind does. Spacing on a 4px grid. Type on the 
 #### Quiet, then loud
 Restraint is what makes accents land. Most of the surface stays neutral. Color, motion, weight — they only show up where the work needs them.
 
-**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--magenta-*`. If you're using magenta on more than one element per viewport, you're decorating.
+**For agents:** the **85 / 10 / 5** law. 85% of any surface is `--obsidian-*`. ~10% is supporting (cyan, petrol, semantic). ≤5% is `--primary-*`. If you're using magenta on more than one element per viewport, you're decorating.
 
 #### Motion is a material
 Interfaces are not static. The way something arrives, settles, responds carries meaning. Every entrance breathes on the same curve — `cubic-bezier(0.16, 1, 0.3, 1)`, the signature ease, living at `--ease-decel` since v2.0.0 — so the whole document feels like one instrument.
@@ -1650,16 +1713,16 @@ Non-negotiable. Any component that can't meet all seven doesn't ship.
 | `--obsidian-100` on `--obsidian-950` | 16.1 : 1 |
 | `--obsidian-200` on `--obsidian-950` | 11.8 : 1 |
 | `--obsidian-300` on `--obsidian-950` | 7.4 : 1 (body min) |
-| `--magenta-400` on `--obsidian-950` | 6.5 : 1 |
-| `--magenta-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
+| `--primary-400` on `--obsidian-950` | 6.5 : 1 |
+| `--primary-500` on `--obsidian-950` | 5.2 : 1 (large text only) |
 
-One pair sits below AA by ratified exception — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1), the primary button label and the solid badge. See § 6.3.
+One pair sits below AA by ratified exception — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1), the primary button label and the solid badge. See § 6.3.
 
 ### Focus visibility
 
 Two patterns ship:
 - **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: var(--ring-halo)`. Cited across the system as the **pressable halo**; the token holds `0 0 0 4px` magenta at 0.35.
-- **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--magenta-500` + `box-shadow: var(--ring-field)` (`0 0 0 3px` magenta at 0.15). Cited as the **field glow**. Its error twin swaps the border to `--danger` and the ring to `--ring-field-danger`.
+- **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--primary-500` + `box-shadow: var(--ring-field)` (`0 0 0 3px` magenta at 0.15). Cited as the **field glow**. Its error twin swaps the border to `--danger` and the ring to `--ring-field-danger`.
 - **In-cell targets** (`.dp-day`, `.dp-year`): same halo, `outline-offset: -2px` so the ring stays inside the 32px cell.
 
 `.skip-link` lives off-screen (`top: -100px`); jumps to `top: 12px` on focus.
@@ -1668,15 +1731,15 @@ Two patterns ship:
 
 The floor admits one documented exception pair, on two selectors.
 
-**`.btn-primary` — `--obsidian-050` on `--magenta-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--magenta-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--magenta-500`.
+**`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
 
-**`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--magenta-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.4), a text label that carries the meaning on its own, weight 500, fill bounded to `--magenta-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
+**`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.4), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
 
-**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--magenta-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
+**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--primary-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
 
 **Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
 
-**Compliance mode.** Where strict WCAG 2.x AA is contractual (public sector, enterprise audit), ship the documented variant: `--obsidian-950` label on the unchanged `--magenta-500` fill (6.5 : 1, AA). Variant on request, never the default.
+**Compliance mode.** Where strict WCAG 2.x AA is contractual (public sector, enterprise audit), ship the documented variant: `--obsidian-950` label on the unchanged `--primary-500` fill (6.5 : 1, AA). Variant on request, never the default.
 
 ## Code conventions
 
@@ -1703,8 +1766,8 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 | `::-webkit-scrollbar-track` | `transparent` — the page shows through |
 | `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `2px solid --obsidian-950` border (the border is what makes it read as inset) |
 | `::-webkit-scrollbar-thumb:hover` | `--obsidian-600` |
-| `::selection` | `--magenta-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 04.6) |
-| `caret-color` | `--magenta-500` on `input` and `textarea` — the browser's default blue is off-system |
+| `::selection` | `--primary-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 04.6) |
+| `caret-color` | `--primary-500` on `input` and `textarea` — the browser's default blue is off-system |
 
 **Closure clause.** Browser chrome not listed here is native and is not styled — focus rings on non-components, resize handles, autofill backgrounds, spell-check underlines, `overscroll-behavior`. Overriding one is a system decision, not a component decision.
 
@@ -1742,11 +1805,11 @@ The system ships to three targets: vanilla **HTML/CSS/JS**, **React with Tailwin
 
 ### Token name mapping
 
-The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magenta-500` (React/Tailwind v4), and the Variable `color/magenta/500` (Figma) all resolve to `#F051D5`.
+The same logical token wears three names. `var(--primary-500)` (HTML), `bg-primary-500` (React/Tailwind v4), and the Variable `color/primary/500` (Figma) all resolve to `#F051D5`.
 
 | § 2 token | Tailwind v4 `@theme` name | Generated utilities | Figma Variable | Type |
 |---|---|---|---|---|
-| `--magenta-500` | `--color-magenta-500` | `bg-`, `text-`, `border-`, `fill-`, `stroke-magenta-500` | `color/magenta/500` | Color |
+| `--primary-500` | `--color-primary-500` | `bg-`, `text-`, `border-`, `fill-`, `stroke-primary-500` | `color/primary/500` | Color |
 | `--obsidian-800` | `--color-obsidian-800` | `bg-obsidian-800`, … | `color/obsidian/800` | Color |
 | `--success` | `--color-success` | `bg-success`, `text-success` | `color/semantic/success` | Color |
 | `--s-4` | `--spacing-4` | `p-4`, `m-4`, `px-4`, `gap-4`, … | `spacing/4` | Number (16) |
@@ -1761,19 +1824,19 @@ The same logical token wears three names. `var(--magenta-500)` (HTML), `bg-magen
 
 **Conventions, no exceptions:**
 - Tailwind: prefix the § 2 name with the Tailwind v4 theme namespace (`--color-`, `--spacing-`, `--radius-`, `--text-`, `--leading-`, `--tracking-`, `--transition-duration-`, `--shadow-`). The bare scale number is preserved (`--s-4` → `--spacing-4`, not `--spacing-16`). Same-name tokens (`--font-*`, `--ease-*`) are declared `@theme inline` — a same-name `var()` alias on `:root` would be circular.
-- Figma: slash-separated namespace mirrors the token hierarchy (`color/magenta/500`). Figma renders `/` as a folder. Never flatten to `magenta500`.
+- Figma: slash-separated namespace mirrors the token hierarchy (`color/primary/500`). Figma renders `/` as a folder. Never flatten to `magenta500`.
 - Values never diverge across targets. The same token is the same value on all three. Divergence is a regression caught by cross-target verification.
 
 ### React · Tailwind v4 `@theme`
 
-`styles/theme.css` exposes every § 2 token inside a Tailwind v4 `@theme` block under its namespaced name, aliasing the canonical `:root` values in `tokens.css`. Legacy `var(--magenta-500)` keeps working — the `@theme` names are additive, not a rename. Import once at the project entry:
+`styles/theme.css` exposes every § 2 token inside a Tailwind v4 `@theme` block under its namespaced name, aliasing the canonical `:root` values in `tokens.css`. Legacy `var(--primary-500)` keeps working — the `@theme` names are additive, not a rename. Import once at the project entry:
 
 ```css
 @import "tailwindcss";
 @import "amaca-design/styles/theme.css";
 ```
 
-Tailwind generates the utilities (`bg-magenta-500`, `p-4`, `rounded-lg`, `duration-quick`). Where Tailwind v4 is unavailable, fall back to CSS modules with raw `var(--token)` syntax — functionally identical, less ergonomic.
+Tailwind generates the utilities (`bg-primary-500`, `p-4`, `rounded-lg`, `duration-quick`). Where Tailwind v4 is unavailable, fall back to CSS modules with raw `var(--token)` syntax — functionally identical, less ergonomic.
 
 ### Figma · Variables
 
