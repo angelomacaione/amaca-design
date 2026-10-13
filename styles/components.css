@@ -906,13 +906,14 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   padding:var(--s-16) var(--s-10);
   background:radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%), var(--obsidian-900);
   margin-bottom:var(--s-10);
+  --cube:clamp(120px, 26%, 220px); /* the mark scales with the hero; the text column keeps clear of it */
 }
 .cs-hero .eyebrow{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:var(--s-4)}
-.cs-hero h2{font-size:var(--t-h2);line-height:var(--lh-tight);letter-spacing:var(--tr-tight);margin:0 0 var(--s-5);max-width:18ch}
-.cs-hero p{font-size:var(--t-lead);color:var(--obsidian-200);max-width:56ch;margin:0}
+.cs-hero h2{font-size:var(--t-h2);line-height:var(--lh-tight);letter-spacing:var(--tr-tight);margin:0 0 var(--s-5);max-width:min(18ch, calc(100% - var(--cube) - var(--s-6)))}
+.cs-hero p{font-size:var(--t-lead);color:var(--obsidian-200);max-width:min(56ch, calc(100% - var(--cube) - var(--s-6)));margin:0}
 .cs-hero .cube{
   position:absolute;right:var(--s-10);top:50%;transform:translateY(-50%);
-  width:220px;height:220px;filter:drop-shadow(0 0 48px rgba(240,81,213,0.25));
+  width:var(--cube);height:var(--cube);filter:drop-shadow(0 0 48px rgba(240,81,213,0.25));
   opacity:0.9;
 }
 .cs-dossier{

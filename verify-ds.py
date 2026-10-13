@@ -2299,7 +2299,7 @@ def c56():
 R_FULL_RATIFIED = {
     ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
-    ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot",
+    ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
 }
 
 
@@ -2346,6 +2346,28 @@ def c58():
             for m in re.finditer(pat, t, re.I):
                 fails.append(f"{p.relative_to(ROOT)}: '{t[max(0, m.start()-20):m.end()+20].strip()}' — the old budget")
     return fails
+
+
+
+# Classes the markup uses on purpose without a rule: JS hooks and plain markers. v4.3.2 shipped
+# the wcag-* markers unstyled already; they stay listed until the Accessibility table styles them.
+UNSTYLED_OK = {"deck", "diagram-src", "loader-device-content", "cols-desktop", "unit",
+               "wcag", "wcag-aa", "wcag-aaa", "wcag-exc"}
+
+
+@check("59", "Every class the site markup uses has a rule, unless it is a declared hook",
+       "v5.0.0: the 2a restructure rebuilt the site from its sections and dropped the one "
+       "stylesheet that lived between two of them, <style id=\"pres-styles\">. The Presentations "
+       "page lost every slide style and nothing failed: the harness checked the classes § 3 "
+       "emits, not the classes the site paints with. Found by a computed-style diff against "
+       "v4.3.2; this check makes the next dropped stylesheet fail on its own.")
+def c59():
+    html = read(INDEX)
+    css = read(COMPONENTS) + read(TOKENS) + "".join(re.findall(r"<style[^>]*>(.*?)</style>", html, re.S))
+    styled = set(re.findall(r"\.(-?[_a-zA-Z][\w-]*)", re.sub(r"/\*.*?\*/", "", css, flags=re.S)))
+    body = re.sub(r"<script.*?</script>|<style.*?</style>", "", html, flags=re.S)
+    used = {c for m in re.findall(r'class="([^"]*)"', body) for c in m.split()}
+    return [f"index.html: .{c} is used in the markup and styled nowhere" for c in sorted(used - styled - UNSTYLED_OK)]
 
 
 def main():

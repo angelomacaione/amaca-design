@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=96fbf8df">
-<link rel="stylesheet" href="styles/components.css?v=2f1fed56">
+<link rel="stylesheet" href="styles/components.css?v=41d22b20">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -3414,6 +3414,130 @@ flowchart TD
           </div>
         </div>
       </section>
+
+      <style id="pres-styles">
+      /* ─── PRESENTATIONS / SLIDE TEMPLATES ─── */
+      .slide-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-6)}
+      @media (max-width:900px){.slide-grid{grid-template-columns:1fr}}
+      .slide-card{background:var(--obsidian-900);border:1px solid var(--obsidian-800);border-radius:var(--r-lg);padding:var(--s-5);transition:border-color var(--d-quick) var(--ease-standard)}
+      .slide-card:hover{border-color:var(--obsidian-600)}
+      .slide-card .card-meta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);margin-bottom:var(--s-3)}
+      .slide-card .card-meta .num{color:var(--primary-400)}
+      .slide-card .slide-caption{margin:var(--s-4) 0 0;font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-normal)}
+
+      /* 16:9 viewport that scales the fixed canvas down to fit */
+      .slide-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:var(--r-md);overflow:hidden;background:#000;border:1px solid var(--obsidian-800)}
+      /* the fixed 1920×1080 canvas — slides are authored at full size, then scaled */
+      .slide{position:absolute;top:0;left:0;width:1920px;height:1080px;transform-origin:top left;transform:scale(var(--slide-scale,0.29));background:var(--obsidian-950);color:var(--obsidian-100);font-family:var(--font-sans);overflow:hidden;--pad-x:120px;--pad-y:88px}
+
+      /* chrome */
+      .slide-brand{position:absolute;top:var(--pad-y);left:var(--pad-x);display:flex;align-items:center;gap:18px;z-index:2}
+      .slide-brand .mark{width:44px;height:44px;display:block;border-radius:var(--r-sm)}
+      .slide-brand .wm{font-size:32px;font-weight:700;letter-spacing:var(--tr-snug);color:var(--obsidian-100)}
+      .slide-foot{position:absolute;left:var(--pad-x);right:var(--pad-x);bottom:var(--pad-y);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);z-index:2}
+      .slide-foot .pg b{color:var(--primary-400);font-weight:500}
+
+      /* body / shared type */
+      .slide-body{position:absolute;left:var(--pad-x);right:var(--pad-x);top:240px;bottom:210px;display:flex;flex-direction:column;justify-content:center}
+      .slide-eyebrow{display:flex;align-items:center;gap:18px;font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:34px}
+      .slide-eyebrow::before{content:"";width:52px;height:2px;background:var(--primary-500)}
+      .slide-title{margin:0;font-weight:700;letter-spacing:var(--tr-tight);line-height:var(--lh-tight)}
+      .slide-title .accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide-copy{font-size:30px;line-height:var(--lh-loose);color:var(--obsidian-300);max-width:44ch}
+      .slide-copy + .slide-copy{margin-top:30px}
+      .slide-copy strong{color:var(--obsidian-100);font-weight:600}
+
+      /* cover */
+      .slide--cover .slide-title{font-size:128px;max-width:17ch;margin-bottom:40px}
+      .slide--cover .slide-lead{font-size:36px;line-height:var(--lh-snug);color:var(--obsidian-200);max-width:30ch}
+
+      /* divider */
+      .slide--divider .slide-index{position:absolute;right:90px;bottom:60px;font-size:600px;line-height:0.74;font-weight:700;letter-spacing:var(--tr-tight);color:var(--obsidian-850);pointer-events:none;z-index:0}
+      .slide--divider .slide-body{z-index:1}
+      .slide--divider .slide-dtitle{margin:0;font-size:124px;font-weight:700;letter-spacing:var(--tr-tight);line-height:1}
+
+      /* content + data */
+      .slide--content .slide-title,.slide--data .slide-title{font-size:84px;max-width:20ch;margin-bottom:40px}
+
+      /* two-column */
+      .slide--split .slide-body{flex-direction:row;gap:128px;align-items:center}
+      .slide--split .split-col{flex:1;min-width:0}
+      .slide--split .slide-title{font-size:64px;max-width:14ch;margin-bottom:28px}
+      .split-list{display:flex;flex-direction:column;border-top:1px solid var(--obsidian-700)}
+      .split-item{display:flex;justify-content:space-between;gap:40px;padding:30px 0;border-bottom:1px solid var(--obsidian-700)}
+      .split-item .k{font-family:var(--font-mono);font-size:22px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);white-space:nowrap}
+      .split-item .v{font-size:28px;color:var(--obsidian-100);text-align:right}
+
+      /* big stat */
+      .slide--stat .slide-stat{font-size:340px;line-height:0.86;font-weight:700;letter-spacing:var(--tr-tight);background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .slide--stat .slide-stat .u{font-size:170px}
+      .slide--stat .slide-stat-label{font-size:46px;font-weight:600;margin-top:28px;letter-spacing:var(--tr-snug)}
+      .slide--stat .slide-stat-ctx{font-size:28px;color:var(--obsidian-300);margin-top:16px}
+
+      /* data / bars */
+      .slide-bars{display:flex;flex-direction:column;gap:30px;margin-top:8px}
+      .bar-row{display:grid;grid-template-columns:210px 1fr 130px;align-items:center;gap:36px}
+      .bar-lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);color:var(--obsidian-300)}
+      .bar-track{height:30px;background:var(--obsidian-850);border-radius:var(--r-sm);overflow:hidden}
+      .bar-fill{display:block;height:100%;background:var(--primary-500);border-radius:var(--r-sm)}
+      .bar-val{font-size:30px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+
+      /* full-bleed image placeholder */
+      .slide--image .slide-ph{position:absolute;inset:0;background:repeating-linear-gradient(135deg,var(--obsidian-900) 0 2px,transparent 2px 24px),var(--obsidian-850);display:flex;align-items:center;justify-content:center;z-index:0}
+      .slide--image .slide-ph .lbl{font-family:var(--font-mono);font-size:24px;letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);border:1px solid var(--obsidian-700);padding:16px 24px;border-radius:var(--r-sm);background:rgba(7,9,11,0.45)}
+      .slide--image .slide-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(7,9,11,0.92) 0%,rgba(7,9,11,0.35) 38%,transparent 68%);z-index:1}
+      .slide--image .slide-body{justify-content:flex-end;z-index:2}
+      .slide--image .slide-title{font-size:72px;max-width:22ch}
+
+      /* closing */
+      .slide--closing .slide-title{font-size:150px}
+      .slide-contacts{display:flex;gap:96px;margin-top:52px;font-family:var(--font-mono)}
+      .slide-contacts .cc{display:flex;flex-direction:column;gap:10px}
+      .slide-contacts .k{font-size:20px;letter-spacing:var(--tr-mono);color:var(--obsidian-400)}
+      .slide-contacts .v{font-size:30px;color:var(--obsidian-100)}
+
+      /* demo deck */
+      .deck-stage .slide{transition:opacity var(--d-quick) var(--ease-standard)}
+      .deck-stage.swapping .slide{opacity:0}
+      .deck-bar{display:flex;align-items:center;gap:var(--s-4);margin-top:var(--s-5);flex-wrap:wrap}
+      .deck-nav{display:flex;gap:var(--s-2)}
+      .deck-meta{flex:1;min-width:160px;display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--font-mono);font-size:var(--t-small);letter-spacing:var(--tr-mono);text-transform:uppercase}
+      .deck-meta .idx{color:var(--primary-400)}
+      .deck-meta .nm{color:var(--obsidian-300)}
+      .deck-dots{display:flex;gap:10px}
+      .deck-dot{width:9px;height:9px;border-radius:var(--r-full);background:var(--obsidian-700);border:0;padding:0;cursor:pointer;transition:background var(--d-quick) var(--ease-standard)}
+      .deck-dot.on{background:var(--primary-500)}
+      .deck-dot:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px}
+      /* piece entrance — Amaca staggered reveal (ease-decel), fires on .is-in */
+      #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-index{opacity:0;transform:translateY(20px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide.is-in .slide-eyebrow{opacity:1;transform:none;transition-delay:0ms}
+      #presentations .slide.is-in .slide-index{opacity:1;transform:none;transition-delay:60ms}
+      #presentations .slide.is-in .slide-title,#presentations .slide.is-in .slide-dtitle{opacity:1;transform:none;transition-delay:90ms}
+      #presentations .slide.is-in .slide-lead,#presentations .slide.is-in .slide-stat,#presentations .slide.is-in .slide-copy{opacity:1;transform:none;transition-delay:170ms}
+      #presentations .slide.is-in .slide-copy + .slide-copy{transition-delay:250ms}
+      #presentations .slide.is-in .slide-stat-label{opacity:1;transform:none;transition-delay:230ms}
+      #presentations .slide.is-in .slide-stat-ctx{opacity:1;transform:none;transition-delay:300ms}
+      /* listed items enter ONE AT A TIME (not as a block) */
+      #presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
+      #presentations .slide.is-in .bar-row,#presentations .slide.is-in .split-item,#presentations .slide.is-in .slide-contacts .cc{opacity:1;transform:none}
+      #presentations .slide.is-in .bar-row:nth-child(1),#presentations .slide.is-in .split-item:nth-child(1),#presentations .slide.is-in .slide-contacts .cc:nth-child(1){transition-delay:260ms}
+      #presentations .slide.is-in .bar-row:nth-child(2),#presentations .slide.is-in .split-item:nth-child(2),#presentations .slide.is-in .slide-contacts .cc:nth-child(2){transition-delay:340ms}
+      #presentations .slide.is-in .bar-row:nth-child(3),#presentations .slide.is-in .split-item:nth-child(3),#presentations .slide.is-in .slide-contacts .cc:nth-child(3){transition-delay:420ms}
+      #presentations .slide.is-in .bar-row:nth-child(4),#presentations .slide.is-in .split-item:nth-child(4),#presentations .slide.is-in .slide-contacts .cc:nth-child(4){transition-delay:500ms}
+      #presentations .slide.is-in .bar-row:nth-child(n+5),#presentations .slide.is-in .split-item:nth-child(n+5){transition-delay:560ms}
+      /* each data bar wipes in just after its row lands (the "data draw-on") */
+      #presentations .slide .bar-fill{transform:scaleX(0);transform-origin:left center;transition:transform var(--d-slow) var(--ease-decel)}
+      #presentations .slide.is-in .bar-fill{transform:scaleX(1)}
+      #presentations .slide.is-in .bar-row:nth-child(1) .bar-fill{transition-delay:360ms}
+      #presentations .slide.is-in .bar-row:nth-child(2) .bar-fill{transition-delay:440ms}
+      #presentations .slide.is-in .bar-row:nth-child(3) .bar-fill{transition-delay:520ms}
+      #presentations .slide.is-in .bar-row:nth-child(4) .bar-fill{transition-delay:600ms}
+      @media (prefers-reduced-motion:reduce){
+        .deck-stage .slide{transition:none}
+        #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index,#presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc,#presentations .slide .bar-fill{opacity:1;transform:none;transition:none}
+      }
+      @media (max-width:480px){.deck-meta{order:3;flex-basis:100%}}
+      </style>
 
       <section class="section" id="presentations">
         <div class="page-header">
