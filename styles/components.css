@@ -913,7 +913,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .cs-hero p{font-size:var(--t-lead);color:var(--obsidian-200);max-width:min(56ch, calc(100% - var(--cube) - var(--s-6)));margin:0}
 .cs-hero .cube{
   position:absolute;right:var(--s-10);top:50%;transform:translateY(-50%);
-  width:var(--cube);height:var(--cube);filter:drop-shadow(0 0 48px rgba(240,81,213,0.25));
+  width:var(--cube);height:auto;aspect-ratio:1;filter:drop-shadow(0 0 48px rgba(240,81,213,0.25));
   opacity:0.9;
 }
 .cs-dossier{
