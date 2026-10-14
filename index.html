@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=8ccd40a0">
+<link rel="stylesheet" href="styles/components.css?v=ad3f15a8">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -2450,82 +2450,23 @@ Basic UI</div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The sidebar for documentation; the top bar for marketing.</li><li>The sidebar when there are more than five destinations. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A linear journey with an order → Stepper. <span class="usage-ref">GOV.UK</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Top navigation</h2><span class="subsection-num">§ 23.1</span></div>
-          <p class="subsection-desc">The marketing top bar and how it degrades: full nav down to the burger, badge and call-to-action last to leave.</p>
-          <div class="card grid-demo-card" style="padding:0">
+          <p class="subsection-desc">The top bar at three device widths. The page below follows the tab: scroll it and the bar stays; at 720px of its own width or less the menu opens the Drawer, on the side of the toggle. Component spec: § 3.5 in the contract.</p>
+          <div data-navbar-demo-scope>
+            <div class="card grid-demo-card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs aria-label="Navigation breakpoint">
-              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="nav-desktop">Desktop · 12</button>
-              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-tablet">Tablet · 8</button>
-              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-mobile">Mobile · 4</button>
+              <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="nav-desktop" data-width="In a page · 1280px">Desktop · 12</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-tablet" data-width="In a page · 768px">Tablet · 8</button>
+              <button type="button" class="tab" role="tab" aria-selected="false" data-panel="nav-mobile" data-width="In a page · 380px">Mobile · 4</button>
               <span class="tab-indicator" aria-hidden="true"></span>
             </div>
             <div class="tab-panels">
-              <div class="tab-panel active" role="tabpanel" id="nav-desktop">
-                <div class="grid-demo-meta">
-                  <span>≥ 1024px</span><span class="grid-demo-meta-sep">·</span><span>full nav, badge + CTA visible</span>
-                </div>
-                <div class="device-preview" data-device="desktop">
-                  <div class="device-preview-inner">
-                    <div class="navdemo">
-                      <div class="left">
-                        <div class="logo"><span class="mk"></span> angelomacaione</div>
-                        <div class="links">
-                          <a href="#" class="active">Work</a>
-                          <a href="#">About</a>
-                          <a href="#">Journal</a>
-                          <a href="#">Contact</a>
-                        </div>
-                      </div>
-                      <div class="right">
-                        <button class="btn btn-primary btn-sm">Book a call</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-panel" role="tabpanel" id="nav-tablet">
-                <div class="grid-demo-meta">
-                  <span>720 – 1023px</span><span class="grid-demo-meta-sep">·</span><span>badge drops, CTA stays</span>
-                </div>
-                <div class="device-preview" data-device="tablet">
-                  <div class="device-preview-inner">
-                    <div class="navdemo navdemo-tablet">
-                      <div class="left">
-                        <div class="logo"><span class="mk"></span> angelomacaione</div>
-                        <div class="links">
-                          <a href="#" class="active">Work</a>
-                          <a href="#">About</a>
-                          <a href="#">Journal</a>
-                          <a href="#">Contact</a>
-                        </div>
-                      </div>
-                      <div class="right">
-                        <button class="btn btn-primary btn-sm">Book a call</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-panel" role="tabpanel" id="nav-mobile">
-                <div class="grid-demo-meta">
-                  <span>&lt; 720px</span><span class="grid-demo-meta-sep">·</span><span>logo + hamburger, links collapse</span>
-                </div>
-                <div class="device-preview" data-device="mobile">
-                  <div class="device-preview-inner">
-                    <div class="navdemo navdemo-mobile">
-                      <div class="left">
-                        <div class="logo"><span class="mk"></span> angelomacaione</div>
-                      </div>
-                      <div class="right">
-                        <button type="button" class="navdemo-burger" aria-label="Open menu">
-                          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="tab-panel active" role="tabpanel" id="nav-desktop"><div class="grid-demo-meta"><span>≥ 1024px</span><span class="grid-demo-meta-sep">·</span><span>full nav and the action</span></div><div class="device-preview" data-device="desktop"><div class="device-preview-inner"><div class="navbar-demo-strip"><header class="navbar"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>angelomacaione</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><button class="btn btn-primary btn-sm" type="button">Book a call</button><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header></div></div></div></div>
+              <div class="tab-panel" role="tabpanel" id="nav-tablet"><div class="grid-demo-meta"><span>720 – 1023px</span><span class="grid-demo-meta-sep">·</span><span>full nav and the action: above 720px of its own width nothing leaves</span></div><div class="device-preview" data-device="tablet"><div class="device-preview-inner"><div class="navbar-demo-strip"><header class="navbar"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>angelomacaione</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><button class="btn btn-primary btn-sm" type="button">Book a call</button><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header></div></div></div></div>
+              <div class="tab-panel" role="tabpanel" id="nav-mobile"><div class="grid-demo-meta"><span>&lt; 720px</span><span class="grid-demo-meta-sep">·</span><span>links and action move to the Drawer menu, on the side of the toggle</span></div><div class="device-preview" data-device="mobile"><div class="device-preview-inner"><div class="navbar-demo-strip"><header class="navbar"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>angelomacaione</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><button class="btn btn-primary btn-sm" type="button">Book a call</button><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header></div></div></div></div>
             </div>
-          </div>
+            </div>
+            <div class="navbar-demo-stage"><div class="grid-demo-meta"><span data-navbar-demo-meta>In a page · 1280px</span><span class="grid-demo-meta-sep">·</span><span>scroll: the bar stays</span></div><div class="device-preview" data-device="desktop"><div class="device-preview-inner"><div class="navbar-demo" data-navbar-demo><div class="navbar-demo-page"><header class="navbar"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>angelomacaione</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><button class="btn btn-primary btn-sm" type="button">Book a call</button><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="navbar-demo-drawer"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header><div class="navbar-demo-body"><h3 class="navbar-demo-title">Work</h3><div class="navbar-demo-row"><span>Orbit &middot; Onboarding flow</span><span>2026</span></div><div class="navbar-demo-row"><span>Lumen &middot; Settings redesign</span><span>2026</span></div><div class="navbar-demo-row"><span>Fern &middot; Token audit</span><span>2025</span></div><div class="navbar-demo-row"><span>Quarry &middot; Search results</span><span>2025</span></div><div class="navbar-demo-row"><span>Pebble &middot; Checkout</span><span>2024</span></div><div class="navbar-demo-row"><span>Tide &middot; Booking calendar</span><span>2024</span></div><div class="navbar-demo-row"><span>Kite &middot; Mobile navigation</span><span>2023</span></div><div class="navbar-demo-row"><span>Sketchbook</span><span>&mdash;</span></div></div></div><dialog class="drawer drawer-nav" id="navbar-demo-drawer" aria-labelledby="navbar-demo-drawer-t"><div class="drawer-head"><h2 class="drawer-title" id="navbar-demo-drawer-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-navbar-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><ul class="list"><li><a class="list-item" href="#" aria-current="page"><span class="list-body"><span class="list-title">Work</span></span></a></li><li><a class="list-item" href="#"><span class="list-body"><span class="list-title">About</span></span></a></li><li><a class="list-item" href="#"><span class="list-body"><span class="list-title">Journal</span></span></a></li><li><a class="list-item" href="#"><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav><div class="drawer-foot"><button class="btn btn-primary" type="button">Book a call</button></div></dialog></div></div></div></div>
+            </div>
         </div>
       </section>
 
@@ -7689,14 +7630,17 @@ new MutationObserver(muts => {
     if(!containerW || !innerW) return;
     const s = Math.min(1, containerW / innerW);
     inner.style.transform = 'scale(' + s + ')';
-    preview.style.height = (inner.offsetHeight * s) + 'px';
+    const h = (inner.offsetHeight * s) + 'px';
+    if(preview.style.height !== h) preview.style.height = h;
   }
   function scaleAll(){
     document.querySelectorAll('.device-preview').forEach(scale);
   }
   if('ResizeObserver' in window){
+    // scale() sets the preview's height: doing it inside the callback re-triggers the observer in the same
+    // frame ("ResizeObserver loop completed with undelivered notifications"). Defer it to the next frame.
     const ro = new ResizeObserver(entries => {
-      entries.forEach(e => scale(e.target));
+      requestAnimationFrame(() => entries.forEach(e => scale(e.target)));
     });
     document.querySelectorAll('.device-preview').forEach(p => ro.observe(p));
   }
@@ -9132,6 +9076,57 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
       f.addEventListener('keydown', function(e){
         if(e.key === 'Escape' && !f.classList.contains('is-closed')){ e.preventDefault(); setOpen(f, false); }
       });
+    });
+  })();
+
+  /* § 23.1: the bar alone in the tab card; the page below follows the tab — its width, its sticky bar, its Drawer menu.
+     Only the page's toggle opens the menu: the card's bar is a specimen. */
+  (function(){
+    document.querySelectorAll('[data-navbar-demo-scope]').forEach(function(scope){
+      var stage = scope.querySelector('[data-navbar-demo]'), preview = stage.closest('.device-preview');
+      var dlg = stage.querySelector('dialog'), title = stage.querySelector('.navbar-demo-title'), meta = scope.querySelector('[data-navbar-demo-meta]');
+      var opener = null;
+      function select(label){
+        scope.querySelectorAll('[aria-current="page"]').forEach(function(x){ x.removeAttribute('aria-current'); });
+        scope.querySelectorAll('.navbar-item').forEach(function(x){ if(x.dataset.label === label) x.setAttribute('aria-current','page'); });
+        scope.querySelectorAll('.drawer .list-item').forEach(function(x){ if(x.textContent.trim() === label) x.setAttribute('aria-current','page'); });
+        if(title) title.textContent = label;
+      }
+      function setOpen(open, from){
+        var toggles = stage.querySelectorAll('.navbar-toggle');
+        if(open){
+          opener = from; dlg.show(); stage.classList.add('is-open');
+          toggles.forEach(function(t){ t.setAttribute('aria-expanded','true'); });
+          (dlg.querySelector('[aria-current="page"]') || dlg.querySelector('a,button')).focus({preventScroll:true});
+        } else if(dlg.open){
+          dlg.close(); stage.classList.remove('is-open');
+          toggles.forEach(function(t){ t.setAttribute('aria-expanded','false'); });
+          if(opener) opener.focus({preventScroll:true});
+        }
+      }
+      function device(k){
+        setOpen(false);
+        preview.dataset.device = k;
+        var tab = scope.querySelector('.tab[data-panel="nav-' + k + '"]');
+        if(meta && tab) meta.textContent = tab.dataset.width;
+        stage.querySelector('.navbar-demo-page').scrollTop = 0;
+        // re-scale now and again two frames later: under reduced motion the global 0.01ms transition turns the
+        // width change into a transition, and a measure taken now still reads the old width
+        window.dispatchEvent(new Event('resize'));
+        requestAnimationFrame(function(){ requestAnimationFrame(function(){ window.dispatchEvent(new Event('resize')); }); });
+      }
+      scope.querySelectorAll('.tab[data-panel^="nav-"]').forEach(function(t){
+        t.addEventListener('click', function(){ device(t.dataset.panel.slice(4)); });
+      });
+      scope.addEventListener('click', function(e){
+        var a = e.target.closest('.navbar-item, .drawer .list-item');
+        if(a){ e.preventDefault(); select(a.dataset.label || a.textContent.trim()); if(a.closest('.drawer')) setOpen(false); return; }
+        if(e.target.closest('.navbar-brand')){ e.preventDefault(); return; }
+        var t = e.target.closest('.navbar-toggle'); if(t){ if(stage.contains(t)) setOpen(true, t); return; }
+        if(e.target.closest('[data-navbar-demo-close]')){ setOpen(false); return; }
+        if(stage.classList.contains('is-open') && stage.contains(e.target) && !e.target.closest('dialog')) setOpen(false);
+      });
+      scope.addEventListener('keydown', function(e){ if(e.key === 'Escape' && stage.classList.contains('is-open')){ e.preventDefault(); setOpen(false); } });
     });
   })();
 

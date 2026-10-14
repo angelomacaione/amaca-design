@@ -413,7 +413,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.2 |
 | Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
-| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` | canonical | § 3.5 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.7 |
 | Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.8 — image only |
@@ -449,7 +449,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -531,6 +531,12 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding |
 | `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
 | `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
+| `.navbar` | default | `--surface-sunken` | `1px` `--border-subtle` | `--obsidian-100` | — | the line on the bottom edge only · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
+| `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
+| `.navbar-item` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
+| `.navbar-item` | active | `--obsidian-700` | — | — | — | pressed: one step beyond the hover |
+| `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill |
+| `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item |
 | `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
@@ -824,6 +830,49 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 - **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
 - **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (§ 13 is *Chips & Feedback*: badges, alerts, toasts and tooltips are the feedback) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
 - **Top nav** for marketing only.
+
+#### Top bar
+
+The bar at the top of a page: the brand, the destinations, one action. Flat and flush; at narrow widths its links move to the Drawer menu.
+
+```html
+<header class="navbar">
+  <a class="navbar-brand" href="/"><span class="brand-mark"><img src="mark.png" alt=""></span>Name</a>
+  <nav class="navbar-nav" aria-label="Main">
+    <ul class="navbar-list">
+      <li><a class="navbar-item" href="/work" aria-current="page" data-label="Work">Work</a></li>
+      <li><a class="navbar-item" href="/about" data-label="About">About</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-end">
+    <a class="btn btn-primary btn-sm" href="/contact">Contact</a>
+    <button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"
+            aria-haspopup="dialog" aria-expanded="false" aria-controls="menu"><!-- icon "menu" --></button>
+  </div>
+</header>
+<dialog class="drawer drawer-nav" id="menu" aria-labelledby="menu-title">…</dialog>
+```
+
+| Part | Class | Spec |
+|---|---|---|
+| Bar | `.navbar` | `--surface-sunken`, a `1px` `--border-subtle` line below, no radius; min-height `--s-12`; sticky at the top on `--z-sticky` |
+| Brand | `.navbar-brand` | The Brand mark at `--s-8` and the name at `--t-body` 700; inset `--s-6` from the start edge |
+| Destinations | `.navbar-nav` `.navbar-list` `.navbar-item` | A `nav` with an `aria-label`; items as tall as the bar, padding-inline `--s-4`, `--t-small` 500 |
+| End | `.navbar-end` | One action (a small primary button) and the toggle; inset `--s-6` from the end edge |
+| Toggle | `.navbar-toggle` | A ghost icon button with the icon *menu*; shown only at narrow widths |
+
+**Rules.**
+- **Flat and flush.** No radius, no floating variant, no shadow on scroll. The bar is separated from the page by its line only.
+- **The item is the target.** Each item takes the full height of the bar, so the target is 48px wide-open (§ 6 floor #7).
+- **States.** Hover fills `--obsidian-800`; pressed goes one step further, `--obsidian-700`. The darkening rule of the pressed fill is for coloured fills; a neutral fill on the dark surface steps away from the bar, as the hover does. The current page is `--primary-400` at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against `--obsidian-200` is 1.44:1 (WCAG 1.4.1). `data-label` repeats the label so its bold width is reserved and selecting an item never moves its neighbours.
+- **Focus inside.** The ring is drawn inside the item, as on the List's row, so the bar clips nothing.
+- **It reads its own width.** The bar is a size container: at 720px of its own width or less (`--bp-md`) the destinations and the action leave and the toggle appears. The same markup works in a page, a frame or a panel.
+- **The menu opens on the toggle's side.** The toggle opens the Drawer menu (`.drawer.drawer-nav`, § 3.39) with `showModal()`; a toggle at the end opens it at the end, one at the start uses `.drawer-start`. The action moves into the drawer's foot.
+- **The glyph sits on the inset.** The toggle is pulled out by the space around its 16px glyph, so the icon lines up with the brand's edge on the other side.
+- **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.1).
+- **Motion.** Background and colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 08.3).
+
+**Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round it, float it, underline the current item or open its menu on the side opposite the toggle.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.23.
 
 ### Accordion
@@ -2519,6 +2568,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 - **A menu uses the List.** The rows are `a.list-item` of the List, at `--t-lead`; groups are named with `.drawer-label`, two levels at most.
 - **Not for a form.** A short form is a Modal, a long one a page. The drawer is for reading and for choosing where to go.
 - **Never stacked, no bottom.** A drawer opened from a drawer wants a page; one from the bottom is a different component.
+- **A menu opens on the side of its toggle.** A toggle at the end of the bar opens it at the end (the default); one at the start uses `.drawer-start`.
 - **Motion.** It slides in from its edge on `--d-base` · `--ease-decel` and the scrim fades with it; out, the same on `--ease-accel`. Reduced motion: instant (§ 08.3).
 - **No state matrix beyond `default` and `current`.** The panel is never focused or pressed (§ 3.0.1); the rows carry the List's states.
 
@@ -2778,6 +2828,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
+| Navigation · top bar | item hover / press | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |

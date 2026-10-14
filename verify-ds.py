@@ -2100,7 +2100,7 @@ def c52():
     return fails
 
 
-@check("53", "Every @media width is one of the three breakpoint tokens",
+@check("53", "Every @media and @container width is one of the three breakpoint tokens",
        "v5.0.0: the CSS and the site queried five widths (480, 600, 720, 860, 900) and the "
        "contract named none of them, so the compiler modelled no responsive behaviour and a "
        "generator picked its own. Media queries cannot read var(); the tokens are the contract "
@@ -2113,7 +2113,8 @@ def c53():
     sources = [("components.css", re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S))]
     sources += [("index.html <style>", m.group(1)) for m in re.finditer(r"<style[^>]*>(.*?)</style>", read(INDEX), re.S)]
     for where, css in sources:
-        for m in re.finditer(r"@media[^{]*", css):
+        # @container too (v5.0.0, the top bar reads its own width): a size query is a breakpoint like any other
+        for m in re.finditer(r"@(?:media|container)[^{]*", css):
             for w in re.findall(r"(?:max|min)-width:\s*(\d+)px", m.group(0)):
                 if w not in bps:
                     fails.append(f"{where}: {m.group(0).strip()} uses {w}px, not a --bp-* token")

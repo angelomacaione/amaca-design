@@ -847,24 +847,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   .chip,.chip-dismiss{transition:none}
 }
 
-/* ─────────── NAV BAR DEMO ─────────── */
-.navdemo{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:var(--s-3) var(--s-6);
-  border:var(--bw-1) solid var(--obsidian-800);
-  border-radius:var(--r-lg);
-  background:rgba(11,14,18,0.8);
-  backdrop-filter:blur(12px);
-}
-.navdemo .left{display:flex;align-items:center;gap:var(--s-8)}
-.navdemo .logo{display:flex;align-items:center;gap:var(--s-2);font-weight:700;letter-spacing:var(--tr-snug)}
-.navdemo .logo .mk{width:24px;height:24px;background:var(--grad-cube);border-radius:var(--r-sm)}
-.navdemo .links{display:flex;gap:var(--s-5)}
-.navdemo .links a{color:var(--obsidian-200);font-size:var(--t-small);font-weight:500}
-.navdemo .links a:hover{color:var(--primary-400)}
-.navdemo .links a.active{color:var(--obsidian-100)}
-.navdemo .right{display:flex;align-items:center;gap:var(--s-3)}
-
 /* ─────────── DATA-VIZ ─────────── */
 .chart-card{background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-6)}
 .chart-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:var(--s-5)}
@@ -1136,7 +1118,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .select-trigger:focus-visible,
 .lightbox-close:focus-visible,
 .replay-btn:focus-visible,
-.navdemo-burger:focus-visible,
 .tp-wheel-item:focus-visible {
   outline:var(--focus-width) solid var(--obsidian-100);
   outline-offset:var(--focus-offset);
@@ -1725,25 +1706,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .grid-demo-card .cols-mobile{grid-template-columns:repeat(4, 1fr)}
 
 
-/* ─────────── NAV DEMO · BREAKPOINT VARIANTS ─────────── */
-.navdemo-tablet .links{gap:var(--s-4)}
-.navdemo-tablet .links a{font-size:var(--t-caption)}
-.navdemo-mobile{padding:var(--s-3) var(--s-4)}
-.navdemo-mobile .logo{font-size:var(--t-small)}
-.navdemo-mobile .logo .mk{width:20px; height:20px}
-.navdemo-burger{
-  appearance:none; background:transparent; border:var(--bw-1) solid var(--obsidian-800);
-  width:36px; height:36px; border-radius:var(--r-sm);
-  color:var(--obsidian-100); display:grid; place-items:center; cursor:pointer;
-  transition:border-color var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
-}
-.navdemo-burger:hover{border-color:var(--primary-400); color:var(--primary-400)}
-.navdemo-burger svg{width:16px; height:16px}
-
-
-/* ─────────── NAV DEMO · DEVICE FRAME WIDTHS ─────────── */
-#nav-tablet .navdemo{max-width:720px; margin:0 auto}
-#nav-mobile .navdemo{max-width:380px; margin:0 auto}
 
 
 /* ─────────── DEVICE PREVIEW · FIXED WIDTHS WITH SCALING ─────────── */
@@ -1760,10 +1722,9 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .device-preview[data-device="desktop"] .device-preview-inner{width:1280px}
 .device-preview[data-device="tablet"]  .device-preview-inner{width:768px}
 .device-preview[data-device="mobile"]  .device-preview-inner{width:380px}
-
-/* drop the old hard max-width overrides — preview now controls it */
-#nav-tablet .navdemo,
-#nav-mobile .navdemo{max-width:none; margin:0}
+/* the global reduced-motion rule gives every property a near-zero transition, and the frame measured
+   after a device change still read the old width: the frame width never transitions */
+@media (prefers-reduced-motion: reduce){ .device-preview-inner{transition:none !important} }
 
 
 /* ─────────── AI RULES LIST · § 17.4 ─────────── */
@@ -2723,6 +2684,69 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 @keyframes drawer-demo-in{from{transform:translateX(100%)}to{transform:none}}
 @keyframes drawer-demo-in-start{from{transform:translateX(-100%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.drawer-demo .drawer[open]{animation:none}}
+
+/* ─── § 3.5 Navigation · top bar — brand, destinations, one action. Flat, flush, items as tall as the bar ───
+   The bar is its own container: at 720px of its OWN width or less the list and the action leave and the
+   toggle opens the Drawer menu, on the toggle's side. One markup, whatever the frame or the page. */
+.navbar{
+  container-type:inline-size;
+  position:sticky; top:0; z-index:var(--z-sticky);
+  display:flex; align-items:stretch; gap:var(--s-8);
+  min-block-size:var(--s-12);
+  padding-inline:0;
+  background:var(--surface-sunken);
+  border-bottom:var(--bw-1) solid var(--border-subtle);
+  border-radius:0;
+  color:var(--obsidian-100);
+}
+.navbar-brand{padding-inline-start:var(--s-6); display:flex; align-items:center; gap:var(--s-3); flex:none; color:var(--obsidian-100); font-size:var(--t-body); font-weight:700; letter-spacing:var(--tr-snug); text-decoration:none}
+.navbar-brand .brand-mark{width:var(--s-8); height:var(--s-8)}
+.navbar-brand .brand-mark img{width:var(--s-6); height:var(--s-6)}
+.navbar-nav{display:flex; align-items:stretch}
+.navbar-list{display:flex; align-items:stretch; margin:0; padding:0; list-style:none}
+.navbar-list > li{display:flex}
+.navbar-item{
+  display:inline-flex; flex-direction:column; justify-content:center; align-items:center;
+  padding-inline:var(--s-4);
+  color:var(--obsidian-200); font-size:var(--t-small); font-weight:500; text-decoration:none; white-space:nowrap;
+  cursor:pointer;
+  transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
+}
+/* the label's bold width is reserved, so selecting an item never moves its neighbours */
+.navbar-item::after{content:attr(data-label); height:0; overflow:hidden; visibility:hidden; font-weight:600; pointer-events:none}
+.navbar-item:hover{background:var(--obsidian-800); color:var(--obsidian-100)}
+.navbar-item:active{background:var(--obsidian-700)}
+.navbar-item[aria-current="page"]{color:var(--primary-400); font-weight:600}
+.navbar-item[aria-current="page"]:hover{color:var(--primary-400)}
+.navbar-item:focus-visible{outline:var(--focus-width) solid var(--obsidian-100); outline-offset:calc(-1 * var(--focus-width)); box-shadow:var(--ring-halo)}  /* inside the item, as the List's row: the bar clips nothing */
+.navbar-end{padding-inline-end:var(--s-6); display:flex; align-items:center; gap:var(--s-3); margin-left:auto; flex:none}
+.navbar-toggle{display:none}
+/* the glyph, not the button, sits on the bar's inset: the button is pulled out by the space around its 16px glyph,
+   so the icon lines up with the brand's edge */
+.navbar-end > .navbar-toggle{margin-inline-end:calc((var(--icon-sm) - var(--s-10)) / 2)}
+@media (pointer:coarse){ .navbar-end > .navbar-toggle{margin-inline-end:calc((var(--icon-sm) - var(--target-touch)) / 2)} }
+@container (max-width: 720px){
+  .navbar-nav,.navbar-end > .btn-primary{display:none}
+  .navbar-toggle{display:inline-flex}
+}
+
+/* site chrome, § 23.1: the bar alone in the tab card, and a page below it that follows the tab — its width,
+   its sticky bar, its Drawer menu. Only the page's toggle opens the menu; the card's bar is a specimen. */
+.navbar-demo-strip{background:var(--surface);border:var(--bw-1) solid var(--border-subtle)}
+.navbar-demo-strip .navbar{position:static;border-bottom:0}
+.navbar-demo-stage{margin-top:var(--s-6)}
+.navbar-demo-stage .grid-demo-meta{margin-bottom:var(--s-3)}
+.navbar-demo{position:relative;overflow:hidden;overflow:clip;height:calc(9 * var(--s-10));background:var(--surface);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}
+.device-preview[data-device="mobile"] .navbar-demo{height:calc(14 * var(--s-10))}
+.navbar-demo-page{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--obsidian-700) transparent}
+.navbar-demo-body{padding:var(--s-8) var(--s-6) var(--s-16);display:grid;gap:var(--s-4)}
+.navbar-demo-title{margin:0;color:var(--obsidian-100);font-size:var(--t-h4);font-weight:700;letter-spacing:var(--tr-snug)}
+.navbar-demo-row{display:flex;justify-content:space-between;gap:var(--s-4);padding-block:var(--s-4);border-bottom:var(--bw-1) solid var(--border-subtle);color:var(--obsidian-300);font-size:var(--t-small)}
+.navbar-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:var(--z-scrim);opacity:0;pointer-events:none;transition:opacity var(--d-base) var(--ease-accel)}
+.navbar-demo.is-open::before{opacity:1;pointer-events:auto;transition-timing-function:var(--ease-decel)}
+.navbar-demo .drawer{position:absolute;inset-block:0;z-index:var(--z-menu);width:min(86%, calc(30ch + 2 * var(--pad)))}
+.navbar-demo .drawer[open]{display:flex;transition:none;animation:drawer-demo-in var(--d-base) var(--ease-decel)}
+@media (prefers-reduced-motion:reduce){.navbar-demo .drawer[open]{animation:none}.navbar-demo::before{transition:none}}
 
 /* ─── Loader compositions (§ 17.3) — frames for the demo cards ─── */
 .loader-comp{
