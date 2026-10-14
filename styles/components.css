@@ -472,29 +472,30 @@
 .input:disabled,.textarea:disabled,.select:disabled{opacity:0.4;cursor:not-allowed}
 .input[readonly],.textarea[readonly]{background:var(--obsidian-900);color:var(--obsidian-300)}
 .input::placeholder,.textarea::placeholder{color:var(--obsidian-400)}
-.input-wrap{position:relative}
-.input-wrap .input{padding-left:var(--s-8)}
-.input-wrap .icon{position:absolute;left:var(--s-3);top:50%;transform:translateY(-50%);color:var(--obsidian-300);width:var(--icon-sm);height:var(--icon-sm)}
+.input-wrap{position:relative;width:100%}
+.input-wrap > .icon{position:absolute;left:var(--s-3);top:50%;transform:translateY(-50%);color:var(--obsidian-300);pointer-events:none}
+.input-wrap:has(> .icon) .input{padding-left:var(--s-8)}
+.input-wrap:has(> .input-action) .input{padding-right:var(--s-10)}
+.input[type="search"]::-webkit-search-cancel-button,.input[type="search"]::-webkit-search-decoration{-webkit-appearance:none;appearance:none}  /* one clear button, ours */
 .help{font-size:var(--t-caption);color:var(--obsidian-400)}
 .help.error{color:var(--danger)}
 
 /* ─────────── DATE PICKER ─────────── */
-/* Trail-icon variant: icon sits on the right, inside the input box, as a click target */
-.input-wrap-trail{position:relative;width:100%}
-.input-wrap-trail .input{padding-left:var(--s-3);padding-right:var(--s-10)}
-.input-wrap-trail .dp-icon-btn{
+/* ─────────── INPUT ACTION ─────────── */
+/* A button inside the field, on the right: open a calendar, clear the value. A 32px target in the 40px field. */
+.input-action{
   position:absolute;right:var(--s-1);top:50%;transform:translateY(-50%);
   display:grid;place-items:center;
   width:32px;height:32px;border:0;background:transparent;cursor:pointer;
   color:var(--obsidian-300);border-radius:var(--r-sm);
   transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
-.input-wrap-trail .dp-icon-btn:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
-.input-wrap-trail .dp-icon-btn:focus-visible{
+.input-action:hover{color:var(--obsidian-100);background:var(--obsidian-800)}
+.input-action:focus-visible{
   outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--s-px);
   box-shadow:var(--ring-halo);color:var(--obsidian-100);
 }
-.input-wrap-trail .dp-icon-btn svg{width:16px;height:16px}
+.input:placeholder-shown ~ .input-action[data-input-clear],.input[readonly] ~ .input-action[data-input-clear],.input:disabled ~ .input-action{visibility:hidden}  /* nothing to clear, or nothing to edit */
 
 /* Popover */
 .dp-wrap{position:relative}
@@ -726,7 +727,7 @@
 }
 
 @media (prefers-reduced-motion: reduce){
-  .dp-popover,.dp-day,.dp-year,.dp-nav,.dp-title,.dp-today-btn,.dp-icon-btn{transition:none}
+  .dp-popover,.dp-day,.dp-year,.dp-nav,.dp-title,.dp-today-btn,.input-action{transition:none}
 }
 
 /* checkbox & switch */

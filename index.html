@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=4efea6dc">
+<link rel="stylesheet" href="styles/components.css?v=608f57d8">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1227,10 +1227,10 @@ Basic UI</div>
                 <label class="label">Project name</label>
                 <input class="input" placeholder="e.g. Arc Automotive HMI"/>
               </div><div class="field">
-                <label class="label">Search — with icon</label>
+                <label class="label" for="in-icon">Search — with icon</label>
                 <div class="input-wrap">
                   <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
-                  <input class="input" placeholder="Search the archive…"/>
+                  <input class="input" id="in-icon" type="search" placeholder="Search the archive…"/>
                 </div>
               </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
                 <label class="label">Summary</label>
@@ -1240,6 +1240,39 @@ Basic UI</div>
                 <label class="label">Error state</label>
                 <input class="input" value="bad-url" aria-invalid="true" aria-describedby="slug-error"/>
                 <span class="help error" id="slug-error">Slug must be lowercase with hyphens.</span>
+              </div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Search</h2><span class="subsection-num">§ 09.2</span></div>
+          <p class="subsection-desc">The icon on the left says what the field is for; the clear button on the right appears once there is something to clear. Enter submits the form. Type in the first one to try it. A search has no error state: no results is a result, shown where the results go.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><form role="search" onsubmit="return false"><div class="field">
+                <label class="label" for="in-search-live">Search — try it</label>
+                <div class="input-wrap">
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+                  <input class="input" id="in-search-live" type="search" value="arc hmi" placeholder="Search the archive…"/>
+                  <button type="button" class="input-action" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                </div>
+              </div></form><div class="field">
+                <label class="label" for="in-search-empty">Empty — the clear button is hidden</label>
+                <div class="input-wrap">
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+                  <input class="input" id="in-search-empty" type="search" placeholder="Search the archive…"/>
+                  <button type="button" class="input-action" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                </div>
+              </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
+                <label class="label" for="in-search-dis">Disabled</label>
+                <div class="input-wrap">
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+                  <input class="input" id="in-search-dis" type="search" value="arc hmi" placeholder="Search the archive…" disabled/>
+                  <button type="button" class="input-action" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                </div>
+              </div><div class="field">
+                <label class="label" for="in-search-ro">Readonly</label>
+                <div class="input-wrap">
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+                  <input class="input" id="in-search-ro" type="search" value="arc hmi" placeholder="Search the archive…" readonly/>
+                  <button type="button" class="input-action" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                </div>
               </div></div></div>
         </div>
       </section>
@@ -1367,14 +1400,14 @@ Basic UI</div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label" for="ds-date-input">Departure date</label>
                 <div class="dp-wrap">
-                  <div class="input-wrap input-wrap-trail">
+                  <div class="input-wrap">
                     <input class="input" type="text" id="ds-date-input"
                       data-date-input
                       placeholder="DD/MM/YYYY"
                       autocomplete="off"
                       maxlength="10"
                       inputmode="numeric"/>
-                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                    <button type="button" class="input-action" aria-label="Open calendar" data-dp-trigger>
                       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
@@ -1384,7 +1417,7 @@ Basic UI</div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label" for="ds-date-input-bound">With min · max</label>
                 <div class="dp-wrap">
-                  <div class="input-wrap input-wrap-trail">
+                  <div class="input-wrap">
                     <input class="input" type="text" id="ds-date-input-bound"
                       data-date-input
                       data-min="2026-05-01"
@@ -1393,7 +1426,7 @@ Basic UI</div>
                       autocomplete="off"
                       maxlength="10"
                       inputmode="numeric"/>
-                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                    <button type="button" class="input-action" aria-label="Open calendar" data-dp-trigger>
                       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
@@ -1403,7 +1436,7 @@ Basic UI</div>
               <div class="field">
                 <label class="label" for="ds-date-input-err">Error state</label>
                 <div class="dp-wrap">
-                  <div class="input-wrap input-wrap-trail">
+                  <div class="input-wrap">
                     <input class="input" type="text" id="ds-date-input-err"
                       value="31/02/2026"
                       autocomplete="off"
@@ -1411,7 +1444,7 @@ Basic UI</div>
                       inputmode="numeric"
                       aria-invalid="true"
                       style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
-                    <button type="button" class="dp-icon-btn" aria-label="Open calendar" tabindex="-1">
+                    <button type="button" class="input-action" aria-label="Open calendar" tabindex="-1">
                       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
@@ -1449,21 +1482,21 @@ Basic UI</div>
                 <label class="label">Reporting period</label>
                 <div class="dp-wrap" data-range-group>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)">
-                    <div class="input-wrap input-wrap-trail">
+                    <div class="input-wrap">
                       <input class="input" type="text" data-range-start
                         placeholder="DD/MM/YYYY"
                         autocomplete="off" maxlength="10" inputmode="numeric"
                         aria-label="Start date"/>
-                      <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                      <button type="button" class="input-action" aria-label="Open calendar" data-dp-trigger>
                         <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                       </button>
                     </div>
-                    <div class="input-wrap input-wrap-trail">
+                    <div class="input-wrap">
                       <input class="input" type="text" data-range-end
                         placeholder="DD/MM/YYYY"
                         autocomplete="off" maxlength="10" inputmode="numeric"
                         aria-label="End date"/>
-                      <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
+                      <button type="button" class="input-action" aria-label="Open calendar" data-dp-trigger>
                         <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                       </button>
                     </div>
@@ -1516,14 +1549,14 @@ Basic UI</div>
               <div class="field" style="margin-bottom:var(--s-4)">
                 <label class="label" for="ds-time-input">Orario</label>
                 <div class="tp-wrap">
-                  <div class="input-wrap input-wrap-trail">
+                  <div class="input-wrap">
                     <input class="input" type="text" id="ds-time-input"
                       data-time-input
                       placeholder="es. 18:00"
                       autocomplete="off"
                       maxlength="5"
                       inputmode="numeric"/>
-                    <button type="button" class="dp-icon-btn" aria-label="Open time picker" data-tp-trigger>
+                    <button type="button" class="input-action" aria-label="Open time picker" data-tp-trigger>
                       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/></svg>
                     </button>
                   </div>
@@ -8735,6 +8768,17 @@ try {
     });
   });
 })();
+
+// Text input · clear button: empty the field, tell the listeners, give focus back
+document.addEventListener('click', function(e){
+  var b = e.target.closest('[data-input-clear]');
+  if(!b) return;
+  var f = b.parentElement.querySelector('.input');
+  if(!f) return;
+  f.value = '';
+  f.dispatchEvent(new Event('input', {bubbles:true}));
+  f.focus();
+});
 </script>
 </body>
 </html>

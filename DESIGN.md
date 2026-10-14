@@ -410,7 +410,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Component | Classes | State | Spec |
 |---|---|---|---|
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.1 |
-| Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-wrap-trail` `.help` | canonical | § 3.2 |
+| Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.2 |
 | Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` | canonical | § 3.5 |
@@ -423,7 +423,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Loader | `.loader-*` · `.skeleton-line` `.skeleton-stack` | canonical | § 3.12 — Skeleton is a part of the Loader, not a component |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
-| Date picker | `.dp-wrap` `.dp-icon-btn` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
+| Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
 | Table | `.table` | canonical | § 3.16 |
 | Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
@@ -497,6 +497,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
+| `.input-action` | default | transparent | none | `--obsidian-300` | — | 32px target in the 40px field · `--r-sm` |
+| `.input-action` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
+| `.input-action` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -660,13 +663,16 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
   <input class="input" value="Bad URL" aria-invalid="true" aria-describedby="slug-error">
   <span class="help error" id="slug-error">Lowercase with hyphens.</span>
 </label>
-<label class="field">
-  <span class="label">SEARCH</span>
-  <span class="input-wrap">
-    <svg class="icon" aria-hidden="true">…</svg>
-    <input class="input" type="search" placeholder="Search the archive…">
-  </span>
-</label>
+<form role="search">
+  <div class="field">
+    <label class="label" for="q">SEARCH</label>
+    <div class="input-wrap">
+      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+      <input class="input" id="q" type="search" placeholder="Search the archive…">
+      <button class="input-action" type="button" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+    </div>
+  </div>
+</form>
 <label class="field">
   <span class="label">SUMMARY</span>
   <textarea class="textarea" rows="4" placeholder="Two sentences."></textarea>
@@ -685,7 +691,11 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.1). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
-- **States: § 3.0.1.** `default` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index. No state is described in prose here.
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index (`hover` is the `.input-action`; `error` is not a search state). No state is described in prose here.
+- **Icon left.** A `.icon` as a direct child of `.input-wrap`: decorative (`aria-hidden`), `--icon-sm`, `--obsidian-300`, no click. The field pads `--s-8` on the left to clear it.
+- **Action right.** `.input-action`: a `<button type="button">` last in the `.input-wrap`, 32px square, `--r-sm`, `--icon-sm`, `--obsidian-300` and `--obsidian-100` on hover. The field pads `--s-10` on the right. It carries an `aria-label`: it has no text. The date picker and the time picker use this same part (§ 3.15).
+- **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.32. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
+- **Search.** The field sits in `<form role="search">` with `type="search"`, so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field.
 
 ### Card
 
@@ -1310,9 +1320,9 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 ```html
 <div class="dp-wrap">
-  <div class="input-wrap-trail">
+  <div class="input-wrap">
     <input class="input" type="text" readonly value="12 Aug 2026" aria-haspopup="dialog" aria-expanded="false">
-    <button class="dp-icon-btn" type="button" aria-label="Open calendar"><svg>…</svg></button>
+    <button class="input-action" type="button" aria-label="Open calendar"><svg>…</svg></button>
   </div>
   <div class="dp-popover" role="dialog" aria-label="Choose a date" hidden>
     <div class="dp-header">
