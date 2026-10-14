@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=ad3f15a8">
+<link rel="stylesheet" href="styles/components.css?v=984f336a">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1288,12 +1288,12 @@ Basic UI</div>
         <div class="page-header">
           <div class="page-eyebrow">§ 10 · Inputs / Select</div>
           <h1 class="page-title">Choices, <span class="accent">in one place.</span></h1>
-          <p class="page-lede">A closed list of options behind one trigger. The menu opens below and flips only when the room runs out.</p>
+          <p class="page-lede">A list of options, a number on a slider or a set of actions, behind one trigger. The panel opens below and flips only when the room runs out.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.</li><li>Four or more options, or little room on screen. <span class="usage-ref">Polaris, Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Two or three options → Radio, all of them visible. <span class="usage-ref">Carbon, Polaris</span></li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.</li><li>Four or more options, or little room on screen. <span class="usage-ref">Polaris, Carbon</span></li><li>A number set by feel rather than typed, such as a price → the Slider variant. <span class="usage-ref">Polaris</span></li><li>Actions on an item that do not fit on screen → the Menu variant. <span class="usage-ref">Carbon, Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Two or three options → Radio, all of them visible. <span class="usage-ref">Carbon, Polaris</span></li><li>A value the person must hit exactly → Text input.</li><li>A place to go → Navigation or Link. <span class="usage-ref">APG, Pajamas</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 10.1</span></div>
-          <p class="subsection-desc">Two variants: the native <code>&lt;select&gt;</code> for short lists, the custom listbox when options need a look of their own. Both open below the trigger and flip only when there is no room.</p>
+          <p class="subsection-desc">The native <code>&lt;select&gt;</code> for short lists, the custom listbox when options need a look of their own. The chosen option keeps the magenta text and gains a check after its label; a disabled option stays visible and the arrow keys skip it. Both open below the trigger and flip only when there is no room.</p>
           <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
                 <label class="label" for="priority-native">Priority — native select</label>
                 <select class="select" id="priority-native">
@@ -1309,12 +1309,105 @@ Basic UI</div>
                     <span class="select-value">Draft</span>
                   </button>
                   <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
-                    <li class="select-option" role="option" aria-selected="true" data-value="Draft">Draft</li>
-                    <li class="select-option" role="option" aria-selected="false" data-value="Pending">Pending</li>
-                    <li class="select-option" role="option" aria-selected="false" data-value="Published">Published</li>
+                    <li class="select-option" role="option" aria-selected="true" data-value="Draft"><span class="select-option-label">Draft</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Pending"><span class="select-option-label">Pending</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Published"><span class="select-option-label">Published</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" aria-disabled="true" data-value="Archived"><span class="select-option-label">Archived</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
                   </ul>
                 </div>
               </div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Groups</h2><span class="subsection-num">§ 10.2</span></div>
+          <p class="subsection-desc">A long list splits into named groups: a heading in the grammar of the label, a full-bleed divider between groups. Typing a letter jumps to the next option that starts with it.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
+                <label class="label" id="region-label">Region</label>
+                <div class="select-wrap" data-select>
+                  <button type="button" class="select select-trigger" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="region-label">
+                    <span class="select-value">Lisbon</span>
+                  </button>
+                  <ul class="select-menu" role="listbox" aria-labelledby="region-label" hidden>
+                    <li class="select-group" id="g-eu" role="presentation">Europe</li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Berlin"><span class="select-option-label">Berlin</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="true" data-value="Lisbon"><span class="select-option-label">Lisbon</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Oslo"><span class="select-option-label">Oslo</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-divider" role="separator"></li>
+                    <li class="select-group" id="g-am" role="presentation">Americas</li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Montréal"><span class="select-option-label">Montréal</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Santiago"><span class="select-option-label">Santiago</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                    <li class="select-option" role="option" aria-selected="false" data-value="Toronto"><span class="select-option-label">Toronto</span><svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></li>
+                  </ul>
+                </div>
+              </div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Slider</h2><span class="subsection-num">§ 10.3</span></div>
+          <p class="subsection-desc">A number set without typing it. The field is the same; the panel holds one Slider, with one handle or two, and the field shows the value while it moves. Esc puts back the value the panel opened with.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
+                <span class="label" id="max-label">Max price</span>
+                <div class="select-wrap" data-select-slider data-format="Up to ">
+                  <button type="button" class="select select-trigger" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="max-label max-value"><span class="select-value" id="max-value">Up to €80</span></button>
+                  <div class="select-menu select-menu-slider" role="dialog" aria-labelledby="max-label" hidden>
+                    <div class="slider" data-unit="€"><input class="slider-input" type="range" min="0" max="200" step="5" value="80" aria-labelledby="max-label"><div class="slider-scale"><span>€0</span><span>€200</span></div></div>
+                  </div>
+                </div>
+              </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
+                <span class="label" id="range-label">Price</span>
+                <div class="select-wrap" data-select-slider>
+                  <button type="button" class="select select-trigger" aria-haspopup="dialog" aria-expanded="false" aria-labelledby="range-label range-value"><span class="select-value" id="range-value">€40 – €140</span></button>
+                  <div class="select-menu select-menu-slider" role="dialog" aria-labelledby="range-label" hidden>
+                    <div class="slider" data-unit="€"><div class="slider-pair" role="group" aria-labelledby="range-label"><input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price"><input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price"></div><div class="slider-scale"><span>€0</span><span>€200</span></div></div>
+                  </div>
+                </div>
+              </div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Menu</h2><span class="subsection-num">§ 10.4</span></div>
+          <p class="subsection-desc">Actions behind a labelled button or a kebab. The same panel and row, with an icon in front and a shortcut after; the destructive action comes last, after a divider. A kebab at the end of a row opens inward.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4);align-items:flex-start">
+                <div class="select-wrap" data-menu style="width:auto">
+                  <button type="button" class="btn btn-secondary" id="act-btn" aria-haspopup="menu" aria-expanded="false">Actions <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5"/></svg></button>
+                  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="act-btn" hidden>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.75l2.75 2.75-7.5 7.5L2.5 13.5l.5-3.25z"/><path d="M9 4.25l2.75 2.75"/></svg><span class="select-option-label">Rename</span><span class="select-kbd">R</span></li>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg><span class="select-option-label">New from this draft</span><span class="select-kbd">N</span></li>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg><span class="select-option-label">Download</span></li>
+                    <li class="select-option" role="menuitem" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg><span class="select-option-label">Restore version</span></li>
+                    <li class="select-divider" role="separator"></li>
+                    <li class="select-option select-option-danger" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 4.5h11M6 4.5V3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1.5"/><path d="M3.75 4.5l.6 8.4a1 1 0 0 0 1 .95h5.3a1 1 0 0 0 1-.95l.6-8.4"/><path d="M6.75 7v4M9.25 7v4"/></svg><span class="select-option-label">Delete</span></li>
+                  </ul>
+                </div>
+              </div><div class="card" style="padding:var(--s-6)"><ul class="list">
+                <li><div class="list-item"><div class="list-body"><span class="list-title">Spring field notes</span><span class="list-meta">Edited 2 days ago</span></div><div class="list-end"><div class="select-wrap" data-menu style="width:auto">
+                  <button type="button" class="btn btn-ghost btn-icon" id="kebab-1" aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Spring field notes"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/></svg></button>
+                  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="kebab-1" hidden>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10.5 2.75l2.75 2.75-7.5 7.5L2.5 13.5l.5-3.25z"/><path d="M9 4.25l2.75 2.75"/></svg><span class="select-option-label">Rename</span></li>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg><span class="select-option-label">Download</span></li>
+                    <li class="select-divider" role="separator"></li>
+                    <li class="select-option select-option-danger" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 4.5h11M6 4.5V3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1.5"/><path d="M3.75 4.5l.6 8.4a1 1 0 0 0 1 .95h5.3a1 1 0 0 0 1-.95l.6-8.4"/><path d="M6.75 7v4M9.25 7v4"/></svg><span class="select-option-label">Delete</span></li>
+                  </ul>
+                </div></div></div></li>
+                <li><div class="list-item"><div class="list-body"><span class="list-title">Harbour survey, draft 3</span><span class="list-meta">Edited last week</span></div><div class="list-end"><div class="select-wrap" data-menu style="width:auto">
+                  <button type="button" class="btn btn-ghost btn-icon" id="kebab-2" aria-haspopup="menu" aria-expanded="false" aria-label="More actions for Harbour survey, draft 3"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/></svg></button>
+                  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="kebab-2" hidden>
+                    <li class="select-option" role="menuitem"><span class="select-option-label">Move to a collection with a name long enough to truncate</span></li>
+                    <li class="select-option" role="menuitem"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg><span class="select-option-label">Download</span></li>
+                  </ul>
+                </div></div></div></li>
+              </ul></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 10.5</span></div>
+          <p class="subsection-desc">A choice stays, an action runs, a number slides. The panel finds its own room.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Open the panel below the field and above it only when the bottom edge would clip it; open a kebab at the end of a row inward, aligned to its end. Put a destructive action last, after a divider, and one Slider at most in a panel.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Pin the panel below a field at the bottom of the screen, or let it cover what the person still needs, such as a composer. Use a Menu to hold a value, mix a Slider with options, or put two Sliders in one panel.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -6451,68 +6544,66 @@ new MutationObserver(muts => {
 })();
 </script>
 <script>
-// --- custom select dropdowns — § Dropdown / Select, variant B ---
-// Placement is the contract's, measured at open: fixed to the trigger's rect;
-// below by default, flipped above only when the menu does not fit below AND
-// above has more room; max-height = min(the CSS cap, room on the chosen side),
-// internal scroll beyond it; clamped horizontally to the viewport. A fixed menu
+// --- custom select dropdowns — § Dropdown / Select, variants B, C and D ---
+// One panel, one placement, three uses: a listbox (B), a Slider in a dialog (C),
+// a menu of actions (D). Placement is the contract's, measured at open: fixed to
+// the trigger's rect; below by default, flipped above only when the panel does
+// not fit below AND above has more room; max-height = min(the CSS cap, room on
+// the chosen side), internal scroll beyond it; clamped horizontally to the
+// viewport, and a Menu opens toward the middle of the viewport. A fixed panel
 // closes on page scroll and resize (its coordinates would drift from the
 // trigger), never on its own internal scroll. Gap and edge margin are read off
 // :root at open time (runtime-token anti-drift), never copied here.
 (function(){
-  const wraps = Array.from(document.querySelectorAll('[data-select]'));
+  const all = [];
   function tok(name){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0; }
-  function closeOthers(keep){ wraps.forEach(function(w){ if(w !== keep && w._close) w._close(false); }); }
+  function closeOthers(keep){ all.forEach(function(w){ if(w !== keep && w._close) w._close(false); }); }
 
-  wraps.forEach(function(wrap){
-    const trigger = wrap.querySelector('.select-trigger');
-    const menu = wrap.querySelector('.select-menu');
-    const value = wrap.querySelector('.select-value');
-    const opts = Array.from(wrap.querySelectorAll('.select-option'));
-    opts.forEach(function(o){ o.tabIndex = -1; });
+  // fit: 'trigger' = the trigger's width (B, C) · 'content' = grows to its longest item (D)
+  function place(trigger, menu, fit){
+    const gap = tok('--s-1'), edge = tok('--s-2');
+    const r = trigger.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    menu.classList.add('is-fixed');
+    ['top','left','width','maxHeight','minWidth'].forEach(function(p){ menu.style[p] = ''; });
+    // A transformed ancestor (the section's entrance animation leaves one)
+    // becomes the containing block of a fixed element. Measure where (0,0)
+    // lands and subtract it, so the math below stays in viewport space.
+    menu.style.top = '0px'; menu.style.left = '0px';
+    const o = menu.getBoundingClientRect();
+    const cap = parseFloat(getComputedStyle(menu).maxHeight) || Infinity;
+    if(fit === 'content') menu.style.minWidth = Math.max(r.width, tok('--s-32')) + 'px';
+    else menu.style.width = Math.min(r.width, vw - 2 * edge) + 'px';
+    // The natural height, borders included, rounded up: scrollHeight rounds and
+    // skips the border, so a panel that fits could get a max-height a fraction
+    // short of itself and grow a scrollbar it does not need.
+    menu.style.maxHeight = 'none';
+    const natural = Math.ceil(menu.getBoundingClientRect().height);
+    const w = Math.min(Math.ceil(menu.getBoundingClientRect().width), vw - 2 * edge);
+    const need = Math.min(natural, cap);
+    const below = vh - r.bottom - gap - edge;
+    const above = r.top - gap - edge;
+    const flip = need > below && above > below;
+    const room = Math.max(0, Math.min(cap, flip ? above : below));
+    // A Menu opens toward the middle: a trigger in the right half anchors the panel's end.
+    const end = fit === 'content' && (r.left + r.width / 2) > vw / 2;
+    const x = end ? Math.min(Math.max(r.right - w, edge), vw - edge - w)
+                  : Math.min(Math.max(r.left, edge), vw - edge - w);
+    // Scroll only when the panel is really shortened.
+    menu.style.maxHeight = (natural <= room ? natural : Math.floor(room)) + 'px';
+    if(fit === 'content') menu.style.width = w + 'px';
+    const y = flip ? r.top - gap - menu.offsetHeight : r.bottom + gap;   // offsetHeight: the rendered box, borders included
+    menu.style.left = (x - o.left) + 'px';
+    menu.style.top = (y - o.top) + 'px';
+    menu.dataset.placement = (flip ? 'above' : 'below') + (end ? '-end' : '-start');
+    return { top: r.top, left: r.left };
+  }
 
+  // Open / close plumbing shared by the three variants: one panel open at a time.
+  function panel(wrap, trigger, menu, fit, onClose){
     let anchor = null;
-    function place(){
-      const gap = tok('--s-1'), edge = tok('--s-2');
-      const r = trigger.getBoundingClientRect();
-      const vw = document.documentElement.clientWidth, vh = window.innerHeight;
-      menu.classList.add('is-fixed');
-      ['top','left','width','maxHeight'].forEach(function(p){ menu.style[p] = ''; });
-      // A transformed ancestor (the section's entrance animation leaves one)
-      // becomes the containing block of a fixed element. Measure where (0,0)
-      // lands and subtract it, so the math below stays in viewport space.
-      menu.style.top = '0px'; menu.style.left = '0px';
-      const o = menu.getBoundingClientRect();
-      const cap = parseFloat(getComputedStyle(menu).maxHeight) || Infinity;
-      // The natural height, borders included, rounded up: scrollHeight rounds and
-      // skips the border, so a menu that fits could get a max-height a fraction
-      // short of itself and grow a scrollbar it does not need.
-      menu.style.maxHeight = 'none';
-      const natural = Math.ceil(menu.getBoundingClientRect().height);
-      const need = Math.min(natural, cap);
-      const below = vh - r.bottom - gap - edge;
-      const above = r.top - gap - edge;
-      const flip = need > below && above > below;
-      const room = Math.max(0, Math.min(cap, flip ? above : below));
-      const w = Math.min(r.width, vw - 2 * edge);
-      const x = Math.min(Math.max(r.left, edge), vw - edge - w);
-      // Scroll only when the menu is really shortened.
-      menu.style.maxHeight = (natural <= room ? natural : Math.floor(room)) + 'px';
-      menu.style.width = w + 'px';
-      const y = flip ? r.top - gap - menu.offsetHeight : r.bottom + gap;   // offsetHeight: the rendered box, borders included
-      menu.style.left = (x - o.left) + 'px';
-      menu.style.top = (y - o.top) + 'px';
-      menu.dataset.placement = flip ? 'above' : 'below';
-      anchor = { top: r.top, left: r.left };
-    }
-    function reveal(o){
-      o.focus({preventScroll: true});
-      if(o.offsetTop < menu.scrollTop) menu.scrollTop = o.offsetTop;
-      else if(o.offsetTop + o.offsetHeight > menu.scrollTop + menu.clientHeight)
-        menu.scrollTop = o.offsetTop + o.offsetHeight - menu.clientHeight;
-    }
     // Close when the page moves the trigger, not on every scroll event: the
-    // menu's own internal scroll never closes it, and a scroll that leaves the
+    // panel's own internal scroll never closes it, and a scroll that leaves the
     // anchor where it was (a late smooth-scroll frame) is not a drift.
     function onScroll(e){
       if(e.target === menu || menu.contains(e.target)) return;
@@ -6524,52 +6615,153 @@ new MutationObserver(muts => {
       closeOthers(wrap);
       menu.hidden = false;
       trigger.setAttribute('aria-expanded', 'true');
-      place();
+      anchor = place(trigger, menu, fit);
       window.addEventListener('scroll', onScroll, true);
       window.addEventListener('resize', onResize);
-      reveal(opts.find(function(o){ return o.getAttribute('aria-selected') === 'true'; }) || opts[0]);
     }
-    function close(refocus){
+    function close(refocus, how){
       if(menu.hidden) return;
+      if(onClose) onClose(how || 'commit');
       menu.hidden = true;
       trigger.setAttribute('aria-expanded', 'false');
       menu.classList.remove('is-fixed');
-      ['top','left','width','maxHeight'].forEach(function(p){ menu.style[p] = ''; });
+      ['top','left','width','maxHeight','minWidth'].forEach(function(p){ menu.style[p] = ''; });
       delete menu.dataset.placement;
       anchor = null;
       window.removeEventListener('scroll', onScroll, true);
       window.removeEventListener('resize', onResize);
       if(refocus) trigger.focus();
     }
-    function commit(o){
-      opts.forEach(function(x){ x.setAttribute('aria-selected', 'false'); });
-      o.setAttribute('aria-selected', 'true');
-      value.textContent = o.dataset.value || o.textContent;
-      close(true);
-    }
     wrap._close = close;
+    all.push(wrap);
+    menu.addEventListener('click', function(e){ e.stopPropagation(); });
+    return { open: open, close: close };
+  }
+
+  // B · listbox and D · menu: options, arrows without wrap, typeahead.
+  document.querySelectorAll('[data-select],[data-menu]').forEach(function(wrap){
+    const isMenu = wrap.hasAttribute('data-menu');
+    const trigger = wrap.firstElementChild;
+    const menu = wrap.querySelector('.select-menu');
+    const value = wrap.querySelector('.select-value');
+    const opts = Array.from(wrap.querySelectorAll('.select-option'));
+    const live = function(){ return opts.filter(function(o){ return o.getAttribute('aria-disabled') !== 'true'; }); };
+    opts.forEach(function(o){ o.tabIndex = -1; });
+    const p = panel(wrap, trigger, menu, isMenu ? 'content' : 'trigger');
+    let typed = '', typedAt = 0;
+    function reveal(o){
+      if(!o) return;
+      o.focus({preventScroll: true});
+      if(o.offsetTop < menu.scrollTop) menu.scrollTop = o.offsetTop;
+      else if(o.offsetTop + o.offsetHeight > menu.scrollTop + menu.clientHeight)
+        menu.scrollTop = o.offsetTop + o.offsetHeight - menu.clientHeight;
+    }
+    function open(where){
+      p.open();
+      const L = live();
+      if(isMenu) reveal(where === 'last' ? L[L.length - 1] : L[0]);
+      else reveal(L.find(function(o){ return o.getAttribute('aria-selected') === 'true'; }) || L[0]);
+    }
+    function commit(o){
+      if(o.getAttribute('aria-disabled') === 'true') return;
+      if(!isMenu){
+        opts.forEach(function(x){ x.setAttribute('aria-selected', 'false'); });
+        o.setAttribute('aria-selected', 'true');
+        value.textContent = o.dataset.value || o.textContent.trim();
+      }
+      p.close(true);
+    }
+    function typeahead(ch){
+      const now = Date.now();
+      typed = (now - typedAt < 500 ? typed : '') + ch.toLowerCase();
+      typedAt = now;
+      const L = live(), i = L.indexOf(document.activeElement);
+      const order = L.slice(i + 1).concat(L.slice(0, i + 1));
+      reveal(order.find(function(o){ return o.textContent.trim().toLowerCase().indexOf(typed) === 0; }));
+    }
 
     trigger.addEventListener('click', function(e){
       e.stopPropagation();
-      if(menu.hidden) open(); else close(false);
+      if(menu.hidden) open('first'); else p.close(false);
     });
     trigger.addEventListener('keydown', function(e){
-      if(e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown'){ e.preventDefault(); if(menu.hidden) open(); }
+      if(e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown'){ e.preventDefault(); if(menu.hidden) open('first'); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); if(menu.hidden) open(isMenu ? 'last' : 'first'); }
     });
     opts.forEach(function(o){
       o.addEventListener('click', function(e){ e.stopPropagation(); commit(o); });
     });
     menu.addEventListener('keydown', function(e){
-      const i = opts.indexOf(document.activeElement);
-      if(e.key === 'ArrowDown'){ e.preventDefault(); reveal(opts[Math.min(i + 1, opts.length - 1)]); }
-      else if(e.key === 'ArrowUp'){ e.preventDefault(); reveal(opts[Math.max(i - 1, 0)]); }
-      else if(e.key === 'Home'){ e.preventDefault(); reveal(opts[0]); }
-      else if(e.key === 'End'){ e.preventDefault(); reveal(opts[opts.length - 1]); }
-      else if(e.key === 'Escape'){ e.preventDefault(); close(true); }
-      else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(i > -1) commit(opts[i]); }
-      else if(e.key === 'Tab'){ close(false); }   // no preventDefault: focus proceeds to the next stop
+      const L = live(), i = L.indexOf(document.activeElement);
+      if(e.key === 'ArrowDown'){ e.preventDefault(); reveal(L[Math.min(i + 1, L.length - 1)]); }
+      else if(e.key === 'ArrowUp'){ e.preventDefault(); reveal(L[Math.max(i - 1, 0)]); }
+      else if(e.key === 'Home'){ e.preventDefault(); reveal(L[0]); }
+      else if(e.key === 'End'){ e.preventDefault(); reveal(L[L.length - 1]); }
+      else if(e.key === 'Escape'){ e.preventDefault(); p.close(true); }
+      else if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); if(i > -1) commit(L[i]); }
+      else if(e.key === 'Tab'){ p.close(false); }   // no preventDefault: focus proceeds to the next stop
+      else if(e.key.length === 1 && /\S/.test(e.key) && !e.metaKey && !e.ctrlKey && !e.altKey){ e.preventDefault(); typeahead(e.key); }
     });
   });
+
+  // C · Slider: one Slider per panel, single or range; the field shows the value live.
+  document.querySelectorAll('[data-select-slider]').forEach(function(wrap){
+    const trigger = wrap.querySelector('.select-trigger');
+    const menu = wrap.querySelector('.select-menu');
+    const value = wrap.querySelector('.select-value');
+    const box = menu.querySelector('.slider'), pair = menu.querySelector('.slider-pair');
+    const ins = Array.from(menu.querySelectorAll('.slider-input'));
+    const unit = box.dataset.unit || '', prefix = wrap.dataset.format || '';
+    let before = null;
+    function paint(){
+      const min = +ins[0].min, span = ins[0].max - min;
+      if(pair){
+        pair.style.setProperty('--lo', (ins[0].value - min) / span * 100 + '%');
+        pair.style.setProperty('--hi', (ins[1].value - min) / span * 100 + '%');
+        value.textContent = unit + ins[0].value + ' – ' + unit + ins[1].value;
+      } else {
+        ins[0].style.setProperty('--p', (ins[0].value - min) / span * 100 + '%');
+        value.textContent = prefix + unit + ins[0].value;
+      }
+    }
+    ins.forEach(function(inp, k){
+      inp.addEventListener('input', function(){
+        // the lower handle cannot pass the upper; they can meet
+        if(pair && k === 0 && +ins[0].value > +ins[1].value) ins[0].value = ins[1].value;
+        if(pair && k === 1 && +ins[1].value < +ins[0].value) ins[1].value = ins[0].value;
+        paint();
+      });
+    });
+    paint();
+    const p = panel(wrap, trigger, menu, 'trigger', function(how){
+      if(how === 'cancel' && before){ ins.forEach(function(inp, k){ inp.value = before[k]; }); paint(); }
+      before = null;
+    });
+    function open(){
+      before = ins.map(function(i){ return i.value; });
+      p.open();
+      ins[0].focus({preventScroll: true});
+    }
+    trigger.addEventListener('click', function(e){
+      e.stopPropagation();
+      if(menu.hidden) open(); else p.close(false);
+    });
+    trigger.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown'){ e.preventDefault(); if(menu.hidden) open(); }
+    });
+    menu.addEventListener('keydown', function(e){
+      const i = ins.indexOf(document.activeElement);
+      if(e.key === 'Escape'){ e.preventDefault(); p.close(true, 'cancel'); }
+      else if(e.key === 'Enter'){ e.preventDefault(); p.close(true, 'commit'); }
+      else if(e.key === 'Tab'){
+        // Tab moves between the handles; past the last, or before the first, it commits and leaves
+        const n = i + (e.shiftKey ? -1 : 1);
+        if(n >= 0 && n < ins.length){ e.preventDefault(); ins[n].focus({preventScroll: true}); }
+        else p.close(false, 'commit');
+      }
+    });
+  });
+
   document.addEventListener('click', function(){ closeOthers(null); });
 })();
 </script>

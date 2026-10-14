@@ -431,12 +431,37 @@
    default. */
 .select-menu.is-fixed{position:fixed;right:auto}
 .select-option{
+  display:flex;align-items:center;gap:var(--s-2);min-width:0;
   padding:var(--s-2);border-radius:calc(var(--r-md) - var(--r-xs));
   font-family:var(--font-sans);font-size:var(--t-small);color:var(--obsidian-100);
   cursor:pointer;transition:background var(--d-quick) var(--ease-standard);
 }
 .select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
 .select-option[aria-selected="true"]{color:var(--primary-400)}
+/* Select · Menu (v5.0.0, § 3.10). One panel and one row for three uses: a value
+   chosen from a list (variant B, listbox), a number set on a Slider (variant C,
+   dialog) and an action run from a Menu (variant D, menu). The row: a leading
+   icon, the label (one line, ellipsis), then a check that follows the text
+   (variant B) or a shortcut (variant D). The check's room is reserved on every
+   row so labels never move when the choice changes. */
+.select-option-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.select-option > .icon{width:var(--icon-xs);height:var(--icon-xs);color:var(--obsidian-300)}
+.select-check{width:var(--icon-xs);height:var(--icon-xs);visibility:hidden}
+.select-option > .select-check{color:inherit}
+.select-option[aria-selected="true"] .select-check{visibility:visible}
+.select-kbd{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)}
+.select-group{padding:var(--s-2) var(--s-2) var(--s-1);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300);cursor:default}
+.select-divider{height:var(--bw-1);margin:var(--s-1) calc(-1 * var(--s-1));padding:0;background:var(--obsidian-700);list-style:none}
+.select-option-danger,.select-option-danger > .icon{color:var(--danger)}
+.select-option[aria-disabled="true"]{opacity:0.4;cursor:not-allowed}
+.select-option[aria-disabled="true"]:hover{background:transparent}
+/* Variant D: the Menu grows to its longest item, from the trigger (at least
+   --s-32) to the drawer menu's measure, then truncates. */
+.select-menu-actions{width:max-content;min-width:var(--s-32);max-width:calc(30ch + 2 * var(--s-1))}
+/* Variant C: one Slider (§ 3.35), single or range, the width of the field. The
+   label and the value stay in the field; the panel holds the track and the scale. */
+.select-menu-slider{padding:var(--s-3) var(--s-4) var(--s-2)}
+.select-menu-slider .slider{gap:var(--s-1)}
 /* Native select placement, progressive enhancement (v4.2.2). Where the
    customizable select ships (Chromium 135+), the picker is a styleable popover
    anchored to the control: it opens below and flips above when the bottom edge
@@ -1130,6 +1155,10 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
     transition-duration:0.01ms !important;
     scroll-behavior:auto !important;
   }
+  /* The select panel's box is measured and written by script at open: it never
+     transitions. The 0.01ms above gives every property a transition, and the
+     script read the start of one and opened the panel off screen (v5.0.0). */
+  .select-menu{transition:none !important}
 }
 
 

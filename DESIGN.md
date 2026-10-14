@@ -418,7 +418,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.7 |
 | Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.8 — image only |
 | Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.9 |
-| Dropdown · Select | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` | canonical | § 3.10 |
+| Dropdown · Select · Menu | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` `.select-option-label` `.select-check` `.select-kbd` `.select-group` `.select-divider` `.select-option-danger` · menu: `.select-menu-actions` · slider: `.select-menu-slider` | canonical | § 3.10 — three variants share the panel: listbox, Slider (dialog), Menu |
 | Chat · Messaging | `.chat-*` | canonical | § 3.11 |
 | Loader | `.loader-*` | canonical | § 3.12 |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
@@ -542,7 +542,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
-| `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` |
+| `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` · check after the label, in the text colour |
+| `.select-option` | disabled | — | — | — | none | `aria-disabled="true"` · opacity 0.4 · skipped by the arrow keys and typeahead |
+| `.select-option-danger` | default | — | — | `--danger` | — | text and icon · last, after a `.select-divider` · hover stays the row's neutral one |
+| `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below |
 | `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | |
 | `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` |
 | `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
@@ -1021,17 +1024,23 @@ document.getElementById("time-input").addEventListener("input", function () {
 
 ### Dropdown / Select
 
-Two variants. Pick the smallest that covers the requirement.
+One trigger, one panel, three uses. A value chosen from a list is a **Select**; a number set without typing it is a **Select with a Slider**; an action run on an item is a **Menu**. The three share the panel (`.select-menu`), its placement and its row (`.select-option`); they keep their own ARIA roles. Pick the smallest variant that covers the requirement.
 
 **Usage**
 
 *Use it when*
 - Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.
 - Four or more options, or little room on screen. *(Polaris, Carbon)*
+- A number set by feel rather than typed, such as a price → the Slider variant. *(Polaris)*
+- Actions on an item that do not fit on screen → the Menu variant. *(Carbon, Atlassian)*
 
 *Use something else when*
 - Two or three options → Radio, all of them visible. *(Carbon, Polaris)*
+- A value the person must hit exactly → Text input.
+- A place to go → Navigation or Link. *(APG, Pajamas)*
 
+
+**The rule that separates them: a choice stays, an action runs.** A Select holds a value and shows it in its trigger; a Menu holds none, runs the action and closes. A Menu never carries radio or checkbox items: a choice that stays is a Select. A link to another page is not a Menu item, it is Navigation.
 
 #### A. Native enhanced — `<select class="select">`
 
@@ -1055,9 +1064,9 @@ Default choice. Use when options are fixed, short, no custom rendering required.
 
 **Placement — progressive enhancement (v4.2.2).** Where the customizable select ships (`@supports (appearance: base-select)`, Chromium today), `select.select` and its `::picker(select)` take `appearance: base-select`. The picker then follows variant B's placement rule: it opens below the control and flips above only when the bottom edge would clip it (`position-try-order: normal` + `position-try-fallbacks: flip-block`; the UA default instead picks the roomier side). It carries the same surface as `.select-menu`, and `::picker-icon` is hidden so the background chevron stays the only chevron. Elsewhere the OS popup stays, and the exception above still applies.
 
-#### B. Custom listbox
+#### B. Custom listbox — `<button class="select-trigger">`
 
-Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (avatars, badges, two-line items), grouped headings beyond `<optgroup>`.
+Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (icons, avatars, badges), grouped headings beyond `<optgroup>`.
 
 ```html
 <div class="select-wrap" data-select>
@@ -1066,9 +1075,12 @@ Reach for this only when native can't carry the requirement: search/filter insid
     <span class="select-value">Draft</span>
   </button>
   <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
-    <li class="select-option" role="option" aria-selected="true" data-value="Draft">Draft</li>
-    <li class="select-option" role="option" aria-selected="false" data-value="Pending">Pending</li>
-    <li class="select-option" role="option" aria-selected="false" data-value="Published">Published</li>
+    <li class="select-option" role="option" aria-selected="true" data-value="Draft">
+      <span class="select-option-label">Draft</span>
+      <svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true"><!-- icon "check" --></svg>
+    </li>
+    <li class="select-option" role="option" aria-selected="false" data-value="Pending">…</li>
+    <li class="select-option" role="option" aria-selected="false" aria-disabled="true" data-value="Archived">…</li>
   </ul>
 </div>
 ```
@@ -1077,20 +1089,83 @@ Reach for this only when native can't carry the requirement: search/filter insid
 - `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
 - **Keyboard focus on the trigger is the pressable ring**, not the field glow: the `.input` `.textarea` `.select` | focus-visible row of the state index does not apply to `.select-trigger`, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from `.select:focus`.
 - `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it — measure the menu's natural height with `getBoundingClientRect()` rounded up (not `scrollHeight`, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
-- `.select-option[aria-selected="true"]` rendered in `--primary-400`. Hover/focus background is `--obsidian-800`.
-- Only one menu open at a time — opening one closes any other `[data-select] .select-menu:not([hidden])`.
+- **The panel never transitions.** Its box is measured and written by script at open; under reduced motion the global 0.01ms rule gives every property a transition, and a script that reads the start of one places the panel off screen. `.select-menu` carries `transition:none` inside the reduced-motion override (v5.0.0).
+- `.select-option[aria-selected="true"]` is rendered in `--primary-400`, with a **check after the label** (`.select-check`, the album's *check*, 14px) in the colour of the text. The check's room is reserved on every row, so labels never move when the choice changes. Hover/focus background is `--obsidian-800`.
+- Only one menu open at a time — opening one closes any other open `.select-menu`.
 
 **Keyboard:**
-- `Enter`/`Space` on trigger opens.
-- `↓`/`↑` navigate options; `Home`/`End` jump to the first and last. First open lands on the currently selected option (`aria-selected="true"`), or the first if none.
-- `Enter` on focused option commits + closes; trigger receives focus back.
+- `Enter`/`Space`/`↓` on trigger opens.
+- `↓`/`↑` navigate options; `Home`/`End` jump to the first and last; no wrap from the last to the first. First open lands on the currently selected option (`aria-selected="true"`), or the first if none.
+- A printable character jumps to the next option that starts with the letters typed (typeahead, 500ms).
+- `Enter`/`Space` on focused option commits + closes; trigger receives focus back.
 - `Esc` closes without committing; trigger receives focus back.
 - `Tab` from open menu closes and proceeds.
 
 **Dismissal:**
-- Click outside the `[data-select]` wrapper closes the menu.
+- Click outside the wrapper closes the menu.
 - A **fixed-position** (viewport-aware) menu also closes on `resize`, and on a page `scroll` that moves the trigger. Its anchored coordinates would otherwise drift from the trigger. Scrolling **inside the menu** never closes it.
 - Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
+
+#### C. Slider — `<div class="select-menu-slider">`
+
+A number set without typing it, such as a price. The field is variant B's trigger; the panel holds **one** Slider (§ 3.35) instead of a list.
+
+```html
+<span class="label" id="price-label">Price</span>
+<div class="select-wrap" data-select-slider>
+  <button type="button" class="select select-trigger" aria-haspopup="dialog"
+    aria-expanded="false" aria-labelledby="price-label price-value">
+    <span class="select-value" id="price-value">€40 – €140</span>
+  </button>
+  <div class="select-menu select-menu-slider" role="dialog" aria-labelledby="price-label" hidden>
+    <div class="slider">
+      <div class="slider-pair" role="group" aria-labelledby="price-label">
+        <input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price">
+        <input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price">
+      </div>
+      <div class="slider-scale"><span>€0</span><span>€200</span></div>
+    </div>
+  </div>
+</div>
+```
+
+- **One Slider per panel**, single or range (a range is one Slider with two handles, § 3.35). Never a Slider together with options, never two Sliders. Check 63 holds it.
+- The panel is the width of the field and holds the track and the scale. The label and the value stay in the field: the trigger shows the value, formatted (`Up to €80`, `€40 – €140`), and follows it live while the handle moves.
+- A listbox may own options only, so the panel is a **non-modal dialog**: `aria-haspopup="dialog"` on the trigger, `role="dialog"` on the panel, named by the field's label. Placement is variant B's.
+- Keyboard: opening puts the focus on the first handle; the arrows, `Home`/`End` and `PageUp`/`PageDown` adjust it (the range input's own keys); `Tab` moves to the second handle. **`Esc` cancels**: the value goes back to what it was when the panel opened, and the panel closes. `Enter`, a click outside, or `Tab` past the last handle **commit** and close. Focus returns to the trigger.
+
+#### D. Menu — `<ul class="select-menu-actions">`
+
+Actions on an item, behind one button. The panel and the row are variant B's; the roles are the menu button's (APG): `aria-haspopup="menu"` on the trigger, `role="menu"` on the panel, `role="menuitem"` on each row.
+
+```html
+<div class="select-wrap" data-menu>
+  <button type="button" class="btn btn-secondary" id="actions-btn"
+    aria-haspopup="menu" aria-expanded="false">Actions <svg class="icon" …><!-- icon "chevron-down" --></svg></button>
+  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="actions-btn" hidden>
+    <li class="select-option" role="menuitem"><svg class="icon" …><!-- icon "edit" --></svg>
+      <span class="select-option-label">Rename</span><span class="select-kbd">R</span></li>
+    <li class="select-option" role="menuitem" aria-disabled="true">…</li>
+    <li class="select-divider" role="separator"></li>
+    <li class="select-option select-option-danger" role="menuitem">…<span class="select-option-label">Delete</span></li>
+  </ul>
+</div>
+```
+
+| Part | Class | Rule |
+|---|---|---|
+| Trigger | `.btn.btn-secondary` or `.btn.btn-ghost.btn-icon` | A labelled button with the *chevron-down* icon, or an icon-only button with the *kebab* icon and an `aria-label` that names the item. The chevron does not turn |
+| Panel | `.select-menu.select-menu-actions` | At least the trigger and at least `--s-32`; grows to the longest item; stops at the drawer menu's measure (30ch + padding) and truncates |
+| Row | `.select-option` | Leading icon (14px, `--obsidian-300`), label (`.select-option-label`, one line, ellipsis), shortcut after it (`.select-kbd`) |
+| Group heading | `.select-group` | The `.label` grammar: mono, micro, uppercase, `--obsidian-300` |
+| Divider | `.select-divider` | `--bw-1` of `--obsidian-700`, full bleed (the panel's inset taken back), `--s-1` above and below |
+| Danger | `.select-option-danger` | Text and icon `--danger` (6.1:1 on the panel); the hover stays neutral. Always last, after a divider |
+| Disabled | `[aria-disabled="true"]` | Opacity 0.4, skipped by the arrow keys and by typeahead |
+
+- **Horizontal placement: toward the middle.** A trigger in the left half of the viewport aligns the panel to its start; in the right half, to its end, so a kebab at the end of a row opens inward. Then the viewport clamp of variant B. The vertical rule is variant B's.
+- Keyboard (APG menu button): `Enter`/`Space`/`↓` open on the first item, `↑` on the last; `↓`/`↑`, `Home`/`End` and typeahead as in variant B, no wrap; `Enter`/`Space` runs the item and closes; `Esc` closes; focus returns to the trigger; `Tab` closes and proceeds.
+
+**Do / Don't.** Do open the panel below the field and above it only when the bottom edge would clip it, open a kebab at the end of a row inward, put a destructive action last after a divider, and keep one Slider at most in a panel. Don't pin the panel below a field at the bottom of the screen or let it cover what the person still needs, use a Menu to hold a value, mix a Slider with options, or put two Sliders in one panel.
 
 ### Chat & Messaging
 

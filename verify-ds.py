@@ -2517,6 +2517,85 @@ def c62():
     return fails
 
 
+from html.parser import HTMLParser
+
+
+class _Panels(HTMLParser):
+    """Every .select-menu of a page: its role, and the sliders and options it holds."""
+    VOID = {"input", "img", "br", "hr", "meta", "link", "source", "area", "col", "embed", "wbr", "track", "param"}
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack, self.panels, self.line = [], [], 0
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        cls = (a.get("class") or "").split()
+        for p in self.stack:
+            if p is not None:
+                if "slider" in cls:
+                    p["sliders"] += 1
+                if "select-option" in cls:
+                    p["options"] += 1
+        if tag in self.VOID:
+            return
+        if "select-menu" in cls:
+            self.stack.append({"role": a.get("role", ""), "id": a.get("id") or a.get("aria-labelledby") or a.get("aria-label") or "?",
+                               "line": self.getpos()[0], "sliders": 0, "options": 0, "tag": tag, "depth": 0})
+            self.panels.append(self.stack[-1])
+        elif self.stack and self.stack[-1] is not None:
+            self.stack[-1]["depth"] += 1
+
+    def handle_endtag(self, tag):
+        if tag in self.VOID or not self.stack:
+            return
+        top = self.stack[-1]
+        if top["depth"]:
+            top["depth"] -= 1
+        else:
+            self.stack.pop()
+
+
+@check("63", "A select panel holds one Slider at most, never beside options, and a panel with a Slider is a dialog",
+       "v5.0.0: the Select gained a third use, a number set on a Slider (§ Dropdown / Select, "
+       "variant C), and its author set the rule with it: one Slider per panel. A listbox may own "
+       "options only and a menu menu items only, so a Slider beside options would be announced as "
+       "nothing, and two Sliders in one panel make a filter form out of a field. The rule is the "
+       "contract's; this holds every panel on the site to it.")
+def c63():
+    fails = []
+    for path in (INDEX,):
+        p = _Panels()
+        p.feed(read(path))
+        for panel in p.panels:
+            where = f"{path.name}:{panel['line']} .select-menu ({panel['id']})"
+            if panel["sliders"] > 1:
+                fails.append(f"{where}: {panel['sliders']} Sliders — one per panel")
+            if panel["sliders"] and panel["options"]:
+                fails.append(f"{where}: a Slider beside {panel['options']} option(s) — a panel holds one or the other")
+            if panel["sliders"] and panel["role"] != "dialog":
+                fails.append(f"{where}: holds a Slider with role=\"{panel['role']}\" — the Slider variant is role=\"dialog\"")
+    return fails
+
+
+@check("64", "A panel the script places never transitions, also under reduced motion",
+       "v5.0.0: with reduced motion on, the custom Select opened its panel off screen — trigger at "
+       "y 779, panel at y -284, at 390 and at 1440px. The reduced-motion override gives every "
+       "property a 0.01ms transition, so the top and left the script wrote at open became "
+       "transitions, and the script read their first frame back. A box measured and written by "
+       "script must never transition: `.select-menu` carries `transition:none` inside the "
+       "override, and no rule gives it a transition.")
+def c64():
+    css = read(COMPONENTS)
+    fails = []
+    if not any(re.search(r"\.select-menu\s*\{[^}]*transition\s*:\s*none", body) for _, _, body in _rm_blocks(css)):
+        fails.append("components.css: no `.select-menu{transition:none}` inside the reduced-motion override")
+    for sel, decls in _css_rule_list(css):
+        if re.search(r"\.select-menu(?![\w-])", sel) and "transition" in decls and decls["transition"].split()[0] != "none":
+            fails.append(f"components.css: {sel} sets transition: {decls['transition']}")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args
