@@ -593,7 +593,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 <button class="btn btn-primary" disabled>Unavailable</button>
 <button class="btn btn-primary is-loading" disabled aria-label="Submitting">Submit <span class="loader loader-xs" role="status" aria-hidden="true">…</span></button>
 <button class="btn btn-secondary"><svg class="icon" aria-hidden="true">…</svg> New case study</button>
-<button class="btn btn-ghost btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
+<button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
 ```
 
 | Variant | Background | Text | Use |
@@ -1817,7 +1817,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 <dialog class="modal" aria-labelledby="del-title">
   <div class="modal-head">
     <h2 class="modal-title" id="del-title">Delete the project?</h2>
-    <button class="btn btn-ghost btn-icon" aria-label="Close" data-modal-close>&times;</button>
+    <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close" data-modal-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
   </div>
   <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
   <div class="modal-foot">
@@ -1831,7 +1831,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 |---|---|---|
 | Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
 | Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
-| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a ghost icon button, § 3.1 |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.1, pulled out by `--s-2` so the glyph — not its 32px target — lines up with the content edge |
 | Body | `.modal-body` | `--t-body`, `--obsidian-200` |
 | Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
 
