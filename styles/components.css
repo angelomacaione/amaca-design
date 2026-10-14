@@ -2718,7 +2718,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .drawer-demo > .drawer-demo-open{align-items:flex-end;padding:var(--s-6)}
 .drawer-demo-page{padding:var(--s-6)}
 .drawer-demo-row{display:flex;justify-content:space-between;padding-block:var(--s-3);border-bottom:var(--bw-1) solid var(--obsidian-800);color:var(--obsidian-300)}
-.drawer-demo .drawer[open]{animation:drawer-demo-in var(--d-base) var(--ease-decel)}
+.drawer-demo .drawer[open]{transition:none;animation:drawer-demo-in var(--d-base) var(--ease-decel)}
 .drawer-demo .drawer-start[open]{animation-name:drawer-demo-in-start}
 @keyframes drawer-demo-in{from{transform:translateX(100%)}to{transform:none}}
 @keyframes drawer-demo-in-start{from{transform:translateX(-100%)}to{transform:none}}
