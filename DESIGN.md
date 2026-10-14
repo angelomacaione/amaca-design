@@ -318,8 +318,8 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 |---|---|
 | `--sh-1` | Resting card |
 | `--sh-2` | Hover lift |
-| `--sh-3` | Floating panel |
-| `--sh-4` | Modal / drawer |
+| `--sh-3` | Floating panel, drawer |
+| `--sh-4` | Modal |
 | `--sh-glow` | Brand bloom — the `.btn-primary` hover, listed before `--sh-3` so the bloom paints over the drop |
 | `--sh-glow-soft` | Ambient brand glow (rare) |
 | `--sh-menu` | Select menu and native picker — a floating list over content |
@@ -337,7 +337,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 **Usage**
 
 *Use it when*
-- Rectangles inside the 8–12px working range; `--r-xl` for modal and drawer, `--r-2xl` for a hero block.
+- Rectangles inside the 8–12px working range; `--r-xl` for the hero of a case study, `--r-2xl` for a hero block.
 - `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle).
 
 *Use something else when*
@@ -351,7 +351,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 | `--r-sm` | `4` | Tags, kbd keys |
 | `--r-md` | `8` | **Default — buttons, inputs, small cards** |
 | `--r-lg` | `12` | **Large cards, panels** |
-| `--r-xl` | `16` | Modal, drawer |
+| `--r-xl` | `16` | Case study hero |
 | `--r-2xl` | `24` | Hero block |
 | `--r-full` | `999px` | Pills, status dots |
 
@@ -447,8 +447,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.36 |
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
+| Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -526,6 +527,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion |
 | `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` |
 | `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` |
+| `.drawer` | default | `--obsidian-800` | none | `--obsidian-100` | `--sh-3` | no radius · padding `--s-6` · width 45ch plus the padding · the page behind it is `--scrim` · never focusable |
+| `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding |
+| `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
+| `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
 | `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
@@ -1869,6 +1874,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 - A message that needs no answer → Alert or Toast. *(Carbon, Polaris)*
 - Content that is long or the person will come back to → a page. *(GOV.UK)*
 - An image to look at closely → Lightbox.
+- A menu or text from the edge, with the page still visible behind it → Drawer.
 
 ```html
 <dialog class="modal" aria-labelledby="del-title">
@@ -2406,6 +2412,7 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - Short text with nothing to click → Tooltip.
 - The content is wider than 360 px, or the person must answer before going on → Modal. *(Carbon)*
 - A list of actions → a menu.
+- A menu or text that needs the full height of the screen → Drawer.
 
 ```html
 <!-- read-only: auto, closes on a click outside or Escape -->
@@ -2451,6 +2458,71 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 08.3).
 
 **Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
+
+### Drawer
+
+A modal anchored to a side of the screen: a menu or a piece of text, flush with the edge, the page still visible behind a scrim. It is the modal's surface and scrim without the window.
+
+**Usage**
+
+*Use it when*
+- A menu or a few groups of links that open from the edge: the main navigation on a small screen. *(Material 3, Carbon)*
+- Text or details of one item that need the full height: release notes, the facts of a row. *(Atlassian)*
+
+*Use something else when*
+- A decision to answer before going on, or a short form → Modal.
+- A long form, or work that deserves its own address → a page.
+- A panel that stays beside the page → a layout, not a Drawer.
+- Short text tied to one button → Popover.
+
+```html
+<button class="btn btn-secondary" type="button" data-modal-open="menu">Open menu</button>
+
+<dialog class="drawer drawer-nav drawer-start" id="menu" aria-labelledby="menu-title">
+  <div class="drawer-head">
+    <h2 class="drawer-title" id="menu-title">Menu</h2>
+    <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+  <nav class="drawer-body" aria-label="Main">
+    <p class="drawer-label">Work</p>
+    <ul class="list">
+      <li><a class="list-item" href="/case-studies" aria-current="page"><span class="list-body"><span class="list-title">Case studies</span></span></a></li>
+      <li><a class="list-item" href="/design-system"><span class="list-body"><span class="list-title">Design system</span></span></a></li>
+    </ul>
+  </nav>
+</dialog>
+
+<!-- text: the same dialog, a body and a foot -->
+<dialog class="drawer" id="notes" aria-labelledby="notes-title">
+  <div class="drawer-head"><h2 class="drawer-title" id="notes-title">Release notes</h2>…</div>
+  <div class="drawer-body"><p>…</p></div>
+  <div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div>
+</dialog>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Panel | `.drawer` | `--obsidian-800`, no radius, no edge, `--sh-3`, padding `--s-6`, full height, on the end side; width 45ch plus the padding |
+| Menu | `.drawer-nav` | The side menu: padding `--s-4`, width 30ch plus the padding, text `--t-lead`; its rows are the List's |
+| Side | `.drawer-start` | On the start side; the default is the end |
+| Wide | `.drawer-wide` | 60ch plus the padding, for text with longer lines |
+| Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button |
+| Body | `.drawer-body` `.drawer-label` | Scrolls on its own; the label names a group in mono, micro, uppercase |
+| Foot | `.drawer-foot` | Actions at the end over a hairline; absent in a menu |
+
+**Rules.**
+- **A modal, anchored.** The modal's surface, padding and scrim; no radius, since it sits flush with the edge. The shadow is one step below the modal's (`--sh-3` against `--sh-4`), so it takes no edge.
+- **Open it with `showModal()`.** As the modal: focus is trapped, the page behind is inert and does not scroll, `Esc` closes, and focus returns to the button that opened it. It has the same `data-modal-open` and `data-modal-close` hooks.
+- **The title is the name.** `aria-labelledby` points at `.drawer-title`; the menu is a `nav` with an `aria-label`, and the current page carries `aria-current="page"`.
+- **Closing.** `Esc` always closes, and so does a click on the scrim, except when the drawer holds data not yet saved. The close button is always present. A click on a link of the menu closes it too.
+- **The width is a line.** 45 characters plus the padding for text, 30 for a menu, never wider than the screen; at 480px or less it takes the full width.
+- **A menu uses the List.** The rows are `a.list-item` of the List, at `--t-lead`; groups are named with `.drawer-label`, two levels at most.
+- **Not for a form.** A short form is a Modal, a long one a page. The drawer is for reading and for choosing where to go.
+- **Never stacked, no bottom.** A drawer opened from a drawer wants a page; one from the bottom is a different component.
+- **Motion.** It slides in from its edge on `--d-base` · `--ease-decel` and the scrim fades with it; out, the same on `--ease-accel`. Reduced motion: instant (§ 08.3).
+- **No state matrix beyond `default` and `current`.** The panel is never focused or pressed (§ 3.0.1); the rows carry the List's states.
+
+**Do / Don't.** Do use it for a menu or a text the person reads with the page still behind it, and name it with its title. Don't put a form in it, stack one drawer on another, or make it a panel that stays on the page.
 
 ## Do's and Don'ts
 
@@ -2704,6 +2776,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |
 | Popover | open | opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
+| Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
+| Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
