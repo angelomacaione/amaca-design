@@ -436,6 +436,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
+| Link | `.link` | canonical | § 3.29 |
 | Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
@@ -532,6 +533,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box |
+| `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` |
+| `.link` | hover | — | — | `--primary-300` | — | underline thickens to `--bw-2` |
+| `.link` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.link` | active | — | — | `--primary-500` | — | lasts as long as the press |
+| `.link` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged, the colour carries it · no `href` |
 
 ### § 3.0.2 Stacking
 
@@ -1740,6 +1746,38 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
 
 **Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.4 Badge, and the giveaway is that nobody can remove it.
+
+### Link
+
+Text that **takes the reader to another page or resource**. It lives inside running text or on its own line, it is underlined at rest, and it is the only element that does this: an action on the current page is a Button (§ 3.1).
+
+**Usage**
+
+*Use it when*
+- Going to another page, document or resource, in a sentence or on its own line. *(Carbon, Atlassian)*
+- A reference the reader may want to follow: the spec, the source, the next page. *(GOV.UK)*
+
+*Use something else when*
+- An action on the current page: submit, save, open a panel → Button. *(Carbon, Atlassian)*
+- A trail of the current hierarchy → Breadcrumb.
+- Switching between views of the same content → Tabs.
+
+```html
+<p>Every value is <a class="link" href="/spec">derived from the compiler</a>.</p>
+
+<a class="link" aria-disabled="true">Read the case study</a>
+```
+
+- **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.18).
+- **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
+- **No visited state.** In an application the colour of a link carries no history, and a second colour would need its own contrast pair.
+- **Focus:** the pressable ring — outline `--focus-width` `--obsidian-100`, offset `--focus-offset`, `--ring-halo`, radius `--r-sm`.
+- **The label names the destination.** "The spec", never "click here" and never a bare URL; a link that opens a file or another site says so in the label.
+- **Disabled** is an anchor without `href` carrying `aria-disabled="true"`: `--obsidian-400`, `cursor: not-allowed`. A disabled link is rare; if the destination is not available, prefer plain text.
+- **Not a button.** A link that triggers an action on the page is a defect: it is announced as navigation and cannot be pressed with Space. Use § 3.1.
+- **States: § 3.0.1** — `default` · `hover` · `focus-visible` · `active` · `disabled`. Motion: the colour and the thickness on `--d-quick` · `--ease-standard`, in the § 8.3 index.
+
+**Do / Don't.** Do put the link on the words that name the destination. Don't use a link for an action on the current page — that is § 3.1 Button.
 
 ## Do's and Don'ts
 

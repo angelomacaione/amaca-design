@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=96fbf8df">
-<link rel="stylesheet" href="styles/components.css?v=38cc26b8">
+<link rel="stylesheet" href="styles/components.css?v=a69a92cb">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -160,6 +160,7 @@ html{scroll-behavior:smooth}
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Actions</div>
       <a class="nav-item" href="#button" data-target="button"><span class="num">08</span> Button</a>
+      <a class="nav-item" href="#link" data-target="link"><span class="num">42</span> Link</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -1150,6 +1151,45 @@ Basic UI</div>
             <button class="btn btn-secondary btn-icon btn-lg" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
             <button class="btn btn-ghost btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
             <button class="btn btn-outline btn-icon" aria-label="Add item" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="link">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 42 · Actions / Link</div>
+          <h1 class="page-title">Go there, <span class="accent">underlined.</span></h1>
+          <p class="page-lede">Text that takes the reader to another page or resource. Underlined at rest, because the colour alone is not enough.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Going to another page, document or resource, in a sentence or on its own line. <span class="usage-ref">Carbon, Atlassian</span></li><li>A reference the reader may want to follow: the spec, the source, the next page. <span class="usage-ref">GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>An action on the current page: submit, save, open a panel → Button. <span class="usage-ref">Carbon, Atlassian</span></li><li>A trail of the current hierarchy → Breadcrumb.</li><li>Switching between views of the same content → Tabs.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">In running text</h2><span class="subsection-num">§ 42.1</span></div>
+          <p class="subsection-desc">Underline <code>1px</code> at rest, <code>2px</code> on hover with the lighter colour; pressed lands on <code>--primary-500</code>. Component spec: § 3.29 in the contract.</p>
+          <div class="grid grid-2">
+            <div class="card" style="padding:var(--s-8)"><p>Every value is <a class="link" href="#link">derived from the compiler</a> and not chosen by hand. For the details see the <a class="link" href="#link">contract specification</a>, section 3.</p></div>
+            <div class="card" style="padding:var(--s-8)"><p>The link on a card keeps the same rule. <a class="link" href="#link">Read the case study</a>, or <a class="link" aria-disabled="true">the one not published yet</a>.</p></div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 42.2</span></div>
+          <p class="subsection-desc">Default, hover, focus-visible, active and disabled. There is no visited state: in an application the colour of a link carries no history.</p>
+          <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:var(--s-8);align-items:center">
+            <a class="link" href="#link">Default</a>
+            <a class="link" aria-disabled="true">Disabled</a>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 42.3</span></div>
+          <p class="subsection-desc">One rule: a link goes somewhere, a button does something.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Put the link on the words that name the destination: "the contract specification", not "click here".</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Use a link for an action on the current page. That is a button: a link is announced as navigation and cannot be pressed with Space.</p>
+            </div>
           </div>
         </div>
       </section>

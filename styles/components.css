@@ -3085,3 +3085,16 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
    swatch and name are one unit that never breaks across lines. */
 .table-contrast .tok{display:inline-flex;align-items:center;gap:var(--s-1);white-space:nowrap}
 .table-contrast .tok-sw{flex:none;width:var(--s-3);height:var(--s-3);border-radius:var(--r-xs);background:var(--sw, transparent);border:var(--bw-1) solid var(--border-strong)}
+
+/* § 3.29 — Link (v5.0.0): inline text link, underlined at rest (WCAG 1.4.1 — the colour alone is 2.1:1 against the body text).
+   Rest 1px, hover 2px + lighter; pressed --primary-500; the pressable ring on focus-visible; no visited state. */
+.link{
+  color:var(--primary-400);
+  text-decoration:underline;text-decoration-thickness:var(--bw-1);text-underline-offset:var(--s-1);
+  border-radius:var(--r-sm);cursor:pointer;
+  transition:color var(--d-quick) var(--ease-standard),text-decoration-thickness var(--d-quick) var(--ease-standard);
+}
+.link:hover{color:var(--primary-300);text-decoration-thickness:var(--bw-2)}
+.link:active{color:var(--primary-500)}
+.link:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
+.link[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-thickness:var(--bw-1);cursor:not-allowed}
