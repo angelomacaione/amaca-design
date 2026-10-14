@@ -338,7 +338,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for modal and drawer, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -420,7 +420,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.9 |
 | Dropdown · Select | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` | canonical | § 3.10 |
 | Chat · Messaging | `.chat-*` | canonical | § 3.11 |
-| Loader | `.loader-*` · `.skeleton-line` `.skeleton-stack` | canonical | § 3.12 — Skeleton is a part of the Loader, not a component |
+| Loader | `.loader-*` | canonical | § 3.12 |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
 | Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
@@ -445,6 +445,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.34 |
 | Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.35 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.36 |
+| Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -521,6 +522,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.divider` | default | — | `1px solid --obsidian-700` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own |
 | `.divider-vertical` | default | — | `1px solid --obsidian-700` | — | — | the left edge · stretches to the height of its row |
 | `.divider-label` | default | — | `1px solid --obsidian-700` | `--obsidian-300` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable |
+| `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion |
+| `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` |
+| `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -1137,7 +1141,7 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 
 *Use something else when*
 - A wait under 200 ms → show the result, no loader.
-- A wait past 800 ms → the skeleton.
+- A wait past 800 ms → Skeleton, when the shape of the content is known.
 - Progress is known → Progress. *(Carbon)*
 
 
@@ -1178,7 +1182,7 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 - **With label** — add `.loader-with-label`. Vertical stack, `gap: var(--s-3)`. Label uses `--t-body / --obsidian-200`. Supports a cycling label via `data-loader-cycle` on the label span — rotates phrases every 2400ms with a 200ms opacity crossfade; under reduced motion the swap is instant. The host's `aria-label` updates in lockstep with the visible phrase so the SR announcement matches what's on screen.
 - **Inline** — add `.loader-inline`. Horizontal layout, `gap: var(--s-2)`, smaller label (`--t-small / --obsidian-300`). Used for async input validation and chat hints.
 - **Inside a button** — add `.is-loading` to a `.btn`. The label collapses to transparent (`color: transparent !important`) so the button keeps its size, and `.loader` is absolutely positioned at the center. No layout shift.
-- **Skeleton handoff** — after a `--d-scene` wait, swap the full-page loader for `.skeleton-stack` (rows of `.skeleton-line` with a shimmer animation). The structure becomes visible while the data is still in flight.
+- **Skeleton handoff** — after a `--d-scene` wait, swap the full-page loader for a Skeleton (§ 3.37). The structure becomes visible while the data is still in flight.
 - **Success state** — add `data-loader-state="success"` on the loader root. `.loader-anim` fades; `.loader-check` scales in with a spring. Use this when a wait resolves green.
 
 **Loop:**
@@ -1194,12 +1198,12 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 - `.loader-anim` hidden via `display: none !important`.
 - `.loader-fallback` shown (CSS ring continues to spin — ring rotation is a single transform on a slow linear loop, considered tolerable feedback even under reduced-motion rules; the alternative is a static circle, which reads as broken).
 - `.loader-check` transition disabled; the swap is instant.
-- `.skeleton-line::after` shimmer disabled.
+- The Skeleton shimmer is disabled (§ 3.37).
 
 **Anatomy:**
 - Gap between logo and label: `--s-3` (with-label vertical) or `--s-2` (inline horizontal).
 - Overlay backdrop alpha: `rgba(11, 14, 18, 0.72)` with 2px backdrop blur.
-- Skeleton line height: `12px`, radius `--r-sm`, background `--obsidian-800`. Shimmer: linear gradient with magenta tint at 8% over 1600ms.
+- Skeleton: its own component, § 3.37.
 
 **Accessibility:**
 - Every loader carries `role="status"` with a contextual `aria-label` (e.g. "Generating tokens", not just "Loading").
@@ -1210,7 +1214,7 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 **Rules:**
 - Show the loader within 100ms of the action that triggered the wait. Late loaders read as glitches, not feedback.
 - A 200ms wait deserves no loader at all — show the result.
-- One full-page loader per route at a time. After 800ms hand off to skeleton frames.
+- One full-page loader per route at a time. After 800ms hand off to a Skeleton.
 - Don't stack a section loader inside a card that already sits inside a full-page loader.
 - Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
 - Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
@@ -2339,6 +2343,53 @@ A hairline between two blocks of one container: a thematic break. Three forms: h
 
 **Do / Don't.** Do draw it where the topic changes and let the container give the space on both sides. Don't put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.
 
+### Skeleton
+
+The grey shape of content that has not arrived yet: it holds the place and the size of the real thing, so the page does not jump when the data lands. Three shapes: a line, a circle and a block.
+
+**Usage**
+
+*Use it when*
+- The shape of the content is known and the wait is past 800 ms: a list, a card, a profile. *(Carbon)*
+- The content replaces it in the same place and at the same size. *(Polaris)*
+
+*Use something else when*
+- The shape is unknown → Loader. *(Polaris)*
+- A wait under 800 ms → show the result, no skeleton.
+- Progress is known → Progress. *(Carbon)*
+
+```html
+<!-- the region is busy; the shapes are hidden from the screen reader -->
+<div role="group" aria-label="Profile" aria-busy="true">
+  <div style="display:flex;gap:var(--s-3);align-items:center">
+    <div class="skeleton-circle" aria-hidden="true"></div>
+    <div class="skeleton-stack">
+      <div class="skeleton-line" style="width:60%" aria-hidden="true"></div>
+      <div class="skeleton-line" style="width:40%" aria-hidden="true"></div>
+    </div>
+  </div>
+</div>
+<!-- announces the end of the wait -->
+<p role="status"></p>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Stack | `.skeleton-stack` | A grid of lines, `gap: var(--s-3)` |
+| Line | `.skeleton-line` | A line of text: `--s-3` high, `--r-sm`, the width inline as a percentage (60% to 90%) |
+| Circle | `.skeleton-circle` | An avatar or a person: `--size`, default `--s-8`, `--r-full` |
+| Block | `.skeleton-block` | An image or a card: full width, `--s-24` high, `--r-md` |
+
+**Rules.**
+- **The same size as the content.** The shapes take the height and the width of what will arrive, so the swap moves nothing. If the size is not known, the shape is not known: use a Loader.
+- **Visible inside a card.** The fill is `--obsidian-700`. `--obsidian-800` is the colour of the card and the shapes would disappear.
+- **Quiet.** The shimmer is a magenta tint at `--tint-fill` over 1600 ms, linear, in a loop. No high-contrast sweep.
+- **Not the only signal.** The region carries `aria-busy="true"` and a name (`aria-label`). When the content lands, `aria-busy` goes away and a live region (`role="status"`) says so.
+- **Silent shapes.** Every shape is `aria-hidden="true"`. A skeleton is never focusable and never a link.
+- **Reduced motion.** The shimmer is off and the fill stays still (§ 08.3).
+
+**Do / Don't.** Do draw the shapes at the size of the content and announce the end of the wait. Don't use a skeleton for a wait of a few hundred milliseconds, for content whose shape you do not know, or as the only sign that something is loading.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2588,7 +2639,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | wait (loop) | brand mark GIF (spatial) | media clock (GIF/Lottie) · infinite | hidden — fallback ring shown |
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
-| Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled |
+| Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |

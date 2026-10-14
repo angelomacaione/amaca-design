@@ -2572,26 +2572,44 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   z-index:var(--z-sticky);
 }
 
-/* Skeleton handoff — three-stage composition stand-in */
+/* ─── § 3.37 Skeleton — the shape of content that has not arrived ─── */
 .skeleton-stack{
   display:grid;
   gap:var(--s-3);
   width:100%;
 }
-.skeleton-line{
-  height:12px;
-  background:var(--obsidian-800);
-  border-radius:var(--r-sm);
-  overflow:hidden;
+.skeleton-line,
+.skeleton-circle,
+.skeleton-block{
   position:relative;
+  overflow:hidden;
+  background:var(--obsidian-700);
 }
-.skeleton-line::after{
+.skeleton-line{
+  height:var(--s-3);
+  border-radius:var(--r-sm);
+}
+.skeleton-circle{
+  --size:var(--s-8);
+  flex:none;
+  width:var(--size);
+  height:var(--size);
+  border-radius:var(--r-full);
+}
+.skeleton-block{
+  width:100%;
+  height:var(--s-24);
+  border-radius:var(--r-md);
+}
+.skeleton-line::after,
+.skeleton-circle::after,
+.skeleton-block::after{
   content:"";
   position:absolute; inset:0;
   background:linear-gradient(
     90deg,
     transparent 0,
-    rgba(240,81,213,0.08) 50%,
+    color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent) 50%,
     transparent 100%
   );
   animation:skeleton-shimmer 1600ms linear infinite;
@@ -2829,7 +2847,9 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   .loader-anim{ display:none !important }
   .loader-fallback{ display:flex }
   .loader-check{ transition:none }
-  .skeleton-line::after{ animation:none; opacity:0 }
+  .skeleton-line::after,
+  .skeleton-circle::after,
+  .skeleton-block::after{ animation:none; opacity:0 }
 }
 
 /* Mobile */

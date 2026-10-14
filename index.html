@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=53b2966d">
+<link rel="stylesheet" href="styles/components.css?v=320dd625">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -184,6 +184,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#toast" data-target="toast"><span class="num">19</span> Toast</a>
       <a class="nav-item" href="#progress" data-target="progress"><span class="num">20</span> Progress</a>
       <a class="nav-item" href="#loader" data-target="loader"><span class="num">21</span> Loader</a>
+      <a class="nav-item" href="#skeleton" data-target="skeleton"><span class="num">50</span> Skeleton</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -830,7 +831,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Soft corners, <span class="accent">a short scale.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Pills and dots take <code>--r-full</code>; everything else stays on the scale.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for modal and drawer, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for modal and drawer, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
@@ -1854,7 +1855,7 @@ Basic UI</div>
           <h1 class="page-title">The logo, <span class="accent">in motion as a promise.</span></h1>
           <p class="page-lede">A loader is a contract: <em>something is happening, don't leave</em>. The Amaca logo carries that contract at four scales — inside a button, beside an input, over a card, across the viewport. Under <code>prefers-reduced-motion</code> the Lottie steps aside and a single magenta ring spins in its place.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A real wait; the large size for full-page waits, the extra-small inline and in buttons.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A wait under 200 ms → show the result, no loader.</li><li>A wait past 800 ms → the skeleton.</li><li>Progress is known → Progress. <span class="usage-ref">Carbon</span></li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A real wait; the large size for full-page waits, the extra-small inline and in buttons.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A wait under 200 ms → show the result, no loader.</li><li>A wait past 800 ms → Skeleton, when the shape of the content is known.</li><li>Progress is known → Progress. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <!-- § 17.1 Scale -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 21.1</span></div>
@@ -2177,6 +2178,51 @@ Basic UI</div>
           </div>
         </div>
       </section>
+
+      <section class="section" id="skeleton">
+        <div class="page-header">
+          <div class="page-eyebrow">&sect; 50 &middot; Feedback / Skeleton</div>
+          <h1 class="page-title">The shape of the page, <span class="accent">before the page.</span></h1>
+          <p class="page-lede">A grey placeholder with the size of the content that is coming. When the data lands nothing moves, because the room was already there.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The shape of the content is known and the wait is past 800 ms: a list, a card, a profile. <span class="usage-ref">Carbon</span></li><li>The content replaces it in the same place and at the same size. <span class="usage-ref">Polaris</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The shape is unknown &rarr; Loader. <span class="usage-ref">Polaris</span></li><li>A wait under 800 ms &rarr; show the result, no skeleton.</li><li>Progress is known &rarr; Progress. <span class="usage-ref">Carbon</span></li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Shapes</h2><span class="subsection-num">&sect; 50.1</span></div>
+          <p class="subsection-desc">A line for text, a circle for a person, a block for an image. The fill is <code>--obsidian-700</code>, so it stays visible inside a card; the shimmer is a quiet magenta tint and stops under reduced motion.</p>
+          <div class="grid grid-3" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Text</div><div class="skeleton-stack" aria-hidden="true"><div class="skeleton-line" style="width:90%"></div><div class="skeleton-line" style="width:78%"></div><div class="skeleton-line" style="width:84%"></div><div class="skeleton-line" style="width:56%"></div></div></div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Person</div><div style="display:flex;gap:var(--s-3);align-items:center" aria-hidden="true"><div class="skeleton-circle"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:60%"></div><div class="skeleton-line" style="width:40%"></div></div></div></div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Card</div><div style="display:grid;gap:var(--s-4)" aria-hidden="true"><div class="skeleton-block"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:64%"></div><div class="skeleton-line" style="width:86%"></div></div></div></div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Loading, then loaded</h2><span class="subsection-num">&sect; 50.2</span></div>
+          <p class="subsection-desc">The region is <code>aria-busy</code> while the shapes are there, the shapes are <code>aria-hidden</code>, and a live region says when the content arrives. The two states have the same height.</p>
+          <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5);max-width:360px" data-skeleton-demo>
+            <div role="group" aria-label="Profile" aria-busy="true" data-skeleton-region>
+              <div data-skeleton-pane="loading"><div style="display:flex;gap:var(--s-3);align-items:center;height:var(--s-10)"><div class="skeleton-circle" aria-hidden="true"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:60%" aria-hidden="true"></div><div class="skeleton-line" style="width:40%" aria-hidden="true"></div></div></div></div>
+              <div data-skeleton-pane="loaded" hidden><div style="display:flex;gap:var(--s-3);align-items:center;height:var(--s-10)"><div class="avatar" aria-hidden="true">AM</div><div><div style="font-size:var(--t-body);font-weight:700">Angelo Macaione</div><div class="ty-small">Design engineer</div></div></div></div>
+            </div>
+            <p class="ty-small" role="status" data-skeleton-status></p>
+            <button class="btn btn-secondary btn-sm" type="button" data-skeleton-toggle style="align-self:flex-start">Show loaded</button>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 50.3</span></div>
+          <p class="subsection-desc">A skeleton promises a shape; keep the promise.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Draw the shapes at the size of the content and announce the end of the wait.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Use a skeleton for a wait of a few hundred milliseconds, for content whose shape you do not know, or as the only sign that something is loading.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section class="section" id="modal">
         <div class="page-header">
@@ -8945,6 +8991,26 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
   ins.forEach(function(i){ i.addEventListener('input', paint); });
   paint();
 });
+
+  // Skeleton demo: swap the shapes for the content, keep aria-busy and the live region in step
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('[data-skeleton-toggle]'); if(!t) return;
+    var root = t.closest('[data-skeleton-demo]');
+    var region = root.querySelector('[data-skeleton-region]');
+    var load = region.querySelector('[data-skeleton-pane="loading"]');
+    var done = region.querySelector('[data-skeleton-pane="loaded"]');
+    var status = root.querySelector('[data-skeleton-status]');
+    var loaded = !done.hidden;
+    if(loaded){
+      done.hidden = true; load.hidden = false;
+      region.setAttribute('aria-busy','true'); status.textContent = '';
+      t.textContent = 'Show loaded';
+    } else {
+      load.hidden = true; done.hidden = false;
+      region.removeAttribute('aria-busy'); status.textContent = 'Profile loaded';
+      t.textContent = 'Show loading';
+    }
+  });
 </script>
 </body>
 </html>
