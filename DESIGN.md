@@ -446,6 +446,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.35 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.36 |
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
+| Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -525,6 +526,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion |
 | `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` |
 | `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` |
+| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -2390,6 +2392,66 @@ The grey shape of content that has not arrived yet: it holds the place and the s
 
 **Do / Don't.** Do draw the shapes at the size of the content and announce the end of the wait. Don't use a skeleton for a wait of a few hundred milliseconds, for content whose shape you do not know, or as the only sign that something is loading.
 
+### Popover
+
+A panel anchored to the button that opened it, richer than a tooltip: a sentence and a link, a short form, a few actions. It opens on a click and stays out of the way of the page.
+
+**Usage**
+
+*Use it when*
+- Details about one element that carry a link or a button, and do not need to leave the view. *(Carbon)*
+- A short form or a choice tied to one control: a rename, a share link. *(Atlassian)*
+
+*Use something else when*
+- Short text with nothing to click → Tooltip.
+- The content is wider than 360 px, or the person must answer before going on → Modal. *(Carbon)*
+- A list of actions → a menu.
+
+```html
+<!-- read-only: auto, closes on a click outside or Escape -->
+<button class="btn btn-secondary btn-sm" type="button" popovertarget="why">Why 800 ms?</button>
+<div class="popover" id="why" popover aria-label="Why 800 ms">
+  <div class="popover-body">
+    <p>Under 800 ms the result lands before the eye finds the shape.</p>
+    <a class="link" href="#">Read the rule</a>
+  </div>
+</div>
+
+<!-- with a title and a form: manual, closes only on its own buttons or Escape -->
+<button class="btn btn-secondary btn-sm" type="button" popovertarget="rename">Rename</button>
+<div class="popover" id="rename" popover="manual" role="dialog" aria-labelledby="rename-t">
+  <div class="popover-head"><h3 class="popover-title" id="rename-t">Rename</h3></div>
+  <div class="popover-body">
+    <label class="label" for="name">Name</label>
+    <input class="input" id="name" value="Arc HMI">
+  </div>
+  <div class="popover-foot">
+    <button class="btn btn-ghost btn-sm" type="button" popovertarget="rename" popovertargetaction="hide">Cancel</button>
+    <button class="btn btn-primary btn-sm" type="button">Save</button>
+  </div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Panel | `.popover` | `--obsidian-900` · `--r-lg` · `--sh-3` · padding `--s-4` · 200 to 360px · 4px (`--s-1`) from the trigger · no arrow |
+| Placement | `.popover-top` `.popover-end` | Above and at the end side; the default is below, aligned to the start. It flips when there is no room |
+| Head | `.popover-head` `.popover-title` | A title and, when the popover is manual, a close button |
+| Body | `.popover-body` | A grid, gap `--s-3`, `--obsidian-200` |
+| Foot | `.popover-foot` | Actions, right-aligned, gap `--s-2` |
+
+**Rules.**
+- **A click opens it, never a hover.** Hover belongs to the Tooltip. The trigger is a real button with `popovertarget`, so the browser sets `aria-expanded` and the link to the panel.
+- **Two kinds of close.** A read-only popover is `popover` (auto): a click outside or Escape closes it. A popover with a form is `popover="manual"`: it closes only on its own buttons and on Escape, so a stray click does not lose the field. Escape on a manual one is handled by the page controller, and the focus goes back to the trigger.
+- **One at a time, never nested.** An auto popover closes the one that is open. A popover inside a popover is a Modal.
+- **Up to 360 px.** Wider, or taller than the view, is a Modal. No horizontal scroll.
+- **A name.** With a title or a form it has `role="dialog"` and `aria-labelledby`; a text-only one has `aria-label`. It is not modal: Tab can leave it.
+- **No arrow.** The 4px gap and the anchoring point to the trigger, as in the Tooltip.
+- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything.
+- **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 08.3).
+
+**Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2640,6 +2702,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |
+| Popover | open | opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |

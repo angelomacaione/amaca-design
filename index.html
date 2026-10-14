@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=320dd625">
+<link rel="stylesheet" href="styles/components.css?v=944b90b4">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -190,6 +190,7 @@ html{scroll-behavior:smooth}
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Overlays</div>
       <a class="nav-item" href="#modal" data-target="modal"><span class="num">43</span> Modal</a>
+      <a class="nav-item" href="#popover" data-target="popover"><span class="num">51</span> Popover</a>
       <a class="nav-item" href="#tooltip" data-target="tooltip"><span class="num">22</span> Tooltip</a>
     </div>
     <div class="nav-group">
@@ -2310,6 +2311,52 @@ Basic UI</div>
           </div>
         </div>
       </section>
+
+      <section class="section" id="popover">
+        <div class="page-header">
+          <div class="page-eyebrow">&sect; 51 &middot; Overlays / Popover</div>
+          <h1 class="page-title">More than a hint, <span class="accent">less than a window.</span></h1>
+          <p class="page-lede">A panel anchored to the button that opened it. It holds a link, a short form or a few actions, and the page stays where it was.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Details about one element that carry a link or a button, and do not need to leave the view. <span class="usage-ref">Carbon</span></li><li>A short form or a choice tied to one control: a rename, a share link. <span class="usage-ref">Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Short text with nothing to click &rarr; Tooltip.</li><li>The content is wider than 360 px, or the person must answer before going on &rarr; Modal. <span class="usage-ref">Carbon</span></li><li>A list of actions &rarr; a menu.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">&sect; 51.1</span></div>
+          <p class="subsection-desc">A read-only popover is auto: a click outside or Escape closes it. One with a form is manual: it closes only on its own buttons and on Escape, so a stray click does not lose the field. The trigger is a button with <code>popovertarget</code>.</p>
+          <div class="grid grid-3" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Text and a link</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-why" style="align-self:flex-start">Why 800 ms?</button></div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">With a title</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-share" style="align-self:flex-start">Share</button></div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Form, manual</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-rename" style="align-self:flex-start">Rename</button></div>
+          </div>
+          <div class="popover" id="pop-why" popover aria-label="Why 800 ms"><div class="popover-body"><p style="margin:0">Under 800 ms the result usually lands before the eye finds the shape, so a skeleton only flickers.</p><a class="link" href="#skeleton">Read the Skeleton rule</a></div></div>
+          <div class="popover" id="pop-share" popover role="dialog" aria-labelledby="pop-share-t"><div class="popover-head"><h3 class="popover-title" id="pop-share-t">Share this view</h3><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" popovertarget="pop-share" popovertargetaction="hide"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="popover-body"><p style="margin:0">Anyone with the link can read it. Only editors can change it.</p></div><div class="popover-foot"><button class="btn btn-secondary btn-sm" type="button">Copy link</button></div></div>
+          <div class="popover" id="pop-rename" popover="manual" role="dialog" aria-labelledby="pop-rename-t"><div class="popover-head"><h3 class="popover-title" id="pop-rename-t">Rename</h3></div><div class="popover-body"><label class="label" for="pop-name">Name</label><input class="input" id="pop-name" value="Arc HMI"></div><div class="popover-foot"><button class="btn btn-ghost btn-sm" type="button" popovertarget="pop-rename" popovertargetaction="hide">Cancel</button><button class="btn btn-primary btn-sm" type="button" popovertarget="pop-rename" popovertargetaction="hide">Save</button></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Placement</h2><span class="subsection-num">&sect; 51.2</span></div>
+          <p class="subsection-desc">Below the trigger, aligned to its start, 4px away. <code>.popover-top</code> and <code>.popover-end</code> change the side; whatever the side, it flips when there is no room. There is no arrow.</p>
+          <div class="grid grid-3" style="gap:var(--s-5)">
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Above</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-top" style="align-self:flex-start">Above</button></div>
+            <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">At the end</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-end" style="align-self:flex-start">At the end</button></div>
+          </div>
+          <div class="popover popover-top" id="pop-top" popover aria-label="Above"><div class="popover-body"><p style="margin:0">Above the trigger, for a control near the bottom edge.</p></div></div>
+          <div class="popover popover-end" id="pop-end" popover aria-label="At the end"><div class="popover-body"><p style="margin:0">At the end side, for a control in a column.</p></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 51.3</span></div>
+          <p class="subsection-desc">A popover is a click away, not a hover away.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Open it with a button and give it a name, and let a form popover close only on its own buttons.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Open it on hover, put a popover inside a popover, or use it for content wider than 360 px.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section class="section" id="tooltip">
         <div class="page-header">
@@ -9009,6 +9056,18 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
       load.hidden = true; done.hidden = false;
       region.removeAttribute('aria-busy'); status.textContent = 'Profile loaded';
       t.textContent = 'Show loading';
+    }
+  });
+
+  // Popover: Escape closes a manual popover (an auto one closes itself) and the focus returns to its trigger
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    var open = document.querySelectorAll('.popover[popover="manual"]:popover-open');
+    for(var i = 0; i < open.length; i++){
+      var p = open[i];
+      if(!p.contains(document.activeElement) && document.activeElement !== document.body) continue;
+      p.hidePopover();
+      var t = document.querySelector('[popovertarget="' + p.id + '"]'); if(t) t.focus();
     }
   });
 </script>
