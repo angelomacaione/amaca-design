@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=e49fd41a">
+<link rel="stylesheet" href="styles/components.css?v=6a3e6d35">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -2235,17 +2235,17 @@ Basic UI</div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A decision that must be made before the person goes on: confirm a destructive action, answer one question. <span class="usage-ref">Carbon, Atlassian</span></li><li>A short form that belongs to one task: rename, invite, create. <span class="usage-ref">Polaris, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A message that needs no answer → Alert or Toast. <span class="usage-ref">Carbon, Polaris</span></li><li>Content that is long or the person will come back to → a page. <span class="usage-ref">GOV.UK</span></li><li>An image to look at closely → Lightbox.</li><li>A menu or text from the edge, with the page still visible behind it → Drawer.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 43.1</span></div>
-          <p class="subsection-desc">A head with the title and the close, a body, a foot with the actions at the end. The panel is the card's surface and radius; the shadow and the scrim lift it off the page. Component spec: § 3.30 in the contract.</p>
-          <div class="modal-demo">
-            <dialog class="modal" open aria-labelledby="modal-demo-title">
+          <p class="subsection-desc">A head with the title and the close, a body, a foot with the actions at the end. The panel is the card's surface and radius; the shadow and the scrim lift it off the page. The frame is live: close the modal and the button behind the scrim opens it again. Component spec: § 3.30 in the contract.</p>
+          <div class="modal-demo" data-drawer-demo>
+            <div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open modal</button></div><dialog class="modal" open aria-labelledby="modal-demo-title">
               <div class="modal-head">
                 <h2 class="modal-title" id="modal-demo-title">Delete the project?</h2>
-                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
               <div class="modal-foot">
-                <button class="btn btn-secondary" type="button">Cancel</button>
-                <button class="btn btn-danger" type="button">Delete project</button>
+                <button class="btn btn-secondary" type="button" data-drawer-demo-close>Cancel</button>
+                <button class="btn btn-danger" type="button" data-drawer-demo-close>Delete project</button>
               </div>
             </dialog>
           </div>
@@ -2283,16 +2283,16 @@ Basic UI</div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Widths</h2><span class="subsection-num">§ 43.3</span></div>
           <p class="subsection-desc">480px by default; 720px, <code>.modal-wide</code>, for a form of several fields or a table. There is no third width. At 480px and below the panel keeps a margin on each side and the actions stack.</p>
-          <div class="modal-demo">
-            <dialog class="modal modal-wide" open aria-labelledby="modal-wide-title">
+          <div class="modal-demo" data-drawer-demo>
+            <div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open modal</button></div><dialog class="modal modal-wide" open aria-labelledby="modal-wide-title">
               <div class="modal-head">
                 <h2 class="modal-title" id="modal-wide-title">Invite the team</h2>
-                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <p class="modal-body">Enter one email per line. Each person receives an invitation with the role you choose.</p>
               <div class="modal-foot">
-                <button class="btn btn-secondary" type="button">Cancel</button>
-                <button class="btn btn-primary" type="button">Send invitations</button>
+                <button class="btn btn-secondary" type="button" data-drawer-demo-close>Cancel</button>
+                <button class="btn btn-primary" type="button" data-drawer-demo-close>Send invitations</button>
               </div>
             </dialog>
           </div>
@@ -2369,8 +2369,8 @@ Basic UI</div>
           <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">&sect; 52.1</span></div>
           <p class="subsection-desc">The modal&rsquo;s surface and scrim, flush with the edge: no radius, and a shadow one step below the modal&rsquo;s, so no edge either. The menu is narrower and larger; its rows are the List&rsquo;s. Both frames are live: close the drawer and the button behind the scrim opens it again. Component spec: § 3.39 in the contract.</p>
           <div class="grid grid-2" style="gap:var(--s-5)">
-            <div class="drawer-demo" data-drawer-demo><div class="drawer-demo-page"><div class="label" style="color:var(--obsidian-400)">Arc &middot; Automotive HMI</div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Overview</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Research</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Flows</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Delivery</span><span class="ty-small">2025</span></div></div><div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open drawer</button></div><dialog class="drawer drawer-nav drawer-start" open aria-labelledby="drawer-demo-menu-t" style="inset-inline-start:0"><div class="drawer-head"><h2 class="drawer-title" id="drawer-demo-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close aria-current="page"><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog></div>
-            <div class="drawer-demo" data-drawer-demo><div class="drawer-demo-page"><div class="label" style="color:var(--obsidian-400)">Arc &middot; Automotive HMI</div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Overview</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Research</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Flows</span><span class="ty-small">2025</span></div><div class="card" style="padding:var(--s-4);display:flex;justify-content:space-between"><span>Delivery</span><span class="ty-small">2025</span></div></div><div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open drawer</button></div><dialog class="drawer" open aria-labelledby="drawer-demo-text-t" style="inset-inline-end:0"><div class="drawer-head"><h2 class="drawer-title" id="drawer-demo-text-t">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-drawer-demo-close>Close</button></div></dialog></div>
+            <div class="drawer-demo" data-drawer-demo><div class="drawer-demo-page"><div class="label" style="color:var(--obsidian-400)">Arc &middot; Automotive HMI</div><div class="drawer-demo-row"><span>Overview</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Research</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Flows</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Delivery</span><span class="ty-small">2025</span></div></div><div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open drawer</button></div><dialog class="drawer drawer-nav drawer-start" open aria-labelledby="drawer-demo-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-demo-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close aria-current="page"><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog></div>
+            <div class="drawer-demo" data-drawer-demo><div class="drawer-demo-page"><div class="label" style="color:var(--obsidian-400)">Arc &middot; Automotive HMI</div><div class="drawer-demo-row"><span>Overview</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Research</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Flows</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Delivery</span><span class="ty-small">2025</span></div></div><div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open drawer</button></div><dialog class="drawer" open aria-labelledby="drawer-demo-text-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-demo-text-t">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-drawer-demo-close>Close</button></div></dialog></div>
           </div>
         </div>
         <div class="subsection">
@@ -9116,10 +9116,10 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
     }
   });
 
-  // Drawer anatomy frames: open at load; its close, Esc or the scrim take it away and the button behind opens it again
+  // Overlay anatomy frames (modal, drawer): open at load; its close, Esc or the scrim take it away and the button behind opens it again
   (function(){
     function setOpen(f, on){
-      var dlg = f.querySelector('dialog.drawer'), op = f.querySelector('[data-drawer-demo-open]');
+      var dlg = f.querySelector('dialog'), op = f.querySelector('[data-drawer-demo-open]');
       if(on){ if(!dlg.open) dlg.show(); f.classList.remove('is-closed'); op.inert = true; var first = dlg.querySelector('button, a'); if(first) first.focus(); }
       else { dlg.close(); f.classList.add('is-closed'); op.inert = false; op.focus(); }
     }

@@ -2711,9 +2711,18 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .drawer-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:1}
 .drawer-demo .drawer{position:absolute;inset-block:0;z-index:2}
 .drawer-demo .drawer[open]{display:flex}
+.drawer-demo .drawer{width:min(72%, calc(45ch + 2 * var(--pad)))}
+.drawer-demo .drawer-nav{width:min(62%, calc(30ch + 2 * var(--pad)))}
 .drawer-demo.is-closed::before{display:none}
 .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
-.drawer-demo-page{padding:var(--s-6);display:grid;gap:var(--s-3)}
+.drawer-demo > .drawer-demo-open{align-items:flex-end;padding:var(--s-6)}
+.drawer-demo-page{padding:var(--s-6)}
+.drawer-demo-row{display:flex;justify-content:space-between;padding-block:var(--s-3);border-bottom:var(--bw-1) solid var(--obsidian-800);color:var(--obsidian-300)}
+.drawer-demo .drawer[open]{animation:drawer-demo-in var(--d-base) var(--ease-decel)}
+.drawer-demo .drawer-start[open]{animation-name:drawer-demo-in-start}
+@keyframes drawer-demo-in{from{transform:translateX(100%)}to{transform:none}}
+@keyframes drawer-demo-in-start{from{transform:translateX(-100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.drawer-demo .drawer[open]{animation:none}}
 
 /* ─── Loader compositions (§ 17.3) — frames for the demo cards ─── */
 .loader-comp{
@@ -3374,6 +3383,8 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
-.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}
-.modal-demo .modal{position:relative;inset:auto;margin:0;opacity:1;transform:none;transition:none}
+.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:1}
+.modal-demo .modal{position:relative;inset:auto;margin:0;opacity:1;transform:none;transition:none;z-index:2}
+.modal-demo.is-closed::before{display:none}
+.modal-demo > .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 
