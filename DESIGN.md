@@ -1837,7 +1837,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 <dialog class="modal" aria-labelledby="del-title">
   <div class="modal-head">
     <h2 class="modal-title" id="del-title">Delete the project?</h2>
-    <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close" data-modal-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+    <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
   </div>
   <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
   <div class="modal-foot">
