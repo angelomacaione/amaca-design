@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=608f57d8">
+<link rel="stylesheet" href="styles/components.css?v=d46f448e">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -210,6 +210,7 @@ html{scroll-behavior:smooth}
       <div class="nav-label">Data display</div>
       <a class="nav-item" href="#table" data-target="table"><span class="num">30</span> Table</a>
       <a class="nav-item" href="#avatar" data-target="avatar"><span class="num">44</span> Avatar</a>
+      <a class="nav-item" href="#list" data-target="list"><span class="num">46</span> List</a>
       <a class="nav-item" href="#charts" data-target="charts"><span class="num">31</span> Charts</a>
       <a class="nav-item" href="#timeline" data-target="timeline"><span class="num">32</span> Timeline</a>
       <a class="nav-item" href="#maps" data-target="maps"><span class="num">33</span> Maps</a>
@@ -3058,6 +3059,53 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don't</div>
               <p>Redraw an icon, set a stroke width or a colour on it, or fill an outline icon.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="list">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 46 · Data display / List</div>
+          <h1 class="page-title">Many things, <span class="accent">one row each.</span></h1>
+          <p class="page-lede">Rows in a column: many things of one kind, or the facts of one. A hairline between rows, nothing around them.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Many things of one kind, each a line or two, to scan or open: projects, settings, people. <span class="usage-ref">Carbon</span></li><li>The facts of one item as label and value pairs, with an action beside a value to change it. <span class="usage-ref">GOV.UK</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several columns to compare or sort → Table, § 3.16.</li><li>A choice from a fixed set → Select or Radio.</li><li>Bullets inside running text → a plain <code>ul</code> or <code>ol</code> in the prose, no component.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Items</h2><span class="subsection-num">§ 46.1</span></div>
+          <p class="subsection-desc">One row per thing: a lead (icon or avatar), a title with its meta line, and an end (badge, action, chevron). A static row is a <code>div</code>; a row that opens something is an <code>a</code> or a <code>button</code> and gets hover and focus. The last row here is disabled.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="color:var(--obsidian-400)">Static rows</div><ul class="list">
+<li><div class="list-item"><span class="avatar" role="img" aria-label="Arc"><span aria-hidden="true">AR</span></span><span class="list-body"><span class="list-title">Arc · Automotive HMI</span><span class="list-meta">CS-017 · 2025</span></span><span class="list-end"><span class="badge badge-brand">Live</span><button type="button" class="btn btn-ghost btn-icon btn-sm" aria-label="More actions for Arc"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/></svg></button></span></div></li>
+<li><div class="list-item"><span class="avatar" role="img" aria-label="Lumen"><span aria-hidden="true">LU</span></span><span class="list-body"><span class="list-title">Lumen · Retail kiosk</span><span class="list-meta">CS-016 · 2024</span></span><span class="list-end"><span class="badge">Draft</span><button type="button" class="btn btn-ghost btn-icon btn-sm" aria-label="More actions for Lumen"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/></svg></button></span></div></li>
+<li><div class="list-item"><span class="avatar" role="img" aria-label="Orbit"><span aria-hidden="true">OR</span></span><span class="list-body"><span class="list-title">Orbit · Fleet console</span><span class="list-meta">CS-014 · 2024</span></span><span class="list-end"><span class="badge">Archive</span><button type="button" class="btn btn-ghost btn-icon btn-sm" aria-label="More actions for Orbit"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/></svg></button></span></div></li>
+</ul></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="color:var(--obsidian-400)">Interactive rows</div><ul class="list">
+<li><a class="list-item" href="#"><svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linejoin="miter"><path d="M8 1.75l3.25 3.25L8 8.25 4.75 5z"/><path d="M2.5 14.25v-1.75L5 9.75h6l2.5 2.75v1.75z"/></g></svg><span class="list-body"><span class="list-title">Profile</span><span class="list-meta">Name, photo, language</span></span><span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span></a></li>
+<li><a class="list-item" href="#"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 13.5l1-2.9a5.5 5.5 0 1 1 2 2z"/></svg><span class="list-body"><span class="list-title">Notifications</span><span class="list-meta">Email and in-app</span></span><span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span></a></li>
+<li><a class="list-item" href="#"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg><span class="list-body"><span class="list-title">Billing</span><span class="list-meta">Plan and invoices</span></span><span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span></a></li>
+<li><a class="list-item" href="#" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg><span class="list-body"><span class="list-title">Danger zone</span><span class="list-meta">Not available on this plan</span></span><span class="list-end"></span></a></li>
+</ul></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Summary</h2><span class="subsection-num">§ 46.2</span></div>
+          <p class="subsection-desc">The facts of one item: a key in mono, a value, and an action beside the values that can change. A key is never empty and neither is a value. Under 720px the three columns stack.</p>
+          <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="color:var(--obsidian-400)">One project</div><dl class="list-summary">
+<div><dt class="list-key">Name</dt><dd class="list-value">Arc · Automotive HMI</dd><dd class="list-actions"><button type="button" class="btn btn-ghost btn-sm" aria-label="Change name">Change</button></dd></div>
+<div><dt class="list-key">Owner</dt><dd class="list-value">Anna Rossi</dd><dd class="list-actions"><button type="button" class="btn btn-ghost btn-sm" aria-label="Change owner">Change</button></dd></div>
+<div><dt class="list-key">Status</dt><dd class="list-value"><span class="badge badge-brand">Live</span></dd><dd class="list-actions"></dd></div>
+<div><dt class="list-key">Last updated</dt><dd class="list-value">12 Aug 2026</dd><dd class="list-actions"></dd></div>
+</dl></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 46.3</span></div>
+          <p class="subsection-desc">One row is one thing.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Keep the same parts in every row of a list, and give an icon-only action in a row its own accessible name.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Put columns in a row to compare them (that is a Table), nest a list in a row, or wrap a whole row in a link and put a button inside it.</p>
             </div>
           </div>
         </div>

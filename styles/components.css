@@ -3190,6 +3190,26 @@ a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) so
 .icon-muted{color:var(--obsidian-300)}
 .icon-fill{fill:currentColor;stroke-width:var(--bw-1)}  /* solid: the same box, filled; the 1px stroke only rounds the corners */
 
+/* § 3.33 List — rows in a column: many things of one kind (.list-item), or the facts of one (.list-summary). Hairlines between rows, nothing around. */
+.list{list-style:none;margin:0;padding:0;border-top:var(--bw-1) solid var(--obsidian-700)}
+.list > li{border-bottom:var(--bw-1) solid var(--obsidian-700)}
+.list-item{display:flex;align-items:center;gap:var(--s-3);box-sizing:border-box;width:100%;min-height:var(--s-12);padding:var(--s-3) var(--s-4);color:var(--obsidian-100);font:inherit;font-size:var(--t-small);text-align:left;text-decoration:none;background:transparent;border:0}
+.list-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--s-px)}
+.list-title{color:var(--obsidian-100);font-size:var(--t-small)}
+.list-meta{color:var(--obsidian-300);font-size:var(--t-caption)}
+.list-end{flex:none;display:flex;align-items:center;gap:var(--s-2);margin-left:auto}
+a.list-item,button.list-item{cursor:pointer;transition:background var(--d-quick) var(--ease-standard)}
+a.list-item:hover,button.list-item:hover{background:var(--obsidian-850)}
+a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:calc(-1 * var(--focus-width));box-shadow:var(--ring-halo)}  /* inside the row: the list clips nothing, the ring stays on the hairlines */
+.list-item[aria-disabled="true"]{opacity:0.4;cursor:not-allowed;pointer-events:none}
+.list-summary{margin:0;border-top:var(--bw-1) solid var(--obsidian-700)}
+.list-summary > div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) var(--s-20);align-items:baseline;gap:var(--s-4);padding:var(--s-3) var(--s-4);border-bottom:var(--bw-1) solid var(--obsidian-700)}
+.list-key{margin:0;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.list-value{margin:0;min-width:0;color:var(--obsidian-100);font-size:var(--t-small)}
+.list-actions{margin:0;display:flex;justify-content:flex-end;gap:var(--s-2)}
+@media (max-width:720px){.list-summary > div{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){a.list-item,button.list-item{transition:none}}
+
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
 .modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}

@@ -441,6 +441,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
 | Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
+| List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.33 |
 | Pagination · Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -500,6 +501,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.input-action` | default | transparent | none | `--obsidian-300` | — | 32px target in the 40px field · `--r-sm` |
 | `.input-action` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
 | `.input-action` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
+| `.list-item` (`a`, `button`) | default | transparent | none | `--obsidian-100` | — | min-height `--s-12` · a hairline `--obsidian-700` under each row |
+| `.list-item` (`a`, `button`) | hover | `--obsidian-850` | — | — | — | transition — see the motion index |
+| `.list-item` (`a`, `button`) | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row |
+| `.list-item` (`a`, `button`) | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -2084,6 +2089,81 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 **Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or a colour on it, or fill an outline icon.
 
+### List
+
+Rows in a column. Either **many things of one kind**, one row each (the items), or **the facts of one thing**, one row per fact (the summary). The same hairlines and the same type; what sits in the row is what differs.
+
+**Usage**
+
+*Use it when*
+- Many things of one kind, each a line or two, to scan or open: projects, settings, people. *(Carbon)*
+- The facts of one item as label and value pairs, with an action beside a value to change it. *(GOV.UK)*
+
+*Use something else when*
+- Several columns to compare or sort → Table, § 3.16.
+- A choice from a fixed set → Select or Radio.
+- Bullets inside running text → a plain `ul` or `ol` in the prose, no component.
+
+```html
+<!-- items: static rows -->
+<ul class="list">
+  <li>
+    <div class="list-item">
+      <span class="avatar" role="img" aria-label="Arc"><span aria-hidden="true">AR</span></span>
+      <span class="list-body"><span class="list-title">Arc · Automotive HMI</span><span class="list-meta">CS-017 · 2025</span></span>
+      <span class="list-end"><span class="badge badge-brand">Live</span></span>
+    </div>
+  </li>
+</ul>
+
+<!-- items: a row that opens something is an a or a button -->
+<ul class="list">
+  <li>
+    <a class="list-item" href="/settings/profile">
+      <svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">…</svg>
+      <span class="list-body"><span class="list-title">Profile</span><span class="list-meta">Name, photo, language</span></span>
+      <span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
+    </a>
+  </li>
+</ul>
+
+<!-- summary: the facts of one item -->
+<dl class="list-summary">
+  <div>
+    <dt class="list-key">Owner</dt>
+    <dd class="list-value">Anna Rossi</dd>
+    <dd class="list-actions"><button type="button" class="btn btn-ghost btn-sm" aria-label="Change owner">Change</button></dd>
+  </div>
+  <div>
+    <dt class="list-key">Last updated</dt>
+    <dd class="list-value">12 Aug 2026</dd>
+    <dd class="list-actions"></dd>
+  </div>
+</dl>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| List | `.list` | A `ul` with no marker; a hairline `--obsidian-700` above the first row and under every row (the border sits on the `li`). Nothing around it: no box, no radius |
+| Item | `.list-item` | The row, inside the `li`: `div` when static, `a` or `button` when it opens something. Min-height `--s-12`, padding `--s-3` `--s-4`, gap `--s-3`, type `--t-small` |
+| Body | `.list-body` `.list-title` `.list-meta` | The text: a title and an optional meta line (`--t-caption`, `--obsidian-300`) |
+| End | `.list-end` | Badge, action or chevron, pushed to the right edge, gap `--s-2` |
+| Summary | `.list-summary` | A `dl` of rows, each a `div` of `dt` and `dd`; three columns that line up from one row to the next (key · value · `--s-20` of actions). Stacks under 720px (`--bp-md`) |
+| Key | `.list-key` | The label, in the mono register of `.label` (`--t-micro`, uppercase, `--obsidian-300`) |
+| Value | `.list-value` | The fact, `--t-small`, `--obsidian-100` |
+| Actions | `.list-actions` | One short action at the right edge, or the empty `dd` so the columns hold |
+
+**Rules.**
+- **A row is one thing.** Every row of a list has the same parts in the same order; a row that needs more columns is a Table row, § 3.20. A list is not nested inside a row.
+- **Static or interactive, by the element.** A `div` row has no hover and no pointer. An `a` or a `button` row has hover, focus-visible and disabled (`aria-disabled="true"`), values in § 3.0.1. The whole row is the one target: no link around a row that holds a button.
+- **Name every action (WCAG 2.5.3).** An icon-only action in a row carries an `aria-label` that says which row (`More actions for Arc`). A text action keeps its visible word at the start of its name (`Change owner`).
+- **Summary semantics.** `dl` with a `div` per row is valid HTML; each `dt` has at least one `dd`. A fact without a value is not a row.
+- **The hairlines stay.** They tie each row to its action and help the reader who zooms. Drop them only in a list with no actions, and then for the whole list.
+- **One density.** One row height; there is no small or large list. A list that has to be denser is a Table.
+- **Motion.** Hover changes the background on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+
+**Do / Don't.** Do keep the same parts in every row and name every action in a row. Don't put columns in a row to compare them, nest a list in a row, or wrap a whole row in a link and put a button inside it.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2315,6 +2395,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Modal | open | scrim background (effect) | `--d-quick` · `--ease-decel` | instant |
 | Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
+| List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
