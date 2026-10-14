@@ -2707,7 +2707,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   .drawer::backdrop,.drawer[open]::backdrop{transition:none}
 }
 /* the anatomy frame on the documentation site: a page behind a scrim, the drawer held inside it */
-.drawer-demo{position:relative;overflow:hidden;min-height:var(--s-24);height:480px;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
+.drawer-demo{position:relative;overflow:hidden;overflow:clip;min-height:var(--s-24);height:480px;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
 .drawer-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:1}
 .drawer-demo .drawer{position:absolute;inset-block:0;z-index:2}
 .drawer-demo .drawer[open]{display:flex}

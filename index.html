@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=da16533d">
+<link rel="stylesheet" href="styles/components.css?v=8ccd40a0">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -9120,8 +9120,8 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
   (function(){
     function setOpen(f, on){
       var dlg = f.querySelector('dialog'), op = f.querySelector('[data-drawer-demo-open]');
-      if(on){ if(!dlg.open) dlg.show(); f.classList.remove('is-closed'); op.inert = true; var first = dlg.querySelector('button, a'); if(first) first.focus(); }
-      else { dlg.close(); f.classList.add('is-closed'); op.inert = false; op.focus(); }
+      if(on){ if(!dlg.open) dlg.show(); f.classList.remove('is-closed'); op.inert = true; var first = dlg.querySelector('button, a'); if(first) first.focus({preventScroll:true}); }
+      else { dlg.close(); f.classList.add('is-closed'); op.inert = false; op.focus({preventScroll:true}); }
     }
     document.querySelectorAll('[data-drawer-demo]').forEach(function(f){
       f.querySelector('[data-drawer-demo-open]').inert = true;
