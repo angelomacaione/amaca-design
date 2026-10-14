@@ -3098,3 +3098,16 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .link:active{color:var(--primary-500)}
 .link:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 .link[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-thickness:var(--bw-1);cursor:not-allowed}
+
+/* § 3.29 — Link, quiet variant (v5.0.0): no underline at rest. For a standalone link only (menu, footer, list of links),
+   where the context already says it is a link. In running text it fails WCAG 1.4.1 — the colour is 2.1:1 against the text. */
+.link-quiet{
+  color:var(--primary-400);
+  text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:var(--bw-1);text-underline-offset:var(--s-1);
+  border-radius:var(--r-sm);cursor:pointer;
+  transition:color var(--d-quick) var(--ease-standard),text-decoration-color var(--d-quick) var(--ease-standard);
+}
+.link-quiet:hover,.link-quiet:focus-visible{color:var(--primary-300);text-decoration-color:currentColor}
+.link-quiet:active{color:var(--primary-500);text-decoration-color:currentColor}
+.link-quiet:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
+.link-quiet[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-color:transparent;cursor:not-allowed}

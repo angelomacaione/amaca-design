@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=96fbf8df">
-<link rel="stylesheet" href="styles/components.css?v=a69a92cb">
+<link rel="stylesheet" href="styles/components.css?v=82578651">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1171,7 +1171,23 @@ Basic UI</div>
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 42.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Quiet variant</h2><span class="subsection-num">§ 42.2</span></div>
+          <p class="subsection-desc">No underline at rest; it appears on hover and focus. Only for a standalone link, where the position and the label already say it is a link. Inside a sentence the colour is 2.1:1 against the text, and WCAG 1.4.1 fails.</p>
+          <div class="grid grid-2">
+            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-3)">
+              <span class="tag">Use it</span>
+              <a class="link-quiet" href="#link">Changelog</a>
+              <a class="link-quiet" href="#link">Specification</a>
+              <a class="link-quiet" href="#link">Repository</a>
+            </div>
+            <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-3)">
+              <span class="tag">Never in running text</span>
+              <p>In a paragraph use <a class="link" href="#link">the underlined link</a>, so the reader finds it without hovering.</p>
+            </div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 42.3</span></div>
           <p class="subsection-desc">Default, hover, focus-visible, active and disabled. There is no visited state: in an application the colour of a link carries no history.</p>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:var(--s-8);align-items:center">
             <a class="link" href="#link">Default</a>
@@ -1179,7 +1195,7 @@ Basic UI</div>
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 42.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 42.4</span></div>
           <p class="subsection-desc">One rule: a link goes somewhere, a button does something.</p>
           <div class="do-dont">
             <div class="do">

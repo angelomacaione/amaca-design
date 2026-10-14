@@ -436,7 +436,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
-| Link | `.link` | canonical | § 3.29 |
+| Link | `.link` `.link-quiet` | canonical | § 3.29 |
 | Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
@@ -538,6 +538,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.link` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.link` | active | — | — | `--primary-500` | — | lasts as long as the press |
 | `.link` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged, the colour carries it · no `href` |
+| `.link-quiet` | default | — | — | `--primary-400` | — | no underline: `text-decoration-color: transparent` · standalone links only |
+| `.link-quiet` | hover | — | — | `--primary-300` | — | the underline appears at `--bw-1` |
+| `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears |
+| `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays |
+| `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` |
 
 ### § 3.0.2 Stacking
 
@@ -1766,8 +1771,19 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 <p>Every value is <a class="link" href="/spec">derived from the compiler</a>.</p>
 
 <a class="link" aria-disabled="true">Read the case study</a>
+
+<nav aria-label="Resources">
+  <a class="link-quiet" href="/changelog">Changelog</a>
+  <a class="link-quiet" href="/spec">Specification</a>
+</nav>
 ```
 
+| Variant | Underline at rest | Use | Never |
+|---|---|---|---|
+| `.link` | `--bw-1`, always | Every link inside a sentence or a paragraph, and any link whose context does not already say it is a link. The default | — |
+| `.link-quiet` | none — appears on hover and focus | A **standalone** link: the only thing on its line or in its cell, where position and label already say it is a link. A menu, a footer, a list of resources, the title of a row that opens another page, a "Read more" at the end of a card | Inside a sentence or a paragraph, next to running text, in a caption or in a helper line. There the colour is 2.1:1 against the text and WCAG 1.4.1 fails |
+
+- **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect.
 - **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.18).
 - **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
 - **No visited state.** In an application the colour of a link carries no history, and a second colour would need its own contrast pair.
