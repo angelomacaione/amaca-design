@@ -379,7 +379,7 @@ Dimensions that are part of a component's contract take a token; the widths of t
 
 | Token | Px | Use |
 |---|---|---|
-| `--icon-xs` | `14` | Icon beside a label in a button (§ 3.1) |
+| `--icon-xs` | `14` | Icon beside a label in a button (§ 3.1) and in small controls · `.icon-xs` |
 | `--icon-sm` | `16` | Inline icon, control glyph |
 | `--icon-md` | `20` | Standalone icon |
 | `--icon-lg` | `24` | Icon in a large control or an empty state |
@@ -440,6 +440,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Link | `.link` `.link-quiet` | canonical | § 3.29 |
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
+| Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
 | Pagination · Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -562,6 +563,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.avatar` (an `<a>` or a `<button>`) | hover | — | `--primary-400` | — | — | only an interactive avatar reacts |
 | `.avatar` (an `<a>` or a `<button>`) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press |
+| `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour |
+| `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
 
 ### § 3.0.2 Stacking
 
@@ -1918,7 +1921,7 @@ A circle that says **who a person, team or account is**: their picture, their in
 **Rules.**
 - **Always a circle (RIGID).** There is no square variant, and the shape never means "person" or "organisation". A team or an account is told apart by its image or its initials, not by its corners.
 - **The name sits on the wrapper (RIGID).** `role="img"` with `aria-label="Anna Rossi"`; the image has `alt=""` and the initials are `aria-hidden`. Next to the name in text the whole avatar is `aria-hidden="true"`, so the name is read once. An avatar with no name and no text beside it is a defect.
-- **Image, then initials, then the glyph.** The image fails over to the initials by itself (`onerror="this.remove()"` in the markup, no script of the system). With no name there is a person glyph at 60% of the side, `--obsidian-300`. Initials are at most two letters.
+- **Image, then initials, then the glyph.** The image fails over to the initials by itself (`onerror="this.remove()"` in the markup, no script of the system). With no name there is the `user` icon of § 3.32 at 60% of the side, `--obsidian-300`. Initials are at most two letters.
 - **Neutral by default.** Every avatar starts on `--obsidian-700`. The five `.avatar-hue-*` tints are for telling people apart in a long list, assigned by the caller from a stable key such as the id, never by position and never reshuffled. `--danger` is not one of them: it reads as an error.
 - **A 1px edge on every variant,** the image included, so a dark photo and a light one weigh the same on a dark page.
 - **Status is never colour alone (WCAG 1.4.1).** The offline dot is a hollow ring, and the status goes in the accessible name: "Anna Rossi, online". The ring around the dot is the surface the avatar sits on: set `--avatar-ring` on a card (`--obsidian-800`); the default is the page, `--obsidian-950`.
@@ -1928,6 +1931,75 @@ A circle that says **who a person, team or account is**: their picture, their in
 - **No other states.** The avatar is not disabled, selected or loading; a pending picture shows the initials.
 
 **Do / Don't.** Do give the avatar a name the screen reader can say. Don't use it as decoration or to mark a thing that is not a person or an account.
+
+### Icon
+
+A small drawing that **names an action or a state** beside a label, or in place of one. All the icons are drawn by one hand: the album below is the whole set, and an icon that is not in it is not in the system.
+
+**Usage**
+
+*Use it when*
+- Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay. *(Carbon, Primer, Fluent)*
+- Telling a state apart from its neighbours without colour alone: the warning triangle in an alert, the check in a done step. *(Polaris, Atlassian)*
+
+*Use something else when*
+- The picture is the content: a photo, a logo, a map → an image, never an icon.
+- The meaning cannot be guessed from the drawing and there is room → a text label, with or without the icon.
+- A status standing alone → Badge, § 3.4.
+
+```html
+<!-- beside a label: decorative -->
+<button class="btn btn-secondary"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg> New case study</button>
+
+<!-- the action is the button: it carries the name, the icon stays decorative -->
+<button class="btn btn-ghost btn-sm btn-icon" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+
+<!-- alone, with a meaning: the name sits on the svg -->
+<svg class="icon icon-md" viewBox="0 0 16 16" role="img" aria-label="Warning"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Icon | `.icon` | `viewBox="0 0 16 16"`, 16px (`--icon-sm`). Outline only, stroke 1.5 on the grid, round ends and joins. Colour is `currentColor` |
+| Sizes | `.icon-xs` · `.icon-md` · `.icon-lg` | 14 · 20 · 24 (`--icon-xs` … `--icon-lg`). 14 is for icons beside a label in a button and in small controls |
+| Muted | `.icon-muted` | `--obsidian-300`, for decorative icons inside a field; never lower |
+
+**The album.** Nineteen icons, one name each. The drawing is copied into the markup as is.
+
+| Name | Drawing | Use |
+|---|---|---|
+| `plus` | `<path d="M8 2.5v11M2.5 8h11"/>` | Add, new, expand a group — button leading, icon-only |
+| `x` | `<path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/>` | Close, dismiss, clear — modal, toast, chip |
+| `check` | `<path d="M3 8.5l3 3 7-7.5"/>` | Done, selected, success — secondary button, alert-success, toast, loader, chat tick |
+| `chevron-up` | `<path d="M3 10l5-5 5 5"/>` | Collapse, previous in a stack — — |
+| `chevron-down` | `<path d="M3 6l5 5 5-5"/>` | Open a list, expand — select caret, date picker title |
+| `chevron-left` | `<path d="M10 3L5 8l5 5"/>` | Back, previous — date picker |
+| `chevron-right` | `<path d="M6 3l5 5-5 5"/>` | Forward, next, disclosure — outline button, accordion, tree, date picker |
+| `arrow-right` | `<path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/>` | Send, go to — chat composer |
+| `search` | `<circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/>` | Search — text input |
+| `menu` | `<path d="M2 5h12M2 11h12"/>` | Open the navigation — top bar |
+| `info` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/>` | Neutral information — alert-info, toast |
+| `circle-alert` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/>` | Needs attention, error — alert, alert-danger, toast, ghost button |
+| `triangle-alert` | `<path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/>` | Warning — alert-warn |
+| `clock` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/>` | Time — date picker |
+| `calendar` | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/>` | Date — date picker field |
+| `user` | `<g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g>` | A person, no picture — avatar |
+| `rotate-ccw` | `<path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/>` | Replay, try again — replay button, chat replay |
+| `paperclip` | `<path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/>` | Attach — chat composer |
+| `maximize` | `<path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/>` | Open larger — case-study image hint |
+
+**Rules.**
+- **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area, outline only, stroke 1.5 grid units, round caps and joins. There is no filled variant. The only exception is `user`, drawn with sharp joins and square ends to match the diamond head. A drawing from another set, or on another grid, is not an icon of the system.
+- **One name per concept (RIGID).** `chevron-right` is one drawing, not three. Adding an icon means adding a row to the album, here and on the site; the verifier checks that every `svg.icon` of the site is an album drawing.
+- **Colour is inherited.** The icon has no colour of its own: the container gives it, and the state (error, success) comes from the container. `.icon-muted` is the only role, and its colour is `--obsidian-300` so it holds 3:1 on every surface.
+- **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed.
+- **Decorative unless it is alone (WCAG 1.1.1).** Beside a label or inside a labelled button: `aria-hidden="true"` and `focusable="false"`. Alone and meaningful: `role="img"` and `aria-label` on the svg. An action is a button that carries the name, never a bare svg.
+- **Space belongs to the container.** The icon carries no margin: the gap is `--s-2` in a button, set by the parent. It is centred on the line of text, never on the baseline.
+- **Motion.** The icon has no animation of its own. A rotation (the accordion chevron, the replay arrow) belongs to its component's row in the § 08.3 index. In a right-to-left text `chevron-left`, `chevron-right` and `arrow-right` mirror; the system does not build that yet.
+- **The select caret is the one exception to inherited colour.** It is a CSS `background-image` and cannot read `currentColor`: it draws the `chevron-down` album shape with the literal `#8A94A3`.
+- **Not icons.** The loader ring and the honeycomb map are graphics with their own rules.
+
+**Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or give it a colour of its own.
 
 ## Do's and Don'ts
 

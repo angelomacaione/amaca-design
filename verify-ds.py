@@ -2439,6 +2439,37 @@ def c60():
     return fails
 
 
+@check("61", "Every svg.icon in the site is a drawing of the Icon album, on the 16 grid",
+       "v5.0.0: the system had 27 drawings of 19 icons on five grids and six stroke weights: a "
+       "check drawn four times, the exclamation circle three times. § 3.32 makes the album the "
+       "registry: one drawing per name, viewBox 16, stroke 1.5 set by .icon. A convention an "
+       "author can bend is a convention that drifts, so the harness reads the album out of "
+       "DESIGN.md and every svg.icon of the site must carry one of its drawings, with the 16 "
+       "viewBox and no stroke or fill of its own.")
+def c61():
+    d = read(DESIGN)
+    m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", d, re.S)
+    if not m:
+        return ["DESIGN.md: § 3.32 has no album"]
+    album = {re.sub(r"\s+", " ", b) for b in re.findall(r"\| `[a-z-]+` \| `(.+?)` \|", m.group(1))}
+    if len(album) < 15:
+        return [f"DESIGN.md: the album parsed to {len(album)} drawings"]
+    html = read(INDEX)
+    fails = []
+    for sv in re.finditer(r"<svg\b([^>]*)>(.*?)</svg>", html, re.S):
+        a, b = sv.group(1), re.sub(r"\s+", " ", sv.group(2)).strip()
+        cls = re.search(r'class="([^"]*)"', a)
+        if not cls or "icon" not in cls.group(1).split():
+            continue
+        if 'viewBox="0 0 16 16"' not in a:
+            fails.append(f"index.html: an svg.icon is not on the 16 grid: <svg{a[:70]}>")
+        elif re.search(r"\b(stroke|fill|stroke-width)=", a):
+            fails.append(f"index.html: an svg.icon sets its own stroke or fill: <svg{a[:70]}>")
+        elif b not in album:
+            fails.append(f"index.html: an svg.icon is not in the album: {b[:70]}")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

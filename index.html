@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=9fb041fd">
+<link rel="stylesheet" href="styles/components.css?v=16a8fbfe">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -155,6 +155,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#shadow" data-target="shadow"><span class="num">05</span> Shadow</a>
       <a class="nav-item" href="#motion" data-target="motion"><span class="num">06</span> Motion</a>
       <a class="nav-item" href="#layout" data-target="layout"><span class="num">07</span> Layout</a>
+      <a class="nav-item" href="#icon" data-target="icon"><span class="num">45</span> Icon</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -898,7 +899,7 @@ Basic UI</div>
               <div class="time">600 ms</div>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" id="motion-play" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" id="motion-play" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
         <div class="subsection">
@@ -1142,17 +1143,17 @@ Basic UI</div>
           <div class="subsection-head"><h2 class="subsection-title">With icons</h2><span class="subsection-num">§ 08.3</span></div>
           <p class="subsection-desc">Icon-and-label compositions, leading and trailing, and the icon-only square for toolbars where the meaning is universal. The icon-only button is named by its <code>aria-label</code>; the icon itself is hidden from assistive tech.</p>
           <div class="card" style="padding:var(--s-8);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
-            <button class="btn btn-primary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg> New case study</button>
-            <button class="btn btn-outline">View all <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M6 3l5 5-5 5"/></svg></button>
-            <button class="btn btn-secondary"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M3 8l3 3 7-7"/></svg> Approved</button>
-            <button class="btn btn-ghost"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="8" cy="8" r="6"/><path d="M8 5v3M8 10.5v.5"/></svg> Help</button>
+            <button class="btn btn-primary"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg> New case study</button>
+            <button class="btn btn-outline">View all <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></button>
+            <button class="btn btn-secondary"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg> Approved</button>
+            <button class="btn btn-ghost"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg> Help</button>
           </div>
           <div class="card" style="padding:var(--s-8);margin-top:var(--s-4);display:flex;gap:var(--s-3);flex-wrap:wrap;align-items:center">
-            <button class="btn btn-secondary btn-icon btn-sm" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
-            <button class="btn btn-secondary btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
-            <button class="btn btn-secondary btn-icon btn-lg" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
-            <button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
-            <button class="btn btn-outline btn-icon" aria-label="Add item" disabled><svg class="icon" aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M8 2v12M2 8h12"/></svg></button>
+            <button class="btn btn-secondary btn-icon btn-sm" aria-label="Add item"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
+            <button class="btn btn-secondary btn-icon" aria-label="Add item"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
+            <button class="btn btn-secondary btn-icon btn-lg" aria-label="Add item"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
+            <button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
+            <button class="btn btn-outline btn-icon" aria-label="Add item" disabled><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
           </div>
         </div>
       </section>
@@ -1228,7 +1229,7 @@ Basic UI</div>
               </div><div class="field">
                 <label class="label">Search — with icon</label>
                 <div class="input-wrap">
-                  <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="7" cy="7" r="5"/><path d="M14 14l-3.5-3.5"/></svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
                   <input class="input" placeholder="Search the archive…"/>
                 </div>
               </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="field">
@@ -1331,7 +1332,7 @@ Basic UI</div>
                   <label class="switch"><input type="checkbox"> Reduced motion override</label>
                   <label class="switch"><input type="checkbox" disabled> Beta features (unavailable)</label>
                 </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="alert alert-info" role="status">
-                <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+                <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg>
                 <div class="alert-title">Switch or checkbox?</div>
                   <div class="alert-body">If the change needs a Save button, it is a checkbox. The switch is the only one of the three that commits on change.</div>
               </div></div></div>
@@ -1374,11 +1375,7 @@ Basic UI</div>
                       maxlength="10"
                       inputmode="numeric"/>
                     <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
-                        <path d="M2 6.5h12"/>
-                        <path d="M5 1.5v3M11 1.5v3"/>
-                      </svg>
+                      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
                 </div>
@@ -1397,11 +1394,7 @@ Basic UI</div>
                       maxlength="10"
                       inputmode="numeric"/>
                     <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
-                        <path d="M2 6.5h12"/>
-                        <path d="M5 1.5v3M11 1.5v3"/>
-                      </svg>
+                      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
                 </div>
@@ -1419,11 +1412,7 @@ Basic UI</div>
                       aria-invalid="true"
                       style="border-color:var(--danger);box-shadow:var(--ring-field-danger)"/>
                     <button type="button" class="dp-icon-btn" aria-label="Open calendar" tabindex="-1">
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="2" y="3" width="12" height="11" rx="1.5"/>
-                        <path d="M2 6.5h12"/>
-                        <path d="M5 1.5v3M11 1.5v3"/>
-                      </svg>
+                      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                     </button>
                   </div>
                 </div>
@@ -1466,11 +1455,7 @@ Basic UI</div>
                         autocomplete="off" maxlength="10" inputmode="numeric"
                         aria-label="Start date"/>
                       <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <rect x="2" y="3" width="12" height="11" rx="1.5"/>
-                          <path d="M2 6.5h12"/>
-                          <path d="M5 1.5v3M11 1.5v3"/>
-                        </svg>
+                        <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                       </button>
                     </div>
                     <div class="input-wrap input-wrap-trail">
@@ -1479,11 +1464,7 @@ Basic UI</div>
                         autocomplete="off" maxlength="10" inputmode="numeric"
                         aria-label="End date"/>
                       <button type="button" class="dp-icon-btn" aria-label="Open calendar" data-dp-trigger>
-                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                          <rect x="2" y="3" width="12" height="11" rx="1.5"/>
-                          <path d="M2 6.5h12"/>
-                          <path d="M5 1.5v3M11 1.5v3"/>
-                        </svg>
+                        <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg>
                       </button>
                     </div>
                   </div>
@@ -1543,10 +1524,7 @@ Basic UI</div>
                       maxlength="5"
                       inputmode="numeric"/>
                     <button type="button" class="dp-icon-btn" aria-label="Open time picker" data-tp-trigger>
-                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <circle cx="8" cy="8" r="6.25"/>
-                        <path d="M8 4.5V8l2.25 1.5"/>
-                      </svg>
+                      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/></svg>
                     </button>
                   </div>
                 </div>
@@ -1690,32 +1668,32 @@ Basic UI</div>
           <p class="subsection-desc">Inline, in flow, addressed to the whole surface. <strong style="color:var(--obsidian-100)">The fill never changes</strong> — semantics ride the 2px left rule and the icon, so the accent budget stays spent on actions, not on furniture. An alert is never dismissible — not on a timer, and not by the reader either.</p>
           <div class="card" data-alert-demo style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)">
             <div class="alert" role="status" data-alert-fade>
-              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v4M8 11v.5"/></svg>
+              <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg>
               <div class="alert-title">System voice</div>
               <div class="alert-body">The default. No semantic claim, just the system talking.</div>
             </div>
             <div class="alert alert-info" role="status" data-alert-fade>
-              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+              <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg>
               <div class="alert-title">Tokens synced 4 minutes ago</div>
               <div class="alert-body">A neutral fact the reader didn't ask for.</div>
             </div>
             <div class="alert alert-success" role="status" data-alert-fade>
-              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"/></svg>
+              <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
               <div class="alert-title">Bundle re-baked</div>
               <div class="alert-body">Something completed, and stayed completed.</div>
             </div>
             <div class="alert alert-warn" role="status" data-alert-fade>
-              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M8 2l6 11H2z"/><path d="M8 6.5v3M8 11v.5"/></svg>
+              <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg>
               <div class="alert-title">Draft not published</div>
               <div class="alert-body">Attention needed, nothing broken. Changes are saved locally until you publish.</div>
             </div>
             <div class="alert alert-danger" role="alert" data-alert-fade>
-              <svg class="alert-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.5M8 11v.5"/></svg>
+              <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg>
               <div class="alert-title">Token file failed to parse</div>
               <div class="alert-body">Something is broken. <code>tokens.css</code> line 47 — unterminated custom property.</div>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="alerts" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="alerts" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 18.2</span></div>
           <p class="subsection-desc">An alert states a condition; it clears when the condition clears.</p>
@@ -1754,27 +1732,27 @@ Basic UI</div>
           <div class="card" style="padding:var(--s-6)">
             <div data-toast-demo style="display:flex;flex-direction:column;gap:var(--s-3);max-width:380px;min-height:296px">
               <div class="toast toast-success" role="status">
-                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2.5 8.5l3.5 3.5 7.5-8"/></svg>
+                <svg class="icon toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
                 <div class="toast-title">Draft published</div>
                 <div class="toast-body">Live at amaca.design/blog.
                   <button class="toast-action" type="button">Undo</button></div>
-                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <div class="toast" role="status">
-                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 7.5v4M8 4.5v.5"/></svg>
+                <svg class="icon toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg>
                 <div class="toast-title">Figma variables updated</div>
                 <div class="toast-body">128 variables written to the Amaca library.</div>
-                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <div class="toast toast-danger" role="alert">
-                <svg class="toast-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 4.5v4.5M8 11v.5"/></svg>
+                <svg class="icon toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg>
                 <div class="toast-title">Export failed</div>
                 <div class="toast-body">Network timeout after 30s. <button class="toast-action" type="button">Retry</button></div>
-                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+                <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="toasts" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="toasts" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 19.2</span></div>
           <p class="subsection-desc">A toast reports an event, and something durable keeps the record.</p>
@@ -1829,7 +1807,7 @@ Basic UI</div>
               </g>
             </svg>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
       </section>
 
@@ -1937,7 +1915,7 @@ Basic UI</div>
                 <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                 <span class="loader-check" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
                 </span>
               </span>
               <div class="caption">Success state</div>
@@ -1966,7 +1944,7 @@ Basic UI</div>
                     <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
                     <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                     <span class="loader-check" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
                     </span>
                   </span>
                 </button>
@@ -1991,7 +1969,7 @@ Basic UI</div>
                   <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
                   <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                   <span class="loader-check" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5 10-11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
                   </span>
                   <span class="loader-label" data-loader-input-label>Checking availability…</span>
                 </div>
@@ -2177,7 +2155,7 @@ Basic UI</div>
             <dialog class="modal" open aria-labelledby="modal-demo-title">
               <div class="modal-head">
                 <h2 class="modal-title" id="modal-demo-title">Delete the project?</h2>
-                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
               <div class="modal-foot">
@@ -2197,7 +2175,7 @@ Basic UI</div>
           <dialog class="modal" id="modal-live-form" aria-labelledby="modal-live-form-title">
             <div class="modal-head">
               <h2 class="modal-title" id="modal-live-form-title">Rename the project</h2>
-              <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+              <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
             </div>
             <label class="field"><span class="label">Name</span><input class="input" type="text" value="Amaca 5.0.0"></label>
             <div class="modal-foot">
@@ -2208,7 +2186,7 @@ Basic UI</div>
           <dialog class="modal" id="modal-live-confirm" role="alertdialog" aria-labelledby="modal-live-confirm-title" aria-describedby="modal-live-confirm-body">
             <div class="modal-head">
               <h2 class="modal-title" id="modal-live-confirm-title">Delete the project?</h2>
-              <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+              <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
             </div>
             <p class="modal-body" id="modal-live-confirm-body">The project and its 14 versions will be removed. This cannot be undone.</p>
             <div class="modal-foot">
@@ -2224,7 +2202,7 @@ Basic UI</div>
             <dialog class="modal modal-wide" open aria-labelledby="modal-wide-title">
               <div class="modal-head">
                 <h2 class="modal-title" id="modal-wide-title">Invite the team</h2>
-                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+                <button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
               </div>
               <p class="modal-body">Enter one email per line. Each person receives an invitation with the role you choose.</p>
               <div class="modal-foot">
@@ -2366,7 +2344,7 @@ Basic UI</div>
                       </div>
                       <div class="right">
                         <button type="button" class="navdemo-burger" aria-label="Open menu">
-                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M2 5h12M2 11h12"/></svg>
+                          <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 5h12M2 11h12"/></svg>
                         </button>
                       </div>
                     </div>
@@ -2526,7 +2504,7 @@ Basic UI</div>
               </g>
             </svg>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
       </section>
 
@@ -2561,7 +2539,7 @@ Basic UI</div>
               <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-projects" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-projects" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
         <div class="subsection">
@@ -2589,7 +2567,7 @@ Basic UI</div>
               <div class="chart-delta neg" data-fade>▲ from 0.1%</div>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
       </section>
 
@@ -2606,7 +2584,7 @@ Basic UI</div>
           <div class="accordion" data-accordion>
             <div class="acc-item is-open">
               <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="acc-1" style="border-radius:var(--r-none); padding:var(--s-4) var(--s-6) var(--s-4) var(--s-5)">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Expandable topics</span>
                 <span class="acc-num">01 / 04</span>
               </button>
@@ -2620,7 +2598,7 @@ Basic UI</div>
             </div>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-2">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Continuous evolution</span>
                 <span class="acc-num">02 / 04</span>
               </button>
@@ -2632,7 +2610,7 @@ Basic UI</div>
             </div>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-3">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Operator-grade legibility</span>
                 <span class="acc-num">03 / 04</span>
               </button>
@@ -2644,7 +2622,7 @@ Basic UI</div>
             </div>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-4">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Auditable by default</span>
                 <span class="acc-num">04 / 04</span>
               </button>
@@ -2663,7 +2641,7 @@ Basic UI</div>
           <div class="accordion" data-accordion data-multi>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-1">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Do you take on full product redesigns?</span>
               </button>
               <div class="acc-panel" id="faq-1" role="region">
@@ -2674,7 +2652,7 @@ Basic UI</div>
             </div>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-2">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">What's your minimum engagement?</span>
               </button>
               <div class="acc-panel" id="faq-2" role="region">
@@ -2685,7 +2663,7 @@ Basic UI</div>
             </div>
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="faq-3">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">Do you work in-house or remote?</span>
               </button>
               <div class="acc-panel" id="faq-3" role="region">
@@ -2814,10 +2792,7 @@ Basic UI</div>
               <div class="chat-demo-head-title">§ 16.2 · Amaca assistant</div>
               <div class="chat-demo-head-spacer"></div>
               <button type="button" class="chat-demo-replay" data-chat-replay>
-                <svg viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M11 7a4 4 0 1 1-1.2-2.85" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  <path d="M11 2.2v2.4H8.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg>
                 Replay
               </button>
             </div>
@@ -2843,15 +2818,11 @@ Basic UI</div>
               <div class="ty-mono" style="color:var(--obsidian-400);margin-bottom:var(--s-3);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase">Empty · resting</div>
               <div class="chat-composer">
                 <button type="button" class="chat-composer-attach" aria-label="Attach file">
-                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/></svg>
                 </button>
                 <textarea class="chat-composer-textarea" placeholder="Message Amaca…" rows="1" aria-label="Message Amaca"></textarea>
                 <button type="button" class="chat-composer-send" aria-label="Send message">
-                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg>
                 </button>
               </div>
               <div class="chat-composer-hint">
@@ -2863,15 +2834,11 @@ Basic UI</div>
               <div class="ty-mono" style="color:var(--obsidian-400);margin-bottom:var(--s-3);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase">Ready · text staged</div>
               <div class="chat-composer is-ready">
                 <button type="button" class="chat-composer-attach" aria-label="Attach file">
-                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/></svg>
                 </button>
                 <textarea class="chat-composer-textarea" rows="1" aria-label="Message Amaca">Generate the magenta ramp as CSS tokens.</textarea>
                 <button type="button" class="chat-composer-send" aria-label="Send message">
-                  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M2.5 8h11M9 3.5L13.5 8 9 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg>
                 </button>
               </div>
               <div class="chat-composer-hint">Send button activates on first keystroke</div>
@@ -2961,7 +2928,7 @@ Basic UI</div>
           <div class="card" style="padding:var(--s-8);display:flex;flex-direction:column;gap:var(--s-6)">
             <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-sm avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">24</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar  avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">32</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">40</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-xl avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">48</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-2xl avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">64</span></div></div>
             <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-sm" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">24</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">32</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">40</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-xl" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">48</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-2xl" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">64</span></div></div>
-            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-sm" role="img" aria-label="Anna Rossi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">24</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar" role="img" aria-label="Anna Rossi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">32</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Anna Rossi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">40</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-xl" role="img" aria-label="Anna Rossi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">48</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-2xl" role="img" aria-label="Anna Rossi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">64</span></div></div>
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-sm" role="img" aria-label="Anna Rossi"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">24</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar" role="img" aria-label="Anna Rossi"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">32</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Anna Rossi"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">40</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-xl" role="img" aria-label="Anna Rossi"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">48</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-2xl" role="img" aria-label="Anna Rossi"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">64</span></div></div>
           </div>
         </div>
         <div class="subsection">
@@ -2972,7 +2939,7 @@ Basic UI</div>
               <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Anna Rossi"><img class="avatar-img" src="data:image/png;base64,AAAA" alt="" onerror="this.remove()"><span aria-hidden="true">AR</span></span><span class="tag">image fails</span></div>
               <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-mark" role="img" aria-label="Amaca"><img class="avatar-img" src="assets/avatar-mark.png" alt=""></span><span class="tag">image</span></div>
               <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">initials</span></div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Guest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></span><span class="tag">no name</span></div>
+              <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg" role="img" aria-label="Guest"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></span><span class="tag">no name</span></div>
             </div>
             <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)">
               <div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-hue-1" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span><span class="tag">hue 1</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-hue-2" role="img" aria-label="Marco Bianchi"><span aria-hidden="true">MB</span></span><span class="tag">hue 2</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-hue-3" role="img" aria-label="Luca Verdi"><span aria-hidden="true">LV</span></span><span class="tag">hue 3</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-hue-4" role="img" aria-label="Sara Greco"><span aria-hidden="true">SG</span></span><span class="tag">hue 4</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span class="avatar avatar-lg avatar-hue-5" role="img" aria-label="Dario Costa"><span aria-hidden="true">DC</span></span><span class="tag">hue 5</span></div>
@@ -3015,6 +2982,49 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don't</div>
               <p>Use an avatar as decoration, or for a thing that is not a person or an account. A picture of a product is an image in a card.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="icon">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 45 · Foundations / Icon</div>
+          <h1 class="page-title">One hand, <span class="accent">sixteen by sixteen.</span></h1>
+          <p class="page-lede">Nineteen outline icons, one name each, one grid, one stroke. The album is the whole set.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay. <span class="usage-ref">Carbon, Primer, Fluent</span></li><li>Telling a state apart from its neighbours without colour alone: the warning triangle in an alert, the check in a done step. <span class="usage-ref">Polaris, Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The picture is the content: a photo, a logo, a map → an image, never an icon.</li><li>The meaning cannot be guessed from the drawing and there is room → a text label, with or without the icon.</li><li>A status standing alone → Badge, § 3.4.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Album</h2><span class="subsection-num">§ 45.1</span></div>
+          <p class="subsection-desc">Every icon at 16 and 24. The drawing is copied into the markup as it is; a drawing that is not here is not in the system. Component spec: § 3.32 in the contract.</p>
+          <div class="grid grid-3"><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></div><span class="tag">plus</span><span class="ty-small">Add, new, expand a group</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></div><span class="tag">x</span><span class="ty-small">Close, dismiss, clear</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></div><span class="tag">check</span><span class="ty-small">Done, selected, success</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 10l5-5 5 5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 10l5-5 5 5"/></svg></div><span class="tag">chevron-up</span><span class="ty-small">Collapse</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5"/></svg></div><span class="tag">chevron-down</span><span class="ty-small">Open a list, expand</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg></div><span class="tag">chevron-left</span><span class="ty-small">Back, previous</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></div><span class="tag">chevron-right</span><span class="ty-small">Forward, next, disclosure</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg></div><span class="tag">arrow-right</span><span class="ty-small">Send, go to</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg></div><span class="tag">search</span><span class="ty-small">Search</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 5h12M2 11h12"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 5h12M2 11h12"/></svg></div><span class="tag">menu</span><span class="ty-small">Open the navigation</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg></div><span class="tag">info</span><span class="ty-small">Neutral information</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg></div><span class="tag">circle-alert</span><span class="ty-small">Needs attention, error</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg></div><span class="tag">triangle-alert</span><span class="ty-small">Warning</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/></svg></div><span class="tag">clock</span><span class="ty-small">Time</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg></div><span class="tag">calendar</span><span class="ty-small">Date</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g></svg></div><span class="tag">user</span><span class="ty-small">A person, no picture</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg></div><span class="tag">rotate-ccw</span><span class="ty-small">Replay, try again</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/></svg></div><span class="tag">paperclip</span><span class="ty-small">Attach</span></div><div class="card" style="padding:var(--s-4);display:flex;flex-direction:column;gap:var(--s-3)"><div style="display:flex;align-items:center;gap:var(--s-4)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/></svg><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/></svg></div><span class="tag">maximize</span><span class="ty-small">Open larger</span></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Sizes</h2><span class="subsection-num">§ 45.2</span></div>
+          <p class="subsection-desc">Four steps from the size tokens. The stroke is 1.5 on the 16 grid, so it grows with the size: 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24.</p>
+          <div class="card" style="padding:var(--s-8)"><div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><svg class="icon icon-xs" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><span class="tag">xs · 14</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><span class="tag">sm · 16</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><span class="tag">md · 20</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><svg class="icon icon-lg" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><span class="tag">lg · 24</span></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Colour</h2><span class="subsection-num">§ 45.3</span></div>
+          <p class="subsection-desc">The icon takes the colour of its container. The only role is muted, <span class="token">--obsidian-300</span>, for decorative icons inside a field.</p>
+          <div class="card" style="padding:var(--s-8)"><div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span style="color:var(--obsidian-100)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg></span><span class="tag">inherits text</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/></svg><span class="tag">.icon-muted</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span style="color:var(--success)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span><span class="tag">set by container</span></div><div style="display:flex;flex-direction:column;align-items:center;gap:var(--s-2)"><span style="color:var(--danger)"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/></svg></span><span class="tag">set by container</span></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">In context</h2><span class="subsection-num">§ 45.4</span></div>
+          <p class="subsection-desc">Beside a label, alone in a button that carries the name, and trailing. In a button the icon is 14.</p>
+          <div class="card" style="padding:var(--s-8)"><div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:var(--s-6)"><button class="btn btn-secondary btn-sm" type="button"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg> New case study</button><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button><button class="btn btn-primary" type="button">Send <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/></svg></button></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 45.5</span></div>
+          <p class="subsection-desc">One rule: copy it from the album.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Copy the drawing from the album, hide it from the screen reader when a label is beside it, and let the container give it the colour.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Redraw an icon, set a stroke width or a colour on it, or use a filled version.</p>
             </div>
           </div>
         </div>
@@ -3116,7 +3126,7 @@ Basic UI</div>
             </svg>
           </div>
 
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 31.2</span></div>
           <p class="subsection-desc">Bars for comparison, labeled at the value. One accent series against neutrals — 85/10/5 applies to data too.</p>
@@ -3165,7 +3175,7 @@ Basic UI</div>
               </svg>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 31.3</span></div>
           <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.26 in the contract.</p>
@@ -3221,7 +3231,7 @@ Basic UI</div>
               </div>
             </div>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 31.4</span></div>
           <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series — and nothing outside them.</p>
@@ -3378,7 +3388,7 @@ Basic UI</div>
               </g>
             </svg>
           </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v6h6"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
       </section>
 
@@ -4036,7 +4046,7 @@ flowchart TD
           <div class="cs-img" role="button" tabindex="0" aria-label="Expand figure: Fig. 01 · In-vehicle observation · 6 weeks, 42 participants" data-lightbox>
             <span class="cs-img-caption">Fig. 01 · In-vehicle observation · 6 weeks, 42 participants</span>
             <span class="cs-img-hint" aria-hidden="true">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+              <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/></svg>
               Click to expand
             </span>
           </div>
@@ -4368,7 +4378,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.3.2 -->
             <div class="acc-item is-open">
               <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-432">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.3.2 &mdash; The card&rsquo;s media, written down</span>
                 <span class="acc-num">2026-09-26</span>
               </button>
@@ -4391,7 +4401,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.3.1 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-431">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.3.1 &mdash; Everything on the scale</span>
                 <span class="acc-num">2026-09-24</span>
               </button>
@@ -4414,7 +4424,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.3.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-430">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.3.0 &mdash; What the compiler read, the file now says</span>
                 <span class="acc-num">2026-09-24</span>
               </button>
@@ -4437,7 +4447,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.2.2 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-422">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.2.2 &mdash; The Select demo does what its contract says</span>
                 <span class="acc-num">2026-09-24</span>
               </button>
@@ -4459,7 +4469,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.2.1 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-421">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.2.1 &mdash; The stylesheets carry their own cache key</span>
                 <span class="acc-num">2026-09-24</span>
               </button>
@@ -4480,7 +4490,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.2.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-420">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.2.0 &mdash; The rings become tokens</span>
                 <span class="acc-num">2026-09-24</span>
               </button>
@@ -4503,7 +4513,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.1.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-410">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.1.0 &mdash; Chip enters the contract</span>
                 <span class="acc-num">2026-09-23</span>
               </button>
@@ -4526,7 +4536,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v4.0.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-400">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v4.0.0 &mdash; The rendered system aligns to its contract</span>
                 <span class="acc-num">2026-08-29</span>
               </button>
@@ -4549,7 +4559,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.5.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-350">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.5.0 &mdash; The skill reaches the IDE, and the gate learns to expire</span>
                 <span class="acc-num">2026-08-26</span>
               </button>
@@ -4575,7 +4585,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.4.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-340">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.4.0 &mdash; Component registry: the inventory closes</span>
                 <span class="acc-num">2026-08-05</span>
               </button>
@@ -4610,7 +4620,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.3.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-330">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.3.0 — Motion grammar: one schema for every component</span>
                 <span class="acc-num">2026-07-17</span>
               </button>
@@ -4655,7 +4665,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.2.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-320">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.2.0 — Figma agent skill (/amaca-figma)</span>
                 <span class="acc-num">2026-07-14</span>
               </button>
@@ -4699,7 +4709,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.1.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-310">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.1.0 — IDE core + per-target rules, site llms.txt</span>
                 <span class="acc-num">2026-07-06</span>
               </button>
@@ -4741,7 +4751,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v3.0.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-300">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v3.0.0 — design.md rewrite, Presentations, per-tool downloads, motion</span>
                 <span class="acc-num">2026-06-22</span>
               </button>
@@ -4782,7 +4792,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.8.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-280">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.8.0 — Select: viewport-aware placement</span>
                 <span class="acc-num">2026-06-21</span>
               </button>
@@ -4813,7 +4823,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.7.2 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-272">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.7.2 — Label weight, ratified: Medium 500 holds</span>
                 <span class="acc-num">2026-06-12</span>
               </button>
@@ -4846,7 +4856,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.7.1 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-271">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.7.1 — The exception, measured: APCA evidence in § 6.3</span>
                 <span class="acc-num">2026-06-12</span>
               </button>
@@ -4882,7 +4892,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.7.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-270">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.7.0 — Motion integrity: one source, six durations</span>
                 <span class="acc-num">2026-06-12</span>
               </button>
@@ -4919,7 +4929,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.6.1 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-261">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.6.1 — Documentation reconciliation: the v2.6.0 exception, propagated</span>
                 <span class="acc-num">2026-06-11</span>
               </button>
@@ -4953,7 +4963,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.6.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-260">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.6.0 — Diagrams: structure, drawn on the same grid</span>
                 <span class="acc-num">2026-06-06</span>
               </button>
@@ -4993,7 +5003,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.5.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-250">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.5.0 — Multi-deploy: one token, three surfaces</span>
                 <span class="acc-num">2026-06-02</span>
               </button>
@@ -5032,7 +5042,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.4.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-241">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.4.0 — Documentation refresh: skill bundle, capability tiers, Tailwind roadmap</span>
                 <span class="acc-num">2026-05-25</span>
               </button>
@@ -5078,7 +5088,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.3.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-230">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.3.0 — Chat &amp; messaging, loader, 85/10/5 reveal</span>
                 <span class="acc-num">2026-05-22</span>
               </button>
@@ -5125,7 +5135,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.2.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-220">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.2.0 — Date &amp; time pickers, dropdown spec, tabs hardened</span>
                 <span class="acc-num">2026-05-12</span>
               </button>
@@ -5181,7 +5191,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.1.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-new">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.1.0 — Time input &amp; routing</span>
                 <span class="acc-num">2026-05-07</span>
               </button>
@@ -5232,7 +5242,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v2.0.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-0">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v2.0.0 — Motion language refresh</span>
                 <span class="acc-num">2026-05-07</span>
               </button>
@@ -5316,7 +5326,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v1.2.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-1">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v1.2.0 — Components, accessibility, public spec</span>
                 <span class="acc-num">2026-04-28</span>
               </button>
@@ -5375,7 +5385,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v1.1.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-2">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v1.1.0 — Maintenance &amp; donut polish</span>
                 <span class="acc-num">2026-04-24</span>
               </button>
@@ -5422,7 +5432,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <!-- v1.0.0 -->
             <div class="acc-item">
               <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-3">
-                <span class="acc-chevron" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none"><path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v1.0.0 — Initial public release</span>
                 <span class="acc-num">2026-04-23</span>
               </button>
@@ -5488,7 +5498,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Expanded figure" aria-hidden="true">
   <div class="lightbox-content" id="lightbox-content">
     <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
     </button>
     <span id="lightbox-caption"></span>
   </div>
@@ -6595,14 +6605,14 @@ new MutationObserver(muts => {
     pop.innerHTML = ''
       + '<div class="dp-header">'
       +   '<button type="button" class="dp-nav" data-dp-prev aria-label="Previous">'
-      +     '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5"/></svg>'
+      +     '<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg>'
       +   '</button>'
       +   '<button type="button" class="dp-title" data-dp-title aria-label="Switch view">'
       +     '<span data-dp-title-text></span>'
-      +     '<svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5"/></svg>'
+      +     '<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 6l5 5 5-5"/></svg>'
       +   '</button>'
       +   '<button type="button" class="dp-nav" data-dp-next aria-label="Next">'
-      +     '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg>'
+      +     '<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>'
       +   '</button>'
       + '</div>'
       + '<div class="dp-dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>'
@@ -6911,9 +6921,9 @@ new MutationObserver(muts => {
     pop.hidden = true;
     pop.innerHTML = ''
       + '<div class="dp-header">'
-      +   '<button type="button" class="dp-nav" data-dp-prev aria-label="Previous month"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 2.5 4 6l3.5 3.5"/></svg></button>'
+      +   '<button type="button" class="dp-nav" data-dp-prev aria-label="Previous month"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg></button>'
       +   '<div style="flex:1"></div>'
-      +   '<button type="button" class="dp-nav" data-dp-next aria-label="Next month"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 2.5 8 6l-3.5 3.5"/></svg></button>'
+      +   '<button type="button" class="dp-nav" data-dp-next aria-label="Next month"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></button>'
       + '</div>'
       + '<div class="dp-months">'
       +   '<div data-dp-month-a><div class="dp-month-title" data-dp-title-a></div><div class="dp-dow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div><div class="dp-grid" data-dp-grid-a></div></div>'
@@ -7474,7 +7484,7 @@ new MutationObserver(muts => {
   let typingBubbleRef = null;
 
   // SVG snippets
-  const TICK_SVG = '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7l3 3 7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  const TICK_SVG = '<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>';
 
   function escapeHtml(s){
     return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
