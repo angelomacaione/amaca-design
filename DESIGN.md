@@ -293,7 +293,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--z-scrim` | `15` | Drawer scrim |
 | `--z-menu` | `20` | Mobile drawer, anchored menus (`.select-menu`) |
 | `--z-popover` | `30` | Anchored floating layers — date/time popovers, tooltip |
-| `--z-overlay` | `100` | Full-screen overlays — lightbox |
+| `--z-overlay` | `100` | Full-screen overlays — lightbox, modal |
 | `--z-toast` | `200` | Toast region |
 | `--z-max` | `1000` | Skip link, and nothing else |
 
@@ -323,6 +323,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sh-glow` | Brand bloom — the `.btn-primary` hover, listed before `--sh-3` so the bloom paints over the drop |
 | `--sh-glow-soft` | Ambient brand glow (rare) |
 | `--sh-menu` | Select menu and native picker — a floating list over content |
+| `--scrim` | The page behind a modal, dimmed — `--obsidian-950` at 60%, `#07090B99`. A translucent colour: a veil, never a surface |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -437,9 +438,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
 | Link | `.link` `.link-quiet` | canonical | § 3.29 |
-| Modal (generic) | — | off-system | Lightbox is image-only and does not generalise |
+| Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
 | Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -543,6 +544,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears |
 | `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays |
 | `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` |
+| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width 480px · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside |
+| `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table |
 
 ### § 3.0.2 Stacking
 
@@ -1783,7 +1786,7 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 | `.link` | `--bw-1`, always | Every link inside a sentence or a paragraph, and any link whose context does not already say it is a link. The default | — |
 | `.link-quiet` | none — appears on hover and focus | A **standalone** link: the only thing on its line or in its cell, where position and label already say it is a link. A menu, a footer, a list of resources, the title of a row that opens another page, a "Read more" at the end of a card | Inside a sentence or a paragraph, next to running text, in a caption or in a helper line. There the colour is 2.1:1 against the text and WCAG 1.4.1 fails |
 
-- **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect.
+- **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect, and check 60 fails it.
 - **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.18).
 - **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
 - **No visited state.** In an application the colour of a link carries no history, and a second colour would need its own contrast pair.
@@ -1794,6 +1797,58 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 - **States: § 3.0.1** — `default` · `hover` · `focus-visible` · `active` · `disabled`. Motion: the colour and the thickness on `--d-quick` · `--ease-standard`, in the § 8.3 index.
 
 **Do / Don't.** Do put the link on the words that name the destination. Don't use a link for an action on the current page — that is § 3.1 Button.
+
+### Modal
+
+A window that **interrupts the page to ask for a decision or to collect a piece of data**, and nothing else. It holds the person's attention until they answer or dismiss it, which is why it is rare. It is a native `<dialog>` opened with `showModal()`; an image that needs the screen is the Lightbox (§ 3.8).
+
+**Usage**
+
+*Use it when*
+- A decision that must be made before the person goes on: confirm a destructive action, answer one question. *(Carbon, Atlassian)*
+- A short form that belongs to one task: rename, invite, create. *(Polaris, Primer)*
+
+*Use something else when*
+- A message that needs no answer → Alert or Toast. *(Carbon, Polaris)*
+- Content that is long or the person will come back to → a page. *(GOV.UK)*
+- An image to look at closely → Lightbox.
+
+```html
+<dialog class="modal" aria-labelledby="del-title">
+  <div class="modal-head">
+    <h2 class="modal-title" id="del-title">Delete the project?</h2>
+    <button class="btn btn-ghost btn-icon" aria-label="Close" data-modal-close>&times;</button>
+  </div>
+  <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
+  <div class="modal-foot">
+    <button class="btn btn-secondary" data-modal-close>Cancel</button>
+    <button class="btn btn-danger">Delete project</button>
+  </div>
+</dialog>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
+| Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a ghost icon button, § 3.1 |
+| Body | `.modal-body` | `--t-body`, `--obsidian-200` |
+| Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
+
+**Rules.**
+- **The panel is the card's surface, not a new one.** Same fill, border and radius; what lifts it off the page is `--sh-4` and the `--scrim` behind it. A modal with a radius of its own is a second card shape.
+- **`--scrim` is a veil.** The page stays visible and dimmed; it never blurs. The Lightbox keeps its own, darker backdrop because it is a viewer.
+- **Open it with `showModal()`.** The browser then traps focus, makes the rest of the page inert, and closes on `Esc`; none of that is rebuilt. It rides `--z-overlay`, and the page behind does not scroll.
+- **The title is the name.** `aria-labelledby` points at `.modal-title`. A confirmation that needs the answer to proceed uses `role="alertdialog"` and `aria-describedby` on the body.
+- **Focus goes to a control, never to the panel.** The first control, or for a destructive confirmation the *least* destructive one (Cancel). On close it returns to the control that opened the modal.
+- **Closing (RIGID).** `Esc` always closes. A click on the scrim closes too, **except** in a `role="alertdialog"` and whenever the modal holds data not yet saved. The close button is always present, so the way out never depends on a gesture.
+- **Actions: one primary, at the end.** A destructive action is `.btn-danger` and is never the default focus. A modal has at most two actions and no third "learn more" link; that goes in the body.
+- **Never stack.** A modal opened from a modal is a flow that wants a page.
+- **Small screens:** at ≤480px the panel keeps `--s-4` of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.
+- **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 08.3 index.
+- **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
+
+**Do / Don't.** Do ask one thing and give it two clear answers. Don't use a modal to show a message that needs no reply: that is an Alert or a Toast.
 
 ## Do's and Don'ts
 
@@ -2021,6 +2076,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+| Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| Modal | open | panel translateY `--s-2`→0 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Modal | open | scrim background (effect) | `--d-quick` · `--ease-decel` | instant |
+| Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |

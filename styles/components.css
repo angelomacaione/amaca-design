@@ -3111,3 +3111,44 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .link-quiet:active{color:var(--primary-500);text-decoration-color:currentColor}
 .link-quiet:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 .link-quiet[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-color:transparent;cursor:not-allowed}
+
+/* § 3.30 — Modal (v5.0.0): a native <dialog> opened with showModal(). The panel is the card's surface and radius, the top
+   step of the shadow scale, over --scrim. Opens on opacity + a short rise; closes on opacity + the same travel, faster. */
+.modal{
+  width:calc(100% - var(--s-8));max-width:480px;max-height:calc(100vh - var(--s-8));overflow:auto;
+  margin:auto;padding:var(--s-6);
+  background:var(--obsidian-800);color:var(--obsidian-100);
+  border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);box-shadow:var(--sh-4);
+  font-family:var(--font-sans);
+  opacity:0;transform:translateY(var(--s-2));
+  transition:opacity var(--d-quick) var(--ease-accel),transform var(--d-quick) var(--ease-accel),
+    overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;
+}
+.modal-wide{max-width:720px}
+.modal[open]{
+  opacity:1;transform:none;
+  transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-base) var(--ease-decel),
+    overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;
+}
+@starting-style{.modal[open]{opacity:0;transform:translateY(var(--s-2))}}
+.modal::backdrop{
+  background:transparent;
+  transition:background var(--d-quick) var(--ease-accel),overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;
+}
+.modal[open]::backdrop{background:var(--scrim);transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete}
+@starting-style{.modal[open]::backdrop{background:transparent}}
+body:has(.modal[open]){overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
+.modal-title{margin:0;font-size:var(--t-h6);font-weight:700;line-height:var(--lh-snug)}
+.modal-body{margin:0;color:var(--obsidian-200);font-size:var(--t-body)}
+.modal-foot{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-6)}
+@media (max-width:480px){.modal-foot .btn{flex:1 1 100%}}
+@media (prefers-reduced-motion:reduce){
+  .modal,.modal[open]{transition:none;transform:none}
+  .modal::backdrop,.modal[open]::backdrop{transition:none}
+}
+/* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
+.modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
+.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}
+.modal-demo .modal{position:relative;inset:auto;margin:0;opacity:1;transform:none;transition:none}
+

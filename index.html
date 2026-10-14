@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=96fbf8df">
-<link rel="stylesheet" href="styles/components.css?v=82578651">
+<link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
+<link rel="stylesheet" href="styles/components.css?v=16f4e1b0">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -186,6 +186,7 @@ html{scroll-behavior:smooth}
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Overlays</div>
+      <a class="nav-item" href="#modal" data-target="modal"><span class="num">43</span> Modal</a>
       <a class="nav-item" href="#tooltip" data-target="tooltip"><span class="num">22</span> Tooltip</a>
     </div>
     <div class="nav-group">
@@ -2156,6 +2157,93 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don't</div>
               <p>Let the loader keep spinning after the wait is over. A loader that won't stop is a bug surface, not a state.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="modal">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 43 · Overlays / Modal</div>
+          <h1 class="page-title">Ask once, <span class="accent">clearly.</span></h1>
+          <p class="page-lede">A window that interrupts the page to ask for a decision or to collect a piece of data. It holds attention until the person answers, which is why it is rare.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A decision that must be made before the person goes on: confirm a destructive action, answer one question. <span class="usage-ref">Carbon, Atlassian</span></li><li>A short form that belongs to one task: rename, invite, create. <span class="usage-ref">Polaris, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A message that needs no answer → Alert or Toast. <span class="usage-ref">Carbon, Polaris</span></li><li>Content that is long or the person will come back to → a page. <span class="usage-ref">GOV.UK</span></li><li>An image to look at closely → Lightbox.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 43.1</span></div>
+          <p class="subsection-desc">A head with the title and the close, a body, a foot with the actions at the end. The panel is the card's surface and radius; the shadow and the scrim lift it off the page. Component spec: § 3.30 in the contract.</p>
+          <div class="modal-demo">
+            <dialog class="modal" open aria-labelledby="modal-demo-title">
+              <div class="modal-head">
+                <h2 class="modal-title" id="modal-demo-title">Delete the project?</h2>
+                <button class="btn btn-ghost btn-icon" type="button" aria-label="Close">&times;</button>
+              </div>
+              <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
+              <div class="modal-foot">
+                <button class="btn btn-secondary" type="button">Cancel</button>
+                <button class="btn btn-danger" type="button">Delete project</button>
+              </div>
+            </dialog>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Live</h2><span class="subsection-num">§ 43.2</span></div>
+          <p class="subsection-desc">A real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>: focus is trapped, the page behind is inert, Esc closes, and focus returns to the button that opened it. The confirmation is an <code>alertdialog</code>, so a click on the scrim does not close it.</p>
+          <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center">
+            <button class="btn btn-secondary" type="button" data-modal-open="modal-live-form">Rename project</button>
+            <button class="btn btn-danger" type="button" data-modal-open="modal-live-confirm">Delete project</button>
+          </div>
+          <dialog class="modal" id="modal-live-form" aria-labelledby="modal-live-form-title">
+            <div class="modal-head">
+              <h2 class="modal-title" id="modal-live-form-title">Rename the project</h2>
+              <button class="btn btn-ghost btn-icon" type="button" aria-label="Close" data-modal-close>&times;</button>
+            </div>
+            <label class="field"><span class="label">Name</span><input class="input" type="text" value="Amaca 5.0.0"></label>
+            <div class="modal-foot">
+              <button class="btn btn-secondary" type="button" data-modal-close>Cancel</button>
+              <button class="btn btn-primary" type="button" data-modal-close>Save</button>
+            </div>
+          </dialog>
+          <dialog class="modal" id="modal-live-confirm" role="alertdialog" aria-labelledby="modal-live-confirm-title" aria-describedby="modal-live-confirm-body">
+            <div class="modal-head">
+              <h2 class="modal-title" id="modal-live-confirm-title">Delete the project?</h2>
+              <button class="btn btn-ghost btn-icon" type="button" aria-label="Close" data-modal-close>&times;</button>
+            </div>
+            <p class="modal-body" id="modal-live-confirm-body">The project and its 14 versions will be removed. This cannot be undone.</p>
+            <div class="modal-foot">
+              <button class="btn btn-secondary" type="button" data-modal-close autofocus>Cancel</button>
+              <button class="btn btn-danger" type="button" data-modal-close>Delete project</button>
+            </div>
+          </dialog>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Widths</h2><span class="subsection-num">§ 43.3</span></div>
+          <p class="subsection-desc">480px by default; 720px, <code>.modal-wide</code>, for a form of several fields or a table. There is no third width. At 480px and below the panel keeps a margin on each side and the actions stack.</p>
+          <div class="modal-demo">
+            <dialog class="modal modal-wide" open aria-labelledby="modal-wide-title">
+              <div class="modal-head">
+                <h2 class="modal-title" id="modal-wide-title">Invite the team</h2>
+                <button class="btn btn-ghost btn-icon" type="button" aria-label="Close">&times;</button>
+              </div>
+              <p class="modal-body">Enter one email per line. Each person receives an invitation with the role you choose.</p>
+              <div class="modal-foot">
+                <button class="btn btn-secondary" type="button">Cancel</button>
+                <button class="btn btn-primary" type="button">Send invitations</button>
+              </div>
+            </dialog>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 43.4</span></div>
+          <p class="subsection-desc">A modal asks one thing and gives it clear answers.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Ask one thing and give it two clear answers, with the primary action last and a destructive one never focused first.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Use a modal for a message that needs no reply. That is an alert or a toast, and it must not stop the person.</p>
             </div>
           </div>
         </div>
@@ -7098,6 +7186,22 @@ new MutationObserver(muts => {
       const active = tabs.find(function(t){ return t.classList.contains('active'); });
       if(active) moveIndicator(active);
     });
+  });
+})();
+</script>
+<script>
+// --- modal: open, close, and the scrim click ---
+(function(){
+  document.addEventListener('click', function(e){
+    var o = e.target.closest('[data-modal-open]');
+    if(o){ var d = document.getElementById(o.getAttribute('data-modal-open')); if(d) d.showModal(); return; }
+    var c = e.target.closest('[data-modal-close]');
+    if(c){ var dd = c.closest('dialog'); if(dd) dd.close(); return; }
+    var m = e.target;
+    if(m.tagName === 'DIALOG' && m.classList.contains('modal') && m.open && m.getAttribute('role') !== 'alertdialog'){
+      var r = m.getBoundingClientRect();
+      if(e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) m.close();
+    }
   });
 })();
 </script>

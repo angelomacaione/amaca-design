@@ -182,6 +182,7 @@
   --sh-glow: 0 0 0 1px rgba(240,81,213,0.35), 0 0 24px rgba(240,81,213,0.25);
   --sh-glow-soft: 0 0 40px rgba(240,81,213,0.12);
   --sh-menu: 0 8px 24px rgba(0,0,0,0.4);   /* select menu and native picker (v4.3.0) */
+  --scrim: #07090B99;                      /* the page behind a modal, dimmed: --obsidian-950 at 60% (v5.0.0) */
   /* focus rings (v4.2.0) — the two § 6.2 literals and the error twin, now named */
   --ring-halo: 0 0 0 4px rgba(240,81,213,0.35);
   --ring-field: 0 0 0 3px rgba(240,81,213,0.15);

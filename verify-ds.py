@@ -800,6 +800,8 @@ def c25():
         s = s.strip()
         if re.fullmatch(r"#[0-9a-fA-F]{6}", s):
             return hex_rgb(s), 1.0
+        if re.fullmatch(r"#[0-9a-fA-F]{8}", s):      # v5.0.0: --scrim is a veil, a colour with alpha
+            return hex_rgb(s[:7]), int(s[7:], 16) / 255
         m = re.fullmatch(r"rgba?\(([^)]*)\)", s)
         if not m:
             return None
@@ -2368,6 +2370,73 @@ def c59():
     body = re.sub(r"<script.*?</script>|<style.*?</style>", "", html, flags=re.S)
     used = {c for m in re.findall(r'class="([^"]*)"', body) for c in m.split()}
     return [f"index.html: .{c} is used in the markup and styled nowhere" for c in sorted(used - styled - UNSTYLED_OK)]
+
+
+@check("60", "A .link-quiet never sits in running text: it is for a standalone link only",
+       "v5.0.0: the Link has two variants. .link is underlined at rest; .link-quiet is not, and "
+       "the magenta link colour is 2.1:1 against the body text, under the 3:1 WCAG 1.4.1 asks of "
+       "a link with no other cue. The variant is legal only where nothing around the link is "
+       "running text, and § 3.29 says so as a RIGID rule. A rule that depends on the author "
+       "remembering it drifts the first time someone pastes a quiet link into a sentence, so the "
+       "harness reads the site markup: a .link-quiet inside <p>, <figcaption>, <blockquote> or "
+       ".help, or beside text that carries a letter or a digit, fails.")
+def c60():
+    from html.parser import HTMLParser
+    VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+    PROSE = {"p", "figcaption", "blockquote", "caption"}
+
+    class Node:
+        def __init__(self, tag, attrs, parent):
+            self.tag, self.attrs, self.parent = tag, dict(attrs), parent
+            self.kids, self.text = [], []
+
+        def classes(self):
+            return (self.attrs.get("class") or "").split()
+
+    class P(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.root = Node("#root", [], None)
+            self.cur = self.root
+            self.found = []
+
+        def handle_starttag(self, tag, attrs):
+            n = Node(tag, attrs, self.cur)
+            self.cur.kids.append(n)
+            if "link-quiet" in n.classes():
+                self.found.append(n)
+            if tag not in VOID:
+                self.cur = n
+
+        def handle_endtag(self, tag):
+            n = self.cur
+            while n is not None and n.tag != tag:
+                n = n.parent
+            if n is not None and n.parent is not None:
+                self.cur = n.parent
+
+        def handle_data(self, data):
+            self.cur.text.append(data)
+
+    html = re.sub(r"<script.*?</script>|<style.*?</style>", "", read(INDEX), flags=re.S)
+    parser = P()
+    parser.feed(html)
+    fails = []
+    for n in parser.found:
+        label = "".join(n.text).strip()[:40] or "(no text)"
+        a, why = n.parent, None
+        while a is not None and a.tag != "#root":
+            if a.tag in PROSE or "help" in a.classes():
+                why = f"inside <{a.tag}{'.help' if 'help' in a.classes() else ''}>"
+                break
+            a = a.parent
+        if why is None and n.parent is not None:
+            around = "".join(n.parent.text)
+            if re.search(r"[A-Za-z0-9\u00C0-\u024F]", around):
+                why = f"beside running text in <{n.parent.tag}>"
+        if why:
+            fails.append(f"index.html: .link-quiet \"{label}\" {why} — use .link (§ 3.29)")
+    return fails
 
 
 def main():
