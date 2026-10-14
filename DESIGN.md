@@ -1831,7 +1831,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 |---|---|---|
 | Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
 | Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
-| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.1, pulled out by `--s-2` so the glyph — not its 32px target — lines up with the content edge |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.1, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
 | Body | `.modal-body` | `--t-body`, `--obsidian-200` |
 | Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
 

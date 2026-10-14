@@ -3139,7 +3139,8 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 @starting-style{.modal[open]::backdrop{background:transparent}}
 body:has(.modal[open]){overflow:hidden}
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
-.modal-head .btn-icon{flex:none;margin-inline-end:calc(-1 * var(--s-2))}  /* the glyph, not the 32px target, lines up with the content edge */
+.modal-head .btn-icon{flex:none}  /* the 32px target sits on the content edge: the glyph is then --s-2 in, as far from the right as it is from the top */
+.modal-head .btn-icon:focus-visible{outline-offset:calc(-1 * var(--focus-width));box-shadow:none}  /* the ring stays inside the content edge, so it lines up with the field below */
 .modal-title{margin:0;font-size:var(--t-h6);font-weight:700;line-height:var(--lh-snug)}
 .modal-body{margin:0;color:var(--obsidian-200);font-size:var(--t-body)}
 .modal-foot{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-6)}
