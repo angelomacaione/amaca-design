@@ -338,7 +338,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for modal and drawer, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -443,7 +443,8 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.33 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.34 |
-| Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
+| Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.35 |
+| Progress bar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
@@ -511,6 +512,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.pagination-link` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
 | `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
 | `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
+| `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` |
+| `.slider-input` | hover | — | — | — | `--ring-field` | on the thumb |
+| `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb |
+| `.slider-input` | active | — | — | — | — | `cursor: grabbing` |
+| `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -2227,6 +2233,66 @@ Links between the pages of one set of items. A `nav` of numbered links, or, in a
 
 **Do / Don't.** Do mark the current page with `aria-current`, name every number and put the page number in the title. Don't use it for a form, show it for a single page, or replace it with infinite scroll.
 
+### Slider
+
+A number, or a range of two, chosen by position on a scale. Native range inputs underneath: the keyboard, the form value and the screen reader come with them.
+
+**Usage**
+
+*Use it when*
+- Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity. *(Carbon)*
+
+*Use something else when*
+- Fewer than about ten steps → Radio or Select. *(Carbon)*
+- More than a few hundred steps, or an exact value to type → a number in a Text input. *(Carbon)*
+- A date or a time → Date picker, Time input. *(Carbon)*
+
+```html
+<!-- single -->
+<div class="slider" data-slider>
+  <div class="slider-head">
+    <label class="label" for="volume">VOLUME</label>
+    <output class="slider-value" for="volume">40</output>
+  </div>
+  <input class="slider-input" id="volume" type="range" min="0" max="100" step="5" value="40" style="--p:40%">
+  <div class="slider-scale"><span>0</span><span>100</span></div>
+</div>
+
+<!-- range: two inputs, each with its own name; a selection inside the scale -->
+<div class="slider" data-slider data-unit="€">
+  <div class="slider-head">
+    <span class="label" id="price">PRICE RANGE</span>
+    <output class="slider-value">€40 – €140</output>
+  </div>
+  <div class="slider-pair" role="group" aria-labelledby="price" style="--lo:20%;--hi:70%">
+    <input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price">
+    <input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price">
+  </div>
+  <div class="slider-scale"><span>€0</span><span>€200</span></div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Slider | `.slider` | The wrapper: head, track, scale, gap `--s-2`. `data-slider` is the script's hook |
+| Head | `.slider-head` | The label on the left, the value on the right |
+| Value | `.slider-value` | An `<output>`: the current value, or `low – high` for a range, `--t-small`, tabular numerals |
+| Scale | `.slider-scale` | The minimum and the maximum under the ends of the track, `--t-caption`, `--obsidian-300` |
+| Input | `.slider-input` | A native `<input type="range">`: a 32px row (`--s-8`), a track of `--s-1`, a thumb of `--s-5` |
+| Pair | `.slider-pair` | A range: two inputs on one track. The pair draws the track and the fill between the thumbs |
+
+**Rules.**
+- **Count the steps, not the values.** The unit is the step: (max − min) ÷ step is the number of positions. Fewer than about ten → Radio or Select. More than a few hundred, or a value the reader has to hit exactly → a number typed in a Text input. 0 to 100 in steps of 5 is 20 positions.
+- **Native underneath.** Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's `name`.
+- **A range starts on a selection, not on the whole scale.** Each thumb is its own input with its own `aria-label` ("Minimum price", "Maximum price"), and the pair is a `role="group"` named by the visible label. The lower thumb cannot pass the upper one; they can meet.
+- **The value is always shown.** In `.slider-value`, beside the label; the minimum and the maximum sit in `.slider-scale`. A slider with no visible value is a guess.
+- **The fill is the script's.** `--p` on the input (single), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
+- **No error state.** The value is always inside the scale. A slider that cannot be changed is `disabled`.
+- **Targets (WCAG 2.5.8).** The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.
+- **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+
+**Do / Don't.** Do set a step that gives between ten and a few hundred positions, show the value beside the label and name each handle of a range. Don't use a slider for three choices or for a value that must be exact, or start a range on the whole scale.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2460,6 +2526,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Slider | hover · focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |

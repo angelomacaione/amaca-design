@@ -2302,7 +2302,8 @@ def c56():
 R_FULL_RATIFIED = {
     ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
-    ".avatar", ".avatar-dot", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
+    ".avatar", ".avatar-dot", ".slider-input::-webkit-slider-runnable-track", ".slider-input::-moz-range-track",
+    ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
 }
 
 

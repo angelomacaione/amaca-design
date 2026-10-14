@@ -3223,6 +3223,32 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width:480px){.pagination{flex-wrap:wrap}.pagination-link > span{display:none}.pagination-gap{min-width:var(--s-6)}}  /* the numbered form still fits: the words drop out and the names stay on aria-label; the compact form is the real answer */
 @media (prefers-reduced-motion:reduce){.pagination-link{transition:none}}
 
+/* § 3.35 Slider — a number, or a range of two, chosen by dragging. Native range inputs underneath: keyboard, form value and screen reader come with them. */
+.slider{display:flex;flex-direction:column;gap:var(--s-2)}
+.slider-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-3)}
+.slider-value{color:var(--obsidian-100);font-size:var(--t-small);font-variant-numeric:tabular-nums}
+.slider-scale{display:flex;justify-content:space-between;color:var(--obsidian-300);font-size:var(--t-caption);font-variant-numeric:tabular-nums}
+.slider-input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:var(--s-8);margin:0;padding:0;background:transparent;cursor:pointer;outline:none}
+.slider-input::-webkit-slider-runnable-track{height:var(--s-1);border-radius:var(--r-full);background:linear-gradient(to right,var(--primary-500) var(--p,0%),var(--obsidian-600) var(--p,0%))}
+.slider-input::-moz-range-track{height:var(--s-1);border-radius:var(--r-full);background:linear-gradient(to right,var(--primary-500) var(--p,0%),var(--obsidian-600) var(--p,0%))}
+.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:var(--s-5);height:var(--s-5);margin-top:calc((var(--s-1) - var(--s-5)) / 2);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard)}
+.slider-input::-moz-range-thumb{box-sizing:border-box;width:var(--s-5);height:var(--s-5);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard)}
+.slider-input:hover::-webkit-slider-thumb{box-shadow:var(--ring-field)}
+.slider-input:hover::-moz-range-thumb{box-shadow:var(--ring-field)}
+.slider-input:focus-visible::-webkit-slider-thumb{box-shadow:var(--ring-halo)}
+.slider-input:focus-visible::-moz-range-thumb{box-shadow:var(--ring-halo)}
+.slider-input:active{cursor:grabbing}
+.slider-input:disabled{opacity:0.4;cursor:not-allowed}
+/* range: two inputs on one track; the pair draws the track, the inputs pass the pointer through to their thumbs */
+.slider-pair{position:relative;height:var(--s-8)}
+.slider-pair::before{content:"";position:absolute;left:0;right:0;top:50%;height:var(--s-1);transform:translateY(-50%);border-radius:var(--r-full);background:linear-gradient(to right,transparent var(--lo,0%),var(--primary-500) var(--lo,0%),var(--primary-500) var(--hi,100%),transparent var(--hi,100%)),var(--obsidian-600);z-index:0}
+.slider-pair .slider-input{position:absolute;inset:0;z-index:1;pointer-events:none}
+.slider-pair .slider-input::-webkit-slider-runnable-track{background:transparent}
+.slider-pair .slider-input::-moz-range-track{background:transparent}
+.slider-pair .slider-input::-webkit-slider-thumb{pointer-events:auto;cursor:pointer}
+.slider-pair .slider-input::-moz-range-thumb{pointer-events:auto;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.slider-input::-webkit-slider-thumb,.slider-input::-moz-range-thumb{transition:none}}
+
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
 .modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}

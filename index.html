@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=aea2f673">
+<link rel="stylesheet" href="styles/components.css?v=7fab8759">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -173,6 +173,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#switch" data-target="switch"><span class="num">13</span> Switch</a>
       <a class="nav-item" href="#date-picker" data-target="date-picker"><span class="num">14</span> Date picker</a>
       <a class="nav-item" href="#time-input" data-target="time-input"><span class="num">15</span> Time input</a>
+      <a class="nav-item" href="#slider" data-target="slider"><span class="num">48</span> Slider</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -828,7 +829,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Soft corners, <span class="accent">a short scale.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Pills and dots take <code>--r-full</code>; everything else stays on the scale.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for modal and drawer, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for modal and drawer, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
@@ -3140,6 +3141,39 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
               <p>Use it for a form or any linear journey, show it for a single page, or replace it with infinite scroll.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="slider">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 48 · Inputs / Slider</div>
+          <h1 class="page-title">A number, <span class="accent">by position.</span></h1>
+          <p class="page-lede">Drag a handle along a scale to pick a value, or two to pick a range. A native range input underneath, so the keyboard, the form value and the screen reader come with it.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Fewer than about ten steps → Radio or Select. <span class="usage-ref">Carbon</span></li><li>More than a few hundred steps, or an exact value to type → a number in a Text input. <span class="usage-ref">Carbon</span></li><li>A date or a time → Date picker, Time input. <span class="usage-ref">Carbon</span></li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Single</h2><span class="subsection-num">§ 48.1</span></div>
+          <p class="subsection-desc">A label, the value beside it, the scale under the track. The fill runs from the start to the handle. Arrow keys move one step, Page Up and Page Down ten, Home and End go to the ends. The last one is disabled.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Volume</div><div class="slider" data-slider><div class="slider-head"><label class="label" for="sl-volume">Volume</label><output class="slider-value" for="sl-volume"></output></div><input class="slider-input" id="sl-volume" type="range" min="0" max="100" step="5" value="40"><div class="slider-scale"><span>0</span><span>100</span></div></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Disabled</div><div class="slider" data-slider><div class="slider-head"><label class="label" for="sl-disabled">Opacity</label><output class="slider-value" for="sl-disabled"></output></div><input class="slider-input" id="sl-disabled" type="range" min="0" max="100" step="5" value="60" disabled><div class="slider-scale"><span>0</span><span>100</span></div></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Range</h2><span class="subsection-num">§ 48.2</span></div>
+          <p class="subsection-desc">Two handles on one track, each its own range input with its own name. The lower cannot pass the upper; they can meet. A range starts on a selection inside the scale, not on the whole of it.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Price range</div><div class="slider" data-slider data-unit="€"><div class="slider-head"><span class="label" id="sl-price">Price range</span><output class="slider-value"></output></div><div class="slider-pair" role="group" aria-labelledby="sl-price"><input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price"><input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price"></div><div class="slider-scale"><span>€0</span><span>€200</span></div></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Handles together</div><div class="slider" data-slider data-unit="€"><div class="slider-head"><span class="label" id="sl-price-2">Price range</span><output class="slider-value"></output></div><div class="slider-pair" role="group" aria-labelledby="sl-price-2"><input class="slider-input" type="range" min="0" max="200" step="5" value="95" aria-label="Minimum price"><input class="slider-input" type="range" min="0" max="200" step="5" value="105" aria-label="Maximum price"></div><div class="slider-scale"><span>€0</span><span>€200</span></div></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 48.3</span></div>
+          <p class="subsection-desc">Count the steps, not the values.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Set a step that gives between ten and a few hundred positions, show the value beside the label, and name each handle of a range.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Use a slider for three choices or for a value the reader has to hit exactly, or start a range on the whole scale.</p>
             </div>
           </div>
         </div>
@@ -8860,6 +8894,27 @@ document.addEventListener('click', function(e){
   f.value = '';
   f.dispatchEvent(new Event('input', {bubbles:true}));
   f.focus();
+});
+
+// Slider · paint the fill, show the value, keep the lower handle under the upper
+document.querySelectorAll('[data-slider]').forEach(function(w){
+  var ins = w.querySelectorAll('.slider-input'), out = w.querySelector('.slider-value'), u = w.dataset.unit || '';
+  function pct(i){ return (i.value - i.min) / (i.max - i.min) * 100; }
+  function paint(e){
+    if(ins.length === 2){
+      var lo = ins[0], hi = ins[1], pair = w.querySelector('.slider-pair');
+      if(e && e.target === lo && +lo.value > +hi.value) lo.value = hi.value;
+      if(e && e.target === hi && +hi.value < +lo.value) hi.value = lo.value;
+      pair.style.setProperty('--lo', pct(lo) + '%');
+      pair.style.setProperty('--hi', pct(hi) + '%');
+      if(out) out.textContent = u + lo.value + ' \u2013 ' + u + hi.value;
+    } else {
+      ins[0].style.setProperty('--p', pct(ins[0]) + '%');
+      if(out) out.textContent = u + ins[0].value;
+    }
+  }
+  ins.forEach(function(i){ i.addEventListener('input', paint); });
+  paint();
 });
 </script>
 </body>
