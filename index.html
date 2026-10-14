@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=7fab8759">
+<link rel="stylesheet" href="styles/components.css?v=53b2966d">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -205,6 +205,7 @@ html{scroll-behavior:smooth}
       <div class="nav-label">Containers</div>
       <a class="nav-item" href="#card" data-target="card"><span class="num">27</span> Card</a>
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">28</span> Accordion</a>
+      <a class="nav-item" href="#divider" data-target="divider"><span class="num">49</span> Divider</a>
       <a class="nav-item" href="#chat" data-target="chat"><span class="num">29</span> Chat</a>
     </div>
     <div class="nav-group">
@@ -3174,6 +3175,34 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
               <p>Use a slider for three choices or for a value the reader has to hit exactly, or start a range on the whole scale.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="divider">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 49 · Containers / Divider</div>
+          <h1 class="page-title">One line, <span class="accent">where the topic changes.</span></h1>
+          <p class="page-lede">A hairline between two blocks of one container. It carries no space of its own: the container sets the gap on both sides.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A change of topic inside one container: two blocks of a card, a modal or a menu. <span class="usage-ref">Polaris</span></li><li>Groups side by side that need a boundary: the groups of a toolbar. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The rows of a List or a Table → the row's own hairline.</li><li>Space already separates the blocks → no line.</li><li>The sections of a page → a heading and space.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">§ 49.1</span></div>
+          <p class="subsection-desc">Horizontal is an <code>hr</code>; vertical is a <code>div</code> with <code>role="separator"</code> and <code>aria-orientation</code>; the labelled one is two lines around a word and is not a separator, so the word stays readable.</p>
+          <div class="grid grid-3" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Horizontal</div><div style="display:flex;flex-direction:column;gap:var(--s-5)"><div><div style="font-size:var(--t-body);font-weight:700">Project settings</div><div class="ty-small" style="margin-top:var(--s-1)">Name, owner and visibility.</div></div><hr class="divider"><div><div style="font-size:var(--t-body);font-weight:700">Danger zone</div><div class="ty-small" style="margin-top:var(--s-1)">Archive or delete this project.</div></div></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Vertical</div><div style="display:flex;align-items:center;gap:var(--s-3)"><button class="btn btn-ghost btn-sm" type="button">Bold</button><button class="btn btn-ghost btn-sm" type="button">Italic</button><div class="divider divider-vertical" role="separator" aria-orientation="vertical"></div><button class="btn btn-ghost btn-sm" type="button">Link</button><button class="btn btn-ghost btn-sm" type="button">Quote</button></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">With a label</div><div style="display:flex;flex-direction:column;gap:var(--s-4)"><button class="btn btn-secondary" type="button" style="width:100%">Continue with email</button><div class="divider-label"><span>or</span></div><button class="btn btn-secondary" type="button" style="width:100%">Continue with a passkey</button></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 49.2</span></div>
+          <p class="subsection-desc">A line is a break, not decoration.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Draw it where the topic changes, and let the container give the space on both sides.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.</p>
             </div>
           </div>
         </div>

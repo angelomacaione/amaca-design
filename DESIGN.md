@@ -444,6 +444,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.33 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.34 |
 | Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.35 |
+| Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.36 |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -517,6 +518,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb |
 | `.slider-input` | active | — | — | — | — | `cursor: grabbing` |
 | `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
+| `.divider` | default | — | `1px solid --obsidian-700` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own |
+| `.divider-vertical` | default | — | `1px solid --obsidian-700` | — | — | the left edge · stretches to the height of its row |
+| `.divider-label` | default | — | `1px solid --obsidian-700` | `--obsidian-300` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -2292,6 +2296,48 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
 
 **Do / Don't.** Do set a step that gives between ten and a few hundred positions, show the value beside the label and name each handle of a range. Don't use a slider for three choices or for a value that must be exact, or start a range on the whole scale.
+
+### Divider
+
+A hairline between two blocks of one container: a thematic break. Three forms: horizontal, vertical, and horizontal with a word in the middle.
+
+**Usage**
+
+*Use it when*
+- A change of topic inside one container: two blocks of a card, a modal or a menu. *(Polaris)*
+- Groups side by side that need a boundary: the groups of a toolbar. *(Carbon)*
+
+*Use something else when*
+- The rows of a List or a Table → the row's own hairline.
+- Space already separates the blocks → no line.
+- The sections of a page → a heading and space.
+
+```html
+<!-- horizontal: a thematic break; the implicit role is separator -->
+<hr class="divider">
+
+<!-- vertical: a div has no meaning of its own, so it carries the role -->
+<div class="divider divider-vertical" role="separator" aria-orientation="vertical"></div>
+
+<!-- with a word: not a separator, the word is content -->
+<div class="divider-label"><span>or</span></div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Horizontal | `.divider` | An `hr`: 1px, `--obsidian-700`, the full width of its container, no margin |
+| Vertical | `.divider-vertical` | A `div` that stretches to the height of its row (`align-self: stretch`, min `--s-4`) |
+| Label | `.divider-label` | Two lines around a word, `--t-caption` · `--obsidian-300`, gap `--s-3` |
+
+**Rules.**
+- **A break, not decoration.** The horizontal divider is an `hr`: a change of topic, with the implicit role `separator`. A line that only decorates is not a Divider: the rows of a List and a Table already carry their own hairline.
+- **The vertical one names itself.** A `div` has no meaning, so it carries `role="separator"` and `aria-orientation="vertical"`. The parent has a definite height or is a flex row.
+- **The labelled one is content.** It has no `role="separator"`: that role makes its children presentational and the word would be lost to the screen reader. The two lines are pseudo-elements.
+- **The space belongs to the container.** No margin on the divider: the gap on both sides is the parent's (`--s-4` to `--s-6`), like the icon's.
+- **One weight, one colour.** `--obsidian-700`, 1px. `--border-subtle` (`--obsidian-800`) vanishes inside a card, which is `--obsidian-800`; a heavier line is a different component, not a thicker divider.
+- **Static.** No hover, no focus, no motion.
+
+**Do / Don't.** Do draw it where the topic changes and let the container give the space on both sides. Don't put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.
 
 ## Do's and Don'ts
 
