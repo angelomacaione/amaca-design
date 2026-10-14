@@ -2301,7 +2301,7 @@ def c56():
 R_FULL_RATIFIED = {
     ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
-    ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
+    ".avatar", ".avatar-dot", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
 }
 
 

@@ -338,7 +338,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for modal and drawer, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, status dots).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -439,7 +439,8 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
 | Link | `.link` `.link-quiet` | canonical | § 3.29 |
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
-| Pagination · Progress bar · Slider · Avatar · Empty state · File upload | — | off-system | Stop and ask |
+| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
+| Pagination · Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
@@ -546,6 +547,21 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` |
 | `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width 480px · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside |
 | `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table |
+| `.avatar` | default | `--obsidian-700` | `1px solid --obsidian-600` | `--obsidian-100` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` |
+| `.avatar-mark` | default | `--obsidian-850` | — | — | — | the brand mark, contained, at 56% of the side |
+| `.avatar-hue-1` | default | `--primary-300` × `--tint-fill-deep` | `--primary-300` × `--tint-edge` | `--primary-300` | — | over `--obsidian-800` |
+| `.avatar-hue-2` | default | `--info` × `--tint-fill-deep` | `--info` × `--tint-edge` | `--info` | — | over `--obsidian-800` |
+| `.avatar-hue-3` | default | `--success` × `--tint-fill-deep` | `--success` × `--tint-edge` | `--success` | — | over `--obsidian-800` |
+| `.avatar-hue-4` | default | `--warning` × `--tint-fill-deep` | `--warning` × `--tint-edge` | `--warning` | — | over `--obsidian-800` |
+| `.avatar-hue-5` | default | `--tertiary-200` × `--tint-fill-deep` | `--tertiary-200` × `--tint-edge` | `--tertiary-200` | — | over `--obsidian-800` |
+| `.avatar-more` | default | `--obsidian-800` | — | `--obsidian-200` | — | the "+N" of a group, weight 500 |
+| `.avatar-dot[data-status="online"]` | default | `--success` | `2px solid --obsidian-950` | — | — | on a card the ring follows the surface: `--avatar-ring` set to `--obsidian-800` · 8 / 12 / 16px by size |
+| `.avatar-dot[data-status="away"]` | default | `--warning` | `2px solid --obsidian-950` | — | — | — |
+| `.avatar-dot[data-status="busy"]` | default | `--danger` | `2px solid --obsidian-950` | — | — | — |
+| `.avatar-dot[data-status="offline"]` | default | transparent | `2px solid --obsidian-950` | — | — | a hollow ring: `inset 2px --obsidian-400` |
+| `.avatar` (an `<a>` or a `<button>`) | hover | — | `--primary-400` | — | — | only an interactive avatar reacts |
+| `.avatar` (an `<a>` or a `<button>`) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
+| `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press |
 
 ### § 3.0.2 Stacking
 
@@ -1850,6 +1866,69 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 **Do / Don't.** Do ask one thing and give it two clear answers. Don't use a modal to show a message that needs no reply: that is an Alert or a Toast.
 
+### Avatar
+
+A circle that says **who a person, team or account is**: their picture, their initials or, with no name at all, a person glyph. It sits beside a name or stands in for it, and it is always a circle.
+
+**Usage**
+
+*Use it when*
+- Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list. *(Carbon, Atlassian, Polaris)*
+- Several people share one item and a count is enough: a stack of up to five. *(Primer, Spectrum)*
+
+*Use something else when*
+- A picture of a thing rather than of a person or account: a product, a place → an image in a Card.
+- A count or a status standing alone → Badge.
+- An icon that stands for an action → an icon-only Button, § 3.1.
+
+```html
+<!-- on its own: the name is the only information -->
+<span class="avatar" role="img" aria-label="Anna Rossi">
+  <img class="avatar-img" src="anna.jpg" alt="" onerror="this.remove()">
+  <span aria-hidden="true">AR</span>
+</span>
+
+<!-- beside the name: decorative -->
+<span class="avatar avatar-sm" aria-hidden="true">AR</span> Anna Rossi
+
+<!-- a status, named in the label -->
+<span class="avatar avatar-lg" role="img" aria-label="Anna Rossi, online">
+  <span aria-hidden="true">AR</span>
+  <i class="avatar-dot" data-status="online" aria-hidden="true"></i>
+</span>
+
+<!-- a group: the last slot is the count -->
+<div class="avatar-group" role="group" aria-label="Team">
+  <span class="avatar" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span>
+  <span class="avatar" role="img" aria-label="Marco Bianchi"><span aria-hidden="true">MB</span></span>
+  <span class="avatar avatar-more" role="img" aria-label="3 more people">+3</span>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Avatar | `.avatar` | A circle, `--obsidian-700` on `--obsidian-600`, 32px. Sizes: `.avatar-sm` 24 · default 32 · `.avatar-lg` 40 · `.avatar-xl` 48 · `.avatar-2xl` 64 |
+| Image | `.avatar-img` | `cover` inside the circle. It sits over the initials, so if it fails to load the initials show |
+| Brand mark | `.avatar-mark` | `--obsidian-850`, the mark contained at 56% of the side. For Amaca itself, never for a person |
+| Initials | the inner `<span>` | At most two letters, weight 700: `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` by size |
+| Hue | `.avatar-hue-1` … `-5` | Optional tints to tell people apart in a long list: `--primary-300` · `--info` · `--success` · `--warning` · `--tertiary-200`, the badge recipe |
+| Status | `.avatar-dot` `[data-status]` | Bottom right, ringed in `--avatar-ring`; `online` `away` `busy` `offline` |
+| Group | `.avatar-group` `.avatar-more` | Overlapped by a quarter of the side; the "+N" is the last slot and has the same size |
+
+**Rules.**
+- **Always a circle (RIGID).** There is no square variant, and the shape never means "person" or "organisation". A team or an account is told apart by its image or its initials, not by its corners.
+- **The name sits on the wrapper (RIGID).** `role="img"` with `aria-label="Anna Rossi"`; the image has `alt=""` and the initials are `aria-hidden`. Next to the name in text the whole avatar is `aria-hidden="true"`, so the name is read once. An avatar with no name and no text beside it is a defect.
+- **Image, then initials, then the glyph.** The image fails over to the initials by itself (`onerror="this.remove()"` in the markup, no script of the system). With no name there is a person glyph at 60% of the side, `--obsidian-300`. Initials are at most two letters.
+- **Neutral by default.** Every avatar starts on `--obsidian-700`. The five `.avatar-hue-*` tints are for telling people apart in a long list, assigned by the caller from a stable key such as the id, never by position and never reshuffled. `--danger` is not one of them: it reads as an error.
+- **A 1px edge on every variant,** the image included, so a dark photo and a light one weigh the same on a dark page.
+- **Status is never colour alone (WCAG 1.4.1).** The offline dot is a hollow ring, and the status goes in the accessible name: "Anna Rossi, online". The ring around the dot is the surface the avatar sits on: set `--avatar-ring` on a card (`--obsidian-800`); the default is the page, `--obsidian-950`.
+- **Groups.** Overlap is a quarter of the side, and each avatar is cut out of the one before by `--bw-2` of the surface, so it works on any background. The last avatar sits on top. Show at most five slots; past that the fifth is "+N", the same size, labelled "N more people".
+- **Interactive only when it goes somewhere.** An `<a>` or a `<button>` carries `.avatar` and its label names the destination ("Open Anna Rossi's profile"). Hover moves the edge to `--primary-400`, pressed to `--primary-500`, focus is the pressable ring. Any other avatar does not react.
+- **Motion.** The edge colour on `--d-quick` · `--ease-standard` — a row in the § 08.3 index; reduced motion is instant.
+- **No other states.** The avatar is not disabled, selected or loading; a pending picture shows the initials.
+
+**Do / Don't.** Do give the avatar a name the screen reader can say. Don't use it as decoration or to mark a thing that is not a person or an account.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2080,6 +2159,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Modal | open | panel translateY `--s-2`→0 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Modal | open | scrim background (effect) | `--d-quick` · `--ease-decel` | instant |
 | Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
+| Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |

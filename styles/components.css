@@ -3149,6 +3149,37 @@ body:has(.modal[open]){overflow:hidden}
   .modal,.modal[open]{transition:none;transform:none}
   .modal::backdrop,.modal[open]::backdrop{transition:none}
 }
+/* § 3.31 Avatar — who a person, team or account is. A circle; the name sits on the wrapper (role="img"). */
+.avatar{--size:var(--s-8);--fs:var(--t-caption);--dot:var(--s-2);--o:var(--s-2);position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:var(--size);height:var(--size);padding:0;border:var(--bw-1) solid var(--obsidian-600);border-radius:var(--r-full);background:var(--obsidian-700);color:var(--obsidian-100);font:700 var(--fs)/1 var(--font-sans);text-transform:uppercase;text-decoration:none;vertical-align:middle;user-select:none}
+.avatar-sm{--size:var(--s-6);--fs:var(--t-micro);--o:calc(var(--s-1) + var(--s-0-5))}
+.avatar-lg{--size:var(--s-10);--fs:var(--t-body);--dot:var(--s-3);--o:var(--s-3)}
+.avatar-xl{--size:var(--s-12);--fs:var(--t-lead);--dot:var(--s-3);--o:var(--s-3)}
+.avatar-2xl{--size:var(--s-16);--fs:var(--t-h5);--dot:var(--s-4);--o:var(--s-4)}
+.avatar-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.avatar>svg{width:60%;height:60%;color:var(--obsidian-300)}
+.avatar-mark{background:var(--obsidian-850)}
+.avatar-mark>.avatar-img{inset:22%;width:56%;height:56%;object-fit:contain}
+.avatar-hue-1,.avatar-hue-2,.avatar-hue-3,.avatar-hue-4,.avatar-hue-5{background:color-mix(in srgb,var(--h) calc(var(--tint-fill-deep) * 100%),var(--obsidian-800));border-color:color-mix(in srgb,var(--h) calc(var(--tint-edge) * 100%),transparent);color:var(--h)}
+.avatar-hue-1{--h:var(--primary-300)}
+.avatar-hue-2{--h:var(--info)}
+.avatar-hue-3{--h:var(--success)}
+.avatar-hue-4{--h:var(--warning)}
+.avatar-hue-5{--h:var(--tertiary-200)}
+.avatar-dot{position:absolute;right:calc(-1 * var(--bw-2));bottom:calc(-1 * var(--bw-2));box-sizing:content-box;width:var(--dot);height:var(--dot);border:var(--bw-2) solid var(--avatar-ring,var(--obsidian-950));border-radius:var(--r-full);background:var(--dc)}
+.avatar-dot[data-status="online"]{--dc:var(--success)}
+.avatar-dot[data-status="away"]{--dc:var(--warning)}
+.avatar-dot[data-status="busy"]{--dc:var(--danger)}
+.avatar-dot[data-status="offline"]{--dc:transparent;box-shadow:inset 0 0 0 var(--bw-2) var(--obsidian-400)}
+.avatar-group{display:inline-flex;align-items:center}
+.avatar-group>.avatar+.avatar{margin-inline-start:calc(-1 * var(--o))}
+.avatar-group>.avatar:not(:last-child){--cut:calc(var(--size) / 2 + var(--bw-2));padding-inline-end:calc(var(--o) + var(--bw-2));-webkit-mask:radial-gradient(circle at calc(var(--size) - var(--o) + var(--size) / 2) 50%,transparent var(--cut),black calc(var(--cut) + var(--bw-1) / 2));mask:radial-gradient(circle at calc(var(--size) - var(--o) + var(--size) / 2) 50%,transparent var(--cut),black calc(var(--cut) + var(--bw-1) / 2))}
+.avatar-more{background:var(--obsidian-800);color:var(--obsidian-200);font-weight:500}
+a.avatar,button.avatar{cursor:pointer;transition:border-color var(--d-quick) var(--ease-standard)}
+a.avatar:hover,button.avatar:hover{border-color:var(--primary-400)}
+a.avatar:active,button.avatar:active{border-color:var(--primary-500)}
+a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
+@media (prefers-reduced-motion:reduce){a.avatar,button.avatar{transition:none}}
+
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
 .modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}
