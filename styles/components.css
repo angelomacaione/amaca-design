@@ -3138,7 +3138,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 .modal[open]::backdrop{background:var(--scrim);transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete}
 @starting-style{.modal[open]::backdrop{background:transparent}}
-body:has(.modal[open]){overflow:hidden}
+body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal() locks the page; the inline demo (static `open`) must not */
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
 .modal-head .btn-icon{flex:none}  /* the 32px target sits on the content edge: the glyph is then --s-2 in, as far from the right as it is from the top */
 .modal-head .btn-icon:focus-visible{outline-offset:calc(-1 * var(--focus-width));box-shadow:none}  /* the ring stays inside the content edge, so it lines up with the field below */
