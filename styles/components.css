@@ -363,6 +363,7 @@
 }
 .btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn .icon{width:var(--icon-xs);height:var(--icon-xs)}
+.btn-icon .icon{width:var(--icon-sm);height:var(--icon-sm)}  /* an icon-only button keeps the 16 glyph: the 14 is for an icon beside a label */
 .btn-primary{background:var(--primary-500);color:var(--obsidian-050);border-color:var(--primary-500);box-shadow:var(--sh-2)}
 .btn-primary:hover{background:var(--primary-500);color:var(--obsidian-050);border-color:var(--primary-500);box-shadow:var(--sh-glow), var(--sh-3)}
 .btn-secondary{background:var(--obsidian-800);color:var(--obsidian-100);border-color:var(--obsidian-700)}
@@ -3186,6 +3187,7 @@ a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) so
 .icon-md{width:var(--icon-md);height:var(--icon-md)}
 .icon-lg{width:var(--icon-lg);height:var(--icon-lg)}
 .icon-muted{color:var(--obsidian-300)}
+.icon-fill{fill:currentColor;stroke-width:var(--bw-1)}  /* solid: the same box, filled; the 1px stroke only rounds the corners */
 
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}

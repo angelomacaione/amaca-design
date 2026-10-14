@@ -440,7 +440,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Link | `.link` `.link-quiet` | canonical | § 3.29 |
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
-| Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
+| Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
 | Pagination · Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -565,6 +565,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press |
 | `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour |
 | `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
+| `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
 
 ### § 3.0.2 Stacking
 
@@ -1954,52 +1955,124 @@ A small drawing that **names an action or a state** beside a label, or in place 
 <!-- the action is the button: it carries the name, the icon stays decorative -->
 <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
 
+<!-- a solid icon: the same box, one more class -->
+<svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5 2.75v10.5l8.5-5.25z"/></svg>
+
 <!-- alone, with a meaning: the name sits on the svg -->
 <svg class="icon icon-md" viewBox="0 0 16 16" role="img" aria-label="Warning"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg>
 ```
 
 | Part | Class | Note |
 |---|---|---|
-| Icon | `.icon` | `viewBox="0 0 16 16"`, 16px (`--icon-sm`). Outline only, stroke 1.5 on the grid, round ends and joins. Colour is `currentColor` |
+| Icon | `.icon` | `viewBox="0 0 16 16"`, 16px (`--icon-sm`). Outline: stroke 1.5 on the grid, round ends and joins. Colour is `currentColor` |
 | Sizes | `.icon-xs` · `.icon-md` · `.icon-lg` | 14 · 20 · 24 (`--icon-xs` … `--icon-lg`). 14 is for icons beside a label in a button and in small controls |
+| Solid | `.icon-fill` | The same box, filled with `currentColor`. Only the drawings the album marks `solid` |
 | Muted | `.icon-muted` | `--obsidian-300`, for decorative icons inside a field; never lower |
 
-**The album.** Nineteen icons, one name each. The drawing is copied into the markup as is.
+**The album.** 50 icons, one name each; the five shapes come in both styles, so there are 55 drawings. The drawing is copied into the markup as is.
 
-| Name | Drawing | Use |
-|---|---|---|
-| `plus` | `<path d="M8 2.5v11M2.5 8h11"/>` | Add, new, expand a group — button leading, icon-only |
-| `x` | `<path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/>` | Close, dismiss, clear — modal, toast, chip |
-| `check` | `<path d="M3 8.5l3 3 7-7.5"/>` | Done, selected, success — secondary button, alert-success, toast, loader, chat tick |
-| `chevron-up` | `<path d="M3 10l5-5 5 5"/>` | Collapse, previous in a stack — — |
-| `chevron-down` | `<path d="M3 6l5 5 5-5"/>` | Open a list, expand — select caret, date picker title |
-| `chevron-left` | `<path d="M10 3L5 8l5 5"/>` | Back, previous — date picker |
-| `chevron-right` | `<path d="M6 3l5 5-5 5"/>` | Forward, next, disclosure — outline button, accordion, tree, date picker |
-| `arrow-right` | `<path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/>` | Send, go to — chat composer |
-| `search` | `<circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/>` | Search — text input |
-| `menu` | `<path d="M2 5h12M2 11h12"/>` | Open the navigation — top bar |
-| `info` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/>` | Neutral information — alert-info, toast |
-| `circle-alert` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75v4M8 11v.5"/>` | Needs attention, error — alert, alert-danger, toast, ghost button |
-| `triangle-alert` | `<path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/>` | Warning — alert-warn |
-| `clock` | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/>` | Time — date picker |
-| `calendar` | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/>` | Date — date picker field |
-| `user` | `<g stroke-linecap="butt" stroke-linejoin="miter"><path d="M8 2l3 3-3 3-3-3z"/><path d="M2.5 14v-1.5L5 10h6l2.5 2.5V14"/></g>` | A person, no picture — avatar |
-| `rotate-ccw` | `<path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/>` | Replay, try again — replay button, chat replay |
-| `paperclip` | `<path d="M11.5 7.5L7.8 11.2a2.4 2.4 0 1 1-3.4-3.4l4.7-4.7a1.6 1.6 0 0 1 2.3 2.3L6.8 10a.8.8 0 0 1-1.1-1.1l3.8-3.8"/>` | Attach — chat composer |
-| `maximize` | `<path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/>` | Open larger — case-study image hint |
+**Actions**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `plus` | line | `<path d="M8 2.5v11M2.5 8h11"/>` | Add, new, expand a group |
+| `x` | line | `<path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/>` | Close, dismiss, clear |
+| `check` | line | `<path d="M3 8.5l3 3 7-7.5"/>` | Done, selected, success |
+| `edit` | line | `<path d="M10.5 2.75l2.75 2.75-7.5 7.5L2.5 13.5l.5-3.25z"/><path d="M9 4.25l2.75 2.75"/>` | Edit |
+| `download` | line | `<path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/>` | Download |
+| `trash` | line | `<path d="M2.5 4.5h11M6 4.5V3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1.5"/><path d="M3.75 4.5l.6 8.4a1 1 0 0 0 1 .95h5.3a1 1 0 0 0 1-.95l.6-8.4"/><path d="M6.75 7v4M9.25 7v4"/>` | Delete |
+| `play` | solid | `<path d="M4.5 2.75v10.5l8.5-5.25z"/>` | Play |
+| `pause` | solid | `<path d="M4.5 3h2.25v10H4.5zM9.25 3h2.25v10H9.25z"/>` | Pause |
+| `rotate-ccw` | line | `<path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/>` | Replay, try again |
+| `paperclip` | line | `<g transform="rotate(45 8 8)"><path d="M11.25 4.5v6.75a3.25 3.25 0 0 1-6.5 0V4a2.25 2.25 0 0 1 4.5 0v7a1 1 0 0 1-2 0V5.5"/></g>` | Attach |
+| `maximize` | line | `<path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/>` | Open larger |
+
+**Arrows and chevrons**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `arrow-up` | line | `<path d="M8 13.5v-11M3.5 7L8 2.5 12.5 7"/>` | Up, send |
+| `arrow-down` | line | `<path d="M8 2.5v11M3.5 9L8 13.5 12.5 9"/>` | Down |
+| `arrow-left` | line | `<path d="M13.5 8h-11M7 3.5L2.5 8 7 12.5"/>` | Left, back |
+| `arrow-right` | line | `<path d="M2.5 8h11M9 3.5L13.5 8 9 12.5"/>` | Forward, go to |
+| `arrow-up-right` | line | `<path d="M4 12L12 4M5.5 4H12v6.5"/>` | External link |
+| `arrow-up-left` | line | `<path d="M12 12L4 4M10.5 4H4v6.5"/>` | Up and left |
+| `arrow-down-right` | line | `<path d="M4 4l8 8M5.5 12H12V5.5"/>` | Down and right |
+| `arrow-down-left` | line | `<path d="M12 4L4 12M10.5 12H4V5.5"/>` | Down and left |
+| `chevron-up` | line | `<path d="M3 10l5-5 5 5"/>` | Collapse |
+| `chevron-down` | line | `<path d="M3 6l5 5 5-5"/>` | Open a list, expand |
+| `chevron-left` | line | `<path d="M10 3L5 8l5 5"/>` | Previous |
+| `chevron-right` | line | `<path d="M6 3l5 5-5 5"/>` | Next, disclosure |
+
+**Navigation and panels**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `menu` | line | `<path d="M2 4h12M2 8h12M2 12h12"/>` | Open the navigation |
+| `kebab` | line | `<circle cx="8" cy="3.5" r=".75"/><circle cx="8" cy="8" r=".75"/><circle cx="8" cy="12.5" r=".75"/>` | More actions |
+| `panel-left` | line | `<rect x="2" y="2.5" width="12" height="11" rx="1.75"/><path d="M6 2.5v11"/>` | Sidebar |
+| `panel-right` | line | `<rect x="2" y="2.5" width="12" height="11" rx="1.75"/><path d="M10 2.5v11"/>` | Side panel |
+| `search` | line | `<circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/>` | Search |
+| `settings` | line | `<path d="M5.39 4.21L5.97 1.83L10.03 1.83L10.61 4.21L9.98 3.85L12.33 3.15L14.36 6.68L12.59 8.37L12.59 7.63L14.36 9.32L12.33 12.85L9.98 12.15L10.61 11.79L10.03 14.17L5.97 14.17L5.39 11.79L6.02 12.15L3.67 12.85L1.64 9.32L3.41 7.63L3.41 8.37L1.64 6.68L3.67 3.15L6.02 3.85z"/><circle cx="8" cy="8" r="2"/>` | Settings |
+| `component` | solid | `<path d="M8 1.75l2.1 2.1L8 5.95 5.9 3.85z"/><path d="M3.85 5.9L5.95 8l-2.1 2.1L1.75 8z"/><path d="M12.15 5.9L14.25 8l-2.1 2.1L10.05 8z"/><path d="M8 10.05l2.1 2.1L8 14.25l-2.1-2.1z"/>` | A component |
+| `code` | line | `<path d="M5.5 4.5L2 8l3.5 3.5M10.5 4.5L14 8l-3.5 3.5M9 3l-2 10"/>` | Code view |
+
+**Status and content**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `info` | line | `<circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/>` | Neutral information |
+| `triangle-alert` | line | `<path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/>` | Needs attention: warning, error |
+| `clock` | line | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/>` | Time |
+| `calendar` | line | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/>` | Date |
+| `eye` | line | `<path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/>` | Show |
+| `eye-off` | line | `<path d="M6 3.9A6.4 6.4 0 0 1 8 3.5C12 3.5 14.5 8 14.5 8a11.4 11.4 0 0 1-1.7 2.3M4.1 5.1A11.2 11.2 0 0 0 1.5 8S4 12.5 8 12.5a6.2 6.2 0 0 0 2.3-.45"/><path d="M2.5 2.5l11 11"/><path d="M6.6 6.6a2 2 0 0 0 2.8 2.8"/>` | Hide |
+| `image` | line | `<rect x="2" y="2.75" width="12" height="10.5" rx="1.75"/><circle cx="5.75" cy="6.25" r="1"/><path d="M2.5 12l3.5-3.5 2.5 2.5 2-2 3 3"/>` | Image, placeholder |
+
+**People and chat**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `user` | solid | `<g stroke-linejoin="miter"><path d="M8 1.75l3.25 3.25L8 8.25 4.75 5z"/><path d="M2.5 14.25v-1.75L5 9.75h6l2.5 2.75v1.75z"/></g>` | A person, no picture |
+| `message` | line | `<path d="M2.5 13.5l1-2.9a5.5 5.5 0 1 1 2 2z"/>` | A message, a new chat |
+| `messages` | line | `<path d="M9.88 4.50A4.1 4.1 0 1 0 2.25 7.50L1.64 10.41L4.56 9.90A4.1 4.1 0 0 0 4.70 9.95"/><path d="M14.34 14.14L13.76 11.23A3.9 3.9 0 1 0 11.43 13.56z"/>` | A conversation |
+| `message-plus` | line | `<path d="M2.5 13.5l1-2.9a5.5 5.5 0 1 1 2 2z"/><path d="M8 5.5v4M6 7.5h4"/>` | New chat |
+
+**Shapes**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `triangle` | line | `<path d="M8 2.5L14 13H2z"/>` | Shape |
+| `triangle-fill` | solid | `<path d="M8 2.5L14 13H2z"/>` | Shape |
+| `diamond` | line | `<path d="M8 2l6 6-6 6-6-6z"/>` | Shape |
+| `diamond-fill` | solid | `<path d="M8 2l6 6-6 6-6-6z"/>` | Shape |
+| `square` | line | `<path d="M2.5 2.5h11v11h-11z"/>` | Shape |
+| `square-fill` | solid | `<path d="M2.5 2.5h11v11h-11z"/>` | Shape |
+| `pentagon` | line | `<path d="M8 2.25l5.94 4.32-2.27 6.98H4.33L2.06 6.57z"/>` | Shape |
+| `pentagon-fill` | solid | `<path d="M8 2.25l5.94 4.32-2.27 6.98H4.33L2.06 6.57z"/>` | Shape |
+| `hexagon` | line | `<path d="M8 1.75l5.41 3.13v6.24L8 14.25l-5.41-3.13V4.88z"/>` | Shape |
+| `hexagon-fill` | solid | `<path d="M8 1.75l5.41 3.13v6.24L8 14.25l-5.41-3.13V4.88z"/>` | Shape |
+
+**Various**
+
+| Name | Style | Drawing | Use |
+|---|---|---|---|
+| `coin` | solid | `<path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM8 3.6L12.4 8 8 12.4 3.6 8z"/>` | A credit |
+| `crown` | line | `<path d="M2.5 4.5l3 3L8 3l2.5 4.5 3-3-1 7h-9z"/><path d="M3.5 13.5h9"/>` | Admin |
+| `wrench` | line | `<path d="M10 2.5a3.5 3.5 0 0 0-3.3 4.7L2.6 11.3a1.5 1.5 0 0 0 2.1 2.1l4.1-4.1A3.5 3.5 0 0 0 13.5 6l-2 2-2-.5-.5-2z"/>` | Tester, tools |
 
 **Rules.**
-- **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area, outline only, stroke 1.5 grid units, round caps and joins. There is no filled variant. The only exception is `user`, drawn with sharp joins and square ends to match the diamond head. A drawing from another set, or on another grid, is not an icon of the system.
-- **One name per concept (RIGID).** `chevron-right` is one drawing, not three. Adding an icon means adding a row to the album, here and on the site; the verifier checks that every `svg.icon` of the site is an album drawing.
+- **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area. Most are outline: stroke 1.5 grid units, round caps and joins, no fill. A few read better solid and are marked `solid` in the album: play, pause, component, user, coin, and the shapes, which exist in both styles. A solid icon has no outline around its fill and no hole drawn in the surface colour (a hole is part of the path). A drawing from another set, on another grid, or in a style the album does not list, is not an icon of the system.
+- **One name per concept (RIGID).** `chevron-right` is one drawing, not three. Adding an icon means adding a row to the album, here and on the site; the verifier checks that every `svg.icon` of the site is an album drawing, and that every `.icon-fill` is a solid one.
 - **Colour is inherited.** The icon has no colour of its own: the container gives it, and the state (error, success) comes from the container. `.icon-muted` is the only role, and its colour is `--obsidian-300` so it holds 3:1 on every surface.
-- **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed.
+- **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed. An icon-only button keeps the 16 glyph.
 - **Decorative unless it is alone (WCAG 1.1.1).** Beside a label or inside a labelled button: `aria-hidden="true"` and `focusable="false"`. Alone and meaningful: `role="img"` and `aria-label` on the svg. An action is a button that carries the name, never a bare svg.
 - **Space belongs to the container.** The icon carries no margin: the gap is `--s-2` in a button, set by the parent. It is centred on the line of text, never on the baseline.
-- **Motion.** The icon has no animation of its own. A rotation (the accordion chevron, the replay arrow) belongs to its component's row in the § 08.3 index. In a right-to-left text `chevron-left`, `chevron-right` and `arrow-right` mirror; the system does not build that yet.
+- **Motion.** The icon has no animation of its own. A rotation (the accordion chevron, the replay arrow) belongs to its component's row in the § 08.3 index. In a right-to-left text the arrows and the chevrons mirror; the system does not build that yet.
 - **The select caret is the one exception to inherited colour.** It is a CSS `background-image` and cannot read `currentColor`: it draws the `chevron-down` album shape with the literal `#8A94A3`.
-- **Not icons.** The loader ring and the honeycomb map are graphics with their own rules.
+- **Not icons.** The loader ring, the honeycomb map and the brand marks are graphics with their own rules.
 
-**Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or give it a colour of its own.
+**Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or a colour on it, or fill an outline icon.
 
 ## Do's and Don'ts
 
