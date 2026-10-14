@@ -3210,6 +3210,19 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width:720px){.list-summary > div{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){a.list-item,button.list-item{transition:none}}
 
+/* § 3.34 Pagination — move between pages of similar items. A nav of links: numbered, or compact (previous · status · next). */
+.pagination{display:flex;align-items:center;gap:var(--s-1)}
+.pagination-list{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:var(--s-1)}
+.pagination-link{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);box-sizing:border-box;min-width:var(--s-8);height:var(--s-8);padding:0 var(--s-2);border:var(--bw-1) solid transparent;border-radius:var(--r-md);background:transparent;color:var(--obsidian-300);font:inherit;font-size:var(--t-small);font-variant-numeric:tabular-nums;text-decoration:none;cursor:pointer;transition:background var(--d-quick) var(--ease-standard),color var(--d-quick) var(--ease-standard)}
+.pagination-link:hover{background:var(--obsidian-700);color:var(--obsidian-100)}
+.pagination-link:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--s-px);box-shadow:var(--ring-halo);color:var(--obsidian-100)}
+.pagination-link[aria-current="page"]{background:var(--obsidian-700);border-color:var(--obsidian-500);color:var(--obsidian-100);font-weight:600;cursor:default}
+.pagination-link[aria-disabled="true"]{opacity:0.4;cursor:not-allowed;pointer-events:none}
+.pagination-gap{display:inline-flex;align-items:center;justify-content:center;min-width:var(--s-8);color:var(--obsidian-300);font-size:var(--t-small)}
+.pagination-status{padding:0 var(--s-3);color:var(--obsidian-300);font-size:var(--t-small);font-variant-numeric:tabular-nums}
+@media (max-width:480px){.pagination{flex-wrap:wrap}.pagination-link > span{display:none}.pagination-gap{min-width:var(--s-6)}}  /* the numbered form still fits: the words drop out and the names stay on aria-label; the compact form is the real answer */
+@media (prefers-reduced-motion:reduce){.pagination-link{transition:none}}
+
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
 .modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim)}

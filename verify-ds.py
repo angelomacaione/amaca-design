@@ -1456,7 +1456,7 @@ def c39():
     i = text.find("#### State index")
     if i < 0:
         return ["DESIGN.md: no '#### State index' heading"]
-    vocab = {"default", "hover", "focus", "focus-visible", "active", "selected",
+    vocab = {"default", "hover", "focus", "focus-visible", "active", "selected", "current",
              "disabled", "error", "readonly", "loading", "checked", "expanded"}
     index = []
     for line in text[i:].splitlines()[1:]:
@@ -1710,6 +1710,7 @@ _STATE_MARK = {
     "hover": [":hover"], "focus-visible": [":focus-visible", ":focus"], "focus": [":focus"],
     "active": [":active"], "checked": [":checked"], "disabled": [":disabled"],
     "selected": ['[aria-selected="true"]', '[aria-pressed="true"]', ".is-selected"],
+    "current": ['[aria-current="page"]', '[aria-current]'],
     "expanded": ['[aria-expanded="true"]'], "error": ['[aria-invalid="true"]'],
     "readonly": ["[readonly]"], "loading": [".is-loading"],
 }

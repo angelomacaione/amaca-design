@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=d46f448e">
+<link rel="stylesheet" href="styles/components.css?v=aea2f673">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -196,6 +196,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#navigation" data-target="navigation"><span class="num">23</span> Navigation</a>
       <a class="nav-item" href="#tabs" data-target="tabs"><span class="num">24</span> Tabs</a>
       <a class="nav-item" href="#breadcrumb" data-target="breadcrumb"><span class="num">25</span> Breadcrumb</a>
+      <a class="nav-item" href="#pagination" data-target="pagination"><span class="num">47</span> Pagination</a>
       <a class="nav-item" href="#stepper" data-target="stepper"><span class="num">26</span> Stepper</a>
     </div>
     <div class="nav-group">
@@ -3106,6 +3107,39 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
               <p>Put columns in a row to compare them (that is a Table), nest a list in a row, or wrap a whole row in a link and put a button inside it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="pagination">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 47 · Navigation / Pagination</div>
+          <h1 class="page-title">Many pages, <span class="accent">always one place.</span></h1>
+          <p class="page-lede">Links between the pages of one set of items. The current page is marked, the first and the last are always there, and the rest is a gap.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Pages of similar items too long for one page: search results, a list of case studies. <span class="usage-ref">GOV.UK, Carbon</span></li><li>The rows of a table that do not fit on the screen, in the compact form below it. <span class="usage-ref">Carbon</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A linear journey such as a form → a Continue button and a Back link. <span class="usage-ref">GOV.UK, Carbon</span></li><li>Only one page → show nothing.</li><li>Content that sits on one page without slowing it → no pagination.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Numbered</h2><span class="subsection-num">§ 47.1</span></div>
+          <p class="subsection-desc">First, last, the current page and one on each side; a gap stands for the pages in between. Previous and Next stay in place and go disabled at the ends, so the row does not move.</p>
+          <div style="display:flex;flex-direction:column;gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">First page</div><nav class="pagination" aria-label="Pagination"><a class="pagination-link" rel="prev" aria-label="Previous page" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a><ul class="pagination-list"><li><a class="pagination-link" href="#pagination" aria-label="Page 1" aria-current="page">1</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 2">2</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 3">3</a></li><li><span class="pagination-gap" aria-hidden="true">…</span></li><li><a class="pagination-link" href="#pagination" aria-label="Page 12">12</a></li></ul><a class="pagination-link" rel="next" aria-label="Next page" href="#pagination"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a></nav></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">A middle page</div><nav class="pagination" aria-label="Pagination"><a class="pagination-link" rel="prev" aria-label="Previous page" href="#pagination"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a><ul class="pagination-list"><li><a class="pagination-link" href="#pagination" aria-label="Page 1">1</a></li><li><span class="pagination-gap" aria-hidden="true">…</span></li><li><a class="pagination-link" href="#pagination" aria-label="Page 5">5</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 6" aria-current="page">6</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 7">7</a></li><li><span class="pagination-gap" aria-hidden="true">…</span></li><li><a class="pagination-link" href="#pagination" aria-label="Page 12">12</a></li></ul><a class="pagination-link" rel="next" aria-label="Next page" href="#pagination"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a></nav></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Last page</div><nav class="pagination" aria-label="Pagination"><a class="pagination-link" rel="prev" aria-label="Previous page" href="#pagination"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a><ul class="pagination-list"><li><a class="pagination-link" href="#pagination" aria-label="Page 1">1</a></li><li><span class="pagination-gap" aria-hidden="true">…</span></li><li><a class="pagination-link" href="#pagination" aria-label="Page 10">10</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 11">11</a></li><li><a class="pagination-link" href="#pagination" aria-label="Page 12" aria-current="page">12</a></li></ul><a class="pagination-link" rel="next" aria-label="Next page" aria-disabled="true"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a></nav></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Compact</h2><span class="subsection-num">§ 47.2</span></div>
+          <p class="subsection-desc">Previous, where you are, Next. For narrow spaces, under <span class="token">--bp-sm</span>, and for the footer of a table. The status is text, not a link.</p>
+          <div style="display:flex;flex-direction:column;gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Compact</div><nav class="pagination" aria-label="Pagination"><a class="pagination-link" rel="prev" aria-label="Previous page" href="#pagination"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a><span class="pagination-status">Page 6 of 12</span><a class="pagination-link" rel="next" aria-label="Next page" href="#pagination"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a></nav><nav class="pagination" aria-label="Pagination"><a class="pagination-link" rel="prev" aria-label="Previous page" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a><span class="pagination-status">Page 1 of 12</span><a class="pagination-link" rel="next" aria-label="Next page" href="#pagination"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a></nav></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 47.3</span></div>
+          <p class="subsection-desc">One set of pages, one nav.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Mark the current page with <code>aria-current</code>, name every number (&ldquo;Page 6&rdquo;), and put the page number in the page title.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Use it for a form or any linear journey, show it for a single page, or replace it with infinite scroll.</p>
             </div>
           </div>
         </div>

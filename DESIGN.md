@@ -442,7 +442,8 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
 | Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.33 |
-| Pagination · Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
+| Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.34 |
+| Progress bar · Slider · Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navdemo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
@@ -454,7 +455,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | State | Background | Border | Foreground | Ring | Other |
 |---|---|---|---|---|---|
 
-**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `checked` · `expanded` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`. `checked` and `expanded` (added v4.3.0) were in the state index before they were in this list — the same trap `selected` fell into, and check 42 now closes it. `checked` belongs to a control whose value is on or off (check, radio, switch) and is always mirrored by `:checked` or `aria-checked`. `expanded` belongs to a trigger that owns a popup (the select trigger) and is always mirrored by `aria-expanded="true"`.
+**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `current` · `checked` · `expanded` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`. `checked` and `expanded` (added v4.3.0) were in the state index before they were in this list — the same trap `selected` fell into, and check 42 now closes it. `checked` belongs to a control whose value is on or off (check, radio, switch) and is always mirrored by `:checked` or `aria-checked`. `expanded` belongs to a trigger that owns a popup (the select trigger) and is always mirrored by `aria-expanded="true"`. `current` (added v5.0.0) belongs to the page, step or place the reader is on in a set of links (the pagination page) and is always mirrored by `aria-current`; it is not `selected`, which is a choice the reader made.
 
 **Rules of the grammar:**
 - Value cells (Background, Border, Foreground, Ring) accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), `native` (the browser's own treatment, deliberately not overridden), or the CSS keywords `none` and `transparent`. Never raw values, and never a description in place of a value. The focus rings are tokens since v4.2.0 — `--ring-halo`, `--ring-field`, `--ring-field-danger` (§ 2 Shadow, § 6.2); a row cites the token, never the rgba() it resolves to. Composition that is not a colour or a shadow (`opacity`, `filter`, offsets) lives in *Other*. A tint is written `--hue` × `--tint-fill` (or × `--tint-edge`, or their `-deep` pair): the hue mixed with transparent at that strength, `color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)`.
@@ -505,6 +506,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.list-item` (`a`, `button`) | hover | `--obsidian-850` | — | — | — | transition — see the motion index |
 | `.list-item` (`a`, `button`) | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row |
 | `.list-item` (`a`, `button`) | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
+| `.pagination-link` | default | transparent | none | `--obsidian-300` | — | 32px target · `--r-md` · tabular numerals |
+| `.pagination-link` | hover | `--obsidian-700` | — | `--obsidian-100` | — | transition — see the motion index |
+| `.pagination-link` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
+| `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
+| `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
@@ -2164,6 +2170,63 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 **Do / Don't.** Do keep the same parts in every row and name every action in a row. Don't put columns in a row to compare them, nest a list in a row, or wrap a whole row in a link and put a button inside it.
 
+### Pagination
+
+Links between the pages of one set of items. A `nav` of numbered links, or, in a narrow space, previous, status and next.
+
+**Usage**
+
+*Use it when*
+- Pages of similar items too long for one page: search results, a list of case studies. *(GOV.UK, Carbon)*
+- The rows of a table that do not fit on the screen, in the compact form below it. *(Carbon)*
+
+*Use something else when*
+- A linear journey such as a form → a Continue button and a Back link. *(GOV.UK, Carbon)*
+- Only one page → show nothing.
+- Content that sits on one page without slowing it → no pagination.
+
+```html
+<nav class="pagination" aria-label="Pagination">
+  <a class="pagination-link" href="/cases?page=5" rel="prev" aria-label="Previous page"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
+  <ul class="pagination-list">
+    <li><a class="pagination-link" href="/cases?page=1" aria-label="Page 1">1</a></li>
+    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
+    <li><a class="pagination-link" href="/cases?page=5" aria-label="Page 5">5</a></li>
+    <li><a class="pagination-link" href="/cases?page=6" aria-label="Page 6" aria-current="page">6</a></li>
+    <li><a class="pagination-link" href="/cases?page=7" aria-label="Page 7">7</a></li>
+    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
+    <li><a class="pagination-link" href="/cases?page=12" aria-label="Page 12">12</a></li>
+  </ul>
+  <a class="pagination-link" href="/cases?page=7" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
+</nav>
+
+<!-- compact: for narrow spaces and table footers; on the first page Previous is disabled, with no href -->
+<nav class="pagination" aria-label="Pagination">
+  <a class="pagination-link" rel="prev" aria-label="Previous page" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
+  <span class="pagination-status">Page 1 of 12</span>
+  <a class="pagination-link" href="/cases?page=2" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
+</nav>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Nav | `.pagination` | The `nav`, with an `aria-label`. Flex, gap `--s-1`. Sits below the set it pages, never inside it |
+| List | `.pagination-list` | The numbered pages, a `ul` with no marker |
+| Link | `.pagination-link` | A page, Previous or Next. A 32px target (`--s-8`), `--r-md`, type `--t-small` with tabular numerals. Previous and Next carry the § 3.32 chevron and a word |
+| Gap | `.pagination-gap` | `…` for the pages left out. Not a link, hidden from the screen reader |
+| Status | `.pagination-status` | The compact form's "Page 6 of 12": text, not a link |
+
+**Rules.**
+- **What to show.** The first page, the last page, the current page and one on each side; a gap stands for the rest. A gap never sits at an end, and a gap for a single page shows that page instead. Under `--bp-sm` use the compact form; the numbered one still fits there, as icons without their words, but it is the fallback.
+- **The current page is marked, not hidden.** `aria-current="page"` on its link, with the fill and the border of § 3.0.1. It stays a link.
+- **Name every link (WCAG 2.5.3).** A number carries `aria-label="Page 6"`. Previous and Next carry `rel="prev"` and `rel="next"`, and their arrows are decorative.
+- **The ends stay in place.** On the first page Previous is disabled, on the last page Next is: `aria-disabled="true"` and no `href`, so the row does not move and the link is not a target.
+- **Pages are addresses.** Each page is a URL that loads without script. The page number goes in the document title ("Search results, page 6 of 12"), and a page that no longer exists goes to the first.
+- **Not for a journey, and not scrolling forever.** A form or any linear journey takes a Continue button and a Back link. Infinite scroll takes the keyboard away from the reader; it is not a replacement.
+- **Motion.** Hover and focus change the background and the colour on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+
+**Do / Don't.** Do mark the current page with `aria-current`, name every number and put the page number in the title. Don't use it for a form, show it for a single page, or replace it with infinite scroll.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2396,6 +2459,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
+| Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
