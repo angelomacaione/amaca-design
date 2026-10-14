@@ -59,4 +59,4 @@ Confirm: **zero** hardcoded hex/px/`cubic-bezier` in component code (grep `#[0-9
 Tokens + spec are public (MIT). Treat externally-sourced markup as untrusted (diagram sources render from a sanitized `<template>`, never raw third-party SVG). No secrets in token files.
 
 ---
-*Hand-authored gold standard · the target [amaca.ai](https://amaca.ai) compiles toward.*
+*Hand-authored · MIT.*

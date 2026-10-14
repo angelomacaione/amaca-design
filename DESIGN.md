@@ -1882,7 +1882,7 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 - Switching between views of the same content → Tabs.
 
 ```html
-<p>Every value is <a class="link" href="/spec">derived from the compiler</a>.</p>
+<p>Every value is <a class="link" href="/spec">derived from a token</a>.</p>
 
 <a class="link" aria-disabled="true">Read the case study</a>
 
@@ -2670,7 +2670,7 @@ When generating copy:
 
 ### Conventions
 
-How the system is written: naming, structure, units, files. Each convention carries a severity (`error` stops the output, `warn` is flagged in review, `info` steers) and the check that could hold it, named from the compiler's check catalogue (`lint`, `token-exists`, `parity`, `count`, `none`). The full code rules are in § Code conventions.
+How the system is written: naming, structure, units, files. Each convention carries a severity (`error` stops the output, `warn` is flagged in review, `info` steers) and the check that could hold it, named from a closed catalogue of check kinds (`lint`, `token-exists`, `parity`, `count`, `none`). The full code rules are in § Code conventions.
 
 | Id | Convention | Severity | Check | Source |
 | --- | --- | --- | --- | --- |
@@ -3029,7 +3029,7 @@ Three ways to wire Amaca into Cursor, and they compose.
 
 **Single-file** — drop `DESIGN.md` into `.cursor/rules/`; Cursor surfaces it on every request inside the project.
 
-**Core + per-target** (the compiler layout, shipped in the IDE download since v3.1.0) — `amaca-core.mdc` (`alwaysApply: true`, always-in-scope token discipline + a11y floor) alongside the glob-scoped `amaca-html.mdc` (CSS/HTML) and `amaca-react.mdc` (JSX/TSX, Tailwind v4 `@theme`), so the heavy target rules attach only to the files they govern while the core stays loaded everywhere. The split is the default amaca.ai emits.
+**Core + per-target** (the layout shipped in the IDE download since v3.1.0) — `amaca-core.mdc` (`alwaysApply: true`, always-in-scope token discipline + a11y floor) alongside the glob-scoped `amaca-html.mdc` (CSS/HTML) and `amaca-react.mdc` (JSX/TSX, Tailwind v4 `@theme`), so the heavy target rules attach only to the files they govern while the core stays loaded everywhere.
 
 **The agent skill** (new in v3.5.0) — since Cursor 2.4 the Agent Skills open standard is a first-class input, loaded from `.cursor/skills/`, `.agents/skills/` and, for compatibility, from `.claude/skills/` and `.codex/skills/`. The IDE download now ships `amaca-frontend` unpacked under `.agents/skills/amaca-frontend/` — `.agents/` being the vendor-neutral path, so the same folder serves Cursor and Codex. The skill carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) that a rules file cannot: rules steer generation, the skill runs a procedure.
 
@@ -3114,7 +3114,7 @@ The badge contract says everything the demo draws, and the last raw values in th
 
 ### v4.3.0 — 2026.09.24 (MINOR)
 
-The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file disagreed with itself or with the CSS. Four of them, the Select, had already shipped in v4.2.2, and one detail of those was still open. The rest follow here. The rule for all of them: where the contract and the site disagree, the site wins and the contract is rewritten. The only visible changes are the textarea placeholder, which showed the browser's default, and two inline styles taken out of the badge demo; both are under Fixed.
+A reader of the whole file, set side by side with the CSS, read v4.2.1 and listed nineteen places where the file disagreed with itself or with the CSS. Four of them, the Select, had already shipped in v4.2.2, and one detail of those was still open. The rest follow here. The rule for all of them: where the contract and the site disagree, the site wins and the contract is rewritten. The only visible changes are the textarea placeholder, which showed the browser's default, and two inline styles taken out of the badge demo; both are under Fixed.
 
 **Changed**
 - **The badge contract describes the badge the site draws** (§ 3.4). The spec said `--t-micro`, uppercase, `--tr-mono`, and roles the site never used. It now states the CSS: `--t-small`, `--tr-snug`, padding `10px 18px`, gap `6px`, `--r-md`; Live on brand, Shipped on success, Pending on warn, Blocker on danger, Archive on the default; the dot on every status badge. Not one pixel of the badge changes.
@@ -3124,7 +3124,7 @@ The amaca.ai DS manager read v4.2.1 and listed nineteen places where the file di
 - **`--tint-fill` and `--tint-edge`** (0.08 / 0.3), the two alphas the tinted labels wear, and **`--tint-fill-deep` / `--tint-edge-deep`** (0.12 / 0.4) for the default badge's deep hue. Badge and chip variants mix their hue with them through `color-mix()`; thirteen hand-written rgba pairs are gone, at the same values.
 - **State-index rows** for `.card` (default, hover) and for every badge variant. Tints are written `--hue` × `--tint-fill`, and the grammar names the operator.
 - **`checked` and `expanded` in the closed vocabulary**, each with its mirror (`:checked` / `aria-checked`, `aria-expanded`). The table had used both since before the list existed, the same trap as `selected` in v4.1.0. **Check 42** now holds every state in the table to the list.
-- **HTML examples the compiler can read.** § Input now shows `.help`, `.help.error` with `aria-invalid`, an `.input-wrap` with its icon, a `textarea` with `rows` and a native `<select class="select">`. § Card shows a badge inside `.card-meta` and a `.card-actions` with its button.
+- **HTML examples a generator can read.** § Input now shows `.help`, `.help.error` with `aria-invalid`, an `.input-wrap` with its icon, a `textarea` with `rows` and a native `<select class="select">`. § Card shows a badge inside `.card-meta` and a `.card-actions` with its button.
 
 **Fixed**
 - **The § 13.1 demo lost three inline styles left from v1.1.4**: a cyan Default, a warn background at 0.1, and a danger `opacity: 1`. The Default badge now shows the class it demonstrates, and Pending the warn fill every other warn badge wears.
@@ -3160,7 +3160,7 @@ No token, component or rule changed. The site was loading the new stylesheets un
 
 ### v4.2.0 — 2026.09.24 (MINOR)
 
-The DS manager on amaca.ai showed the Button's `loading` dot unlit. That was faithful to the source: the site rendered a button in `loading`, § 3.12 composed one, and the Button section and the state index never named the state. Reading the state index to fix it turned up a second problem. The primary's hover ring read *magenta bloom*, a phrase with no value behind it, while the CSS drew a 4px magenta ring at 0.18 that the spec had never stated. Two siblings sat in the same table. The grammar said *tokens only*, and no check read the cells.
+A rendering of the contract showed the Button's `loading` dot unlit. That was faithful to the source: the site rendered a button in `loading`, § 3.12 composed one, and the Button section and the state index never named the state. Reading the state index to fix it turned up a second problem. The primary's hover ring read *magenta bloom*, a phrase with no value behind it, while the CSS drew a 4px magenta ring at 0.18 that the spec had never stated. Two siblings sat in the same table. The grammar said *tokens only*, and no check read the cells.
 
 **Added**
 - **Focus rings are tokens: `--ring-halo`, `--ring-field`, `--ring-field-danger`** (§ 2 Shadow, § 6.2). They carry the same values as the two literals that were ratified *and named* in v3.4.0, plus the field glow's error twin, which was never named. Values are unchanged, so nothing renders differently. The literals had been re-typed in twenty CSS rules, nine agent snippets and two skill references; all of them now use `var()`. `theme.css` exposes the tokens to Tailwind as `shadow-ring-*`, and the DTCG projection carries them.
@@ -3190,7 +3190,7 @@ The DS manager on amaca.ai showed the Button's `loading` dot unlit. That was fai
 - **The changelog slice reads the heading, not its citation.** `verify-ds.py` anchored § Changelog with a naive `find("## Changelog")`, which matched the citation inside step 2 of the § Versioning release checklist — so the first `### v` checks 14, 15 and 23 saw was an entry misplaced inside the checklist itself. Three releases of structural drift that the harness validated instead of catching. The v4.0.0, v3.5.0 and v3.4.0 entries move to the top of § Changelog where they belong, and step 2, truncated mid-sentence, is closed.
 - **The Chip shipped without a demo.** Canonical in § 3.0, in the state index and in `components.css`, and absent from amaca.design: not one `.chip` element on the site, no nav entry — the component this release exists for, invisible. It now has three demos in the site's § 13, renamed *Chips & Feedback*: the six variants, a filter group with `aria-pressed`, removable chips with a named dismiss and a live region. Rendering them found a second defect: the inset meant to carry the 44×44 floor sat on every `.chip` with `pointer-events: none`, and a pseudo-element that ignores the pointer extends nothing. The inset now lives only on the targets — the pressable chip and the dismiss. **Check 33** holds every canonical component to at least one rendered instance on the site.
 - **A sidebar label fits on one line.** Adding the Chip made § 13 *Badges, Chips & Feedback*, and the label wrapped to two lines in the nav. § Navigation now states the rule — at most two nouns joined by `&`, at most 16 characters — and **check 34** holds every label to it. The chip's Do / Don't joined the section's own instead of standing apart under § 13.8.
-- **The Button section never pointed to its states.** The § 3.0.1 index has carried `.btn | disabled` — `opacity 0.4` · `cursor: not-allowed` — and `components.css` has implemented it; § Button listed variants, sizes and focus and stopped there, while § Input names its states and points to the index. A reader of the component section alone — the amaca.ai compiler, in this case — concluded that the disabled button did not exist. The section now points to § 3.0.1 as Input does, and its example carries a disabled button. No value changes.
+- **The Button section never pointed to its states.** The § 3.0.1 index has carried `.btn | disabled` — `opacity 0.4` · `cursor: not-allowed` — and `components.css` has implemented it; § Button listed variants, sizes and focus and stopped there, while § Input names its states and points to the index. A reader of the component section alone — a generator, in this case — concluded that the disabled button did not exist. The section now points to § 3.0.1 as Input does, and its example carries a disabled button. No value changes.
 - **The snippets agents copy verbatim had drifted from the CSS they quote.** `llms-full.txt`, `AGENTS.md`, `CLAUDE.md`, `AI-INSTRUCTIONS.md`, the Cursor rules and the Copilot instructions each carry a *"reuse these verbatim"* block. Every copy disagreed with `components.css`: a `--r-md` button the CSS draws `--r-full`, a `--magenta-600` hover the § 6.3 exception forbids, no disabled state, an `--obsidian-900` input the CSS renders `--obsidian-850`, and `.field-label` — the dead name v4.0.0 removed from the spec and from one copy, not from the other seven. An agent follows the snippet before it reads the spec. The snippets now quote the CSS rule for rule, disabled included; **check 30** holds every snippet declaration to `components.css` and the three copies of the React reference button to one string.
 - **The skill taught a different button.** `amaca-frontend`'s React reference drew the primary with a grey disabled fill, an `--obsidian-100` label, a `magenta-600` hover, `rounded-md` and a `0.3` halo; its card pattern offered two variants the registry does not have; HTML.md carried the same focus drift; FIGMA.md listed Button and Input states the § 3.0.1 index does not carry. All realigned to the index, and the restated state lists replaced by pointers to § 3.0.1 so they cannot go stale again.
 - **The skill's version went backwards.** v1.2.0 shipped with v4.0.0 and its README never recorded it, so this release first stamped v1.1.11 — lower than the version already out — while § 03 still read CURRENT v1.1.9. The skill ships as **v1.2.1**; **check 31** holds its five stated versions to one. And the IDE zip carries the skill unpacked under `.agents/skills/`, where the basename map of check 24 could not see it: it sat one skill version behind. Check 24 now holds unpacked skill members to the `.skill` they were cut from, and the Cursor and Copilot rules files to their sources. It also guards `components.css`: `amaca-react-css.zip` was still shipping a copy older than v4.0.0 — the off-palette brand glow that release removed included.
@@ -3200,7 +3200,7 @@ The DS manager on amaca.ai showed the Button's `loading` dot unlit. That was fai
 
 **Trigger**
 
-The DS manager on amaca.ai rendered amaca-design with the Chip cell empty — correctly, because the contract said `site-only`. An empty cell in a projection is the cheapest possible way to find out that a component the system needs was never declared: the roster already knew `chip` as an id, the spec did not know it as a component, and the two disagreed silently until something drew them side by side. Writing the spec then surfaced two more things the file was wrong about — a state it used without naming, and a class it taught after removing it. All three are the same failure with different surfaces: the inventories were guarded, the sentences about them were not.
+A projection of the contract rendered amaca-design with the Chip cell empty — correctly, because the contract said `site-only`. An empty cell in a projection is the cheapest possible way to find out that a component the system needs was never declared: the roster already knew `chip` as an id, the spec did not know it as a component, and the two disagreed silently until something drew them side by side. Writing the spec then surfaced two more things the file was wrong about — a state it used without naming, and a class it taught after removing it. All three are the same failure with different surfaces: the inventories were guarded, the sentences about them were not.
 
 ### v4.0.0 — 2026.08.29 (MAJOR)
 **Breaking**
@@ -3244,12 +3244,12 @@ The first real run of the installed plugin (2026-08-27) put the contract in fron
 
 **Changed**
 - **The IDE download card and its button.** The card read `.cursor/rules/amaca.mdc` and the download button was labelled `amaca.mdc` — a file **replaced in v3.1.0** by the `amaca-core` / `amaca-html` / `amaca-react` split. The site had been offering a download named after a file that had not existed for three releases. Now describes the scoped layout, the Copilot files and the skill; the button reads `amaca-ide.zip`.
-- **`llms.txt` indexed three AI-tool entry points out of seven.** AGENTS.md, the Figma skill and the compiler were listed; `CLAUDE.md`, `AI-INSTRUCTIONS.md`, the `amaca-frontend` skill and the IDE bundle were not. An index that omits four of the surfaces it exists to advertise teaches a retrieving agent that they do not exist.
+- **`llms.txt` indexed three AI-tool entry points out of seven.** AGENTS.md and the Figma skill were listed, with an external link; `CLAUDE.md`, `AI-INSTRUCTIONS.md`, the `amaca-frontend` skill and the IDE bundle were not. An index that omits four of the surfaces it exists to advertise teaches a retrieving agent that they do not exist.
 - **Debt re-dated v3.5.0 → v3.6.0** — the seven `css-only` rows in § 3.0, the § 3.0.3 teaching-grammar note, and checks 03, 17 and 18. Deliberate deferral, not drift: with the expiry fixed, the new date is a real deadline.
 
 **Trigger**
 
-A competitive watch on the compiler's target surface found that Cursor had changed its primary input shape in January and nobody had noticed, because every run re-read the page about rules — which by construction cannot mention the arrival of a format beside it. Checking what we actually emit against what Cursor actually reads deflated the alarm (our `.mdc` shapes were never the migrated ones) and left one real gap: the skill was missing from the IDE bundle. Then the same reflex — verify the artefact, not the description of it — was pointed at this repo, and found the version line, the download button and the debt expiry. All three had the same shape as the drift this system already knows best: **no symptom, and a gate that reported green.**
+A competitive watch on the AI-tool surfaces the downloads target found that Cursor had changed its primary input shape in January and nobody had noticed, because every run re-read the page about rules — which by construction cannot mention the arrival of a format beside it. Checking what we actually emit against what Cursor actually reads deflated the alarm (our `.mdc` shapes were never the migrated ones) and left one real gap: the skill was missing from the IDE bundle. Then the same reflex — verify the artefact, not the description of it — was pointed at this repo, and found the version line, the download button and the debt expiry. All three had the same shape as the drift this system already knows best: **no symptom, and a gate that reported green.**
 
 ### v3.4.0 — 2026.08.05 (MINOR)
 **Added**
@@ -3335,7 +3335,7 @@ Post-Config 2026 the Figma agent accepts custom skills on the same Agent Skills 
 
 ### v3.1.0 — 2026.07.06 (MINOR)
 
-**New · IDE download — core + per-target rules (dogfood parity).** The IDE bundle (`amaca-ide.zip`) now ships the layout the amaca.ai compiler emits, replacing the single hand-authored `.cursor/rules/amaca.mdc`:
+**New · IDE download — core + per-target rules (dogfood parity).** The IDE bundle (`amaca-ide.zip`) now ships the core + per-target layout, replacing the single hand-authored `.cursor/rules/amaca.mdc`:
 - `.cursor/rules/amaca-core.mdc` — `alwaysApply: true`, the always-in-scope token discipline, the laws, the a11y floor, voice, never-ship list, and verify gate.
 - `.cursor/rules/amaca-html.mdc` (globs `**/*.css,**/*.html,**/*.vue,**/*.svelte`) + `amaca-react.mdc` (globs `**/*.tsx,**/*.jsx`, Tailwind v4 `@theme`) — only the target-scoped rules, attached to the files they govern.
 - `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo` per target).
@@ -3349,12 +3349,12 @@ The core stays loaded everywhere while the heavy target rules stop leaking into 
 **Changed · downloads — App-builder bundle split out.** The App-builder card (Figma Make · v0 · Lovable · Base44 · Bolt) now downloads its own `amaca-appbuilder.zip` instead of sharing `amaca-chat.zip`, so the two no longer collide as one filename. Both ship the same self-contained `AI-INSTRUCTIONS.md` paste-in and are baked from one source via `downloads/build-paste-in-bundles.sh` — edit the source once, both stay in sync.
 
 **Trigger**
-A reconciliation of the hand-authored gold against what the compiler now ships surfaced two gaps: the IDE download was a single rule file where the product emits core + per-target, and the site had no hosted `llms.txt`. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All are amaca.design-side moves — no spec token, value, or component contract changed (hence MINOR). The flagship now eats its own output.
+A review of the downloads against what the AI tools read surfaced two gaps: the IDE download was a single rule file where core + per-target scopes the rules better, and the site had no hosted `llms.txt`. Closing those pulled in the adjacent AI-surface hygiene (robots/sitemap) and a download-naming dedupe (App-builder). All are amaca.design-side moves — no spec token, value, or component contract changed (hence MINOR). 
 
 ### v3.0.0 — 2026.06.22 (MAJOR)
 
 **Changed · document grammar — restructured to the Google Labs `design.md` standard.**
-- The file now leads with the eight canonical sections in order — **Overview · Colors · Typography · Layout · Elevation & Depth · Shapes · Components · Do's and Don'ts** — and a structured front-matter `colors:` / `typography:` / `spacing:` / `rounded:` block (with an explicit `colors.primary`), so any conforming consumer (Stitch, agents, the amaca-compiler conformance lint) reads it as a valid `design.md` *by construction*, not by omission.
+- The file now leads with the eight canonical sections in order — **Overview · Colors · Typography · Layout · Elevation & Depth · Shapes · Components · Do's and Don'ts** — and a structured front-matter `colors:` / `typography:` / `spacing:` / `rounded:` block (with an explicit `colors.primary`), so any conforming consumer (Stitch, agents, a conformance lint) reads it as a valid `design.md` *by construction*, not by omission.
 - All prior richness is preserved. The old numbered sections fold in: Principles / Voice / 85·10·5 / Anti-patterns → **Do's and Don'ts**; the token sub-sections → **Colors / Typography / Layout / Elevation & Depth / Shapes**; component specs §3.1–3.14 → **Components**. Motion, Iconography, Accessibility, Code conventions, Multi-deploy and IDE integration are retained verbatim as **extension sections** after the canonical eight. Versioning + Changelog stay as meta.
 - **Migration note.** Section *numbers* changed; in-prose cross-references written as “§ N.M” now point to the same content under its new home (e.g. former § 3.10 Dropdown → **Components → Dropdown / Select**; § 6.3 → **Accessibility → Ratified exceptions**; § 2.8 → **Motion**). No tokens, values, or component contracts changed — this is a documentation-grammar break only.
 
@@ -3369,7 +3369,7 @@ A reconciliation of the hand-authored gold against what the compiler now ships s
 
 **Trigger**
 
-Shipped first in the Amaca Compiler app: the multi-mode `.fig` mode-pick (and then the connected-repo picker) used a native `<select>` whose OS popup covered the chat composer. Generalized into a JS-positioned, flip-aware custom select; the behavior is now canonical here.
+Shipped first in a product built on the system: a native `<select>` whose OS popup covered a chat composer. Generalized into a JS-positioned, flip-aware custom select; the behavior is now canonical here.
 ### v2.7.2 — 2026.06.12 (PATCH)
 
 **Ratified · § 3.1 / § 6.3**
@@ -3439,7 +3439,7 @@ An external audit (2026-06-11) read the live document end to end and found three
 
 **Trigger**
 
-A real implementation — diagramming the Amaca Compiler architecture, 2026-06 — surfaced the absence of a canonical diagram component; § 3.13 closes it. In the same window, a human-eye review of the primary button found dark-on-magenta, though the most accessible pairing, read weaker than near-white; § 3.1 + § 6.3 ratify the perceptual choice as a bounded exception.
+A real implementation — diagramming a product architecture, 2026-06 — surfaced the absence of a canonical diagram component; § 3.13 closes it. In the same window, a human-eye review of the primary button found dark-on-magenta, though the most accessible pairing, read weaker than near-white; § 3.1 + § 6.3 ratify the perceptual choice as a bounded exception.
 
 ### v2.5.0 — 2026.06.02 (MINOR)
 **Added**

@@ -1,6 +1,6 @@
 # Amaca
 
-> Amaca is a dark-first, token-only design system, and amaca.ai is the compiler that turns any design system into rules your AI tools follow. Reference every value by name (`var(--token)`); never hardcode a hex, px, or easing. Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly — the 85/10/5 law. On conflict, the spec (DESIGN.md) wins.
+> Amaca is a dark-first, token-only design system, packaged as rules your AI tools follow. Reference every value by name (`var(--token)`); never hardcode a hex, px, or easing. Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly — the 85/10/5 law. On conflict, the spec (DESIGN.md) wins.
 
 ## Start here
 - [Design system spec (DESIGN.md)](https://amaca.design/DESIGN.md): the full Amaca spec — tokens + prose (colors, type, spacing, components, motion, accessibility, do/don'ts), in the Google Labs design.md standard.
@@ -19,7 +19,6 @@
 - [Agent Plugin (amaca-plugin.zip)](https://amaca.design/downloads/zips/amaca-plugin.zip): the installable package — one directory, two manifests, one skill. `plugin.json` on the Agent Plugins 1.0 standard (Cursor, OpenAI Codex, GitHub Copilot, VS Code, Kiro) + `.claude-plugin/plugin.json` for Claude Code, both pointing at the same `skills/amaca-frontend/`. On Claude Code: `/plugin marketplace add angelomacaione/amaca-design` then `/plugin install amaca-design@amaca` — installs from this zip over HTTPS with a SHA-256 pin, no npm, no clone.
 - [IDE bundle (amaca-ide.zip)](https://amaca.design/downloads/zips/amaca-ide.zip): the drop-in repo layout — `.cursor/rules/*.mdc` (core always on, html and react glob-scoped), `.github/copilot-instructions.md` + per-target `instructions/`, `AGENTS.md`, and `.agents/skills/amaca-frontend/`.
 - [Figma agent skill — /amaca-figma (amaca-figma.md)](https://amaca.design/downloads/amaca-figma.md): in-canvas custom skill for the Figma agent — generate + audit in a verify loop; it fetches this site's llms-full.txt before acting.
-- [Amaca compiler (amaca.ai)](https://amaca.ai): compile any design system into the same AI-tool rules (Cursor, Copilot, Claude, AGENTS.md, DTCG).
 
 ## Optional
 - [Changelog](https://amaca.design/#changelog): releases and token deltas.

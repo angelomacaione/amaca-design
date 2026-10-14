@@ -3,7 +3,7 @@ description: Amaca Design System — always-in-scope token discipline, governanc
 alwaysApply: true
 ---
 
-<!-- Amaca core rules · gold reference · amaca.design@3.1.0 · the layout amaca.ai compiles toward. Pairs with amaca-html.mdc + amaca-react.mdc (glob-scoped). -->
+<!-- Amaca core rules · gold reference · amaca.design@3.1.0. Pairs with amaca-html.mdc + amaca-react.mdc (glob-scoped). -->
 
 # Amaca Design System — core rules
 

@@ -1,13 +1,13 @@
 # Amaca — full context (self-contained)
 
-> Amaca is a dark-first, token-only design system, and amaca.ai is the compiler that turns any
-> design system into rules your AI tools follow. Reference every value by name (var(--token));
+> Amaca is a dark-first, token-only design system, packaged as rules your
+> AI tools follow. Reference every value by name (var(--token));
 > never hardcode a hex, px, or easing. This file inlines the agent rules and the full token
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
 Version: 4.3.2 · Released: 2026-09-26 · Matches the DESIGN.md frontmatter version
-Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md · Compiler: https://amaca.ai
+Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md
 
 ================================================================================
 # Agent rules (AGENTS.md)
@@ -94,7 +94,7 @@ Confirm: **zero** hardcoded hex/px/`cubic-bezier` in component code (grep `#[0-9
 Tokens and this spec are public (MIT) — safe to commit. Treat any externally-sourced markup as untrusted: diagram sources (Mermaid) render from a sanitized `<template>`, never inject raw third-party SVG/HTML. Don't paste secrets into token files.
 
 ---
-*Hand-authored gold standard · MIT · the target [amaca.ai](https://amaca.ai) compiles toward.*
+*Hand-authored · MIT.*
 
 ================================================================================
 # Tokens (tokens.css — every value, by name)

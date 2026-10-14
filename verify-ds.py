@@ -1095,7 +1095,7 @@ def _css_rules(css):
 
 
 @check("30", "Every snippet an agent is told to copy verbatim matches components.css",
-       "v4.1.0: the amaca.ai compiler reported the disabled button missing. The "
+       "v4.1.0: a generator reading the spec reported the disabled button missing. The "
        "contract had it; the snippets did not. Eight rules files and llms-full.txt "
        "each carried a 'reuse these verbatim' block, and every copy had drifted "
        "from the CSS it claimed to quote: a --r-md button the CSS draws "
@@ -1448,7 +1448,7 @@ def c38():
 @check("39", "A component that lists its states lists the rows the state index carries",
        "v4.2.0: the site rendered a Button in `loading` and § 3.12 composed it, "
        "while § 3.1 listed four states and the state index had no `.btn | loading` "
-       "row. A reader of the Button section — the amaca.ai compiler — drew the state "
+       "row. A reader of the Button section — a generator — drew the state "
        "as absent, faithfully. v4.1.0 had already named this class for `selected` "
        "in § 3.0.1 and fixed it by hand; nothing compared the two lists.")
 def c39():
@@ -1597,7 +1597,7 @@ def c41():
 
 
 @check("42", "Every state the state index uses is in the closed vocabulary",
-       "v4.3.0: the amaca.ai compiler read `checked` on the check, radio and switch "
+       "v4.3.0: a generator reading the spec read `checked` on the check, radio and switch "
        "rows and `expanded` on the select trigger, and found neither in the list "
        "§ 3.0.1 calls closed. v4.1.0 had fixed the same trap for `selected` by "
        "hand, noting that the sentence was false about the file's own table; "
@@ -1632,7 +1632,7 @@ def c42():
        "v4.3.0: the check, switch and radio shared one default row, so the state "
        "index gave the switch the checkbox's `1.5px --obsidian-600` stroke and "
        "`--obsidian-850` fill. The CSS never drew either: the track is "
-       "`--obsidian-700` with no border. The amaca.ai compiler rendered the "
+       "`--obsidian-700` with no border. A generator reading the table rendered the "
        "switch the table described, which is not the switch the site shows.")
 def c43():
     text = read(DESIGN)
@@ -1723,7 +1723,7 @@ _ALIAS = {"select-trigger": ("select-trigger", "select")}
 
 
 @check("44", "The state index says what components.css paints",
-       "v4.3.0: the amaca.ai compiler read the state index and drew what it said. "
+       "v4.3.0: a generator read the state index and drew what it said. "
        "It said the danger button had a --danger border (the CSS keeps the base's "
        "transparent one), gave the switch the checkbox's stroke, and had no row for "
        "the select trigger's focus, the menu surface or the chip tints the CSS "
@@ -1910,7 +1910,7 @@ def c47():
 @check("48", "Every badge in the § 13.1 demo has a row in the state index",
        "v4.3.1: the demo is what the site draws and the state index is what a "
        "generator reads; a badge class the demo paints with no index row is a "
-       "badge the compiler has to guess. Checked from the demo side, so a class "
+       "badge a generator has to guess. Checked from the demo side, so a class "
        "the site starts using cannot skip the table.")
 def c48():
     demo = _badge_demo()
@@ -2102,8 +2102,8 @@ def c52():
 
 @check("53", "Every @media and @container width is one of the three breakpoint tokens",
        "v5.0.0: the CSS and the site queried five widths (480, 600, 720, 860, 900) and the "
-       "contract named none of them, so the compiler modelled no responsive behaviour and a "
-       "generator picked its own. Media queries cannot read var(); the tokens are the contract "
+       "contract named none of them, so a generator modelled no responsive behaviour and "
+       "picked its own. Media queries cannot read var(); the tokens are the contract "
        "and this check is how the queries keep to it.")
 def c53():
     bps = {v for k, v in re.findall(r"--(bp-[a-z]+):\s*(\d+)px", read(TOKENS))}
@@ -2209,7 +2209,7 @@ USAGE_SITE_ONLY = {"progress", "stepper", "timeline", "maps", "casestudy"}
 
 @check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
        "v5.0.0: when to use a component, and what to use instead, lived in scattered Do / Don't "
-       "pairs and an Anti-patterns table, and the compiler read none of it as usage. Usage is now "
+       "pairs and an Anti-patterns table, and a generator read none of it as usage. Usage is now "
        "a surface of its own (§ 3.0.3): two lists under the framing prose, the second always "
        "naming the alternative after an arrow. Two copies of one rule drift unless they are "
        "compared, so the check compares them line by line.")
@@ -2270,9 +2270,9 @@ def _registry_site(html, sid):
 
 @check("56", "The Law and the Conventions are one registry each: same ids, rules and severities on both surfaces",
        "v5.0.0: the Law was one card (85/10/5) on the site and a list of rules scattered through "
-       "the contract, with no ids and no severity, so neither a reviewer nor the compiler could "
+       "the contract, with no ids and no severity, so neither a reviewer nor a generator could "
        "tell a hard rule from a preference. The registries give every rule an id and a severity "
-       "on the compiler's scale (error, warn, info); this check holds the site and DESIGN.md to "
+       "on a closed scale (error, warn, info); this check holds the site and DESIGN.md to "
        "the same rows.")
 def c56():
     fails = []
@@ -2333,7 +2333,7 @@ def c57():
 
 @check("58", "The 85 / 10 / 5 law has one definition, everywhere it is stated",
        "v5.0.0: the site said ≤ 10% primary and cyan, ≤ 5% semantic; DESIGN.md and every agent "
-       "file said ≈ 10% supporting, ≤ 5% primary. The same law, two budgets, and the compiler "
+       "file said ≈ 10% supporting, ≤ 5% primary. The same law, two budgets, and a generator "
        "emitted the wrong one. The site's reading is the law (Angelo, 2026-10-13).")
 def c58():
     fails = []
@@ -2474,6 +2474,46 @@ def c61():
             fails.append(f"index.html: an svg.icon sets its own stroke or fill: <svg{a[:70]}>")
         elif b not in (solid if fill else line):
             fails.append(f"index.html: an svg.icon{'-fill' if fill else ''} is not an album drawing of its style: {b[:70]}")
+    return fails
+
+
+# ───────────── v5.0.0: nothing published names a closed product ─────────────
+
+# sha256 (first 16 hex) of the lower-cased terms the published files must not carry, single words and
+# word pairs. Hashed so the check does not publish what it keeps out.
+_CLOSED_TERMS = {"e996bb0ea465fae7", "60e83480eca641d4", "fd973c1dd910abd9", "5fe6e27754602b4d", "947abcabb535c46c"}
+_TEXT_EXT = {".md", ".mdc", ".txt", ".html", ".css", ".js", ".json", ".py", ".sh", ".xml", ".yml", ".yaml", ".svg"}
+_SKIP_DIRS = {".git", ".release", "node_modules", "__pycache__", "fonts", "assets", "Claude outputs"}  # local and gitignored: never published
+
+
+def _closed_hits(text):
+    words = re.findall(r"[a-z0-9][a-z0-9.\-]*[a-z0-9]", text.lower())
+    grams = words + [a + " " + b for a, b in zip(words, words[1:])]
+    return {g for g in grams if hashlib.sha256(g.encode()).hexdigest()[:16] in _CLOSED_TERMS}
+
+
+@check("62", "No published file names a product that is not public",
+       "v5.0.0: the site, the contract, llms.txt and the agent files linked and described a product "
+       "in closed beta, from the changelog to the check docstrings, and the demo of the top bar was "
+       "first filled with the author's real projects. A design system's files are copied into "
+       "other people's repos and prompts: what they name is published for good. The terms are kept "
+       "as hashes, words and word pairs, in every text file and inside every download archive.")
+def c62():
+    fails = []
+    for f in sorted(ROOT.rglob("*")):
+        rel = f.relative_to(ROOT)
+        if any(part in _SKIP_DIRS for part in rel.parts) or not f.is_file():
+            continue
+        if f.suffix in _TEXT_EXT:
+            hits = _closed_hits(f.read_text(encoding="utf-8", errors="ignore"))
+            if hits:
+                fails.append(f"{rel}: {len(hits)} closed term(s)")
+        elif f.suffix in {".zip", ".skill"}:
+            with zipfile.ZipFile(f) as z:
+                for name in z.namelist():
+                    if Path(name).suffix in _TEXT_EXT:
+                        if _closed_hits(z.read(name).decode("utf-8", "ignore")):
+                            fails.append(f"{rel}!{name}: closed term(s)")
     return fails
 
 

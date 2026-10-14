@@ -1,10 +1,8 @@
 # Amaca — downloads
 
-Your design system, compiled into rules your AI tools actually follow. Pick your tool, grab the file (or the turnkey `.zip` in `zips/`), drop it in. Every download is **token-only** — it makes any AI reference your tokens by name instead of inventing values.
+Amaca, packaged as rules your AI tools actually follow. Pick your tool, grab the file (or the turnkey `.zip` in `zips/`), drop it in. Every download is **token-only** — it makes any AI reference your tokens by name instead of inventing values.
 
 Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`, the full spec is [`DESIGN.md`](../DESIGN.md). On conflict, `DESIGN.md` wins. MIT — use, learn from, fork.
-
-> These are the hand-authored **gold** versions. [amaca.ai](https://amaca.ai) compiles the same set from any design system — this is the standard it targets.
 
 ---
 
@@ -111,4 +109,4 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 
 ---
 
-*Generated-toward by [amaca.ai](https://amaca.ai). Spec + tokens are MIT.*
+*Spec + tokens are MIT.*
