@@ -2379,11 +2379,9 @@ Basic UI</div>
           <div style="display:flex;flex-wrap:wrap;gap:var(--s-3)">
             <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-menu">Open menu</button>
             <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-notes">Open notes</button>
-            <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-wide">Open wide</button>
           </div>
           <dialog class="drawer drawer-nav drawer-start" id="drawer-live-menu" aria-labelledby="drawer-live-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" aria-current="page" data-modal-close><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog>
           <dialog class="drawer" id="drawer-live-notes" aria-labelledby="drawer-live-notes-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-notes-t">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div></dialog>
-          <dialog class="drawer drawer-wide" id="drawer-live-wide" aria-labelledby="drawer-live-wide-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-wide-t">Release notes, wide</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div></dialog>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 52.3</span></div>
@@ -9135,6 +9133,20 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
         if(e.key === 'Escape' && !f.classList.contains('is-closed')){ e.preventDefault(); setOpen(f, false); }
       });
     });
+  })();
+
+  /* A modal dialog locks the page, and the page's scrollbar goes with it: the layout would widen by the scrollbar. Keep its width. */
+  (function(){
+    var show = HTMLDialogElement.prototype.showModal, root = document.documentElement;
+    HTMLDialogElement.prototype.showModal = function(){
+      var before = root.clientWidth;
+      show.call(this);
+      var gain = root.clientWidth - before;
+      if(gain > 0) root.style.paddingRight = gain + 'px';
+    };
+    document.addEventListener('close', function(e){
+      if(e.target instanceof HTMLDialogElement && !document.querySelector('dialog:modal')) root.style.paddingRight = '';
+    }, true);
   })();
 </script>
 </body>
