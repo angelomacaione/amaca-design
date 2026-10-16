@@ -2773,6 +2773,25 @@ def c68():
                 fails.append(f"#{sid}: var(--{t}) is not declared in tokens.css")
     if "`--primary-950`" not in read(DESIGN):
         fails.append("DESIGN.md: --primary-950 is not in the palette table")
+    # Text set on the canvas reads at 4.5:1 (WCAG 1.4.3). The axis labels were --obsidian-400,
+    # 3.27:1 on --primary-950, until 2026-10-16; they are --obsidian-200 now, 10.52:1.
+    tokv = dict(re.findall(r"--([a-z0-9-]+)\s*:\s*(#[0-9A-Fa-f]{6})\b", read(TOKENS)))
+    def _lum(hx):
+        c = [int(hx[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+        c = [x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4 for x in c]
+        return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]
+    ground = tokv.get("primary-950")
+    for sid in ("charts", "timeline"):
+        try:
+            sec = _html_section(html, sid)
+        except Exception:
+            continue
+        for tok in re.findall(r'<(?:g|text)\b[^>]*style="fill:var\(--(obsidian-[0-9]+)\)"[^>]*font-size', sec):
+            if ground and tok in tokv:
+                a, b = sorted((_lum(tokv[tok]), _lum(ground)), reverse=True)
+                r = (a + 0.05) / (b + 0.05)
+                if r < 4.5:
+                    fails.append(f"#{sid}: text in --{tok} is {r:.2f}:1 on --primary-950, under 4.5:1")
     return fails
 
 
