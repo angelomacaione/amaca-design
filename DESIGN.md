@@ -450,7 +450,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Empty state · File upload | — | off-system | Stop and ask |
@@ -2665,7 +2665,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 
 ### Swatch
 
-A token shown, not pressed. Three forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, and the motion tile of an easing.
+A token shown, not pressed. Five forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the radius tile, the icon tile of the album, and the motion tile of an easing.
 
 **Usage**
 
@@ -2713,6 +2713,8 @@ A token shown, not pressed. Three forms: the inline marker beside the word that 
 | Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
 | Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
+| Radius tile | `.swatch-tile-radius` `.swatch-tile-shape` | the same tile; a `--obsidian-800` shape with a 1px `--obsidian-400` edge at the radius of `--sw-r` (`var()` of a radius token), 1:1 |
+| Icon tile | `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` | the same tile; the album drawing 4× (`--s-16`) in `--primary-300` on its 16 grid (`--obsidian-700`), the 14 live area dashed `--obsidian-400`; then the drawing at 16 and 24 |
 | Motion tile | `.swatch-tile-motion` | the same tile; the fill is `--obsidian-950` and holds the plot. `--e` and `--d` are `var()` of an easing and a duration |
 | Plot | `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` | square, time across and position up (CSS Easing L1); curve 2px `--primary-300`, axes `--obsidian-400`, guides dashed `--obsidian-700`, ticks mono `--t-micro` `--obsidian-300` |
 | Movers | `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-level` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | the dot (`--s-2`) on the curve, a dashed `--obsidian-400` level, the ball (`--s-3`, `--primary-500`) on a `--obsidian-900` rail at the right |
@@ -2721,7 +2723,8 @@ A token shown, not pressed. Three forms: the inline marker beside the word that 
 - **Static.** No hover, no focus: a swatch is not a button and not a picker. Choosing a colour is off-system. The colour forms never move.
 - **The motion tile moves because the motion is its value.** Time across, position up, as in CSS Easing L1 and MDN: a curve copied from the tile is the curve it shows. The dot rides the curve and the ball on the rail shares its height. The move lasts exactly `--d`, inside a cycle of 2.5 × `--d`; three cycles and it rests on the end, under 5 s even on `--d-slow` (WCAG 2.2.2). Reduced motion shows the end.
 - **The curve is set on the element.** `animation-timing-function: var(--e)` on each mover; a `var()` inside `@keyframes` is not read and every curve falls back to `ease`.
-- **The value is a token.** `--sw` is set to `var()` of a token, never a pasted hex; `--e` and `--d` to `var()` of an easing and a duration. On a tile the printed hex, curve and milliseconds are that token's value in `tokens.css`, and the drawn path is its curve.
+- **The radius tile is 1:1, the icon tile is 4×.** A radius is judged at its size; an icon is judged on its grid, so the zoom shows where the drawing sits in the 14 live area, and the 16 and 24 beside it show it at size. The zoom is the album drawing in an `.icon`, never a redrawing.
+- **The value is a token.** `--sw` is set to `var()` of a token, never a pasted hex; `--e` and `--d` to `var()` of an easing and a duration. `--sw-r` to `var()` of a radius token. On a tile the printed hex, radius, curve and milliseconds are that token's value in `tokens.css`, and the drawn path is its curve.
 - **Always bordered.** An inset 1px of `--border-input`, so the size does not change and a dark colour still has an edge: 3.38, 3.27 and 3.13 : 1 on `--surface`, `--surface-sunken` and `--surface-field` (WCAG 1.4.11). On `--surface-raised` it is 2.93 : 1, so on a card the label is what carries the colour.
 - **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
 - **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).

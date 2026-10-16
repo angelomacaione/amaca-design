@@ -271,6 +271,16 @@
    --e and --d are var() of tokens, set on the tile. The move fills the first 40% of a cycle of 2.5 x --d, so the
    move lasts exactly --d and the rest holds the end. Three cycles and it rests on the end, under 5 s even on
    --d-slow (WCAG 2.2.2). The curve is set on each element: var() inside @keyframes is not read and falls back to ease. */
+/* Radius tile: a neutral shape at the token's radius, 1:1. --sw-r is var() of a radius token, set on the tile. */
+.swatch-tile-radius .swatch-tile-fill{display:flex;align-items:center;justify-content:center;background:var(--obsidian-950)}
+.swatch-tile-shape{width:var(--s-24);height:calc(var(--s-24) * .6);border-radius:var(--sw-r, 0);background:var(--obsidian-800);box-shadow:inset 0 0 0 var(--bw-1) var(--obsidian-400)}
+/* Icon tile: the album drawing 4x on its 16 grid, the 14 live area dashed (§ 3.32); 16 and 24 at 1:1 beside.
+   The zoom is the same drawing in the same .icon, so the stroke is the real 1.5 grid units, scaled. */
+.swatch-tile-icon .swatch-tile-fill{height:auto;display:flex;align-items:center;justify-content:center;gap:var(--s-5);padding:var(--s-5);background:var(--obsidian-950);color:var(--obsidian-100)}
+.swatch-tile-zoom{position:relative;flex:none;width:var(--s-16);height:var(--s-16);background-image:linear-gradient(var(--obsidian-700) var(--bw-1),transparent var(--bw-1)),linear-gradient(90deg,var(--obsidian-700) var(--bw-1),transparent var(--bw-1));background-size:calc(100% / 16) calc(100% / 16);box-shadow:inset calc(-1 * var(--bw-1)) calc(-1 * var(--bw-1)) 0 var(--obsidian-700)}
+.swatch-tile-zoom::after{content:"";position:absolute;inset:calc(100% / 16);border:var(--bw-1) dashed var(--obsidian-400);pointer-events:none}
+.swatch-tile-zoom .swatch-tile-glyph{position:absolute;inset:0;width:100%;height:100%;color:var(--primary-300)}
+.swatch-tile-sizes{display:flex;flex-direction:column;align-items:center;gap:var(--s-3)}
 .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
 .swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
 .swatch-tile-plot{position:relative;flex:1 1 auto;max-width:calc(var(--s-24) * 2);aspect-ratio:1;margin:0 calc(var(--s-6) + var(--s-3)) 0 var(--s-2)}

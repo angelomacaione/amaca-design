@@ -2329,7 +2329,7 @@ def c57():
                 if sel and sel not in R_FULL_RATIFIED:
                     fails.append(f"{where}: {sel} uses --r-full and is not on the ratified pill list")
     for m in re.finditer(r'<([a-z]+)([^>]*)style="([^"]*--r-full[^"]*)"', read(INDEX)):
-        if 'class="demo-tile"' not in m.group(2):
+        if 'class="swatch-tile swatch-tile-radius"' not in m.group(2):
             fails.append(f"index.html inline: <{m.group(1)}{m.group(2)[:60]}> uses --r-full")
     return fails
 
@@ -2917,6 +2917,40 @@ def c71():
                 i += 1
             if "var(" in txt[km.end():i]:
                 fails.append(f"{pth.name}: @keyframes {km.group(1)} reads a var(), which the browser ignores there")
+    return fails
+
+
+@check("72", "A radius tile and an icon tile show their token and their drawing, the same in every place",
+       "v5.0.0: Radius and the Icon album became Swatch tiles (§ 3.40). Radius printed '--r-md · 8px' by hand "
+       "beside an inline border-radius; the album printed the drawing twice, at 16 and 24, and the zoom adds a "
+       "third copy. A tile that prints one radius and draws another, or a zoom that drifts from its 16 and 24, "
+       "would teach the wrong value. This check holds every radius tile to its token, and every icon tile to one "
+       "drawing, three times, and to the name the album gives it in DESIGN.md.")
+def c72():
+    fails = []
+    vals = _token_values(read(TOKENS))
+    html = read(INDEX)
+    rad = re.findall(r'<div class="swatch-tile swatch-tile-radius" style="--sw-r:var\(--(r-[a-z0-9]+)\)">.*?<span class="swatch-tile-hex">--(r-[a-z0-9]+) · ([^<]*)</span>', html)
+    rtok = sorted(re.findall(r"--(r-[a-z0-9]+)\s*:", read(TOKENS)))
+    if sorted(r[0] for r in rad) != rtok:
+        fails.append(f"§ 04.1 radius tiles {[r[0] for r in rad]} ≠ tokens.css {rtok}")
+    for t, printed, val in rad:
+        if printed != t or val.strip() != vals.get(t, "").strip():
+            fails.append(f"radius tile --{t} prints --{printed} · {val}, tokens.css says {vals.get(t)}")
+    d = read(DESIGN)
+    m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", d, re.S)
+    names = {}
+    for nm, st, b in re.findall(r"\| `([a-z-]+)` \| (line|solid) \| `(.+?)` \|", m.group(1) if m else ""):
+        names.setdefault(re.sub(r"\s+", " ", b), set()).add(nm)
+    icons = re.findall(r'<div class="swatch-tile swatch-tile-icon">(.*?)<span class="swatch-tile-name">([a-z-]+)</span>', html)
+    if len(icons) < 50:
+        fails.append(f"§ 45.1: {len(icons)} icon tiles, the album has more")
+    for body, nm in icons:
+        draws = [re.sub(r"\s+", " ", x).strip() for x in re.findall(r'<svg class="icon[^"]*"[^>]*>(.*?)</svg>', body)]
+        if len(draws) != 3 or len(set(draws)) != 1:
+            fails.append(f"icon tile {nm}: the zoom, the 16 and the 24 are not one drawing")
+        elif nm not in names.get(draws[0], set()):
+            fails.append(f"icon tile {nm}: the album names that drawing {sorted(names.get(draws[0], {'nothing'}))}")
     return fails
 
 
