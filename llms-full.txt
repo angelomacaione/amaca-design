@@ -25,7 +25,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 - **Neutral:** `--obsidian-950` (page) → `--obsidian-050` (bone); text on dark = `--obsidian-100`.
 - **Supporting (rare):** `--secondary-400` cyan (data-viz), `--tertiary-500` petrol; semantic `--success / --warning / --danger / --info` — feedback only.
 - **Type:** Satoshi; scale `--t-micro 10 … --t-body 15 (default) … --t-h1 76 / --t-display 112`. One H1 per page.
-- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` (default) / `--r-lg 12` (cards). **Motion:** 6 durations `--d-instant…--d-draw`, 4 easings `--ease-standard / -accel / -decel (signature) / -spring` — no others; `--ease-spring` = spatial properties only.
+- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` (default) / `--r-lg 12` (cards). **Motion:** 6 durations `--d-instant…--d-draw`, 5 easings `--ease-standard / -accel / -decel (signature) / -spring / -linear` — no others; `--ease-spring` = spatial properties only.
 
 ## The laws
 1. **85 / 10 / 5.** ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic. One primary action per screen (a landing may carry one per section); primary on anything else = decorating.
@@ -255,10 +255,11 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --ring-field-danger: 0 0 0 3px rgba(255,91,91,0.15);
 
   /* — MOTION (Framer-aligned: soft, bouncy, confident) — */
-  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);     /* Framer default ease-out */
+  --ease-standard: cubic-bezier(0.45, 0, 0.55, 1);     /* ease in-out (quad), symmetric: state changes (v5.0.0) */
   --ease-accel:    cubic-bezier(0.7, 0, 0.84, 0);
   --ease-decel:    cubic-bezier(0.16, 1, 0.3, 1);      /* expo-out */
   --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* elastic overshoot */
+  --ease-linear:   linear;                             /* neutral: an opacity with no character, a continuous loop (v5.0.0) */
   --d-instant: 100ms;
   --d-quick:   200ms;
   --d-base:    350ms;

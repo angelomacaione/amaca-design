@@ -858,6 +858,8 @@ def c25():
         elif typ == "cubicBezier":
             m = re.fullmatch(r"cubic-bezier\(([^)]*)\)", cssv)
             pts = [float(x) for x in m.group(1).split(",")] if m else []
+            if cssv.strip() == "linear":      # CSS Easing: the keyword is cubic-bezier(0, 0, 1, 1)
+                pts = [0.0, 0.0, 1.0, 1.0]
             if len(pts) != 4 or any(not close(a, b, 1e-6) for a, b in zip(pts, val)):
                 bad(name, f"{val} vs CSS {cssv}")
         elif typ == "fontFamily":
@@ -2792,6 +2794,55 @@ def c68():
                 r = (a + 0.05) / (b + 0.05)
                 if r < 4.5:
                     fails.append(f"#{sid}: text in --{tok} is {r:.2f}:1 on --primary-950, under 4.5:1")
+    return fails
+
+
+@check("69", "Five easings, the same five everywhere, and the motion demo reads them by name",
+       "v5.0.0: --ease-standard became a symmetric ease in-out and --ease-linear joined the set. The "
+       "count was written by hand in eleven places, and two were already wrong before the change: the "
+       "README said five durations (there are six) and the Motion demo typed its four curves as "
+       "cubic-bezier literals, so a token that moved would have left the demo showing the old curve. "
+       "This check holds the set of --ease-* tokens to the Motion table of DESIGN.md, to § 06.3 and to "
+       "the demo rows, every 'N easings' / 'N durations' sentence outside a changelog to the real "
+       "counts, and the demo to token names.")
+def c69():
+    fails = []
+    words = {"four": 4, "five": 5, "six": 6, "seven": 7}
+    tok = read(TOKENS)
+    eases = re.findall(r"--(ease-[a-z]+)\s*:", tok)
+    durs = re.findall(r"--(d-[a-z]+)\s*:", tok)
+    d = read(DESIGN)
+    d_body = d.split("\n## Changelog", 1)[0]
+    m = re.search(r"\| Easing \| Curve \| Use \|\n\|[-|]+\|\n((?:\|.*\n)+)", d_body)
+    table = re.findall(r"^\| `--(ease-[a-z]+)`", m.group(1), re.M) if m else []
+    if sorted(table) != sorted(eases):
+        fails.append(f"DESIGN.md Motion table {table} ≠ tokens.css {eases}")
+    html = read(INDEX)
+    a = html.find('<section class="section" id="changelog"')
+    site = html[:a] + (html[html.find("</section>", a):] if a >= 0 else "")
+    sec = _html_section(html, "motion")
+    t063 = re.findall(r"<tr><td><code>--(ease-[a-z]+)</code></td><td><code>", sec)
+    if sorted(t063) != sorted(eases):
+        fails.append(f"index.html § 06.3 {t063} ≠ tokens.css {eases}")
+    demo = re.findall(r'class="dot" data-ease="([^"]+)" data-dur="([^"]+)"', sec)
+    if sorted(e.lstrip("-") for e, _ in demo) != sorted(eases):
+        fails.append(f"index.html § 06.1 demo rows {[e for e, _ in demo]} ≠ tokens.css {eases}")
+    for e, du in demo:
+        if not e.startswith("--ease-") or not du.startswith("--d-"):
+            fails.append(f"index.html § 06.1: a demo row types its curve or duration ({e}, {du}) instead of naming the token")
+    texts = {"index.html": site, "DESIGN.md": d_body}
+    for name in ("README.md", "llms-full.txt", "llms.txt", "downloads/AGENTS.md", "downloads/CLAUDE.md",
+                 "downloads/AI-INSTRUCTIONS.md", "downloads/.cursor/rules/amaca-core.mdc",
+                 "downloads/.github/copilot-instructions.md"):
+        pth = ROOT / name
+        if pth.exists():
+            texts[name] = read(pth)
+    for name, txt in texts.items():
+        for n, what in re.findall(r"\b(four|five|six|seven|[4-7])\s+(easings|durations)\b", txt, re.I):
+            k = words.get(n.lower(), int(n) if n.isdigit() else 0)
+            want = len(eases) if what.lower() == "easings" else len(durs)
+            if k != want:
+                fails.append(f"{name}: '{n} {what}', the tokens say {want}")
     return fails
 
 

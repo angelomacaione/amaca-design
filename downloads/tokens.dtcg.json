@@ -1530,13 +1530,13 @@
   },
   "ease-standard": {
     "$value": [
-      0.22,
-      1.0,
-      0.36,
+      0.45,
+      0.0,
+      0.55,
       1.0
     ],
     "$type": "cubicBezier",
-    "$description": "Framer default ease-out"
+    "$description": "ease in-out (quad), symmetric: state changes (v5.0.0)"
   },
   "ease-accel": {
     "$value": [
@@ -1566,6 +1566,16 @@
     ],
     "$type": "cubicBezier",
     "$description": "elastic overshoot"
+  },
+  "ease-linear": {
+    "$value": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "$type": "cubicBezier",
+    "$description": "neutral: an opacity with no character, a continuous loop (v5.0.0)"
   },
   "d-instant": {
     "$value": {

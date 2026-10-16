@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=5ab00153">
+<link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
 <link rel="stylesheet" href="styles/components.css?v=3c44871e">
 
 <style id="__animations_inline">
@@ -862,32 +862,36 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 06 · Foundations / Motion</div>
           <h1 class="page-title">Motion is <span class="accent">feedback, not decoration.</span></h1>
-          <p class="page-lede">Six durations, four easings. Standard for UI, Spring for playful reveals, Accel for exits, Decel for entrances, Draw for data reveals.</p>
+          <p class="page-lede">Six durations, five easings. Decel for entrances, Accel for exits, Ease in-out for state changes, Spring for playful reveals, Linear for neutral fades, Draw for data reveals.</p>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 06.1</span></div>
-          <p class="subsection-desc">The motion vocabulary at a glance: four easings and where each belongs, with the durations they usually ride. The pairing rules are in § 08.3.</p>
+          <p class="subsection-desc">The motion vocabulary at a glance: five easings and where each belongs, with the durations they usually ride. The pairing rules are in § 08.3.</p>
           <div class="card">
             <div class="motion-row">
-              <div class="label">STANDARD
-Basic UI</div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.22, 1, 0.36, 1)" data-dur="200"></div></div>
-              <div class="time">200 ms</div>
-            </div>
-            <div class="motion-row">
               <div class="label">Decel<span class="sub">Entrances</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.16, 1, 0.3, 1)" data-dur="350"></div></div>
-              <div class="time">350 ms</div>
+              <div class="track"><div class="dot" data-ease="--ease-decel" data-dur="--d-base"></div></div>
+              <div class="time" data-dur-label="--d-base">350 ms</div>
             </div>
             <div class="motion-row">
               <div class="label">Accel<span class="sub">Exits</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.7, 0, 0.84, 0)" data-dur="200"></div></div>
-              <div class="time">200 ms</div>
+              <div class="track"><div class="dot" data-ease="--ease-accel" data-dur="--d-quick"></div></div>
+              <div class="time" data-dur-label="--d-quick">200 ms</div>
+            </div>
+            <div class="motion-row">
+              <div class="label">Ease in-out<span class="sub">State changes</span></div>
+              <div class="track"><div class="dot" data-ease="--ease-standard" data-dur="--d-quick"></div></div>
+              <div class="time" data-dur-label="--d-quick">200 ms</div>
             </div>
             <div class="motion-row">
               <div class="label">Spring<span class="sub">Delight · reveal</span></div>
-              <div class="track"><div class="dot" data-ease="cubic-bezier(0.34, 1.56, 0.64, 1)" data-dur="600"></div></div>
-              <div class="time">600 ms</div>
+              <div class="track"><div class="dot" data-ease="--ease-spring" data-dur="--d-slow"></div></div>
+              <div class="time" data-dur-label="--d-slow">600 ms</div>
+            </div>
+            <div class="motion-row">
+              <div class="label">Linear<span class="sub">Neutral fades · loops</span></div>
+              <div class="track"><div class="dot" data-ease="--ease-linear" data-dur="--d-base"></div></div>
+              <div class="time" data-dur-label="--d-base">350 ms</div>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" id="motion-play" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
@@ -915,10 +919,11 @@ Basic UI</div>
           <table class="table">
             <thead><tr><th>Token</th><th>Curve</th><th>Use</th></tr></thead>
             <tbody>
-              <tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(0.22, 1, 0.36, 1)</code></td><td class="muted">Default for user-triggered states — hover, press, focus</td></tr>
-              <tr><td><code>--ease-accel</code></td><td><code>cubic-bezier(0.7, 0, 0.84, 0)</code></td><td class="muted">Exits, dismissals</td></tr>
               <tr><td><code>--ease-decel</code></td><td><code>cubic-bezier(0.16, 1, 0.3, 1)</code></td><td class="muted">Default for system-triggered transitions — entrances, reveals. The system signature</td></tr>
+              <tr><td><code>--ease-accel</code></td><td><code>cubic-bezier(0.7, 0, 0.84, 0)</code></td><td class="muted">Exits, dismissals</td></tr>
+              <tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(0.45, 0, 0.55, 1)</code></td><td class="muted">Ease in-out, symmetric: user-triggered state changes — hover, press, focus, selected</td></tr>
               <tr><td><code>--ease-spring</code></td><td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td class="muted">Pop-in, delight, overshoot — spatial properties only</td></tr>
+              <tr><td><code>--ease-linear</code></td><td><code>linear</code></td><td class="muted">Neutral: an opacity with no character, a continuous loop</td></tr>
             </tbody>
           </table>
         </div>
@@ -4685,7 +4690,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 41.2</span></div>
           <p class="subsection-desc"><code>error</code> stops the output; <code>warn</code> is flagged in review. The check column names the harness check or the verifier that holds the rule.</p>
-          <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and four easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
+          <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and five easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
         </div>
       </section>
 
@@ -5946,11 +5951,17 @@ window.addEventListener('hashchange', syncFromHash);
 })();
 
 // --- motion demo ---
+// Curves and durations are read off :root by name (data-ease="--ease-decel", data-dur="--d-base"),
+// never re-typed here: a token that changes moves the demo with it (runtime-token anti-drift).
 function playMotion(){
-  document.querySelectorAll('.motion-row .dot').forEach(dot => {
-    const csRoot = getComputedStyle(document.documentElement);
-    const ease = dot.dataset.ease || csRoot.getPropertyValue('--ease-standard').trim();
-    const dur = parseInt(dot.dataset.dur, 10) || parseFloat(csRoot.getPropertyValue('--d-quick'));
+  const csRoot = getComputedStyle(document.documentElement);
+  const tok = n => csRoot.getPropertyValue(n).trim();
+  document.querySelectorAll('.motion-row').forEach(row => {
+    const dot = row.querySelector('.dot');
+    const ease = tok(dot.dataset.ease || '--ease-standard') || 'ease';
+    const dur = parseFloat(tok(dot.dataset.dur || '--d-quick')) || 0;
+    const label = row.querySelector('[data-dur-label]');
+    if (label) label.textContent = dur + ' ms';
     const track = dot.parentElement;
     const max = track.clientWidth - dot.clientWidth - 8;
     dot.style.transition = 'none';
@@ -5964,14 +5975,21 @@ function playMotion(){
 const mb = document.getElementById('motion-play');
 if(mb) mb.addEventListener('click', playMotion);
 
-// auto-play motion when motion section becomes active
+// auto-play when the motion section becomes active — and also when the page
+// opens on it (a link to #motion, a reload): then it is active before this runs,
+// and no class change would ever fire (found in v5.0.0, present since v1.0.0)
+const motionSection = document.getElementById('motion');
 new MutationObserver(muts => {
   for(const m of muts){
     if(m.target.id === 'motion' && m.target.classList.contains('active')){
       setTimeout(playMotion, 120);
     }
   }
-}).observe(document.getElementById('motion'), {attributes:true, attributeFilter:['class']});
+}).observe(motionSection, {attributes:true, attributeFilter:['class']});
+if (motionSection && motionSection.classList.contains('active')) {
+  const kick = () => setTimeout(playMotion, 120);
+  if (document.readyState === 'complete') kick(); else window.addEventListener('load', kick, {once:true});
+}
 </script>
 
 <script>
