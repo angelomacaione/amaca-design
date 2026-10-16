@@ -450,7 +450,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Color swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | canonical | § 3.40 — static; the Diagrams legend keeps its shape key |
+| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Empty state · File upload | — | off-system | Stop and ask |
@@ -1275,7 +1275,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 ### Loader
 
-The brand mark (Lottie / GIF) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
+The brand mark (animated SVG) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
 
 **Usage**
 
@@ -1290,7 +1290,7 @@ The brand mark (Lottie / GIF) at four scales, plus composition variants. A loade
 
 ```html
 <span class="loader loader-md" role="status" aria-label="Loading">
-  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" />
+  <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" />
   <span class="loader-fallback" aria-hidden="true">
     <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
   </span>
@@ -1855,7 +1855,7 @@ A label for something already visible. Never a container for content.
 - `.chart-head` — a baseline-aligned pair, `margin-bottom: --s-5`: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
 - `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
-- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Color swatch (§ 3.40) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
+- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.40) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
 - **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
 - **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
 
@@ -1877,7 +1877,7 @@ A label for something already visible. Never a container for content.
 - `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
 - `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.13).
 - `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
-- `.swatch` — the Color swatch (§ 3.40), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- `.swatch` — the Swatch (§ 3.40), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
 - Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-draw` (§ 6 floor #1).
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -2663,15 +2663,16 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 
 **Do / Don't.** Do use it for a menu or a text the person reads with the page still behind it, and name it with its title. Don't put a form in it, stack one drawer on another, or make it a panel that stays on the page.
 
-### Color swatch
+### Swatch
 
-A colour shown, not pressed. Two forms: the inline marker beside the word that names it (a legend key, a token in a table) and the tile of a palette.
+A token shown, not pressed. Three forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, and the motion tile of an easing.
 
 **Usage**
 
 *Use it when*
 - A label names a colour: a legend key, a token in a table. *(Carbon)*
 - A palette shows its values, one tile per step. *(Spectrum)*
+- An easing token shows its curve and the duration it rides, one tile per token. *(Material)*
 
 *Use something else when*
 - The colour stands for a state, with a word → Badge or Chip.
@@ -2694,6 +2695,16 @@ A colour shown, not pressed. Two forms: the inline marker beside the word that n
     <span class="swatch-tile-role">Surface · tint</span>
   </div>
 </div>
+
+<!-- motion tile: --e and --d name the tokens; the path, the tick and the meta print their values -->
+<div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-decel);--d:var(--d-base)">
+  <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C16,0 30,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+    <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+    <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+  </div></div>
+  <div class="swatch-tile-meta"><span class="swatch-tile-name">Decel</span><span class="swatch-tile-hex">--ease-decel · 350 ms</span><span class="swatch-tile-hex">cubic-bezier(.16,1,.3,1)</span><span class="swatch-tile-role">Entrances</span></div>
+</div>
 ```
 
 | Part | Class | Note |
@@ -2702,17 +2713,22 @@ A colour shown, not pressed. Two forms: the inline marker beside the word that n
 | Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
 | Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
+| Motion tile | `.swatch-tile-motion` | the same tile; the fill is `--obsidian-950` and holds the plot. `--e` and `--d` are `var()` of an easing and a duration |
+| Plot | `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` | square, time across and position up (CSS Easing L1); curve 2px `--primary-300`, axes `--obsidian-400`, guides dashed `--obsidian-700`, ticks mono `--t-micro` `--obsidian-300` |
+| Movers | `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-level` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | the dot (`--s-2`) on the curve, a dashed `--obsidian-400` level, the ball (`--s-3`, `--primary-500`) on a `--obsidian-900` rail at the right |
 
 **Rules.**
-- **Static.** No hover, no focus, no motion: a swatch is not a button and not a picker. Choosing a colour is off-system.
-- **The colour is a token.** `--sw` is set to `var()` of a token, never a pasted hex. On a tile the printed hex is that token's value in `tokens.css`, word for word.
+- **Static.** No hover, no focus: a swatch is not a button and not a picker. Choosing a colour is off-system. The colour forms never move.
+- **The motion tile moves because the motion is its value.** Time across, position up, as in CSS Easing L1 and MDN: a curve copied from the tile is the curve it shows. The dot rides the curve and the ball on the rail shares its height. The move lasts exactly `--d`, inside a cycle of 2.5 × `--d`; three cycles and it rests on the end, under 5 s even on `--d-slow` (WCAG 2.2.2). Reduced motion shows the end.
+- **The curve is set on the element.** `animation-timing-function: var(--e)` on each mover; a `var()` inside `@keyframes` is not read and every curve falls back to `ease`.
+- **The value is a token.** `--sw` is set to `var()` of a token, never a pasted hex; `--e` and `--d` to `var()` of an easing and a duration. On a tile the printed hex, curve and milliseconds are that token's value in `tokens.css`, and the drawn path is its curve.
 - **Always bordered.** An inset 1px of `--border-input`, so the size does not change and a dark colour still has an edge: 3.38, 3.27 and 3.13 : 1 on `--surface`, `--surface-sunken` and `--surface-field` (WCAG 1.4.11). On `--surface-raised` it is 2.93 : 1, so on a card the label is what carries the colour.
 - **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
 - **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).
 - **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
 - **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.13).
 
-**Do / Don't.** Do put it before its label, let the label name the colour, and take the fill from a token. Don't make it a button, let the colour carry the meaning alone, or paste a hex where a token exists.
+**Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, or loop a motion tile for ever.
 
 ### Stepper
 
@@ -3056,7 +3072,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Diagrams | enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
 | Diagrams | enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
-| Loader | wait (loop) | brand mark GIF (spatial) | media clock (GIF/Lottie) · infinite | hidden — fallback ring shown |
+| Loader | wait (loop) | brand mark SVG (spatial) | media clock (SVG SMIL, 4.5 s loop) · infinite | hidden — fallback ring shown |
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |

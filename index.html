@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=3c44871e">
+<link rel="stylesheet" href="styles/components.css?v=0a92b9f9">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -115,7 +115,7 @@ html{scroll-behavior:smooth}
   <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar" aria-label="Design system navigation">
     <div class="brand">
-      <div class="brand-mark"><img src="assets/logo.gif" alt="Amaca"/></div>
+      <div class="brand-mark"><img src="assets/logo.svg" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
         <span class="meta">V4.3.2 · DESIGN SYSTEM</span>
@@ -200,7 +200,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#table" data-target="table"><span class="num">30</span> Table</a>
       <a class="nav-item" href="#avatar" data-target="avatar"><span class="num">44</span> Avatar</a>
       <a class="nav-item" href="#list" data-target="list"><span class="num">46</span> List</a>
-      <a class="nav-item" href="#swatch" data-target="swatch"><span class="num">53</span> Color swatch</a>
+      <a class="nav-item" href="#swatch" data-target="swatch"><span class="num">53</span> Swatch</a>
       <a class="nav-item" href="#charts" data-target="charts"><span class="num">31</span> Charts</a>
       <a class="nav-item" href="#timeline" data-target="timeline"><span class="num">32</span> Timeline</a>
       <a class="nav-item" href="#maps" data-target="maps"><span class="num">33</span> Maps</a>
@@ -301,13 +301,13 @@ html{scroll-behavior:smooth}
           <p class="subsection-desc">The symbol: three isometric cubes in motion forming a triangle, one cube per product. It ships as a fixed asset, and the shell renders it inside the brand tile.</p>
           <div class="grid grid-2" style="gap:var(--s-6);align-items:stretch">
             <div class="card" style="display:flex;align-items:center;justify-content:center;padding:var(--s-16);background:radial-gradient(400px 300px at 50% 50%, rgba(240,81,213,0.08), transparent 70%), var(--obsidian-900)">
-              <img src="assets/logo.gif" alt="Amaca logo" style="width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(240,81,213,0.35))"/>
+              <img src="assets/logo.svg" alt="Amaca logo" style="width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 0 32px rgba(240,81,213,0.35))"/>
             </div>
             <div class="card" style="display:flex;flex-direction:column;justify-content:center">
               <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:var(--s-3)">The symbol</div>
               <h3 style="font-size:var(--t-h5);margin:0 0 var(--s-4);letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Three isometric cubes forming a triangle, in motion.</h3>
               <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-4);font-size:var(--t-body)">Each cube is a product. The triangle is a system — components snapping together, breaking apart, reassembling. The motion is intrinsic, not applied:
-the mark is a Lottie, a JSON file describing every rotation and every transition. The logo follows the same logic as the system itself — written, not decorated.</p>
+the mark is an animated SVG, one vector file describing every rotation and every transition. The logo follows the same logic as the system itself — written, not decorated.</p>
             </div>
           </div>
         </div>
@@ -866,32 +866,47 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 06.1</span></div>
-          <p class="subsection-desc">The motion vocabulary at a glance: five easings and where each belongs, with the durations they usually ride. The pairing rules are in § 08.3.</p>
-          <div class="card">
-            <div class="motion-row">
-              <div class="label">Decel<span class="sub">Entrances</span></div>
-              <div class="track"><div class="dot" data-ease="--ease-decel" data-dur="--d-base"></div></div>
-              <div class="time" data-dur-label="--d-base">350 ms</div>
+          <p class="subsection-desc">The motion vocabulary at a glance: five easings and where each belongs, one Swatch motion tile each (§ 3.40). Time runs across, position up; the ball on the right rides the curve at the dot&rsquo;s height. Decel, accel, ease in-out and linear run on the same <code>--d-base</code> so the curves can be compared; spring rides <code>--d-slow</code>, the overshoot needs the room. Each tile plays three times and rests on the end. The pairing rules and the durations each job usually rides are in § 08.3.</p>
+          <div class="swatch-grid">
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-decel);--d:var(--d-base)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C16,0 30,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Decel</span><span class="swatch-tile-hex">--ease-decel · 350 ms</span><span class="swatch-tile-hex">cubic-bezier(.16,1,.3,1)</span><span class="swatch-tile-role">Entrances</span></div>
             </div>
-            <div class="motion-row">
-              <div class="label">Accel<span class="sub">Exits</span></div>
-              <div class="track"><div class="dot" data-ease="--ease-accel" data-dur="--d-quick"></div></div>
-              <div class="time" data-dur-label="--d-quick">200 ms</div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-accel);--d:var(--d-base)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C70,100 84,100 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Accel</span><span class="swatch-tile-hex">--ease-accel · 350 ms</span><span class="swatch-tile-hex">cubic-bezier(.7,0,.84,0)</span><span class="swatch-tile-role">Exits</span></div>
             </div>
-            <div class="motion-row">
-              <div class="label">Ease in-out<span class="sub">State changes</span></div>
-              <div class="track"><div class="dot" data-ease="--ease-standard" data-dur="--d-quick"></div></div>
-              <div class="time" data-dur-label="--d-quick">200 ms</div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-standard);--d:var(--d-base)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C45,100 55,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Ease in-out</span><span class="swatch-tile-hex">--ease-standard · 350 ms</span><span class="swatch-tile-hex">cubic-bezier(.45,0,.55,1)</span><span class="swatch-tile-role">State changes</span></div>
             </div>
-            <div class="motion-row">
-              <div class="label">Spring<span class="sub">Delight · reveal</span></div>
-              <div class="track"><div class="dot" data-ease="--ease-spring" data-dur="--d-slow"></div></div>
-              <div class="time" data-dur-label="--d-slow">600 ms</div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-spring);--d:var(--d-slow)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C34,-56 64,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">600</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Spring</span><span class="swatch-tile-hex">--ease-spring · 600 ms</span><span class="swatch-tile-hex">cubic-bezier(.34,1.56,.64,1)</span><span class="swatch-tile-role">Delight · reveal</span></div>
             </div>
-            <div class="motion-row">
-              <div class="label">Linear<span class="sub">Neutral fades · loops</span></div>
-              <div class="track"><div class="dot" data-ease="--ease-linear" data-dur="--d-base"></div></div>
-              <div class="time" data-dur-label="--d-base">350 ms</div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-linear);--d:var(--d-base)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C0,100 100,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Linear</span><span class="swatch-tile-hex">--ease-linear · 350 ms</span><span class="swatch-tile-hex">linear</span><span class="swatch-tile-role">Neutral fades · loops</span></div>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" id="motion-play" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
@@ -954,7 +969,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <tr><td>Diagrams</td><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Diagrams</td><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Stat / KPI</td><td>enter viewport</td><td class="muted">text content count-up 0→target (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">instant — jump to final</td></tr>
-              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">brand mark GIF (spatial)</td><td class="muted">media clock (GIF/Lottie) · infinite</td><td class="muted">hidden — fallback ring shown</td></tr>
+              <tr><td>Loader</td><td>wait (loop)</td><td class="muted">brand mark SVG (spatial)</td><td class="muted">media clock (SVG SMIL, 4.5 s loop) · infinite</td><td class="muted">hidden — fallback ring shown</td></tr>
               <tr><td>Loader</td><td>wait (loop)</td><td class="muted">fallback ring rotate (spatial)</td><td class="muted">1400ms · linear · infinite</td><td class="muted">ratified exception — keeps spinning</td></tr>
               <tr><td>Loader</td><td>label cycle (loop)</td><td class="muted">label opacity crossfade (effect)</td><td class="muted">2400ms cycle · 200ms crossfade</td><td class="muted">instant swap</td></tr>
               <tr><td>Skeleton</td><td>wait (loop)</td><td class="muted">shimmer sweep (effect)</td><td class="muted">1600ms · linear · infinite</td><td class="muted">disabled</td></tr>
@@ -1919,18 +1934,18 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <div class="page-header">
           <div class="page-eyebrow">§ 21 · Feedback / Loader</div>
           <h1 class="page-title">The logo, <span class="accent">in motion as a promise.</span></h1>
-          <p class="page-lede">A loader is a contract: <em>something is happening, don't leave</em>. The Amaca logo carries that contract at four scales — inside a button, beside an input, over a card, across the viewport. Under <code>prefers-reduced-motion</code> the Lottie steps aside and a single magenta ring spins in its place.</p>
+          <p class="page-lede">A loader is a contract: <em>something is happening, don't leave</em>. The Amaca logo carries that contract at four scales — inside a button, beside an input, over a card, across the viewport. Under <code>prefers-reduced-motion</code> the animated mark steps aside and a single magenta ring spins in its place.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A real wait; the large size for full-page waits, the extra-small inline and in buttons.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A wait under 200 ms → show the result, no loader.</li><li>A wait past 800 ms → Skeleton, when the shape of the content is known.</li><li>Progress is known → Progress. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <!-- § 17.1 Scale -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Scale</h2><span class="subsection-num">§ 21.1</span></div>
-          <p class="subsection-desc">Four sizes, four tokens. The Lottie scales linearly — the file is vector. Hit-area follows the box exactly; no extra padding.</p>
+          <p class="subsection-desc">Four sizes, four tokens. The SVG scales linearly — the file is vector. Hit-area follows the box exactly; no extra padding.</p>
 
           <div class="loader-scale">
             <div class="loader-scale-cell">
               <span class="loader loader-xs" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
               </span>
               <div class="meta">
@@ -1940,7 +1955,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="loader-scale-cell">
               <span class="loader loader-sm" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
               </span>
               <div class="meta">
@@ -1950,7 +1965,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="loader-scale-cell">
               <span class="loader loader-md" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
               </span>
               <div class="meta">
@@ -1960,7 +1975,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
             </div>
             <div class="loader-scale-cell">
               <span class="loader loader-lg" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
               </span>
               <div class="meta">
@@ -1974,12 +1989,12 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
         <!-- § 17.2 Variants -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Variants</h2><span class="subsection-num">§ 21.2</span></div>
-          <p class="subsection-desc">Five shapes for five waits. The standalone is the floor; everything else composes from it. Success swaps the Lottie for a check on <code>--ease-spring</code> when the wait resolves green.</p>
+          <p class="subsection-desc">Five shapes for five waits. The standalone is the floor; everything else composes from it. Success swaps the mark for a check on <code>--ease-spring</code> when the wait resolves green.</p>
 
           <div class="loader-variants">
             <div class="loader-variant-cell">
               <span class="loader loader-md" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
               </span>
               <div class="caption">Standalone</div>
@@ -1987,7 +2002,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
             <div class="loader-variant-cell">
               <div class="loader loader-with-label loader-md" role="status" aria-label="Generating tokens" data-loader-label-host>
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                 <span class="loader-label" data-loader-cycle>Generating tokens…</span>
               </div>
@@ -1998,7 +2013,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <button type="button" class="btn btn-primary is-loading" disabled aria-label="Submitting">
                 Submit
                 <span class="loader loader-xs" role="status" aria-hidden="true">
-                  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                  <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                   <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                 </span>
               </button>
@@ -2016,7 +2031,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
             <div class="loader-variant-cell" data-loader-state="success">
               <span class="loader loader-md" role="status" aria-label="Done">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                 <span class="loader-check" aria-hidden="true">
                   <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
@@ -2045,7 +2060,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                 <button type="button" class="btn btn-primary" data-loader-btn-demo>
                   Submit form
                   <span class="loader loader-xs" role="status" aria-hidden="true">
-                    <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                    <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                     <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                     <span class="loader-check" aria-hidden="true">
                       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
@@ -2070,7 +2085,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   <input class="input" type="email" value="hello@amaca.design" data-loader-input>
                 </label>
                 <div class="loader loader-inline loader-xs" role="status" aria-live="polite" data-loader-input-status>
-                  <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                  <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                   <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                   <span class="loader-check" aria-hidden="true">
                     <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
@@ -2102,7 +2117,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
                   </div>
                   <div class="loader-page" data-loader-page>
                     <span class="loader loader-lg" role="status" aria-label="Loading workspace">
-                      <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                      <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                       <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                     </span>
                     <span class="loader-label" style="color:var(--obsidian-300)">Loading workspace…</span>
@@ -2123,7 +2138,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
               <div class="loader-comp-body" style="flex-direction:column;align-items:stretch;gap:var(--s-3)">
                 <div class="loader-mini-bubble" data-loader-chat-bubble>
                   <span class="loader loader-xs" role="status" aria-label="Amaca is generating">
-                    <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                    <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                     <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                   </span>
                   <span>Amaca is generating a response…</span>
@@ -2148,7 +2163,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="loader-anatomy">
             <div class="loader-anatomy-canvas" role="group" aria-label="Loader with label specimen">
               <div class="loader loader-with-label loader-md" role="status" aria-label="Loading">
-                <img class="loader-anim" src="assets/logo-loader-fast.gif" alt="" aria-hidden="true" draggable="false" />
+                <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" draggable="false" />
                 <span class="loader-fallback" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg></span>
                 <span class="loader-label">Generating tokens…</span>
               </div>
@@ -3217,15 +3232,32 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
 
       <section class="section" id="swatch">
         <div class="page-header">
-          <div class="page-eyebrow">§ 53 · Data display / Color swatch</div>
-          <h1 class="page-title">A colour, <span class="accent">shown, not pressed.</span></h1>
-          <p class="page-lede">A square of colour beside the word that names it, or one step of a palette. The fill comes from a token, the border keeps a dark colour visible on the page, and nothing about it is interactive.</p>
+          <div class="page-eyebrow">§ 53 · Data display / Swatch</div>
+          <h1 class="page-title">A token, <span class="accent">shown, not pressed.</span></h1>
+          <p class="page-lede">A sample of a token: a square of colour beside the word that names it, one step of a palette, or the curve of an easing at the duration it rides. The value comes from a token, the border keeps a dark colour visible on the page, and nothing about it is interactive.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A label names a colour: a legend key, a token in a table. <span class="usage-ref">Carbon</span></li><li>A palette shows its values, one tile per step. <span class="usage-ref">Spectrum</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The colour stands for a state, with a word → Badge or Chip.</li><li>The shape carries the meaning, not the colour → the Diagrams legend.</li><li>The user picks a colour → off-system: stop and ask.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A label names a colour: a legend key, a token in a table. <span class="usage-ref">Carbon</span></li><li>A palette shows its values, one tile per step. <span class="usage-ref">Spectrum</span></li><li>An easing token shows its curve and the duration it rides, one tile per token. <span class="usage-ref">Material</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The colour stands for a state, with a word → Badge or Chip.</li><li>The shape carries the meaning, not the colour → the Diagrams legend.</li><li>The user picks a colour → off-system: stop and ask.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">§ 53.1</span></div>
-          <p class="subsection-desc">Inline, 12px, before its label; the label names the colour, so the swatch is hidden from the screen reader, and the gap is the container&rsquo;s. Tile, one step of a palette with its name, the token&rsquo;s value and its role. Both carry an inset 1px of <code>--border-input</code>.</p>
-          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Inline</div><ul class="pie-legend"><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">48%</span></li><li><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct">27%</span></li><li><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct">15%</span></li></ul><div class="table-contrast" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2);font-size:var(--t-small)"><span class="tok"><span class="swatch" style="--sw:var(--obsidian-100)" aria-hidden="true"></span><code>obsidian-100</code></span> <span>on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Tile</div><div class="grid grid-2" style="gap:var(--s-3)"><div class="swatch-tile" style="--sw:var(--secondary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 500</span><span class="swatch-tile-hex">#00FFF2</span><span class="swatch-tile-role">Accent</span></div></div><div class="swatch-tile" style="--sw:var(--obsidian-950)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 950</span><span class="swatch-tile-hex">#07090B</span><span class="swatch-tile-role">Page</span></div></div></div></div></div>
+          <p class="subsection-desc">Inline, 12px, before its label; the label names the colour, so the swatch is hidden from the screen reader, and the gap is the container&rsquo;s. Tile, one step of a palette with its name, the token&rsquo;s value and its role. Both carry an inset 1px of <code>--border-input</code>. Motion tile, one easing token on the standard graph: time across, position up, the ball on the rail at the dot&rsquo;s height; three plays, then it rests on the end (WCAG 2.2.2).</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Inline</div><ul class="pie-legend"><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">48%</span></li><li><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct">27%</span></li><li><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct">15%</span></li></ul><div class="table-contrast" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2);font-size:var(--t-small)"><span class="tok"><span class="swatch" style="--sw:var(--obsidian-100)" aria-hidden="true"></span><code>obsidian-100</code></span> <span>on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Tile</div><div class="grid grid-2" style="gap:var(--s-3)"><div class="swatch-tile" style="--sw:var(--secondary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 500</span><span class="swatch-tile-hex">#00FFF2</span><span class="swatch-tile-role">Accent</span></div></div><div class="swatch-tile" style="--sw:var(--obsidian-950)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 950</span><span class="swatch-tile-hex">#07090B</span><span class="swatch-tile-role">Page</span></div></div></div></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5);margin-top:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Motion tile</div><div class="swatch-grid">
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-decel);--d:var(--d-base)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C16,0 30,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">350</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Decel</span><span class="swatch-tile-hex">--ease-decel · 350 ms</span><span class="swatch-tile-hex">cubic-bezier(.16,1,.3,1)</span><span class="swatch-tile-role">Entrances</span></div>
+            </div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-spring);--d:var(--d-slow)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C34,-56 64,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">600</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Spring</span><span class="swatch-tile-hex">--ease-spring · 600 ms</span><span class="swatch-tile-hex">cubic-bezier(.34,1.56,.64,1)</span><span class="swatch-tile-role">Delight · reveal</span></div>
+            </div>
+          </div></div>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 53.2</span></div>
@@ -3233,11 +3265,11 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="do-dont">
             <div class="do">
               <div class="hd"><span>✓</span>Do</div>
-              <p>Put it before its label, let the label name the colour, and take the fill from a token.</p>
+              <p>Put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens.</p>
             </div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
-              <p>Make it a button, let the colour carry the meaning alone, or paste a hex where a token exists.</p>
+              <p>Make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, or loop a motion tile for ever.</p>
             </div>
           </div>
         </div>
@@ -4110,7 +4142,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-01</span> · Cover</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--cover" data-name="Cover">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">Case study · CS-017</div>
                     <h2 class="slide-title">Rebuilding Arc's <span class="accent">in-car</span> interface.</h2>
@@ -4127,7 +4159,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-02</span> · Section divider</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--divider" data-name="Section divider">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-index" aria-hidden="true">01</div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">Section</div>
@@ -4144,7 +4176,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-03</span> · Content</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--content" data-name="Content">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">01 · Brief</div>
                     <h2 class="slide-title">The legacy stack made drivers work.</h2>
@@ -4162,7 +4194,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-04</span> · Two-column</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--split" data-name="Two-column">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="split-col">
                       <div class="slide-eyebrow">Dossier</div>
@@ -4188,7 +4220,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-05</span> · Big stat</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--stat" data-name="Big stat">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">Outcome</div>
                     <div class="slide-stat"><span data-count-to="-41" data-prefix="−">0</span><span class="u">%</span></div>
@@ -4206,7 +4238,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-06</span> · Data</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--data" data-name="Data">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <h2 class="slide-title">Adoption by region.</h2>
                     <div class="slide-bars">
@@ -4229,7 +4261,7 @@ flowchart TD
                 <div class="slide slide--image" data-name="Full-bleed image">
                   <div class="slide-ph" aria-hidden="true"><span class="lbl">In-vehicle observation</span></div>
                   <div class="slide-scrim" aria-hidden="true"></div>
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <div class="slide-eyebrow">Fig. 01</div>
                     <h2 class="slide-title">Six weeks in the cabin, 42 participants.</h2>
@@ -4245,7 +4277,7 @@ flowchart TD
               <div class="card-meta"><span><span class="num">TPL-08</span> · Closing</span><span>16:9</span></div>
               <div class="slide-frame">
                 <div class="slide slide--closing" data-name="Closing">
-                  <div class="slide-brand"><img class="mark" src="assets/logo.gif" alt=""/><span class="wm">Amaca</span></div>
+                  <div class="slide-brand"><img class="mark" src="assets/logo.svg" alt=""/><span class="wm">Amaca</span></div>
                   <div class="slide-body">
                     <h2 class="slide-title">Let's build.</h2>
                     <div class="slide-contacts">
@@ -4329,7 +4361,7 @@ flowchart TD
           <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
           <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
           <p>A next-generation automotive HMI for a connected EV — reshaping how drivers interact with their vehicle at 70mph and at a standstill.</p>
-          <img class="cube" src="assets/logo.gif" alt=""/>
+          <img class="cube" src="assets/logo.svg" alt=""/>
         </div>
 
         <div class="cs-dossier">
@@ -5950,46 +5982,14 @@ window.addEventListener('hashchange', syncFromHash);
   requestAnimationFrame(() => moveNavIndicator(document.querySelector('.nav-item.active')));
 })();
 
-// --- motion demo ---
-// Curves and durations are read off :root by name (data-ease="--ease-decel", data-dur="--d-base"),
-// never re-typed here: a token that changes moves the demo with it (runtime-token anti-drift).
-function playMotion(){
-  const csRoot = getComputedStyle(document.documentElement);
-  const tok = n => csRoot.getPropertyValue(n).trim();
-  document.querySelectorAll('.motion-row').forEach(row => {
-    const dot = row.querySelector('.dot');
-    const ease = tok(dot.dataset.ease || '--ease-standard') || 'ease';
-    const dur = parseFloat(tok(dot.dataset.dur || '--d-quick')) || 0;
-    const label = row.querySelector('[data-dur-label]');
-    if (label) label.textContent = dur + ' ms';
-    const track = dot.parentElement;
-    const max = track.clientWidth - dot.clientWidth - 8;
-    dot.style.transition = 'none';
-    dot.style.transform = 'translateX(0)';
-    // reflow
-    dot.offsetHeight;
-    dot.style.transition = `transform ${dur}ms ${ease}`;
-    dot.style.transform = `translateX(${max}px)`;
-  });
-}
+// --- motion demo (§ 06.1) ---
+// The tiles are Swatch motion tiles (§ 3.40): CSS reads each curve and duration off :root by name,
+// plays three cycles when the section shows and rests on the end. Replay restarts them.
 const mb = document.getElementById('motion-play');
-if(mb) mb.addEventListener('click', playMotion);
-
-// auto-play when the motion section becomes active — and also when the page
-// opens on it (a link to #motion, a reload): then it is active before this runs,
-// and no class change would ever fire (found in v5.0.0, present since v1.0.0)
-const motionSection = document.getElementById('motion');
-new MutationObserver(muts => {
-  for(const m of muts){
-    if(m.target.id === 'motion' && m.target.classList.contains('active')){
-      setTimeout(playMotion, 120);
-    }
-  }
-}).observe(motionSection, {attributes:true, attributeFilter:['class']});
-if (motionSection && motionSection.classList.contains('active')) {
-  const kick = () => setTimeout(playMotion, 120);
-  if (document.readyState === 'complete') kick(); else window.addEventListener('load', kick, {once:true});
-}
+if (mb) mb.addEventListener('click', () => {
+  document.querySelectorAll('#motion .swatch-tile-motion').forEach(t =>
+    t.getAnimations({subtree:true}).forEach(an => { an.cancel(); an.play(); }));
+});
 </script>
 
 <script>

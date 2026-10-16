@@ -515,7 +515,7 @@ def c19():
         num = re.search(r'subsection-num">([^<]*)', sub)
         has_motion = any(k in sub for k in ("data-fade", "data-alert-fade", "is-in",
                                             "data-toast-demo", "data-fade-chart",
-                                            "data-ease", "stepper", "gantt", "motion-row"))
+                                            "data-ease", "stepper", "gantt", "swatch-tile-motion"))
         if not has_motion and num:
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
@@ -2306,7 +2306,7 @@ R_FULL_RATIFIED = {
     ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
     ".avatar", ".avatar-dot", ".skeleton-circle", ".slider-input::-webkit-slider-runnable-track", ".slider-input::-moz-range-track",
-    ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
+    ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".swatch-tile-pos::after", ".swatch-tile-rail", ".swatch-tile-ball", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
     ".stepper-dot", '.stepper-step[aria-current="step"] .stepper-dot::after', ".progress-track",
 }
 
@@ -2624,7 +2624,7 @@ def c65():
     html = read(INDEX)
     for cls in ("swatch-chip", "tok-sw", "law-dot", "sw"):
         if re.search(rf'class="(?:[^"]* )?{cls}(?: [^"]*)?"', html):
-            fails.append(f"index.html: class .{cls} survives; it is a Color swatch now (§ 3.40)")
+            fails.append(f"index.html: class .{cls} survives; it is a Swatch now (§ 3.40)")
     for m in re.finditer(r'<(?:span|div) class="(swatch|swatch-tile)"([^>]*)>', html):
         style = re.search(r'style="([^"]*)"', m.group(2))
         tok = re.fullmatch(r"\s*--sw\s*:\s*var\(--([a-z0-9-]+)\)\s*;?\s*", style.group(1)) if style else None
@@ -2824,7 +2824,7 @@ def c69():
     t063 = re.findall(r"<tr><td><code>--(ease-[a-z]+)</code></td><td><code>", sec)
     if sorted(t063) != sorted(eases):
         fails.append(f"index.html § 06.3 {t063} ≠ tokens.css {eases}")
-    demo = re.findall(r'class="dot" data-ease="([^"]+)" data-dur="([^"]+)"', sec)
+    demo = re.findall(r'class="swatch-tile swatch-tile-motion" style="--e:var\((--[a-z-]+)\);--d:var\((--[a-z-]+)\)"', sec)
     if sorted(e.lstrip("-") for e, _ in demo) != sorted(eases):
         fails.append(f"index.html § 06.1 demo rows {[e for e, _ in demo]} ≠ tokens.css {eases}")
     for e, du in demo:
@@ -2843,6 +2843,116 @@ def c69():
             want = len(eases) if what.lower() == "easings" else len(durs)
             if k != want:
                 fails.append(f"{name}: '{n} {what}', the tokens say {want}")
+    return fails
+
+
+def _bezier_of(value):
+    value = value.strip()
+    if value == "linear":
+        return (0.0, 0.0, 1.0, 1.0)
+    m = re.fullmatch(r"cubic-bezier\(([^)]*)\)", value)
+    return tuple(float(x) for x in m.group(1).split(",")) if m else None
+
+
+@check("71", "A motion tile shows its tokens: curve, path and milliseconds, three plays, no var() in a keyframe",
+       "v5.0.0: § 06.1 drew five easings as balls on a track, and the eye could not tell a 350 ms decel from "
+       "a 350 ms linear, because the decel tail is invisible. The easings became Swatch motion tiles (§ 3.40) "
+       "on the standard graph, time across and position up. The first draft set the curve inside @keyframes "
+       "with var(): the browser does not read it there, and all five curves ran as ease while the labels said "
+       "otherwise. This check holds every motion tile to its tokens (the path drawn, the curve and the ms "
+       "printed), the tiles to three plays under 5 s (WCAG 2.2.2), and every stylesheet to no var() inside "
+       "a @keyframes.")
+def c71():
+    fails = []
+    vals = _token_values(read(TOKENS))
+    html = read(INDEX)
+    a = html.find('<section class="section" id="changelog"')
+    site = html[:a] + (html[html.find("</section>", a):] if a >= 0 else "")
+    tiles = re.findall(r'<div class="swatch-tile swatch-tile-motion" style="([^"]*)">(.*?)<span class="swatch-tile-role">', site, re.S)
+    if len(tiles) < 5:
+        fails.append(f"index.html: {len(tiles)} motion tiles, § 06.1 alone needs five")
+    longest = 0
+    for style, body in tiles:
+        m = re.fullmatch(r"--e:var\(--(ease-[a-z]+)\);--d:var\(--(d-[a-z]+)\)", style)
+        if not m:
+            fails.append(f"motion tile style '{style}' is not --e:var(--ease-*);--d:var(--d-*)")
+            continue
+        e, du = m.groups()
+        if e not in vals or du not in vals:
+            fails.append(f"motion tile names --{e} / --{du}, which tokens.css does not declare")
+            continue
+        bz = _bezier_of(vals[e])
+        ms = int(re.match(r"\d+", vals[du]).group(0))
+        longest = max(longest, ms)
+        p = re.search(r'class="swatch-tile-curve" d="M0,100 C([-\d.]+),([-\d.]+) ([-\d.]+),([-\d.]+) 100,0"', body)
+        if not p or bz is None:
+            fails.append(f"--{e} tile: no curve path, or a curve tokens.css cannot read")
+        else:
+            x1, y1, x2, y2 = (float(t) for t in p.groups())
+            got = (x1 / 100, (100 - y1) / 100, x2 / 100, (100 - y2) / 100)
+            if any(abs(g - w) > 0.006 for g, w in zip(got, bz)):
+                fails.append(f"--{e} tile draws {got}, the token is {bz}")
+        tick = re.search(r'swatch-tile-tick-d">(\d+)<', body)
+        if not tick or int(tick.group(1)) != ms:
+            fails.append(f"--{e} tile: the time tick says {tick.group(1) if tick else 'nothing'}, --{du} is {ms}")
+        hexes = re.findall(r'<span class="swatch-tile-hex">([^<]*)</span>', body)
+        if len(hexes) != 2 or hexes[0] != f"--{e} · {ms} ms":
+            fails.append(f"--{e} tile prints {hexes[:1]}, want '--{e} · {ms} ms'")
+        elif _bezier_of(re.sub(r"(?<!\d)\.", "0.", hexes[1])) != bz:
+            fails.append(f"--{e} tile prints the curve {hexes[1]}, the token is {vals[e]}")
+    css = read(ROOT / "styles" / "components.css")
+    it = re.search(r"\.swatch-tile-time,\.swatch-tile-pos,\.swatch-tile-level,\.swatch-tile-rise\{animation-duration:calc\(var\(--d(?:, var\(--d-[a-z]+\))?\) \* ([\d.]+)\);animation-iteration-count:(\d+);", css)
+    if not it:
+        fails.append("components.css: the motion tile's cycle and play count are not where this check reads them")
+    elif float(it.group(1)) * int(it.group(2)) * longest > 5000:
+        fails.append(f"motion tiles play {it.group(2)} × {it.group(1)} × {longest} ms, over 5 s (WCAG 2.2.2)")
+    if "prefers-reduced-motion" not in css[css.find(".swatch-tile-motion"):css.find("@keyframes swatch-rise") + 400]:
+        fails.append("components.css: the motion tile has no reduced-motion end state")
+    for pth in sorted((ROOT / "styles").glob("*.css")) + [INDEX]:
+        txt = read(pth)
+        for km in re.finditer(r"@keyframes\s+([\w-]+)\s*\{", txt):
+            i, depth = km.end(), 1
+            while depth and i < len(txt):
+                depth += {"{": 1, "}": -1}.get(txt[i], 0)
+                i += 1
+            if "var(" in txt[km.end():i]:
+                fails.append(f"{pth.name}: @keyframes {km.group(1)} reads a var(), which the browser ignores there")
+    return fails
+
+
+@check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
+       "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
+       "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
+       "The SVG arrived with a 1080 viewBox around a drawing made on 1024, which shrank the mark by 5 %, "
+       "and a turbulence filter that changed no pixel. This check holds every src under assets/ in the "
+       "site and DESIGN.md to a file that exists, no .gif in assets/ or in a reference outside a "
+       "changelog, and both marks to a 1024 viewBox with no filter.")
+def c70():
+    fails = []
+    html = read(INDEX)
+    a = html.find('<section class="section" id="changelog"')
+    site = html[:a] + (html[html.find("</section>", a):] if a >= 0 else "")
+    d_body = read(DESIGN).split("\n## Changelog", 1)[0]
+    for name, txt in (("index.html", site), ("DESIGN.md", d_body)):
+        for ref in sorted(set(re.findall(r'(?:src|href)="(assets/[^"?#]+)', txt))):
+            if not (ROOT / ref).exists():
+                fails.append(f"{name}: {ref} does not exist")
+        if re.search(r"assets/[^\s\"')]+\.gif", txt):
+            fails.append(f"{name}: still names a GIF under assets/")
+    for g in sorted((ROOT / "assets").glob("*.gif")):
+        fails.append(f"assets/{g.name}: a GIF is still in the repo; the mark is the SVG")
+    for mark in ("logo.svg", "logo-loader-fast.svg"):
+        p = ROOT / "assets" / mark
+        if not p.exists():
+            fails.append(f"assets/{mark} is missing")
+            continue
+        s = read(p)
+        if 'viewBox="0 0 1024 1024"' not in s[:400]:
+            fails.append(f"assets/{mark}: the viewBox is not the 1024 the drawing is made on")
+        if "<filter" in s:
+            fails.append(f"assets/{mark}: carries a filter")
+    if (ROOT / "assets" / "logo-loader-fast.svg").exists() and 'dur="9s"' in read(ROOT / "assets" / "logo-loader-fast.svg"):
+        fails.append("assets/logo-loader-fast.svg: still on the 9 s clock; the loader runs at 4.5 s")
     return fails
 
 

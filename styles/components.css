@@ -254,8 +254,8 @@
 .grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media (max-width: 900px){.grid-3,.grid-4,.grid-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ─────────── § 3.40 COLOR SWATCH (v5.0.0) ───────────
-   A colour shown, not pressed: no hover, no focus, no motion. The colour comes from --sw, set to var() of a token.
+/* ─────────── § 3.40 SWATCH (v5.0.0) ───────────
+   A token shown, not pressed: no hover, no focus. Colour forms are still; the motion tile moves because the motion is its value. The colour comes from --sw, set to var() of a token.
    Inline marker before a label, the gap is the container's; tile for one step of a palette.
    Always bordered with an inset 1px of --border-input, so the size stays and a dark colour reads on the page (WCAG 1.4.11). */
 .swatch{display:inline-block;flex:none;width:var(--s-3);height:var(--s-3);border-radius:var(--r-xs);background:var(--sw, transparent);box-shadow:inset 0 0 0 var(--bw-1) var(--border-input);vertical-align:middle}
@@ -265,6 +265,42 @@
 .swatch-tile-name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
 .swatch-tile-hex{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-200);letter-spacing:var(--tr-mono)}
 .swatch-tile-role{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300);margin-top:var(--s-0-5)}
+
+/* Motion tile: one easing token at the duration it rides, on the standard easing graph (CSS Easing L1):
+   time across, position up. The dot rides the curve; the ball on the rail at the right shares its height.
+   --e and --d are var() of tokens, set on the tile. The move fills the first 40% of a cycle of 2.5 x --d, so the
+   move lasts exactly --d and the rest holds the end. Three cycles and it rests on the end, under 5 s even on
+   --d-slow (WCAG 2.2.2). The curve is set on each element: var() inside @keyframes is not read and falls back to ease. */
+.swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
+.swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
+.swatch-tile-plot{position:relative;flex:1 1 auto;max-width:calc(var(--s-24) * 2);aspect-ratio:1;margin:0 calc(var(--s-6) + var(--s-3)) 0 var(--s-2)}
+.swatch-tile-plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.swatch-tile-axis{stroke:var(--obsidian-400);stroke-width:1;vector-effect:non-scaling-stroke}
+.swatch-tile-guide{stroke:var(--obsidian-700);stroke-width:1;stroke-dasharray:2 3;vector-effect:non-scaling-stroke}
+.swatch-tile-curve{fill:none;stroke:var(--primary-300);stroke-width:2;vector-effect:non-scaling-stroke}
+.swatch-tile-tick{position:absolute;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300);line-height:1}
+.swatch-tile-tick-x{left:calc(-1 * var(--s-1));top:calc(-1 * var(--s-5))}
+.swatch-tile-tick-1{left:calc(-1 * var(--s-3));top:calc(-1 * var(--s-1))}
+.swatch-tile-tick-0{left:calc(-1 * var(--s-3));bottom:calc(-1 * var(--s-4))}
+.swatch-tile-tick-d{right:var(--s-4);bottom:calc(-1 * var(--s-4))}
+.swatch-tile-tick-t{right:0;bottom:calc(-1 * var(--s-4))}
+.swatch-tile-time,.swatch-tile-pos{position:absolute;inset:0;pointer-events:none}
+.swatch-tile-pos::after{content:"";position:absolute;left:0;bottom:0;width:var(--s-2);height:var(--s-2);margin:0 0 calc(var(--s-2) / -2) calc(var(--s-2) / -2);border-radius:var(--r-full);background:var(--primary-500)}
+.swatch-tile-level{position:absolute;inset:0 calc(-1 * (var(--s-5) + var(--s-3))) 0 0;pointer-events:none}
+.swatch-tile-level::after{content:"";position:absolute;left:0;right:0;bottom:0;border-top:var(--bw-1) dashed var(--obsidian-400)}
+.swatch-tile-rail{position:absolute;top:calc(var(--s-3) / -2);bottom:calc(var(--s-3) / -2);right:calc(-1 * (var(--s-5) + var(--s-3)));width:var(--s-3);border-radius:var(--r-full);background:var(--obsidian-900)}
+.swatch-tile-rise{position:absolute;top:calc(var(--s-3) / 2);bottom:calc(var(--s-3) / 2);left:0;right:0}
+.swatch-tile-ball{position:absolute;left:0;bottom:0;width:var(--s-3);height:var(--s-3);margin-bottom:calc(var(--s-3) / -2);border-radius:var(--r-full);background:var(--primary-500)}
+.swatch-tile-time,.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation-duration:calc(var(--d, var(--d-base)) * 2.5);animation-iteration-count:3;animation-fill-mode:both}
+.swatch-tile-time{animation-name:swatch-time;animation-timing-function:linear}
+.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation-name:swatch-rise;animation-timing-function:var(--e, var(--ease-linear))}
+@keyframes swatch-time{0%{transform:none}40%,100%{transform:translateX(100%)}}
+@keyframes swatch-rise{0%{transform:none}40%,100%{transform:translateY(-100%)}}
+@media (prefers-reduced-motion: reduce){
+  .swatch-tile-time,.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation:none}
+  .swatch-tile-time{transform:translateX(100%)}
+  .swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{transform:translateY(-100%)}
+}
 
 /* ─────────── TYPE SPECIMENS ─────────── */
 .type-specimen{
@@ -328,21 +364,6 @@
 }
 .demo-tile .name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
 .demo-tile .tok{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);text-transform:uppercase;margin-top:var(--s-0-5)}
-
-/* ─────────── MOTION LAB ─────────── */
-.motion-row{display:grid;grid-template-columns:140px 1fr 100px;gap:var(--s-4);align-items:center;padding:var(--s-4) 0;border-bottom:var(--bw-1) solid var(--obsidian-800)}
-@media (max-width: 720px){
-  .motion-row{grid-template-columns:80px 1fr 56px;gap:var(--s-2);padding:var(--s-3) 0}
-  .motion-row .label{font-size:var(--t-micro)}
-  .motion-row .label .sub{font-size:var(--t-micro)}
-  .motion-row .time{font-size:var(--t-micro)}
-}
-.motion-row:last-child{border-bottom:0}
-.motion-row .label{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-100);letter-spacing:var(--tr-mono);text-transform:uppercase}
-.motion-row .label .sub{display:block;color:var(--obsidian-400);margin-top:var(--s-0-5);text-transform:none;letter-spacing:normal}
-.motion-row .track{height:24px;background:var(--obsidian-850);border-radius:var(--r-full);border:var(--bw-1) solid var(--obsidian-800);position:relative;overflow:hidden}
-.motion-row .dot{position:absolute;top:var(--s-1);left:var(--s-1);width:16px;height:16px;border-radius:50%;background:var(--grad-signal);box-shadow:0 0 16px var(--primary-500)}
-.motion-row .time{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300);letter-spacing:var(--tr-mono);text-align:right}
 
 /* ─────────── BUTTONS (the component itself) ─────────── */
 .btn{
@@ -874,7 +895,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-big.accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .chart-delta{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--success)}
 .chart-delta.neg{color:var(--danger)}
-/* v5.0.0 — the legend of a chart with two or more series: a Color swatch (§ 3.40) before each name, under the plot */
+/* v5.0.0 — the legend of a chart with two or more series: a Swatch (§ 3.40) before each name, under the plot */
 .chart-legend{list-style:none;margin:var(--s-3) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-4);font-size:var(--t-small);color:var(--obsidian-200)}
 .chart-legend li{display:inline-flex;align-items:center;gap:var(--s-2);white-space:nowrap}
 
