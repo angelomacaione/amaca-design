@@ -3051,6 +3051,24 @@ def c73():
     return fails
 
 
+@check("74", "Every shadow and ring token has a shadow tile on § 05.1, and the tile names it",
+       "v5.0.0: § 05.1 showed nine of the eleven shadow and ring tokens; --sh-0 and --sh-menu were in "
+       "tokens.css and nowhere on the page, so a reader of the site did not know they existed. Shadows became "
+       "Swatch shadow tiles (§ 3.40). This check holds the tiles of § 05.1 to the --sh-* and --ring-* tokens, "
+       "one each, and the token each tile prints to the one it paints.")
+def c74():
+    fails = []
+    want = re.findall(r"--((?:sh|ring)-[a-z0-9-]+)\s*:", read(TOKENS))
+    sec = _html_section(read(INDEX), "shadow")
+    tiles = re.findall(r'<div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var\(--([a-z0-9-]+)\)">.*?<span class="swatch-tile-hex">--([a-z0-9-]+)</span>', sec)
+    if [t for t, _ in tiles] != want:
+        fails.append(f"§ 05.1 shadow tiles {[t for t, _ in tiles]} ≠ tokens.css {want}")
+    for t, p in tiles:
+        if t != p:
+            fails.append(f"shadow tile paints --{t} and prints --{p}")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

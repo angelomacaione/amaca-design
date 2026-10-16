@@ -281,6 +281,9 @@
 .swatch-tile-zoom::after{content:"";position:absolute;inset:calc(100% / 16);border:var(--bw-1) dashed var(--obsidian-400);pointer-events:none}
 .swatch-tile-zoom .swatch-tile-glyph{position:absolute;inset:0;width:100%;height:100%;color:var(--primary-300)}
 .swatch-tile-sizes{display:flex;flex-direction:column;align-items:center;gap:var(--s-3)}
+/* Shadow tile: a surface (--obsidian-850) on a section ground (--obsidian-900), where cards and popovers sit; --sw-sh is var() of a shadow or ring token. */
+.swatch-tile-shadow .swatch-tile-fill{height:calc(var(--s-24) * 1.25);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--obsidian-900)}
+.swatch-tile-surface{width:var(--s-24);height:calc(var(--s-24) * .5);border-radius:var(--r-md);background:var(--obsidian-850);box-shadow:var(--sw-sh, none)}
 .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
 .swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
 .swatch-tile-plot{position:relative;flex:1 1 auto;max-width:calc(var(--s-24) * 2);aspect-ratio:1;margin:0 calc(var(--s-6) + var(--s-3)) 0 var(--s-2)}
@@ -362,18 +365,6 @@
 .ruler-row .val{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300);letter-spacing:var(--tr-mono)}
 .ruler-row .bar{height:16px;background:var(--grad-signal);border-radius:var(--r-xs);position:relative}
 .ruler-row .bar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,0.15) 0,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 4px)}
-
-/* ─────────── RADIUS + SHADOW DEMOS ─────────── */
-.demo-tile{
-  background:var(--obsidian-850);
-  border:var(--bw-1) solid var(--obsidian-800);
-  aspect-ratio:1/0.75;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:var(--s-4);
-  transition:all var(--d-base) var(--ease-standard);
-}
-.demo-tile .name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
-.demo-tile .tok{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);text-transform:uppercase;margin-top:var(--s-0-5)}
 
 /* ─────────── BUTTONS (the component itself) ─────────── */
 .btn{

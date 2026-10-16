@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=18b3b7f9">
+<link rel="stylesheet" href="styles/components.css?v=6c742496">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -843,17 +843,19 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Depth: an element that sits above another, on the elevation scale.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Emphasis → type weight or colour, never a shadow.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Elevation</h2><span class="subsection-num">§ 05.1</span></div>
-          <p class="subsection-desc">Four shadow levels, the two brand glows and the three focus rings. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline; the rings exist only for focus and are never used as depth.</p>
-          <div class="grid grid-3">
-            <div class="demo-tile" style="box-shadow:var(--sh-1);border-radius:var(--r-md)"><div class="name">Level 1</div><div class="tok">--sh-1 · subtle</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-2);border-radius:var(--r-md)"><div class="name">Level 2</div><div class="tok">--sh-2 · card</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-3);border-radius:var(--r-md)"><div class="name">Level 3</div><div class="tok">--sh-3 · popover</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-4);border-radius:var(--r-md)"><div class="name">Level 4</div><div class="tok">--sh-4 · modal</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-glow);border-radius:var(--r-md)"><div class="name">Glow</div><div class="tok">--sh-glow · primary hover</div></div>
-            <div class="demo-tile" style="box-shadow:var(--sh-glow-soft);border-radius:var(--r-md)"><div class="name">Glow soft</div><div class="tok">--sh-glow-soft</div></div>
-            <div class="demo-tile" style="box-shadow:var(--ring-halo);border-radius:var(--r-md)"><div class="name">Ring halo</div><div class="tok">--ring-halo · pressables</div></div>
-            <div class="demo-tile" style="box-shadow:var(--ring-field);border-radius:var(--r-md)"><div class="name">Ring field</div><div class="tok">--ring-field · inputs</div></div>
-            <div class="demo-tile" style="box-shadow:var(--ring-field-danger);border-radius:var(--r-md)"><div class="name">Ring field danger</div><div class="tok">--ring-field-danger · invalid</div></div>
+          <p class="subsection-desc">Level 0 to 4, the menu shadow, the two brand glows and the three focus rings, one Swatch shadow tile each (§ 3.40): a surface on a section ground, where cards and popovers sit. Elevation on this ground is tonal — an inset highlight over a soft drop — never a hard outline; the rings exist only for focus and are never used as depth.</p>
+          <div class="swatch-grid">
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-0)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Level 0</span><span class="swatch-tile-hex">--sh-0</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-1)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Level 1</span><span class="swatch-tile-hex">--sh-1</span><span class="swatch-tile-role">Subtle</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-2)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Level 2</span><span class="swatch-tile-hex">--sh-2</span><span class="swatch-tile-role">Card</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-3)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Level 3</span><span class="swatch-tile-hex">--sh-3</span><span class="swatch-tile-role">Popover</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-4)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Level 4</span><span class="swatch-tile-hex">--sh-4</span><span class="swatch-tile-role">Modal</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-glow)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Glow</span><span class="swatch-tile-hex">--sh-glow</span><span class="swatch-tile-role">Primary hover</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-glow-soft)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Glow soft</span><span class="swatch-tile-hex">--sh-glow-soft</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--sh-menu)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Menu</span><span class="swatch-tile-hex">--sh-menu</span><span class="swatch-tile-role">Select menu · picker</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--ring-halo)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Ring halo</span><span class="swatch-tile-hex">--ring-halo</span><span class="swatch-tile-role">Focus · pressables</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--ring-field)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Ring field</span><span class="swatch-tile-hex">--ring-field</span><span class="swatch-tile-role">Focus · inputs</span></div></div>
+            <div class="swatch-tile swatch-tile-shadow" style="--sw-sh:var(--ring-field-danger)"><div class="swatch-tile-fill"><div class="swatch-tile-surface"></div></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Ring field danger</span><span class="swatch-tile-hex">--ring-field-danger</span><span class="swatch-tile-role">Focus · invalid</span></div></div>
           </div>
         </div>
       </section>
