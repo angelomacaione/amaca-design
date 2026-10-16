@@ -2739,7 +2739,7 @@ def c67():
 
 # Hex still waiting for a decision inside the dataviz drawings: each entry names
 # what it paints. They are tolerated until the 5.0.0 frontmatter, then they block.
-DATAVIZ_PENDING_HEX = {"#5B4A6A": "line chart, previous-period baseline (2.5:1 on the canvas)"}
+DATAVIZ_PENDING_HEX = {}  # emptied: the previous-period baseline paints --obsidian-400 (3.27:1)
 
 
 @check("68", "The drawings of Charts and Timeline paint only from tokens",
@@ -2747,7 +2747,7 @@ DATAVIZ_PENDING_HEX = {"#5B4A6A": "line chart, previous-period baseline (2.5:1 o
        "bar text #1A0616, three hex no token held, next to eight more that copied a token by value. "
        "A copied value does not follow the token when it moves, and an unheld one cannot be compiled "
        "into any other surface. The ramp gained --primary-950, which sits within OKLab ΔE 1.0 to 2.8 "
-       "of the three, so the render did not move. This check holds every fill, stroke and stop of the "
+       "of the three, so the render did not move. The previous-period baseline, #5B4A6A at 2.42:1 on the canvas, became --obsidian-400 at 3.27:1 (WCAG 1.4.11). This check holds every fill, stroke and stop of the "
        "two sections to a var(--token).")
 def c68():
     fails = []
