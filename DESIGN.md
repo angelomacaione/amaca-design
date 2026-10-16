@@ -535,7 +535,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
 | `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
 | `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus |
-| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector dashed `--bw-2` `--obsidian-300` |
+| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector `--bw-2` `--obsidian-300` dashes and gaps `--s-1` |
 | `.stepper-step` `.is-done` | default | `--primary-500` | none | `--obsidian-950` | — | done · dot with the `check` icon · label `--obsidian-100` 600 · connector `--grad-progress`, `--bw-2`, `--sh-glow-soft` |
 | `.stepper-step` | current | `--grad-progress` | none | `--obsidian-950` | `--sh-glow` | `aria-current="step"` · dot `--s-8` instead of `--s-6` · label and meta `--primary-200`, label 700 · pulse ring 1px `--primary-500` |
 | `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` |
@@ -2757,10 +2757,10 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 **Rules.**
 - **Horizontal while the labels fit.** Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); `.stepper-vertical` forces the column for long labels or more steps.
 - **One current step.** Exactly one `aria-current="step"`; done steps before it, upcoming steps after.
-- **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line (5.6 : 1 on a card).
+- **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
 - **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
-- **Motion.** On view, the connectors fade in on `--d-slow` · `--ease-decel`; the dots scale in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and the text rises 8px, both from 520ms plus 80ms per step; the done connector draws on `--d-scene` from 700ms. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+- **Motion.** On view, the dots scale in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and the text rises 8px, both from 520ms plus 80ms per step; the done connector draws on `--d-scene` from 700ms; the dashed connectors draw the same way once it has finished. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
 
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
@@ -3059,10 +3059,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
-| Stepper | reveal | connector fade (effect) | `--d-slow` · `--ease-decel` | instant |
+| Stepper | reveal | upcoming connector draw (spatial) · appear (effect) | `--d-scene` · `--ease-decel` · after the done draw (700ms + `--d-scene`); appears on `--d-quick` | instant |
 | Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 520ms + 80ms per step | instant |
 | Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 520ms + 80ms per step | instant |
-| Stepper | reveal | done connector draw (spatial) | `--d-scene` · `--ease-decel` · 700ms | instant |
+| Stepper | reveal | done connector draw (spatial) · appear (effect) | `--d-scene` · `--ease-decel` · 700ms; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
 | Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3206,7 +3206,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.41):** connectors fade first (delay 0ms), dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), the done connector draws on `--d-scene` from 700ms. CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Stepper choreography (§ 3.41):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), the done connector draws on `--d-scene` from 700ms, and the dashed connectors draw after it (700ms + `--d-scene`). CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming
