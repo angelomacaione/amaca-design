@@ -338,7 +338,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for the hero of a case study, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -433,7 +433,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
 | Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
 | Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` | canonical | § 3.25 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` | canonical | § 3.25 |
 | Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
@@ -1846,6 +1846,8 @@ A label for something already visible. Never a container for content.
 - `.chart-head` — a baseline-aligned pair, `margin-bottom: --s-5`: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
 - `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
+- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Color swatch (§ 3.40) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
+- **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
 - **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -2836,7 +2838,7 @@ Every screen, every component, every full-bleed surface resolves to:
 
 - **≥ 85% Obsidian** — page, surfaces, type: backgrounds, borders, body text, neutral UI
 - **≤ 10% Primary + Cyan, combined** — CTA, focus, emphasis
-- **≤ 5% Semantic** — feedback only
+- **≤ 5% Semantic** — feedback only. One exception: the categorical data palette of a chart (§ 3.25) names series with the semantic hues, and then nothing in the same view uses a colour for a state.
 
 If a layout violates this rule, it's decoration, not hierarchy. If the primary budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), cut and earn the accent back.
 

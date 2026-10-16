@@ -2304,7 +2304,7 @@ R_FULL_RATIFIED = {
     ".btn", ".chip", ".chip-dismiss", ".chip .chip-dot", ".badge .dot", ".switch input",
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
     ".avatar", ".avatar-dot", ".skeleton-circle", ".slider-input::-webkit-slider-runnable-track", ".slider-input::-moz-range-track",
-    ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot",
+    ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
 }
 
 
@@ -2636,6 +2636,59 @@ def c65():
             hx = html[end + 30:html.find("<", end + 30)].strip() if end > 0 else ""
             if re.fullmatch(r"#[0-9A-Fa-f]{6,8}", hx) and hx.upper() != vals[tok.group(1)].upper():
                 fails.append(f"index.html: tile --{tok.group(1)} prints {hx}, tokens.css says {vals[tok.group(1)]}")
+    return fails
+
+
+CATEGORICAL = [("Primary", "primary-500"), ("Success", "success"), ("Info", "info"),
+               ("Warning", "warning"), ("Danger", "danger"), ("Neutral", "obsidian-200")]
+SEQUENTIAL = ["primary-700", "primary-600", "primary-500", "primary-300", "primary-200"]
+
+
+@check("66", "The data palettes are tokens, named for what they are, in their order",
+       "v5.0.0: the categorical card had labelled two swatches Cyan and Mint since at least v2.6.0 while "
+       "painting them #F051D5 and #FF85DF, two magentas a reader with full colour vision barely tells "
+       "apart (OKLab ΔE 10.3). The bars of the region chart took the primary at 90, 70 and 45% opacity "
+       "and a gradient, colours no token holds, and the sequential ramp had seven cells under five "
+       "labels. Every chart card of § Palette ramps and the two bar charts now paint from tokens; this "
+       "check holds the names, the order and the absence of a hand-typed hex.")
+def c66():
+    fails = []
+    html = read(INDEX)
+    try:
+        sec = _html_section(html, "charts")
+    except Exception:
+        return ["index.html: no #charts section"]
+    cards = {}
+    for m in re.finditer(r'<div class="chart-card">', sec):
+        nxt = sec.find('<div class="chart-card">', m.end())
+        body = sec[m.start():nxt if nxt > 0 else len(sec)]
+        t = re.search(r'<span class="t"[^>]*>([^<]+)</span>', body)
+        if t:
+            cards.setdefault(_text(t.group(1)), body)
+    for title in ("Adoption by region", "Sessions by day", "Sequential · magenta", "Categorical"):
+        body = cards.get(title)
+        if body is None:
+            fails.append(f"#charts: no chart card '{title}'")
+            continue
+        for h in sorted(set(re.findall(r"#[0-9A-Fa-f]{3,8}\b", body))):
+            fails.append(f"#charts '{title}': hex {h}, use the token")
+        if re.search(r'url\(#|opacity="', body):
+            fails.append(f"#charts '{title}': a gradient or an opacity on a mark, use a step of the ramp")
+    cat = cards.get("Categorical", "")
+    got = re.findall(r'background:var\(--([a-z0-9-]+)\);[^"]*"></div><div class="ty-mono"[^>]*>([^<]+)</div>', cat)
+    want = [(tok, name) for name, tok in CATEGORICAL]
+    if got != want:
+        fails.append(f"#charts Categorical: {got} ≠ {want}")
+    seq = re.findall(r'background:var\(--([a-z0-9-]+)\)"', cards.get("Sequential · magenta", ""))
+    if seq != SEQUENTIAL:
+        fails.append(f"#charts Sequential: {seq} ≠ {SEQUENTIAL}")
+    if 'class="chart-legend"' not in cards.get("Sessions by day", ""):
+        fails.append("#charts 'Sessions by day': two series and no .chart-legend")
+    d = read(DESIGN)
+    if "`--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`" not in d:
+        fails.append("DESIGN.md: the categorical order is not stated in § 3.25")
+    if "`--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`" not in d:
+        fails.append("DESIGN.md: the sequential ramp is not stated in § 3.25")
     return fails
 
 

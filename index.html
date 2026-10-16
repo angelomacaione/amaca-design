@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=4107235e">
+<link rel="stylesheet" href="styles/components.css?v=32f86bc4">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -834,7 +834,7 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <h1 class="page-title">Soft corners, <span class="accent">a short scale.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Pills and dots take <code>--r-full</code>; everything else stays on the scale.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for the hero of a case study, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for the hero of a case study, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
@@ -3511,17 +3511,16 @@ Basic UI</div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
               <svg data-fade-chart viewBox="0 0 400 220" style="width:100%">
-                <g font-family="Satoshi" font-size="10" fill="#8A94A3" letter-spacing="1">
+                <g font-family="Satoshi" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1">
                   <text x="0" y="30">EMEA</text><text x="0" y="70">AMER</text><text x="0" y="110">APAC</text><text x="0" y="150">LATAM</text>
                 </g>
                 <g>
-                  <rect x="60" y="18" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="91" x="60" y="18" width="282" height="14" rx="2" fill="url(#bargrad)"/>
-                  <rect x="60" y="58" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="71" x="60" y="58" width="220" height="14" rx="2" fill="#F051D5" opacity="0.9"/>
-                  <rect x="60" y="98" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="58" x="60" y="98" width="180" height="14" rx="2" fill="#F051D5" opacity="0.7"/>
-                  <rect x="60" y="138" width="310" height="14" rx="2" fill="#161B22"/><rect data-bar-h data-bar-pct="29" x="60" y="138" width="90" height="14" rx="2" fill="#F051D5" opacity="0.45"/>
+                  <rect x="60" y="18" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="91" x="60" y="18" width="282" height="14" rx="2" style="fill:var(--primary-300)"/>
+                  <rect x="60" y="58" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="71" x="60" y="58" width="220" height="14" rx="2" style="fill:var(--primary-500)"/>
+                  <rect x="60" y="98" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="58" x="60" y="98" width="180" height="14" rx="2" style="fill:var(--primary-600)"/>
+                  <rect x="60" y="138" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="29" x="60" y="138" width="90" height="14" rx="2" style="fill:var(--primary-700)"/>
                 </g>
-                <defs><linearGradient id="bargrad"><stop offset="0" stop-color="#F051D5"/><stop offset="1" stop-color="#FF85DF"/></linearGradient></defs>
-                <g font-family="Satoshi" font-size="10" fill="#E3E7EC" letter-spacing="1">
+                <g font-family="Satoshi" font-size="10" style="fill:var(--obsidian-100)" letter-spacing="1">
                   <text data-bar-label data-bar-pct="91" x="346" y="30">91%</text>
                   <text data-bar-label data-bar-pct="71" x="284" y="70">71%</text>
                   <text data-bar-label data-bar-pct="58" x="244" y="110">58%</text>
@@ -3533,23 +3532,25 @@ Basic UI</div>
               <div class="chart-head"><span class="t" data-fade>Sessions by day</span><span class="s" data-fade>last 14d</span></div>
               <svg data-fade-chart viewBox="0 0 400 220" style="width:100%">
                 <g>
-                  <rect data-bar-v x="10" y="140" width="16" height="60" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="34" y="100" width="16" height="100" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="58" y="120" width="16" height="80" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="82" y="90" width="16" height="110" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="106" y="70" width="16" height="130" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="130" y="130" width="16" height="70" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="154" y="110" width="16" height="90" rx="2" fill="#2A313B"/>
-                  <rect data-bar-v x="178" y="60" width="16" height="140" rx="2" fill="#F051D5"/>
-                  <rect data-bar-v x="202" y="50" width="16" height="150" rx="2" fill="#F051D5"/>
-                  <rect data-bar-v x="226" y="40" width="16" height="160" rx="2" fill="#F051D5"/>
-                  <rect data-bar-v x="250" y="30" width="16" height="170" rx="2" fill="#FF85DF"/>
-                  <rect data-bar-v x="274" y="45" width="16" height="155" rx="2" fill="#F051D5"/>
-                  <rect data-bar-v x="298" y="60" width="16" height="140" rx="2" fill="#F051D5"/>
-                  <rect data-bar-v x="322" y="55" width="16" height="145" rx="2" fill="#F051D5"/>
+                  <rect data-bar-v x="10" y="140" width="16" height="60" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="34" y="100" width="16" height="100" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="58" y="120" width="16" height="80" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="82" y="90" width="16" height="110" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="106" y="70" width="16" height="130" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="130" y="130" width="16" height="70" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="154" y="110" width="16" height="90" rx="2" style="fill:var(--obsidian-600)"/>
+                  <rect data-bar-v x="178" y="60" width="16" height="140" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="202" y="50" width="16" height="150" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="226" y="40" width="16" height="160" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="250" y="30" width="16" height="170" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="274" y="45" width="16" height="155" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="298" y="60" width="16" height="140" rx="2" style="fill:var(--primary-500)"/>
+                  <rect data-bar-v x="322" y="55" width="16" height="145" rx="2" style="fill:var(--primary-500)"/>
+                  <text data-fade x="258" y="22" text-anchor="middle" font-family="Satoshi" font-size="10" style="fill:var(--obsidian-100)">1.7k</text>
                 </g>
-                <line x1="0" y1="205" x2="400" y2="205" stroke="rgba(255,255,255,0.06)"/>
+                <line x1="0" y1="205" x2="400" y2="205" style="stroke:var(--obsidian-700)"/>
               </svg>
+              <ul class="chart-legend"><li><span class="swatch" style="--sw:var(--obsidian-600)" aria-hidden="true"></span>Previous 7 days</li><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span>Last 7 days</li></ul>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
@@ -3611,24 +3612,24 @@ Basic UI</div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 31.4</span></div>
-          <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series — and nothing outside them.</p>
+          <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series, in this order — and nothing outside them. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).</p>
           <div class="grid grid-2">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sequential · magenta</span><span class="s" data-fade>Heatmaps · density</span></div>
               <div style="display:flex;height:40px;border-radius:var(--r-sm);overflow:hidden;margin-top:var(--s-4)">
-                <div style="flex:1;background:#07090B"></div><div style="flex:1;background:#66195A"></div><div style="flex:1;background:#9A2D87"></div><div style="flex:1;background:#C93BB0"></div><div style="flex:1;background:#F051D5"></div><div style="flex:1;background:#FF85DF"></div><div style="flex:1;background:#FFB5EC"></div>
+                <div style="flex:1;background:var(--primary-700)"></div><div style="flex:1;background:var(--primary-600)"></div><div style="flex:1;background:var(--primary-500)"></div><div style="flex:1;background:var(--primary-300)"></div><div style="flex:1;background:var(--primary-200)"></div>
               </div>
-              <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);margin-top:var(--s-2)"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+              <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-400);margin-top:var(--s-2)"><span>0</span><span>20</span><span>40</span><span>60</span><span>80</span><span>100</span></div>
             </div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Categorical</span><span class="s" data-fade>Up to 6 series</span></div>
               <div style="display:flex;gap:var(--s-1);margin-top:var(--s-4);flex-wrap:wrap">
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#F051D5;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Cyan</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#FF85DF;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Mint</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#5CC8FF;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Info</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#F6C65B;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Warn</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#FF5B5B;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Danger</div></div>
-                <div style="flex:1;min-width:80px"><div style="height:40px;background:#B8C0CB;border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Neutral</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--primary-500);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Primary</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--success);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Success</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--info);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Info</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--warning);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Warning</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--danger);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Danger</div></div>
+                <div style="flex:1;min-width:80px"><div style="height:40px;background:var(--obsidian-200);border-radius:var(--r-sm);margin-bottom:var(--s-1)"></div><div class="ty-mono" style="font-size:var(--t-micro)">Neutral</div></div>
               </div>
             </div>
           </div>
@@ -4431,7 +4432,28 @@ flowchart TD
         </div>
 
         <div class="cs-section">
-          <div class="eyebrow">03 · Outcome</div>
+            <div class="eyebrow">03 · What changed</div>
+            <h3>Three decisions carried the rest.</h3>
+            <div class="cs-points">
+              <div class="cs-point">
+                <h4 class="cs-point-title">Three flows, not thirty</h4>
+                <p>The observation data pointed at three flows. We redesigned those first and left the long tail on the legacy patterns until the new ones had shipped and been measured.</p>
+              </div>
+              <hr class="divider">
+              <div class="cs-point">
+                <h4 class="cs-point-title">Glanceable by default</h4>
+                <p>Every screen had to read in one glance at arm's length. Type grew a step, labels lost a word, and every state that mattered got its own colour and its own word.</p>
+                <p>Anything that failed the one-glance test moved to the companion app.</p>
+              </div>
+              <hr class="divider">
+              <div class="cs-point">
+                <h4 class="cs-point-title">One token set, three surfaces</h4>
+                <p>The center stack, the cluster and the companion app read the same tokens, so a change shipped once and landed everywhere.</p>
+              </div>
+            </div>
+          </div>
+        <div class="cs-section">
+          <div class="eyebrow">04 · Outcome</div>
           <h3>Measured, shipped, maintained.</h3>
           <div class="grid grid-3" style="margin:var(--s-5) 0">
             <div class="chart-card">
@@ -4454,7 +4476,7 @@ flowchart TD
         </div>
 
         <div class="cs-section">
-          <div class="eyebrow">04 · Reflection</div>
+          <div class="eyebrow">05 · Reflection</div>
           <h3>What I'd do differently.</h3>
           <p>We underinvested in the companion mobile app for the first 6 months, treating it as a delivery vehicle for the in-car experience rather than its own surface. By the time we corrected course, three flows had to be rebuilt. The lesson — surfaces are equal citizens from day one — is now baked into how I scope every multi-platform project.</p>
         </div>

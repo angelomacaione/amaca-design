@@ -874,6 +874,9 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-big.accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .chart-delta{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--success)}
 .chart-delta.neg{color:var(--danger)}
+/* v5.0.0 — the legend of a chart with two or more series: a Color swatch (§ 3.40) before each name, under the plot */
+.chart-legend{list-style:none;margin:var(--s-3) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-4);font-size:var(--t-small);color:var(--obsidian-200)}
+.chart-legend li{display:inline-flex;align-items:center;gap:var(--s-2);white-space:nowrap}
 
 /* ─────────── VOICE / TONE ─────────── */
 .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
@@ -933,6 +936,13 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .cs-section .eyebrow{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:var(--s-2);display:flex;align-items:center;gap:var(--s-2)}
 .cs-section .eyebrow::before{content:"";width:20px;height:1px;background:var(--primary-500)}
 .cs-section p{font-size:var(--t-body);color:var(--obsidian-200);line-height:var(--lh-loose);max-width:68ch;margin:0 0 var(--s-4)}
+/* Case study key points (v5.0.0, from the portfolio): a dot on the title's line, the text under the title,
+   a Divider (§ 3.36) between points; the gap on both sides of the divider is the list's. */
+.cs-points{display:flex;flex-direction:column;gap:var(--s-6);margin-top:var(--s-6);max-width:68ch}
+.cs-point{display:grid;grid-template-columns:var(--s-4) minmax(0,1fr);column-gap:var(--s-4);row-gap:var(--s-2)}
+.cs-point::before{content:"";grid-row:1;width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);background:var(--primary-500);align-self:center}
+.cs-point-title{grid-column:2;grid-row:1;margin:0;font-size:var(--t-lead);font-weight:700;letter-spacing:var(--tr-snug);line-height:var(--lh-snug);color:var(--obsidian-100)}
+.cs-point p{grid-column:2;margin:0}
 .cs-pull{
   border-left:var(--bw-2) solid var(--primary-500);padding:var(--s-3) var(--s-6);
   font-size:var(--t-h5);font-weight:500;line-height:var(--lh-snug);letter-spacing:var(--tr-snug);
