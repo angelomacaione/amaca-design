@@ -254,24 +254,17 @@
 .grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media (max-width: 900px){.grid-3,.grid-4,.grid-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ─────────── COLOR TILES ─────────── */
-.swatch{
-  border:var(--bw-1) solid var(--obsidian-800);
-  border-radius:var(--r-md);
-  overflow:hidden;
-  background:var(--obsidian-900);
-  transition:transform var(--d-quick) var(--ease-standard);
-}
-.swatch:hover{transform:translateY(-2px)}
-.swatch .swatch-chip{height:96px}
-.swatch .meta{padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;gap:var(--s-0-5)}
-.swatch .name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
-.swatch .hex{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300);letter-spacing:var(--tr-mono)}
-.swatch .role{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-500);margin-top:var(--s-0-5)}
-
-.swatch-scale{display:grid;grid-template-columns:repeat(11,1fr);gap:var(--s-0-5)}
-.swatch-scale .step{aspect-ratio:1/1.2;border-radius:var(--r-xs);position:relative;display:flex;align-items:flex-end;padding:var(--s-1);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono)}
-.swatch-scale .step .l{color:currentColor;opacity:0.7}
+/* ─────────── § 3.40 COLOR SWATCH (v5.0.0) ───────────
+   A colour shown, not pressed: no hover, no focus, no motion. The colour comes from --sw, set to var() of a token.
+   Inline marker before a label, the gap is the container's; tile for one step of a palette.
+   Always bordered with an inset 1px of --border-input, so the size stays and a dark colour reads on the page (WCAG 1.4.11). */
+.swatch{display:inline-block;flex:none;width:var(--s-3);height:var(--s-3);border-radius:var(--r-xs);background:var(--sw, transparent);box-shadow:inset 0 0 0 var(--bw-1) var(--border-input);vertical-align:middle}
+.swatch-tile{border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-md);overflow:hidden;background:var(--obsidian-900)}
+.swatch-tile-fill{height:var(--s-24);background:var(--sw, transparent);box-shadow:inset 0 calc(-1 * var(--bw-1)) 0 var(--border-input)}
+.swatch-tile-meta{padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;gap:var(--s-0-5)}
+.swatch-tile-name{font-weight:600;font-size:var(--t-small);color:var(--obsidian-100)}
+.swatch-tile-hex{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-200);letter-spacing:var(--tr-mono)}
+.swatch-tile-role{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300);margin-top:var(--s-0-5)}
 
 /* ─────────── TYPE SPECIMENS ─────────── */
 .type-specimen{
@@ -1024,9 +1017,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
 .pie-legend li:hover{border-color:var(--obsidian-700);background:var(--obsidian-800)}
-.pie-legend .sw{
-  width:10px;height:10px;border-radius:3px;
-}
 .pie-legend .lbl{
   font-size:var(--t-small);color:var(--obsidian-100);letter-spacing:var(--tr-snug);
 }
@@ -1137,7 +1127,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .btn:focus-visible,
 .nav-item:focus-visible,
 .menu-toggle:focus-visible,
-.swatch:focus-visible,
 .chip:focus-visible,
 .tab:focus-visible,
 .select-trigger:focus-visible,
@@ -1623,10 +1612,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   gap:var(--s-3);
   margin-bottom:var(--s-2);
 }
-.law-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.law-dot-obsidian{background:var(--obsidian-500)}
-.law-dot-brand{background:var(--primary-500)}
-.law-dot-semantic{background:var(--success)}
 
 .law-pct-mono{
   font-family:var(--font-mono);
@@ -3261,11 +3246,9 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1));transform:translate(-50%, -2px)}
 .tooltip-bottom.is-open{transform:translate(-50%, 0)}
 
-/* § 21.1 — a swatch beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
-   Swatch before the name, as every legend in the system (.pie-legend .sw, .diagram-legend-swatch);
-   swatch and name are one unit that never breaks across lines. */
+/* § 21.1 — a swatch (§ 3.40) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
+   Swatch and name are one unit that never breaks across lines. */
 .table-contrast .tok{display:inline-flex;align-items:center;gap:var(--s-1);white-space:nowrap}
-.table-contrast .tok-sw{flex:none;width:var(--s-3);height:var(--s-3);border-radius:var(--r-xs);background:var(--sw, transparent);border:var(--bw-1) solid var(--border-strong)}
 
 /* § 3.29 — Link (v5.0.0): inline text link, underlined at rest (WCAG 1.4.1 — the colour alone is 2.1:1 against the body text).
    Rest 1px, hover 2px + lighter; pressed --primary-500; the pressable ring on focus-visible; no visited state. */

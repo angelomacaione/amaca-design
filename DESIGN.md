@@ -386,7 +386,7 @@ Dimensions that are part of a component's contract take a token; the widths of t
 | `--target-dense` | `32` | Hit area on dense desktop (§ 6, floor #7) |
 | `--target-touch` | `44` | Hit area on touch (§ 6, floor #7) |
 
-**Sub-scale hairlines (ratified exception).** Shapes 4px or smaller — the nav-label dot, the menu-toggle bars, the pie-legend swatch — carry a literal `1px` / `3px` radius. Below `--r-xs` the scale has no step, and rounding them to 2px changes the shape rather than the corner. Closed list, three instances, greppable. Everything larger takes a token.
+**Sub-scale hairlines (ratified exception).** Shapes 4px or smaller — the nav-label dot and the menu-toggle bars — carry a literal `1px` radius. Below `--r-xs` the scale has no step, and rounding them to 2px changes the shape rather than the corner. Closed list, two instances, greppable. Everything larger takes a token.
 
 ## Components
 
@@ -448,8 +448,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
+| Color swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | canonical | § 3.40 — static; the Diagrams legend keeps its shape key |
 | Progress bar · Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.swatch*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -531,6 +532,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding |
 | `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
 | `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
+| `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus |
+| `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
 | `.navbar` | default | `--surface-sunken` | `1px` `--border-subtle` | `--obsidian-100` | — | the line on the bottom edge only · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
 | `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
 | `.navbar-item` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
@@ -1855,7 +1858,7 @@ A label for something already visible. Never a container for content.
 <div class="pie-wrap">
   <svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">…</svg>
   <ul class="pie-legend">
-    <li><span class="sw" style="background:var(--primary-500)"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
+    <li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
   </ul>
 </div>
 ```
@@ -1863,7 +1866,7 @@ A label for something already visible. Never a container for content.
 - `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
 - `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.13).
 - `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
-- `.sw` — 10px swatch, 3px radius (§ Shapes hairline list) · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- `.swatch` — the Color swatch (§ 3.40), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
 - Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-draw` (§ 6 floor #1).
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -2649,6 +2652,57 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 
 **Do / Don't.** Do use it for a menu or a text the person reads with the page still behind it, and name it with its title. Don't put a form in it, stack one drawer on another, or make it a panel that stays on the page.
 
+### Color swatch
+
+A colour shown, not pressed. Two forms: the inline marker beside the word that names it (a legend key, a token in a table) and the tile of a palette.
+
+**Usage**
+
+*Use it when*
+- A label names a colour: a legend key, a token in a table. *(Carbon)*
+- A palette shows its values, one tile per step. *(Spectrum)*
+
+*Use something else when*
+- The colour stands for a state, with a word → Badge or Chip.
+- The shape carries the meaning, not the colour → the Diagrams legend.
+- The user picks a colour → off-system: stop and ask.
+
+```html
+<!-- inline: the label beside it names the colour, so the swatch is hidden from the screen reader -->
+<span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span> Direct
+
+<!-- alone, with no word beside it: it names itself -->
+<span class="swatch" style="--sw:var(--success)" role="img" aria-label="Success green"></span>
+
+<!-- tile: one step of a palette; the hex is the token's value -->
+<div class="swatch-tile" style="--sw:var(--primary-100)">
+  <div class="swatch-tile-fill"></div>
+  <div class="swatch-tile-meta">
+    <span class="swatch-tile-name">Primary 100</span>
+    <span class="swatch-tile-hex">#FFE3F8</span>
+    <span class="swatch-tile-role">Surface · tint</span>
+  </div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Inline | `.swatch` | 12px (`--s-3`), `--r-xs`, fill from `--sw`, inset 1px of `--border-input` |
+| Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
+| Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
+| Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
+
+**Rules.**
+- **Static.** No hover, no focus, no motion: a swatch is not a button and not a picker. Choosing a colour is off-system.
+- **The colour is a token.** `--sw` is set to `var()` of a token, never a pasted hex. On a tile the printed hex is that token's value in `tokens.css`, word for word.
+- **Always bordered.** An inset 1px of `--border-input`, so the size does not change and a dark colour still has an edge: 3.38, 3.27 and 3.13 : 1 on `--surface`, `--surface-sunken` and `--surface-field` (WCAG 1.4.11). On `--surface-raised` it is 2.93 : 1, so on a card the label is what carries the colour.
+- **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
+- **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).
+- **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
+- **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.13).
+
+**Do / Don't.** Do put it before its label, let the label name the colour, and take the fill from a token. Don't make it a button, let the colour carry the meaning alone, or paste a hex where a token exists.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2976,7 +3030,7 @@ One pair sits below AA by ratified exception — `--obsidian-050` on `--primary-
 ### Focus visibility
 
 Two patterns ship:
-- **Pressable elements** (`.btn`, `.nav-item`, `.swatch`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: var(--ring-halo)`. Cited across the system as the **pressable halo**; the token holds `0 0 0 4px` magenta at 0.35.
+- **Pressable elements** (`.btn`, `.nav-item`, and the choice controls `.check` / `.switch` / `.radio` — the ring sits on the `input`, not the label): `outline: 2px solid var(--obsidian-100); outline-offset: 3px;` + `box-shadow: var(--ring-halo)`. Cited across the system as the **pressable halo**; the token holds `0 0 0 4px` magenta at 0.35.
 - **Text inputs** (`.input`, `.textarea`, `.select`, `.select-trigger`): border shifts to `--primary-500` + `box-shadow: var(--ring-field)` (`0 0 0 3px` magenta at 0.15). Cited as the **field glow**. Its error twin swaps the border to `--danger` and the ring to `--ring-field-danger`.
 - **In-cell targets** (`.dp-day`, `.dp-year`): same halo, `outline-offset: -2px` so the ring stays inside the 32px cell.
 

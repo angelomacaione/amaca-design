@@ -2019,7 +2019,7 @@ def c50():
 _PX_PROPS = re.compile(r"^(padding|margin)(-[a-z-]+)?$|^(gap|row-gap|column-gap|top|right|bottom|left|inset(-[a-z]+)?|outline-offset|font-size)$"
                        r"|^border(-[a-z]+)*-radius$|^border(-(top|right|bottom|left|inline|block)(-(start|end))?)?(-width)?$|^outline(-width)?$")
 # § Shapes: the three sub-scale hairlines, ratified closed list
-_PX_RATIFIED = {(".nav-label::before", "border-radius"), (".menu-toggle-bars span", "border-radius"), (".pie-legend .sw", "border-radius")}
+_PX_RATIFIED = {(".nav-label::before", "border-radius"), (".menu-toggle-bars span", "border-radius")}
 
 def _px_decls(css, where):
     css = re.sub(r"/\*.*?\*/", lambda m: " " * len(m.group(0)), css, flags=re.S)
@@ -2593,6 +2593,49 @@ def c64():
     for sel, decls in _css_rule_list(css):
         if re.search(r"\.select-menu(?![\w-])", sel) and "transition" in decls and decls["transition"].split()[0] != "none":
             fails.append(f"components.css: {sel} sets transition: {decls['transition']}")
+    return fails
+
+
+def _token_values(css):
+    """{name: resolved value} for every custom property in tokens.css, var() chains followed."""
+    raw = dict(re.findall(r"--([a-z0-9-]+)\s*:\s*([^;]+);", css))
+    def res(v, seen=()):
+        m = re.fullmatch(r"\s*var\(--([a-z0-9-]+)\)\s*", v)
+        if m and m.group(1) in raw and m.group(1) not in seen:
+            return res(raw[m.group(1)], seen + (m.group(1),))
+        return v.strip()
+    return {k: res(v) for k, v in raw.items()}
+
+
+@check("65", "Every color swatch takes its fill from a token, and a tile prints that token's value",
+       "v5.0.0: the palette tiles of the Color page carried their fill and their label as two hex "
+       "strings written by hand. The fill was right and three labels were not (Secondary 100, 300 "
+       "and 700 printed #D9FCFB, #4FF1EC and #04918D for tokens worth #CCFFFC, #33FFF5 and "
+       "#009992), so anyone copying the value from the page took the wrong one. Five swatch "
+       "implementations lived side by side, two of them with no edge, which made a dark colour "
+       "vanish on its row. One component now: the fill is --sw set to var() of a token, and the "
+       "hex a tile prints is read back against tokens.css.")
+def c65():
+    fails = []
+    vals = _token_values(read(TOKENS))
+    html = read(INDEX)
+    for cls in ("swatch-chip", "tok-sw", "law-dot", "sw"):
+        if re.search(rf'class="(?:[^"]* )?{cls}(?: [^"]*)?"', html):
+            fails.append(f"index.html: class .{cls} survives; it is a Color swatch now (§ 3.40)")
+    for m in re.finditer(r'<(?:span|div) class="(swatch|swatch-tile)"([^>]*)>', html):
+        style = re.search(r'style="([^"]*)"', m.group(2))
+        tok = re.fullmatch(r"\s*--sw\s*:\s*var\(--([a-z0-9-]+)\)\s*;?\s*", style.group(1)) if style else None
+        if not tok:
+            fails.append(f"index.html: .{m.group(1)} without --sw:var(--token): {m.group(0)[:90]}")
+            continue
+        if tok.group(1) not in vals:
+            fails.append(f"index.html: .{m.group(1)} names --{tok.group(1)}, which tokens.css does not declare")
+            continue
+        if m.group(1) == "swatch-tile":
+            end = html.find('<span class="swatch-tile-hex">', m.end())
+            hx = html[end + 30:html.find("<", end + 30)].strip() if end > 0 else ""
+            if re.fullmatch(r"#[0-9A-Fa-f]{6,8}", hx) and hx.upper() != vals[tok.group(1)].upper():
+                fails.append(f"index.html: tile --{tok.group(1)} prints {hx}, tokens.css says {vals[tok.group(1)]}")
     return fails
 
 

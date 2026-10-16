@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=984f336a">
+<link rel="stylesheet" href="styles/components.css?v=4107235e">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -217,6 +217,7 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#table" data-target="table"><span class="num">30</span> Table</a>
       <a class="nav-item" href="#avatar" data-target="avatar"><span class="num">44</span> Avatar</a>
       <a class="nav-item" href="#list" data-target="list"><span class="num">46</span> List</a>
+      <a class="nav-item" href="#swatch" data-target="swatch"><span class="num">53</span> Color swatch</a>
       <a class="nav-item" href="#charts" data-target="charts"><span class="num">31</span> Charts</a>
       <a class="nav-item" href="#timeline" data-target="timeline"><span class="num">32</span> Timeline</a>
       <a class="nav-item" href="#maps" data-target="maps"><span class="num">33</span> Maps</a>
@@ -659,58 +660,58 @@ the mark is a Lottie, a JSON file describing every rotation and every transition
           <div class="subsection-head"><h2 class="subsection-title">Brand · signal</h2><span class="subsection-num">§ 01.1</span></div>
           <p class="subsection-desc">The magenta range. Use for primary actions, links, data emphasis, and gradients. Never for body text.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="swatch-chip" style="background:#FFE3F8"></div><div class="meta"><span class="name">Magenta 100</span><span class="hex">#FFE3F8</span><span class="role">Surface · tint</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#FFB5EC"></div><div class="meta"><span class="name">Magenta 200</span><span class="hex">#FFB5EC</span><span class="role">Soft · hover bg</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#FF85DF"></div><div class="meta"><span class="name">Magenta 300</span><span class="hex">#FF85DF</span><span class="role">Link hover</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#F868D8"></div><div class="meta"><span class="name">Magenta 400</span><span class="hex">#F868D8</span><span class="role">Accent · eyebrow</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#F051D5"></div><div class="meta"><span class="name">Magenta 500 — Primary</span><span class="hex">#F051D5</span><span class="role">Brand · actions</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#C93BB0"></div><div class="meta"><span class="name">Magenta 600</span><span class="hex">#C93BB0</span><span class="role">Pressed</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#9A2D87"></div><div class="meta"><span class="name">Magenta 700</span><span class="hex">#9A2D87</span><span class="role">Deep · shade</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:var(--grad-signal)"></div><div class="meta"><span class="name">Grad · Signal</span><span class="hex">500 → 300</span><span class="role">Brand · gradient</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-100)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 100</span><span class="swatch-tile-hex">#FFE3F8</span><span class="swatch-tile-role">Surface · tint</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-200)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 200</span><span class="swatch-tile-hex">#FFB5EC</span><span class="swatch-tile-role">Soft · hover bg</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-300)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 300</span><span class="swatch-tile-hex">#FF85DF</span><span class="swatch-tile-role">Link hover</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-400)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 400</span><span class="swatch-tile-hex">#F868D8</span><span class="swatch-tile-role">Accent · eyebrow</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 500</span><span class="swatch-tile-hex">#F051D5</span><span class="swatch-tile-role">Brand · actions</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-600)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 600</span><span class="swatch-tile-hex">#C93BB0</span><span class="swatch-tile-role">Pressed</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--primary-700)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Primary 700</span><span class="swatch-tile-hex">#9A2D87</span><span class="swatch-tile-role">Deep · shade</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--grad-signal)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Grad · Signal</span><span class="swatch-tile-hex">500 → 300</span><span class="swatch-tile-role">Brand · gradient</span></div></div>
           </div>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Obsidian · neutrals</h2><span class="subsection-num">§ 01.2</span></div>
           <p class="subsection-desc">The working surface. Twelve-step scale from page bedrock to bone. Body text lives at 100; metadata at 300; edges at 700.</p>
           <div class="grid grid-6">
-            <div class="swatch"><div class="swatch-chip" style="background:#07090B"></div><div class="meta"><span class="name">Obsidian 950</span><span class="hex">#07090B</span><span class="role">Page</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#0B0E12"></div><div class="meta"><span class="name">Obsidian 900</span><span class="hex">#0B0E12</span><span class="role">Surface</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#10141A"></div><div class="meta"><span class="name">Obsidian 850</span><span class="hex">#10141A</span><span class="role">Elevated</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#161B22"></div><div class="meta"><span class="name">Obsidian 800</span><span class="hex">#161B22</span><span class="role">Card</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#1E242D"></div><div class="meta"><span class="name">Obsidian 700</span><span class="hex">#1E242D</span><span class="role">Border</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#2A313B"></div><div class="meta"><span class="name">Obsidian 600</span><span class="hex">#2A313B</span><span class="role">Divider</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#3A4451"></div><div class="meta"><span class="name">Obsidian 500</span><span class="hex">#3A4451</span><span class="role">Edge</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#5B6573"></div><div class="meta"><span class="name">Obsidian 400</span><span class="hex">#5B6573</span><span class="role">Disabled</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#8A94A3"></div><div class="meta"><span class="name">Obsidian 300</span><span class="hex">#8A94A3</span><span class="role">Secondary</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#B8C0CB"></div><div class="meta"><span class="name">Obsidian 200</span><span class="hex">#B8C0CB</span><span class="role">Tertiary</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#E3E7EC"></div><div class="meta"><span class="name">Obsidian 100</span><span class="hex">#E3E7EC</span><span class="role">Body text</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#F4F6F8"></div><div class="meta"><span class="name">Obsidian 050</span><span class="hex">#F4F6F8</span><span class="role">Bone</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-950)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 950</span><span class="swatch-tile-hex">#07090B</span><span class="swatch-tile-role">Page</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-900)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 900</span><span class="swatch-tile-hex">#0B0E12</span><span class="swatch-tile-role">Surface</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-850)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 850</span><span class="swatch-tile-hex">#10141A</span><span class="swatch-tile-role">Elevated</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-800)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 800</span><span class="swatch-tile-hex">#161B22</span><span class="swatch-tile-role">Card</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-700)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 700</span><span class="swatch-tile-hex">#1E242D</span><span class="swatch-tile-role">Border</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-600)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 600</span><span class="swatch-tile-hex">#2A313B</span><span class="swatch-tile-role">Divider</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 500</span><span class="swatch-tile-hex">#3A4451</span><span class="swatch-tile-role">Edge</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-400)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 400</span><span class="swatch-tile-hex">#5B6573</span><span class="swatch-tile-role">Disabled</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-300)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 300</span><span class="swatch-tile-hex">#8A94A3</span><span class="swatch-tile-role">Secondary</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-200)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 200</span><span class="swatch-tile-hex">#B8C0CB</span><span class="swatch-tile-role">Tertiary</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-100)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 100</span><span class="swatch-tile-hex">#E3E7EC</span><span class="swatch-tile-role">Body text</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--obsidian-050)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 050</span><span class="swatch-tile-hex">#F4F6F8</span><span class="swatch-tile-role">Bone</span></div></div>
           </div>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Secondary · electric cyan</h2><span class="subsection-num">§ 01.3</span></div>
           <p class="subsection-desc">High-voltage cyan. Use for focus accents, highlighted states, and secondary emphasis — never as a second primary.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="swatch-chip" style="background:#CCFFFC"></div><div class="meta"><span class="name">Secondary 100</span><span class="hex">#D9FCFB</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#33FFF5"></div><div class="meta"><span class="name">Secondary 300</span><span class="hex">#4FF1EC</span><span class="role">Hover</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#00FFF2"></div><div class="meta"><span class="name">Secondary 500 — Electric</span><span class="hex">#00FFF2</span><span class="role">Accent</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#009992"></div><div class="meta"><span class="name">Secondary 700</span><span class="hex">#04918D</span><span class="role">Deep</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--secondary-100)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 100</span><span class="swatch-tile-hex">#CCFFFC</span><span class="swatch-tile-role">Tint</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--secondary-300)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 300</span><span class="swatch-tile-hex">#33FFF5</span><span class="swatch-tile-role">Hover</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--secondary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 500 — Electric</span><span class="swatch-tile-hex">#00FFF2</span><span class="swatch-tile-role">Accent</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--secondary-700)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 700</span><span class="swatch-tile-hex">#009992</span><span class="swatch-tile-role">Deep</span></div></div>
           </div>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Tertiary · petrol</h2><span class="subsection-num">§ 01.4</span></div>
           <p class="subsection-desc">Deep petrol teal. Used for default badges, quiet tags, and neutral chips that shouldn’t read as brand but still need color.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="swatch-chip" style="background:#CEEAF1"></div><div class="meta"><span class="name">Tertiary 100</span><span class="hex">#CEEAF1</span><span class="role">Tint</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#4FA9BF"></div><div class="meta"><span class="name">Tertiary 300</span><span class="hex">#4FA9BF</span><span class="role">Text on dark</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#0C6078"></div><div class="meta"><span class="name">Tertiary 500 — Default</span><span class="hex">#0C6078</span><span class="role">Badge stroke</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#084C61"></div><div class="meta"><span class="name">Tertiary 600</span><span class="hex">#084C61</span><span class="role">Deep</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--tertiary-100)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Tertiary 100</span><span class="swatch-tile-hex">#CEEAF1</span><span class="swatch-tile-role">Tint</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--tertiary-300)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Tertiary 300</span><span class="swatch-tile-hex">#4FA9BF</span><span class="swatch-tile-role">Text on dark</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--tertiary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Tertiary 500 — Default</span><span class="swatch-tile-hex">#0C6078</span><span class="swatch-tile-role">Badge stroke</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--tertiary-600)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Tertiary 600</span><span class="swatch-tile-hex">#084C61</span><span class="swatch-tile-role">Deep</span></div></div>
           </div>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Semantic · signals</h2><span class="subsection-num">§ 01.5</span></div>
           <p class="subsection-desc">Reserved for feedback only — success, warning, danger, info. Never use as decoration.</p>
           <div class="grid grid-4">
-            <div class="swatch"><div class="swatch-chip" style="background:#3AFFC7"></div><div class="meta"><span class="name">Success</span><span class="hex">#3AFFC7</span><span class="role">Confirm · saved</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#F6C65B"></div><div class="meta"><span class="name">Warning</span><span class="hex">#F6C65B</span><span class="role">Caution · pending</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#FF5B5B"></div><div class="meta"><span class="name">Danger</span><span class="hex">#FF5B5B</span><span class="role">Error · destructive</span></div></div>
-            <div class="swatch"><div class="swatch-chip" style="background:#5CC8FF"></div><div class="meta"><span class="name">Info</span><span class="hex">#5CC8FF</span><span class="role">Info · neutral state</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--success)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Success</span><span class="swatch-tile-hex">#3AFFC7</span><span class="swatch-tile-role">Confirm · saved</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--warning)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Warning</span><span class="swatch-tile-hex">#F6C65B</span><span class="swatch-tile-role">Caution · pending</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--danger)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Danger</span><span class="swatch-tile-hex">#FF5B5B</span><span class="swatch-tile-role">Error · destructive</span></div></div>
+            <div class="swatch-tile" style="--sw:var(--info)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Info</span><span class="swatch-tile-hex">#5CC8FF</span><span class="swatch-tile-role">Info · neutral state</span></div></div>
           </div>
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Usage matrix</h2><span class="subsection-num">§ 01.6</span></div>
@@ -3284,6 +3285,34 @@ Basic UI</div>
         </div>
       </section>
 
+      <section class="section" id="swatch">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 53 · Data display / Color swatch</div>
+          <h1 class="page-title">A colour, <span class="accent">shown, not pressed.</span></h1>
+          <p class="page-lede">A square of colour beside the word that names it, or one step of a palette. The fill comes from a token, the border keeps a dark colour visible on the page, and nothing about it is interactive.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A label names a colour: a legend key, a token in a table. <span class="usage-ref">Carbon</span></li><li>A palette shows its values, one tile per step. <span class="usage-ref">Spectrum</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The colour stands for a state, with a word → Badge or Chip.</li><li>The shape carries the meaning, not the colour → the Diagrams legend.</li><li>The user picks a colour → off-system: stop and ask.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">§ 53.1</span></div>
+          <p class="subsection-desc">Inline, 12px, before its label; the label names the colour, so the swatch is hidden from the screen reader, and the gap is the container&rsquo;s. Tile, one step of a palette with its name, the token&rsquo;s value and its role. Both carry an inset 1px of <code>--border-input</code>.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Inline</div><ul class="pie-legend"><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">48%</span></li><li><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct">27%</span></li><li><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct">15%</span></li></ul><div class="table-contrast" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2);font-size:var(--t-small)"><span class="tok"><span class="swatch" style="--sw:var(--obsidian-100)" aria-hidden="true"></span><code>obsidian-100</code></span> <span>on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Tile</div><div class="grid grid-2" style="gap:var(--s-3)"><div class="swatch-tile" style="--sw:var(--secondary-500)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Secondary 500</span><span class="swatch-tile-hex">#00FFF2</span><span class="swatch-tile-role">Accent</span></div></div><div class="swatch-tile" style="--sw:var(--obsidian-950)"><div class="swatch-tile-fill"></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Obsidian 950</span><span class="swatch-tile-hex">#07090B</span><span class="swatch-tile-role">Page</span></div></div></div></div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 53.2</span></div>
+          <p class="subsection-desc">A swatch shows a value; the word next to it carries the meaning.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Put it before its label, let the label name the colour, and take the fill from a token.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Make it a button, let the colour carry the meaning alone, or paste a hex where a token exists.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="pagination">
         <div class="page-header">
           <div class="page-eyebrow">§ 47 · Navigation / Pagination</div>
@@ -3547,10 +3576,10 @@ Basic UI</div>
                   </g>
                 </svg>
                 <ul class="pie-legend">
-                  <li data-fade><span class="sw" style="background:var(--primary-500)"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--primary-300)"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--info)"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--tertiary-500)"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-300)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--info)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--tertiary-500)" aria-hidden="true"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
                 </ul>
               </div>
             </div>
@@ -3571,10 +3600,10 @@ Basic UI</div>
                   </g>
                 </svg>
                 <ul class="pie-legend">
-                  <li data-fade><span class="sw" style="background:var(--primary-500)"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--primary-600)"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--primary-700)"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
-                  <li data-fade><span class="sw" style="background:var(--primary-800)"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-600)" aria-hidden="true"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
                 </ul>
               </div>
             </div>
@@ -4448,19 +4477,19 @@ flowchart TD
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
             <tbody>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-100)" aria-hidden="true"></span><code>obsidian-100</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></td><td class="num">16.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Body text, headings</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-200)" aria-hidden="true"></span><code>obsidian-200</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">10.5<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Lede, supporting copy</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-300)" aria-hidden="true"></span><code>obsidian-300</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Metadata, caption, subsection desc</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-050)" aria-hidden="true"></span><code>obsidian-050</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--primary-500)" aria-hidden="true"></span><code>primary-500</code></span></td><td class="num">≈2.8<span class="unit">:1</span></td><td><span class="wcag wcag-exc">EXC*</span></td><td class="muted">Primary button label (ratified v2.6.0)</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--primary-500)" aria-hidden="true"></span><code>primary-500</code></span></td><td class="num">6.5<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Default for every other magenta fill</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--primary-400)" aria-hidden="true"></span><code>primary-400</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">7.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link rest, eyebrow, accent text</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--primary-300)" aria-hidden="true"></span><code>primary-300</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">8.9<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link hover</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--secondary-500)" aria-hidden="true"></span><code>secondary-500</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></td><td class="num">15.8<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Focus ring, secondary signal</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--success)" aria-hidden="true"></span><code>success</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">15.0<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Positive badge, delta up, "do" label</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--warning)" aria-hidden="true"></span><code>warning</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">12.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Caution badge, draft state</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--danger)" aria-hidden="true"></span><code>danger</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Error text, destructive label, "don't"</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--info)" aria-hidden="true"></span><code>info</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">10.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Info badge, neutral signal</td></tr>
-              <tr><td><span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-400)" aria-hidden="true"></span><code>obsidian-400</code></span> <span class="on">on</span> <span class="tok"><span class="tok-sw" style="--sw:var(--obsidian-850)" aria-hidden="true"></span><code>obsidian-850</code></span></td><td class="num">3.1<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Control outline: field, checkbox, radio (WCAG 1.4.11, non-text 3:1)</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-100)" aria-hidden="true"></span><code>obsidian-100</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></td><td class="num">16.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Body text, headings</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-200)" aria-hidden="true"></span><code>obsidian-200</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">10.5<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Lede, supporting copy</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-300)" aria-hidden="true"></span><code>obsidian-300</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Metadata, caption, subsection desc</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-050)" aria-hidden="true"></span><code>obsidian-050</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><code>primary-500</code></span></td><td class="num">≈2.8<span class="unit">:1</span></td><td><span class="wcag wcag-exc">EXC*</span></td><td class="muted">Primary button label (ratified v2.6.0)</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><code>primary-500</code></span></td><td class="num">6.5<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Default for every other magenta fill</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--primary-400)" aria-hidden="true"></span><code>primary-400</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">7.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link rest, eyebrow, accent text</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--primary-300)" aria-hidden="true"></span><code>primary-300</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">8.9<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Link hover</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--secondary-500)" aria-hidden="true"></span><code>secondary-500</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-950)" aria-hidden="true"></span><code>obsidian-950</code></span></td><td class="num">15.8<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Focus ring, secondary signal</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--success)" aria-hidden="true"></span><code>success</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">15.0<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Positive badge, delta up, "do" label</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--warning)" aria-hidden="true"></span><code>warning</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">12.1<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Caution badge, draft state</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--danger)" aria-hidden="true"></span><code>danger</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">6.3<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Error text, destructive label, "don't"</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--info)" aria-hidden="true"></span><code>info</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-900)" aria-hidden="true"></span><code>obsidian-900</code></span></td><td class="num">10.3<span class="unit">:1</span></td><td><span class="wcag wcag-aaa">AAA</span></td><td class="muted">Info badge, neutral signal</td></tr>
+              <tr><td><span class="tok"><span class="swatch" style="--sw:var(--obsidian-400)" aria-hidden="true"></span><code>obsidian-400</code></span> <span class="on">on</span> <span class="tok"><span class="swatch" style="--sw:var(--obsidian-850)" aria-hidden="true"></span><code>obsidian-850</code></span></td><td class="num">3.1<span class="unit">:1</span></td><td><span class="wcag wcag-aa">AA</span></td><td class="muted">Control outline: field, checkbox, radio (WCAG 1.4.11, non-text 3:1)</td></tr>
             </tbody>
           </table>
           <p class="muted" style="font-size:var(--t-caption);color:var(--obsidian-300);margin-top:var(--s-3);line-height:var(--lh-loose)">* Ratified exception, § 6.3: below the 4.5:1 AA bar, kept on perceptual grounds — on high-chroma magenta, near-white separates more cleanly than the higher-contrast dark label. Scoped to <code>.btn-primary</code> and <code>.badge-solid</code>. Under APCA (the WCAG 3 candidate method) the ranking inverts: the light label scores Lc 55.8 vs 47.4 for the dark one — the perceptual model agrees.</p>
@@ -4472,7 +4501,7 @@ flowchart TD
           <table class="table table-contrast">
             <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
             <tbody>
-              <tr><td><code>.btn, .nav-item,<br>.swatch, .chip</code></td><td class="muted"><code>outline: 2px solid obsidian-100; offset: 3px</code> + <code>--ring-halo</code></td><td class="num">16.1<span class="unit">:1</span></td></tr>
+              <tr><td><code>.btn, .nav-item,<br>.chip</code></td><td class="muted"><code>outline: 2px solid obsidian-100; offset: 3px</code> + <code>--ring-halo</code></td><td class="num">16.1<span class="unit">:1</span></td></tr>
               <tr><td><code>.input, .textarea,<br>.select</code></td><td class="muted">Border shifts to <code>primary-500</code> + <code>--ring-field</code>; <code>--ring-field-danger</code> when invalid</td><td class="num">6.5<span class="unit">:1</span></td></tr>
               <tr><td><code>.cs-img</code></td><td class="muted">Border <code>primary-500</code> + wide <code>48px</code> glow (case-study imagery)</td><td class="num">6.5<span class="unit">:1</span></td></tr>
               <tr><td><code>.skip-link</code></td><td class="muted">Off-screen at <code>top: -100px</code>; jumps to <code>top: 12px</code> on focus</td><td class="num">6.5<span class="unit">:1</span></td></tr>
@@ -4675,7 +4704,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
             <div class="law-legend">
               <div class="law-row">
                 <div class="law-row-head">
-                  <span class="law-dot law-dot-obsidian"></span>
+                  <span class="swatch" style="--sw:var(--obsidian-500)" aria-hidden="true"></span>
                   <span class="law-pct-mono">≥ 85%</span>
                 </div>
                 <span class="law-label">Obsidian</span>
@@ -4683,7 +4712,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               </div>
               <div class="law-row">
                 <div class="law-row-head">
-                  <span class="law-dot law-dot-brand"></span>
+                  <span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span>
                   <span class="law-pct-mono">≤ 10%</span>
                 </div>
                 <span class="law-label">Magenta + Cyan</span>
@@ -4691,7 +4720,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
               </div>
               <div class="law-row">
                 <div class="law-row-head">
-                  <span class="law-dot law-dot-semantic"></span>
+                  <span class="swatch" style="--sw:var(--success)" aria-hidden="true"></span>
                   <span class="law-pct-mono">≤ 5%</span>
                 </div>
                 <span class="law-label">Semantic</span>
