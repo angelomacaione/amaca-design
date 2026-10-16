@@ -2617,7 +2617,7 @@ Basic UI</div>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 26.3</span></div>
-          <p class="subsection-desc">Horizontal while every label fits on one line; vertical when they don&rsquo;t.</p>
+          <p class="subsection-desc">Horizontal while every label fits on one line; vertical when they don&rsquo;t. One ladder for the reveal, whatever the state.</p>
           <div class="do-dont">
             <div class="do">
               <div class="hd"><span>✓</span>Do</div>
@@ -2626,6 +2626,16 @@ Basic UI</div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
               <p>Squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Reveal it on one ladder: dot <em>n</em> scales in from 520ms + 80ms&middot;<em>n</em>, the connector that leaves it draws from 580ms + 80ms&middot;<em>n</em>, both on <code>--d-slow</code>. Done or upcoming only changes the paint, so one more step is one more rung.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.</p>
             </div>
           </div>
         </div>

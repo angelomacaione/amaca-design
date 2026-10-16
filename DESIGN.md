@@ -2764,6 +2764,8 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
+**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
+
 ### Progress
 
 How far a task with a known end has come: a track, a fill and the value written beside it.
