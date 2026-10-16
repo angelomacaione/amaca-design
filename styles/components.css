@@ -3461,10 +3461,14 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .stepper[data-reveal] .stepper-step::after{opacity:0;transform:translateY(-50%) scaleX(0);transform-origin:left}
 .stepper[data-reveal] .stepper-dot{opacity:0;transform:scale(0)}
 .stepper[data-reveal] .stepper-text{opacity:0;transform:translateY(var(--s-2))}
-.stepper[data-reveal].is-in .stepper-step::after{opacity:1;transform:translateY(-50%) scaleX(1);transition:opacity var(--d-quick) var(--ease-decel) calc(700ms + var(--d-scene)),transform var(--d-scene) var(--ease-decel) calc(700ms + var(--d-scene))}
+/* from the current step on, one beat per step: the dot scales in, then its dashed connector draws to the next dot, which scales in as it arrives.
+   Beat = --d-quick + --d-base, from the end of the done draw; --cur on .stepper-list is the index of the current step. */
+.stepper[data-reveal] .stepper-step{--stp-beat:calc(700ms + var(--d-scene) + (var(--i, 0) - var(--cur, 0)) * (var(--d-quick) + var(--d-base)))}
+.stepper[data-reveal].is-in .stepper-step::after{opacity:1;transform:translateY(-50%) scaleX(1);transition:opacity var(--d-quick) var(--ease-decel) calc(var(--stp-beat) + var(--d-quick)),transform var(--d-base) var(--ease-decel) calc(var(--stp-beat) + var(--d-quick))}
 .stepper[data-reveal].is-in .stepper-step.is-done::after{transition:opacity var(--d-quick) var(--ease-decel) 700ms,transform var(--d-scene) var(--ease-decel) 700ms}
 .stepper[data-reveal].is-in .stepper-dot{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-spring);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
 .stepper[data-reveal].is-in .stepper-text{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
+.stepper[data-reveal].is-in .stepper-step[aria-current="step"] :is(.stepper-dot,.stepper-text),.stepper[data-reveal].is-in .stepper-step[aria-current="step"] ~ .stepper-step :is(.stepper-dot,.stepper-text){transition-delay:var(--stp-beat)}
 /* vertical: below 480px of its own width, or forced */
 .stepper-vertical .stepper-list{flex-direction:column;gap:var(--s-5)}
 .stepper-vertical .stepper-step{flex-direction:row;align-items:center;text-align:left;gap:var(--s-3)}

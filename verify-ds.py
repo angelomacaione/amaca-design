@@ -2709,7 +2709,7 @@ def c67():
         attrs, body = m.group(1), m.group(2)
         if "aria-label=" not in attrs and "aria-labelledby=" not in attrs:
             fails.append("index.html: a .stepper nav without a name")
-        if '<ol class="stepper-list">' not in body:
+        if not re.search(r'<ol class="stepper-list"[ >]', body):
             fails.append("index.html: a .stepper without its ol.stepper-list")
         n_cur = body.count('aria-current="step"')
         if n_cur != 1:
