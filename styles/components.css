@@ -3435,3 +3435,75 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .modal-demo .modal:not([open]){display:block;visibility:hidden}
 .modal-demo > .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 
+
+/* § 3.41 Stepper — the steps of a linear journey: done, current, upcoming. An ordered list; the current step carries aria-current="step".
+   Horizontal; vertical below 480px of its own width (container query) or with .stepper-vertical. */
+.stepper{--stp-dot:var(--s-6);--stp-cur:var(--s-8);container-type:inline-size}
+.stepper-list{list-style:none;margin:0;padding:0;display:flex}
+.stepper-step{flex:1 1 0;min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s-2)}
+.stepper-step::after{content:"";position:absolute;top:calc(var(--stp-cur) / 2);left:50%;width:100%;height:0;border-top:var(--bw-2) dashed var(--obsidian-300);transform:translateY(-50%)}
+.stepper-step:last-child::after{display:none}
+.stepper-step.is-done::after{height:var(--bw-2);border:0;border-radius:var(--r-xs);background:var(--grad-progress);box-shadow:var(--sh-glow-soft)}
+.stepper-dot{position:relative;z-index:1;width:var(--stp-dot);height:var(--stp-dot);margin:calc((var(--stp-cur) - var(--stp-dot)) / 2) 0;border-radius:var(--r-full);display:grid;place-items:center;font-size:var(--t-caption);font-weight:600;color:var(--obsidian-300);background:var(--obsidian-800);box-shadow:inset 0 0 0 var(--bw-1) var(--obsidian-300)}
+.stepper-dot .icon{width:var(--icon-xs);height:var(--icon-xs)}
+.stepper-step.is-done .stepper-dot{background:var(--primary-500);box-shadow:none;color:var(--obsidian-950)}
+.stepper-step[aria-current="step"] .stepper-dot{width:var(--stp-cur);height:var(--stp-cur);margin:0;background:var(--grad-progress);box-shadow:var(--sh-glow);color:var(--obsidian-950);font-weight:700}
+.stepper-step[aria-current="step"] .stepper-dot::after{content:"";position:absolute;inset:calc(-1 * var(--s-1));border-radius:var(--r-full);box-shadow:0 0 0 var(--bw-1) var(--primary-500);animation:stepper-pulse 2400ms var(--ease-standard) infinite}
+@keyframes stepper-pulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.33);opacity:0}}
+.stepper-text{display:flex;flex-direction:column;align-items:inherit;gap:var(--s-0-5)}
+.stepper-sr-only{position:absolute;width:var(--s-px);height:var(--s-px);padding:0;margin:calc(-1 * var(--s-px));overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.stepper-label{font-size:var(--t-small);font-weight:400;color:var(--obsidian-300)}
+.stepper-meta{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.stepper-step.is-done .stepper-label{font-weight:600;color:var(--obsidian-100)}
+.stepper-step[aria-current="step"] .stepper-label{font-weight:700;color:var(--primary-200)}
+.stepper-step[aria-current="step"] .stepper-meta{color:var(--primary-200)}
+/* reveal on view (site JS adds .is-in): connectors fade, dots spring in, text rises 10px, the done connector draws */
+.stepper[data-reveal] .stepper-step::after{opacity:0}
+.stepper[data-reveal] .stepper-dot{opacity:0;transform:scale(0)}
+.stepper[data-reveal] .stepper-text{opacity:0;transform:translateY(var(--s-2))}
+.stepper[data-reveal] .stepper-step.is-done::after{transform:translateY(-50%) scaleX(0);transform-origin:left}
+.stepper[data-reveal].is-in .stepper-step::after{opacity:1;transition:opacity var(--d-slow) var(--ease-decel)}
+.stepper[data-reveal].is-in .stepper-step.is-done::after{transform:translateY(-50%) scaleX(1);transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-scene) var(--ease-decel) 700ms}
+.stepper[data-reveal].is-in .stepper-dot{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-spring);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
+.stepper[data-reveal].is-in .stepper-text{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
+/* vertical: below 480px of its own width, or forced */
+.stepper-vertical .stepper-list{flex-direction:column;gap:var(--s-5)}
+.stepper-vertical .stepper-step{flex-direction:row;align-items:center;text-align:left;gap:var(--s-3)}
+.stepper-vertical .stepper-text{align-items:flex-start}
+.stepper-vertical .stepper-dot{margin:0 calc((var(--stp-cur) - var(--stp-dot)) / 2)}
+.stepper-vertical .stepper-step::after{top:calc(var(--stp-cur) / 2);left:calc(var(--stp-cur) / 2);width:0;height:calc(100% + var(--s-5));border-top:0;border-left:var(--bw-2) dashed var(--obsidian-300);transform:translateX(-50%)}
+.stepper-vertical .stepper-step.is-done::after{width:var(--bw-2);border:0;background:linear-gradient(180deg,var(--primary-200),var(--primary-500))}
+.stepper-vertical[data-reveal] .stepper-step.is-done::after{transform:translateX(-50%) scaleY(0);transform-origin:top}
+.stepper-vertical[data-reveal].is-in .stepper-step.is-done::after{transform:translateX(-50%) scaleY(1)}
+@container (max-width: 480px){
+  .stepper-list{flex-direction:column;gap:var(--s-5)}
+  .stepper-step{flex-direction:row;align-items:center;text-align:left;gap:var(--s-3)}
+  .stepper-text{align-items:flex-start}
+  .stepper-dot{margin:0 calc((var(--stp-cur) - var(--stp-dot)) / 2)}
+  .stepper-step::after{top:calc(var(--stp-cur) / 2);left:calc(var(--stp-cur) / 2);width:0;height:calc(100% + var(--s-5));border-top:0;border-left:var(--bw-2) dashed var(--obsidian-300);transform:translateX(-50%)}
+  .stepper-step.is-done::after{width:var(--bw-2);height:calc(100% + var(--s-5));border:0;background:linear-gradient(180deg,var(--primary-200),var(--primary-500))}
+  .stepper[data-reveal] .stepper-step.is-done::after{transform:translateX(-50%) scaleY(0);transform-origin:top}
+  .stepper[data-reveal].is-in .stepper-step.is-done::after{transform:translateX(-50%) scaleY(1)}
+}
+@media (prefers-reduced-motion: reduce){
+  .stepper[data-reveal] .stepper-step::after,.stepper[data-reveal] .stepper-dot,.stepper[data-reveal] .stepper-text{opacity:1;transition:none}
+  .stepper[data-reveal] .stepper-dot,.stepper[data-reveal] .stepper-text{transform:none}
+  .stepper[data-reveal] .stepper-step.is-done::after{transform:translateY(-50%);transition:none}
+  .stepper-vertical[data-reveal] .stepper-step.is-done::after{transform:translateX(-50%)}
+  .stepper-step[aria-current="step"] .stepper-dot::after{animation:none;transform:none;opacity:0.4}
+}
+
+/* § 3.42 Progress — how far a task with a known end has come. role="progressbar" with a name, a value, a min and a max.
+   8px by default, .progress-sm 4px; the fill animates to its value on --d-scene. */
+.progress{display:flex;align-items:center;gap:var(--s-4)}
+.progress-label{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.progress-track{flex:1;height:var(--s-2);border-radius:var(--r-full);background:var(--obsidian-700)}
+.progress-sm .progress-track{height:var(--s-1)}
+.progress-fill{height:100%;width:var(--value, 0%);border-radius:inherit;background:var(--grad-progress);box-shadow:var(--sh-glow-soft);transform-origin:left;transition:width var(--d-scene) var(--ease-decel)}
+.progress-value{font-size:var(--t-small);color:var(--obsidian-100);font-variant-numeric:tabular-nums}
+.progress[data-reveal] .progress-fill{transform:scaleX(0)}
+.progress[data-reveal].is-in .progress-fill{transform:scaleX(1);transition:width var(--d-scene) var(--ease-decel),transform var(--d-scene) var(--ease-decel) 700ms}
+@media (prefers-reduced-motion: reduce){
+  .progress-fill{transition:none}
+  .progress[data-reveal] .progress-fill,.progress[data-reveal].is-in .progress-fill{transform:none;transition:none}
+}

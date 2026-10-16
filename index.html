@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=3122d6ca">
-<link rel="stylesheet" href="styles/components.css?v=32f86bc4">
+<link rel="stylesheet" href="styles/tokens.css?v=4fd92194">
+<link rel="stylesheet" href="styles/components.css?v=7f34cf2c">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -26,28 +26,11 @@
 .cs-section.is-in > p ~ p{transition-delay:240ms}
 .gantt-diamond[data-fade]{opacity:0;transform:scale(0);transform-origin:center;transition:opacity var(--d-base) var(--ease-spring), transform var(--d-base) var(--ease-spring)}
 .gantt-diamond[data-fade].is-in{opacity:1;transform:scale(1)}
-.stepper-svg g[data-step-dot][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-spring)}
-.stepper-svg g[data-step-dot][data-step-fade].is-in{opacity:1}
-.stepper-svg g[data-step-labels][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
-.stepper-svg g[data-step-labels][data-step-fade].is-in{opacity:1}
-.stepper-svg [data-step-line][data-step-fade]{opacity:0;transition:opacity var(--d-base) var(--ease-decel)}
-.stepper-svg [data-step-line][data-step-fade].is-in{opacity:1}
-.stepper-svg [data-step-line][data-step-fade]{transition-delay:0ms}
-.stepper-svg g[data-step-dot="1"][data-step-fade]{transition-delay:520ms}
-.stepper-svg g[data-step-dot="2"][data-step-fade]{transition-delay:600ms}
-.stepper-svg g[data-step-dot="3"][data-step-fade]{transition-delay:680ms}
-.stepper-svg g[data-step-dot="4"][data-step-fade]{transition-delay:760ms}
-.stepper-svg g[data-step-dot="5"][data-step-fade]{transition-delay:840ms}
-.stepper-svg g[data-step-labels="1"][data-step-fade]{transition-delay:520ms}
-.stepper-svg g[data-step-labels="2"][data-step-fade]{transition-delay:600ms}
-.stepper-svg g[data-step-labels="3"][data-step-fade]{transition-delay:680ms}
-.stepper-svg g[data-step-labels="4"][data-step-fade]{transition-delay:760ms}
-.stepper-svg g[data-step-labels="5"][data-step-fade]{transition-delay:840ms}
 html{scroll-behavior:smooth}
 .section[id]{scroll-margin-top:var(--s-24)}
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
-  [data-fade],[data-fade-chart],.gantt-diamond[data-fade],.stepper-svg [data-step-fade]{opacity:1;transform:none;transition:none}
+  [data-fade],[data-fade-chart],.gantt-diamond[data-fade]{opacity:1;transform:none;transition:none}
 }
 .motion-card{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
 .motion-card .motion-chart{width:100%;max-width:320px;aspect-ratio:1/1;justify-self:center;align-self:center}
@@ -1912,34 +1895,16 @@ Basic UI</div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A wait with a known end, longer than about three seconds. <span class="usage-ref">Atlassian, Carbon, Primer</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A short or unknown wait → Loader. <span class="usage-ref">Atlassian, Carbon</span></li><li>Content arriving into a known layout → Skeleton. <span class="usage-ref">Carbon</span></li><li>Steps the reader takes → Stepper. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Progress bar</h2><span class="subsection-num">§ 20.1</span></div>
-          <p class="subsection-desc">The linear meter: animates from zero to its target on view and lands exactly — the stat count-up contract, horizontal. The percentage is stated in text beside the bar.</p>
-          <div class="chart-card">
-            <div class="chart-head">
-              <div>
-                <div class="t" data-fade>Checkout · completion</div>
-                <div class="ty-small" data-fade style="margin-top:var(--s-1)">Linear meter. Animates from 0 to its target on view.</div>
-              </div>
-              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>60% complete</span></div>
+          <p class="subsection-desc">The linear meter: draws from zero to its value on view and lands exactly. The value is stated in text beside the bar. Two heights: 8px by default, 4px with <code>.progress-sm</code> where the bar sits inside a row or a card.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)">
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Checkout · completion</span><span class="s" data-fade>.progress · 8px</span></div>
+              <div class="progress" data-reveal><span class="progress-label" id="pg-1">Progress</span><div class="progress-track" role="progressbar" aria-labelledby="pg-1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"><div class="progress-fill" style="--value:60%"></div></div><span class="progress-value">60%</span></div>
             </div>
-            <svg viewBox="0 0 700 80" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
-              <defs>
-                <linearGradient id="progress-grad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#FFB5EC"/>
-                  <stop offset="100%" stop-color="#F051D5"/>
-                </linearGradient>
-                <filter id="progress-glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="4" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-              <rect x="0" y="0" width="700" height="80" fill="#150310" rx="6"/>
-              <g data-fade>
-                <text x="40"  y="48" fill="#5B6573" font-size="10" letter-spacing="1.2">PROGRESS</text>
-                <rect x="120" y="40" width="540" height="6" rx="3" fill="#1F0820"/>
-                <rect data-bar-h data-bar-pct="100" x="120" y="40" width="324" height="6" rx="3" fill="url(#progress-grad)" filter="url(#progress-glow)"/>
-                <text x="660" y="48" fill="#E3E7EC" font-family="Satoshi, sans-serif" font-size="10" letter-spacing="0.5" text-anchor="end">60%</text>
-              </g>
-            </svg>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Checkout · completion</span><span class="s" data-fade>.progress-sm · 4px</span></div>
+              <div class="progress progress-sm" data-reveal><span class="progress-label" id="pg-2">Progress</span><div class="progress-track" role="progressbar" aria-labelledby="pg-2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60"><div class="progress-fill" style="--value:60%"></div></div><span class="progress-value">60%</span></div>
+            </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
@@ -2617,102 +2582,51 @@ Basic UI</div>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A linear flow: forms, onboarding, checkout.</li><li>Three or more steps. <span class="usage-ref">Carbon, Atlassian</span></li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Fewer than three steps → a Next button. <span class="usage-ref">Atlassian, Carbon</span></li><li>Steps that can be done in any order → Tabs. <span class="usage-ref">Carbon</span></li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Stepper</h2><span class="subsection-num">§ 26.1</span></div>
-          <p class="subsection-desc">The stepper: completed segments fill, the active step breathes, upcoming stay quiet. Progress is shape and fill first, color second.</p>
+          <div class="subsection-head"><h2 class="subsection-title">Horizontal</h2><span class="subsection-num">§ 26.1</span></div>
+          <p class="subsection-desc">Done steps carry a check and a drawn connector, the current step breathes, upcoming steps stay outlined. The current step is announced: <code>aria-current="step"</code> and a hidden word for each state.</p>
           <div class="chart-card">
-            <div class="chart-head">
-              <div>
-                <div class="t" data-fade>Checkout · order flow</div>
-                <div class="ty-small" data-fade style="margin-top:var(--s-1)">Five steps. Completed segments fill in. The active step pulses; upcoming stays outlined.</div>
-              </div>
-              <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>Step 3 of 5</span></div>
-            </div>
-            <svg class="stepper-svg" viewBox="0 0 700 170" style="width:100%;height:auto;display:block" font-family="Satoshi, sans-serif">
-              <defs>
-                <linearGradient id="step-grad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#FFB5EC"/>
-                  <stop offset="100%" stop-color="#F051D5"/>
-                </linearGradient>
-                <filter id="step-glow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="4" result="blur"/>
-                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                </filter>
-              </defs>
-
-              <!-- canvas -->
-              <rect x="0" y="0" width="700" height="170" fill="#150310" rx="6"/>
-
-              <!-- connector track (background) -->
-              <line x1="70" y1="80" x2="630" y2="80" stroke="#2A1028" stroke-width="3" stroke-linecap="round"/>
-
-              <!-- completed connector segments (1→2, 2→3) — animate via existing data-bar-h handler (width grow) -->
-              <rect data-bar-h data-bar-pct="100" x="70" y="78.5" width="280" height="3" rx="1.5" fill="url(#step-grad)" filter="url(#step-glow)"/>
-
-              <!-- upcoming connectors (3→4, 4→5) dashed -->
-              <line data-step-line x1="350" y1="80" x2="490" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-step-fade/>
-              <line data-step-line x1="490" y1="80" x2="630" y2="80" stroke="#5B4A6A" stroke-width="2" stroke-dasharray="4 4" data-step-fade/>
-
-              <!-- step 1 — completed -->
-              <g data-step-fade data-step-dot="1" transform="translate(70 80)">
-                <circle cx="0" cy="0" r="12" fill="#F051D5"/>
-                <path d="M-5,0 L-1.5,3.5 L5,-4" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-
-              <!-- step 2 — completed -->
-              <g data-step-fade data-step-dot="2" transform="translate(210 80)">
-                <circle cx="0" cy="0" r="12" fill="#F051D5"/>
-                <path d="M-5,0 L-1.5,3.5 L5,-4" stroke="#1A0616" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              </g>
-
-              <!-- step 3 — current (pulsing glow ring + larger filled circle) -->
-              <g data-step-fade data-step-dot="3" transform="translate(350 80)">
-                <circle cx="0" cy="0" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.4"/>
-                <circle cx="0" cy="0" r="18" fill="none" stroke="#F051D5" stroke-width="1.25" opacity="0.6">
-                  <animate attributeName="r" values="18;24;18" dur="2.4s" repeatCount="indefinite"/>
-                  <animate attributeName="opacity" values="0.6;0;0.6" dur="2.4s" repeatCount="indefinite"/>
-                </circle>
-                <circle cx="0" cy="0" r="15" fill="url(#step-grad)" filter="url(#step-glow)"/>
-                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#1A0616" font-size="11" font-weight="700">3</text>
-              </g>
-
-              <!-- step 4 — upcoming -->
-              <g data-step-fade data-step-dot="4" transform="translate(490 80)">
-                <circle cx="0" cy="0" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
-                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">4</text>
-              </g>
-
-              <!-- step 5 — upcoming -->
-              <g data-step-fade data-step-dot="5" transform="translate(630 80)">
-                <circle cx="0" cy="0" r="12" fill="#150310" stroke="#5B4A6A" stroke-width="1.25"/>
-                <text x="0" y="0" text-anchor="middle" dominant-baseline="central" fill="#8A94A3" font-size="10" font-weight="600">5</text>
-              </g>
-
-              <!-- step labels (label + sublabel grouped per step for staggered rise) -->
-              <g text-anchor="middle">
-                <g data-step-fade data-step-labels="1" transform="translate(70 0)">
-                  <text x="0" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Cart</text>
-                  <text x="0" y="155" fill="#5B6573" font-family="var(--font-mono)" font-size="9" letter-spacing="1.2">2 ITEMS</text>
-                </g>
-                <g data-step-fade data-step-labels="2" transform="translate(210 0)">
-                  <text x="0" y="135" fill="#E3E7EC" font-size="13" letter-spacing="0.2" font-weight="600">Shipping</text>
-                  <text x="0" y="155" fill="#5B6573" font-family="var(--font-mono)" font-size="9" letter-spacing="1.2">EXPRESS</text>
-                </g>
-                <g data-step-fade data-step-labels="3" transform="translate(350 0)">
-                  <text x="0" y="135" fill="#FFB5EC" font-size="13" letter-spacing="0.2" font-weight="700">Payment</text>
-                  <text x="0" y="155" fill="#FFB5EC" font-family="var(--font-mono)" font-size="9" letter-spacing="1.2">IN PROGRESS</text>
-                </g>
-                <g data-step-fade data-step-labels="4" transform="translate(490 0)">
-                  <text x="0" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Review</text>
-                  <text x="0" y="155" fill="#5B4A6A" font-family="var(--font-mono)" font-size="9" letter-spacing="1.2">PENDING</text>
-                </g>
-                <g data-step-fade data-step-labels="5" transform="translate(630 0)">
-                  <text x="0" y="135" fill="#8A94A3" font-size="13" letter-spacing="0.2">Done</text>
-                  <text x="0" y="155" fill="#5B4A6A" font-family="var(--font-mono)" font-size="9" letter-spacing="1.2">PENDING</text>
-                </g>
-              </g>
-            </svg>
+            <div class="chart-head"><span class="t" data-fade>Checkout · order flow</span><span class="badge" data-fade>Step 3 of 5</span></div>
+            <nav class="stepper" aria-label="Checkout" data-reveal>
+              <ol class="stepper-list">
+                <li class="stepper-step is-done" style="--i:0"><span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span></li>
+                <li class="stepper-step is-done" style="--i:1"><span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Shipping</span><span class="stepper-meta">Express</span></span></li>
+                <li class="stepper-step" aria-current="step" style="--i:2"><span class="stepper-dot">3</span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Current: </span>Payment</span><span class="stepper-meta">In progress</span></span></li>
+                <li class="stepper-step" style="--i:3"><span class="stepper-dot">4</span><span class="stepper-text"><span class="stepper-label">Review</span><span class="stepper-meta">Pending</span></span></li>
+                <li class="stepper-step" style="--i:4"><span class="stepper-dot">5</span><span class="stepper-text"><span class="stepper-label">Done</span><span class="stepper-meta">Pending</span></span></li>
+              </ol>
+            </nav>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Vertical</h2><span class="subsection-num">§ 26.2</span></div>
+          <p class="subsection-desc">The same steps in a column. It is automatic below 480px of the stepper&rsquo;s own width, and forced with <code>.stepper-vertical</code> anywhere.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="chart-card">
+            <div class="chart-head"><span class="t" data-fade>Checkout · order flow</span><span class="s" data-fade>.stepper-vertical</span></div>
+            <nav class="stepper stepper-vertical" aria-label="Checkout" data-reveal>
+              <ol class="stepper-list">
+                <li class="stepper-step is-done" style="--i:0"><span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span></li>
+                <li class="stepper-step is-done" style="--i:1"><span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Shipping</span><span class="stepper-meta">Express</span></span></li>
+                <li class="stepper-step" aria-current="step" style="--i:2"><span class="stepper-dot">3</span><span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Current: </span>Payment</span><span class="stepper-meta">In progress</span></span></li>
+                <li class="stepper-step" style="--i:3"><span class="stepper-dot">4</span><span class="stepper-text"><span class="stepper-label">Review</span><span class="stepper-meta">Pending</span></span></li>
+                <li class="stepper-step" style="--i:4"><span class="stepper-dot">5</span><span class="stepper-text"><span class="stepper-label">Done</span><span class="stepper-meta">Pending</span></span></li>
+              </ol>
+            </nav>
+          </div></div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 26.3</span></div>
+          <p class="subsection-desc">Horizontal while every label fits on one line; vertical when they don&rsquo;t.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don&rsquo;t</div>
+              <p>Squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -4702,7 +4616,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 40.1</span></div>
           <p class="subsection-desc">Each convention carries a severity and the kind of check that can hold it, from a closed catalogue of check kinds. The full code rules live in DESIGN.md § Code conventions.</p>
-          <table class="table table-registry"><thead><tr><th>Id</th><th>Convention</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>C1</code></td><td>Token names: <code>--{family}-{step}</code> for primitives, <code>--{role}-{variant}</code> for semantics; a closed vocabulary of modifiers; no value inside a role name<div class="muted">§ Colors · semantic</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C2</code></td><td>Classes BEM-ish and pragmatic: <code>.card</code>, <code>.card-meta</code>; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise <code>.is-*</code><div class="muted">§ Code conventions · CSS</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C3</code></td><td><code>data-*</code> for state hooks (<code>data-fade</code>, <code>data-step-dot</code>, <code>data-replay</code>)<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C4</code></td><td>Canonical, semantic HTML: every tag closed, every attribute double-quoted, <code>&lt;button&gt;</code> for actions, <code>&lt;a&gt;</code> for navigation, never <code>&lt;div onclick&gt;</code>; ARIA only when HTML can't say it<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C5</code></td><td>Files: <code>tokens.css</code> → <code>components.css</code>, a third file only past 150 lines; kebab-case, named after the role (<code>card.css</code>, not <code>box.css</code>)<div class="muted">§ Code conventions · CSS, File naming</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C6</code></td><td>Media queries mobile-first, scoped inside the component block, only at the <code>--bp-*</code> widths<div class="muted">§ Code conventions · CSS · check 53</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C7</code></td><td><code>!important</code> only on the closed list<div class="muted">§ Code conventions · CSS · check 50</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C8</code></td><td>Browser chrome: four surfaces styled, everything else native<div class="muted">§ Code conventions · Browser chrome</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C9</code></td><td>Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero<div class="muted">§ Code conventions · JavaScript</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C10</code></td><td>One number: a site section and its DESIGN.md § 3 entry share it<div class="muted">§ Components</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>parity</code></td></tr></tbody></table>
+          <table class="table table-registry"><thead><tr><th>Id</th><th>Convention</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>C1</code></td><td>Token names: <code>--{family}-{step}</code> for primitives, <code>--{role}-{variant}</code> for semantics; a closed vocabulary of modifiers; no value inside a role name<div class="muted">§ Colors · semantic</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C2</code></td><td>Classes BEM-ish and pragmatic: <code>.card</code>, <code>.card-meta</code>; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise <code>.is-*</code><div class="muted">§ Code conventions · CSS</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C3</code></td><td><code>data-*</code> for state hooks (<code>data-fade</code>, <code>data-reveal</code>, <code>data-replay</code>)<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C4</code></td><td>Canonical, semantic HTML: every tag closed, every attribute double-quoted, <code>&lt;button&gt;</code> for actions, <code>&lt;a&gt;</code> for navigation, never <code>&lt;div onclick&gt;</code>; ARIA only when HTML can't say it<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C5</code></td><td>Files: <code>tokens.css</code> → <code>components.css</code>, a third file only past 150 lines; kebab-case, named after the role (<code>card.css</code>, not <code>box.css</code>)<div class="muted">§ Code conventions · CSS, File naming</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C6</code></td><td>Media queries mobile-first, scoped inside the component block, only at the <code>--bp-*</code> widths<div class="muted">§ Code conventions · CSS · check 53</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C7</code></td><td><code>!important</code> only on the closed list<div class="muted">§ Code conventions · CSS · check 50</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C8</code></td><td>Browser chrome: four surfaces styled, everything else native<div class="muted">§ Code conventions · Browser chrome</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C9</code></td><td>Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero<div class="muted">§ Code conventions · JavaScript</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C10</code></td><td>One number: a site section and its DESIGN.md § 3 entry share it<div class="muted">§ Components</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>parity</code></td></tr></tbody></table>
         </div>
       </section>
 
@@ -6342,37 +6256,8 @@ new MutationObserver(muts => {
   function reset(root){
     root.querySelectorAll('[data-fade]').forEach(f => f.classList.remove('is-in'));
     root.querySelectorAll('[data-fade-chart]').forEach(c => c.classList.remove('is-in'));
-    // Stepper: reset inline styles applied by Motion driver
-    root.querySelectorAll('.stepper-svg [data-step-line][data-step-fade]').forEach(el => {
-      el.style.opacity = '0';
-    });
-    root.querySelectorAll('.stepper-svg g[data-step-dot][data-step-fade]').forEach(el => {
-      // Cache base translate (translate(cx cy)) once, parsed from the inline attribute.
-      if (el._baseT == null) {
-        const m = (el.getAttribute('transform') || '').match(/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/);
-        el._cx = m ? +m[1] : 0;
-        el._cy = m ? +m[2] : 0;
-        el._baseT = `translate(${el._cx} ${el._cy})`;
-      }
-      el.style.opacity = '0';
-      el.style.transform = '';
-      el.style.transformBox = '';
-      el.style.transformOrigin = '';
-      el.setAttribute('transform', `${el._baseT} scale(0)`);
-    });
-    root.querySelectorAll('.stepper-svg g[data-step-labels][data-step-fade]').forEach(el => {
-      if (el._labelInit == null) {
-        const m = (el.getAttribute('transform') || '').match(/translate\(\s*([-\d.]+)[\s,]+([-\d.]+)\s*\)/);
-        el._cx = m ? +m[1] : 0;
-        el._cy = m ? +m[2] : 0;
-        el._labelInit = true;
-      }
-      el.style.opacity = '0';
-      el.style.transform = '';
-      el.style.transformBox = '';
-      el.style.transformOrigin = '';
-      el.setAttribute('transform', `translate(${el._cx} ${el._cy})`);
-    });
+    // Stepper and Progress (§ 3.41, § 3.42): the reveal is CSS; the replay drops .is-in here and run() adds it back
+    root.querySelectorAll('[data-reveal]').forEach(el => el.classList.remove('is-in'));
     root.querySelectorAll('[data-line-draw]').forEach(p => {
       p.style.strokeDashoffset = p._len;
     });
@@ -6413,50 +6298,15 @@ new MutationObserver(muts => {
 
     const fades = root.querySelectorAll('[data-fade]');
     fades.forEach((f, i) => {
-      // Stepper items: drive via Motion (inline style) instead of CSS transitions.
-      // CSS transition reset is unreliable on SVG <g> with transform-box across
-      // browsers — JS animation is bit-identical between first-paint and replay.
-      if (f.matches('.stepper-svg [data-step-fade]')) {
-        // Skip — handled by stepper block below.
-        return;
-      }
       setTimeout(() => f.classList.add('is-in'), i * 35);
     });
 
-    // Stepper choreography (JS-driven, identical for first-paint and replay)
-    const stepLines = root.querySelectorAll('.stepper-svg [data-step-line][data-step-fade]');
-    stepLines.forEach(el => {
-      el.style.opacity = '0';
-      animate(0, 1, {
-        duration: T.dSlow, ease: decel, delay: 0,
-        onUpdate: v => { el.style.opacity = v; }
-      });
-    });
-    const stepDots = root.querySelectorAll('.stepper-svg g[data-step-dot][data-step-fade]');
-    stepDots.forEach(el => {
-      const idx = +el.getAttribute('data-step-dot');
-      const delay = 0.52 + (idx - 1) * 0.08;
-      animate(0, 1, {
-        duration: T.dSlow, ease: spring, delay,
-        onUpdate: v => {
-          el.style.opacity = v;
-          el.setAttribute('transform', `${el._baseT} scale(${v})`);
-        }
-      });
-    });
-    const stepLabels = root.querySelectorAll('.stepper-svg g[data-step-labels][data-step-fade]');
-    stepLabels.forEach(el => {
-      const idx = +el.getAttribute('data-step-labels');
-      const delay = 0.52 + (idx - 1) * 0.08;
-      animate(0, 1, {
-        duration: T.dSlow, ease: decel, delay,
-        onUpdate: v => {
-          el.style.opacity = v;
-          const offset = 10 - 10 * v;
-          el.setAttribute('transform', `translate(${el._cx} ${el._cy + offset})`);
-        }
-      });
-    });
+    // Stepper and Progress: replay pattern (§ Code conventions) — reset above, flush, then .is-in after 50ms
+    const reveals = root.querySelectorAll('[data-reveal]');
+    if (reveals.length){
+      reveals.forEach(el => getComputedStyle(el).opacity);
+      setTimeout(() => reveals.forEach(el => el.classList.add('is-in')), 50);
+    }
 
     const charts = root.querySelectorAll('[data-fade-chart]');
     charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), 120 + i * 150));

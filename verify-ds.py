@@ -2204,7 +2204,7 @@ def _usage_site(html):
 
 # Site sections whose § 3 entry arrives with phase 3 of v5.0.0; their Usage lives on the site
 # only until then. The exemption expires with the release (debt_is_live).
-USAGE_SITE_ONLY = {"progress", "stepper", "timeline", "maps", "casestudy"}
+USAGE_SITE_ONLY = {"timeline", "maps", "casestudy"}
 
 
 @check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
@@ -2305,6 +2305,7 @@ R_FULL_RATIFIED = {
     ".switch input::after", ".radio input", ".radio input:checked::after", ".replay-btn",
     ".avatar", ".avatar-dot", ".skeleton-circle", ".slider-input::-webkit-slider-runnable-track", ".slider-input::-moz-range-track",
     ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".motion-row .track", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
+    ".stepper-dot", '.stepper-step[aria-current="step"] .stepper-dot::after', ".progress-track",
 }
 
 
@@ -2689,6 +2690,50 @@ def c66():
         fails.append("DESIGN.md: the categorical order is not stated in § 3.25")
     if "`--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`" not in d:
         fails.append("DESIGN.md: the sequential ramp is not stated in § 3.25")
+    return fails
+
+
+@check("67", "A stepper and a progress bar say what they show, to every reader",
+       "v5.0.0: the stepper and the progress bar were SVG drawings scaled by a 700-wide viewBox: at "
+       "390px the labels were 5.7px and the meta line 4px, the screen reader met an unnamed picture "
+       "and never heard which step was current, and the current step kept pulsing under reduced "
+       "motion because the loop was SMIL, out of reach of the CSS override. They are now an ordered "
+       "list and a progressbar; this check holds the markup to what the contract promises and the "
+       "loop to the reduced-motion override.")
+def c67():
+    fails = []
+    html = read(INDEX)
+    if re.search(r'class="stepper-svg|data-step-(dot|labels|line|fade)', html):
+        fails.append("index.html: the SVG stepper survives; the Stepper is § 3.41")
+    for m in re.finditer(r'<nav class="stepper[^"]*"([^>]*)>(.*?)</nav>', html, re.S):
+        attrs, body = m.group(1), m.group(2)
+        if "aria-label=" not in attrs and "aria-labelledby=" not in attrs:
+            fails.append("index.html: a .stepper nav without a name")
+        if '<ol class="stepper-list">' not in body:
+            fails.append("index.html: a .stepper without its ol.stepper-list")
+        n_cur = body.count('aria-current="step"')
+        if n_cur != 1:
+            fails.append(f"index.html: a .stepper with {n_cur} current steps, one expected")
+        for li in re.findall(r'<li class="stepper-step([^"]*)"([^>]*)>(.*?)</li>', body, re.S):
+            if "is-done" in li[0] and "Completed: " not in li[2]:
+                fails.append("index.html: a done step without its hidden 'Completed: '")
+            if 'aria-current="step"' in li[1] and "Current: " not in li[2]:
+                fails.append("index.html: the current step without its hidden 'Current: '")
+    for m in re.finditer(r'<div class="progress-track"([^>]*)>', html):
+        a = m.group(1)
+        for need in ('role="progressbar"', "aria-valuenow=", "aria-valuemin=", "aria-valuemax="):
+            if need not in a:
+                fails.append(f"index.html: a .progress-track without {need}")
+        if "aria-labelledby=" not in a and "aria-label=" not in a:
+            fails.append("index.html: a .progress-track without a name")
+        now = re.search(r'aria-valuenow="(\d+)"', a)
+        rest = html[m.end():m.end() + 300]
+        val = re.search(r'<span class="progress-value">(\d+)%</span>', rest)
+        if now and val and now.group(1) != val.group(1):
+            fails.append(f"index.html: progress value {val.group(1)}% beside aria-valuenow {now.group(1)}")
+    css = read(COMPONENTS)
+    if not any(re.search(r"stepper-dot::after\s*\{[^}]*animation\s*:\s*none", body) for _, _, body in _rm_blocks(css)):
+        fails.append("components.css: the current step's pulse does not stop under reduced motion")
     return fails
 
 

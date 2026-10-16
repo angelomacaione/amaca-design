@@ -619,6 +619,11 @@
     "$type": "other",
     "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
   },
+  "grad-progress": {
+    "$value": "linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%)",
+    "$type": "other",
+    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+  },
   "grad-fog": {
     "$value": "radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),\n                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%)",
     "$type": "other"

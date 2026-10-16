@@ -449,7 +449,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Color swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | canonical | § 3.40 — static; the Diagrams legend keeps its shape key |
-| Progress bar · Empty state · File upload | — | off-system | Stop and ask |
+| Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
+| Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
+| Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.demo-tile` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
@@ -533,6 +535,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
 | `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
 | `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus |
+| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector dashed `--bw-2` `--obsidian-300` |
+| `.stepper-step` `.is-done` | default | `--primary-500` | none | `--obsidian-950` | — | done · dot with the `check` icon · label `--obsidian-100` 600 · connector `--grad-progress`, `--bw-2`, `--sh-glow-soft` |
+| `.stepper-step` | current | `--grad-progress` | none | `--obsidian-950` | `--sh-glow` | `aria-current="step"` · dot `--s-8` instead of `--s-6` · label and meta `--primary-200`, label 700 · pulse ring 1px `--primary-500` |
+| `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` |
+| `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar |
 | `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
 | `.navbar` | default | `--surface-sunken` | `1px` `--border-subtle` | `--obsidian-100` | — | the line on the bottom edge only · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
 | `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
@@ -2705,6 +2712,99 @@ A colour shown, not pressed. Two forms: the inline marker beside the word that n
 
 **Do / Don't.** Do put it before its label, let the label name the colour, and take the fill from a token. Don't make it a button, let the colour carry the meaning alone, or paste a hex where a token exists.
 
+### Stepper
+
+The steps of a linear journey, in order: done, current, upcoming. It shows where the reader is; it does not move them.
+
+**Usage**
+
+*Use it when*
+- A linear flow: forms, onboarding, checkout.
+- Three or more steps. *(Carbon, Atlassian)*
+
+*Use something else when*
+- Fewer than three steps → a Next button. *(Atlassian, Carbon)*
+- Steps that can be done in any order → Tabs. *(Carbon)*
+
+```html
+<nav class="stepper" aria-label="Checkout">
+  <ol class="stepper-list">
+    <li class="stepper-step is-done" style="--i:0">
+      <span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span>
+      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span>
+    </li>
+    <li class="stepper-step" aria-current="step" style="--i:1">
+      <span class="stepper-dot">2</span>
+      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Current: </span>Payment</span><span class="stepper-meta">In progress</span></span>
+    </li>
+    <li class="stepper-step" style="--i:2">
+      <span class="stepper-dot">3</span>
+      <span class="stepper-text"><span class="stepper-label">Review</span><span class="stepper-meta">Pending</span></span>
+    </li>
+  </ol>
+</nav>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Stepper | `.stepper` | A `nav` with a name; a size container. `.stepper-vertical` forces the column |
+| List | `.stepper-list` | An `ol`: the order is the meaning |
+| Step | `.stepper-step` | Upcoming by default; `.is-done`; the current one carries `aria-current="step"`. `--i` is its index, for the reveal |
+| Dot | `.stepper-dot` | 24px (`--s-6`), the current one 32px (`--s-8`), a circle. Done: the `check` icon; otherwise the number |
+| Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta mono `--t-micro` uppercase |
+| Hidden word | `.stepper-sr-only` | "Completed: " and "Current: " for the screen reader; colour never carries the state alone |
+
+**Rules.**
+- **Horizontal while the labels fit.** Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); `.stepper-vertical` forces the column for long labels or more steps.
+- **One current step.** Exactly one `aria-current="step"`; done steps before it, upcoming steps after.
+- **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line (5.6 : 1 on a card).
+- **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
+- **Not a control.** The steps are not links: going back is the flow's own Back button.
+- **Motion.** On view, the connectors fade in on `--d-slow` · `--ease-decel`; the dots scale in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and the text rises 8px, both from 520ms plus 80ms per step; the done connector draws on `--d-scene` from 700ms. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+
+**Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
+
+### Progress
+
+How far a task with a known end has come: a track, a fill and the value written beside it.
+
+**Usage**
+
+*Use it when*
+- A wait with a known end, longer than about three seconds. *(Atlassian, Carbon, Primer)*
+
+*Use something else when*
+- A short or unknown wait → Loader. *(Atlassian, Carbon)*
+- Content arriving into a known layout → Skeleton. *(Carbon)*
+- Steps the reader takes → Stepper. *(Carbon)*
+
+```html
+<div class="progress">
+  <span class="progress-label" id="upload-label">Upload</span>
+  <div class="progress-track" role="progressbar" aria-labelledby="upload-label"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+    <div class="progress-fill" style="--value:60%"></div>
+  </div>
+  <span class="progress-value">60%</span>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Progress | `.progress` | A row: label, track, value, gap `--s-4`. `.progress-sm` for the 4px bar |
+| Label | `.progress-label` | Mono `--t-micro` uppercase `--obsidian-300`; it names the bar |
+| Track | `.progress-track` | `role="progressbar"`, 8px (`--s-2`) or 4px, `--obsidian-700`, `--r-full` |
+| Fill | `.progress-fill` | Width from `--value`, `--grad-progress`, `--sh-glow-soft` |
+| Value | `.progress-value` | `--t-small` `--obsidian-100`, tabular figures; the number is always written |
+
+**Rules.**
+- **Two heights.** 8px by default; `.progress-sm`, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.
+- **Named and valued.** The track carries `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name; the value is also written as text.
+- **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
+- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
+
+**Do / Don't.** Do write the value beside the bar and name the bar. Don't use it for an unknown wait, or stack two bars for one task.
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -2807,7 +2907,7 @@ How the system is written: naming, structure, units, files. Each convention carr
 | --- | --- | --- | --- | --- |
 | C1 | Token names: `--{family}-{step}` for primitives, `--{role}-{variant}` for semantics; a closed vocabulary of modifiers; no value inside a role name | `error` | `none` | § Colors · semantic |
 | C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `none` | § Code conventions · CSS |
-| C3 | `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`) | `warn` | `none` | § Code conventions · HTML |
+| C3 | `data-*` for state hooks (`data-fade`, `data-reveal`, `data-replay`) | `warn` | `none` | § Code conventions · HTML |
 | C4 | Canonical, semantic HTML: every tag closed, every attribute double-quoted, `<button>` for actions, `<a>` for navigation, never `<div onclick>`; ARIA only when HTML can't say it | `error` | `lint` | § Code conventions · HTML |
 | C5 | Files: `tokens.css` → `components.css`, a third file only past 150 lines; kebab-case, named after the role (`card.css`, not `box.css`) | `warn` | `none` | § Code conventions · CSS, File naming |
 | C6 | Media queries mobile-first, scoped inside the component block, only at the `--bp-*` widths | `error` | `lint` | § Code conventions · CSS · check 53 |
@@ -2959,6 +3059,12 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
+| Stepper | reveal | connector fade (effect) | `--d-slow` · `--ease-decel` | instant |
+| Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 520ms + 80ms per step | instant |
+| Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 520ms + 80ms per step | instant |
+| Stepper | reveal | done connector draw (spatial) | `--d-scene` · `--ease-decel` · 700ms | instant |
+| Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
+| Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
@@ -3089,7 +3195,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 - Canonical: close every non-void tag, double-quote every attribute, no implied closes.
 - Semantic first: `<button>` for actions, `<a>` for navigation. Never `<div onclick>`.
 - ARIA only when semantic HTML can't express the role.
-- `data-*` for state hooks (`data-fade`, `data-step-dot`, `data-replay`).
+- `data-*` for state hooks (`data-fade`, `data-reveal`, `data-replay`).
 
 ### JavaScript
 
@@ -3100,7 +3206,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (`.stepper-svg`):** lines fade first (delay 0ms), dots scale-in via spring (520ms, +80ms per step), labels rise from below via decel (520ms, +80ms per step). Position is set via the SVG `transform` attribute on each `<g>`; replay animates the attribute directly (no CSS transforms on the groups). Lines use opacity-only.
+- **Stepper choreography (§ 3.41):** connectors fade first (delay 0ms), dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), the done connector draws on `--d-scene` from 700ms. CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming

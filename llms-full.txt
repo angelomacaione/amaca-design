@@ -180,6 +180,7 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
   --grad-signal: linear-gradient(90deg, #F051D5 0%, #FF85DF 100%);
+  --grad-progress: linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%);   /* v5.0.0: the filled part of a Stepper and a Progress bar, primary-200 to primary-500 */
   --grad-fog:    radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),
                  radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%);
 
