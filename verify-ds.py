@@ -2685,6 +2685,11 @@ def c66():
         fails.append(f"#charts Sequential: {seq} ≠ {SEQUENTIAL}")
     if 'class="chart-legend"' not in cards.get("Sessions by day", ""):
         fails.append("#charts 'Sessions by day': two series and no .chart-legend")
+    # the line chart: baseline and current, two series (its title sits in a div, not a span)
+    ti = sec.find("Task time · Arc HMI")
+    nxt = sec.find('<div class="chart-card">', ti) if ti >= 0 else -1
+    if ti < 0 or 'class="chart-legend"' not in sec[ti:nxt if nxt > 0 else len(sec)]:
+        fails.append("#charts 'Task time · Arc HMI': two series and no .chart-legend")
     d = read(DESIGN)
     if "`--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`" not in d:
         fails.append("DESIGN.md: the categorical order is not stated in § 3.25")
