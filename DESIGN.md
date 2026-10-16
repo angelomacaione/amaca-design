@@ -2208,7 +2208,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | `clock` | line | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/>` | Time |
 | `calendar` | line | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.75v2.75M11 1.75v2.75"/>` | Date |
 | `eye` | line | `<path d="M1.75 8S4.25 3.5 8 3.5 14.25 8 14.25 8 11.75 12.5 8 12.5 1.75 8 1.75 8z"/><circle cx="8" cy="8" r="2"/>` | Show |
-| `eye-off` | line | `<path d="M6 3.9A6.4 6.4 0 0 1 8 3.5C12 3.5 14.5 8 14.5 8a11.4 11.4 0 0 1-1.7 2.3M4.1 5.1A11.2 11.2 0 0 0 1.5 8S4 12.5 8 12.5a6.2 6.2 0 0 0 2.3-.45"/><path d="M2.5 2.5l11 11"/><path d="M6.6 6.6a2 2 0 0 0 2.8 2.8"/>` | Hide |
+| `eye-off` | line | `<path d="M7.12 3.58C7.4 3.53 7.7 3.5 8 3.5C11.75 3.5 14.25 8 14.25 8C14.25 8 13.85 8.72 13.13 9.59M8.88 12.42C8.6 12.47 8.3 12.5 8 12.5C4.25 12.5 1.75 8 1.75 8C1.75 8 2.15 7.28 2.87 6.41"/><path d="M2.5 2.5l11 11"/>` | Hide |
 | `image` | line | `<rect x="2" y="2.75" width="12" height="10.5" rx="1.75"/><circle cx="5.75" cy="6.25" r="1"/><path d="M2.5 12l3.5-3.5 2.5 2.5 2-2 3 3"/>` | Image, placeholder |
 
 **People and chat**
@@ -2217,7 +2217,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 |---|---|---|---|
 | `user` | solid | `<g stroke-linejoin="miter"><path d="M8 1.75l3.25 3.25L8 8.25 4.75 5z"/><path d="M2.5 14.25v-1.75L5 9.75h6l2.5 2.75v1.75z"/></g>` | A person, no picture |
 | `message` | line | `<path d="M2.5 13.5l1-2.9a5.5 5.5 0 1 1 2 2z"/>` | A message, a new chat |
-| `messages` | line | `<path d="M9.88 4.50A4.1 4.1 0 1 0 2.25 7.50L1.64 10.41L4.56 9.90A4.1 4.1 0 0 0 4.70 9.95"/><path d="M14.34 14.14L13.76 11.23A3.9 3.9 0 1 0 11.43 13.56z"/>` | A conversation |
+| `messages` | line | `<path d="M9.26 3.59C8.98 3.25 8.65 2.95 8.27 2.72C7.7 2.36 7.06 2.16 6.39 2.12C5.72 2.07 5.05 2.2 4.45 2.48C3.84 2.76 3.31 3.19 2.91 3.72C2.51 4.26 2.25 4.88 2.15 5.54C2.05 6.21 2.12 6.88 2.35 7.51C2.15 8.46 1.95 9.42 1.75 10.37C2.41 10.25 3.07 10.14 3.73 10.02"/><path d="M14.23 14.04L13.66 11.18A3.83 3.83 0 1 0 11.37 13.47z"/>` | A conversation |
 | `message-plus` | line | `<path d="M2.5 13.5l1-2.9a5.5 5.5 0 1 1 2 2z"/><path d="M8 5.5v4M6 7.5h4"/>` | New chat |
 
 **Shapes**
