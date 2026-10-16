@@ -36,6 +36,7 @@ colors:
   primary-600: "#C93BB0"
   primary-700: "#9A2D87"
   primary-800: "#66195A"
+  primary-950: "#1D0519"
 typography:
   font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
   font-mono: "Satoshi, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
@@ -163,6 +164,7 @@ Role aliases on the obsidian ramp: no new values, a name for what each step does
 | `--primary-600` | `#C93BB0` | Pressed state |
 | `--primary-700` | `#9A2D87` | Deep brand accents |
 | `--primary-800` | `#66195A` | Reserved |
+| `--primary-950` | `#1D0519` | Data canvas: the ground of a chart or a timeline, its lanes, and text on a light primary fill |
 
 ### Color · supporting
 

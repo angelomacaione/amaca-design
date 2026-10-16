@@ -2737,6 +2737,40 @@ def c67():
     return fails
 
 
+# Hex still waiting for a decision inside the dataviz drawings: each entry names
+# what it paints. They are tolerated until the 5.0.0 frontmatter, then they block.
+DATAVIZ_PENDING_HEX = {"#5B4A6A": "line chart, previous-period baseline (2.5:1 on the canvas)"}
+
+
+@check("68", "The drawings of Charts and Timeline paint only from tokens",
+       "v5.0.0: the line chart and the Gantt drew on a plum canvas, #150310, with lanes #1F0820 and "
+       "bar text #1A0616, three hex no token held, next to eight more that copied a token by value. "
+       "A copied value does not follow the token when it moves, and an unheld one cannot be compiled "
+       "into any other surface. The ramp gained --primary-950, which sits within OKLab ΔE 1.0 to 2.8 "
+       "of the three, so the render did not move. This check holds every fill, stroke and stop of the "
+       "two sections to a var(--token).")
+def c68():
+    fails = []
+    html = read(INDEX)
+    toks = set(re.findall(r"--([a-z0-9-]+)\s*:", read(TOKENS)))
+    for sid in ("charts", "timeline"):
+        try:
+            sec = _html_section(html, sid)
+        except Exception:
+            fails.append(f"index.html: no #{sid} section")
+            continue
+        for h in sorted(set(x.upper() for x in re.findall(r"#[0-9A-Fa-f]{6}\b|#[0-9A-Fa-f]{3}\b", sec))):
+            if h in DATAVIZ_PENDING_HEX and debt_is_live("5.0.0"):
+                continue
+            fails.append(f"#{sid}: hex {h}, paint it from a token")
+        for t in re.findall(r"var\(--([a-z0-9-]+)", sec):
+            if t not in toks:
+                fails.append(f"#{sid}: var(--{t}) is not declared in tokens.css")
+    if "`--primary-950`" not in read(DESIGN):
+        fails.append("DESIGN.md: --primary-950 is not in the palette table")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

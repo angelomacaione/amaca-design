@@ -320,6 +320,19 @@
     },
     "$type": "color"
   },
+  "primary-950": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.1137,
+        0.0196,
+        0.098
+      ],
+      "alpha": 1,
+      "hex": "#1D0519"
+    },
+    "$type": "color"
+  },
   "secondary-100": {
     "$value": {
       "colorSpace": "srgb",

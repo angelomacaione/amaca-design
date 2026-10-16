@@ -8,7 +8,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Neutrals (Obsidian):** `--obsidian-950 #07090B` page · `-900 #0B0E12` surface · `-850 #10141A` elevated · `-800 #161B22` card · `-700 #1E242D` border-strong · `-600 #2A313B` border · `-500 #3A4451` muted · `-400 #5B6573` disabled text · `-300 #8A94A3` secondary text · `-200 #B8C0CB` tertiary text · `-100 #E3E7EC` primary text on dark · `-050 #F4F6F8` bone.
 
-**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A`.
+**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A` · `-950 #1D0519` data canvas.
 
 **Supporting (rare):** `--secondary-400 #00FFF2` cyan (data-viz only) · `--tertiary-500 #0C6078` petrol · `--success #3AFFC7` · `--warning #F6C65B` · `--danger #FF5B5B` · `--info #5CC8FF`. Semantic colors are feedback-only.
 
