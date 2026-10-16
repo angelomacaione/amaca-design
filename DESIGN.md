@@ -2137,7 +2137,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
 
 <!-- a solid icon: the same box, one more class -->
-<svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.5 2.75v10.5l8.5-5.25z"/></svg>
+<svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 8 1.5zM8 3.9L12.1 8 8 12.1 3.9 8z"/></svg>
 
 <!-- alone, with a meaning: the name sits on the svg -->
 <svg class="icon icon-md" viewBox="0 0 16 16" role="img" aria-label="Warning"><path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/></svg>
@@ -2150,7 +2150,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | Solid | `.icon-fill` | The same box, filled with `currentColor`. Only the drawings the album marks `solid` |
 | Muted | `.icon-muted` | `--obsidian-300`, for decorative icons inside a field; never lower |
 
-**The album.** 50 icons, one name each; the five shapes come in both styles, so there are 55 drawings. The drawing is copied into the markup as is.
+**The album.** 51 icons, one name each; the five shapes come in both styles, so there are 56 drawings. The drawing is copied into the markup as is.
 
 **Actions**
 
@@ -2162,10 +2162,10 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | `edit` | line | `<path d="M10.5 2.75l2.75 2.75-7.5 7.5L2.5 13.5l.5-3.25z"/><path d="M9 4.25l2.75 2.75"/>` | Edit |
 | `download` | line | `<path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/>` | Download |
 | `trash` | line | `<path d="M2.5 4.5h11M6 4.5V3a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v1.5"/><path d="M3.75 4.5l.6 8.4a1 1 0 0 0 1 .95h5.3a1 1 0 0 0 1-.95l.6-8.4"/><path d="M6.75 7v4M9.25 7v4"/>` | Delete |
-| `play` | solid | `<path d="M4.5 2.75v10.5l8.5-5.25z"/>` | Play |
-| `pause` | solid | `<path d="M4.5 3h2.25v10H4.5zM9.25 3h2.25v10H9.25z"/>` | Pause |
+| `play` | line | `<path d="M3.11 3.72a1.22 1.22 0 0 1 1.84-1.06l7.33 4.28a1.22 1.22 0 0 1 0 2.11l-7.33 4.28A1.22 1.22 0 0 1 3.11 12.28z"/>` | Play |
+| `pause` | line | `<path d="M3.29 3.29a.79 .79 0 0 1 .79-.79l1.57 0a.79 .79 0 0 1 .79 .79l0 9.43a.79 .79 0 0 1-.79 .79l-1.57 0a.79 .79 0 0 1-.79-.79z"/><path d="M9.57 3.29a.79 .79 0 0 1 .79-.79l1.57 0a.79 .79 0 0 1 .79 .79l0 9.43a.79 .79 0 0 1-.79 .79l-1.57 0a.79 .79 0 0 1-.79-.79z"/>` | Pause |
 | `rotate-ccw` | line | `<path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/>` | Replay, try again |
-| `paperclip` | line | `<g transform="rotate(45 8 8)"><path d="M11.25 4.5v6.75a3.25 3.25 0 0 1-6.5 0V4a2.25 2.25 0 0 1 4.5 0v7a1 1 0 0 1-2 0V5.5"/></g>` | Attach |
+| `paperclip` | line | `<path d="m10.24 4.32l-5.16 5.27a1.23 1.23 0 0 0 1.74 1.74l5.16-5.27a2.46 2.46 0 0 0-3.48-3.48l-5.14 5.24a3.68 3.68 0 1 0 5.2 5.2l5.14-5.24"/>` | Attach |
 | `maximize` | line | `<path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/>` | Open larger |
 
 **Arrows and chevrons**
@@ -2194,8 +2194,9 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | `panel-left` | line | `<rect x="2" y="2.5" width="12" height="11" rx="1.75"/><path d="M6 2.5v11"/>` | Sidebar |
 | `panel-right` | line | `<rect x="2" y="2.5" width="12" height="11" rx="1.75"/><path d="M10 2.5v11"/>` | Side panel |
 | `search` | line | `<circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/>` | Search |
-| `settings` | line | `<path d="M5.39 4.21L5.97 1.83L10.03 1.83L10.61 4.21L9.98 3.85L12.33 3.15L14.36 6.68L12.59 8.37L12.59 7.63L14.36 9.32L12.33 12.85L9.98 12.15L10.61 11.79L10.03 14.17L5.97 14.17L5.39 11.79L6.02 12.15L3.67 12.85L1.64 9.32L3.41 7.63L3.41 8.37L1.64 6.68L3.67 3.15L6.02 3.85z"/><circle cx="8" cy="8" r="2"/>` | Settings |
-| `component` | solid | `<path d="M8 1.75l2.1 2.1L8 5.95 5.9 3.85z"/><path d="M3.85 5.9L5.95 8l-2.1 2.1L1.75 8z"/><path d="M12.15 5.9L14.25 8l-2.1 2.1L10.05 8z"/><path d="M8 10.05l2.1 2.1L8 14.25l-2.1-2.1z"/>` | A component |
+| `settings` | line | `<path d="M6.5 3.76L6.77 1.92L9.23 1.92L9.5 3.76L10.92 4.58L12.65 3.9L13.88 6.03L12.42 7.18L12.42 8.82L13.88 9.97L12.65 12.1L10.92 11.42L9.5 12.24L9.23 14.08L6.77 14.08L6.5 12.24L5.08 11.42L3.35 12.1L2.12 9.97L3.58 8.82L3.58 7.18L2.12 6.03L3.35 3.9L5.08 4.58z"/><circle cx="8" cy="8" r="2"/>` | Settings |
+| `sliders` | line | `<path d="M9.56 11.91H2.53M13.47 4.09H6.44"/><circle cx="11.91" cy="11.91" r="2.34"/><circle cx="4.09" cy="4.09" r="2.34"/>` | Configure, adjust, filter |
+| `component` | line | `<path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/>` | A component |
 | `code` | line | `<path d="M5.5 4.5L2 8l3.5 3.5M10.5 4.5L14 8l-3.5 3.5M9 3l-2 10"/>` | Code view |
 
 **Status and content**
@@ -2205,8 +2206,8 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | `info` | line | `<circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/>` | Neutral information |
 | `triangle-alert` | line | `<path d="M8 2l6.25 11.25H1.75z"/><path d="M8 6.5v3M8 11.25v.25"/>` | Needs attention: warning, error |
 | `clock` | line | `<circle cx="8" cy="8" r="6.25"/><path d="M8 4.75V8l2.25 1.5"/>` | Time |
-| `calendar` | line | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.5v3M11 1.5v3"/>` | Date |
-| `eye` | line | `<path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/>` | Show |
+| `calendar` | line | `<rect x="2" y="3" width="12" height="11" rx="1.75"/><path d="M2 6.5h12M5 1.75v2.75M11 1.75v2.75"/>` | Date |
+| `eye` | line | `<path d="M1.75 8S4.25 3.5 8 3.5 14.25 8 14.25 8 11.75 12.5 8 12.5 1.75 8 1.75 8z"/><circle cx="8" cy="8" r="2"/>` | Show |
 | `eye-off` | line | `<path d="M6 3.9A6.4 6.4 0 0 1 8 3.5C12 3.5 14.5 8 14.5 8a11.4 11.4 0 0 1-1.7 2.3M4.1 5.1A11.2 11.2 0 0 0 1.5 8S4 12.5 8 12.5a6.2 6.2 0 0 0 2.3-.45"/><path d="M2.5 2.5l11 11"/><path d="M6.6 6.6a2 2 0 0 0 2.8 2.8"/>` | Hide |
 | `image` | line | `<rect x="2" y="2.75" width="12" height="10.5" rx="1.75"/><circle cx="5.75" cy="6.25" r="1"/><path d="M2.5 12l3.5-3.5 2.5 2.5 2-2 3 3"/>` | Image, placeholder |
 
@@ -2238,12 +2239,13 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 | Name | Style | Drawing | Use |
 |---|---|---|---|
-| `coin` | solid | `<path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM8 3.6L12.4 8 8 12.4 3.6 8z"/>` | A credit |
+| `coin` | solid | `<path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 1 0 0 13A6.5 6.5 0 0 0 8 1.5zM8 3.9L12.1 8 8 12.1 3.9 8z"/>` | A credit |
 | `crown` | line | `<path d="M2.5 4.5l3 3L8 3l2.5 4.5 3-3-1 7h-9z"/><path d="M3.5 13.5h9"/>` | Admin |
-| `wrench` | line | `<path d="M10 2.5a3.5 3.5 0 0 0-3.3 4.7L2.6 11.3a1.5 1.5 0 0 0 2.1 2.1l4.1-4.1A3.5 3.5 0 0 0 13.5 6l-2 2-2-.5-.5-2z"/>` | Tester, tools |
+| `wrench` | line | `<path d="M4.56 6.61l2.06 0l0-2.06l-2.4-2.4a4.12 4.12 0 0 1 5.49 5.49l4.12 4.12a1.46 1.46 0 0 1-2.06 2.06l-4.12-4.12a4.12 4.12 0 0 1-5.49-5.49l2.4 2.4"/>` | Tester, tools |
 
 **Rules.**
-- **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area. Most are outline: stroke 1.5 grid units, round caps and joins, no fill. A few read better solid and are marked `solid` in the album: play, pause, component, user, coin, and the shapes, which exist in both styles. A solid icon has no outline around its fill and no hole drawn in the surface colour (a hole is part of the path). A drawing from another set, on another grid, or in a style the album does not list, is not an icon of the system.
+- **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area. Most are outline: stroke 1.5 grid units, round caps and joins, no fill. A few read better solid and are marked `solid` in the album: user, coin, and the shapes, which exist in both styles. A solid icon has no outline around its fill and no hole drawn in the surface colour (a hole is part of the path). A drawing from another set, on another grid, or in a style the album does not list, is not an icon of the system. Three drawings adapt an open set to this grid and this stroke, and keep its notice in THIRD-PARTY-NOTICES.md: `paperclip`, `play` and `sliders` (Lucide, ISC), `wrench`, `pause` and `component` (Tabler, MIT).
+- **Inside the live area (RIGID).** The painted drawing, stroke included (0.75 outline, 0.5 solid), stays within 1 and 15 on both axes. The verifier measures every drawing of the album.
 - **One name per concept (RIGID).** `chevron-right` is one drawing, not three. Adding an icon means adding a row to the album, here and on the site; the verifier checks that every `svg.icon` of the site is an album drawing, and that every `.icon-fill` is a solid one.
 - **Colour is inherited.** The icon has no colour of its own: the container gives it, and the state (error, success) comes from the container. `.icon-muted` is the only role, and its colour is `--obsidian-300` so it holds 3:1 on every surface.
 - **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed. An icon-only button keeps the 16 glyph.

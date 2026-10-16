@@ -2954,6 +2954,103 @@ def c72():
     return fails
 
 
+def _drawing_extent(drw):
+    # Geometric bounding box of an album drawing: path (M L H V C S Q T A Z, absolute and relative), circle, rect.
+    import math
+    xs, ys = [], []
+    def add(x, y): xs.append(x); ys.append(y)
+    def cubic(p0, p1, p2, p3):
+        add(*p0); add(*p3)
+        for k in (0, 1):
+            a = -p0[k] + 3 * p1[k] - 3 * p2[k] + p3[k]; b = 2 * (p0[k] - 2 * p1[k] + p2[k]); c = p1[k] - p0[k]
+            roots = []
+            if abs(a) < 1e-12:
+                if abs(b) > 1e-12: roots = [-c / b]
+            else:
+                disc = b * b - 4 * a * c
+                if disc >= 0: roots = [(-b + s * math.sqrt(disc)) / (2 * a) for s in (1, -1)]
+            for t in roots:
+                if 0 < t < 1:
+                    u = 1 - t
+                    add(*[u**3 * p0[i] + 3 * u * u * t * p1[i] + 3 * u * t * t * p2[i] + t**3 * p3[i] for i in (0, 1)])
+    def arc(p0, rx, ry, phi, large, sweep, p1):
+        if rx == 0 or ry == 0: add(*p0); add(*p1); return
+        phi = math.radians(phi); cp, sp = math.cos(phi), math.sin(phi)
+        dx, dy = (p0[0] - p1[0]) / 2, (p0[1] - p1[1]) / 2
+        x1 = cp * dx + sp * dy; y1 = -sp * dx + cp * dy
+        rx, ry = abs(rx), abs(ry); lam = x1 * x1 / (rx * rx) + y1 * y1 / (ry * ry)
+        if lam > 1: rx *= math.sqrt(lam); ry *= math.sqrt(lam)
+        num = rx * rx * ry * ry - rx * rx * y1 * y1 - ry * ry * x1 * x1
+        co = math.sqrt(max(0, num / (rx * rx * y1 * y1 + ry * ry * x1 * x1))) * (-1 if large == sweep else 1)
+        cx1, cy1 = co * rx * y1 / ry, -co * ry * x1 / rx
+        cx = cp * cx1 - sp * cy1 + (p0[0] + p1[0]) / 2; cy = sp * cx1 + cp * cy1 + (p0[1] + p1[1]) / 2
+        ang = lambda ux, uy, vx, vy: math.atan2(ux * vy - uy * vx, ux * vx + uy * vy)
+        t1 = ang(1, 0, (x1 - cx1) / rx, (y1 - cy1) / ry)
+        dt = ang((x1 - cx1) / rx, (y1 - cy1) / ry, (-x1 - cx1) / rx, (-y1 - cy1) / ry)
+        if not sweep and dt > 0: dt -= 2 * math.pi
+        if sweep and dt < 0: dt += 2 * math.pi
+        for i in range(181):
+            t = t1 + dt * i / 180
+            add(cx + rx * math.cos(t) * cp - ry * math.sin(t) * sp, cy + rx * math.cos(t) * sp + ry * math.sin(t) * cp)
+    for m in re.finditer(r'<circle cx="([-\d.]+)" cy="([-\d.]+)" r="([-\d.]+)"', drw):
+        cx, cy, r = map(float, m.groups()); add(cx - r, cy - r); add(cx + r, cy + r)
+    for m in re.finditer(r'<rect x="([-\d.]+)" y="([-\d.]+)" width="([-\d.]+)" height="([-\d.]+)"', drw):
+        x, y, w, hh = map(float, m.groups()); add(x, y); add(x + w, y + hh)
+    for m in re.finditer(r'\bd="([^"]+)"', drw):
+        toks = re.findall(r"[MmLlHhVvCcSsQqTtAaZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?", m.group(1))
+        i, cur, start, cmd, last_c, last_q = 0, (0.0, 0.0), (0.0, 0.0), None, None, None
+        def num():
+            nonlocal i
+            v = float(toks[i]); i += 1; return v
+        while i < len(toks):
+            if re.fullmatch(r"[A-Za-z]", toks[i]):
+                cmd = toks[i]; i += 1
+                if cmd in "Zz": cur = start; last_c = last_q = None; continue
+            rel = cmd.islower(); C = cmd.upper(); ox, oy = cur if rel else (0, 0)
+            if C == "M":
+                cur = (ox + num(), oy + num()); start = cur; add(*cur); cmd = "l" if rel else "L"; last_c = last_q = None
+            elif C == "L":
+                cur = (ox + num(), oy + num()); add(*cur); last_c = last_q = None
+            elif C == "H":
+                cur = ((cur[0] if rel else 0) + num(), cur[1]); add(*cur); last_c = last_q = None
+            elif C == "V":
+                cur = (cur[0], (cur[1] if rel else 0) + num()); add(*cur); last_c = last_q = None
+            elif C in "CS":
+                if C == "C": p1 = (ox + num(), oy + num())
+                else: p1 = (2 * cur[0] - last_c[0], 2 * cur[1] - last_c[1]) if last_c else cur
+                p2 = (ox + num(), oy + num()); p3 = (ox + num(), oy + num())
+                cubic(cur, p1, p2, p3); last_c, last_q, cur = p2, None, p3
+            elif C in "QT":
+                q = (ox + num(), oy + num()) if C == "Q" else ((2 * cur[0] - last_q[0], 2 * cur[1] - last_q[1]) if last_q else cur)
+                p3 = (ox + num(), oy + num())
+                cubic(cur, (cur[0] + 2 / 3 * (q[0] - cur[0]), cur[1] + 2 / 3 * (q[1] - cur[1])),
+                      (p3[0] + 2 / 3 * (q[0] - p3[0]), p3[1] + 2 / 3 * (q[1] - p3[1])), p3)
+                last_q, last_c, cur = q, None, p3
+            elif C == "A":
+                rx, ry, phi, la, sw = num(), num(), num(), num(), num(); p1 = (ox + num(), oy + num())
+                arc(cur, rx, ry, phi, int(la), int(sw), p1); cur = p1; last_c = last_q = None
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+@check("73", "Every drawing of the Icon album stays inside the 14 live area, stroke included",
+       "v5.0.0: the icon tiles drew the album 4x on its grid, and seven of 55 drawings came out of the 14 "
+       "live area the contract promises: coin by half a unit, paperclip, calendar, eye and eye-off by a "
+       "quarter, settings and messages by a tenth. At 16px that is the difference between an icon that sits "
+       "in its row and one that looks a size up. This check measures every drawing of the album, its "
+       "geometry plus half the stroke (0.75 outline, 0.5 solid), against 1 and 15 on both axes.")
+def c73():
+    d = read(DESIGN)
+    m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", d, re.S)
+    fails = []
+    for name, st, drw in re.findall(r"\| `([a-z-]+)` \| (line|solid) \| `(.+?)` \|", m.group(1) if m else ""):
+        x0, y0, x1, y1 = _drawing_extent(drw)
+        h = 0.5 if st == "solid" else 0.75
+        over = max(1 - (x0 - h), 1 - (y0 - h), (x1 + h) - 15, (y1 + h) - 15)
+        if over > 0.01:
+            fails.append(f"album {name}: painted {x0 - h:.2f},{y0 - h:.2f} to {x1 + h:.2f},{y1 + h:.2f}, {over:.2f} out of the 14 live area")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
