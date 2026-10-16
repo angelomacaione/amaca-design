@@ -2728,7 +2728,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 ```html
 <nav class="stepper" aria-label="Checkout">
-  <ol class="stepper-list" style="--cur:1">
+  <ol class="stepper-list">
     <li class="stepper-step is-done" style="--i:0">
       <span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span>
       <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span>
@@ -2748,7 +2748,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | Part | Class | Note |
 |---|---|---|
 | Stepper | `.stepper` | A `nav` with a name; a size container. `.stepper-vertical` forces the column |
-| List | `.stepper-list` | An `ol`: the order is the meaning. `--cur` is the index of the current step, for the reveal |
+| List | `.stepper-list` | An `ol`: the order is the meaning |
 | Step | `.stepper-step` | Upcoming by default; `.is-done`; the current one carries `aria-current="step"`. `--i` is its index, for the reveal |
 | Dot | `.stepper-dot` | 24px (`--s-6`), the current one 32px (`--s-8`), a circle. Done: the `check` icon; otherwise the number |
 | Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta mono `--t-micro` uppercase |
@@ -2760,7 +2760,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
 - **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
-- **Motion.** On view, the done dots scale in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and their text rises 8px, from 520ms plus 80ms per step; the done connector draws on `--d-scene` from 700ms. Then one beat per step (`--d-quick` + `--d-base`): the current dot scales in, its dashed connector draws on `--d-base` to the next dot, which scales in as the line arrives, and so on to the last. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
 
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
@@ -3059,10 +3059,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
-| Stepper | reveal | current and upcoming: dot scale, then dashed connector draw to the next dot (spatial) | `--d-base` · `--ease-decel` for the line; one beat (`--d-quick` + `--d-base`) per step from 700ms + `--d-scene` | instant |
 | Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 520ms + 80ms per step | instant |
 | Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 520ms + 80ms per step | instant |
-| Stepper | reveal | done connector draw (spatial) · appear (effect) | `--d-scene` · `--ease-decel` · 700ms; appears on `--d-quick` | instant |
+| Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 580ms + 80ms per step; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
 | Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3206,7 +3205,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.41):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), the done connector draws on `--d-scene` from 700ms, then, from the current step on, one beat per step (`--d-quick` + `--d-base`): a dot scales in and its dashed connector draws to the next one. CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Stepper choreography (§ 3.41):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming
