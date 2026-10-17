@@ -3442,7 +3442,7 @@ def c89():
     for m in re.finditer(r"([^{}]+)\{([^}]*)\}", css):
         sel, body = m.group(1).strip().split("\n")[-1], m.group(2)
         bf = re.search(r"backdrop-filter:\s*([^;]+)", body)
-        bg = re.search(r"background:\s*var\((--scrim|--surface-glass|--surface-bar)\)", body)
+        bg = re.search(r"background:\s*(?:linear-gradient\()?var\((--scrim|--surface-glass|--surface-bar)\)(?:,\s*transparent\))?", body)
         if bf and not re.fullmatch(r"blur\(var\(--blur-(?:veil|glass|bar)\)\)", bf.group(1).strip()):
             fails.append(f"{sel}: backdrop-filter '{bf.group(1).strip()}' is not a material's blur")
         if bg and "::before" not in sel or bg and bf:

@@ -2840,10 +2840,17 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   display:flex; align-items:stretch; gap:var(--s-8);
   min-block-size:var(--s-12);
   padding-inline:0;
-  background:var(--surface-sunken);
-  border-bottom:var(--bw-1) solid var(--border-subtle);
+  background:transparent;
   border-radius:0;
   color:var(--obsidian-100);
+}
+/* The Bar material with a fading edge (v5.0.0): fill and blur reach --s-6 below the bar and fade out, so the
+   bar ends in a mist, not a line. */
+.navbar::before{
+  content:""; position:absolute; inset:0 0 calc(-1 * var(--s-6)); z-index:-1; pointer-events:none;
+  background:linear-gradient(var(--surface-bar), transparent);
+  backdrop-filter:blur(var(--blur-bar)); -webkit-backdrop-filter:blur(var(--blur-bar));
+  -webkit-mask-image:linear-gradient(black 55%, transparent); mask-image:linear-gradient(black 55%, transparent);
 }
 .navbar-brand{padding-inline-start:var(--s-6); display:flex; align-items:center; gap:var(--s-3); flex:none; color:var(--obsidian-100); font-size:var(--t-body); font-weight:700; letter-spacing:var(--tr-snug); text-decoration:none}
 .navbar-brand .brand-mark{width:var(--s-8); height:var(--s-8)}
@@ -2856,12 +2863,12 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   padding-inline:var(--s-4);
   color:var(--obsidian-200); font-size:var(--t-small); font-weight:500; text-decoration:none; white-space:nowrap;
   cursor:pointer;
-  transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
+  transition:color var(--d-quick) var(--ease-standard);
 }
 /* the label's bold width is reserved, so selecting an item never moves its neighbours */
 .navbar-item::after{content:attr(data-label); height:0; overflow:hidden; visibility:hidden; font-weight:600; pointer-events:none}
-.navbar-item:hover{background:var(--obsidian-800); color:var(--obsidian-100)}
-.navbar-item:active{background:var(--obsidian-700)}
+.navbar-item:hover{color:var(--obsidian-050)}
+.navbar-item:active{color:var(--obsidian-300)}
 .navbar-item[aria-current="page"]{color:var(--primary-400); font-weight:600}
 .navbar-item[aria-current="page"]:hover{color:var(--primary-400)}
 .navbar-item:focus-visible{outline:var(--focus-width) solid var(--obsidian-100); outline-offset:calc(-1 * var(--focus-width)); box-shadow:var(--ring-halo)}  /* inside the item, as the List's row: the bar clips nothing */
@@ -2879,7 +2886,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 /* site chrome, § 30.1: the bar alone in the tab card, and a page below it that follows the tab — its width,
    its sticky bar, its Drawer menu. Only the page's toggle opens the menu; the card's bar is a specimen. */
 .navbar-demo-strip{background:var(--surface);border:var(--bw-1) solid var(--border-subtle)}
-.navbar-demo-strip .navbar{position:static;border-bottom:0}
+.navbar-demo-strip .navbar{position:relative}
 .navbar-demo-stage{margin-top:var(--s-6)}
 .navbar-demo-stage .grid-demo-meta{margin-bottom:var(--s-3)}
 .navbar-demo{position:relative;overflow:hidden;overflow:clip;height:calc(9 * var(--s-10));background:var(--surface);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}

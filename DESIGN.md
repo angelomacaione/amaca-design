@@ -342,9 +342,9 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 |---|---|---|---|
 | Veil | `--scrim` (60%) | `--blur-veil` (4px) | the page behind an overlay: Modal, Drawer, the mobile sidebar, the full-page Loader |
 | Glass | `--surface-glass` (70%) | `--blur-glass` (8px) | a control over the content: the floating button, the figure hint, the lightbox close, the chat media tag |
-| Bar | `--surface-bar` (80%) | `--blur-bar` (16px) | a bar or a viewer over the content: the top bar, the sidebar, the lightbox |
+| Bar | `--surface-bar` (80%) | `--blur-bar` (16px) | a bar or a viewer over the content: the top bar, the sidebar, the lightbox; the navigation bar wears it with a fading edge |
 
-A translucent fill without its blur, a blur without its fill, or a fill and a blur from two materials is off-system.
+A translucent fill without its blur, a blur without its fill, or a fill and a blur from two materials is off-system. **Fading edge:** a bar that ends in a mist instead of a line carries its material on a layer that reaches `--s-6` past its edge, the fill running from the token to transparent and the layer masked from 55% down; the blur stays the material's own.
 
 Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
 
@@ -574,10 +574,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` |
 | `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar |
 | `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
-| `.navbar` | default | `--surface-sunken` | `1px` `--border-subtle` | `--obsidian-100` | — | the line on the bottom edge only · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
+| `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
 | `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
-| `.navbar-item` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
-| `.navbar-item` | active | `--obsidian-700` | — | — | — | pressed: one step beyond the hover |
+| `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index |
+| `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
 | `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill |
 | `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item |
 | `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply |
@@ -2148,22 +2148,22 @@ The bar at the top of a page: the brand, the destinations, one action. Flat and 
 
 | Part | Class | Spec |
 |---|---|---|
-| Bar | `.navbar` | `--surface-sunken`, a `1px` `--border-subtle` line below, no radius; min-height `--s-12`; sticky at the top on `--z-sticky` |
+| Bar | `.navbar` | The Bar material with a fading edge (§ Elevation › Materials): no line, no radius; min-height `--s-12`; sticky at the top on `--z-sticky` |
 | Brand | `.navbar-brand` | The Brand mark at `--s-8` and the name at `--t-body` 700; inset `--s-6` from the start edge |
 | Destinations | `.navbar-nav` `.navbar-list` `.navbar-item` | A `nav` with an `aria-label`; items as tall as the bar, padding-inline `--s-4`, `--t-small` 500 |
 | End | `.navbar-end` | One action (a small primary button) and the toggle; inset `--s-6` from the end edge |
 | Toggle | `.navbar-toggle` | A ghost icon button with the icon *menu*; shown only at narrow widths |
 
 **Rules.**
-- **Flat and flush.** No radius, no floating variant, no shadow on scroll. The bar is separated from the page by its line only.
+- **Flush, and translucent.** No radius, no shadow on scroll. The bar wears the Bar material with a fading edge: the page scrolls under it blurred, and the bar ends in a mist rather than a line.
 - **The item is the target.** Each item takes the full height of the bar, so the target is 48px wide-open (§ 6 floor #7).
-- **States.** Hover fills `--obsidian-800`; pressed goes one step further, `--obsidian-700`. The darkening rule of the pressed fill is for coloured fills; a neutral fill on the dark surface steps away from the bar, as the hover does. The current page is `--primary-400` at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against `--obsidian-200` is 1.44:1 (WCAG 1.4.1). `data-label` repeats the label so its bold width is reserved and selecting an item never moves its neighbours.
+- **States.** On a translucent bar a fill would read as a block over the blur, so the item never fills: hover lightens the label to `--obsidian-050`, pressed dims it to `--obsidian-300` while it is held. The current page is `--primary-400` at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against `--obsidian-200` is 1.44:1 (WCAG 1.4.1). `data-label` repeats the label so its bold width is reserved and selecting an item never moves its neighbours.
 - **Focus inside.** The ring is drawn inside the item, as on the List's row, so the bar clips nothing.
 - **It reads its own width.** The bar is a size container: at 720px of its own width or less (`--bp-md`) the destinations and the action leave and the toggle appears. The same markup works in a page, a frame or a panel.
 - **The menu opens on the toggle's side.** The toggle opens the Drawer menu (`.drawer.drawer-nav`, § 3.24) with `showModal()`; a toggle at the end opens it at the end, one at the start uses `.drawer-start`. The action moves into the drawer's foot.
 - **The glyph sits on the inset.** The toggle is pulled out by the space around its 16px glyph, so the icon lines up with the brand's edge on the other side.
 - **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.6).
-- **Motion.** Background and colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 06.4).
+- **Motion.** Colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 06.4).
 
 **Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round it, float it, underline the current item or open its menu on the side opposite the toggle.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.28.
@@ -3584,7 +3584,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 580ms + 80ms per step; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
 | Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
-| Navigation · top bar | item hover / press | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Navigation · top bar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
