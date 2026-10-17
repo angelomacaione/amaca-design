@@ -3404,6 +3404,32 @@ def c87():
     return fails
 
 
+@check("88", "Every button variant has a pressed state, and only the primary moves",
+       "v5.0.0: no button had a pressed state. The palette named --primary-600 'Pressed state' and L8 named "
+       "the spring for 'pressing a primary', and neither reached the CSS. Pressed is now declared for every "
+       "variant: coloured fills darken toward --obsidian-950, neutral fills go a step past their hover, and "
+       "the primary gives to scale(.97) on the spring. This check holds the CSS and the state index together.")
+def c88():
+    fails = []
+    css = read(ROOT / "styles" / "components.css")
+    d = read(DESIGN)
+    for var in ("primary", "secondary", "ghost", "outline", "danger", "floating"):
+        if not re.search(rf"\.btn-{var}:active:not\(:disabled\)\{{", css):
+            fails.append(f"components.css: .btn-{var} has no pressed rule")
+        if f"| `.btn-{var}` | active |" not in d:
+            fails.append(f"DESIGN.md state index: no .btn-{var} active row")
+    m = re.search(r"\.btn-primary:active:not\(:disabled\)\{([^}]*)\}", css)
+    if not m or "var(--primary-600)" not in m.group(1) or "scale(" not in m.group(1):
+        fails.append(".btn-primary pressed: --primary-600 and a scale")
+    for var in ("secondary", "ghost", "outline", "danger", "floating"):
+        mm = re.search(rf"\.btn-{var}:active:not\(:disabled\)\{{([^}}]*)\}}", css)
+        if mm and "transform" in mm.group(1):
+            fails.append(f".btn-{var} pressed moves; only the primary moves (L8)")
+    if not re.search(r"\.btn-primary\{[^}]*transform var\(--d-quick\) var\(--ease-spring\)", css):
+        fails.append(".btn-primary: the press does not ride --ease-spring")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

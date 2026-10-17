@@ -491,16 +491,22 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.19 · `pointer-events: none` · `disabled` + `aria-label` |
 | `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
 | `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
+| `.btn-primary` | active | `--primary-600` | `--primary-600` | — | `--sh-1` | `transform: scale(.97)` on `--d-quick` · `--ease-spring` (L8) · no scale under reduced motion · label 4.09 : 1 |
 | `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
 | `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | |
+| `.btn-secondary` | active | `--obsidian-600` | `--obsidian-500` | — | — | one step past hover |
 | `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards |
 | `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
+| `.btn-ghost` | active | `--obsidian-700` | — | — | — | one step past hover |
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
 | `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | |
+| `.btn-outline` | active | — | `--primary-600` | `--primary-500` | — | the link's pressed magenta |
 | `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `backdrop-filter: blur(8px)` · takes no height |
 | `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent |
+| `.btn-floating` | active | — | `--obsidian-500` | — | — | the fill stays translucent |
 | `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
+| `.btn-danger` | active | `--danger` · `--obsidian-950` | — | — | — | `color-mix(in srgb, --danger 85%, --obsidian-950)` · label 4.95 : 1 · the hover filter is dropped |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus |
@@ -939,8 +945,9 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
 - **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill `--surface-glass` under `backdrop-filter: blur(8px)`, border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
 - Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
-- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.19's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
-- Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
+- **States: § 3.0.1.** `default` · `hover` · `active` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.19's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
+- **Pressed (`active`).** A coloured fill darkens toward `--obsidian-950`: the primary lands on `--primary-600` (the palette's pressed step, 4.09 : 1 for its label), the danger fill on 85% `--danger`. A neutral fill goes one step past its hover; the outline takes the link's pressed magenta; the floating button keeps its translucent fill and darkens its edge. Only the primary moves: it gives to `scale(.97)` on `--d-quick` · `--ease-spring` (L8), and under reduced motion it does not move. Never a lighter fill on press (§ 6.3).
+- Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten); pressed darkens to `--primary-600`. The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
 **Do / Don't.** Do keep one `.btn-primary` per screen and let the rest recede; give an icon-only button an `aria-label` that names the action. Don't bold the label, lighten the primary on hover, or remove the outline without a focus ring in its place.
@@ -3464,6 +3471,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
 | Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
+| Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
@@ -3608,7 +3617,7 @@ Two patterns ship:
 
 The floor admits one documented exception pair, on two selectors.
 
-**`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.6); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
+**`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.6); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten); pressed darkens to `--primary-600`. Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
 
 **`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.14), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
 
