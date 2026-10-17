@@ -305,8 +305,12 @@
   .swatch-tile-space .swatch-tile-meta{width:auto;flex:none}
 }
 .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
-.swatch-grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-@media (max-width: 720px){.swatch-grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* A row of examples that thins with its own width, never wraps: 4 tiles, 3 under 900px of row, 2 under 720, 1 under 480. */
+.swatch-grid-4{display:flex;gap:var(--s-3);container-type:inline-size}
+.swatch-grid-4 > .swatch-tile{flex:1 1 0;min-width:0}
+@container (max-width: 900px){.swatch-grid-4 > .swatch-tile:nth-child(n+4){display:none}}
+@container (max-width: 720px){.swatch-grid-4 > .swatch-tile:nth-child(n+3){display:none}}
+@container (max-width: 480px){.swatch-grid-4 > .swatch-tile:nth-child(n+2){display:none}}
 .swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
 .swatch-tile-plot{position:relative;flex:1 1 auto;max-width:calc(var(--s-24) * 2);aspect-ratio:1;margin:0 calc(var(--s-6) + var(--s-3)) 0 var(--s-2)}
 .swatch-tile-plot svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}

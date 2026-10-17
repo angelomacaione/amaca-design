@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=e27ffb22">
+<link rel="stylesheet" href="styles/components.css?v=98f09b22">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -6027,6 +6027,14 @@ if (mb) mb.addEventListener('click', () => {
   document.querySelectorAll('#motion .swatch-tile-motion').forEach(t =>
     t.getAnimations({subtree:true}).forEach(an => { an.cancel(); an.play(); }));
 });
+// Every motion tile, here and in § 53, plays its three cycles when it comes into view, and again
+// each time it comes back: a tile below the fold would otherwise have finished before anyone saw it.
+// Without the script the CSS still plays them once, on show.
+if ('IntersectionObserver' in window) {
+  const replay = t => t.getAnimations({subtree:true}).forEach(an => { an.cancel(); an.play(); });
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) replay(e.target); }), {threshold: 0.6});
+  document.querySelectorAll('.swatch-tile-motion').forEach(t => io.observe(t));
+}
 </script>
 
 <script>
