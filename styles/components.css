@@ -286,7 +286,7 @@
 .swatch-tile-surface{width:var(--s-24);height:calc(var(--s-24) * .5);border-radius:var(--r-md);background:var(--obsidian-850);box-shadow:var(--sw-sh, none)}
 /* Type tile: horizontal. The sample in its .ty-* class at full size on the page ground, cropped at the end of the
    line; a divider; then name, token, size / leading / tracking and role. Under --bp-md the specs drop below. */
-.swatch-type-list{display:flex;flex-direction:column;gap:var(--s-3)}
+.swatch-list{display:flex;flex-direction:column;gap:var(--s-3)}
 .swatch-tile-type{display:flex}
 .swatch-tile-type .swatch-tile-fill{flex:1;min-width:0;height:auto;max-height:calc(var(--s-24) * 1.25);display:flex;align-items:center;overflow:hidden;padding:var(--s-5) 0 var(--s-5) var(--s-5);background:var(--obsidian-950);box-shadow:none}
 .swatch-type-sample{margin:0;white-space:nowrap;color:var(--obsidian-100)}
@@ -294,6 +294,15 @@
 @media (max-width: 720px){
   .swatch-tile-type{flex-direction:column}
   .swatch-tile-type .swatch-tile-meta{width:auto;border-left:0;border-top:var(--bw-1) solid var(--border-input)}
+}
+/* Space tile: horizontal, a row of the scale. A bar --sw-s long (var() of a spacing token), 1:1, on a 4px grid; a divider; name, token, px. */
+.swatch-list-tight{gap:var(--s-2)}
+.swatch-tile-space{display:flex}
+.swatch-tile-space .swatch-tile-fill{flex:1;min-width:0;height:auto;display:flex;align-items:center;padding:var(--s-3) var(--s-5);overflow:hidden;box-shadow:none;background-color:var(--obsidian-950);background-image:linear-gradient(90deg,var(--obsidian-800) var(--bw-1),transparent var(--bw-1));background-size:var(--s-1) 100%;background-position:var(--s-5) 0}
+.swatch-space-bar{display:block;flex:none;width:var(--sw-s, 0);min-width:var(--bw-1);height:var(--s-4);background:var(--primary-500)}
+.swatch-tile-space .swatch-tile-meta{flex:none;width:calc(var(--s-24) * 2.25);flex-direction:row;align-items:baseline;gap:var(--s-4);border-left:var(--bw-1) solid var(--border-input)}
+@media (max-width: 720px){
+  .swatch-tile-space .swatch-tile-meta{width:auto;flex:none}
 }
 .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
 .swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
@@ -357,12 +366,6 @@
 .table .muted{color:var(--obsidian-300)}
 
 /* ─────────── SPACING RULER ─────────── */
-.ruler-row{display:grid;grid-template-columns:60px 80px 1fr;gap:var(--s-4);align-items:center;padding:var(--s-3) 0;border-bottom:var(--bw-1) dashed var(--obsidian-800)}
-.ruler-row:last-child{border-bottom:0}
-.ruler-row .tok{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--primary-400);letter-spacing:var(--tr-mono)}
-.ruler-row .val{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--obsidian-300);letter-spacing:var(--tr-mono)}
-.ruler-row .bar{height:16px;background:var(--grad-signal);border-radius:var(--r-xs);position:relative}
-.ruler-row .bar::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(0,0,0,0.15) 0,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 4px)}
 
 /* ─────────── BUTTONS (the component itself) ─────────── */
 .btn{

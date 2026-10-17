@@ -450,7 +450,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-tile-type` `.swatch-type-list` `.swatch-type-sample` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Empty state · File upload | — | off-system | Stop and ask |
@@ -2667,7 +2667,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 
 ### Swatch
 
-A token shown, not pressed. Seven forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the radius tile, the shadow tile, the icon tile of the album, and the motion tile of an easing.
+A token shown, not pressed. Eight forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the space tile, the radius tile, the shadow tile, the icon tile of the album, and the motion tile of an easing.
 
 **Usage**
 
@@ -2675,6 +2675,7 @@ A token shown, not pressed. Seven forms: the inline marker beside the word that 
 - A label names a colour: a legend key, a token in a table. *(Carbon)*
 - A palette shows its values, one tile per step. *(Spectrum)*
 - An easing token shows its curve and the duration it rides, one tile per token. *(Material)*
+- A foundation page shows its scale: type, space, radius, shadow, the icon album, one tile per token or drawing.
 
 *Use something else when*
 - The colour stands for a state, with a word → Badge or Chip.
@@ -2716,7 +2717,8 @@ A token shown, not pressed. Seven forms: the inline marker beside the word that 
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
 | Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
 | Radius tile | `.swatch-tile-radius` `.swatch-tile-shape` | the same tile; a `--obsidian-800` shape with a 1px `--obsidian-400` edge at the radius of `--sw-r` (`var()` of a radius token), 1:1 |
-| Type tile | `.swatch-tile-type` `.swatch-type-list` `.swatch-type-sample` | horizontal: the sample in its `.ty-*` class at full size on `--obsidian-950`, one line, cropped at the end; a 1px `--border-input` divider; then name, token, size / leading / tracking and role · weight. Under `--bp-md` the specs drop below the sample |
+| Type tile | `.swatch-tile-type` `.swatch-list` `.swatch-type-sample` | horizontal: the sample in its `.ty-*` class at full size on `--obsidian-950`, one line, cropped at the end; a 1px `--border-input` divider; then name, token, size / leading / tracking and role · weight. Under `--bp-md` the specs drop below the sample |
+| Space tile | `.swatch-tile-space` `.swatch-space-bar` | horizontal, in a `.swatch-list`: a `--primary-500` bar `--s-4` high and `--sw-s` long (`var()` of a spacing token), 1:1, on a 4px grid of `--obsidian-800` hairlines; a divider; name, token, px on one line |
 | Shadow tile | `.swatch-tile-shadow` `.swatch-tile-surface` | the same tile; a `--obsidian-850` surface, `--r-md`, on a `--obsidian-900` section ground, with the shadow or ring of `--sw-sh` (`var()` of a `--sh-*` or `--ring-*` token). On the page ground (`--obsidian-950`) levels 1 to 4 read alike: elevation here is tonal |
 | Icon tile | `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` | the same tile; the album drawing 4× (`--s-16`) in `--primary-300` on its 16 grid (`--obsidian-700`), the 14 live area dashed `--obsidian-400`; then the drawing at 16 and 24 |
 | Motion tile | `.swatch-tile-motion` | the same tile; the fill is `--obsidian-950` and holds the plot. `--e` and `--d` are `var()` of an easing and a duration |
@@ -2729,7 +2731,7 @@ A token shown, not pressed. Seven forms: the inline marker beside the word that 
 - **The curve is set on the element.** `animation-timing-function: var(--e)` on each mover; a `var()` inside `@keyframes` is not read and every curve falls back to `ease`.
 - **The radius tile is 1:1, the icon tile is 4×.** A radius is judged at its size; an icon is judged on its grid, so the zoom shows where the drawing sits in the 14 live area, and the 16 and 24 beside it show it at size. The zoom is the album drawing in an `.icon`, never a redrawing.
 - **A type tile prints what its class renders.** Size, leading, tracking and weight are read from the `.ty-*` class the sample wears, not typed beside it.
-- **The value is a token.** `--sw` is set to `var()` of a token, never a pasted hex; `--e` and `--d` to `var()` of an easing and a duration. `--sw-r` to `var()` of a radius token, `--sw-sh` to `var()` of a shadow or ring token. On a tile the printed hex, radius, curve and milliseconds are that token's value in `tokens.css`, and the drawn path is its curve.
+- **The value is a token.** `--sw` is set to `var()` of a token, never a pasted hex; `--e` and `--d` to `var()` of an easing and a duration. `--sw-r` to `var()` of a radius token, `--sw-s` to `var()` of a spacing token, `--sw-sh` to `var()` of a shadow or ring token. On a tile the printed hex, radius, curve and milliseconds are that token's value in `tokens.css`, and the drawn path is its curve.
 - **Always bordered.** An inset 1px of `--border-input`, so the size does not change and a dark colour still has an edge: 3.38, 3.27 and 3.13 : 1 on `--surface`, `--surface-sunken` and `--surface-field` (WCAG 1.4.11). On `--surface-raised` it is 2.93 : 1, so on a card the label is what carries the colour.
 - **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
 - **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).

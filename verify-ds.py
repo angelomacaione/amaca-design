@@ -2930,7 +2930,7 @@ def c72():
     fails = []
     vals = _token_values(read(TOKENS))
     html = read(INDEX)
-    rad = re.findall(r'<div class="swatch-tile swatch-tile-radius" style="--sw-r:var\(--(r-[a-z0-9]+)\)">.*?<span class="swatch-tile-hex">--(r-[a-z0-9]+) · ([^<]*)</span>', html)
+    rad = re.findall(r'<div class="swatch-tile swatch-tile-radius" style="--sw-r:var\(--(r-[a-z0-9]+)\)">.*?<span class="swatch-tile-hex">--(r-[a-z0-9]+) · ([^<]*)</span>', _html_section(html, "radius"))
     rtok = sorted(re.findall(r"--(r-[a-z0-9]+)\s*:", read(TOKENS)))
     if sorted(r[0] for r in rad) != rtok:
         fails.append(f"§ 04.1 radius tiles {[r[0] for r in rad]} ≠ tokens.css {rtok}")
@@ -3104,6 +3104,36 @@ def c75():
         got = (int(size), float(lh), tr, w)
         if got != want:
             fails.append(f"type tile {k} prints {got}, .ty-{k} renders {want}")
+    return fails
+
+
+@check("76", "Every spacing step has a space tile, and the Swatch page shows every form of the component",
+       "v5.0.0: the Spacing page drew thirteen of the fifteen steps (--s-0-5 had no row), its lede counted "
+       "thirteen, and 'Where to reach' gave the button --s-12 as a '12px' block padding the button does not "
+       "have. Foundations became Swatch tiles (§ 3.40) and the component page still showed three of its "
+       "eight forms. This check holds one space tile per --s-* step printing the token's px, the lede count "
+       "to the steps, and § 53 to a demo of every tile form the foundations use.")
+def c76():
+    fails = []
+    words = {13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen"}
+    S = re.findall(r"--s-([0-9-]+):\s*([0-9]+(?:px)?);", read(TOKENS))
+    html = read(INDEX)
+    sec = _html_section(html, "spacing")
+    tiles = re.findall(r'<div class="swatch-tile swatch-tile-space" style="--sw-s:var\(--s-([0-9-]+)\)">.*?<span class="swatch-tile-hex">--s-([0-9-]+)</span><span class="swatch-tile-hex">(\d+)px</span>', sec)
+    if [t[0] for t in tiles] != [k for k, _ in S]:
+        fails.append(f"§ 03.1 space tiles {[t[0] for t in tiles]} ≠ tokens.css {[k for k, _ in S]}")
+    want = dict(S)
+    for k, p, v in tiles:
+        tv = 0 if want.get(k) == "0" else int(want.get(k, "0px")[:-2])
+        if k != p or int(v) != tv:
+            fails.append(f"space tile --s-{k} prints --s-{p} · {v}px, tokens.css says {want.get(k)}")
+    m = re.search(r"(\w+) steps carry the whole system", sec)
+    if not m or words.get(len(S)) != m.group(1).lower():
+        fails.append(f"Spacing lede says '{m.group(1) if m else '?'} steps', tokens.css has {len(S)}")
+    sw = _html_section(html, "swatch")
+    for form in ("swatch-tile-type", "swatch-tile-space", "swatch-tile-radius", "swatch-tile-shadow", "swatch-tile-icon", "swatch-tile-motion"):
+        if f'class="swatch-tile {form}"' not in sw:
+            fails.append(f"§ 53 Swatch shows no .{form}")
     return fails
 
 
