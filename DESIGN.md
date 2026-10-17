@@ -496,199 +496,199 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 #### State index (site-canonical)
 
-The aggregate of every ratified state row. A generator reads this table and never guesses a state value.
+The aggregate of every ratified state row. A generator reads this table and never guesses a state value. **Exception** names the ratified exception a row draws under, and its measure (§ Accessibility › Ratified exceptions); `—` means the row keeps every floor. It belongs to the state on its row, not to the whole selector, and no exception is claimed in Other.
 
-| Component | State | Background | Border | Foreground | Ring | Other |
-|---|---|---|---|---|---|---|
-| `.btn` (base) | default | per variant | `1px solid transparent` | per variant | — | `--r-full` |
-| `.btn` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
-| `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.19 · `pointer-events: none` · `disabled` + `aria-label` |
-| `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
-| `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
-| `.btn-primary` | active | `--primary-600` | `--primary-600` | — | `--sh-1` | `transform: scale(.97)` on `--d-quick` · `--ease-spring` (L8) · no scale under reduced motion · label 4.09 : 1 |
-| `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
-| `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | |
-| `.btn-secondary` | active | `--obsidian-600` | `--obsidian-500` | — | — | one step past hover |
-| `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards |
-| `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
-| `.btn-ghost` | active | `--obsidian-700` | — | — | — | one step past hover |
-| `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
-| `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | |
-| `.btn-outline` | active | — | `--primary-600` | `--primary-500` | — | the link's pressed magenta |
-| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `--blur-glass` · takes no height |
-| `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent |
-| `.btn-floating` | active | — | `--obsidian-500` | — | — | the fill stays translucent |
-| `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
-| `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
-| `.btn-danger` | active | `--danger` · `--obsidian-950` | — | — | — | `color-mix(in srgb, --danger 85%, --obsidian-950)` · label 4.95 : 1 · the hover filter is dropped |
-| `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
-| `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
-| `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link |
-| `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
-| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at 15% under `--blur-light` · hovers as a `.card` |
-| `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-050` | `--sh-glow` | not interactive |
-| `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus |
-| `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget |
-| `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped |
-| `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | pending |
-| `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker |
-| `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact |
-| `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured · light label, ratified § 6.3 |
-| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` |
-| `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field |
-| `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
-| `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
-| `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable |
-| `.input-action` | default | transparent | none | `--obsidian-300` | — | 32px target in the 40px field · `--r-sm` |
-| `.input-action` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index |
-| `.input-action` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
-| `.list-item` (`a`, `button`) | default | transparent | none | `--obsidian-100` | — | min-height `--s-12` · a hairline `--obsidian-700` under each row |
-| `.list-item` (`a`, `button`) | hover | `--obsidian-850` | — | — | — | transition — see the motion index |
-| `.list-item` (`a`, `button`) | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row |
-| `.list-item` (`a`, `button`) | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
-| `.pagination-link` | default | transparent | none | `--obsidian-300` | — | 32px target · `--r-md` · tabular numerals |
-| `.pagination-link` | hover | `--obsidian-700` | — | `--obsidian-100` | — | transition — see the motion index |
-| `.pagination-link` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` |
-| `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
-| `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` |
-| `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` |
-| `.slider-input` | hover | — | — | — | `--ring-field` | on the thumb |
-| `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb |
-| `.slider-input` | active | — | — | — | — | `cursor: grabbing` |
-| `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.divider` | default | — | `1px solid --obsidian-700` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own |
-| `.divider-vertical` | default | — | `1px solid --obsidian-700` | — | — | the left edge · stretches to the height of its row |
-| `.divider-label` | default | — | `1px solid --obsidian-700` | `--obsidian-300` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable |
-| `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion |
-| `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` |
-| `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` |
-| `.drawer` | default | `--obsidian-800` | none | `--obsidian-100` | `--sh-3` | no radius · padding `--s-6` · width 45ch plus the padding · the page behind it is `--scrim` · never focusable |
-| `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding |
-| `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` |
-| `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` |
-| `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus |
-| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector `--bw-2` `--obsidian-300` dashes and gaps `--s-1` |
-| `.stepper-step` `.is-done` | default | `--primary-500` | none | `--obsidian-950` | — | done · dot with the `check` icon · label `--obsidian-100` 600 · connector `--grad-progress`, `--bw-2`, `--sh-glow-soft` |
-| `.stepper-step` | current | `--grad-progress` | none | `--obsidian-950` | `--sh-glow` | `aria-current="step"` · dot `--s-8` instead of `--s-6` · label and meta `--primary-200`, label 700 · pulse ring 1px `--primary-500` |
-| `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` |
-| `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar |
-| `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
-| `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
-| `.nav-item` | default | transparent | none | `--obsidian-200` | — | `--r-md` · padding `--s-2` `--s-3` · `--t-small` |
-| `.nav-item` | hover | — | — | `--obsidian-050` | — | no fill: the sidebar wears the Bar material |
-| `.nav-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
-| `.nav-item` | current | — | — | `--obsidian-100` | — | `.active`: a box tinted magenta to cyan, edge magenta at 20% · its number `--primary-400` · the group's one `.nav-indicator` |
-| `.nav-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
-| `.tab` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · padding `--s-3` `--s-4` |
-| `.tab` | hover | — | — | `--obsidian-100` | — | transition — see the motion index |
-| `.tab` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held |
-| `.tab` | selected | — | — | `--obsidian-100` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it |
-| `.tab` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
-| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, mono `--t-caption` · a static shell crumb is a `span`, with no other state |
-| `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index |
-| `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held |
-| `.breadcrumb` crumb | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · `--r-sm` |
-| `.breadcrumb` crumb | current | — | — | `--obsidian-100` | — | `.active` with `aria-current="page"` · a `span`, not a link |
-| `.acc-trigger` | default | transparent | none | `--obsidian-100` | — | the whole header row · `--t-body` |
-| `.acc-trigger` | hover | — | — | `--obsidian-050` | — | transition — see the motion index |
-| `.acc-trigger` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
-| `.acc-trigger` | expanded | — | — | — | — | `aria-expanded="true"` · the item tinted magenta at 4% · chevron at 90° and `--primary-400` · its number `--primary-400` |
-| `.acc-trigger` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100`, inside the row |
-| `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--obsidian-100` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area |
-| `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
-| `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index |
-| `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
-| `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill |
-| `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item |
-| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply |
-| `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` |
-| `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into |
-| `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` |
-| `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard |
-| `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` · check after the label, in the text colour |
-| `.select-option` | disabled | — | — | — | none | `aria-disabled="true"` · opacity 0.4 · skipped by the arrow keys and typeahead |
-| `.select-option-danger` | default | — | — | `--danger` | — | text and icon · last, after a `.select-divider` · hover stays the row's neutral one |
-| `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below |
-| `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | |
-| `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` |
-| `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick |
-| `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index |
-| `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label |
-| `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals |
-| `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range |
-| `.dp-day` | focus-visible | — | — | — | `--ring-halo` | outline offset `-2px` (inside the 32px cell) |
-| `.dp-day` | selected | `--primary-500` | — | `--obsidian-950` | — | weight 600 |
-| `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` |
-| `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill |
-| `.alert-info` | default | — | left rule `--info` | — | — | icon `--info` |
-| `.alert-success` | default | — | left rule `--success` | — | — | icon `--success` |
-| `.alert-warn` | default | — | left rule `--warning` | — | — | icon `--warning` |
-| `.alert-danger` | default | — | left rule `--danger` | — | — | icon `--danger` |
-| `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | |
-| `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within |
-| `.skip-link` | default | `--primary-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) |
-| `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note |
-| `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` |
-| `.chip-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | |
-| `.chip-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | |
-| `.chip-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | |
-| `.chip-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | |
-| `.chip-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | |
-| `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
-| `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
-| `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
-| `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 |
-| `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
-| `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
-| `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box |
-| `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` |
-| `.link` | hover | — | — | `--primary-300` | — | underline thickens to `--bw-2` |
-| `.link` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
-| `.link` | active | — | — | `--primary-500` | — | lasts as long as the press |
-| `.link` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged, the colour carries it · no `href` |
-| `.link-quiet` | default | — | — | `--primary-400` | — | no underline: `text-decoration-color: transparent` · standalone links only |
-| `.link-quiet` | hover | — | — | `--primary-300` | — | the underline appears at `--bw-1` |
-| `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears |
-| `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays |
-| `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` |
-| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width 480px · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside |
-| `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table |
-| `.avatar` | default | `--obsidian-700` | `1px solid --obsidian-600` | `--obsidian-100` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` |
-| `.avatar-mark` | default | `--obsidian-850` | — | — | — | the brand mark, contained, at 56% of the side |
-| `.avatar-hue-1` | default | `--primary-300` × `--tint-fill-deep` | `--primary-300` × `--tint-edge` | `--primary-300` | — | over `--obsidian-800` |
-| `.avatar-hue-2` | default | `--info` × `--tint-fill-deep` | `--info` × `--tint-edge` | `--info` | — | over `--obsidian-800` |
-| `.avatar-hue-3` | default | `--success` × `--tint-fill-deep` | `--success` × `--tint-edge` | `--success` | — | over `--obsidian-800` |
-| `.avatar-hue-4` | default | `--warning` × `--tint-fill-deep` | `--warning` × `--tint-edge` | `--warning` | — | over `--obsidian-800` |
-| `.avatar-hue-5` | default | `--tertiary-200` × `--tint-fill-deep` | `--tertiary-200` × `--tint-edge` | `--tertiary-200` | — | over `--obsidian-800` |
-| `.avatar-more` | default | `--obsidian-800` | — | `--obsidian-200` | — | the "+N" of a group, weight 500 |
-| `.avatar-dot[data-status="online"]` | default | `--success` | `2px solid --obsidian-950` | — | — | on a card the ring follows the surface: `--avatar-ring` set to `--obsidian-800` · 8 / 12 / 16px by size |
-| `.avatar-dot[data-status="away"]` | default | `--warning` | `2px solid --obsidian-950` | — | — | — |
-| `.avatar-dot[data-status="busy"]` | default | `--danger` | `2px solid --obsidian-950` | — | — | — |
-| `.avatar-dot[data-status="offline"]` | default | transparent | `2px solid --obsidian-950` | — | — | a hollow ring: `inset 2px --obsidian-400` |
-| `.avatar` (an `<a>` or a `<button>`) | hover | — | `--primary-400` | — | — | only an interactive avatar reacts |
-| `.avatar` (an `<a>` or a `<button>`) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
-| `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press |
-| `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour |
-| `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
-| `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
-| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.39) |
-| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.41) |
-| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.42) |
-| `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour |
-| `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover |
-| `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` |
-| `.table-row-link` | default | transparent | none | — | — | the anchor in a row's first cell; its `::after` covers the row, so the row is the target · one per row, nothing else pressable in it |
-| `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index |
-| `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held |
-| `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it |
-| `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives |
-| `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state |
-| `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell |
-| `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon |
+| Component | State | Background | Border | Foreground | Ring | Other | Exception |
+|---|---|---|---|---|---|---|---|
+| `.btn` (base) | default | per variant | `1px solid transparent` | per variant | — | `--r-full` | — |
+| `.btn` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
+| `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.19 · `pointer-events: none` · `disabled` + `aria-label` | — |
+| `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | — | § 6.3 · light label on primary, 2.83 : 1 |
+| `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 | § 6.3 · light label on primary, 2.83 : 1 |
+| `.btn-primary` | active | `--primary-600` | `--primary-600` | — | `--sh-1` | `transform: scale(.97)` on `--d-quick` · `--ease-spring` (L8) · no scale under reduced motion · label 4.09 : 1 | — |
+| `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | | — |
+| `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | | — |
+| `.btn-secondary` | active | `--obsidian-600` | `--obsidian-500` | — | — | one step past hover | — |
+| `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards | — |
+| `.btn-ghost` | hover | `--obsidian-800` | — | — | — | | — |
+| `.btn-ghost` | active | `--obsidian-700` | — | — | — | one step past hover | — |
+| `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | | — |
+| `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | | — |
+| `.btn-outline` | active | — | `--primary-600` | `--primary-500` | — | the link's pressed magenta | — |
+| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `--blur-glass` · takes no height | — |
+| `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent | — |
+| `.btn-floating` | active | — | `--obsidian-500` | — | — | the fill stays translucent | — |
+| `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent | — |
+| `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` | — |
+| `.btn-danger` | active | `--danger` · `--obsidian-950` | — | — | — | `color-mix(in srgb, --danger 85%, --obsidian-950)` · label 4.95 : 1 · the hover filter is dropped | — |
+| `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered | — |
+| `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index | — |
+| `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link | — |
+| `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
+| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at 15% under `--blur-light` · hovers as a `.card` | — |
+| `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-950` | `--sh-glow` | not interactive · label 6.5 : 1 | — |
+| `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus | — |
+| `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget | — |
+| `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped | — |
+| `.badge-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | pending | — |
+| `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker | — |
+| `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact | — |
+| `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured | § 6.3 · light label on primary, 2.83 : 1 |
+| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` | — |
+| `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field | — |
+| `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed | — |
+| `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` | — |
+| `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable | — |
+| `.input-action` | default | transparent | none | `--obsidian-300` | — | 32px target in the 40px field · `--r-sm` | — |
+| `.input-action` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.input-action` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
+| `.list-item` (`a`, `button`) | default | transparent | none | `--obsidian-100` | — | min-height `--s-12` · a hairline `--obsidian-700` under each row | — |
+| `.list-item` (`a`, `button`) | hover | `--obsidian-850` | — | — | — | transition — see the motion index | — |
+| `.list-item` (`a`, `button`) | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row | — |
+| `.list-item` (`a`, `button`) | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
+| `.pagination-link` | default | transparent | none | `--obsidian-300` | — | 32px target · `--r-md` · tabular numerals | — |
+| `.pagination-link` | hover | `--obsidian-700` | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.pagination-link` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
+| `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
+| `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
+| `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` | — |
+| `.slider-input` | hover | — | — | — | `--ring-field` | on the thumb | — |
+| `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb | — |
+| `.slider-input` | active | — | — | — | — | `cursor: grabbing` | — |
+| `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.divider` | default | — | `1px solid --obsidian-700` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own | — |
+| `.divider-vertical` | default | — | `1px solid --obsidian-700` | — | — | the left edge · stretches to the height of its row | — |
+| `.divider-label` | default | — | `1px solid --obsidian-700` | `--obsidian-300` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable | — |
+| `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion | — |
+| `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` | — |
+| `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` | — |
+| `.drawer` | default | `--obsidian-800` | none | `--obsidian-100` | `--sh-3` | no radius · padding `--s-6` · width 45ch plus the padding · the page behind it is `--scrim` · never focusable | — |
+| `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding | — |
+| `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` | — |
+| `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
+| `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus | — |
+| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector `--bw-2` `--obsidian-300` dashes and gaps `--s-1` | — |
+| `.stepper-step` `.is-done` | default | `--primary-500` | none | `--obsidian-950` | — | done · dot with the `check` icon · label `--obsidian-100` 600 · connector `--grad-progress`, `--bw-2`, `--sh-glow-soft` | — |
+| `.stepper-step` | current | `--grad-progress` | none | `--obsidian-950` | `--sh-glow` | `aria-current="step"` · dot `--s-8` instead of `--s-6` · label and meta `--primary-200`, label 700 · pulse ring 1px `--primary-500` | — |
+| `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` | — |
+| `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar | — |
+| `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static | — |
+| `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` | — |
+| `.nav-item` | default | transparent | none | `--obsidian-200` | — | `--r-md` · padding `--s-2` `--s-3` · `--t-small` | — |
+| `.nav-item` | hover | — | — | `--obsidian-050` | — | no fill: the sidebar wears the Bar material | — |
+| `.nav-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
+| `.nav-item` | current | — | — | `--obsidian-100` | — | `.active`: a box tinted magenta to cyan, edge magenta at 20% · its number `--primary-400` · the group's one `.nav-indicator` | — |
+| `.nav-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
+| `.tab` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · padding `--s-3` `--s-4` | — |
+| `.tab` | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.tab` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
+| `.tab` | selected | — | — | `--obsidian-100` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it | — |
+| `.tab` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
+| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, mono `--t-caption` · a static shell crumb is a `span`, with no other state | — |
+| `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held | — |
+| `.breadcrumb` crumb | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · `--r-sm` | — |
+| `.breadcrumb` crumb | current | — | — | `--obsidian-100` | — | `.active` with `aria-current="page"` · a `span`, not a link | — |
+| `.acc-trigger` | default | transparent | none | `--obsidian-100` | — | the whole header row · `--t-body` | — |
+| `.acc-trigger` | hover | — | — | `--obsidian-050` | — | transition — see the motion index | — |
+| `.acc-trigger` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
+| `.acc-trigger` | expanded | — | — | — | — | `aria-expanded="true"` · the item tinted magenta at 4% · chevron at 90° and `--primary-400` · its number `--primary-400` | — |
+| `.acc-trigger` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100`, inside the row | — |
+| `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--obsidian-100` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area | — |
+| `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 | — |
+| `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index | — |
+| `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
+| `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill | — |
+| `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item | — |
+| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply | — |
+| `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` | — |
+| `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into | — |
+| `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` | — |
+| `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard | — |
+| `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` · check after the label, in the text colour | — |
+| `.select-option` | disabled | — | — | — | none | `aria-disabled="true"` · opacity 0.4 · skipped by the arrow keys and typeahead | — |
+| `.select-option-danger` | default | — | — | `--danger` | — | text and icon · last, after a `.select-divider` · hover stays the row's neutral one | — |
+| `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below | — |
+| `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | | — |
+| `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` | — |
+| `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick | — |
+| `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index | — |
+| `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label | — |
+| `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals | — |
+| `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range | — |
+| `.dp-day` | focus-visible | — | — | — | `--ring-halo` | outline offset `-2px` (inside the 32px cell) | — |
+| `.dp-day` | selected | `--primary-500` | — | `--obsidian-950` | — | weight 600 | — |
+| `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` | — |
+| `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill | — |
+| `.alert-info` | default | — | left rule `--info` | — | — | icon `--info` | — |
+| `.alert-success` | default | — | left rule `--success` | — | — | icon `--success` | — |
+| `.alert-warn` | default | — | left rule `--warning` | — | — | icon `--warning` | — |
+| `.alert-danger` | default | — | left rule `--danger` | — | — | icon `--danger` | — |
+| `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | | — |
+| `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within | — |
+| `.skip-link` | default | `--primary-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) | — |
+| `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note | — |
+| `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` | — |
+| `.chip-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | | — |
+| `.chip-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | | — |
+| `.chip-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | | — |
+| `.chip-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | | — |
+| `.chip-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | | — |
+| `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover | — |
+| `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
+| `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
+| `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
+| `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip | — |
+| `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
+| `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
+| `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` | — |
+| `.link` | hover | — | — | `--primary-300` | — | underline thickens to `--bw-2` | — |
+| `.link` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
+| `.link` | active | — | — | `--primary-500` | — | lasts as long as the press | — |
+| `.link` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged, the colour carries it · no `href` | — |
+| `.link-quiet` | default | — | — | `--primary-400` | — | no underline: `text-decoration-color: transparent` · standalone links only | — |
+| `.link-quiet` | hover | — | — | `--primary-300` | — | the underline appears at `--bw-1` | — |
+| `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears | — |
+| `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays | — |
+| `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` | — |
+| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width 480px · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside | — |
+| `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table | — |
+| `.avatar` | default | `--obsidian-700` | `1px solid --obsidian-600` | `--obsidian-100` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` | — |
+| `.avatar-mark` | default | `--obsidian-850` | — | — | — | the brand mark, contained, at 56% of the side | — |
+| `.avatar-hue-1` | default | `--primary-300` × `--tint-fill-deep` | `--primary-300` × `--tint-edge` | `--primary-300` | — | over `--obsidian-800` | — |
+| `.avatar-hue-2` | default | `--info` × `--tint-fill-deep` | `--info` × `--tint-edge` | `--info` | — | over `--obsidian-800` | — |
+| `.avatar-hue-3` | default | `--success` × `--tint-fill-deep` | `--success` × `--tint-edge` | `--success` | — | over `--obsidian-800` | — |
+| `.avatar-hue-4` | default | `--warning` × `--tint-fill-deep` | `--warning` × `--tint-edge` | `--warning` | — | over `--obsidian-800` | — |
+| `.avatar-hue-5` | default | `--tertiary-200` × `--tint-fill-deep` | `--tertiary-200` × `--tint-edge` | `--tertiary-200` | — | over `--obsidian-800` | — |
+| `.avatar-more` | default | `--obsidian-800` | — | `--obsidian-200` | — | the "+N" of a group, weight 500 | — |
+| `.avatar-dot[data-status="online"]` | default | `--success` | `2px solid --obsidian-950` | — | — | on a card the ring follows the surface: `--avatar-ring` set to `--obsidian-800` · 8 / 12 / 16px by size | — |
+| `.avatar-dot[data-status="away"]` | default | `--warning` | `2px solid --obsidian-950` | — | — | — | — |
+| `.avatar-dot[data-status="busy"]` | default | `--danger` | `2px solid --obsidian-950` | — | — | — | — |
+| `.avatar-dot[data-status="offline"]` | default | transparent | `2px solid --obsidian-950` | — | — | a hollow ring: `inset 2px --obsidian-400` | — |
+| `.avatar` (an `<a>` or a `<button>`) | hover | — | `--primary-400` | — | — | only an interactive avatar reacts | — |
+| `.avatar` (an `<a>` or a `<button>`) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
+| `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press | — |
+| `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour | — |
+| `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` | — |
+| `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` | — |
+| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.39) | — |
+| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.41) | — |
+| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.42) | — |
+| `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour | — |
+| `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover | — |
+| `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` | — |
+| `.table-row-link` | default | transparent | none | — | — | the anchor in a row's first cell; its `::after` covers the row, so the row is the target · one per row, nothing else pressable in it | — |
+| `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index | — |
+| `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held | — |
+| `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it | — |
+| `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
+| `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state | — |
+| `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell | — |
+| `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon | — |
 
 ### § 3.0.2 Stacking
 
@@ -2470,7 +2470,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 </a>
 ```
 
-- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-050`, mono `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
+- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-950` (6.5 : 1; a light label on primary is only for the ratified pair, L9), mono `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
 
 ```html
 <article class="card card-feature">
@@ -3744,7 +3744,7 @@ Two patterns ship:
 
 ### Ratified exceptions
 
-The floor admits one documented exception pair, on two selectors.
+The floor admits one documented exception pair, on two selectors. The state index names it in its **Exception** column, on each row that draws it; a light label on primary anywhere else is off-system (L9).
 
 **`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.6); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten); pressed darkens to `--primary-600`. Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
 

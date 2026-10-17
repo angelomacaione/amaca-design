@@ -3597,6 +3597,50 @@ def c93():
     return fails
 
 
+@check("94", "A ratified exception is a column of the state index, and a light label on primary claims one",
+       "v5.0.0: the contrast exceptions of § Accessibility lived in the Other column as free text ('ratified § 6.3 "
+       "exception'), so a reader of the table could not tell an exception from a remark. The same release drew a "
+       "new magenta tab with the light label and claimed nothing: the law L9 had no reader. The Exception column "
+       "is now the one place a row claims an exception, and this check holds the stylesheet to it.")
+def c94():
+    fails = []
+    d = read(DESIGN)
+    i = d.find("#### State index")
+    rows = {}
+    for line in d[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if line.startswith("| Component"):
+            if not line.rstrip().endswith("| Exception |"):
+                fails.append("state index: the last column is Exception")
+            continue
+        if not line.startswith("| `"):
+            continue
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if len(c) != 8:
+            fails.append(f"state index row has {len(c)} cells, the schema has 8: {line[:60]}")
+            continue
+        if "exception" in c[6].lower():
+            fails.append(f"{c[0]} | {c[1]}: an exception claimed in Other; it goes in the Exception column")
+        if c[7] != "—" and not re.match(r"§ [0-9.]+ · .+ \d+(\.\d+)? : 1$", c[7]):
+            fails.append(f"{c[0]} | {c[1]}: Exception '{c[7]}' names no section and no measure")
+        for sel in re.findall(r"`\.([a-z0-9-]+)`", c[0]):
+            rows.setdefault(sel, {})[c[1]] = c[7]
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        body = m.group(2)
+        if "var(--primary-500)" in re.sub(r"color:var\(--[a-z0-9-]+\)", "", body) and re.search(r"(?<![-a-z])color:var\(--obsidian-050\)", body):
+            for sel in (x.strip() for x in m.group(1).split(",")):
+                base = re.match(r"\.([a-z0-9-]+)", sel)
+                state = "hover" if ":hover" in sel else "default"
+                if not base:
+                    continue
+                exc = rows.get(base.group(1), {}).get(state, "—")
+                if exc == "—":
+                    fails.append(f"components.css: {sel} sets a light label on --primary-500 and its state-index row claims no exception (L9)")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
