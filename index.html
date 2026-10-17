@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=03ff96d1">
-<link rel="stylesheet" href="styles/components.css?v=e2519954">
+<link rel="stylesheet" href="styles/components.css?v=206dba07">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -820,7 +820,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <h1 class="page-title">Soft corners, <span class="accent">a short scale.</span></h1>
           <p class="page-lede">Radius stays small — 8 to 12 px is the working range. Pills and dots take <code>--r-full</code>; everything else stays on the scale.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for the hero of a case study, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Rectangles inside the 8–12px working range; <code>--r-xl</code> for the hero of a case study, <code>--r-2xl</code> for a hero block.</li><li><code>--r-full</code> as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study, the floating navigation bar).</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Radius scale</h2><span class="subsection-num">§ 04.1</span></div>
           <p class="subsection-desc">The radius scale, <code>--r-none</code> to <code>--r-full</code>, one Swatch radius tile each (§ 3.35): the shape at the token&rsquo;s radius, 1:1. Sub-4px hairlines are a ratified closed list (§ Shapes in the contract), not scale members.</p>
@@ -2800,7 +2800,16 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 30.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Floating bar</h2><span class="subsection-num">§ 30.2</span></div>
+          <p class="subsection-desc">The same bar lifted off the page. Wide, one pill at the top with the brand, the destinations and the action; on a phone, the brand and the action stay at the top of the page and the destinations float in a pill at the bottom, where the thumb is. Two real pages at two widths: scroll each one. Component spec: § 3.26 in the contract.</p>
+          <template id="navbar-floating-page"><header class="navbar navbar-floating"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>studio</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><a class="btn btn-primary btn-sm" href="#">Book a call</a></div></header><main style="padding:var(--s-6) var(--s-4);display:grid;grid-template-columns:repeat(auto-fill, minmax(calc(var(--s-24) * 2), 1fr));gap:var(--s-4)"><div class="card"><div class="card-meta"><span>CS-020 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Orion &middot; Fleet console</h3></div><div class="card"><div class="card-meta"><span>CS-021 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Nova &middot; Onboarding</h3></div><div class="card"><div class="card-meta"><span>CS-022 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Atlas &middot; Token pipeline</h3></div><div class="card"><div class="card-meta"><span>CS-023 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Field &middot; Observability</h3></div><div class="card"><div class="card-meta"><span>CS-024 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Arc &middot; Automotive HMI</h3></div><div class="card"><div class="card-meta"><span>CS-025 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Vega &middot; Checkout</h3></div><div class="card"><div class="card-meta"><span>CS-026 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Lyra &middot; Search</h3></div><div class="card"><div class="card-meta"><span>CS-027 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Kite &middot; Settings</h3></div></main></template>
+          <div class="navbar-demo-frames">
+            <iframe class="navbar-demo-frame" data-navbar-floating-frame title="Floating bar on a wide screen" loading="lazy"></iframe>
+            <iframe class="navbar-demo-frame navbar-demo-frame-phone" data-navbar-floating-frame title="Floating bar on a phone" loading="lazy"></iframe>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 30.3</span></div>
           <p class="subsection-desc">A few destinations, one action, the current page marked.</p>
           <div class="do-dont">
             <div class="do">
@@ -2809,7 +2818,17 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
             <div class="dont">
               <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
-              <p>Round it, float it, underline the current item or open its menu on the side opposite the toggle.</p>
+              <p>Round the flush bar or lift it off the page (that is the floating bar), underline the current item or open its menu on the side opposite the toggle.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Move the <code>nav</code> in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.</p>
             </div>
           </div>
         </div>
@@ -6414,6 +6433,17 @@ navItems.forEach(n => n.addEventListener('click', (e) => {
 
 // Browser back/forward through hash history
 window.addEventListener('hashchange', syncFromHash);
+
+// § 30.2 floating bar: two real pages at two widths, so the bar reads the viewport it will meet.
+// The frames load the site's own stylesheets, whatever their cache key.
+(function(){
+  const tpl = document.getElementById('navbar-floating-page');
+  if(!tpl) return;
+  const links = [...document.querySelectorAll('link[rel="stylesheet"]')].map(l => '<link rel="stylesheet" href="' + l.href + '">').join('');
+  document.querySelectorAll('[data-navbar-floating-frame]').forEach(f => {
+    f.srcdoc = '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="' + document.baseURI + '" target="_self">' + links + '</head><body>' + tpl.innerHTML + '<script>document.addEventListener("click",e=>{if(e.target.closest("a[href=\\"#\\"]"))e.preventDefault()})<\/script></body></html>';
+  });
+})();
 
 // A demo link (href="#") stays where it is: it never jumps to the top of the page.
 document.addEventListener('click', (e) => {

@@ -342,7 +342,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 |---|---|---|---|
 | Veil | `--scrim` (60%) | `--blur-veil` (4px) | the page behind an overlay: Modal, Drawer, the mobile sidebar, the full-page Loader |
 | Glass | `--surface-glass` (70%) | `--blur-glass` (8px) | a control over the content: the floating button, the figure hint, the lightbox close, the chat media tag |
-| Bar | `--surface-bar` (80%) | `--blur-bar` (16px) | a bar or a viewer over the content: the top bar, the sidebar, the lightbox; the navigation bar wears it with a fading edge |
+| Bar | `--surface-bar` (80%) | `--blur-bar` (16px) | a bar or a viewer over the content: the top bar, the sidebar, the lightbox; the navigation bar wears it with a fading edge, the floating bar with its line all round |
 
 A translucent fill without its blur, a blur without its fill, or a fill and a blur from two materials is off-system. **Fading edge:** a bar that ends in a mist instead of a line carries its material on a layer that reaches `--s-6` past its edge, the fill running from the token to transparent and the layer masked from 55% down; the blur stays the material's own.
 
@@ -356,7 +356,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for the hero of a case study, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study, the floating navigation bar).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -452,7 +452,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.23 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.24 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.25 |
-| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` | canonical | § 3.26 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
 | Breadcrumb | `.breadcrumb` | canonical | § 3.28 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.29 |
@@ -575,6 +575,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar |
 | `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
 | `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
+| `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--obsidian-100` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area |
 | `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
 | `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index |
 | `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
@@ -2126,7 +2127,7 @@ A label for something already visible. Never a container for content.
 
 #### Top bar
 
-The bar at the top of a page: the brand, the destinations, one action. Flat and flush; at narrow widths its links move to the Drawer menu.
+The bar at the top of a page: the brand, the destinations, one action. Flush and translucent; at narrow widths its links move to the Drawer menu. Its floating form is `.navbar-floating`, below.
 
 ```html
 <header class="navbar">
@@ -2165,7 +2166,37 @@ The bar at the top of a page: the brand, the destinations, one action. Flat and 
 - **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.6).
 - **Motion.** Colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 06.4).
 
-**Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round it, float it, underline the current item or open its menu on the side opposite the toggle.
+**Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round the flush bar or lift it off the page (that is the floating bar), underline the current item or open its menu on the side opposite the toggle.
+
+#### Floating bar
+
+The same bar lifted off the page, after the floating toolbar of Material 3 Expressive: on a wide screen one pill at the top, on a phone the destinations in a pill at the bottom, where the thumb is. Material gives that toolbar to the actions of a page; here it carries the destinations, by decision.
+
+```html
+<header class="navbar navbar-floating">
+  <a class="navbar-brand" href="/"><span class="brand-mark"><img src="mark.png" alt=""></span>Name</a>
+  <nav class="navbar-nav" aria-label="Main">
+    <ul class="navbar-list">
+      <li><a class="navbar-item" href="/work" aria-current="page" data-label="Work">Work</a></li>
+      <li><a class="navbar-item" href="/about" data-label="About">About</a></li>
+      <li><a class="navbar-item" href="/journal" data-label="Journal">Journal</a></li>
+      <li><a class="navbar-item" href="/contact" data-label="Contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-end"><a class="btn btn-primary btn-sm" href="/call">Book a call</a></div>
+</header>
+```
+
+**Rules.**
+- **The Bar material, its line all round, lifted.** `--surface-bar` under `--blur-bar`, a `1px` `--border-subtle` line on every edge, `--sh-3`, `--r-full`. No fading edge: the pill has an edge of its own.
+- **Wide: one pill at the top.** As wide as its content, centred, sticky `--s-4` from the top, at most the page width less `--s-8`. Brand, destinations and the action sit in it.
+- **At `--bp-md` or less: a row and a pill.** The bar becomes a plain row that scrolls away with the page, holding the brand and the action; the destinations float in a pill fixed `--s-4` above the bottom edge and above the safe area (`env(safe-area-inset-bottom)`, Safari's bottom toolbar), centred. The page keeps the pill's room at its foot (`--s-12` + `--s-8`), so its last line is never under the pill. It reads the viewport, not its own width: the pill belongs to the screen the thumb holds.
+- **One markup.** The `nav` stays where it is in the document, after the brand and before the action; the CSS moves it. Reading and tab order do not change between the two forms, and nothing animates between them: a device sees one.
+- **At most five destinations, and no toggle.** Each keeps its label. A site with more destinations uses the flush bar and its Drawer menu.
+- **Always on screen.** The pill does not hide on scroll: on a phone the browser's own toolbar already comes and goes.
+- **States.** The item's, as on the flush bar: hover lightens the label, pressed dims it, the current page is `--primary-400` at 600, the ring is drawn inside the item.
+
+**Do / Don't.** Do keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill. Don't move the `nav` in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.28.
 
 ### Tabs

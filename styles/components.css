@@ -2882,12 +2882,57 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   .navbar-nav,.navbar-end > .btn-primary{display:none}
   .navbar-toggle{display:inline-flex}
 }
+/* § 3.26 Navigation · floating bar (v5.0.0): the Bar material with its line all round, lifted off the page.
+   On a wide screen one pill at the top: brand, destinations, action. At --bp-md or less the bar is a plain
+   row that scrolls away with the brand and the action, and the destinations float in a pill at the bottom,
+   where the thumb is. One markup: the CSS moves the pill, the reading order does not change. */
+.navbar-floating{
+  container-type:normal;
+  top:var(--s-4);
+  margin:var(--s-4) auto 0;
+  width:max-content; max-width:calc(100% - var(--s-8));
+  gap:var(--s-4);
+  background:var(--surface-bar);
+  backdrop-filter:blur(var(--blur-bar)); -webkit-backdrop-filter:blur(var(--blur-bar));
+  border:var(--bw-1) solid var(--border-subtle);
+  border-radius:var(--r-full);
+  box-shadow:var(--sh-3);
+}
+.navbar-floating::before{content:none}
+.navbar-floating .navbar-brand{padding-inline-start:var(--s-2)}
+.navbar-floating .navbar-end{padding-inline-end:var(--s-2)}
+.navbar-floating .navbar-item{padding-inline:var(--s-3)}
+@media (max-width: 720px){
+  .navbar-floating{
+    position:relative; top:auto; margin:0;
+    width:auto; max-width:none;
+    background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none;
+    border:0; border-radius:0; box-shadow:none;
+  }
+  .navbar-floating .navbar-brand{padding-inline-start:var(--s-4)}
+  .navbar-floating .navbar-end{padding-inline-end:var(--s-4)}
+  .navbar-floating .navbar-nav{
+    position:fixed; z-index:var(--z-sticky);
+    left:0; right:0; bottom:var(--s-4); margin:0 auto env(safe-area-inset-bottom);
+    width:max-content; max-width:calc(100% - var(--s-8));
+    min-block-size:var(--s-12); padding-inline:var(--s-2);
+    background:var(--surface-bar);
+    backdrop-filter:blur(var(--blur-bar)); -webkit-backdrop-filter:blur(var(--blur-bar));
+    border:var(--bw-1) solid var(--border-subtle);
+    border-radius:var(--r-full);
+    box-shadow:var(--sh-3);
+  }
+  body:has(.navbar-floating){padding-bottom:calc(var(--s-12) + var(--s-8))}
+}
 
 /* site chrome, § 30.1: the bar alone in the tab card, and a page below it that follows the tab — its width,
    its sticky bar, its Drawer menu. Only the page's toggle opens the menu; the card's bar is a specimen. */
 .navbar-demo-strip{background:var(--surface);border:var(--bw-1) solid var(--border-subtle)}
 .navbar-demo-strip .navbar{position:relative}
 .navbar-demo-stage{margin-top:var(--s-6)}
+.navbar-demo-frame{display:block;width:100%;height:calc(var(--s-24) * 4);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md);background:var(--surface)}
+.navbar-demo-frame-phone{width:calc(var(--s-24) * 4);max-width:100%;height:calc(var(--s-24) * 6)}
+.navbar-demo-frames{display:grid;gap:var(--s-6);justify-items:start}
 .navbar-demo-stage .grid-demo-meta{margin-bottom:var(--s-3)}
 .navbar-demo{position:relative;overflow:hidden;overflow:clip;height:calc(9 * var(--s-10));background:var(--surface);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}
 .device-preview[data-device="mobile"] .navbar-demo{height:calc(14 * var(--s-10))}

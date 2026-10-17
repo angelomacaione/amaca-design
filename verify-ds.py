@@ -2308,6 +2308,7 @@ R_FULL_RATIFIED = {
     ".avatar", ".avatar-dot", ".skeleton-circle", ".slider-input::-webkit-slider-runnable-track", ".slider-input::-moz-range-track",
     ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".swatch-tile-pos::after", ".swatch-tile-rail", ".swatch-tile-ball", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
     ".stepper-dot", '.stepper-step[aria-current="step"] .stepper-dot::after', ".progress-track",
+    ".navbar-floating", ".navbar-floating .navbar-nav",
 }
 
 
@@ -3443,7 +3444,7 @@ def c89():
         sel, body = m.group(1).strip().split("\n")[-1], m.group(2)
         bf = re.search(r"backdrop-filter:\s*([^;]+)", body)
         bg = re.search(r"background:\s*(?:linear-gradient\()?var\((--scrim|--surface-glass|--surface-bar)\)(?:,\s*transparent\))?", body)
-        if bf and not re.fullmatch(r"blur\(var\(--blur-(?:veil|glass|bar)\)\)", bf.group(1).strip()):
+        if bf and bf.group(1).strip() != "none" and not re.fullmatch(r"blur\(var\(--blur-(?:veil|glass|bar)\)\)", bf.group(1).strip()):
             fails.append(f"{sel}: backdrop-filter '{bf.group(1).strip()}' is not a material's blur")
         if bg and "::before" not in sel or bg and bf:
             want = pair[bg.group(1)]
@@ -3511,6 +3512,38 @@ def c91():
     for m in re.finditer(r'<a class="card[^"]*" href="#([a-z-]+)"', html):
         if m.group(1) in ids:
             fails.append(f"site: a demo card links to the section #{m.group(1)}: use href=\"#\"")
+    return fails
+
+
+@check("92", "The floating bar keeps one markup, five destinations at most, and its pill clear of the screen's edge",
+       "v5.0.0: the navigation bar gained a floating form, a pill at the top on a wide screen and a pill of "
+       "destinations at the bottom on a phone. The ways it goes wrong are quiet: a nav moved in the markup to "
+       "place the pill reorders the tab sequence, a sixth destination or a toggle overflows a pill that cannot "
+       "scroll, a pill without the safe area sits under Safari's toolbar, and a page without room at its foot "
+       "hides its last line under the pill.")
+def c92():
+    fails = []
+    css = read(COMPONENTS)
+    m = re.search(r"@media \(max-width: 720px\)\{(.*?)\n\}", css[css.find(".navbar-floating{"):], re.S)
+    mob = m.group(1) if m else ""
+    pill = re.search(r"\.navbar-floating \.navbar-nav\{([^}]*)\}", mob)
+    if not pill or "position:fixed" not in pill.group(1) or "env(safe-area-inset-bottom)" not in pill.group(1):
+        fails.append("components.css: under --bp-md the floating bar's .navbar-nav must be fixed, clear of env(safe-area-inset-bottom)")
+    if not re.search(r"body:has\(\.navbar-floating\)\{padding-bottom:", mob):
+        fails.append("components.css: a page with a floating bar keeps the pill's room at its foot")
+    for name, text in (("index.html", read(INDEX)), ("DESIGN.md", read(DESIGN))):
+        for b in re.finditer(r'<header class="navbar navbar-floating">(.*?)</header>', text, re.S):
+            body = b.group(1)
+            n = body.count('class="navbar-item"')
+            if n > 5:
+                fails.append(f"{name}: a floating bar with {n} destinations, five at most")
+            if "navbar-toggle" in body:
+                fails.append(f"{name}: a floating bar carries a toggle; more destinations use the flush bar")
+            order = [body.find('class="navbar-brand"'), body.find('class="navbar-nav"'), body.find('class="navbar-end"')]
+            if -1 in order[:2] or (order[2] != -1 and not order[0] < order[1] < order[2]) or order[0] > order[1]:
+                fails.append(f"{name}: a floating bar keeps brand, nav, end in that order: the CSS moves the pill")
+    if 'class="navbar navbar-floating"' not in read(INDEX):
+        fails.append("site § Navigation: the floating bar needs a demo")
     return fails
 
 
