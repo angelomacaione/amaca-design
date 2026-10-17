@@ -1874,7 +1874,7 @@ A label for something already visible. Never a container for content.
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
 | Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
 | Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
-| Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r` |
+| Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r`, 6 on the 700 viewBox: 18px on a desktop card, halfway between the line's weight and the 24px done step of the Stepper |
 | Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's label rides its end and counts up |
 | Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them |
 

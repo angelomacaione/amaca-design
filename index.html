@@ -3475,7 +3475,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <path data-line-draw d="M40,140 C120,155 180,145 260,160 S400,180 500,195 S640,200 690,205" stroke="url(#neon-line)" stroke-width="2.5" fill="none" filter="url(#neon-glow)"/>
               <!-- data points -->
               <g data-line-dots style="fill:var(--primary-500)">
-                <circle cx="40" cy="140" r="4" data-dot data-r="4"/><circle cx="260" cy="160" r="4" data-dot data-r="4"/><circle cx="500" cy="195" r="4" data-dot data-r="4"/><circle cx="690" cy="205" r="4" data-dot data-r="4"/>
+                <circle cx="40" cy="140" r="6" data-dot data-r="6"/><circle cx="260" cy="160" r="6" data-dot data-r="6"/><circle cx="500" cy="195" r="6" data-dot data-r="6"/><circle cx="690" cy="205" r="6" data-dot data-r="6"/>
               </g>
               <!-- x labels -->
               <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="10" letter-spacing="1">
@@ -6422,7 +6422,7 @@ if ('IntersectionObserver' in window) {
     });
 
     root.querySelectorAll('[data-line-dots] [data-dot]').forEach((c, i) => {
-      const rTarget = c.hasAttribute('data-r') ? +c.getAttribute('data-r') : 4;
+      const rTarget = c.hasAttribute('data-r') ? +c.getAttribute('data-r') : 6;
       animate(0, rTarget, {
         duration: T.dBase, ease: spring, delay: tFill + i * 0.22,
         onUpdate: v => c.setAttribute('r', Math.max(0, v).toFixed(2))
