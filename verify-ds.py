@@ -3356,6 +3356,8 @@ def c70():
 
 # ───────────── v5.0.0: icon pairs, sortable table ─────────────
 
+import math
+
 def _album():
     m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", read(DESIGN), re.S)
     return {n: (st, re.sub(r"\s+", " ", drw)) for n, st, drw in re.findall(r"\| `([a-z-]+)` \| (line|solid) \| `(.+?)` \|", m.group(1) if m else "")}
@@ -3434,6 +3436,48 @@ def _drawing_points(drw, step=0.1):
             n = max(1, int(math.hypot(b[0] - a[0], b[1] - a[1]) / step))
             out += [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n + 1)]
     return out
+
+
+def _seg_dist(a, b, c, d):
+    def ps(p, a, b):
+        vx, vy = b[0]-a[0], b[1]-a[1]; L = vx*vx + vy*vy
+        t = 0 if L == 0 else max(0, min(1, ((p[0]-a[0])*vx + (p[1]-a[1])*vy) / L))
+        return math.hypot(p[0]-a[0]-t*vx, p[1]-a[1]-t*vy)
+    def cross(o, p, q): return (p[0]-o[0])*(q[1]-o[1]) - (p[1]-o[1])*(q[0]-o[0])
+    d1, d2, d3, d4 = cross(c, d, a), cross(c, d, b), cross(a, b, c), cross(a, b, d)
+    if ((d1 > 0) != (d2 > 0)) and ((d3 > 0) != (d4 > 0)) and d1*d2 < 0 and d3*d4 < 0: return 0.0
+    return min(ps(a, c, d), ps(b, c, d), ps(c, a, b), ps(d, a, b))
+def _stroke_gap(p, q):
+    return min(_seg_dist(p[i], p[i+1] if i+1 < len(p) else p[i], q[j], q[j+1] if j+1 < len(q) else q[j]) for i in range(max(1, len(p)-1)) for j in range(max(1, len(q)-1)))
+
+# Drawings that came before the one-unit rule (2026-10-17), waiting for a redraw. Closed list: a drawing is taken
+# off when it is redrawn, and the check fails if one of these already passes. Backlog: P2, 2026-10-17.
+_GAP_DEBT = {"triangle-alert", "info", "calendar", "crown", "trash", "settings"}
+
+
+@check("84", "Two strokes of an icon either touch or keep one unit of air between them",
+       "v5.0.0: eye-off and messages were redrawn by hand so their strokes kept one free unit, then the sort icons "
+       "were drawn to the same measure, and the rule lived only in a release plan. Run over the album, it found seven "
+       "drawings with a slit thinner than a unit: code at 0.27, triangle-alert at 0.25. At 16px a slit that thin fills "
+       "in and two strokes read as one smudge. This check measures every pair of strokes of every outline drawing: "
+       "they touch (centres within the 1.5 stroke) or sit 2.5 apart. The drawings that predate the rule are a closed "
+       "list, and one that passes must leave it.")
+def c84():
+    from itertools import combinations
+    fails = []
+    for name, (st, drw) in _album().items():
+        if st != "line":
+            continue
+        worst = min((g for a, b in combinations(_drawing_strokes(drw), 2) for g in [_stroke_gap(a, b)] if 1.5 + 0.01 < g < 2.5 - 0.01), default=None)
+        if worst is not None and name not in _GAP_DEBT:
+            fails.append(f"album {name}: two strokes {worst - 1.5:.2f} unit apart at the edges; touch them or leave one unit")
+        if worst is None and name in _GAP_DEBT:
+            fails.append(f"album {name}: passes now; take it off _GAP_DEBT and the list in § 3.32")
+    d = read(DESIGN)
+    for name in _GAP_DEBT:
+        if f"`{name}`" not in d.split("**Strokes that do not touch keep one unit clear (RIGID).**", 1)[-1].split("\n", 1)[0]:
+            fails.append(f"DESIGN.md § 3.32: {name} is in the verifier's waiting list and not in the rule's")
+    return fails
 
 
 @check("85", "A pair of icons is one drawing, mirrored: up and down, left and right, ascending and descending",
