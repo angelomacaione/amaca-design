@@ -3318,6 +3318,38 @@ def c82():
     return fails
 
 
+@check("86", "Every component has its Do / Don't, in the contract and on its page",
+       "v5.0.0: the rules settled for the plot, the gantt and the map lived only in their contracts, and a "
+       "count found 22 components with no Do / Don't in DESIGN.md and 14 component pages with none on the "
+       "site; the pairs that did exist sat on one side only. Do / Don't is a surface of § 3.0.3: a reader "
+       "and a model look for it in both places. This check holds every § 3 component to at least one pair, "
+       "and every component page of the site to its block.")
+def c86():
+    import html as _html
+    fails = []
+    d = read(DESIGN)
+    comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
+    for s in re.split(r"\n### ", comp)[1:]:
+        name = s.split("\n")[0].strip()
+        if name.startswith("§"):
+            continue
+        if "**Do / Don't.**" not in s:
+            fails.append(f"DESIGN.md § 3 {name}: no Do / Don't line")
+    html = read(INDEX)
+    nav = html[html.index('<aside'):html.index('</aside>')]
+    groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    for g, body in groups:
+        if _html.unescape(g) not in comp_groups:
+            continue
+        for sid in re.findall(r'data-target="([a-z-]+)"', body):
+            a = html.find(f'<section class="section" id="{sid}">')
+            sec = html[a:html.index("</section>", a)] if a >= 0 else ""
+            if 'class="do-dont"' not in sec:
+                fails.append(f"site #{sid}: no Do / Don't block")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

@@ -1166,6 +1166,30 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
           </div>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 07.4</span></div>
+          <p class="subsection-desc">One shell, one active section; the grid lays out and does nothing else.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Keep one <code>.app</code> per document and one active section, switched by the controller.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Toggle <code>.active</code> by hand in the markup, or drop <code>min-width: 0</code> from <code>.main</code>.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Lay panels out on the presets, with the <code>--s-4</code> gap.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Give the grid a surface or a padding, or change its gap: stop and ask.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="button">
@@ -3916,6 +3940,16 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div class="dont">
               <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
               <p>Type a duration or a delay by hand, or give the plot a hover or a focus.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Give every slice its legend row, with its percentage written.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Let colour carry a slice alone, or paste a hex where a palette token exists.</p>
             </div>
           </div>
         </div>

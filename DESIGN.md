@@ -1011,13 +1011,15 @@ Use `will-change: transform, width` on the indicator.
 
 ### Lightbox
 
-- Backdrop: `rgba(0,0,0,0.85)`.
+- Backdrop: `--obsidian-950` at 85% (`rgba(7,9,11,0.85)`) under a 12px blur.
 - Close button: top-right, `Esc` closes.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
 | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+
+**Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
 
 ### Time input
 
@@ -1866,6 +1868,8 @@ A label for something already visible. Never a container for content.
 |---|---|---|---|
 | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
 
+**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
+
 ### Grid system
 
 ```html
@@ -1876,6 +1880,8 @@ A label for something already visible. Never a container for content.
 - Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
 - Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
 - The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
+
+**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
 
 ### Breadcrumb
 
@@ -1912,6 +1918,8 @@ A label for something already visible. Never a container for content.
 - `--primary-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
 - Target: the unique `id="main-content"` on `.content` (§ 3.21) — past the sticky topbar, straight to the content. Behaviour: § 6.2. Uniqueness: check 27.
 - **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
+
+**Do / Don't.** Do make it the first focusable element, landing on `#main-content`. Don't animate it, or point it at `<main>` behind the sticky top bar.
 
 ### Chart card
 
@@ -2005,6 +2013,8 @@ A label for something already visible. Never a container for content.
 |---|---|---|---|
 | legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 
+**Do / Don't.** Do give every slice its legend row, with its percentage written. Don't let colour carry a slice alone, or paste a hex where a palette token exists.
+
 ### Brand mark
 
 ```html
@@ -2019,6 +2029,7 @@ A label for something already visible. Never a container for content.
 - `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
 - Static. The animated brand-mark loop belongs to the Loader (§ 3.12) and its ratified motion row — this one does not move.
 
+**Do / Don't.** Do put one at the head of the rail, and keep it still. Don't animate it (that is the Loader), or use its cyan glow anywhere else in the chrome.
 
 ### Chip
 
