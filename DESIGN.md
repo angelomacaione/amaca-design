@@ -813,6 +813,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 
+**Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
+
+**Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
+
 ### Badge
 
 Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28).
@@ -946,6 +950,8 @@ The bar at the top of a page: the brand, the destinations, one action. Flat and 
 | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
+**Do / Don't.** Do open one panel at a time by default, each header a real button with `aria-expanded`. Don't fold away content the reader will read in full: that is a page with headings.
+
 ### Tabs
 
 **Usage**
@@ -1000,6 +1006,8 @@ Use `will-change: transform, width` on the indicator.
 **Rules:**
 - Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
 - Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
+
+**Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
 
 ### Lightbox
 
@@ -1305,6 +1313,8 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
 - After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion `.is-out` still hides (instantly), per the motion table.
 
+**Do / Don't.** Do own bubbles fill with `--primary-700` — the deep brand accent. Bright `--primary-500` stays reserved for CTAs and focus rings. Don't paint own bubbles with `--primary-500`. The bubble starts reading as a CTA and the actual primary action on the page loses its weight.
+
 ### Loader
 
 The brand mark (animated SVG) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
@@ -1394,6 +1404,8 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 - Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
 - Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
 
+**Do / Don't.** Do show the loader within *100ms* of the action that triggered the wait. Late loaders read as a glitch, not feedback. Don't pop the loader after the response already returned. A 200ms wait deserves no loader at all — show the result.
+
 ### Diagrams
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
@@ -1474,6 +1486,8 @@ flowchart TD
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
 
+**Do / Don't.** Do keep every node neutral obsidian and spend the magenta once — on the entry or the narrative focus. One accent per diagram is the budget. Don't color nodes by category with a per-type rainbow palette. The hues stop meaning anything and the surface goes loud.
+
 ### Presentations
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
@@ -1505,6 +1519,8 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
 - Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
+
+**Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
 
 ### Date picker
 
@@ -1731,6 +1747,8 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 - **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.19 Toast — that is the whole difference between the two components.
 - **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
 
+**Do / Don't.** Do let an alert clear when the *condition* clears. If the reader has to be able to make the message go away, it was never an alert — it was a toast. Don't give an alert a close button. It lets someone hide a state that is still true, and the next reader inherits a screen that lies.
+
 ### Toast
 
 Transient, stacked, bottom-right. A toast is what an alert becomes when the message is about an action that just happened somewhere else.
@@ -1776,6 +1794,8 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 - **The toast keeps its close button.** It is the dismissible half of the pair: § 3.18 Alert has none by contract.
 - Motion: § 08.4.
 
+**Do / Don't.** Do mirror every toast somewhere durable. A toast is a notification of a result, never the record of it. Don't auto-hide a toast that carries an Undo or an error. The countdown races the reader; hover and focus must pause it.
+
 ### Tooltip
 
 A label for something already visible. Never a container for content.
@@ -1813,6 +1833,8 @@ A label for something already visible. Never a container for content.
 - Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in `.help` or in an § 3.18 Alert.
 - No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
 - Plain text only, one or two lines. A tooltip that needs a title is an alert.
+
+**Do / Don't.** Do keep one tooltip open at a time, opened on hover *and* on focus. Two bubbles on screen overlap, and an overlapped label cannot be read. Don't put a link, a button, or anything required inside a tooltip. There is no accessible path to reach it, and it disappears the moment the pointer leaves.
 
 ### Page shell
 
@@ -1877,6 +1899,8 @@ A label for something already visible. Never a container for content.
 - Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
 - In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
 - ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
+
+**Do / Don't.** Do wrap a breadcrumb that navigates in `<nav aria-label="Breadcrumb">` and mark the current page with `aria-current="page"`. Don't use it as the only navigation, or to show progress through a flow: that is a Stepper.
 
 ### Skip link
 

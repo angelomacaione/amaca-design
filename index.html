@@ -2784,6 +2784,20 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
           </div>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 24.2</span></div>
+          <p class="subsection-desc">One view at a time, one indicator that travels.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Fade the new panel in once the old one is gone, under one magenta indicator that travels.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Crossfade or slide both panels, or use tabs to move between pages: that is Navigation.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="breadcrumb">
@@ -2799,6 +2813,20 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <div class="card" style="padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)">
             <div class="breadcrumb"><span>Work</span><span class="sep">/</span><span>Case studies</span><span class="sep">/</span><span class="active">Arc Automotive HMI</span></div>
             <div class="breadcrumb"><span>Journal</span><span class="sep">/</span><span>2026</span><span class="sep">/</span><span class="active">On systems that outlive the work</span></div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 25.2</span></div>
+          <p class="subsection-desc">Beside the navigation, never instead of it.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Wrap a breadcrumb that navigates in <code>&lt;nav aria-label="Breadcrumb"&gt;</code> and mark the current page with <code>aria-current="page"</code>.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Use it as the only navigation, or to show progress through a flow: that is a Stepper.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -2931,6 +2959,30 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 27.3</span></div>
+          <p class="subsection-desc">One micro-header, at most one action.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Give every card a micro-header and at most one action, last on its own row.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Put a gradient on a card, or a <code>.btn-primary</code> unless the card is the screen's single primary act.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Let the media zoom inside its clip, on hover and on focus-within.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Grow the card itself, or invent a spacing the anatomy does not have: stop and ask.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="accordion">
@@ -3051,6 +3103,20 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Reduced motion</td><td class="muted">Under <code>prefers-reduced-motion: reduce</code>, the row swaps instantly — no rotation, no fade, no grid transition.</td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 28.4</span></div>
+          <p class="subsection-desc">Headers scanned first, one panel open.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Open one panel at a time by default, each header a real button with <code>aria-expanded</code>.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Fold away content the reader will read in full: that is a page with headings.</p>
+            </div>
+          </div>
         </div>
       </section>
 
