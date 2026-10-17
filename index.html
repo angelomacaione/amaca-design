@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=7d497108">
+<link rel="stylesheet" href="styles/components.css?v=2336cbb2">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -3738,44 +3738,12 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="page-header">
           <div class="page-eyebrow">§ 33 · Data display / Maps</div>
           <h1 class="page-title">Places, <span class="accent">on a hex grid.</span></h1>
-          <p class="page-lede">Geographic data on an equal-area hex map: one hue, intensity by value.</p>
+          <p class="page-lede">Places on a grid of hexes: the land is grey, and a cluster takes the colour of its state.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The pattern in the data is geographic.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Data for only a few areas → a bar chart.</li><li>Geographic data with no geographic pattern → another chart.</li></ul></div></div>
-        <style id="hexmap-styles">
-        .hexmap{position:relative;width:100%;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}
-        .hexmap-svg{width:100%;height:auto;display:block}
-        .hexmap .hex{fill:var(--obsidian-500);opacity:0.92;cursor:pointer;transform-box:fill-box;transform-origin:center}
-        .hexmap .hex.m-primary{fill:var(--primary-500);opacity:1;filter:drop-shadow(0 0 5px rgba(240,81,213,0.45))}
-        .hexmap .hex.m-warning{fill:var(--warning);opacity:1}
-        .hexmap .hex.m-danger{fill:var(--danger);opacity:1}
-        .hexmap .hex.m-cluster{fill:var(--secondary-400);opacity:0.95;filter:drop-shadow(0 0 6px rgba(0,255,242,0.5))}
-        .hexmap .hex{transition:transform var(--d-base) var(--ease-spring), fill var(--d-quick) var(--ease-standard), filter var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard)}
-        .hexmap .hex.is-near{opacity:0.55}
-        .hexmap .hex.is-hot{stroke:var(--primary-500);stroke-width:2.5;paint-order:stroke;filter:drop-shadow(0 0 9px rgba(240,81,213,0.75))}
-        .hexmap .hex.is-hot:not([class*="m-"]){fill:var(--primary-200);opacity:1}
-        @media (prefers-reduced-motion:reduce){.hexmap .hex{transition:none}}
-        .hexmap-card{position:absolute;z-index:5;width:232px;background:var(--obsidian-850);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-4);box-shadow:var(--sh-3);opacity:0;transform:translateY(4px);pointer-events:none;transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
-        .hexmap-card.open{opacity:1;transform:translateY(0);pointer-events:auto}
-        .hexmap-card .hc-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-3)}
-        .hexmap-card .hc-status{display:flex;align-items:center;gap:var(--s-2);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200)}
-        .hexmap-card .hc-dot{width:8px;height:8px;border-radius:var(--r-full);flex:none}
-        .hexmap-card .hc-close{background:none;border:0;color:var(--obsidian-400);cursor:pointer;font-size:var(--t-lead);line-height:1;padding:0 var(--s-0-5)}
-        .hexmap-card .hc-close:hover{color:var(--obsidian-100)}
-        .hexmap-card .hc-id{font-family:var(--font-mono);font-size:var(--t-small);color:var(--obsidian-100);margin-bottom:var(--s-3)}
-        .hexmap-card .hc-rows{display:grid;gap:var(--s-2)}
-        .hexmap-card .hc-row{display:flex;justify-content:space-between;gap:var(--s-4);align-items:baseline}
-        .hexmap-card .hc-row .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
-        .hexmap-card .hc-row .v{font-size:var(--t-small);color:var(--obsidian-100);font-variant-numeric:tabular-nums}
-        .hexmap-legend{display:flex;flex-wrap:wrap;gap:var(--s-3) var(--s-6);margin-top:var(--s-5);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
-        .hm-key{display:flex;align-items:center;gap:var(--s-2)}
-        .hm-sw{width:13px;height:13px;display:inline-block;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
-        .hm-sw.hm-primary{background:var(--primary-500)}
-        .hm-sw.hm-warning{background:var(--warning)}
-        .hm-sw.hm-danger{background:var(--danger)}
-        .hm-sw.hm-cluster{background:var(--secondary-400)}
-        </style><div class="subsection">
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The pattern in the data is geographic.</li><li>A few places carry a state; the rest of the land is context.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Data for only a few areas → a bar chart.</li><li>Geographic data with no geographic pattern → another chart.</li><li>Exact values to compare place by place → Table.</li></ul></div></div>
+        <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 33.1</span></div>
-          <p class="subsection-desc">A dot-density world drawn as a honeycomb. The landmass isn't hand-drawn: it's the public-domain <strong style="color:var(--obsidian-100)">Natural Earth 1:110m</strong> dataset (loaded as TopoJSON via <code>world-atlas</code>), rasterised into the hex grid by canvas sampling — the canonical d3 dotted-map pipeline — and every node is placed at its true longitude / latitude. The land is a single neutral obsidian fill — quiet, the 85% — so the status hexes are the only thing that reads as data. Every fill is a token, no hardcoded hex; color is always paired with a label in the legend (§ 6 #1). One accent set, paired with labels — the landmass never competes. Hover lights the grid cell-by-cell; otherwise static — no auto-advance, no decorative loop (§ 6 #6).</p>
+          <p class="subsection-desc">The land is Natural Earth 1:110m (public domain), baked into the page as a grid of hexes: no request at run time. A coastal cell draws smaller, by how much of it is land. A cluster of cells is one place with nodes: it takes the colour of its worst state, and the rest of the land stays grey. Hover, focus or a click act on the whole cluster, never on one hex: it glows in its colour, and grey land lights its country. The sea never takes a colour. On a wide screen a click opens the cluster's Popover inside the map, beside the cluster, and the rest of the land dims; under 720px a tap opens its Drawer.</p>
           <div class="chart-card">
             <div class="chart-head">
               <div>
@@ -3785,16 +3753,28 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <div style="display:flex;gap:var(--s-2)"><span class="badge badge-success"><span class="dot"></span> Live</span></div>
             </div>
             <div class="hexmap" data-hexmap>
-              <svg class="hexmap-svg" id="hexmap-svg" role="img" aria-label="Honeycomb world map of edge deployments by status. Most nodes are primary hubs across North America, Europe, Asia and Africa; a handful flag high load or an active incident; two dense clusters sit over North America and Europe, and one over the Indian Ocean region."></svg>
-              <div class="hexmap-card" id="hexmap-card" role="dialog" aria-label="Node details" aria-hidden="true"></div>
+              <svg class="hexmap-svg" viewBox="0 0 2719 1245" aria-hidden="true"></svg>
+              <button type="button" class="hexmap-area" data-cluster="br" popovertarget="hm-br" aria-label="Brazil: primary hub, 3 nodes" style="left:34.877%;top:68.675%;width:11.466%;height:28.112%"></button>
+              <button type="button" class="hexmap-area" data-cluster="fr" popovertarget="hm-fr" aria-label="France: primary hub, 2 nodes" style="left:50.484%;top:27.108%;width:3.822%;height:7.631%"></button>
+              <button type="button" class="hexmap-area" data-cluster="it" popovertarget="hm-it" aria-label="Italy: primary hub, 2 nodes" style="left:53.509%;top:29.518%;width:3.504%;height:7.631%"></button>
+              <button type="button" class="hexmap-area" data-cluster="mz" popovertarget="hm-mz" aria-label="Mozambique: high load, 2 nodes" style="left:59.561%;top:71.687%;width:3.504%;height:12.45%"></button>
+              <button type="button" class="hexmap-area" data-cluster="kz" popovertarget="hm-kz" aria-label="Kazakhstan: active incident, 2 nodes" style="left:68.32%;top:25.301%;width:11.466%;height:11.245%"></button>
+              <button type="button" class="hexmap-area" data-cluster="id" popovertarget="hm-id" aria-label="Indonesia: high load, 3 nodes" style="left:82.494%;top:60.843%;width:13.059%;height:12.45%"></button>
             </div>
-            <div class="hexmap-legend">
-              <span class="hm-key"><span class="hm-sw hm-primary"></span> Primary hub</span>
-              <span class="hm-key"><span class="hm-sw hm-warning"></span> High load</span>
-              <span class="hm-key"><span class="hm-sw hm-danger"></span> Active incident</span>
-              <span class="hm-key"><span class="hm-sw hm-cluster"></span> Dense cluster</span>
-            </div>
+            <ul class="chart-legend"><li><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span>Primary hub</li><li><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span>High load</li><li><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span>Active incident</li></ul>
           </div>
+          <div class="popover" id="hm-br" popover role="dialog" aria-labelledby="hm-br-t"><div class="popover-head"><h3 class="popover-title" id="hm-br-t">Brazil</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-201</span><span class="list-meta">23.5°S 46.6°W · p95 38 ms · 99.97%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-202</span><span class="list-meta">15.8°S 47.9°W · p95 41 ms · 99.95%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-203</span><span class="list-meta">3.7°S 38.5°W · p95 52 ms · 99.91%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <div class="popover" id="hm-fr" popover role="dialog" aria-labelledby="hm-fr-t"><div class="popover-head"><h3 class="popover-title" id="hm-fr-t">France</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-311</span><span class="list-meta">48.9°N 2.4°E · p95 24 ms · 99.98%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-312</span><span class="list-meta">43.3°N 5.4°E · p95 29 ms · 99.96%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <div class="popover" id="hm-it" popover role="dialog" aria-labelledby="hm-it-t"><div class="popover-head"><h3 class="popover-title" id="hm-it-t">Italy</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-321</span><span class="list-meta">45.5°N 9.2°E · p95 27 ms · 99.97%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-322</span><span class="list-meta">41.9°N 12.5°E · p95 31 ms · 99.94%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <div class="popover" id="hm-mz" popover role="dialog" aria-labelledby="hm-mz-t"><div class="popover-head"><h3 class="popover-title" id="hm-mz-t">Mozambique</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-411</span><span class="list-meta">26.0°S 32.6°E · p95 118 ms · 99.42%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-412</span><span class="list-meta">19.8°S 34.8°E · p95 64 ms · 99.88%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <div class="popover" id="hm-kz" popover role="dialog" aria-labelledby="hm-kz-t"><div class="popover-head"><h3 class="popover-title" id="hm-kz-t">Kazakhstan</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span> Active incident · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-511</span><span class="list-meta">43.2°N 76.9°E · p95 412 ms · 96.10%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span><span class="list-meta">Active incident</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-512</span><span class="list-meta">51.1°N 71.4°E · p95 73 ms · 99.81%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <div class="popover" id="hm-id" popover role="dialog" aria-labelledby="hm-id-t"><div class="popover-head"><h3 class="popover-title" id="hm-id-t">Indonesia</h3></div><div class="popover-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-611</span><span class="list-meta">6.2°S 106.8°E · p95 141 ms · 99.37%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-612</span><span class="list-meta">7.3°S 112.7°E · p95 58 ms · 99.90%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-613</span><span class="list-meta">5.1°S 119.4°E · p95 61 ms · 99.89%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></div>
+          <dialog class="drawer" id="hm-br-drawer" aria-labelledby="hm-br-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-br-dt">Brazil</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-201</span><span class="list-meta">23.5°S 46.6°W · p95 38 ms · 99.97%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-202</span><span class="list-meta">15.8°S 47.9°W · p95 41 ms · 99.95%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-203</span><span class="list-meta">3.7°S 38.5°W · p95 52 ms · 99.91%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+          <dialog class="drawer" id="hm-fr-drawer" aria-labelledby="hm-fr-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-fr-dt">France</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-311</span><span class="list-meta">48.9°N 2.4°E · p95 24 ms · 99.98%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-312</span><span class="list-meta">43.3°N 5.4°E · p95 29 ms · 99.96%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+          <dialog class="drawer" id="hm-it-drawer" aria-labelledby="hm-it-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-it-dt">Italy</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span> Primary hub · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-321</span><span class="list-meta">45.5°N 9.2°E · p95 27 ms · 99.97%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-322</span><span class="list-meta">41.9°N 12.5°E · p95 31 ms · 99.94%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+          <dialog class="drawer" id="hm-mz-drawer" aria-labelledby="hm-mz-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-mz-dt">Mozambique</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-411</span><span class="list-meta">26.0°S 32.6°E · p95 118 ms · 99.42%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-412</span><span class="list-meta">19.8°S 34.8°E · p95 64 ms · 99.88%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+          <dialog class="drawer" id="hm-kz-drawer" aria-labelledby="hm-kz-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-kz-dt">Kazakhstan</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span> Active incident · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-511</span><span class="list-meta">43.2°N 76.9°E · p95 412 ms · 96.10%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span><span class="list-meta">Active incident</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-512</span><span class="list-meta">51.1°N 71.4°E · p95 73 ms · 99.81%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+          <dialog class="drawer" id="hm-id-drawer" aria-labelledby="hm-id-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-id-dt">Indonesia</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-611</span><span class="list-meta">6.2°S 106.8°E · p95 141 ms · 99.37%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-612</span><span class="list-meta">7.3°S 112.7°E · p95 58 ms · 99.90%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-613</span><span class="list-meta">5.1°S 119.4°E · p95 61 ms · 99.89%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
         </div>
       </section>
 
@@ -8791,247 +8771,118 @@ try {
 })();
 </script>
 <script>
-// --- Data Viz · § 19.8 hex world map ---
+// --- Map § 33.1: the baked hex land, six clusters. A cluster lights, opens and takes focus as one. ---
 (function(){
-  const svg = document.getElementById('hexmap-svg');
-  if (!svg) return;
-  const ROWS = ["....................................................................................................................................................................................",".................................................................###########........................................................................................................","................................................................#############.......................................................................................................","..............................................................#################.....................................................................................................",".............................................................###################....................................................########........................................","..............................................................#################................................................#######################..............................","..............................................................#################............................................#########################################################","........##########################################.............###############......................###.................############################################################",".......##############################################..........#############.....................#######.............##############################################################.","......##############################################............##########....#####............###########........###############################################################...",".......############################################..............########.....................#############.....############################################################........","........#############################################.............#####......................################..########################################################.............",".........######.....####################################..................................########################################################################..................","......................####################################............................########################################################################......................","........................####################################..........................####################################################################..........................",".........................####################################........................#################################################################..............................","..........................####################################.......................#######################################################........................................","...........................##################################........................#######################################################........................................","............................###############################..........................#######################################################........................................","............................#############################............................####################......#############################........................................","............................############################.............................########.##########........###################...####..........................................","............................##########################...............................######....#########.........###############.......######.......................................",".............................########################.................................####......#...###................................#######......##..............................",".............................#######################..................................####.............................................#########...####.............................","..............................#####################.....................................................................................###############......#......................","...............................###################.............................................................................#.........##############.....#.......................","................................##################......................................##################....................###........#############..............................",".................................##########....###....................................#####################.###########......#####........###########...............................","..................................########.......#...................................######################..##########......######.......##########................................","...................................######...........................................#######################...##########....########.......########.................................","....................................#####..........................................#########################...########.....##########.....#######..................................",".....................................####.........................................##########################....######.......########.......####....................................",".......................................####..#....................................##########################..................######........####....................................",".........................................#####....................................##########################..................#####..........###....................................","..............................................#...................................##########################...................###..........####....................................","...............................................#...................................###########################.................###..........####....................................","................................................#..................................################################.............#..........####.....................................","....................................................########........................##############################..............#..........###......................................","...................................................##########........................###########################............................#.......................................","...................................................###########...............................##################.....................................................................","...................................................############...............................#################...........................#.....####................................","..................................................##############..............................################............................##.....####...............................","..................................................################............................################.............................##....####...............................","..................................................###################..........................###############..............................##...####.......####....................","..................................................#####################........................###############................................#.............######..................","..................................................######################.......................###############...............................................#######................","..................................................######################.......................###############...............................................#####..................","...................................................####################.........................##############......................................................................","....................................................###################.........................##############............................................#######...................",".....................................................#################..........................##############..##.......................................#########..................","......................................................###############...........................#############...###.....................................##########..................",".......................................................#############.............................############...###...................................#############.................","......................................................#############..............................###########....###.................................################................","......................................................############..............................##########......##................................#################................","......................................................###########...............................#########.........................................##################...............","......................................................##########.................................########.........................................##################...............","......................................................##########..................................#######..........................................##################...............","......................................................#########...................................######...........................................#################................","......................................................########.....................................#####...........................................#######...#######................","......................................................#######.................................................................................................######................",".....................................................#######...................................................................................................#####................","......................................................######....................................................................................................................#...","......................................................#####....................................................................................................................###..","......................................................####....................................................................................................................###...","......................................................####...................................................................................................................###....","......................................................###...........................................................................................................................",".....................................................###............................................................................................................................",".....................................................###............................................................................................................................","....................................................................................................................................................................................","....................................................................................................................................................................................","...................................................................................................................................................................................."];
-  // status markers placed by REAL geographic coordinates [lon, lat], projected with the
-  // same equirectangular mapping that generated the land matrix.
-  const MARKERS = [
-    {lon:-77,lat:39,t:'primary'},   // N. Virginia
-    {lon:-122,lat:45,t:'primary'},  // Oregon
-    {lon:-46,lat:-23,t:'primary'},  // Sao Paulo
-    {lon:-0.1,lat:51,t:'primary'},  // London
-    {lon:73,lat:19,t:'primary'},    // Mumbai
-    {lon:104,lat:1,t:'primary'},    // Singapore
-    {lon:139,lat:36,t:'primary'},   // Tokyo
-    {lon:151,lat:-33,t:'primary'},  // Sydney
-    {lon:28,lat:-26,t:'primary'},   // Johannesburg
-    {lon:-99,lat:19,t:'primary'},   // Mexico City
-    {lon:-95,lat:38,t:'warning'},   // US central
-    {lon:50,lat:26,t:'warning'},    // Bahrain
-    {lon:37,lat:-1,t:'warning'},    // Nairobi
-    {lon:127,lat:37,t:'warning'},   // Seoul
-    {lon:107,lat:-6,t:'warning'},   // Jakarta
-    {lon:18,lat:59,t:'warning'},    // Stockholm
-    {lon:-21,lat:64,t:'danger'},    // Iceland
-    {lon:78,lat:56,t:'danger'},     // Siberia
-    {lon:-60,lat:-12,t:'danger'},   // Brazil interior
-    {lon:25,lat:-29,t:'danger'},    // S Africa
-    {lon:-79,lat:44,t:'primary'},   // Toronto
-    {lon:-3,lat:40,t:'primary'},    // Madrid
-    {lon:121,lat:31,t:'primary'},   // Shanghai
-    {lon:77,lat:28,t:'primary'},    // Delhi
-    {lon:31,lat:30,t:'primary'},    // Cairo
-    {lon:3,lat:6,t:'primary'},      // Lagos
-    {lon:174,lat:-41,t:'primary'},  // Wellington
-    {lon:-95,lat:30,t:'warning'},   // Houston
-    {lon:29,lat:41,t:'warning'},    // Istanbul
-    {lon:115,lat:-32,t:'warning'},  // Perth
-    {lon:-70,lat:-33,t:'warning'},  // Santiago
-    {lon:13,lat:52,t:'warning'},    // Berlin
-    {lon:-77,lat:-12,t:'danger'},   // Lima
-    {lon:23,lat:38,t:'danger'},     // Athens
-    {lon:121,lat:14,t:'danger'}     // Manila
-  ];
-  const CLUSTER_CENTERS = [{lon:-77,lat:41},{lon:8,lat:50}]; // US-East, Europe
-  const FLOWER_CENTER = {lon:112,lat:6};                     // SE-Asia hub (Indian Ocean side)
-  // small same-colour clusters (centre + n-1 neighbours)
-  const MINI = [
-    {lon:-119,lat:37,t:'primary',n:3},  // California
-    {lon:116,lat:39,t:'primary',n:3},   // Beijing
-    {lon:54,lat:25,t:'warning',n:3},    // Gulf
-    {lon:-58,lat:-34,t:'warning',n:2},  // Buenos Aires
-    {lon:100,lat:14,t:'danger',n:2}     // Bangkok
-  ];
-
-  const R = 10, GAP = 0.86, hexH = Math.sqrt(3)*R, dx = 1.5*R;
-  const W = ROWS[0].length, H = ROWS.length;
-  const LAT_TOP = 84, LAT_BOT = -58;
-  const lon2c = lon => Math.round((lon+180)/360*W - 0.5);
-  const lat2r = lat => Math.round((LAT_TOP-lat)/(LAT_TOP-LAT_BOT)*H - 0.5);
-  const center = (c,r) => ({ x:c*dx+R, y:r*hexH+(c%2?hexH/2:0)+hexH/2 });
-  const hexPath = (cx,cy) => {
-    const v = R*GAP, h = hexH*GAP;
-    return [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
-      .map(([x,y]) => (cx+x).toFixed(1)+','+(cy+y).toFixed(1)).join(' ');
-  };
-  // 6 neighbours of a flat-top cell (odd columns shifted down half a row)
-  const ring = (c,r) => (c % 2 === 0)
-    ? [[c,r-1],[c,r+1],[c-1,r-1],[c-1,r],[c+1,r-1],[c+1,r]]
-    : [[c,r-1],[c,r+1],[c-1,r],[c-1,r+1],[c+1,r],[c+1,r+1]];
-
-  const cellLon = c => -180 + (c+0.5)/W*360;
-  const cellLat = r => LAT_TOP - (r+0.5)/H*(LAT_TOP-LAT_BOT);
-  const lonStep = 360/W, latStep = (LAT_TOP-LAT_BOT)/H;
-
-  // Build a Map of cell -> render scale (0..1). The scale is the SQRT of the cell's land
-  // coverage, so a cell that's only partly land draws a smaller hex — coastlines taper to a
-  // point instead of stair-stepping, exactly like a dot-density reference map. Interior cells
-  // (full coverage) draw full size.
-  function buildCells(covFn){
-    const m = new Map();
-    for (let r=0; r<H; r++) for (let c=0; c<W; c++) {
-      const cov = covFn(c,r);
-      if (cov >= 0.08) m.set(c+','+r, Math.max(0.25, Math.min(1, Math.pow(cov, 0.6))));
+  const root = document.querySelector('[data-hexmap]');
+  if (!root) return;
+  const svg = root.querySelector('.hexmap-svg');
+  // One string per row: '.' is sea; '0'..'9' a grey land cell at ten sizes; a letter, a cell of a cluster at its size.
+  const ROWS = ["........................................01466666544......046677777752.......................................................................................","....................................345999999998556899898899999988776774.........................001.................043....................................","................................01..48995799964137999999999999999999980...........27788662........1..................058942.................................",".........................02.24..1415122499972.58999999999999999999999.............069414...............................9055.................................",".........................5446364.17545646564...26656899999999999999992...............0.................35454.........24457998772.........24420..............",".......................04441342090316546544.........39999999999999997................................773........0229999999999721.........342932.............",".......................29978755750885508798670........899999999999980...............................292....062222999999999999999986896....47442.............","0......146532..........1406789994924942899999863.....279999999999966...................0664.........45....49858999999999999999999999976777999985562........3","1.....4899999999874779987757787776953963087038996.....35999999999973.................4899998741......1916745958999999999999999999999999999999999999777658775","842..0699999999999999999999867798678899699095199850...79999999930..................3999999999980545899999999849999999999999999999999999999999999999999999997","5797048899999999999999999999999999999999639.1399757...089999752....17777...........7999759998035899999999999989999999999999999999999999999999999999999999999",".0300025999999999999999999999999999999628722338992....089997.......0775..........49999459999878999999999999999999999999999999999999999999999999999999999998.","......799999999999999999999999999999970..000543251......7995....................5999969799999999999999999999999999999999999999999999999999999999998979999753",".....47999978567999999999999999999995......1998390......256....................39999920776999999999999999999999999999999999999999999999999999999791487660...",".......057942....278999999999999999994......7999475........................12...574995.9589999999999999999999999999999999999999999999999999532234.074.......",".......93532.......399999999999999999750....7999997.......................094....639593699999999999999999999999999999999999999999999999996.......7991.......","......0430..........089999999999999999997400799999983.....................2482...54400089999999999999999999xx99999999999999999999999999980.......6990.......","...................02799999999999999999998979999999981...................58285.1588799999999999999999999xxxxxxxx9999999999999999999999999753.....97.........","......................59999999999999999999849999999996...................050996499999999999999999999x999xxxxxxxxx999999999999999999999999997.....34.........",".....................067999999999999999999999999756352.....................44OST999999999999999999xxxxxxxxxxxxxxxxx9999999999999999999999948................",".......................26999999999999999999999987709698.....................QSTTTT9999999999999999xxxxxxxxxxxxxxxxxx9999999999999999999999530...............",".......................39999999999999999999999999620.03.....................OTTTTddd99999987858999wsvxxxxxxxxxxxxxx9999999999999999999999594................","........................7999999999999999999999998773.........................QTTTddZ7999997.52799959uxxxxxxxxxxxxx999999999999999999999992.3................",".......................4999999999999999999999980.0.......................376RTSOO1dY389996...928990qxx99xxxxxxxxx99999999999999999999976..583...............","........................799999999999999999999973..........................899970.M9ZcV698833762399910ux999xxx99999999999999999999999992...32................",".......................39999999999999999999993...........................59995...Y.9aV850899999999895999999999999999999999999999835680....7.................","........................3999999999999999999983............................8997.....WZ..80499999999939799999999999999999999999999923977....70................","........................399999999999999999995............................03534778900...19255499999988999999999999999999999999999970.76.0594.................",".........................28999999999999999995.............................9889999959....2...25999999999999999999999999999999999998..0417853.................","..........................499999999999999980.............................49999999974..32....49999999999999999999999999999999999998...262....................","...........................4499999999999997..............................2999999999984499757599999999999999999999999999999999999997...2.....................","...........................439999999544.064.............................08999999999999999999899999469999999999999999999999999999993.........................","............................53999998......70............................59999999999999999999679999924989999999999999999999999999994.........................","............................33899993......60...........................89999999999999999999946999994934887899999999999999999999993..........................",".............................2269996.......92..........................799999999999999999999936999995670...799999999999999999999825.........................",".............................0.49991.....354..........................7999999999999999999999926999999992...599999999789999999974.2..........................","..........0.....................7998..082...64........................2999999999999999999999999899999993....36999995.099999934..............................","..........0.....................79981385...092940.....................699999999999999999999997.79999992......899991...89999434..............................",".................................0699997....1.........................0999999999999999999999997.7999970......29997....0999993.....7.........................","...................................4289671............................7999999999999999999999996999970........5994.....2299995....52.........................","......................................4797............................499999999999999999999999994850..........697.......599993....54........................",".......................................092....31......................699999999999999999999999993992..........890.......52997.....04........................","........................................17...7887562...................39999999999999999999999999689...........94.......49075....2050.......................",".........................................65589999994...................29999999999999999999999999993..........246.......7..0....09262.......................","...........................................0799999997...................2899999899999999999999999994............44.......5......2.035.......................","............................................9999999J996..................58673.29999999999999999994...................0%991....78...........................","............................................699999JJ999I..........................89999999999999994....................y)#7...28)...........................","...........................................7999JJJJJJJJH.........................49999999999999980......................((4.y7**(00y!0......................","...........................................8999JJJJJJJJJF........................0999999999999995........................)(..(**)y!#.#.z....................","..........................................69999JJJJJJJJJJI0......................599999999999994.........................)(..)**9)$...%&z%..................","...........................................8999JJJJJJJJJJJJJHC....................49999999999993..........................))..#%#$(.zyz$(**73..10...........","..........................................7999JJJJJJJJJJJJJJJH0...................4999999999994...........................$$.....!!.....z)*970430...........","...........................................799JJJJJJJJJJJJJJJJI....................599999999999............................y(%&.........09*998...00.........","...........................................79JJJJJJJJJJJJJJJJJD....................899999999995..............................z$!!zz#0....!%507....1.........","............................................899JJJJJJJJJJJJJJJC....................199999999999i.................................00!.......0..4....0........","............................................89999JJJJJJJJJJJJB.....................799999999nnn...1...................................574.05................","............................................0999999JJJJJJJJJJ1.....................79999999nnnnk..16................................32798..63...............",".............................................799999JJJJJJJJJG.....................49999999nnnnm..592...............................699996.294...............","..............................................199999JJJJJJJJJ......................999999999nnj..994...............................89999995991............02","...............................................99999JJJJJJJJD.....................099999999nm...397..............................0899999999982..............","...............................................49999JJJJJJJJE......................299999999n0...99.............................589999999999995......4......","...............................................99999JJJJJJIE.......................39999999nl...792...........................19999999999999996......1......","...............................................6999999JJJH0.........................7999999nmg...95............................79999999999999997............","..............................................29999999JJF...........................9999999l.....0............................099999999999999997............","...............................................8999999JJJ...........................299999990..................................599999999999999994...........","..............................................599999JJJI............................29999990...................................79999999999999998............","...............................................999999JJI.............................3999980....................................99999879999999993...........","..............................................69999999G..............................69985.....................................49995...398999993............","..............................................399999854...............................51........................................540.....24999994.........1..",".............................................09999997....................................................................................099995.........03..","..............................................8999997.....................................................................................06772..........472",".............................................499994.....................................................................................................070.","..............................................99982.........................................................................................182.........640.",".............................................49994..........................................................................................23........174...",".............................................49983....................................................................................................590...",".............................................9995....................................................................................................040....",".............................................79981.........................................................01...............................................","............................................1997...........................................................1................................................",".............................................4981..03.......................................................................................................",".............................................3892...........................................................................................................","...............................................453..........................................................................................................","............................................................................................................................................................"];
+  // One string per row again, one character per land cell: the country it belongs to (0 for none).
+  const CO = ["ĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėė","ĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėėėėėėėėėēēēēēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėėėėėėėėėĖĖĖĖĖĖĖĖēēēēēēē","ĄĄĄĄĄĄĄĄăĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėėėėėėėėėĖĖĖĖĖĖĀēēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėėėėėėėėėĀēēēēēēēēēēēēēēēēēēēēē","ĄĄĄĄăĄĄĄĄĀăĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėėėēēēēēēēēēēēēēēēēēēēēēēĀēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ēąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėėĖĖĖĖēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ēąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėėėėėėėėėĖĖĖĖƘƘēēēēēĀēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ēēēąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĀĄĄĄĄĄĄĄėėėėėėėėėėėĖĖůůůƘƘēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ēēēēēąąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĀĄĄĄĄĄĄĄėėėėėėėėėƑƑƑƑƑĖůůůůƘƘƘēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ēēąąąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėėėƑƑƑƑĖĖůůůůƘƘƘƘēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄėėėėĖĖĖůůůĀƘƘƘƘēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ąąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĀĄėėėĖĖĖĖůůůƘƘƘƘēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄƐƐĖĖĖůůůĀŹŹēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ĀąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄƐƐƐƏůůůĀŸŸŸēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄƆƐƐƐƏƏƏůŲēŷŷŰŰēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĀĄĄĄĄĄĄĄĄĄĄĄƆƆƐƐƐƃƃźźźŲŲŲŲŰŰŰēēēēēēēēēēēēēĆĆĆĆĆĆĆēēēēēēēēēēēēēēēēēēēēēēēēēēēēēēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄƆƆƆƐƐƐƂƃźźźŲŲŲŲŰŰŰűűēēēēēēēēēēēĆĆĆĆĆĆĆĆēēēēēēēēēēēēēēēēēēƌƌƌēēēēēēēēē","ĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄĄƐƐĬĬƂźźźƚƚŲŲŲűűűűűűēēēēĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆēēēŢēēŢŢŢŢēēēēēƌƌƌƌēēēēēēē","ĄąąąąąąąąąąąąąąĄĄĄĄĄĄĄĄĄĄĄĄĀĄĄĄĄĬĬĬĬĬźźźųƙƙŴűűűűűűűēēēĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆƌŢŢŢŢŢŢŢŢŢŢŢŢƌƌƌƌƌƌƌēēēēēē","ąąąąąąąąąąąąąąąąąąĄĄĄĄĄĄąĄĄĄĄĄĄĬĬĬĬƀƀƎųŴŴŴŶŶŶűűűűēēēēēĆĆĆĆĆĆĆĆĆĆĆĆĆĆĆƌƌƌŢŢŢŢŢŢŢŢŢŢŢƌƌƌƌƌƌƌƌēēĀē","ąąąąąąąąąąąąąąąąąąĄĄĄĄąąąĄĄĄĬĬĬĬƎƎƎſƫƭŶŶŶŶēēēēēēēĆĆĆććĆĆĆĆĆĆĆĆĆƌƌƌƌƌŢŢŢŢŢŢŢŢŢƌƌƌƌƌƌƌƌēēēƜ","ąąąąąąąąąąąąąąąąąąąĄąąąąąĄƅƅƅƅĬĬĬĬĬƎƎſƫƭŻŻŻĀēƓēēēĆĆĆććććĆĆĆĆĆĆƌƌƌƌƌƌƌŢŢŢŢŢŢŢƌƌƌƌƌƌƌƌēēƜƜƜ","ąąąąąąąąąąąąąąąąąąąąąąąąƄƅƅƅƅƅĬĀƎƎƎžƬŻŽŽŽŽŽŽŽƓƓēƒĀūūūćććĆćŪŪŪƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌŠŠƜƜ","ąąąąąąąąąąąąąąąąąąąąąąąƄƅƅƅƅƎĀƎƎżżŽŽŽŽŽŽŽŽŽƒƒƒūūūūūććũŪŪƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌŠŠŠƜ","ąąąąąąąąąąąąąąąąąąąąąąƄƅƅƅƎƎżżŽŽŽŽŽŽŽŽŬŬŬĀūūūūūććũũƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌĀŠšƜƜ","ąąąąąąąąąąąąąąąąąąąąąƄƅƅƅœœœœŒŒƎżĀŽŽŽŽŭŭŘŘŬŬŬŬŬŬŬūŨŨŨŨŧƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌššƜƜƜƜ","ąąąąąąąąąąąąąąąąąąąąƣƣƣœœœœŒŒĀżƢŭŭŭŘŘŬŬŬŬŬŬŨŨŨŨŨŧţţƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌššƜƜƜƜƜ","ąąąąąąąąąąąąąąąąąąƣƣƣƣœœœœŒƥƥƥƥōŭŘŘŘŘŬŬŬŬŬŬŨŨŨŨŧŧţţƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƜƜƜ","ĜĜĜĜĜąąąąąąąąąąąƣƣƣœœœœœœƥƥƥƥƥƥƥƤƤƤƤŔƟƟŘŘŘŬŬŬŬŬŬŨŨŧŧŧţţƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƜ","ĜĜĜĜĜĜĜąąąąąąąąƣƣœœœœœœœœƥƥƥƥƥƥƤƤƤƤƤƟƟƟƟŘŗŬŬŬŬŬŨŧŧŧŧţţţŦŦƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌƌ","ĜĜĜĜĜĜĜąąąƣƣœœœœœœœœƥƥƥƥƥƥƥƤƤƤƤƟƟƟƟƟƟƟŬŬŬŬŬŧŧŧŧţţţţţŦŦƌťţţŞƌƌƌƌƌƌƌƌƌƌ","ĜĜĜĜĜĜĜąąĔƣƣĶĶœœœœœœœƥƥƥƥƥƥƤƤƤƤƤƟƟƟƟƟƟƟĀŕŬŬŧŧŧŧţţţţţţţţţţţŞƌƌƌƌƌƌƌƌƌƌ","ĜĜĜĜĜĜĜĀĔƣăĶĶĵœœœœœœœƥƥƥƥƥƥƤƤƤƤƤƟƟƟƟƟƟŕŕřřŧţţţţţţţţŤŤţŞŞƌƌƌƌƌƌƌƌƌƍ","ĜĜĜĜĜĜİİİƣăĶĶĶĵĵœœœœœĸĸĐƥƥƥƤƤƤƤƤƤƟƟƟƟƟƟƟřřřţţţţţţţţţŤŤŞŞŞƌşşƌƌƌƌƍ","ąĜĜĜĜĜĜĜİİĶĶĶĶĶĵĵĵĵœœĸĸĸĸĐĐƥƥďďďďďĀƟƟƟƟƟƟƟřřţţţţţţţţŤŞŞŞŞŝşşƌ","ąĜĜĜĜĜĜĜĜįįđĒĒĮĶĶĶĶĶĵĵĵĵĸĸĸĸĸĐĐĐĐďďďďďďƟƟƟƟƟřřřţţţţţţŞŞŜŝŝşƌƌ","ĜĜĜĜĜĜĨįĶĶĶĶĶĶĵĵĵĵĸĸĸĸĸĐĐĐďďďďďďƛƟƞƞƞƞřřţţţţţŞŞŜŜŜŝşƔ","ĜĜĜħĥĥĤĴĴĶĶĶĵĵĵĵĸĸĸĸĸĐĐĐďďďďďďƛƛĀƞƞƞƞƞţţţţŞŞŜŜŜŝşƔƔ","ħĦĥĤĴĴĴĵĵĵĵłĸĸĸĸĸĸĐĐĐĐďďďďďďƦƦƞƞƞƞţţţŞŜŜśśşƔƔ","ĤĤĤġĩĿľľĵĵłłłķĹĹĹĹĹĐĐĐďďďďďďƦƦƦƞĀĀčţţţŞŜśśşƔƔ","ģģġġĩĩĩĩưľľľĵĽłļķķĹĹĹĹĐĐĐŃďďďďƱƦƦƦƦƨƨčţţŜĀśşşƔƔƔƔ","ĢĢĢġġĩĩĩĩĩĩŁŁľĽĽļļķĹĹĹĹĺĐĐŃŃƱƱƱƱƦƦƦƦƦƨččţţƋŜşƔĀƔƔƔ","ĢġġġĩĩĩĩĩĪŁŀĽĽĽļĻĹĹĹĹĺĺŃŃŃŃƱƱƱƱƦƦƦƦƦččƋƋŜƕƔƔƔ","ġġġġĩĩĩĪĪīĬŀĽĽļļĹĹĺĺĺŃŃŃŃŃƱƱƱƱƦƦƦƦččĉĉĀƕƕƕƕ","ġġġġġĩĞĞĪīĬĞĺĺĺŃČČČČČƩƩĎĎĎčččĉĉƕƕƕƕĉ","ġġġġġĩĩĞĞĞĞĞĞņŅńńČČČČČČƩƩĎĎčččĉĉƕĉƕƕĉĉĉĉĈĉĉ","ĭĭġġġĞĞĞĞĞĞĞĞĞŅŅŅńńČČČČČƩƩĎĎĎčĉĉĉĉĉĉĉĉĉĉĉ","ĭĭĭĠġĞĞĞĞĞĞĞĞĞĞĞĞŅŅŅńČČČČČƪĂĂĎĎĎĉĉĉĉĉĉĉĉĉĉĉĉ","ĭĠĠĠĠĞĞĞĞĞĞĞĞĞĞĞĞĞĞŅńńČČČČČČĂĂĂĎĎĉĉĉĉĉĉĉĉĉĉĉĉĉĉĈĈĈĈ","ĠĠĠĠĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞŋČČČČČČČĂĂĂĂĂĉĉĉĉĉĉĉĈĈĈĈĈĈ","ĠĠĠĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞŋŋČČČČČČĂĂĂĂĉĉĉĉĉĉĉĈĈĈĈĀ","ĠĠĠĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞŋŋŋŋČČČŇĂĂĂĂĉĉĉĉĉĉĉęĉĈĈĈĈƈ","ĠĠĠĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞŋŋŋŋŋČČŇŇŇĂĂĂĉĉĉƊĈƈ","ĠĠĠĠğğĞĞĞĞĞĞĞĞĞĞĞĞŋŋŋŋŋŇŇŇŇŉŉŉŏƊƊƊƉƊ","ĠĠĠĠğğğğĞĞĞĞĞĞĞĞĞĞŋŋŋŋŇŇŇŇŇňŉŉŉŏŏƊƊƊƊƊƊƊ","ĠĠğğğğĞĞĞĞĞĞĞĞĞĞŋŋŋŋŋŇŇŇıŉňŉŉŏŏŏƊƊƊƊƊƊƊƊƊ","ĠĠğğğğğĞĞĞĞĞĞĞĞĳĳĳŋŋŇŇııŉŉŉŏŏŏƊƊƊƊƊƊƊƊƊƊƊāā","ċğğğğĞĞĞĞĞĞĞĞĞĳĳĳĳĳĲĲıııŉŏŏŏƉƊƊƊƊƊƊƊƊƊƊƊƊ","ċğğğƝƝĞĞĞĞĞĞĞĞĳĳĳĳĲĲĲııŉŉŏŏƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƇ","ċĊĊƝƝƝĞĞĞĞĞĞĞĳĳĳĲĲĲĲĚŉŉŏŏŏƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƇ","ċċĊĊĊƝƝĞĞĞĞĞĳĳĳĲĲĚĚĚŉŉŏŏƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ċċĊĊĊĊƝƝĞĞĞĳĳĲĚĚĚĚŉŏƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ċĊĊĊĊĊĊĞĞĞĳĳĳĚĚĚĚĚĚƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ċĊĊĊĊĊĊĞĞĞĚĚĚĚĚěĚĚƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ĊĊĊĊĊĊĝĞĞĚĚĚĚĚĚĚƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ċĊĊĊĊĊĝĝĞĚĚĚĚĚƊƊƊƊƊƊƊƊƊƊƊƊƊƊ","ċċĊĊĊĊĊĝĝĚĚƊƊĀƊƊƊƊƊƊƊƊƉ","ċċĊĊĊĊĊĊƊƊƊƊƊƊƉƉ","ċĊĊĊĊĊĊƊƊƊƊƊƉƉƉ","ċĊĊĊĊĊƉƉƉ","ċĊĊĊĊƊƊƊƉƉƉ","ċĊĊĊĊƊƊƉƉƉ","ċċĊĊĊƉƉƉ","ċĊĊĊƉƉƉ","ċċĊĊĊĘĘ","ċċĊĊĘ","ċċĊĊĕĕ","ċċċĊ","ċċĊ",""];
+  const AL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!#$%&()*+', CL = ["br", "fr", "it", "mz", "kz", "id"], ST = {"br":"primary","fr":"primary","it":"primary","mz":"warning","kz":"danger","id":"warning"};
+  // Pointy-top cells: the legend's hex, the same way up. Odd rows shift right by half a cell.
+  const R = 10, GAP = 0.86, HW = Math.sqrt(3) * R, DY = 1.5 * R;
+  const at = (c, r) => [c * HW + (r % 2 ? HW / 2 : 0) + HW / 2 + HW / 4, r * DY + R + R / 2];
+  let out = '';
+  ROWS.forEach((row, r) => {
+    let n = 0;
+    for (let c = 0; c < row.length; c++) {
+      const ch = row[c]; if (ch === '.') continue;
+      const co = CO[r].charCodeAt(n++) - 0x100;
+      const i = AL.indexOf(ch), k = i < 0 ? -1 : Math.floor(i / 10), l = i < 0 ? +ch : i % 10;
+      const s = 0.25 + l * 0.75 / 9, [x, y] = at(c, r);
+      const v = R * GAP * s, w = HW / 2 * GAP * s;
+      const pts = [[0,-v],[w,-v/2],[w,v/2],[0,v],[-w,v/2],[-w,-v/2]].map(([a,b]) => (x+a).toFixed(1) + ',' + (y+b).toFixed(1)).join(' ');
+      out += '<polygon points="' + pts + '"' + (co ? ' data-co="' + co + '"' : '') + (k >= 0 ? ' data-cl="' + CL[k] + '" data-st="' + ST[CL[k]] + '"' : '') + '/>';
     }
-    return m;
-  }
-  // Morphological cleanup: fill single interior holes (small lakes), drop fully-isolated crumbs.
-  function cleanup(m){
-    const has = (c,r) => r>=0 && r<H && c>=0 && c<W && m.has(c+','+r);
-    const nb  = (c,r) => ring(c,r).reduce((n,[a,b]) => n + (has(a,b)?1:0), 0);
-    const add = [];
-    for (let r=0; r<H; r++) for (let c=0; c<W; c++) if (!has(c,r) && nb(c,r) >= 5) add.push(c+','+r);
-    add.forEach(k => m.set(k, 1));
-    const del = [];
-    m.forEach((v,k) => { const a=k.split(','); if (nb(+a[0],+a[1]) === 0) del.push(k); });
-    del.forEach(k => m.delete(k));
-    return m;
-  }
-  function render(cells){
-    let maxX = 0, maxY = 0, landFrag = '', markFrag = '';
-    const poly = (c,r,cls,mul) => {
-      const {x,y} = center(c,r);
-      maxX = Math.max(maxX, x+R); maxY = Math.max(maxY, y+hexH/2);
-      const v = R*GAP*mul, h = hexH*GAP*mul;
-      const pts = [[v,0],[v/2,-h/2],[-v/2,-h/2],[-v,0],[-v/2,h/2],[v/2,h/2]]
-        .map(([px,py]) => (x+px).toFixed(1)+','+(y+py).toFixed(1)).join(' ');
-      return '<polygon class="hex'+(cls?' '+cls:'')+'" data-c="'+c+'" data-r="'+r+'" data-s="'+mul.toFixed(3)+'" points="'+pts+'"/>';
-    };
-    cells.forEach((mul,k) => { const a = k.split(','); landFrag += poly(+a[0], +a[1], '', mul); });
-    CLUSTER_CENTERS.forEach(p => { const c=lon2c(p.lon), r=lat2r(p.lat);
-      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); });
-    MARKERS.forEach(m => markFrag += poly(lon2c(m.lon), lat2r(m.lat), 'm-'+m.t, 1));
-    MINI.forEach(g => { const c=lon2c(g.lon), r=lat2r(g.lat);
-      [[c,r], ...ring(c,r).slice(0, g.n-1)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-'+g.t,1)); });
-    (() => { const c=lon2c(FLOWER_CENTER.lon), r=lat2r(FLOWER_CENTER.lat);
-      [[c,r], ...ring(c,r)].forEach(([cc,rr]) => markFrag += poly(cc,rr,'m-cluster',1)); })();
-    svg.setAttribute('viewBox', '0 0 '+(maxX+R).toFixed(0)+' '+(maxY+hexH).toFixed(0));
-    svg.innerHTML = '<g class="hx-land">'+landFrag+'</g><g class="hx-mark">'+markFrag+'</g>';
-    cellMap = new Map();
-    svg.querySelectorAll('.hx-land .hex').forEach(el => cellMap.set(el.dataset.c+','+el.dataset.r, el));
-  }
-  let cellMap = new Map();
+  });
+  svg.innerHTML = out;
+  const narrow = matchMedia('(max-width: 720px)');
+  const btn = id => root.querySelector('.hexmap-area[data-cluster="' + id + '"]');
+  const btns = [...root.querySelectorAll('.hexmap-area')];
+  let hover = null, land = null;
+  const polys = [...svg.querySelectorAll('polygon')];
+  const lit = () => {
+    const open = btns.filter(b => { const p = document.getElementById(b.getAttribute('popovertarget')); return p && p.matches(':popover-open'); }).map(b => b.dataset.cluster);
+    const on = new Set(open);
+    if (hover) on.add(hover);
+    const f = document.activeElement && document.activeElement.closest && document.activeElement.closest('.hexmap-area');
+    if (f && f.matches(':focus-visible')) on.add(f.dataset.cluster);
+    svg.querySelectorAll('[data-cl]').forEach(p => { p.toggleAttribute('data-hot', on.has(p.dataset.cl)); p.toggleAttribute('data-sel', open.includes(p.dataset.cl)); });
+    polys.forEach(p => { p.toggleAttribute('data-lit', !!land && !open.length && !p.dataset.cl && p.dataset.co === land); });
 
-  // Instant fallback: the baked low-res matrix (offline / exports), full-size cells.
-  render(cleanup(buildCells((c,r) => (ROWS[r] && ROWS[r][c] === '#') ? 1 : 0)));
-
-  // --- click a hex → generic info card (event-delegated, survives re-render) ---
-  const cardEl = document.getElementById('hexmap-card');
-  const wrap = svg.closest('.hexmap');
-  if (cardEl && wrap) {
-    const META = {
-      primary: { label:'Primary hub',     color:'var(--primary-500)' },
-      warning: { label:'High load',       color:'var(--warning)' },
-      danger:  { label:'Active incident', color:'var(--danger)' },
-      cluster: { label:'Dense cluster',   color:'var(--secondary-400)' },
-      land:    { label:'Edge region',     color:'var(--obsidian-300)' }
-    };
-    const typeOf = el => { const cl = el.getAttribute('class') || '';
-      return cl.includes('m-primary') ? 'primary' : cl.includes('m-warning') ? 'warning'
-           : cl.includes('m-danger') ? 'danger' : cl.includes('m-cluster') ? 'cluster' : 'land'; };
-    const cellOf = el => { const n = el.getAttribute('points').split(/[ ,]/).map(Number);
-      let sx=0, sy=0; for (let i=0;i<12;i+=2){ sx+=n[i]; sy+=n[i+1]; }
-      const cx=sx/6, cy=sy/6, c=Math.round((cx-R)/(1.5*R));
-      return { c, r: Math.round((cy-(c%2?hexH/2:0)-hexH/2)/hexH) }; };
-    const fmt = (v,pos,neg) => Math.abs(v).toFixed(1)+'\u00b0'+(v>=0?pos:neg);
-    const closeCard = () => { cardEl.classList.remove('open'); cardEl.setAttribute('aria-hidden','true'); };
-    svg.addEventListener('click', e => {
-      const el = e.target.closest('polygon.hex'); if (!el) return;
-      e.stopPropagation();
-      const { c, r } = cellOf(el), m = META[typeOf(el)];
-      const lon = cellLon(c), lat = cellLat(r);
-      const seed = ((c*73856093) ^ (r*19349663)) >>> 0;
-      const nodes = 6 + seed % 240, p95 = 16 + (seed>>3) % 130, up = (99 + ((seed>>6)%99)/100).toFixed(2);
-      cardEl.innerHTML =
-        '<div class="hc-head"><span class="hc-status"><span class="hc-dot" style="background:'+m.color+'"></span>'+m.label+'</span>'+
-        '<button type="button" class="hc-close" aria-label="Close">\u00d7</button></div>'+
-        '<div class="hc-id">EDGE-'+String(1000+c).slice(-3)+'-'+String(100+r).slice(-2)+'</div>'+
-        '<div class="hc-rows">'+
-          '<div class="hc-row"><span class="k">Location</span><span class="v">'+fmt(lat,'N','S')+' '+fmt(lon,'E','W')+'</span></div>'+
-          '<div class="hc-row"><span class="k">Nodes</span><span class="v">'+nodes+'</span></div>'+
-          '<div class="hc-row"><span class="k">p95 latency</span><span class="v">'+p95+' ms</span></div>'+
-          '<div class="hc-row"><span class="k">Uptime</span><span class="v">'+up+'%</span></div>'+
-        '</div>';
-      const er = el.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
-      const cardW = cardEl.offsetWidth || 232, cardH = cardEl.offsetHeight || 190;
-      let x = er.left - wr.left + er.width + 10, y = er.top - wr.top - 8;
-      if (x + cardW > wr.width) x = er.left - wr.left - cardW - 10;
-      x = Math.max(4, Math.min(x, wr.width - cardW - 4));
-      y = Math.max(4, Math.min(y, wr.height - cardH - 4));
-      cardEl.style.left = x+'px'; cardEl.style.top = y+'px';
-      cardEl.classList.add('open'); cardEl.setAttribute('aria-hidden','false');
+    root.toggleAttribute('data-open', open.length > 0);
+  };
+  // A cluster glows under the pointer; grey land lights its country, faintly, and opens nothing.
+  svg.addEventListener('pointerover', e => {
+    const p = e.target.closest('polygon');
+    const h = p && p.dataset.cl ? p.dataset.cl : null, l = p && !p.dataset.cl && p.dataset.co ? p.dataset.co : null;
+    if (h === hover && l === land) return;
+    hover = h; land = l; lit();
+  });
+  svg.addEventListener('pointerleave', () => { hover = null; land = null; lit(); });
+  svg.addEventListener('click', e => { const p = e.target.closest('[data-cl]'); if (p) btn(p.dataset.cl).click(); });
+  btns.forEach((b, i) => {
+    b.tabIndex = i ? -1 : 0;
+    b.addEventListener('focus', lit); b.addEventListener('blur', () => setTimeout(lit));
+    b.addEventListener('click', e => {
+      if (!narrow.matches) return;
+      e.preventDefault();
+      document.getElementById('hm-' + b.dataset.cluster + '-drawer').showModal();
     });
-    cardEl.addEventListener('click', e => { if (e.target.closest('.hc-close')) closeCard(); });
-    document.addEventListener('click', e => {
-      if (!cardEl.classList.contains('open')) return;
-      if (cardEl.contains(e.target)) return;
-      closeCard();
+    const p = document.getElementById(b.getAttribute('popovertarget'));
+    if (p) p.addEventListener('toggle', e => { if (e.newState === 'open') place(p, b); lit(); });
+  });
+  // The popover stays inside the map and beside its cluster, never over it: the side with room wins.
+  const gap = parseFloat(getComputedStyle(root).getPropertyValue('--s-2')) || 8;
+  const place = (p, b) => {
+    const m = root.getBoundingClientRect();
+    const cells = [...svg.querySelectorAll('[data-cl="' + b.dataset.cluster + '"]')].map(c => c.getBoundingClientRect());
+    const k = { l: Math.min(...cells.map(c => c.left)), t: Math.min(...cells.map(c => c.top)), r: Math.max(...cells.map(c => c.right)), b: Math.max(...cells.map(c => c.bottom)) };
+    p.style.setProperty('position-area', 'none'); p.style.setProperty('position-try-fallbacks', 'none'); p.style.margin = '0'; p.style.inset = 'auto';
+    p.style.maxHeight = (m.height - 2 * gap) + 'px'; p.style.overflow = 'auto';
+    const w = p.offsetWidth, h = p.offsetHeight;
+    const clampY = y => Math.max(m.top + gap, Math.min(y, m.bottom - gap - h));
+    const clampX = x => Math.max(m.left + gap, Math.min(x, m.right - gap - w));
+    const cy = (k.t + k.b) / 2 - h / 2, cx = (k.l + k.r) / 2 - w / 2;
+    const sides = [
+      { room: m.right - k.r - gap, need: w + gap, x: k.r + gap, y: clampY(cy) },
+      { room: k.l - m.left - gap, need: w + gap, x: k.l - gap - w, y: clampY(cy) },
+      { room: m.bottom - k.b - gap, need: h + gap, x: clampX(cx), y: k.b + gap },
+      { room: k.t - m.top - gap, need: h + gap, x: clampX(cx), y: k.t - gap - h }
+    ];
+    // No side has room: of the four sides and the four corners, the place that covers the fewest cells, then the nearest.
+    const cover = (x, y) => cells.reduce((n, c) => n + (c.right > x && c.left < x + w && c.bottom > y && c.top < y + h ? 1 : 0), 0);
+    const near = (x, y) => Math.hypot(x + w / 2 - (k.l + k.r) / 2, y + h / 2 - (k.t + k.b) / 2);
+    let s = sides.find(o => o.room >= o.need);
+    if (!s) {
+      const all = sides.concat([[m.left + gap, m.top + gap], [m.right - gap - w, m.top + gap], [m.left + gap, m.bottom - gap - h], [m.right - gap - w, m.bottom - gap - h]].map(([x, y]) => ({ x, y })))
+        .map(o => ({ x: clampX(o.x), y: clampY(o.y) }));
+      s = all.reduce((a, o) => { const d = cover(o.x, o.y) - cover(a.x, a.y); return d < 0 || (d === 0 && near(o.x, o.y) < near(a.x, a.y)) ? o : a; });
+    }
+    p.style.left = clampX(s.x) + 'px'; p.style.top = clampY(s.y) + 'px';
+  };
+  addEventListener('scroll', () => btns.forEach(b => { const p = document.getElementById(b.getAttribute('popovertarget')); if (p && p.matches(':popover-open')) place(p, b); }), { passive: true });
+  addEventListener('resize', () => btns.forEach(b => { const p = document.getElementById(b.getAttribute('popovertarget')); if (p && p.matches(':popover-open')) place(p, b); }));
+  // Arrows move between clusters: the nearest one in that direction takes the focus.
+  root.addEventListener('keydown', e => {
+    const dir = {ArrowRight:[1,0], ArrowLeft:[-1,0], ArrowDown:[0,1], ArrowUp:[0,-1]}[e.key];
+    const cur = e.target.closest('.hexmap-area');
+    if (!dir || !cur) return;
+    e.preventDefault();
+    const at = b => { const r = b.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+    const [x0, y0] = at(cur);
+    let best = null, bd = Infinity;
+    btns.forEach(b => {
+      if (b === cur) return;
+      const [x, y] = at(b), ax = x - x0, ay = y - y0, along = ax * dir[0] + ay * dir[1];
+      if (along <= 0) return;
+      const d = along + 2 * Math.abs(ax * dir[1] - ay * dir[0]);
+      if (d < bd) { bd = d; best = b; }
     });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
-  }
-
-  // --- articulated hover: hovered hex grows (magenta light fill + stroke + glow), its 6
-  // neighbours shrink to make room so the honeycomb layout never overlaps. ---
-  if (wrap) {
-    let hot = null, near = [];
-    const clearHot = () => {
-      if (hot) { hot.classList.remove('is-hot'); hot.style.transform = ''; hot = null; }
-      near.forEach(n => { n.classList.remove('is-near'); n.style.transform = ''; }); near = [];
-    };
-    const setHot = el => {
-      const c = +el.dataset.c, r = +el.dataset.r, s = +el.dataset.s || 1;
-      hot = el; el.classList.add('is-hot');
-      el.style.transform = 'scale(' + (1.5 / s) + ')';
-      el.parentNode.appendChild(el); // raise within its own group (land stays below markers)
-      ring(c,r).forEach(([cc,rr]) => {
-        const nb = cellMap.get(cc+','+rr);
-        if (nb && nb !== el) { nb.classList.add('is-near'); nb.style.transform = 'scale(0.5)'; near.push(nb); }
-      });
-    };
-    svg.addEventListener('pointerover', e => {
-      const el = e.target.closest('polygon.hex'); if (!el || el === hot) return;
-      clearHot(); setHot(el);
-    });
-    svg.addEventListener('pointerleave', clearHot);
-  }
-
-  // Upgrade to the real public-domain Natural Earth 1:110m land (TopoJSON via world-atlas),
-  // rasterised with d3-geo (geoPath clips the antimeridian). Each cell's COVERAGE is measured
-  // with a 5×5 sub-sample; the hex is then sized by √coverage so faint coastlines render as
-  // small hexes and solid interiors as full ones.
-  (async function upgrade(){
-    try {
-      const [tj, geo] = await Promise.all([
-        import('https://cdn.jsdelivr.net/npm/topojson-client@3/+esm'),
-        import('https://cdn.jsdelivr.net/npm/d3-geo@3/+esm')
-      ]);
-      const topo = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json').then(r => r.json());
-      const land = tj.feature(topo, topo.objects.land);
-      const cw = 2880, ch = 1440;
-      const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
-      const cx = cv.getContext('2d');
-      const proj = geo.geoEquirectangular().fitSize([cw, ch], { type: 'Sphere' });
-      const path = geo.geoPath(proj, cx);
-      cx.fillStyle = '#fff'; cx.beginPath(); path(land); cx.fill();
-      const data = cx.getImageData(0, 0, cw, ch).data;
-      const atLand = (lon,lat) => {
-        const p = proj([lon, lat]); if (!p) return 0;
-        const x = Math.round(p[0]), y = Math.round(p[1]);
-        if (x < 0 || x >= cw || y < 0 || y >= ch) return 0;
-        return data[(y*cw + x)*4 + 3] > 128 ? 1 : 0;
-      };
-      const offs = [-0.4, -0.2, 0, 0.2, 0.4];
-      const coverage = (c,r) => {
-        const lo = cellLon(c), la = cellLat(r); let hit = 0;
-        for (const ox of offs) for (const oy of offs) hit += atLand(lo + ox*lonStep, la - oy*latStep);
-        return hit / 25;
-      };
-      render(cleanup(buildCells(coverage)));
-    } catch (e) { /* keep the baked fallback */ }
-  })();
+    if (best) { cur.tabIndex = -1; best.tabIndex = 0; best.focus(); }
+  });
 })();
 </script>
 <!-- Vercel Web Analytics -->

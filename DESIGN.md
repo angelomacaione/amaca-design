@@ -450,10 +450,11 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.43 — a Chart card whose plot is lanes |
+| Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.44 — a cluster opens a Popover (§ 3.38) or, under 720px, a Drawer (§ 3.39) |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -625,6 +626,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
 | `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.25) |
 | `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.43) |
+| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.44) |
+| `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour |
+| `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover |
+| `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` |
 
 ### § 3.0.2 Stacking
 
@@ -2631,7 +2636,7 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - **Up to 360 px.** Wider, or taller than the view, is a Modal. No horizontal scroll.
 - **A name.** With a title or a form it has `role="dialog"` and `aria-labelledby`; a text-only one has `aria-label`. It is not modal: Tab can leave it.
 - **No arrow.** The 4px gap and the anchoring point to the trigger, as in the Tooltip.
-- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything.
+- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.44): its popover stays inside the map and beside its cluster, so the map's script places it.
 - **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 08.3).
 
 **Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
@@ -2750,6 +2755,7 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 | Part | Class | Note |
 |---|---|---|
 | Inline | `.swatch` | 12px (`--s-3`), `--r-xs`, fill from `--sw`, inset 1px of `--border-input` |
+| Inline hex | `.swatch` `.swatch-hex` | the inline Swatch as a regular pointy-top hexagon, `--s-3` high and 0.866 of that wide, no edge: the legend of a map, whose cells are hexes |
 | Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
 | Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
@@ -2921,6 +2927,60 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 |---|---|---|---|
 | plot reveal | bar width (spatial) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | plot reveal | labels · today (effect · spatial) | the entrance reveal: `--d-slow` · `--ease-decel` | none — shown |
+
+### Map
+
+Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.25) whose plot is the land.
+
+**Usage**
+
+*Use it when*
+- The pattern in the data is geographic.
+- A few places carry a state; the rest of the land is context.
+
+*Use something else when*
+- Data for only a few areas → a bar chart.
+- Geographic data with no geographic pattern → another chart.
+- Exact values to compare place by place → Table.
+
+
+```html
+<div class="chart-card">
+  <div class="chart-head">…</div>
+  <div class="hexmap" data-hexmap>
+    <svg class="hexmap-svg" viewBox="0 0 2719 1245" aria-hidden="true"></svg>
+    <button type="button" class="hexmap-area" data-cluster="it" popovertarget="hm-it"
+      aria-label="Italy: primary hub, 2 nodes" style="left:…%;top:…%;width:…%;height:…%"></button>
+  </div>
+  <ul class="chart-legend"><li><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span>Primary hub</li>…</ul>
+</div>
+<div class="popover" id="hm-it" popover role="dialog" aria-labelledby="hm-it-t">…the cluster's nodes, a .list…</div>
+<dialog class="drawer" id="hm-it-drawer" aria-labelledby="hm-it-dt">…the same list…</dialog>
+```
+
+| Part | Class · hook | Note |
+|---|---|---|
+| Frame | `.hexmap` | inside the Chart card; `--r-md`, a radial ground `--obsidian-850` → `--obsidian-950` |
+| Land | `.hexmap-svg` `polygon` | Natural Earth 1:110m, baked into the page as rows of cells: no request at run time. Pointy-top cells, the legend's hex the same way up; a coastal cell draws smaller by how much of it is land. Grey `--obsidian-500`; the sea is not drawn |
+| Cluster | `[data-cl]` `[data-st]` | the cells of one place; the colour of its worst state: `--primary-500` primary hub, `--warning` high load, `--danger` active incident |
+| Country | `[data-co]` | every land cell knows its country, so grey land lights a whole country on hover |
+| Target | `.hexmap-area` | one button per cluster over its bounding box, at least 24px (`--s-6`): the name, the focus and the anchor; it takes the pointer only under 720px |
+| Legend | `.chart-legend` · `.swatch-hex` | the Swatch as a regular pointy-top hexagon, 12px high (§ 3.40) |
+| Detail | `.popover` · `.drawer` | the cluster's name, its state and node count, and its nodes as a `.list`; a Popover on a wide screen, a Drawer under 720px |
+
+- **The cluster is the unit (RIGID).** Hover, focus and a click act on the whole cluster, never on one hex. The grid never moves: no scale, only light.
+- **The sea never takes a colour.** It is not drawn, so nothing can colour it or answer a click on it.
+- **Grey land is context.** Hover lights its country (`--obsidian-400`, a faint `--obsidian-300` glow); it opens nothing, because there is no data there.
+- **The popover stays inside the map.** It opens beside its cluster on the first side with room (right, left, below, above) and never covers it; with no room on any side it takes the place that covers the fewest cells. While it is open the rest of the land dims to `--obsidian-700`.
+- **Under 720px the Drawer.** A cluster on a phone is a few pixels wide: the target keeps 24px and a tap opens the Drawer with the same list.
+- **Keyboard.** Tab enters the map on one cluster; the arrows move to the nearest cluster in that direction; Enter opens it; Escape closes it and the focus returns.
+- **Colour never carries the state alone**: the legend names it, the popover and the drawer write it (§ 6 floor #1). The data on the site is invented.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| hover · focus | cluster glow (effect) | `--d-quick` · `--ease-standard` | instant |
+| hover on grey land | country fill + faint glow (effect) | `--d-quick` · `--ease-standard` | instant |
+| open | the rest of the land dims (effect) | `--d-quick` · `--ease-standard` | instant |
 
 ## Do's and Don'ts
 
@@ -3145,6 +3205,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Plot | plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
 | Timeline | plot reveal | bar width (spatial) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | Timeline | plot reveal | labels · today (effect · spatial) | the entrance reveal: `--d-slow` · `--ease-decel` | none — shown |
+| Map | hover · focus | cluster glow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Map | hover on grey land | country fill + faint glow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Map | open | the rest of the land dims (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pie | legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Accordion | open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |

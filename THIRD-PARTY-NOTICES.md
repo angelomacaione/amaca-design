@@ -51,3 +51,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Natural Earth (public domain) via world-atlas (ISC)
+
+The land and the country borders of the Map (§ 3.44) are Natural Earth 1:110m, a public-domain dataset (naturalearthdata.com), read from the TopoJSON of world-atlas 2 (ISC, Mike Bostock) and baked into `index.html` as rows of hex cells. Nothing is fetched at run time.

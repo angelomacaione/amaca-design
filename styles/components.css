@@ -3553,3 +3553,26 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   .progress-fill{transition:none}
   .progress[data-reveal] .progress-fill,.progress[data-reveal].is-in .progress-fill{transform:none;transition:none}
 }
+
+/* ─── § 3.44 Map — the land as a grid of hexes; a cluster of cells is one place, and acts as one ───
+   The land is baked (Natural Earth 1:110m), so the page asks nothing at run time. Grey is the land;
+   a cluster takes the colour of its state. The sea is never drawn, so it can never take a colour. */
+.hexmap{position:relative;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}
+.hexmap-svg{display:block;width:100%;height:auto}
+.hexmap-svg polygon{fill:var(--obsidian-500);transition:fill var(--d-quick) var(--ease-standard), filter var(--d-quick) var(--ease-standard)}
+.hexmap-svg [data-st="primary"]{fill:var(--primary-500)}
+.hexmap-svg [data-st="warning"]{fill:var(--warning)}
+.hexmap-svg [data-st="danger"]{fill:var(--danger)}
+.hexmap-area{position:absolute;min-width:var(--s-6);min-height:var(--s-6);translate:-50% -50%;margin:0;padding:0;border:0;border-radius:var(--r-sm);background:none;cursor:pointer;pointer-events:none}
+.hexmap-area:focus-visible{outline:var(--focus-width) solid var(--primary-500);outline-offset:var(--focus-offset)}
+@media (max-width: 720px){.hexmap-area{pointer-events:auto}}
+@media (prefers-reduced-motion: reduce){.hexmap-svg polygon{transition:none}}
+/* a cluster glows in its own colour; grey land lights its country and glows faintly. No scale: the grid never moves. */
+.hexmap-svg [data-hot]{filter:drop-shadow(0 0 var(--s-3) var(--glow, transparent))}
+.hexmap-svg [data-st="primary"]{--glow:var(--primary-500)}
+.hexmap-svg [data-st="warning"]{--glow:var(--warning)}
+.hexmap-svg [data-st="danger"]{--glow:var(--danger)}
+.hexmap-svg [data-lit]{fill:var(--obsidian-400);filter:drop-shadow(0 0 var(--s-2) var(--obsidian-300))}
+.hexmap[data-open] .hexmap-svg polygon:not([data-sel]){fill:var(--obsidian-700)}
+/* the legend's hex: a regular hexagon, pointy-top (the map's cell turned 30 degrees), 12 high */
+.swatch-hex{width:calc(var(--s-3) * 0.866);border-radius:0;box-shadow:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}

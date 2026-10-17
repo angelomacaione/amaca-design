@@ -2206,7 +2206,7 @@ def _usage_site(html):
 
 # Site sections whose § 3 entry arrives with phase 3 of v5.0.0; their Usage lives on the site
 # only until then. The exemption expires with the release (debt_is_live).
-USAGE_SITE_ONLY = {"maps", "casestudy"}
+USAGE_SITE_ONLY = {"casestudy"}
 
 
 @check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
@@ -3268,6 +3268,53 @@ def c81():
                 break
     if "| `.timeline` plot | default |" not in d:
         fails.append("DESIGN.md state index: no Timeline row")
+    return fails
+
+
+@check("82", "The Map acts by cluster, opens a Popover or a Drawer that exist, and asks nothing at run time",
+       "v5.0.0: the hex map fetched three libraries and the land from a CDN at every load, opened a card of its "
+       "own that was clipped on a phone and printed a negative latency, could not be reached by keyboard, and "
+       "let a 2px hex be the target. It became a contract (§ 3.44): the land baked into the page, one button "
+       "per cluster opening the system's Popover, or its Drawer under 720px, and a hex Swatch in the legend. "
+       "This check holds the markup, the script, the CSS and the registry to that.")
+def c82():
+    fails = []
+    html = read(INDEX)
+    css = read(ROOT / "styles" / "components.css")
+    d = read(DESIGN)
+    a = html.find('<section class="section" id="maps">')
+    sec = html[a:html.index("</section>", a)] if a >= 0 else ""
+    if "<style" in sec:
+        fails.append("#maps: a <style> inside the section; the Map's CSS lives in components.css")
+    if re.search(r"cdn\.jsdelivr\.net/npm/(world-atlas|topojson-client|d3-geo)", html):
+        fails.append("index.html: the Map fetches its land at run time; it is baked")
+    btns = re.findall(r'<button type="button" class="hexmap-area" data-cluster="([a-z]+)" popovertarget="([a-z-]+)"', sec)
+    if not btns:
+        fails.append("#maps: no .hexmap-area")
+    for cl, tgt in btns:
+        if not re.search(rf'<div class="popover" id="{tgt}" popover', html):
+            fails.append(f"#maps: cluster {cl} opens #{tgt}, no such .popover")
+        if not re.search(rf'<dialog class="drawer" id="{tgt}-drawer"', html):
+            fails.append(f"#maps: cluster {cl} has no Drawer #{tgt}-drawer")
+    m = re.search(r"const AL = '[^']*', CL = (\[[^\]]*\]), ST = (\{[^}]*\})", html)
+    if not m or sorted(re.findall(r'"([a-z]+)"', m.group(1))) != sorted(c for c, _ in btns):
+        fails.append("#maps: the script's clusters and the buttons disagree")
+    states = set(re.findall(r':"([a-z]+)"', m.group(2))) if m else set()
+    leg = re.search(r'<ul class="chart-legend">(.*?)</ul>', sec, re.S)
+    if not leg or leg.group(1).count('class="swatch swatch-hex"') != len(states):
+        fails.append("#maps: the legend is not one .swatch-hex per state on the map")
+    used = {c for c in re.findall(r"\.(hexmap[a-z-]*)", css)}
+    row = re.search(r"(?m)^\| Map \|([^\n]*)", d)
+    reg = set(re.findall(r"`\.(hexmap[a-z-]*)`", row.group(1))) if row else set()
+    for c in sorted(used ^ reg):
+        fails.append(f"Map registry and components.css disagree on .{c}")
+    if not re.search(r"(?m)^\.swatch-hex\{", css) or "`.swatch-hex`" not in d:
+        fails.append(".swatch-hex: missing from components.css or from the Swatch contract")
+    for st in ("default", "hover", "focus-visible", "expanded"):
+        if f"| `.hexmap-area` | {st} |" not in d:
+            fails.append(f"DESIGN.md state index: no .hexmap-area {st} row")
+    if re.search(r"\.hexmap[^{]*\{[^}]*transform:\s*scale", css):
+        fails.append("components.css: a map cell scales; the grid never moves (§ 3.44)")
     return fails
 
 
