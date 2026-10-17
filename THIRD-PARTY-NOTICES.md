@@ -4,7 +4,7 @@ A few drawings of the Icon album (§ 3.32) are adapted from open icon sets: redr
 
 ## Lucide
 
-`paperclip`, `play`, `sliders` (from `settings-2`) · https://lucide.dev
+`paperclip`, `play`, `configurations` (from `settings-2`) · https://lucide.dev
 
 ```
 ISC License
