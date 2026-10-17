@@ -1871,7 +1871,7 @@ A label for something already visible. Never a container for content.
 
 | Part | Hook | Note |
 |---|---|---|
-| Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
+| Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
 | Grid | a `<g>` of lines | white at 5%; no hook, it does not move |
 | Axis labels | a `<g>` of text | `--obsidian-200`, 10.52 : 1 on the canvas; no hook |
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
@@ -1881,7 +1881,7 @@ A label for something already visible. Never a container for content.
 | Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's label rides its end and counts up |
 | Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them |
 
-- **Two drawings, one shown.** A plot whose points and labels would shrink below reading size on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data, labels at 12 and points at `data-r` 7; under `--bp-md` it replaces `.chart-plot-lg`. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
+- **Two drawings, one shown.** A plot whose points and labels would shrink below reading size on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data, labels at 13 and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
 - **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points 220ms apart. Under reduced motion every part lands drawn.
 
