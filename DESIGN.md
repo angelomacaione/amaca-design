@@ -710,6 +710,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
+**Do / Don't.** Do keep one `.btn-primary` per screen and let the rest recede; give an icon-only button an `aria-label` that names the action. Don't bold the label, lighten the primary on hover, or remove the outline without a focus ring in its place.
+
+**Do / Don't.** Do pick the size for density (32 · 40 · 48) and let the variant carry importance. Don't use a button to go to another page: that is a Link.
+
 ### Input · textarea · select
 
 **Usage**
@@ -768,6 +772,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Action right.** `.input-action`: a `<button type="button">` last in the `.input-wrap`, 32px square, `--r-sm`, `--icon-sm`, `--obsidian-300` and `--obsidian-100` on hover. The field pads `--s-10` on the right. It carries an `aria-label`: it has no text. The date picker and the time picker use this same part (§ 3.15).
 - **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.32. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
 - **Search.** The field sits in `<form role="search">` with `type="search"`, so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field.
+
+**Do / Don't.** Do give every field a persistent label, and say an error in the helper text as well as in the border. Don't use the placeholder as the label, or let colour alone say "error".
+
+**Do / Don't.** Do show the clear button only while the field has a value, and show "no results" where the results go. Don't give a search field an error state, or keep the browser's own clear button beside ours.
 
 ### Card
 
@@ -1016,24 +1024,24 @@ Use `will-change: transform, width` on the indicator.
 
 ```html
 <label class="field">
-  <span class="label">ORARIO</span>
+  <span class="label">Time</span>
   <input class="input" type="text" id="time-input"
-    placeholder="es. 18:00"
+    placeholder="e.g. 18:00"
     autocomplete="off"
     maxlength="5"
     inputmode="numeric" />
 </label>
 ```
 
-Formato HH:MM, 24h. Auto-formatta mentre si digita.
+HH:MM, 24 hours, formatted as it is typed.
 
-**Regole di validazione digit per digit:**
-- Cifra 1 (H1): max `2`
-- Cifra 2 (H2): max `3` se H1 = `2`, altrimenti `0–9`
-- Cifra 3 (M1): max `5`
-- Cifra 4 (M2): `0–9`
+**Digit by digit:**
+- Digit 1 (H1): at most `2`
+- Digit 2 (H2): at most `3` when H1 is `2`, otherwise `0–9`
+- Digit 3 (M1): at most `5`
+- Digit 4 (M2): `0–9`
 
-Il `:` viene inserito automaticamente dopo le prime due cifre. L'utente digita solo numeri.
+The `:` goes in after the first two digits on its own; the person types only numbers.
 
 ```javascript
 document.getElementById("time-input").addEventListener("input", function () {
@@ -1050,11 +1058,13 @@ document.getElementById("time-input").addEventListener("input", function () {
 });
 ```
 
-**Regole:**
-- `maxlength="5"` e `inputmode="numeric"` sono obbligatori.
-- Opzionale di default; può essere reso obbligatorio per contesto specifico.
-- Nessun `type="time"` — il native picker non rispetta il design system.
-- Focus e stato di errore seguono § 3.2.
+**Rules.**
+- `maxlength="5"` and `inputmode="numeric"` are required.
+- Optional by default; a context can make it required.
+- No `type="time"`: the native picker does not follow the system.
+- Focus and error follow § 3.2.
+
+**Do / Don't.** Do let the field format HH:MM as it is typed, with `inputmode="numeric"` and `maxlength="5"`. Don't use `type="time"`: the native picker does not follow the system.
 
 ### Dropdown / Select
 
@@ -1560,6 +1570,8 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Disabled days are `<button disabled>`, not styled-out divs — keyboard users must be able to tell.
 - State matrix: § 3.0.1. Motion: § 08.4.
 
+**Do / Don't.** Do pair a real `<input>` with a labelled button; today is a ring, the selection a fill. Don't build the trigger from a div, style disabled days out instead of disabling them, or open a calendar for a date the reader already knows, such as a birth date.
+
 ### Table
 
 **Usage**
@@ -1671,8 +1683,13 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
-- **Do / Don't.** Do let the fill carry the switch's state — `--obsidian-700` off, `--primary-500` on. Don't: stroke on the switch track — the fill carries the state.
 - State matrix: § 3.0.1. Motion: § 08.4.
+
+**Do / Don't.** Do make the whole label the target, at least 44×44 on a phone, and keep the focus ring on the input. Don't put a tick in a circle, or use a checkbox for a change that applies at once: that is a Switch.
+
+**Do / Don't.** Do keep exactly one option checked in a named group, with a default. Don't put a dot in a square, or leave a group with nothing checked.
+
+**Do / Don't.** Do let the fill carry the switch's state: `--obsidian-700` off, `--primary-500` on. Don't stroke the switch track: the fill carries the state.
 
 ### Alert
 
