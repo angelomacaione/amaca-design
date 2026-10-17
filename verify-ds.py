@@ -3354,6 +3354,165 @@ def c70():
     return fails
 
 
+# ───────────── v5.0.0: icon pairs, sortable table ─────────────
+
+def _album():
+    m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", read(DESIGN), re.S)
+    return {n: (st, re.sub(r"\s+", " ", drw)) for n, st, drw in re.findall(r"\| `([a-z-]+)` \| (line|solid) \| `(.+?)` \|", m.group(1) if m else "")}
+
+
+def _drawing_strokes(drw):
+    # Each stroke of an album drawing as a polyline: one per subpath of a path, one per circle and rect.
+    out = []
+    for m in re.finditer(r'<circle cx="([-\d.]+)" cy="([-\d.]+)" r="([-\d.]+)"', drw):
+        cx, cy, r = map(float, m.groups())
+        out.append([(cx + r * math.cos(2 * math.pi * k / 64), cy + r * math.sin(2 * math.pi * k / 64)) for k in range(65)])
+    for m in re.finditer(r'<rect x="([-\d.]+)" y="([-\d.]+)" width="([-\d.]+)" height="([-\d.]+)"', drw):
+        x, y, w, h = map(float, m.groups()); out.append([(x, y), (x + w, y), (x + w, y + h), (x, y + h), (x, y)])
+    for m in re.finditer(r'\bd="([^"]+)"', drw):
+        toks = re.findall(r"[MmLlHhVvCcSsQqTtAaZz]|-?(?:\d+\.?\d*|\.\d+)(?:e-?\d+)?", m.group(1))
+        i, cur, start, cmd, lc, lq, poly = 0, (0.0, 0.0), (0.0, 0.0), None, None, None, None
+        def num():
+            nonlocal i
+            v = float(toks[i]); i += 1; return v
+        def cub(p0, p1, p2, p3):
+            for k in range(1, 25):
+                t = k / 24; u = 1 - t
+                poly.append(tuple(u**3*p0[j] + 3*u*u*t*p1[j] + 3*u*t*t*p2[j] + t**3*p3[j] for j in (0, 1)))
+        def arc(p0, rx, ry, phi, large, sweep, p1):
+            if rx == 0 or ry == 0: poly.append(p1); return
+            phi = math.radians(phi); cp, sp = math.cos(phi), math.sin(phi)
+            dx, dy = (p0[0]-p1[0])/2, (p0[1]-p1[1])/2
+            x1 = cp*dx + sp*dy; y1 = -sp*dx + cp*dy
+            rx, ry = abs(rx), abs(ry); lam = x1*x1/(rx*rx) + y1*y1/(ry*ry)
+            if lam > 1: rx *= math.sqrt(lam); ry *= math.sqrt(lam)
+            num_ = rx*rx*ry*ry - rx*rx*y1*y1 - ry*ry*x1*x1
+            co = math.sqrt(max(0, num_/(rx*rx*y1*y1 + ry*ry*x1*x1))) * (-1 if large == sweep else 1)
+            cx1, cy1 = co*rx*y1/ry, -co*ry*x1/rx
+            cx = cp*cx1 - sp*cy1 + (p0[0]+p1[0])/2; cy = sp*cx1 + cp*cy1 + (p0[1]+p1[1])/2
+            ang = lambda ux, uy, vx, vy: math.atan2(ux*vy - uy*vx, ux*vx + uy*vy)
+            t1 = ang(1, 0, (x1-cx1)/rx, (y1-cy1)/ry)
+            dt = ang((x1-cx1)/rx, (y1-cy1)/ry, (-x1-cx1)/rx, (-y1-cy1)/ry)
+            if not sweep and dt > 0: dt -= 2*math.pi
+            if sweep and dt < 0: dt += 2*math.pi
+            for k in range(1, 49):
+                t = t1 + dt*k/48
+                poly.append((cx + rx*math.cos(t)*cp - ry*math.sin(t)*sp, cy + rx*math.cos(t)*sp + ry*math.sin(t)*cp))
+        while i < len(toks):
+            if re.fullmatch(r"[A-Za-z]", toks[i]):
+                cmd = toks[i]; i += 1
+                if cmd in "Zz":
+                    poly.append(start); cur = start; lc = lq = None; continue
+            rel = cmd.islower(); C = cmd.upper(); ox, oy = cur if rel else (0, 0)
+            if C == "M":
+                cur = (ox + num(), oy + num()); start = cur; poly = [cur]; out.append(poly); cmd = "l" if rel else "L"; lc = lq = None
+            elif C == "L": cur = (ox + num(), oy + num()); poly.append(cur); lc = lq = None
+            elif C == "H": cur = ((cur[0] if rel else 0) + num(), cur[1]); poly.append(cur); lc = lq = None
+            elif C == "V": cur = (cur[0], (cur[1] if rel else 0) + num()); poly.append(cur); lc = lq = None
+            elif C in "CS":
+                p1 = (ox + num(), oy + num()) if C == "C" else ((2*cur[0]-lc[0], 2*cur[1]-lc[1]) if lc else cur)
+                p2 = (ox + num(), oy + num()); p3 = (ox + num(), oy + num())
+                cub(cur, p1, p2, p3); lc, lq, cur = p2, None, p3
+            elif C in "QT":
+                q = (ox + num(), oy + num()) if C == "Q" else ((2*cur[0]-lq[0], 2*cur[1]-lq[1]) if lq else cur)
+                p3 = (ox + num(), oy + num())
+                cub(cur, (cur[0] + 2/3*(q[0]-cur[0]), cur[1] + 2/3*(q[1]-cur[1])), (p3[0] + 2/3*(q[0]-p3[0]), p3[1] + 2/3*(q[1]-p3[1])), p3)
+                lq, lc, cur = q, None, p3
+            elif C == "A":
+                rx, ry, phi, la, sw = num(), num(), num(), num(), num(); p1 = (ox + num(), oy + num())
+                arc(cur, rx, ry, phi, int(la), int(sw), p1); cur = p1; lc = lq = None
+    return out
+
+
+def _drawing_points(drw, step=0.1):
+    import math
+    out = []
+    for poly in _drawing_strokes(drw):
+        if len(poly) == 1:
+            out.append(poly[0])
+        for a, b in zip(poly, poly[1:]):
+            n = max(1, int(math.hypot(b[0] - a[0], b[1] - a[1]) / step))
+            out += [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n + 1)]
+    return out
+
+
+@check("85", "A pair of icons is one drawing, mirrored: up and down, left and right, ascending and descending",
+       "v5.0.0: sort-ascending and sort-descending joined the album, the first icons drawn as a pair since the arrows. "
+       "A pair drawn twice drifts: a head a quarter unit wider on one side, a line a little longer, and the two stop "
+       "reading as one control in two states. The rule was applied by hand to the arrows and the chevrons and written "
+       "nowhere. This check reads every pair the album names (a name with up, left or ascending whose partner exists), "
+       "mirrors the first across the centre line of the grid and holds it to the second within 0.05 unit.")
+def c85():
+    import math
+    alb = _album()
+    swaps = (("up", "down", "y"), ("left", "right", "x"), ("ascending", "descending", "y"))
+    fails, pairs = [], 0
+    for name, (st, drw) in alb.items():
+        parts = name.split("-")
+        for a, b, ax in swaps:
+            if a not in parts:
+                continue
+            other = "-".join(b if t == a else t for t in parts)
+            if other not in alb or alb[other][0] != st:
+                continue
+            pairs += 1
+            A = [(16 - x, y) if ax == "x" else (x, 16 - y) for x, y in _drawing_points(drw)]
+            B = _drawing_points(alb[other][1])
+            far = max(max(min(math.hypot(p[0] - q[0], p[1] - q[1]) for q in Y) for p in X) for X, Y in ((A, B), (B, A)))
+            if far > 0.05:
+                fails.append(f"album {name} / {other}: the mirror of one is {far:.2f} away from the other")
+    if pairs < 8:
+        fails.append(f"album: {pairs} pairs found, the album names more")
+    return fails
+
+
+@check("83", "A sortable table has one driver, a button in each sortable header and both album drawings in it",
+       "v5.0.0: the Table gained sorting (§ 3.16, site § 30.2). A sortable header is a contract of five parts that each "
+       "fail silently: a button (a th that listens for clicks cannot be reached by keyboard), one header with aria-sort "
+       "(none, and the order is invisible to a screen reader; two, and it lies), the two album drawings in the button "
+       "(the header shows ascending until it drives descending), the driver a step lighter, and no transition. This "
+       "check holds every .table-sort on the site and in DESIGN.md to them.")
+def c83():
+    fails = []
+    alb = _album()
+    want = {"table-sort-asc": alb.get("sort-ascending", ("", ""))[1], "table-sort-desc": alb.get("sort-descending", ("", ""))[1]}
+    html = re.sub(r"<script.*?</script>", "", read(INDEX), flags=re.S)
+    d = read(DESIGN)
+    sources = [("index.html", html)] + [("DESIGN.md", m.group(1)) for m in re.finditer(r"```html\n(.*?)```", d, re.S)]
+    seen = 0
+    for where, txt in sources:
+        for t in re.finditer(r'<table class="table[^"]*">(.*?)</table>', txt, re.S):
+            body = t.group(1)
+            if "table-sort" not in body:
+                continue
+            seen += 1
+            ths = re.findall(r"<th\b([^>]*)>(.*?)</th>", body, re.S)
+            drivers = [a for a, _ in ths if "aria-sort" in a]
+            if len(drivers) != 1 or not re.search(r'aria-sort="(ascending|descending)"', drivers[0] if drivers else ""):
+                fails.append(f"{where}: a sortable table has {len(drivers)} headers with aria-sort ascending or descending, the rule is one")
+            for a, inner in ths:
+                if "table-sort" not in inner:
+                    continue
+                if not re.search(r'<button class="table-sort" type="button">', inner):
+                    fails.append(f"{where}: a sortable header does not hold <button class=\"table-sort\" type=\"button\">")
+                for cls, drw in want.items():
+                    m = re.search(r'<svg class="icon icon-xs ' + cls + r'"[^>]*>(.*?)</svg>', inner, re.S)
+                    if not m or re.sub(r"\s+", " ", m.group(1)).strip() != drw:
+                        fails.append(f"{where}: a sortable header has no .{cls} drawn as the album's {'sort-ascending' if cls.endswith('asc') else 'sort-descending'}")
+        if "table-sort" in txt and "data-sort" not in txt and where == "index.html":
+            fails.append("index.html: the sortable demo sets no data-sort, so a date column sorts as text")
+    if seen == 0:
+        fails.append("index.html: no sortable table; § 30.2 shows one")
+    css = read(COMPONENTS)
+    m = re.search(r"\.table th\[aria-sort\]\{([^}]*)\}", css)
+    if not m or "var(--obsidian-800)" not in m.group(1) or "var(--obsidian-200)" not in m.group(1):
+        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.16 says")
+    for sel, decl in re.findall(r"(\.table-sort[^{]*)\{([^}]*)\}", css):
+        if "transition" in decl:
+            fails.append(f"components.css: {sel.strip()} has a transition; the sort is a state")
+    return fails
+
+
 def main():
     args = sys.argv[1:]
     as_json = "--json" in args

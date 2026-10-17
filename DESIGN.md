@@ -426,7 +426,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
 | Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
-| Table | `.table` | canonical | § 3.16 |
+| Table | `.table` `.table-sort` | canonical | § 3.16 |
 | Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
 | Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.19 |
@@ -630,6 +630,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour |
 | `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover |
 | `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` |
+| `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives |
+| `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state |
+| `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell |
+| `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon |
 
 ### § 3.0.2 Stacking
 
@@ -1571,6 +1575,19 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 </table>
 ```
 
+```html
+<!-- sortable: a button in each header that sorts; the driver th carries aria-sort -->
+<table class="table">
+  <thead><tr>
+    <th aria-sort="ascending"><button class="table-sort" type="button">Project <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
+    <th><button class="table-sort" type="button">Updated <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
+  </tr></thead>
+  <tbody>
+    <tr><td>Atlas</td><td data-sort="2026-10-12">12 Oct</td></tr>
+  </tbody>
+</table>
+```
+
 | Part | Treatment |
 |---|---|
 | Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
@@ -1579,6 +1596,9 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
 | Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
 | Secondary cell | `.muted` — `--obsidian-300` |
+| Sort button | `.table-sort` — a `<button>` that fills its header cell, label then icon at 14 (`.icon-xs`), gap `--s-2`; it carries both drawings, `.table-sort-asc` and `.table-sort-desc`, and the header shows one |
+| Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--obsidian-200`; one per table |
+| Sort value | `data-sort` on a cell whose text does not sort as written (a date, a size); otherwise the text, compared with numbers in order |
 
 **Rules.**
 - No zebra striping. The row rule carries the scan; a second device would double the noise.
@@ -1586,6 +1606,11 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.2).
 - A table wider than its container scrolls in a wrapper — never shrink the type to fit.
 - Tables are content, not chrome: no hover row highlight unless the row is a link or a control.
+- **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
+- **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
+- **The whole header is the target.** The button fills the cell, so the target is the header's height and width, never the icon alone. Focus is the pressable halo with the outline inside the cell (offset `-2px`, as the date picker's days): the frame clips the halo on the table's outer edges, the outline always shows.
+
+**Do / Don't.** Do open a sortable table already sorted, with its driver named by `aria-sort` and a step lighter. Don't let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.
 
 ### Checkbox · Switch · Radio
 
@@ -2198,7 +2223,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | Solid | `.icon-fill` | The same box, filled with `currentColor`. Only the drawings the album marks `solid` |
 | Muted | `.icon-muted` | `--obsidian-300`, for decorative icons inside a field; never lower |
 
-**The album.** 51 icons, one name each; the five shapes come in both styles, so there are 56 drawings. The drawing is copied into the markup as is.
+**The album.** 53 icons, one name each; the five shapes come in both styles, so there are 58 drawings. The drawing is copied into the markup as is.
 
 **Actions**
 
@@ -2232,6 +2257,8 @@ A small drawing that **names an action or a state** beside a label, or in place 
 | `chevron-down` | line | `<path d="M3 6l5 5 5-5"/>` | Open a list, expand |
 | `chevron-left` | line | `<path d="M10 3L5 8l5 5"/>` | Previous |
 | `chevron-right` | line | `<path d="M6 3l5 5-5 5"/>` | Next, disclosure |
+| `sort-ascending` | line | `<path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/>` | Sorted low to high; a column that sorts and does not drive |
+| `sort-descending` | line | `<path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/>` | Sorted high to low |
 
 **Navigation and panels**
 
@@ -2294,6 +2321,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 **Rules.**
 - **One hand (RIGID).** Every icon is on a 16 grid with a 14 live area. Most are outline: stroke 1.5 grid units, round caps and joins, no fill. A few read better solid and are marked `solid` in the album: user, coin, and the shapes, which exist in both styles. A solid icon has no outline around its fill and no hole drawn in the surface colour (a hole is part of the path). A drawing from another set, on another grid, or in a style the album does not list, is not an icon of the system. Three drawings adapt an open set to this grid and this stroke, and keep its notice in THIRD-PARTY-NOTICES.md: `paperclip`, `play` and `configurations` (Lucide, ISC), `wrench`, `pause` and `component` (Tabler, MIT).
 - **Inside the live area (RIGID).** The painted drawing, stroke included (0.75 outline, 0.5 solid), stays within 1 and 15 on both axes. The verifier measures every drawing of the album.
+- **A pair is one drawing, mirrored (RIGID).** Up and down, left and right, ascending and descending: the second icon of a pair is the first reflected across the grid's centre line, never a second drawing. The verifier mirrors every pair the album names.
 - **One name per concept (RIGID).** `chevron-right` is one drawing, not three. Adding an icon means adding a row to the album, here and on the site; the verifier checks that every `svg.icon` of the site is an album drawing, and that every `.icon-fill` is a solid one.
 - **Colour is inherited.** The icon has no colour of its own: the container gives it, and the state (error, success) comes from the container. `.icon-muted` is the only role, and its colour is `--obsidian-300` so it holds 3:1 on every surface.
 - **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed. An icon-only button keeps the 16 glyph.

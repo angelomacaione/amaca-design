@@ -370,6 +370,16 @@
 .table tr:last-child td{border-bottom:0}
 .table code{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--primary-400);background:var(--obsidian-850);padding:var(--s-0-5) var(--s-1);border-radius:var(--r-sm);letter-spacing:var(--tr-mono)}
 .table .muted{color:var(--obsidian-300)}
+/* Sortable header (§ 3.16). The button fills the cell, so the whole header is the target. The driver th carries
+   aria-sort, one per table, a step lighter. The button holds both drawings and the header shows one: ascending until
+   the column drives descending. Colour is inherited. No transition: the sort is a state, not a move. */
+.table th:has(> .table-sort){padding:0}
+.table th[aria-sort]{background:var(--obsidian-800);color:var(--obsidian-200)}
+.table-sort{display:flex;align-items:center;gap:var(--s-2);width:100%;padding:var(--s-3) var(--s-4);background:transparent;border:0;font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:inherit;color:inherit;cursor:pointer}
+.table-sort:hover{color:var(--obsidian-200)}
+.table-sort:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:calc(-1 * var(--s-0-5));box-shadow:var(--ring-halo)}
+.table-sort-desc,.table th[aria-sort="descending"] .table-sort-asc{display:none}
+.table th[aria-sort="descending"] .table-sort-desc{display:inline-block}
 
 /* ─────────── SPACING RULER ─────────── */
 
