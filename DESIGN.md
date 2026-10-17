@@ -435,8 +435,8 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
 | Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
 | Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` | canonical | § 3.25 |
-| Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` | canonical | § 3.25 |
+| Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
 | Link | `.link` `.link-quiet` | canonical | § 3.29 |
@@ -1873,15 +1873,17 @@ A label for something already visible. Never a container for content.
 |---|---|---|
 | Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
 | Grid | a `<g>` of lines | white at 5%; no hook, it does not move |
-| Axis labels | a `<g>` of text | `--obsidian-200`, 10.52 : 1 on the canvas; no hook |
+| Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` mono, `--tr-mono`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
 | Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
 | Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
 | Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r`, 6 on the 700 viewBox: 18px on a desktop card, halfway between the line's weight and the 24px done step of the Stepper |
-| Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's label rides its end and counts up |
-| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them |
+| Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's value is a `.chart-label-value` (`--obsidian-100`) whose `left` rides the bar's end and counts up; a column's peak value is a `.chart-label-center` |
+| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` mono uppercase `--obsidian-300` |
 
-- **Two drawings, one shown.** A plot whose points and labels would shrink below reading size on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data, labels at 13 and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
+- **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
+- **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
+- **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
 - **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points 220ms apart. Under reduced motion every part lands drawn.
 

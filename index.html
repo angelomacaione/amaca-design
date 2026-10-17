@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=396b3d17">
+<link rel="stylesheet" href="styles/components.css?v=2853e552">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -3445,7 +3445,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               </div>
               <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>2026 baseline</span></div>
             </div>
-            <svg data-fade-chart class="chart-plot chart-plot-lg" viewBox="-14 10 734 272" style="width:100%;height:auto">
+            <div class="chart-plot chart-plot-lg" data-fade-chart><svg viewBox="-14 10 734 272" style="width:100%;height:auto">
               <defs>
                 <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" style="stop-color:var(--primary-500)" stop-opacity="0.55"/>
@@ -3475,10 +3475,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
                 <line x1="40" y1="160" x2="690" y2="160"/>
                 <line x1="40" y1="220" x2="690" y2="220"/>
               </g>
-              <!-- y labels -->
-              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="10" letter-spacing="1">
-                <text x="10" y="44">45</text><text x="10" y="104">30</text><text x="10" y="164">15</text><text x="10" y="224">0</text>
-              </g>
               <!-- baseline dashed (clipped for left-to-right reveal) -->
               <g clip-path="url(#baseline-clip)">
                 <path data-line-baseline d="M40,80 C120,70 180,95 260,85 S400,60 500,70 S640,75 690,82" style="stroke:var(--obsidian-400)" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
@@ -3491,12 +3487,8 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <g data-line-dots style="fill:var(--primary-500)">
                 <circle cx="40" cy="140" r="6" data-dot data-r="6"/><circle cx="260" cy="160" r="6" data-dot data-r="6"/><circle cx="500" cy="195" r="6" data-dot data-r="6"/><circle cx="690" cy="205" r="6" data-dot data-r="6"/>
               </g>
-              <!-- x labels -->
-              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="10" letter-spacing="1">
-                <text x="40" y="256">Q1</text><text x="200" y="256">Q2</text><text x="380" y="256">Q3</text><text x="560" y="256">Q4</text>
-              </g>
-            </svg>
-            <svg data-fade-chart class="chart-plot chart-plot-sm" viewBox="-14 14.6 370 261.1" style="width:100%;height:auto" aria-hidden="true">
+            </svg><span class="chart-label chart-label-axis" style="left:3.27%;top:11.029%">45</span><span class="chart-label chart-label-axis" style="left:3.27%;top:33.088%">30</span><span class="chart-label chart-label-axis" style="left:3.27%;top:55.147%">15</span><span class="chart-label chart-label-axis" style="left:3.27%;top:77.206%">0</span><span class="chart-label chart-label-axis" style="left:7.357%;top:88.971%">Q1</span><span class="chart-label chart-label-axis" style="left:29.155%;top:88.971%">Q2</span><span class="chart-label chart-label-axis" style="left:53.678%;top:88.971%">Q3</span><span class="chart-label chart-label-axis" style="left:78.202%;top:88.971%">Q4</span></div>
+            <div class="chart-plot chart-plot-sm" data-fade-chart aria-hidden="true"><svg viewBox="-14 14.6 370 261.1" style="width:100%;height:auto">
               <defs>
                 <linearGradient id="area-sm" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" style="stop-color:var(--primary-500)" stop-opacity="0.55"/>
@@ -3526,10 +3518,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
                 <line x1="28" y1="160" x2="332" y2="160"/>
                 <line x1="28" y1="220" x2="332" y2="220"/>
               </g>
-              <!-- y labels -->
-              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="13" letter-spacing="1">
-                <text x="2" y="44">45</text><text x="2" y="104">30</text><text x="2" y="164">15</text><text x="2" y="224">0</text>
-              </g>
               <!-- baseline dashed (clipped for left-to-right reveal) -->
               <g clip-path="url(#baseline-clip-sm)">
                 <path data-line-baseline d="M28,80 C65.4,70 93.5,95 130.9,85 S196.4,60 243.1,70 S308.6,75 332,82" style="stroke:var(--obsidian-400)" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
@@ -3542,11 +3530,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <g data-line-dots style="fill:var(--primary-500)">
                 <circle cx="28" cy="140" r="8" data-dot data-r="8"/><circle cx="130.9" cy="160" r="8" data-dot data-r="8"/><circle cx="243.1" cy="195" r="8" data-dot data-r="8"/><circle cx="332" cy="205" r="8" data-dot data-r="8"/>
               </g>
-              <!-- x labels -->
-              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="13" letter-spacing="1">
-                <text x="28" y="256">Q1</text><text x="102.8" y="256">Q2</text><text x="187" y="256">Q3</text><text x="271.2" y="256">Q4</text>
-              </g>
-            </svg>
+            </svg><span class="chart-label chart-label-axis" style="left:4.324%;top:9.728%">45</span><span class="chart-label chart-label-axis" style="left:4.324%;top:32.708%">30</span><span class="chart-label chart-label-axis" style="left:4.324%;top:55.687%">15</span><span class="chart-label chart-label-axis" style="left:4.324%;top:78.667%">0</span><span class="chart-label chart-label-axis" style="left:11.351%;top:90.923%">Q1</span><span class="chart-label chart-label-axis" style="left:31.568%;top:90.923%">Q2</span><span class="chart-label chart-label-axis" style="left:54.324%;top:90.923%">Q3</span><span class="chart-label chart-label-axis" style="left:77.081%;top:90.923%">Q4</span></div>
               <ul class="chart-legend"><li><span class="swatch" style="--sw:var(--obsidian-400)" aria-hidden="true"></span>Baseline</li><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span>After redesign</li></ul>
           </div>
 
@@ -3554,30 +3538,21 @@ the mark is an animated SVG, one vector file describing every rotation and every
         </div><div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 31.2</span></div>
           <p class="subsection-desc">Bars for comparison, labeled at the value. One accent series against neutrals — 85/10/5 applies to data too.</p>
-          <div class="grid grid-2">
+          <div class="grid grid-2 chart-grid">
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption by region</span><span class="s" data-fade>Orion · beta</span></div>
-              <svg data-fade-chart viewBox="0 0 400 220" style="width:100%">
-                <g font-family="Satoshi" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1">
-                  <text x="0" y="30">EMEA</text><text x="0" y="70">AMER</text><text x="0" y="110">APAC</text><text x="0" y="150">LATAM</text>
-                </g>
+              <div class="chart-plot" data-fade-chart><svg viewBox="0 12 384 148" style="width:100%">
                 <g>
                   <rect x="60" y="18" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="91" x="60" y="18" width="282" height="14" rx="2" style="fill:var(--primary-300)"/>
                   <rect x="60" y="58" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="71" x="60" y="58" width="220" height="14" rx="2" style="fill:var(--primary-500)"/>
                   <rect x="60" y="98" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="58" x="60" y="98" width="180" height="14" rx="2" style="fill:var(--primary-600)"/>
                   <rect x="60" y="138" width="310" height="14" rx="2" style="fill:var(--obsidian-800)"/><rect data-bar-h data-bar-pct="29" x="60" y="138" width="90" height="14" rx="2" style="fill:var(--primary-700)"/>
                 </g>
-                <g font-family="Satoshi" font-size="10" style="fill:var(--obsidian-100)" letter-spacing="1">
-                  <text data-bar-label data-bar-pct="91" x="346" y="30">91%</text>
-                  <text data-bar-label data-bar-pct="71" x="284" y="70">71%</text>
-                  <text data-bar-label data-bar-pct="58" x="244" y="110">58%</text>
-                  <text data-bar-label data-bar-pct="29" x="154" y="150">29%</text>
-                </g>
-              </svg>
+              </svg><span class="chart-label chart-label-axis" style="left:0%;top:9.459%">EMEA</span><span class="chart-label chart-label-axis" style="left:0%;top:36.486%">AMER</span><span class="chart-label chart-label-axis" style="left:0%;top:63.514%">APAC</span><span class="chart-label chart-label-axis" style="left:0%;top:90.541%">LATAM</span><span class="chart-label chart-label-value" data-bar-label data-bar-pct="91" data-x="346" style="left:90.104%;top:9.459%">91%</span><span class="chart-label chart-label-value" data-bar-label data-bar-pct="71" data-x="284" style="left:73.958%;top:36.486%">71%</span><span class="chart-label chart-label-value" data-bar-label data-bar-pct="58" data-x="244" style="left:63.542%;top:63.514%">58%</span><span class="chart-label chart-label-value" data-bar-label data-bar-pct="29" data-x="154" style="left:40.104%;top:90.541%">29%</span></div>
             </div>
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Sessions by day</span><span class="s" data-fade>last 14d</span></div>
-              <svg data-fade-chart viewBox="0 0 400 220" style="width:100%">
+              <div class="chart-plot" data-fade-chart><svg viewBox="6 8 336 202" style="width:100%">
                 <g>
                   <rect data-bar-v x="10" y="140" width="16" height="60" rx="2" style="fill:var(--obsidian-600)"/>
                   <rect data-bar-v x="34" y="100" width="16" height="100" rx="2" style="fill:var(--obsidian-600)"/>
@@ -3593,10 +3568,9 @@ the mark is an animated SVG, one vector file describing every rotation and every
                   <rect data-bar-v x="274" y="45" width="16" height="155" rx="2" style="fill:var(--primary-500)"/>
                   <rect data-bar-v x="298" y="60" width="16" height="140" rx="2" style="fill:var(--primary-500)"/>
                   <rect data-bar-v x="322" y="55" width="16" height="145" rx="2" style="fill:var(--primary-500)"/>
-                  <text data-fade x="258" y="22" text-anchor="middle" font-family="Satoshi" font-size="10" style="fill:var(--obsidian-100)">1.7k</text>
                 </g>
-                <line x1="0" y1="205" x2="400" y2="205" style="stroke:var(--obsidian-700)"/>
-              </svg>
+                <line x1="10" y1="205" x2="338" y2="205" style="stroke:var(--obsidian-700)"/>
+              </svg><span class="chart-label chart-label-value chart-label-center" data-fade style="left:75%;top:4.95%">1.7k</span></div>
               <ul class="chart-legend"><li><span class="swatch" style="--sw:var(--obsidian-600)" aria-hidden="true"></span>Previous 7 days</li><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span>Last 7 days</li></ul>
             </div>
           </div>
@@ -3608,7 +3582,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
               <div class="pie-wrap">
-                <svg data-fade-chart class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">
+                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">
                   <g transform="translate(110 110)">
                     <!-- track -->
                     <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
@@ -3618,11 +3592,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
                     <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--info)"/>
                     <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--tertiary-500)"/>
                   </g>
-                  <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
-                    <text data-pie-total data-count-to="12.4" data-decimals="1" x="110" y="108" font-size="34" font-weight="700" style="fill:var(--obsidian-100)" letter-spacing="-1">0.0</text>
-                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1.5">VISITS · K</text>
-                  </g>
-                </svg>
+                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="12.4" data-decimals="1">0.0</span><span class="pie-caption">VISITS · K</span></span></div>
                 <ul class="pie-legend">
                   <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
                   <li data-fade><span class="swatch" style="--sw:var(--primary-300)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
@@ -3634,7 +3604,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div class="chart-card">
               <div class="chart-head"><span class="t" data-fade>Adoption · Q1–Q4</span><span class="s" data-fade>Tokens shipped</span></div>
               <div class="pie-wrap">
-                <svg data-fade-chart class="pie" viewBox="0 0 220 220" role="img" aria-label="Adoption donut chart">
+                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Adoption donut chart">
                   <g transform="translate(110 110)">
                     <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
                     <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-500)"/>
@@ -3642,11 +3612,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
                     <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-700)"/>
                     <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-800)"/>
                   </g>
-                  <g font-family="Satoshi" text-anchor="middle" dominant-baseline="middle">
-                    <text data-pie-total data-count-to="274" x="110" y="108" font-size="34" font-weight="700" style="fill:var(--obsidian-100)" letter-spacing="-1">0</text>
-                    <text x="110" y="130" font-family="Satoshi, ui-sans-serif, system-ui, sans-serif" font-size="10" style="fill:var(--obsidian-300)" letter-spacing="1.5">TOKENS</text>
-                  </g>
-                </svg>
+                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="274">0</span><span class="pie-caption">TOKENS</span></span></div>
                 <ul class="pie-legend">
                   <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
                   <li data-fade><span class="swatch" style="--sw:var(--primary-600)" aria-hidden="true"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
@@ -6364,6 +6330,13 @@ if ('IntersectionObserver' in window) {
     });
   }
 
+  // A plot's labels are HTML over the drawing (§ 3.25): a drawing coordinate becomes a % of the plot box.
+  function placeX(el, x){
+    if (el instanceof SVGElement){ el.setAttribute('x', (+x).toFixed(1)); return; }
+    const vb = el.closest('.chart-plot').querySelector('svg').viewBox.baseVal;
+    el.style.left = ((x - vb.x) / vb.width * 100).toFixed(3) + '%';
+  }
+
   function captureBarGeom(root){
     root.querySelectorAll('[data-bar-h]').forEach(r => {
       if (r._w == null){
@@ -6376,7 +6349,7 @@ if ('IntersectionObserver' in window) {
           const label = root.querySelector('[data-bar-label][data-bar-pct="' + pct + '"]');
           if(label){
             r._label = label;
-            if(label._xEnd == null) label._xEnd = +label.getAttribute('x');
+            if(label._xEnd == null) label._xEnd = +(label.getAttribute('x') ?? label.getAttribute('data-x'));
           }
         }
       }
@@ -6417,7 +6390,7 @@ if ('IntersectionObserver' in window) {
       r.setAttribute('width', '0');
       if(r._label){
         // park the label just past the bar's origin (x + 4 padding)
-        r._label.setAttribute('x', r._x + 4);
+        placeX(r._label, r._x + 4);
         r._label.textContent = '0%';
         r._label.style.opacity = '0';
       }
@@ -6503,7 +6476,7 @@ if ('IntersectionObserver' in window) {
           if(r._label){
             r._label.style.opacity = '1';
             // keep label glued to the bar's right edge with a 4px lead
-            r._label.setAttribute('x', (r._x + w + 4).toFixed(1));
+            placeX(r._label, r._x + w + 4);
             r._label.textContent = Math.round(r._pct * t) + '%';
           }
         }

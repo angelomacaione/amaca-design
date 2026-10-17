@@ -897,7 +897,17 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 /* ─────────── DATA-VIZ ─────────── */
 /* A plot with two drawings: the wide one, and one for small screens with its own proportions, where
    points and labels stay readable instead of shrinking with the width. One shows at a time. */
-.chart-plot{display:block;width:100%;height:auto}
+.chart-plot{position:relative}
+.chart-plot > svg{display:block;width:100%;height:auto}
+/* Labels of a plot: HTML over the drawing, positioned in % of its viewBox, sized by tokens. The drawing scales with
+   the card; the text stays at its token at every width. No <text> inside a plot's svg. */
+.chart-label{position:absolute;font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);line-height:1;white-space:nowrap;transform:translateY(-50%);pointer-events:none}
+.chart-label-axis{color:var(--obsidian-200)}
+.chart-label-value{color:var(--obsidian-100)}
+.chart-label-center{transform:translate(-50%,-50%)}
+/* Bars keep two columns down to --bp-md (one column at 900 made each bar chart twice its size); under it the labels grow so they stay readable at phone scale. */
+@media (max-width: 900px){.grid-2.chart-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width: 720px){.grid-2.chart-grid{grid-template-columns:1fr}}
 .chart-plot-sm{display:none}
 @media (max-width: 720px){.chart-plot-lg{display:none}.chart-plot-sm{display:block}}
 .chart-card{background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-6)}
@@ -1039,12 +1049,15 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   align-items:center;
   margin-top:var(--s-4);
 }
+.pie-plot{position:relative;width:100%;max-width:220px;margin-inline:auto}
 .pie{
-  width:100%;max-width:220px;
+  width:100%;
   height:auto;
-  margin-inline:auto;
   display:block;
 }
+.pie-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s-1);pointer-events:none}
+.pie-total{font-size:var(--t-h4);font-weight:700;letter-spacing:var(--tr-tight);line-height:1;color:var(--obsidian-100)}
+.pie-caption{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
 .pie-legend{
   list-style:none;margin:0;padding:0;
   display:flex;flex-direction:column;gap:var(--s-2);

@@ -3204,6 +3204,28 @@ def c79():
     return fails
 
 
+@check("80", "A plot's text is HTML over the drawing, sized by a token, never a <text> inside the svg",
+       "v5.0.0: the labels of the charts were <text> in the svg, sized in drawing units: the same 10 was 14px "
+       "on a desktop card, 9px on a tablet and 4px on a phone, and no size was ever a token. They became HTML "
+       "over the drawing, placed in % of the viewBox, at --t-caption. This check keeps <text> out of every svg "
+       "of the Charts section and holds the label classes to tokens.")
+def c80():
+    fails = []
+    html = read(INDEX)
+    sec = _html_section(html, "charts")
+    for m in re.finditer(r"<svg\b.*?</svg>", sec, re.S):
+        if "<text" in m.group(0) and 'class="icon' not in m.group(0)[:60]:
+            fails.append(f"§ 31: a plot svg holds <text>: {m.group(0)[:70]}")
+    css = read(ROOT / "styles" / "components.css")
+    for sel, prop in ((".chart-label", "font-size:var(--t-caption)"), (".pie-total", "font-size:var(--t-h4)"), (".pie-caption", "font-size:var(--t-micro)")):
+        m = re.search(r"(?m)^" + re.escape(sel) + r"\{([^}]*)\}", css)
+        if not m or prop not in m.group(1).replace(" ", ""):
+            fails.append(f"components.css: {sel} must set {prop}")
+    if re.search(r"\.chart-[a-z-]+ text\{[^}]*font-size:\s*\d", css):
+        fails.append("components.css: a raw font-size on svg text of a chart")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
