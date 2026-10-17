@@ -202,9 +202,9 @@
   --d-base:    350ms;
   --d-slow:    600ms;
   --d-scene:   900ms;
-  --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19) */
+  --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 43 Charts) */
 
-  /* — LOADER (component-specific size scale, § 17) — */
+  /* — LOADER (component-specific size scale, § 24 Loader) — */
   --loader-xs: 16px;
   --loader-sm: 24px;
   --loader-md: 48px;
@@ -260,9 +260,9 @@ a{color:var(--primary-400);text-decoration:none;transition:color var(--d-quick) 
 a:hover{color:var(--primary-300)}
 input,textarea{caret-color:var(--primary-500)}
 /* Single-typeface system: code, keys and samples ride the mono register
-   (Satoshi + --tr-mono), never the browser's monospaced default (§ 05). */
+   (Satoshi + --tr-mono), never the browser's monospaced default (§ 02 Typography). */
 code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
-::selection{background:var(--primary-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
+::selection{background:var(--primary-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 01.2) */
 
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}

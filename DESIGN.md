@@ -194,7 +194,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **`--font-mono` is a register, not a typeface.** The name is historical and is kept for compatibility; the value is Satoshi, same as `--font-sans`. What makes the mono register read as mono is the *treatment*, not the family: `--tr-mono` letter-spacing (`0.06em`), uppercase, small sizes (`--t-micro` / `--t-caption`), and `font-variant-numeric: tabular-nums` where figures must align. Labels, badges, timestamps, token names, breadcrumbs and table headers all ride it.
 
-**`code`, `kbd`, `samp`, `pre` ride the register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-mono); letter-spacing: var(--tr-mono)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same § 11.2 card.
+**`code`, `kbd`, `samp`, `pre` ride the register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-mono); letter-spacing: var(--tr-mono)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same card.
 
 **A real monospaced stack is off-system.** `ui-monospace, SFMono-Regular, Menlo, monospace` hardcoded anywhere is a violation — it introduces a second typeface into a single-typeface system, and it does so invisibly, because at 10–12px uppercase the two read almost alike until you put them side by side.
 
@@ -301,7 +301,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **Rule:** in-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same vocabulary-vs-composition split § Code conventions draws for runtime token values. A raw `z-index` of 10 or more is a violation, greppable per line.
 
-**Grids.** The layout grid and its column presets are components, not conventions — spec in § 3.22.
+**Grids.** The layout grid and its column presets are components, not conventions — spec in § 3.2.
 
 ## Elevation & Depth
 
@@ -382,7 +382,7 @@ Dimensions that are part of a component's contract take a token; the widths of t
 
 | Token | Px | Use |
 |---|---|---|
-| `--icon-xs` | `14` | Icon beside a label in a button (§ 3.1) and in small controls · `.icon-xs` |
+| `--icon-xs` | `14` | Icon beside a label in a button (§ 3.6) and in small controls · `.icon-xs` |
 | `--icon-sm` | `16` | Inline icon, control glyph |
 | `--icon-md` | `20` | Standalone icon |
 | `--icon-lg` | `24` | Icon in a large control or an empty state |
@@ -412,64 +412,64 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 | Component | Classes | State | Spec |
 |---|---|---|---|
-| Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.1 |
-| Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.2 |
-| Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
-| Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
-| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` | canonical | § 3.5 |
-| Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.6 |
-| Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.7 |
-| Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.8 — image only |
-| Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.9 |
-| Dropdown · Select · Menu | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` `.select-option-label` `.select-check` `.select-kbd` `.select-group` `.select-divider` `.select-option-danger` · menu: `.select-menu-actions` · slider: `.select-menu-slider` | canonical | § 3.10 — three variants share the panel: listbox, Slider (dialog), Menu |
-| Chat · Messaging | `.chat-*` | canonical | § 3.11 |
-| Loader | `.loader-*` | canonical | § 3.12 |
-| Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.13 |
-| Presentations | `.slide-*` `.deck-*` | canonical | § 3.14 |
-| Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.15 |
-| Table | `.table` `.table-sort` | canonical | § 3.16 |
-| Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.17 |
-| Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.18 |
-| Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.19 |
-| Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.20 |
-| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | canonical | § 3.21 |
-| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
-| Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
-| Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.25 |
-| Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.26 |
-| Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
-| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
-| Link | `.link` `.link-quiet` | canonical | § 3.29 |
-| Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.30 — a `<dialog>`; images use the Lightbox |
-| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.31 — always a circle; the chat's `.chat-avatar` (§ 3.11) keeps its own look until the chat is re-audited |
-| Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.32 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
-| List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.33 |
-| Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.34 |
-| Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.35 |
-| Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.36 |
-| Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
-| Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
-| Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
-| Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
-| Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
-| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.43 — a Chart card whose plot is lanes |
-| Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.44 — a cluster opens a Popover (§ 3.38) or, under 720px, a Drawer (§ 3.39) |
+| Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.1 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
+| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.2 |
+| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | canonical | § 3.3 |
+| Skip link | `.skip-link` | canonical | § 3.4 — behaviour in § 6.2 |
+| Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.5 |
+| Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.6 |
+| Link | `.link` `.link-quiet` | canonical | § 3.7 |
+| Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.8 |
+| Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.9 |
+| Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.10 |
+| Dropdown · Select · Menu | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` `.select-option-label` `.select-check` `.select-kbd` `.select-group` `.select-divider` `.select-option-danger` · menu: `.select-menu-actions` · slider: `.select-menu-slider` | canonical | § 3.11 — three variants share the panel: listbox, Slider (dialog), Menu |
+| Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.12 |
+| Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.13 |
+| Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.14 |
+| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.15 |
+| Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.16 |
+| Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
+| Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.18 — `role="progressbar"` with a name, a value, a min and a max |
+| Loader | `.loader-*` | canonical | § 3.19 |
+| Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.20 |
+| Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.21 — a `<dialog>`; images use the Lightbox |
+| Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.22 — image only |
+| Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.23 |
+| Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.24 — a `<dialog>`; the side menu is `.drawer-nav` |
+| Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.25 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` | canonical | § 3.26 |
+| Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
+| Breadcrumb | `.breadcrumb` | canonical | § 3.28 |
+| Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.29 |
+| Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.30 — an ordered list; the current step carries `aria-current="step"` |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.31 |
+| Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.32 |
+| Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.33 |
+| Chat · Messaging | `.chat-*` | canonical | § 3.34 |
+| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.35 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.36 — always a circle; the chat's `.chat-avatar` (§ 3.34) keeps its own look until the chat is re-audited |
+| List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.37 |
+| Table | `.table` `.table-sort` | canonical | § 3.38 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.39 |
+| Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.40 |
+| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.41 — a Chart card whose plot is lanes |
+| Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.42 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
+| Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.43 |
+| Presentations | `.slide-*` `.deck-*` | canonical | § 3.44 |
 | Case study | `.cs-hero` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-pull` `.cs-img` `.cs-img-caption` `.cs-img-hint` `.cs-points` `.cs-point` `.cs-point-title` `.cs-more` | canonical | § 3.45 — a page template: it composes Button, Chip, Chart card, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
 ### § 3.0.1 State grammar
 
-**Every interactive component documents its states in one fixed schema** — same six columns everywhere, no prose state specs, no extra columns. This is the § 08.3 motion grammar applied to state.
+**Every interactive component documents its states in one fixed schema** — same six columns everywhere, no prose state specs, no extra columns. This is the § 06.4 motion grammar applied to state.
 
 | State | Background | Border | Foreground | Ring | Other |
 |---|---|---|---|---|---|
 
-**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `current` · `checked` · `expanded` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.24); everything else uses `focus-visible`. `checked` and `expanded` (added v4.3.0) were in the state index before they were in this list — the same trap `selected` fell into, and check 42 now closes it. `checked` belongs to a control whose value is on or off (check, radio, switch) and is always mirrored by `:checked` or `aria-checked`. `expanded` belongs to a trigger that owns a popup (the select trigger) and is always mirrored by `aria-expanded="true"`. `current` (added v5.0.0) belongs to the page, step or place the reader is on in a set of links (the pagination page) and is always mirrored by `aria-current`; it is not `selected`, which is a choice the reader made.
+**Closed state vocabulary.** `default` · `hover` · `focus` · `focus-visible` · `active` · `selected` · `current` · `checked` · `expanded` · `disabled` · `error` · `readonly` · `loading`. A component declares the subset it supports; it may not invent a state outside this list. `selected` (added v4.1.0) is legal only where an element carries a **persistent choice the reader made** — the date picker day, the select option, the filter chip — and it is always mirrored in the markup by `aria-selected` or `aria-pressed`. It is not a synonym for `active`, which lasts exactly as long as the press. It is named here two releases late: the state index has carried `.dp-day | selected` and `.select-option | selected` since before this vocabulary was written, so the sentence above was false about the file's own table. `focus` (added v4.0.0) is legal only where an element exists solely for the keyboard and can never be pointer-focused in its resting state — today that is the skip link alone (§ 3.4); everything else uses `focus-visible`. `checked` and `expanded` (added v4.3.0) were in the state index before they were in this list — the same trap `selected` fell into, and check 42 now closes it. `checked` belongs to a control whose value is on or off (check, radio, switch) and is always mirrored by `:checked` or `aria-checked`. `expanded` belongs to a trigger that owns a popup (the select trigger) and is always mirrored by `aria-expanded="true"`. `current` (added v5.0.0) belongs to the page, step or place the reader is on in a set of links (the pagination page) and is always mirrored by `aria-current`; it is not `selected`, which is a choice the reader made.
 
 **Rules of the grammar:**
 - Value cells (Background, Border, Foreground, Ring) accept **tokens only** (`var(--x)`), `—` (unchanged from `default`), `native` (the browser's own treatment, deliberately not overridden), or the CSS keywords `none` and `transparent`. Never raw values, and never a description in place of a value. The focus rings are tokens since v4.2.0 — `--ring-halo`, `--ring-field`, `--ring-field-danger` (§ 2 Shadow, § 6.2); a row cites the token, never the rgba() it resolves to. Composition that is not a colour or a shadow (`opacity`, `filter`, offsets) lives in *Other*. A tint is written `--hue` × `--tint-fill` (or × `--tint-edge`, or their `-deep` pair): the hue mixed with transparent at that strength, `color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)`.
@@ -488,7 +488,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn` (base) | default | per variant | `1px solid transparent` | per variant | — | `--r-full` |
 | `.btn` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.btn` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
-| `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.12 · `pointer-events: none` · `disabled` + `aria-label` |
+| `.btn` | loading | — | — | `transparent` | — | label kept for width · `.loader.loader-xs` centred, § 3.19 · `pointer-events: none` · `disabled` + `aria-label` |
 | `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | ratified § 6.3 exception |
 | `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 |
 | `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | |
@@ -593,7 +593,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover |
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press |
-| `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.28 |
+| `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 |
 | `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` |
 | `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | |
@@ -628,9 +628,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour |
 | `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
 | `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
-| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.25) |
-| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.43) |
-| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.44) |
+| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.39) |
+| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.41) |
+| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.42) |
 | `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour |
 | `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover |
 | `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` |
@@ -664,1589 +664,9 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 **Status (v5.0.0).** The debt declared in v3.4.0 is closed: every subsection carries framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears where a rule is contestable, never to fill a quota. (Counts are left out on purpose: they were written by hand and had drifted, 102 subsections and 10 of 44 sections against 151 and 23 of 40.)
 
-### Button
-
-**Usage**
-
-*Use it when*
-- The affirmative action of the screen, as the one `.btn-primary`.
-- Any action on the current page: submit, save, open, apply.
-
-*Use something else when*
-- Going to another page or resource → Link.
-- An icon-only button whose glyph is not universal and has no tooltip → a labelled button.
-
-
-```html
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-ghost">Ghost</button>
-<button class="btn btn-secondary">Secondary</button>
-<button class="btn btn-danger">Destructive</button>
-<button class="btn btn-primary" disabled>Unavailable</button>
-<button class="btn btn-primary is-loading" disabled aria-label="Submitting">Submit <span class="loader loader-xs" role="status" aria-hidden="true">…</span></button>
-<button class="btn btn-secondary"><svg class="icon" aria-hidden="true">…</svg> New case study</button>
-<button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
-<button class="btn btn-floating" type="button"><svg class="icon" aria-hidden="true">…</svg> Back</button>
-```
-
-| Variant | Background | Text | Use |
-|---|---|---|---|
-| `.btn-primary` | `--primary-500` | `--obsidian-050` | One per screen — the affirmative action |
-| `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
-| `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
-| `.btn-outline` | transparent | `--obsidian-100` | Bordered tertiary — hover borrows the magenta edge |
-| `.btn-danger` | `--danger` | `--obsidian-950` | Destructive only |
-| `.btn-floating` | `--surface-glass` | `--obsidian-100` | Stays on screen over scrolling content — Back in a long page |
-
-**Rules:**
-- One `.btn-primary` per screen. Everything else recedes.
-- **Sizes: 32 · 40 · 48.** `.btn-sm` is `--s-8` tall, the default `--s-10`, `.btn-lg` `--s-12` — declared as `min-height` with no block padding, so the height is the number and not a sum of padding and line-height. Inline padding `--s-4` · `--s-6` · `--s-8`; label `--t-small` on `.btn-sm`, `--t-body` on the other two. Size signals density, not importance: the variant does that.
-- **Touch.** On a coarse pointer every `.btn` grows to at least 44px tall and every `.btn-icon` 44px wide — the § 6 floor. `.btn-lg` already clears it; dense desktop keeps 32.
-- **Icon + label.** `<svg class="icon">` leading or trailing, 14px, `currentColor`, `aria-hidden="true"`; the gap is `--s-2`, always, and the label stays.
-- **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
-- **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill `--surface-glass` under `backdrop-filter: blur(8px)`, border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
-- Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
-- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.12's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
-- Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
-- **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
-
-**Do / Don't.** Do keep one `.btn-primary` per screen and let the rest recede; give an icon-only button an `aria-label` that names the action. Don't bold the label, lighten the primary on hover, or remove the outline without a focus ring in its place.
-
-**Do / Don't.** Do pick the size for density (32 · 40 · 48) and let the variant carry importance. Don't use a button to go to another page: that is a Link.
-
-### Input · textarea · select
-
-**Usage**
-
-*Use it when*
-- Free text on a single line: a name, a search, a URL.
-- Always with a persistent label; the placeholder is never the label.
-
-*Use something else when*
-- The answer runs over several lines → the textarea.
-- The answer comes from a known list → Select or Radio.
-- A time or a date → Time input, Date picker.
-
-
-```html
-<label class="field">
-  <span class="label">EMAIL</span>
-  <input class="input" type="email" placeholder="you@studio">
-  <span class="help">We never share it.</span>
-</label>
-<label class="field">
-  <span class="label">SLUG</span>
-  <input class="input" value="Bad URL" aria-invalid="true" aria-describedby="slug-error">
-  <span class="help error" id="slug-error">Lowercase with hyphens.</span>
-</label>
-<form role="search">
-  <div class="field">
-    <label class="label" for="q">SEARCH</label>
-    <div class="input-wrap">
-      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
-      <input class="input" id="q" type="search" placeholder="Search the archive…">
-      <button class="input-action" type="button" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-    </div>
-  </div>
-</form>
-<label class="field">
-  <span class="label">SUMMARY</span>
-  <textarea class="textarea" rows="4" placeholder="Two sentences."></textarea>
-</label>
-<label class="field">
-  <span class="label">PRIORITY</span>
-  <select class="select">
-    <option>Low</option>
-    <option selected>Normal</option>
-    <option>High</option>
-  </select>
-</label>
-```
-
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
-- **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.1). The height is the token, not a sum of paddings.
-- Helper text is `.help`; the error variant is `.help.error`.
-- Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
-- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index (`hover` is the `.input-action`; `error` is not a search state). No state is described in prose here.
-- **Icon left.** A `.icon` as a direct child of `.input-wrap`: decorative (`aria-hidden`), `--icon-sm`, `--obsidian-300`, no click. The field pads `--s-8` on the left to clear it.
-- **Action right.** `.input-action`: a `<button type="button">` last in the `.input-wrap`, 32px square, `--r-sm`, `--icon-sm`, `--obsidian-300` and `--obsidian-100` on hover. The field pads `--s-10` on the right. It carries an `aria-label`: it has no text. The date picker and the time picker use this same part (§ 3.15).
-- **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.32. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
-- **Search.** The field sits in `<form role="search">` with `type="search"`, so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field.
-
-**Do / Don't.** Do give every field a persistent label, and say an error in the helper text as well as in the border. Don't use the placeholder as the label, or let colour alone say "error".
-
-**Do / Don't.** Do show the clear button only while the field has a value, and show "no results" where the results go. Don't give a search field an error state, or keep the browser's own clear button beside ours.
-
-### Card
-
-**Usage**
-
-*Use it when*
-- One project or one stat: micro-header, title, body, at most one action.
-- A concept the reader scans and acts on as one unit.
-
-*Use something else when*
-- Secondary information shown on demand → Popover or Modal.
-- A gradient background → never; the surface stays on the obsidian ramp.
-
-
-```html
-<div class="card">
-  <div class="card-meta"><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
-  <div class="card-media"><img src="cover.jpg" alt="The center stack of the Arc HMI"></div>
-  <h3>Arc · Automotive HMI</h3>
-  <p>Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
-  <div class="card-actions"><button type="button" class="btn btn-secondary">Open case file</button></div>
-</div>
-```
-
-- Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
-- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
-- **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
-- **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
-- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
-- **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
-| hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-
-**Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
-
-**Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
-
-### Badge
-
-Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.28).
-
-**Usage**
-
-*Use it when*
-- A status the system computed, next to the thing it describes.
-- The solid variant: the one featured accent of the viewport.
-
-*Use something else when*
-- A value a person chose → Chip.
-- It needs hover or focus → Button or Chip.
-
-
-```html
-<span class="badge"><span class="dot"></span>Default</span>
-<span class="badge badge-brand"><span class="dot"></span>Live</span>
-<span class="badge badge-success"><span class="dot"></span>Shipped</span>
-<span class="badge badge-warn"><span class="dot"></span>Pending</span>
-<span class="badge badge-danger"><span class="dot"></span>Blocker</span>
-<span class="badge"><span class="dot"></span>Archive</span>
-<span class="badge badge-solid">Featured</span>
-<span class="badge badge-info"><span class="dot"></span>Info</span>
-```
-
-The example is the § 13.1 demo, badge for badge; check 47 holds the two together.
-
-| Variant | Surface | Use |
-|---|---|---|
-| `.badge` | `--tertiary-500` × `--tint-fill-deep` / `--tint-edge-deep`, text `--tertiary-300` | Default — a quiet tag; archive |
-| `.badge-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | Live — spends the accent |
-| `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Shipped |
-| `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Pending |
-| `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Blocker |
-| `.badge-solid` | `--primary-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
-| `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | Info — a neutral fact |
-
-- **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
-- **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
-- **One line, always.** A badge never wraps (`white-space: nowrap`) and never shrinks in a flex row (`flex: none`): when room runs out, the text beside it wraps instead.
-- **The dot** (`.dot`, `--s-1` square, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
-- **The solid badge takes the light label**, `--obsidian-050` on `--primary-500`: the second ratified exception of § 6.3, bounded like the first.
-- **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
-
-**Do / Don't.** Do keep it to a word or two, the status first, on one line beside what it describes. Don't let it break onto two lines: when room runs out the text beside it wraps; the badge never does.
-
-### Navigation
-
-**Usage**
-
-*Use it when*
-- The sidebar for documentation; the top bar for marketing.
-- The sidebar when there are more than five destinations.
-
-*Use something else when*
-- A linear journey with an order → Stepper.
-
-
-- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.
-- **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (§ 13 is *Chips & Feedback*: badges, alerts, toasts and tooltips are the feedback) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
-- **Top nav** for marketing only.
-
-#### Top bar
-
-The bar at the top of a page: the brand, the destinations, one action. Flat and flush; at narrow widths its links move to the Drawer menu.
-
-```html
-<header class="navbar">
-  <a class="navbar-brand" href="/"><span class="brand-mark"><img src="mark.png" alt=""></span>Name</a>
-  <nav class="navbar-nav" aria-label="Main">
-    <ul class="navbar-list">
-      <li><a class="navbar-item" href="/work" aria-current="page" data-label="Work">Work</a></li>
-      <li><a class="navbar-item" href="/about" data-label="About">About</a></li>
-    </ul>
-  </nav>
-  <div class="navbar-end">
-    <a class="btn btn-primary btn-sm" href="/contact">Contact</a>
-    <button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"
-            aria-haspopup="dialog" aria-expanded="false" aria-controls="menu"><!-- icon "menu" --></button>
-  </div>
-</header>
-<dialog class="drawer drawer-nav" id="menu" aria-labelledby="menu-title">…</dialog>
-```
-
-| Part | Class | Spec |
-|---|---|---|
-| Bar | `.navbar` | `--surface-sunken`, a `1px` `--border-subtle` line below, no radius; min-height `--s-12`; sticky at the top on `--z-sticky` |
-| Brand | `.navbar-brand` | The Brand mark at `--s-8` and the name at `--t-body` 700; inset `--s-6` from the start edge |
-| Destinations | `.navbar-nav` `.navbar-list` `.navbar-item` | A `nav` with an `aria-label`; items as tall as the bar, padding-inline `--s-4`, `--t-small` 500 |
-| End | `.navbar-end` | One action (a small primary button) and the toggle; inset `--s-6` from the end edge |
-| Toggle | `.navbar-toggle` | A ghost icon button with the icon *menu*; shown only at narrow widths |
-
-**Rules.**
-- **Flat and flush.** No radius, no floating variant, no shadow on scroll. The bar is separated from the page by its line only.
-- **The item is the target.** Each item takes the full height of the bar, so the target is 48px wide-open (§ 6 floor #7).
-- **States.** Hover fills `--obsidian-800`; pressed goes one step further, `--obsidian-700`. The darkening rule of the pressed fill is for coloured fills; a neutral fill on the dark surface steps away from the bar, as the hover does. The current page is `--primary-400` at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against `--obsidian-200` is 1.44:1 (WCAG 1.4.1). `data-label` repeats the label so its bold width is reserved and selecting an item never moves its neighbours.
-- **Focus inside.** The ring is drawn inside the item, as on the List's row, so the bar clips nothing.
-- **It reads its own width.** The bar is a size container: at 720px of its own width or less (`--bp-md`) the destinations and the action leave and the toggle appears. The same markup works in a page, a frame or a panel.
-- **The menu opens on the toggle's side.** The toggle opens the Drawer menu (`.drawer.drawer-nav`, § 3.39) with `showModal()`; a toggle at the end opens it at the end, one at the start uses `.drawer-start`. The action moves into the drawer's foot.
-- **The glyph sits on the inset.** The toggle is pulled out by the space around its 16px glyph, so the icon lines up with the brand's edge on the other side.
-- **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.1).
-- **Motion.** Background and colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 08.3).
-
-**Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round it, float it, underline the current item or open its menu on the side opposite the toggle.
-- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.23.
-
-### Accordion
-
-**Usage**
-
-*Use it when*
-- Dense reference content: headers scanned first, read selectively.
-- Multi-open sparingly, when answers are compared side by side.
-
-*Use something else when*
-- Content the reader will read in full → a page with headings.
-- Switching quickly between sections → Tabs.
-
-
-- Single-open by default.
-- Chevron rotates 90° on expand.
-- Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
-| close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
-| open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
-| close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
-| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
-| hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
-
-**Do / Don't.** Do open one panel at a time by default, each header a real button with `aria-expanded`. Don't fold away content the reader will read in full: that is a page with headings.
-
-### Tabs
-
-**Usage**
-
-*Use it when*
-- Related views of one page, read one at a time.
-
-*Use something else when*
-- Moving between pages → Navigation.
-- A linear process → Stepper.
-- The reader needs several sections open at once → Accordion.
-
-
-```html
-<div class="tabs" role="tablist" data-tabs>
-  <button class="tab active" role="tab" aria-selected="true" data-panel="p1">First</button>
-  <button class="tab" role="tab" aria-selected="false" data-panel="p2">Second</button>
-  <span class="tab-indicator" aria-hidden="true"></span>
-</div>
-<div class="tab-panels">
-  <div class="tab-panel active is-in" id="p1" role="tabpanel">…</div>
-  <div class="tab-panel" id="p2" role="tabpanel">…</div>
-</div>
-```
-
-**Required classes:**
-- `.tabs` — wrapper, `position:relative`, bottom border 1px `--obsidian-800`.
-- `.tab` — trigger button. `.active` sets weight 600 + text `--obsidian-100`.
-- `.tab-indicator` — single magenta underline, `position:absolute; bottom:-1px; height:2px; width:0`. Positioned by JS via `transform: translateX(...)` + `width`.
-- `.tab-panels` / `.tab-panel` — panels hidden via `display:none`; `.active` reveals; `.is-in` fades in.
-
-**Indicator positioning (canonical JS pattern):**
-```javascript
-function moveIndicator(tab){
-  const rect = tab.getBoundingClientRect();
-  const parentRect = tablist.getBoundingClientRect();
-  indicator.style.width = rect.width + 'px';
-  indicator.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
-}
-```
-Use `will-change: transform, width` on the indicator.
-
-**Initial position:** double `requestAnimationFrame` so layout is measured after first paint. Re-measure on `window.resize`, and also when the parent section becomes visible (the tablist may live inside a hidden `.section` on first paint and `getBoundingClientRect` returns zeros). An `IntersectionObserver` at threshold 0.01 covers that case.
-
-**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
-| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
-
-**Rules:**
-- Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
-- Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
-
-**Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
-
-### Lightbox
-
-- Backdrop: `--obsidian-950` at 85% (`rgba(7,9,11,0.85)`) under a 12px blur.
-- Close button: top-right, `Esc` closes.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
-| close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
-
-**Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
-
-### Time input
-
-**Usage**
-
-*Use it when*
-- A time of day, HH:MM in 24 hours, formatted as it is typed.
-
-*Use something else when*
-- A date and a time together → pair it with the Date picker.
-
-
-```html
-<label class="field">
-  <span class="label">Time</span>
-  <input class="input" type="text" id="time-input"
-    placeholder="e.g. 18:00"
-    autocomplete="off"
-    maxlength="5"
-    inputmode="numeric" />
-</label>
-```
-
-HH:MM, 24 hours, formatted as it is typed.
-
-**Digit by digit:**
-- Digit 1 (H1): at most `2`
-- Digit 2 (H2): at most `3` when H1 is `2`, otherwise `0–9`
-- Digit 3 (M1): at most `5`
-- Digit 4 (M2): `0–9`
-
-The `:` goes in after the first two digits on its own; the person types only numbers.
-
-```javascript
-document.getElementById("time-input").addEventListener("input", function () {
-  let raw = this.value.replace(/\D/g, "");
-  let out = "";
-  for (let i = 0; i < Math.min(raw.length, 4); i++) {
-    let d = parseInt(raw[i]);
-    if (i === 0) d = Math.min(d, 2);
-    if (i === 1 && out[0] === "2") d = Math.min(d, 3);
-    if (i === 2) d = Math.min(d, 5);
-    out += d;
-  }
-  this.value = out.length >= 3 ? out.slice(0, 2) + ":" + out.slice(2) : out;
-});
-```
-
-**Rules.**
-- `maxlength="5"` and `inputmode="numeric"` are required.
-- Optional by default; a context can make it required.
-- No `type="time"`: the native picker does not follow the system.
-- Focus and error follow § 3.2.
-
-**Do / Don't.** Do let the field format HH:MM as it is typed, with `inputmode="numeric"` and `maxlength="5"`. Don't use `type="time"`: the native picker does not follow the system.
-
-### Dropdown / Select
-
-One trigger, one panel, three uses. A value chosen from a list is a **Select**; a number set without typing it is a **Select with a Slider**; an action run on an item is a **Menu**. The three share the panel (`.select-menu`), its placement and its row (`.select-option`); they keep their own ARIA roles. Pick the smallest variant that covers the requirement.
-
-**Usage**
-
-*Use it when*
-- Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.
-- Four or more options, or little room on screen.
-- A number set by feel rather than typed, such as a price → the Slider variant.
-- Actions on an item that do not fit on screen → the Menu variant.
-
-*Use something else when*
-- Two or three options → Radio, all of them visible.
-- A value the person must hit exactly → Text input.
-- A place to go → Navigation or Link.
-
-
-**The rule that separates them: a choice stays, an action runs.** A Select holds a value and shows it in its trigger; a Menu holds none, runs the action and closes. A Menu never carries radio or checkbox items: a choice that stays is a Select. A link to another page is not a Menu item, it is Navigation.
-
-#### A. Native enhanced — `<select class="select">`
-
-Default choice. Use when options are fixed, short, no custom rendering required. Inherits browser keyboard nav, mobile UI, accessibility for free.
-
-**Exception — never directly above important content.** The browser/OS renders the native option popup *over* the control and can cover whatever sits beneath it (e.g. a chat composer the select sits above). When the control may sit near a viewport edge or above content the user must still see, use variant B (viewport-aware placement) instead.
-
-```html
-<select class="select">
-  <option>Draft</option>
-  <option>Pending</option>
-  <option>Published</option>
-</select>
-```
-
-**Style contract:**
-- `appearance: none; -webkit-appearance: none; -moz-appearance: none`
-- Background: inline SVG chevron (down) as `background-image`, **canonical stroke `%238A94A3`**, 12×12 viewBox, `stroke-width:2.5`. Positioned `right 12px center`, size `12px 12px`.
-- `padding-right: var(--s-8)` to reserve space for the chevron.
-- Same border / radius / focus glow as `.input` (§ 3.2).
-
-**Placement — progressive enhancement (v4.2.2).** Where the customizable select ships (`@supports (appearance: base-select)`, Chromium today), `select.select` and its `::picker(select)` take `appearance: base-select`. The picker then follows variant B's placement rule: it opens below the control and flips above only when the bottom edge would clip it (`position-try-order: normal` + `position-try-fallbacks: flip-block`; the UA default instead picks the roomier side). It carries the same surface as `.select-menu`, and `::picker-icon` is hidden so the background chevron stays the only chevron. Elsewhere the OS popup stays, and the exception above still applies.
-
-#### B. Custom listbox — `<button class="select-trigger">`
-
-Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (icons, avatars, badges), grouped headings beyond `<optgroup>`.
-
-```html
-<div class="select-wrap" data-select>
-  <button type="button" class="select select-trigger"
-    aria-haspopup="listbox" aria-expanded="false" aria-labelledby="status-label">
-    <span class="select-value">Draft</span>
-  </button>
-  <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
-    <li class="select-option" role="option" aria-selected="true" data-value="Draft">
-      <span class="select-option-label">Draft</span>
-      <svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true"><!-- icon "check" --></svg>
-    </li>
-    <li class="select-option" role="option" aria-selected="false" data-value="Pending">…</li>
-    <li class="select-option" role="option" aria-selected="false" aria-disabled="true" data-value="Archived">…</li>
-  </ul>
-</div>
-```
-
-**Behavior:**
-- `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
-- **Keyboard focus on the trigger is the pressable ring**, not the field glow: the `.input` `.textarea` `.select` | focus-visible row of the state index does not apply to `.select-trigger`, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from `.select:focus`.
-- `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it — measure the menu's natural height with `getBoundingClientRect()` rounded up (not `scrollHeight`, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
-- **The panel never transitions.** Its box is measured and written by script at open; under reduced motion the global 0.01ms rule gives every property a transition, and a script that reads the start of one places the panel off screen. `.select-menu` carries `transition:none` inside the reduced-motion override (v5.0.0).
-- `.select-option[aria-selected="true"]` is rendered in `--primary-400`, with a **check after the label** (`.select-check`, the album's *check*, 14px) in the colour of the text. The check's room is reserved on every row, so labels never move when the choice changes. Hover/focus background is `--obsidian-800`.
-- Only one menu open at a time — opening one closes any other open `.select-menu`.
-
-**Keyboard:**
-- `Enter`/`Space`/`↓` on trigger opens.
-- `↓`/`↑` navigate options; `Home`/`End` jump to the first and last; no wrap from the last to the first. First open lands on the currently selected option (`aria-selected="true"`), or the first if none.
-- A printable character jumps to the next option that starts with the letters typed (typeahead, 500ms).
-- `Enter`/`Space` on focused option commits + closes; trigger receives focus back.
-- `Esc` closes without committing; trigger receives focus back.
-- `Tab` from open menu closes and proceeds.
-
-**Dismissal:**
-- Click outside the wrapper closes the menu.
-- A **fixed-position** (viewport-aware) menu also closes on `resize`, and on a page `scroll` that moves the trigger. Its anchored coordinates would otherwise drift from the trigger. Scrolling **inside the menu** never closes it.
-- Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
-
-#### C. Slider — `<div class="select-menu-slider">`
-
-A number set without typing it, such as a price. The field is variant B's trigger; the panel holds **one** Slider (§ 3.35) instead of a list.
-
-```html
-<span class="label" id="price-label">Price</span>
-<div class="select-wrap" data-select-slider>
-  <button type="button" class="select select-trigger" aria-haspopup="dialog"
-    aria-expanded="false" aria-labelledby="price-label price-value">
-    <span class="select-value" id="price-value">€40 – €140</span>
-  </button>
-  <div class="select-menu select-menu-slider" role="dialog" aria-labelledby="price-label" hidden>
-    <div class="slider">
-      <div class="slider-pair" role="group" aria-labelledby="price-label">
-        <input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price">
-        <input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price">
-      </div>
-      <div class="slider-scale"><span>€0</span><span>€200</span></div>
-    </div>
-  </div>
-</div>
-```
-
-- **One Slider per panel**, single or range (a range is one Slider with two handles, § 3.35). Never a Slider together with options, never two Sliders. Check 63 holds it.
-- The panel is the width of the field and holds the track and the scale. The label and the value stay in the field: the trigger shows the value, formatted (`Up to €80`, `€40 – €140`), and follows it live while the handle moves.
-- A listbox may own options only, so the panel is a **non-modal dialog**: `aria-haspopup="dialog"` on the trigger, `role="dialog"` on the panel, named by the field's label. Placement is variant B's.
-- Keyboard: opening puts the focus on the first handle; the arrows, `Home`/`End` and `PageUp`/`PageDown` adjust it (the range input's own keys); `Tab` moves to the second handle. **`Esc` cancels**: the value goes back to what it was when the panel opened, and the panel closes. `Enter`, a click outside, or `Tab` past the last handle **commit** and close. Focus returns to the trigger.
-
-#### D. Menu — `<ul class="select-menu-actions">`
-
-Actions on an item, behind one button. The panel and the row are variant B's; the roles are the menu button's (APG): `aria-haspopup="menu"` on the trigger, `role="menu"` on the panel, `role="menuitem"` on each row.
-
-```html
-<div class="select-wrap" data-menu>
-  <button type="button" class="btn btn-secondary" id="actions-btn"
-    aria-haspopup="menu" aria-expanded="false">Actions <svg class="icon" …><!-- icon "chevron-down" --></svg></button>
-  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="actions-btn" hidden>
-    <li class="select-option" role="menuitem"><svg class="icon" …><!-- icon "edit" --></svg>
-      <span class="select-option-label">Rename</span><span class="select-kbd">R</span></li>
-    <li class="select-option" role="menuitem" aria-disabled="true">…</li>
-    <li class="select-divider" role="separator"></li>
-    <li class="select-option select-option-danger" role="menuitem">…<span class="select-option-label">Delete</span></li>
-  </ul>
-</div>
-```
-
-| Part | Class | Rule |
-|---|---|---|
-| Trigger | `.btn.btn-secondary` or `.btn.btn-ghost.btn-icon` | A labelled button with the *chevron-down* icon, or an icon-only button with the *kebab* icon and an `aria-label` that names the item. The chevron does not turn |
-| Panel | `.select-menu.select-menu-actions` | At least the trigger and at least `--s-32`; grows to the longest item; stops at the drawer menu's measure (30ch + padding) and truncates |
-| Row | `.select-option` | Leading icon (14px, `--obsidian-300`), label (`.select-option-label`, one line, ellipsis), shortcut after it (`.select-kbd`) |
-| Group heading | `.select-group` | The `.label` grammar: mono, micro, uppercase, `--obsidian-300` |
-| Divider | `.select-divider` | `--bw-1` of `--obsidian-700`, full bleed (the panel's inset taken back), `--s-1` above and below |
-| Danger | `.select-option-danger` | Text and icon `--danger` (6.1:1 on the panel); the hover stays neutral. Always last, after a divider |
-| Disabled | `[aria-disabled="true"]` | Opacity 0.4, skipped by the arrow keys and by typeahead |
-
-- **Horizontal placement: toward the middle.** A trigger in the left half of the viewport aligns the panel to its start; in the right half, to its end, so a kebab at the end of a row opens inward. Then the viewport clamp of variant B. The vertical rule is variant B's.
-- Keyboard (APG menu button): `Enter`/`Space`/`↓` open on the first item, `↑` on the last; `↓`/`↑`, `Home`/`End` and typeahead as in variant B, no wrap; `Enter`/`Space` runs the item and closes; `Esc` closes; focus returns to the trigger; `Tab` closes and proceeds.
-
-**Do / Don't.** Do open the panel below the field and above it only when the bottom edge would clip it, open a kebab at the end of a row inward, put a destructive action last after a divider, and keep one Slider at most in a panel. Don't pin the panel below a field at the bottom of the screen or let it cover what the person still needs, use a Menu to hold a value, mix a Slider with options, or put two Sliders in one panel.
-
-### Chat & Messaging
-
-For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
-
-**Usage**
-
-*Use it when*
-- Conversational interfaces: a chatbot, an assistant.
-
-*Use something else when*
-- A one-way notice from the system → Toast or Alert.
-- Reference content the reader consults, not a dialogue → a page or Accordion.
-
-
-```html
-<div class="chat-stage" aria-label="Conversation with Amaca">
-  <div class="chat-stage-head">…</div>
-  <div class="chat-stage-scroll" role="log" aria-live="polite" aria-relevant="additions">
-    <div class="chat-msg chat-msg-bot">
-      <div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>
-      <div class="chat-stack">
-        <div class="chat-meta"><span class="chat-meta-name">Amaca</span><span class="chat-meta-time">10:42</span></div>
-        <div class="chat-bubble chat-bubble-bot">
-          <span class="chat-sr-only">Amaca said: </span>
-          <div class="chat-bubble-content">Welcome.</div>
-        </div>
-      </div>
-    </div>
-    <div class="chat-msg chat-msg-own">
-      <div class="chat-stack">
-        <div class="chat-bubble chat-bubble-own">
-          <span class="chat-sr-only">You said: </span>
-          <div class="chat-bubble-content">Hi.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-```
-
-**Required classes:**
-- `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
-- `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
-- `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
-- `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
-- `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
-- `.chat-meta` — sender + time row, only on the first bubble of a streak.
-- `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
-- `.chat-sr-only` — visually-hidden sender prefix inside every bubble (`"Amaca said: "` / `"You said: "` / `"Amaca sent a file: "`). The avatar streak-suppression rule means screen readers would otherwise lose sender identity on bot follow-ups.
-
-**Reserved colors:**
-- Own bubbles fill with `--primary-700` — the deep brand accent.
-- The brighter `--primary-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
-- A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
-
-**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
-| message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
-| roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
-| roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
-| send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
-
-**Typing indicator:**
-- Lives **inside a bot bubble** (`.chat-bubble.chat-bubble-typing`), never floats as a gutter caption. For a single-bot UI the avatar already says who's typing.
-- Three `.chat-dot` spans inside `.chat-typing`. Each: `width 6px; height 6px; background --obsidian-300`.
-- Animation: `chat-dot-wave`, infinite — spec in the motion table above. Stagger via `animation-delay` on `:nth-child(2)` and `:nth-child(3)`.
-- The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
-
-**Composer:**
-- `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
-- `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--primary-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
-- Composer focus-within: border shifts to `--primary-500` + `--ring-field` — same focus treatment as `.input`.
-- Enter sends. `⇧ Enter` inserts a newline.
-- Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
-
-**Day separator:**
-- `.chat-day` — inserted between bubbles when the date changes. Mono label centered between two hairline rules. Use "Today", "Yesterday", or `DD MMM` for older.
-
-**Accessibility:**
-- `.chat-stage-scroll` carries `role="log" aria-live="polite" aria-relevant="additions"`. New bubbles announce; the demo wrapper does not.
-- Every visible bubble has a `.chat-sr-only` sender prefix as its first child. `.chat-bubble-typing` carries `aria-label="<name> is typing"`; `.chat-bubble-media` carries an `.chat-sr-only` prefix `"<name> sent a file: "`.
-- Composer attach, send, and any replay buttons get a dual-ring focus state (§ 6.2).
-- Touch hit areas on composer buttons bump from 36 to 44px below 720px wide.
-
-**Rules:**
-- One avatar per streak. The rest of the streak uses `.chat-avatar-spacer` for column alignment, never repeats the avatar.
-- Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
-- After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion `.is-out` still hides (instantly), per the motion table.
-
-**Do / Don't.** Do own bubbles fill with `--primary-700` — the deep brand accent. Bright `--primary-500` stays reserved for CTAs and focus rings. Don't paint own bubbles with `--primary-500`. The bubble starts reading as a CTA and the actual primary action on the page loses its weight.
-
-### Loader
-
-The brand mark (animated SVG) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
-
-**Usage**
-
-*Use it when*
-- A real wait; the large size for full-page waits, the extra-small inline and in buttons.
-
-*Use something else when*
-- A wait under 200 ms → show the result, no loader.
-- A wait past 800 ms → Skeleton, when the shape of the content is known.
-- Progress is known → Progress.
-
-
-```html
-<span class="loader loader-md" role="status" aria-label="Loading">
-  <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" />
-  <span class="loader-fallback" aria-hidden="true">
-    <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
-  </span>
-</span>
-```
-
-**Tokens:**
-
-| Token | Px | Use |
-|---|---|---|
-| `--loader-xs` | `16` | Inline with text, inside buttons |
-| `--loader-sm` | `24` | Beside an input, chat hints |
-| `--loader-md` | `48` | Inside a card / section overlay |
-| `--loader-lg` | `96` | Full-page / modal / hero wait |
-
-**Required classes:**
-- `.loader` — root. `display: inline-flex`, vertical-align: middle. Size mod (`.loader-xs` / `-sm` / `-md` / `-lg`) sets both width and height.
-- `.loader-anim` — the moving brand mark. Width/height 100%, `object-fit: contain` so the source ratio is preserved at any size.
-- `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--primary-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
-- `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
-| success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
-| skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
-
-The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on their own clocks per the **Continuous loops** class in § Motion — each is ratified by its row in the motion index; see **Loop** and **Reduced motion** below.
-
-**Variants:**
-- **Standalone** — the loader root alone.
-- **With label** — add `.loader-with-label`. Vertical stack, `gap: var(--s-3)`. Label uses `--t-body / --obsidian-200`. Supports a cycling label via `data-loader-cycle` on the label span — rotates phrases every 2400ms with a 200ms opacity crossfade; under reduced motion the swap is instant. The host's `aria-label` updates in lockstep with the visible phrase so the SR announcement matches what's on screen.
-- **Inline** — add `.loader-inline`. Horizontal layout, `gap: var(--s-2)`, smaller label (`--t-small / --obsidian-300`). Used for async input validation and chat hints.
-- **Inside a button** — add `.is-loading` to a `.btn`. The label collapses to transparent (`color: transparent !important`) so the button keeps its size, and `.loader` is absolutely positioned at the center. No layout shift.
-- **Skeleton handoff** — after a `--d-scene` wait, swap the full-page loader for a Skeleton (§ 3.37). The structure becomes visible while the data is still in flight.
-- **Success state** — add `data-loader-state="success"` on the loader root. `.loader-anim` fades; `.loader-check` scales in with a spring. Use this when a wait resolves green.
-
-**Loop:**
-- The brand mark loops infinitely while mounted. There is no "play once and hold" variant in this version.
-- If you need a finite wait with a deterministic end state, transition to `[data-loader-state="success"]` and let the check carry the resolution.
-
-**Inside `.btn-primary`:**
-- **Anything composed inside `.btn-primary` wears the label's colour.** The label is near-white on magenta (`--obsidian-050`, ratified § 6.3), so the loader is too: `.btn-primary .loader-anim` applies `filter: brightness(0) invert(1)` — a flat near-white silhouette, alpha preserved — and the fallback ring and the success check take `--obsidian-050`. Cyan-on-magenta stays off-system either way; at this size the cube detail isn't legible, so the mark reads as a silhouette by design.
-- Applies at rest **and** while loading — the visual contract holds before the trigger fires too.
-- Inside `.btn-primary.is-loading`, the fallback ring and check icon also tint to `--obsidian-950` for the same reason.
-
-**Reduced motion:**
-- `.loader-anim` hidden via `display: none !important`.
-- `.loader-fallback` shown (CSS ring continues to spin — ring rotation is a single transform on a slow linear loop, considered tolerable feedback even under reduced-motion rules; the alternative is a static circle, which reads as broken).
-- `.loader-check` transition disabled; the swap is instant.
-- The Skeleton shimmer is disabled (§ 3.37).
-
-**Anatomy:**
-- Gap between logo and label: `--s-3` (with-label vertical) or `--s-2` (inline horizontal).
-- Overlay backdrop alpha: `rgba(11, 14, 18, 0.72)` with 2px backdrop blur.
-- Skeleton: its own component, § 3.37.
-
-**Accessibility:**
-- Every loader carries `role="status"` with a contextual `aria-label` (e.g. "Generating tokens", not just "Loading").
-- Inner `.loader-anim` and `.loader-check` are `aria-hidden="true"` — the role-status announcement reads from the loader root's `aria-label`.
-- For the cycling label variant, the JS that swaps the phrase also rewrites the root's `aria-label` so the SR announcement matches what's on screen.
-- For inline async validation, the inline loader sits in an `aria-live="polite"` region so the resolution ("Available…") announces.
-
-**Rules:**
-- Show the loader within 100ms of the action that triggered the wait. Late loaders read as glitches, not feedback.
-- A 200ms wait deserves no loader at all — show the result.
-- One full-page loader per route at a time. After 800ms hand off to a Skeleton.
-- Don't stack a section loader inside a card that already sits inside a full-page loader.
-- Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
-- Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
-
-**Do / Don't.** Do show the loader within *100ms* of the action that triggered the wait. Late loaders read as a glitch, not feedback. Don't pop the loader after the response already returned. A 200ms wait deserves no loader at all — show the result.
-
-### Diagrams
-
-Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
-
-**Usage**
-
-*Use it when*
-- Flowcharts and system architecture, box and line with grouping.
-
-*Use something else when*
-- Sequence, tree or ER diagrams → out of scope.
-
-
-```html
-<figure class="diagram" data-anim="pending">
-  <div class="diagram-canvas" role="img" aria-label="…description…">
-    <template class="diagram-src">
-flowchart TD
-  P["Request + DESIGN.md"]:::focus --> R{"Token covers it?"}
-  R -->|yes| W["Reference var by name"]
-  R -->|no| A["Stop · ask owner"]
-  W --> C["85/10/5 + a11y pass"]
-  C --> S["Ship"]
-    </template>
-  </div>
-  <figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token-resolution path</figcaption>
-</figure>
-```
-
-**Required classes:**
-- `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
-- `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
-- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
-- `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
-
-**Theming — no hardcoded hex:**
-- Mermaid's `themeVariables` accepts only hex, which conflicts with the token-by-name contract. Resolve it: read the tokens off `:root` with `getComputedStyle` at runtime and pass those values into `themeVariables`; build the `:::focus` and state `classDef` strings from the same tokens at render time. The theming config holds zero hex literals — the source of truth stays `tokens.css`.
-
-**Token map:**
-
-| Element | Token |
-|---|---|
-| Canvas / background | `--obsidian-900` |
-| Node fill | `--obsidian-800` |
-| Node border · text | `--obsidian-600` · `--obsidian-100` |
-| Edge line + arrowhead | `--obsidian-500` |
-| Edge label | `--obsidian-300` on `--obsidian-900` |
-| Cluster fill · border | `--obsidian-850` · `--obsidian-700` |
-| Node radius · font | `--r-md` · Satoshi (`--font-sans`) |
-| Node label · edge label | `--t-small` · ≥ `--t-caption` (12) |
-| Focus node border | `--primary-500` · one per diagram |
-| State nodes | `--success` · `--warning` · `--danger` |
-
-**Shapes & routing:**
-- Regular shapes only: rounded rectangles (`--r-md`) for steps, diamonds for gates; varied shapes reserved for the semantic-state case. Connectors are orthogonal (H/V) with soft elbows — never diagonal. One magenta focus node marks the entry / narrative focus.
-
-**Accessibility:**
-- One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.3). The entrance runs once, never loops (§ 6 #6).
-
-**Motion (reuse § 7.3):**
-- `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). **Opacity only** — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
-| enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
-
-**Responsive:**
-- `.diagram-canvas` is `width:100%`; the rendered `<svg>` is `max-width:100%; height:auto` — it scales to fit. Below ~720px the canvas switches to `overflow-x:auto` with an intrinsic `min-width`, so wide architecture maps scroll instead of shrinking illegibly. Caption and legend wrap.
-
-**Label-class reset (scoped):**
-- The global `.label` (§ 3.2) and Mermaid's `.nodeLabel` / `.edgeLabel` / `.cluster-label` would otherwise upcase and track the diagram text. Reset them scoped under `.diagram`: `text-transform:none; letter-spacing:normal; font-family:var(--font-sans); font-weight:400`. `await document.fonts.ready` before render so measurement uses Satoshi metrics.
-
-**Rules:**
-- One diagram per figure; the source lives in `<template class="diagram-src">` and never renders as raw text.
-- Theme only from tokens read at runtime. A hex literal in `themeVariables` is a regression (§ 9).
-- Exactly one magenta focus node per diagram (`:::focus`). More than one = decorating (§ 1.4).
-- Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
-- Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
-
-**Do / Don't.** Do keep every node neutral obsidian and spend the magenta once — on the entry or the narrative focus. One accent per diagram is the budget. Don't color nodes by category with a per-type rainbow palette. The hues stop meaning anything and the surface goes loud.
-
-### Presentations
-
-Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
-
-**Usage**
-
-*Use it when*
-- Slide decks on the system, advanced by hand.
-
-*Use something else when*
-- Auto-advance → never (accessibility floor #6).
-
-
-**Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = mono + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
-
-**Eight layouts** — a single `.slide` + a modifier:
-- `.slide--cover` — opening; big title (one `.accent` word on the signal gradient) + `.slide-lead`.
-- `.slide--divider` — chapter break; a ghosted oversized `.slide-index` numeral (obsidian — a graphic, not an accent).
-- `.slide--content` / `.slide--data` — title + body copy / `.slide-bars`.
-- `.slide--split` — two columns: title + a `.split-list` of key/value rows.
-- `.slide--stat` — one giant gradient `.slide-stat` + label + context.
-- `.slide--image` — full-bleed media (`.slide-ph`) under a `.slide-scrim`, title bottom-aligned.
-- `.slide--closing` — closing; oversized title + `.slide-contacts`.
-
-**Deck.** The live demo (`.deck-stage` + `.deck-bar` → `.deck-nav` / `.deck-dots`) walks the gallery slides — **manual only** (no auto-advance, § 6 floor #6), position remembered across reloads, ← / → keys.
-
-**Rules.**
-- The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
-- Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
-- Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
-- Worked example on the site: **§ 23 · Applied / Presentations** (demo deck + the eight layouts + anatomy + rules).
-
-**Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
-
-### Date picker
-
-**Usage**
-
-*Use it when*
-- A single date or a range, typed or picked from the calendar.
-- Dates near today, where the relation to other days matters.
-
-*Use something else when*
-- A date the reader already knows, such as a birth date → typed Text inputs, no calendar.
-
-
-```html
-<div class="dp-wrap">
-  <div class="input-wrap">
-    <input class="input" type="text" readonly value="12 Aug 2026" aria-haspopup="dialog" aria-expanded="false">
-    <button class="input-action" type="button" aria-label="Open calendar"><svg>…</svg></button>
-  </div>
-  <div class="dp-popover" role="dialog" aria-label="Choose a date" hidden>
-    <div class="dp-header">
-      <button class="dp-nav" type="button" aria-label="Previous month"><svg>…</svg></button>
-      <button class="dp-title" type="button" aria-label="Choose year">August 2026 <svg>…</svg></button>
-      <button class="dp-nav" type="button" aria-label="Next month"><svg>…</svg></button>
-    </div>
-    <div class="dp-dow" aria-hidden="true"><span>M</span>…<span>S</span></div>
-    <div class="dp-grid" role="grid">
-      <button class="dp-day is-today" type="button">12</button>
-      …
-    </div>
-    <div class="dp-footer"><button class="dp-today-btn" type="button">Today</button></div>
-  </div>
-</div>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Anchor | `.dp-wrap` | `position: relative` — the popover is anchored, never portalled |
-| Panel | `.dp-popover` | 280px single month · `--obsidian-900` · `--r-lg` · `--sh-3` · `--z-popover` |
-| Header | `.dp-header` `.dp-nav` `.dp-title` | Title is a **button** — it opens the year grid, `[data-mode="years"]` rotates its chevron |
-| Weekday row | `.dp-dow` | Mono, `--obsidian-500`, `aria-hidden` — the day buttons carry the accessible date |
-| Day grid | `.dp-grid` `.dp-day` | 7 columns, 2px gap, 32px cells, tabular numerals |
-| Range | `.dp-range` `.dp-months` `.dp-month-title` | 580px, two months side by side; collapses to one month under 600px |
-| Presets | `.dp-presets` `.dp-preset` | 4 columns of mono-uppercase shortcuts; 2 columns under 600px |
-| Year jump | `.dp-year-grid` `.dp-year` | 3 columns, 36px cells |
-| Footer | `.dp-footer` `.dp-today-btn` | Single "Today" affordance, right-aligned |
-
-**Day state flags** — a closed set, applied on `.dp-day`:
-
-| Flag | Meaning | Treatment |
-|---|---|---|
-| `.is-today` | Today, unselected | `--primary-400` text on an 8% magenta wash + 2px inset ring |
-| `.is-selected` | The chosen date | `--primary-500` fill, `--obsidian-950` label, weight 600 |
-| `.is-outside` | Leading/trailing month | `--obsidian-500` |
-| `.is-in-range` | Between range ends | 12% magenta wash, square corners |
-| `.is-range-preview` | Hover preview of a range | 6% magenta wash, square corners |
-| `.is-range-start` `.is-range-end` | Range ends | `--primary-500` fill, rounded on the outer edge only |
-
-**Rules.**
-- The trigger is a real `<input>` plus a labelled `<button>` — never a bare div. The popover is `role="dialog"` with an accessible name.
-- `.is-today` and `.is-selected` are visually distinct on purpose: today is a ring, selection is a fill. When a range end lands on today, the ring is dropped (the fill already says it).
-- Range corners are geometric, not decorative: square in the middle, rounded at the ends, fully rounded when start and end are the same day.
-- Disabled days are `<button disabled>`, not styled-out divs — keyboard users must be able to tell.
-- State matrix: § 3.0.1. Motion: § 08.4.
-
-**Do / Don't.** Do pair a real `<input>` with a labelled button; today is a ring, the selection a fill. Don't build the trigger from a div, style disabled days out instead of disabling them, or open a calendar for a date the reader already knows, such as a birth date.
-
-### Table
-
-**Usage**
-
-*Use it when*
-- Content, not chrome.
-- Comparing values across rows and columns.
-
-*Use something else when*
-- Laying out a page → Grid.
-- Key facts about one item → List.
-
-
-```html
-<table class="table">
-  <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
-  <tbody>
-    <tr><td><code>--s-4</code></td><td>16</td><td class="muted">Default content gap</td></tr>
-  </tbody>
-</table>
-```
-
-```html
-<!-- sortable: a button in each header that sorts; the driver th carries aria-sort -->
-<table class="table">
-  <thead><tr>
-    <th aria-sort="ascending"><button class="table-sort" type="button">Project <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
-    <th><button class="table-sort" type="button">Updated <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
-  </tr></thead>
-  <tbody>
-    <tr><td>Atlas</td><td data-sort="2026-10-12">12 Oct</td></tr>
-  </tbody>
-</table>
-```
-
-| Part | Treatment |
-|---|---|
-| Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
-| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
-| Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
-| Row rule | `1px solid --obsidian-800`; the last row drops it |
-| Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
-| Secondary cell | `.muted` — `--obsidian-300` |
-| Sort button | `.table-sort` — a `<button>` that fills its header cell, label then icon at 14 (`.icon-xs`), gap `--s-2`; it carries both drawings, `.table-sort-asc` and `.table-sort-desc`, and the header shows one |
-| Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--obsidian-200`; one per table |
-| Sort value | `data-sort` on a cell whose text does not sort as written (a date, a size); otherwise the text, compared with numbers in order |
-
-**Rules.**
-- No zebra striping. The row rule carries the scan; a second device would double the noise.
-- Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
-- The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.2).
-- A table wider than its container scrolls in a wrapper — never shrink the type to fit.
-- Tables are content, not chrome: no hover row highlight unless the row is a link or a control.
-- **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
-- **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
-- **The whole header is the target.** The button fills the cell, so the target is the header's height and width, never the icon alone. Focus is the pressable halo with the outline inside the cell (offset `-2px`, as the date picker's days): the frame clips the halo on the table's outer edges, the outline always shows.
-
-**Do / Don't.** Do open a sortable table already sorted, with its driver named by `aria-sort` and a step lighter. Don't let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.
-
-### Checkbox · Switch · Radio
-
-Three controls, one family, one rule: **shape carries the meaning before colour does** (§ 6 floor #1).
-
-**Usage · Checkbox**
-
-*Use it when*
-- Many of many; the value applies on submit.
-- A single opt-in, such as accepting terms.
-
-*Use something else when*
-- The change applies immediately → Switch.
-- Only one option can be chosen → Radio.
-
-**Usage · Radio**
-
-*Use it when*
-- One of many, always in a named group with a default.
-
-*Use something else when*
-- Several options can be chosen → Checkbox.
-- Four or more options and little room → Select.
-
-**Usage · Switch**
-
-*Use it when*
-- One of two, applied immediately: a setting, not a form value.
-- Turning a preference on or off with instant save.
-
-*Use something else when*
-- The change needs a Save button → Checkbox.
-- More than two options → Radio or Select.
-
-
-```html
-<label class="check"><input type="checkbox" checked> Published</label>
-<label class="switch"><input type="checkbox" checked> Show dates</label>
-<label class="radio"><input type="radio" name="scope" checked> Everyone</label>
-```
-
-| Control | Shape | Checked treatment | Use |
-|---|---|---|---|
-| `.check` | 16px square, `--r-xs` corner | `--primary-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
-| `.switch` | 32×18, `--r-full`, no border | `--primary-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
-| `.radio` | 16px circle | `--primary-500` ring + centred `--primary-500` dot | One-of-many. Always in a named group, always with a default |
-
-**Rules.**
-- Checkbox and radio are told apart by **shape** — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.
-- The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.
-- The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
-- The focus ring lives on the `input`, not the label, so the halo traces the control.
-- A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
-- State matrix: § 3.0.1. Motion: § 08.4.
-
-**Do / Don't.** Do make the whole label the target, at least 44×44 on a phone, and keep the focus ring on the input. Don't put a tick in a circle, or use a checkbox for a change that applies at once: that is a Switch.
-
-**Do / Don't.** Do keep exactly one option checked in a named group, with a default. Don't put a dot in a square, or leave a group with nothing checked.
-
-**Do / Don't.** Do let the fill carry the switch's state: `--obsidian-700` off, `--primary-500` on. Don't stroke the switch track: the fill carries the state.
-
-### Alert
-
-Inline, in flow, addressed to the whole surface — not to one field, and never on a timer.
-
-**Usage**
-
-*Use it when*
-- A condition that applies to the whole surface, inline, as long as it is true.
-
-*Use something else when*
-- The reader must be able to dismiss it → Toast.
-- It concerns one field → the field's `.help.error`.
-- Two alerts on one surface → merge them into one.
-
-
-```html
-<div class="alert alert-warn" role="status">
-  <svg class="alert-icon" aria-hidden="true">…</svg>
-  <div class="alert-title">Draft not published</div>
-  <div class="alert-body">Changes are saved locally until you publish.</div>
-</div>
-```
-
-**Layout.** Two columns — icon, content — on a grid, the content column `minmax(0, 1fr)` so a long word can't push the box past its container. In a **titled** alert the icon labels the *title*, so the title sits beside it and the body drops to a second row that returns to the **icon's left edge**. Indenting the paragraph to the title's x makes the block read lopsided: a wide ragged column hanging off a short label. In a **single-line** alert (no `.alert-title`) the body stays beside the icon. `.alert-title` and `.alert-body` are siblings, never nested.
-
-| Variant | Left rule · icon | Use |
-|---|---|---|
-| `.alert` | `--primary-500` | System voice — the default |
-| `.alert-info` | `--info` | Neutral fact the reader didn't ask for |
-| `.alert-success` | `--success` | Something completed and stayed completed |
-| `.alert-warn` | `--warning` | Something needs attention but nothing is broken |
-| `.alert-danger` | `--danger` | Something is broken or destructive |
-
-**Rules.**
-- **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 5% semantic budget on furniture (§ Law, L1).
-- The icon is mandatory and `aria-hidden` — it is the shape half of "colour never alone" (§ 6 floor #1). The text carries the meaning.
-- `role="status"` for informative, `role="alert"` for danger. Nothing else.
-- **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.19 Toast — that is the whole difference between the two components.
-- **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
-
-**Do / Don't.** Do let an alert clear when the *condition* clears. If the reader has to be able to make the message go away, it was never an alert — it was a toast. Don't give an alert a close button. It lets someone hide a state that is still true, and the next reader inherits a screen that lies.
-
-### Toast
-
-Transient, stacked, bottom-right. A toast is what an alert becomes when the message is about an action that just happened somewhere else.
-
-**Usage**
-
-*Use it when*
-- An event that just happened somewhere else.
-
-*Use something else when*
-- A fourth message in the stack → Alert.
-- It is the only record of the information → keep it somewhere durable.
-- A critical message that needs an action → Modal.
-
-
-```html
-<div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
-  <div class="toast toast-success is-in" role="status">
-    <svg class="toast-icon" aria-hidden="true">…</svg>
-    <div class="toast-title">Draft published</div>
-    <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
-    <div class="toast-body">Live at amaca.design/blog. <button class="toast-action" type="button">Undo</button></div>
-  </div>
-</div>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
-| Toast | `.toast` | 360px, capped at the viewport minus `--s-8`; full width under 600px |
-| Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.18 |
-| Action | `.toast-action` | At most one. Mono-uppercase, `--primary-400` |
-
-**Rules.**
-- **Auto-dismiss is opt-in and bounded** (§ 6 floor #6). `data-autohide` is permitted only when the toast carries no action and is not `.toast-danger`; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.
-- The region is `aria-live="polite"`; a `.toast-danger` carries `role="alert"` on the toast itself.
-- Newest enters at the bottom of the stack. Three visible at most — a fourth means the surface should be showing an § 3.18 Alert instead.
-- A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
-- **Same grid as § 3.18**: icon and title on the first row, body returning to the icon's left edge below.
-- **A toast enters and leaves on the same side it lives on** — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.
-- **The stack closes the gap, it never snaps.** Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on `--d-quick` · `--ease-accel` — that is the exit. Its box then collapses on `--d-base` · **`--ease-decel`** — and that is not an exit at all: it is the **repositioning of the toasts below**, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.11). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
-- **The two rides differ in speed, not in path.** In: `.is-in`, `--d-base` · `--ease-decel` — the system announcing itself. Out: `.is-out`, `--d-quick` · `--ease-accel` — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.
-- **The toast keeps its close button.** It is the dismissible half of the pair: § 3.18 Alert has none by contract.
-- Motion: § 08.4.
-
-**Do / Don't.** Do mirror every toast somewhere durable. A toast is a notification of a result, never the record of it. Don't auto-hide a toast that carries an Undo or an error. The countdown races the reader; hover and focus must pause it.
-
-### Tooltip
-
-A label for something already visible. Never a container for content.
-
-**Usage**
-
-*Use it when*
-- A label for something already on screen.
-- Only on interactive elements, such as an icon-only button.
-
-*Use something else when*
-- The information is needed to finish the task → `.help` or Alert.
-- It needs a title → Alert.
-- It holds a link or a button → Popover.
-
-
-```html
-<span class="tooltip-wrap">
-  <button class="btn btn-ghost btn-sm" aria-describedby="tt-sync">Sync</button>
-  <span class="tooltip" id="tt-sync" role="tooltip">Pushes local tokens to Figma</span>
-</span>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Anchor | `.tooltip-wrap` | `position: relative`, `inline-flex` — wraps the trigger, doesn't replace it |
-| Bubble | `.tooltip` | 220px max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
-| Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
-
-**Rules.**
-- **Opens on hover and on focus.** A tooltip reachable only by pointer fails § 6 floor #5.
-- **At most one tooltip is open at a time (RIGID).** Opening one closes every other — two bubbles on screen overlap, and an overlapped label is a label that can't be read. `Escape` closes; scrolling closes. This cannot be expressed in CSS (`:hover` has no memory of the others), so the open state is the `.is-open` class and a controller owns it. A tooltip that opens on a bare `:hover` rule is off-system.
-- The trigger references it with `aria-describedby`; the bubble is `role="tooltip"`. A tooltip with no trigger relationship is decoration.
-- **No interactive content.** No links, no buttons, no form controls — there is no accessible path to reach them.
-- Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in `.help` or in an § 3.18 Alert.
-- No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
-- Plain text only, one or two lines. A tooltip that needs a title is an alert.
-
-**Do / Don't.** Do keep one tooltip open at a time, opened on hover *and* on focus. Two bubbles on screen overlap, and an overlapped label cannot be read. Don't put a link, a button, or anything required inside a tooltip. There is no accessible path to reach it, and it disappears the moment the pointer leaves.
-
-### Page shell
-
-```html
-<a href="#main-content" class="skip-link">Skip to content</a>
-<div class="app">
-  <aside class="sidebar" aria-label="Design system navigation">…</aside>
-  <main class="main">
-    <div class="topbar">
-      <div class="breadcrumb">…</div>
-      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
-    </div>
-    <div class="content" id="main-content">
-      <section class="section active">…</section>
-    </div>
-  </main>
-</div>
-```
-
-- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
-- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
-- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. Scrim: `--obsidian-950` at 0.8 over a 16px backdrop blur; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.23) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
-- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.24; uniqueness is check 27).
-- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
-- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
-
-**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
-
-### Grid system
-
-```html
-<div class="grid grid-3">…</div>
-```
-
-- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
-- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
-- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
-- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
-
-**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
-
-### Breadcrumb
-
-**Usage**
-
-*Use it when*
-- A hierarchy deeper than two levels.
-
-*Use something else when*
-- A flat site → Navigation alone.
-- Progress through a flow → Stepper.
-- As the only navigation → it sits beside Navigation, never instead.
-
-
-```html
-<div class="breadcrumb">
-  <span>Work</span><span class="sep">/</span><span class="active">Case study</span>
-</div>
-```
-
-- Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
-- In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
-- ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
-
-**Do / Don't.** Do wrap a breadcrumb that navigates in `<nav aria-label="Breadcrumb">` and mark the current page with `aria-current="page"`. Don't use it as the only navigation, or to show progress through a flow: that is a Stepper.
-
-### Skip link
-
-```html
-<a href="#main-content" class="skip-link">Skip to content</a>
-```
-
-- First focusable element in the document. Parked above the viewport (`top: -100px`, a composition offset) and lands at `--s-3` on focus. It appears and disappears instantly, by design — easing a jump affordance would delay the jump. No motion rows.
-- `--primary-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
-- Target: the unique `id="main-content"` on `.content` (§ 3.21) — past the sticky topbar, straight to the content. Behaviour: § 6.2. Uniqueness: check 27.
-- **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
-
-**Do / Don't.** Do make it the first focusable element, landing on `#main-content`. Don't animate it, or point it at `<main>` behind the sticky top bar.
-
-### Chart card
-
-**Usage · Charts**
-
-*Use it when*
-- Bars for comparison, labelled at the value; the donut for composition.
-- Lines for trends over time and for several series.
-- Areas for cumulative totals.
-
-*Use something else when*
-- Several time series → lines, not bars.
-- Five points or fewer → bars, not a line.
-
-
-```html
-<div class="chart-card">
-  <div class="chart-head"><span class="t">Retention · D30</span><span class="s">CS-017</span></div>
-  <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
-  <div class="chart-delta">+2.4 vs Q2</div>
-</div>
-```
-
-- The card ramp (§ 3.3): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
-- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
-- `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
-- `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
-- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.40) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
-- **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
-- **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
-
-**Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
-
-| Part | Hook | Note |
-|---|---|---|
-| Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
-| Grid | a `<g>` of lines | `--border-subtle`; no hook, it does not move |
-| Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` mono, `--tr-mono`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
-| Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
-| Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
-| Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
-| Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r`, 6 on the 700 viewBox: 18px on a desktop card, halfway between the line's weight and the 24px done step of the Stepper |
-| Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's value is a `.chart-label-value` (`--obsidian-100`) whose `left` rides the bar's end and counts up; a column's peak value is a `.chart-label-center` |
-| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` mono uppercase `--obsidian-300` |
-
-- **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
-- **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
-- **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
-- **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
-- **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points `--d-quick` apart. Under reduced motion every part lands drawn.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
-| plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
-| plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
-| plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
-| plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
-| plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
-| plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
-| plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
-
-**Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
-
-**Do / Don't.** Do give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px. Don't let a phone shrink the desktop drawing until its points and labels cannot be read.
-
-**Do / Don't.** Do start each part of the reveal when the one before it reads, with every duration, curve and delay from a token. Don't type a duration or a delay by hand, or give the plot a hover or a focus.
-
-### Pie
-
-```html
-<div class="pie-wrap">
-  <svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">…</svg>
-  <ul class="pie-legend">
-    <li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
-  </ul>
-</div>
-```
-
-- `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
-- `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.13).
-- `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
-- `.swatch` — the Swatch (§ 3.40), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
-- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.25) (§ 6 floor #1).
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
-
-**Do / Don't.** Do give every slice its legend row, with its percentage written. Don't let colour carry a slice alone, or paste a hex where a palette token exists.
-
-### Brand mark
-
-```html
-<div class="brand">
-  <div class="brand-mark"><img src="…" alt="Amaca"></div>
-  <div class="brand-text"><span class="name">Amaca</span><span class="meta">Design system</span></div>
-</div>
-```
-
-- One per shell, at the head of the rail; hairline `--obsidian-800` below, padding-bottom `--s-6`, gap `--s-3`.
-- `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
-- `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
-- Static. The animated brand-mark loop belongs to the Loader (§ 3.12) and its ratified motion row — this one does not move.
-
-**Do / Don't.** Do put one at the head of the rail, and keep it still. Don't animate it (that is the Loader), or use its cyan glow anywhere else in the chrome.
-
-### Chip
-
-A compact label for **one value that belongs to something else** — a tag on a post, a facet on a result set, a recipient already entered in a field. Where a badge reports a state the system computed, a chip carries a value a person chose, which is why a chip can be pressed or removed and a badge never is.
-
-**Usage**
-
-*Use it when*
-- A value someone entered, chose or can take back: a tag, a facet, a recipient.
-- Pressable chips narrow a set.
-
-*Use something else when*
-- A status the system computed → Badge.
-- Pressable and dismissible at once → a list row.
-- A link to another page → Link.
-
-
-```html
-<span class="chip"><span class="chip-dot"></span> Design systems</span>
-
-<button class="chip" aria-pressed="true">Motion</button>
-
-<span class="chip chip-info">
-  Angelo Macaione
-  <button class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button>
-</span>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Object | `.chip` | `--r-full`, label at `--t-small`, padding `--s-1` `--s-3`, `inline-flex` with `--s-1` between parts |
-| Leading dot | `.chip-dot` | Optional. The same part as the Badge dot, in the variant's colour |
-| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes |
-
-| Variant | Surface | Use |
-|---|---|---|
-| `.chip` | `--obsidian-800` on `--obsidian-700`, text `--obsidian-100` | Neutral — the default, and most chips |
-| `.chip-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | The one chip that spends the accent — see the 85 / 10 / 5 law |
-| `.chip-success` | `--success` × `--tint-fill` / `--tint-edge` | A value that resolved |
-| `.chip-warn` | `--warning` × `--tint-fill` / `--tint-edge` | A value that needs attention |
-| `.chip-danger` | `--danger` × `--tint-fill` / `--tint-edge` | A value that is broken or destructive |
-| `.chip-info` | `--info` × `--tint-fill` / `--tint-edge` | A neutral fact the reader didn't ask for |
-
-**Rules.**
-- **The variant is a tint, at the Badge's two strengths.** Background at `--tint-fill` (0.08), border at `--tint-edge` (0.3) — tokens since v4.3.0 — text on the full token — the same pair § 3.4 already uses, so the two small labelled objects of the system read as one family. The neutral chip is the exception and the majority case: `--obsidian-800` on `--obsidian-700`, the card surfaces. A *filled* chip — solid magenta behind white — is off-system: one filled accent per viewport is the whole 85 / 10 / 5 budget, and a filter row would spend it six times over.
-- **A chip may be static.** A chip that is neither pressable nor dismissible is legal and is the common case — a tag, a category, a value shown but not editable here. What makes it a chip rather than a § 3.4 Badge is **who owns the value**: a chip carries something a person entered or chose, a badge reports state the system computed. The affordance follows from the context, not from the definition.
-- **`--r-full`, always.** A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.
-- **The label rides `--t-small`.** `--t-micro` is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.
-- **A chip carries at most one affordance, never two (RIGID).** Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a `<button>` and the whole object is the target; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: *"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks"*. It is a decision, not a law — Calcite and Fluent ship the combination deliberately.
-- **The touch target grows, the chip does not.** At `--t-small` the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.
-- **A filter chip declares `aria-pressed`,** and a group of them is a `role="group"` with an accessible name. Selection lands on the border and the text (`--primary-500` · `--primary-400`), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.
-- **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.19 is for things that happened somewhere else).
-- **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
-- **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
-
-**Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.4 Badge, and the giveaway is that nobody can remove it — or let it break onto two lines: the text beside it wraps instead.
-
-### Link
-
-Text that **takes the reader to another page or resource**. It lives inside running text or on its own line, it is underlined at rest, and it is the only element that does this: an action on the current page is a Button (§ 3.1).
-
-**Usage**
-
-*Use it when*
-- Going to another page, document or resource, in a sentence or on its own line.
-- A reference the reader may want to follow: the spec, the source, the next page.
-
-*Use something else when*
-- An action on the current page: submit, save, open a panel → Button.
-- A trail of the current hierarchy → Breadcrumb.
-- Switching between views of the same content → Tabs.
-
-```html
-<p>Every value is <a class="link" href="/spec">derived from a token</a>.</p>
-
-<a class="link" aria-disabled="true">Read the case study</a>
-
-<nav aria-label="Resources">
-  <a class="link-quiet" href="/changelog">Changelog</a>
-  <a class="link-quiet" href="/spec">Specification</a>
-</nav>
-```
-
-| Variant | Underline at rest | Use | Never |
-|---|---|---|---|
-| `.link` | `--bw-1`, always | Every link inside a sentence or a paragraph, and any link whose context does not already say it is a link. The default | — |
-| `.link-quiet` | none — appears on hover and focus | A **standalone** link: the only thing on its line or in its cell, where position and label already say it is a link. A menu, a footer, a list of resources, the title of a row that opens another page, a "Read more" at the end of a card | Inside a sentence or a paragraph, next to running text, in a caption or in a helper line. There the colour is 2.1:1 against the text and WCAG 1.4.1 fails |
-
-- **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect, and check 60 fails it.
-- **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.18).
-- **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
-- **No visited state.** In an application the colour of a link carries no history, and a second colour would need its own contrast pair.
-- **Focus:** the pressable ring — outline `--focus-width` `--obsidian-100`, offset `--focus-offset`, `--ring-halo`, radius `--r-sm`.
-- **The label names the destination.** "The spec", never "click here" and never a bare URL; a link that opens a file or another site says so in the label.
-- **Disabled** is an anchor without `href` carrying `aria-disabled="true"`: `--obsidian-400`, `cursor: not-allowed`. A disabled link is rare; if the destination is not available, prefer plain text.
-- **Not a button.** A link that triggers an action on the page is a defect: it is announced as navigation and cannot be pressed with Space. Use § 3.1.
-- **States: § 3.0.1** — `default` · `hover` · `focus-visible` · `active` · `disabled`. Motion: the colour and the thickness on `--d-quick` · `--ease-standard`, in the § 8.3 index.
-
-**Do / Don't.** Do put the link on the words that name the destination. Don't use a link for an action on the current page — that is § 3.1 Button.
-
-### Modal
-
-A window that **interrupts the page to ask for a decision or to collect a piece of data**, and nothing else. It holds the person's attention until they answer or dismiss it, which is why it is rare. It is a native `<dialog>` opened with `showModal()`; an image that needs the screen is the Lightbox (§ 3.8).
-
-**Usage**
-
-*Use it when*
-- A decision that must be made before the person goes on: confirm a destructive action, answer one question.
-- A short form that belongs to one task: rename, invite, create.
-
-*Use something else when*
-- A message that needs no answer → Alert or Toast.
-- Content that is long or the person will come back to → a page.
-- An image to look at closely → Lightbox.
-- A menu or text from the edge, with the page still visible behind it → Drawer.
-
-```html
-<dialog class="modal" aria-labelledby="del-title">
-  <div class="modal-head">
-    <h2 class="modal-title" id="del-title">Delete the project?</h2>
-    <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
-  </div>
-  <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
-  <div class="modal-foot">
-    <button class="btn btn-secondary" data-modal-close>Cancel</button>
-    <button class="btn btn-danger">Delete project</button>
-  </div>
-</dialog>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
-| Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
-| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.1, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
-| Body | `.modal-body` | `--t-body`, `--obsidian-200` |
-| Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
-
-**Rules.**
-- **The panel is the card's surface, not a new one.** Same fill, border and radius; what lifts it off the page is `--sh-4` and the `--scrim` behind it. A modal with a radius of its own is a second card shape.
-- **`--scrim` is a veil.** The page stays visible and dimmed; it never blurs. The Lightbox keeps its own, darker backdrop because it is a viewer.
-- **Open it with `showModal()`.** The browser then traps focus, makes the rest of the page inert, and closes on `Esc`; none of that is rebuilt. It rides `--z-overlay`, and the page behind does not scroll.
-- **The title is the name.** `aria-labelledby` points at `.modal-title`. A confirmation that needs the answer to proceed uses `role="alertdialog"` and `aria-describedby` on the body.
-- **Focus goes to a control, never to the panel.** The first control, or for a destructive confirmation the *least* destructive one (Cancel). On close it returns to the control that opened the modal.
-- **Closing (RIGID).** `Esc` always closes. A click on the scrim closes too, **except** in a `role="alertdialog"` and whenever the modal holds data not yet saved. The close button is always present, so the way out never depends on a gesture.
-- **Actions: one primary, at the end.** A destructive action is `.btn-danger` and is never the default focus. A modal has at most two actions and no third "learn more" link; that goes in the body.
-- **Never stack.** A modal opened from a modal is a flow that wants a page.
-- **Small screens:** at ≤480px the panel keeps `--s-4` of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.
-- **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 08.3 index.
-- **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
-
-**Do / Don't.** Do ask one thing and give it two clear answers. Don't use a modal to show a message that needs no reply: that is an Alert or a Toast.
-
-### Avatar
-
-A circle that says **who a person, team or account is**: their picture, their initials or, with no name at all, a person glyph. It sits beside a name or stands in for it, and it is always a circle.
-
-**Usage**
-
-*Use it when*
-- Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.
-- Several people share one item and a count is enough: a stack of up to five.
-
-*Use something else when*
-- A picture of a thing rather than of a person or account: a product, a place → an image in a Card.
-- A count or a status standing alone → Badge.
-- An icon that stands for an action → an icon-only Button, § 3.1.
-
-```html
-<!-- on its own: the name is the only information -->
-<span class="avatar" role="img" aria-label="Anna Rossi">
-  <img class="avatar-img" src="anna.jpg" alt="" onerror="this.remove()">
-  <span aria-hidden="true">AR</span>
-</span>
-
-<!-- beside the name: decorative -->
-<span class="avatar avatar-sm" aria-hidden="true">AR</span> Anna Rossi
-
-<!-- a status, named in the label -->
-<span class="avatar avatar-lg" role="img" aria-label="Anna Rossi, online">
-  <span aria-hidden="true">AR</span>
-  <i class="avatar-dot" data-status="online" aria-hidden="true"></i>
-</span>
-
-<!-- a group: the last slot is the count -->
-<div class="avatar-group" role="group" aria-label="Team">
-  <span class="avatar" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span>
-  <span class="avatar" role="img" aria-label="Marco Bianchi"><span aria-hidden="true">MB</span></span>
-  <span class="avatar avatar-more" role="img" aria-label="3 more people">+3</span>
-</div>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Avatar | `.avatar` | A circle, `--obsidian-700` on `--obsidian-600`, 32px. Sizes: `.avatar-sm` 24 · default 32 · `.avatar-lg` 40 · `.avatar-xl` 48 · `.avatar-2xl` 64 |
-| Image | `.avatar-img` | `cover` inside the circle. It sits over the initials, so if it fails to load the initials show |
-| Brand mark | `.avatar-mark` | `--obsidian-850`, the mark contained at 56% of the side. For Amaca itself, never for a person |
-| Initials | the inner `<span>` | At most two letters, weight 700: `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` by size |
-| Hue | `.avatar-hue-1` … `-5` | Optional tints to tell people apart in a long list: `--primary-300` · `--info` · `--success` · `--warning` · `--tertiary-200`, the badge recipe |
-| Status | `.avatar-dot` `[data-status]` | Bottom right, ringed in `--avatar-ring`; `online` `away` `busy` `offline` |
-| Group | `.avatar-group` `.avatar-more` | Overlapped by a quarter of the side; the "+N" is the last slot and has the same size |
-
-**Rules.**
-- **Always a circle (RIGID).** There is no square variant, and the shape never means "person" or "organisation". A team or an account is told apart by its image or its initials, not by its corners.
-- **The name sits on the wrapper (RIGID).** `role="img"` with `aria-label="Anna Rossi"`; the image has `alt=""` and the initials are `aria-hidden`. Next to the name in text the whole avatar is `aria-hidden="true"`, so the name is read once. An avatar with no name and no text beside it is a defect.
-- **Image, then initials, then the glyph.** The image fails over to the initials by itself (`onerror="this.remove()"` in the markup, no script of the system). With no name there is the `user` icon of § 3.32 at 60% of the side, `--obsidian-300`. Initials are at most two letters.
-- **Neutral by default.** Every avatar starts on `--obsidian-700`. The five `.avatar-hue-*` tints are for telling people apart in a long list, assigned by the caller from a stable key such as the id, never by position and never reshuffled. `--danger` is not one of them: it reads as an error.
-- **A 1px edge on every variant,** the image included, so a dark photo and a light one weigh the same on a dark page.
-- **Status is never colour alone (WCAG 1.4.1).** The offline dot is a hollow ring, and the status goes in the accessible name: "Anna Rossi, online". The ring around the dot is the surface the avatar sits on: set `--avatar-ring` on a card (`--obsidian-800`); the default is the page, `--obsidian-950`.
-- **Groups.** Overlap is a quarter of the side, and each avatar is cut out of the one before by `--bw-2` of the surface, so it works on any background. The last avatar sits on top. Show at most five slots; past that the fifth is "+N", the same size, labelled "N more people".
-- **Interactive only when it goes somewhere.** An `<a>` or a `<button>` carries `.avatar` and its label names the destination ("Open Anna Rossi's profile"). Hover moves the edge to `--primary-400`, pressed to `--primary-500`, focus is the pressable ring. Any other avatar does not react.
-- **Motion.** The edge colour on `--d-quick` · `--ease-standard` — a row in the § 08.3 index; reduced motion is instant.
-- **No other states.** The avatar is not disabled, selected or loading; a pending picture shows the initials.
-
-**Do / Don't.** Do give the avatar a name the screen reader can say. Don't use it as decoration or to mark a thing that is not a person or an account.
-
 ### Icon
+
+**Site:** § 07 Icon.
 
 A small drawing that **names an action or a state** beside a label, or in place of one. All the icons are drawn by one hand: the album below is the whole set, and an icon that is not in it is not in the system.
 
@@ -2259,7 +679,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 *Use something else when*
 - The picture is the content: a photo, a logo, a map → an image, never an icon.
 - The meaning cannot be guessed from the drawing and there is room → a text label, with or without the icon.
-- A status standing alone → Badge, § 3.4.
+- A status standing alone → Badge, § 3.14.
 
 ```html
 <!-- beside a label: decorative -->
@@ -2387,145 +807,256 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - **Size is a token.** 16 by default; 14 beside a label in a button and in small controls; 20 standalone; 24 in a large control or an empty state. The stroke grows with the size, so no new token is needed. An icon-only button keeps the 16 glyph.
 - **Decorative unless it is alone (WCAG 1.1.1).** Beside a label or inside a labelled button: `aria-hidden="true"` and `focusable="false"`. Alone and meaningful: `role="img"` and `aria-label` on the svg. An action is a button that carries the name, never a bare svg.
 - **Space belongs to the container.** The icon carries no margin: the gap is `--s-2` in a button, set by the parent. It is centred on the line of text, never on the baseline.
-- **Motion.** The icon has no animation of its own. A rotation (the accordion chevron, the replay arrow) belongs to its component's row in the § 08.3 index. In a right-to-left text the arrows and the chevrons mirror; the system does not build that yet.
+- **Motion.** The icon has no animation of its own. A rotation (the accordion chevron, the replay arrow) belongs to its component's row in the § 06.4 index. In a right-to-left text the arrows and the chevrons mirror; the system does not build that yet.
 - **The select caret is the one exception to inherited colour.** It is a CSS `background-image` and cannot read `currentColor`: it draws the `chevron-down` album shape with the literal `#8A94A3`.
 - **Not icons.** The loader ring, the honeycomb map and the brand marks are graphics with their own rules.
 
 **Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or a colour on it, or fill an outline icon.
 
-### List
+### Grid system
 
-Rows in a column. Either **many things of one kind**, one row each (the items), or **the facts of one thing**, one row per fact (the summary). The same hairlines and the same type; what sits in the row is what differs.
-
-**Usage**
-
-*Use it when*
-- Many things of one kind, each a line or two, to scan or open: projects, settings, people.
-- The facts of one item as label and value pairs, with an action beside a value to change it.
-
-*Use something else when*
-- Several columns to compare or sort → Table, § 3.16.
-- A choice from a fixed set → Select or Radio.
-- Bullets inside running text → a plain `ul` or `ol` in the prose, no component.
+**Site:** § 08 Layout.
 
 ```html
-<!-- items: static rows -->
-<ul class="list">
-  <li>
-    <div class="list-item">
-      <span class="avatar" role="img" aria-label="Arc"><span aria-hidden="true">AR</span></span>
-      <span class="list-body"><span class="list-title">Arc · Automotive HMI</span><span class="list-meta">CS-017 · 2025</span></span>
-      <span class="list-end"><span class="badge badge-brand">Live</span></span>
+<div class="grid grid-3">…</div>
+```
+
+- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
+- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
+- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
+- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
+
+**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
+
+### Page shell
+
+**Site:** none, the frame of every page.
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Design system navigation">…</aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">…</div>
+      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
     </div>
-  </li>
-</ul>
-
-<!-- items: a row that opens something is an a or a button -->
-<ul class="list">
-  <li>
-    <a class="list-item" href="/settings/profile">
-      <svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">…</svg>
-      <span class="list-body"><span class="list-title">Profile</span><span class="list-meta">Name, photo, language</span></span>
-      <span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
-    </a>
-  </li>
-</ul>
-
-<!-- summary: the facts of one item -->
-<dl class="list-summary">
-  <div>
-    <dt class="list-key">Owner</dt>
-    <dd class="list-value">Anna Rossi</dd>
-    <dd class="list-actions"><button type="button" class="btn btn-ghost btn-sm" aria-label="Change owner">Change</button></dd>
-  </div>
-  <div>
-    <dt class="list-key">Last updated</dt>
-    <dd class="list-value">12 Aug 2026</dd>
-    <dd class="list-actions"></dd>
-  </div>
-</dl>
+    <div class="content" id="main-content">
+      <section class="section active">…</section>
+    </div>
+  </main>
+</div>
 ```
 
-| Part | Class | Note |
-|---|---|---|
-| List | `.list` | A `ul` with no marker; a hairline `--obsidian-700` above the first row and under every row (the border sits on the `li`). Nothing around it: no box, no radius |
-| Item | `.list-item` | The row, inside the `li`: `div` when static, `a` or `button` when it opens something. Min-height `--s-12`, padding `--s-3` `--s-4`, gap `--s-3`, type `--t-small` |
-| Body | `.list-body` `.list-title` `.list-meta` | The text: a title and an optional meta line (`--t-caption`, `--obsidian-300`) |
-| End | `.list-end` | Badge, action or chevron, pushed to the right edge, gap `--s-2` |
-| Summary | `.list-summary` | A `dl` of rows, each a `div` of `dt` and `dd`; three columns that line up from one row to the next (key · value · `--s-20` of actions). Stacks under 720px (`--bp-md`) |
-| Key | `.list-key` | The label, in the mono register of `.label` (`--t-micro`, uppercase, `--obsidian-300`) |
-| Value | `.list-value` | The fact, `--t-small`, `--obsidian-100` |
-| Actions | `.list-actions` | One short action at the right edge, or the empty `dd` so the columns hold |
+- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
+- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. Scrim: `--obsidian-950` at 0.8 over a 16px backdrop blur; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.28) on the left and `.topbar-actions` on the right.
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
+- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
+- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
 
-**Rules.**
-- **A row is one thing.** Every row of a list has the same parts in the same order; a row that needs more columns is a Table row, § 3.20. A list is not nested inside a row.
-- **Static or interactive, by the element.** A `div` row has no hover and no pointer. An `a` or a `button` row has hover, focus-visible and disabled (`aria-disabled="true"`), values in § 3.0.1. The whole row is the one target: no link around a row that holds a button.
-- **Name every action (WCAG 2.5.3).** An icon-only action in a row carries an `aria-label` that says which row (`More actions for Arc`). A text action keeps its visible word at the start of its name (`Change owner`).
-- **Summary semantics.** `dl` with a `div` per row is valid HTML; each `dt` has at least one `dd`. A fact without a value is not a row.
-- **The hairlines stay.** They tie each row to its action and help the reader who zooms. Drop them only in a list with no actions, and then for the whole list.
-- **One density.** One row height; there is no small or large list. A list that has to be denser is a Table.
-- **Motion.** Hover changes the background on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
 
-**Do / Don't.** Do keep the same parts in every row and name every action in a row. Don't put columns in a row to compare them, nest a list in a row, or wrap a whole row in a link and put a button inside it.
+**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
 
-### Pagination
+### Skip link
 
-Links between the pages of one set of items. A `nav` of numbered links, or, in a narrow space, previous, status and next.
+**Site:** none, the frame of every page.
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+```
+
+- First focusable element in the document. Parked above the viewport (`top: -100px`, a composition offset) and lands at `--s-3` on focus. It appears and disappears instantly, by design — easing a jump affordance would delay the jump. No motion rows.
+- `--primary-500` surface, `--obsidian-950` text, weight 600, `--t-small`, `--r-md`, padding `--s-3 --s-4`. Rides `--z-max` — the scale row reads *skip link, and nothing else*.
+- Target: the unique `id="main-content"` on `.content` (§ 3.3) — past the sticky topbar, straight to the content. Behaviour: § 6.2. Uniqueness: check 27.
+- **States: § 3.0.1** — `default` (parked) · `focus`. It answers plain `:focus`, not `:focus-visible`: it exists only for the keyboard and can never be pointer-focused while parked; see the vocabulary note.
+
+**Do / Don't.** Do make it the first focusable element, landing on `#main-content`. Don't animate it, or point it at `<main>` behind the sticky top bar.
+
+### Brand mark
+
+**Site:** none, the frame of every page.
+
+```html
+<div class="brand">
+  <div class="brand-mark"><img src="…" alt="Amaca"></div>
+  <div class="brand-text"><span class="name">Amaca</span><span class="meta">Design system</span></div>
+</div>
+```
+
+- One per shell, at the head of the rail; hairline `--obsidian-800` below, padding-bottom `--s-6`, gap `--s-3`.
+- `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
+- `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
+- Static. The animated brand-mark loop belongs to the Loader (§ 3.19) and its ratified motion row — this one does not move.
+
+**Do / Don't.** Do put one at the head of the rail, and keep it still. Don't animate it (that is the Loader), or use its cyan glow anywhere else in the chrome.
+
+### Button
+
+**Site:** § 09 Button.
 
 **Usage**
 
 *Use it when*
-- Pages of similar items too long for one page: search results, a list of case studies.
-- The rows of a table that do not fit on the screen, in the compact form below it.
+- The affirmative action of the screen, as the one `.btn-primary`.
+- Any action on the current page: submit, save, open, apply.
 
 *Use something else when*
-- A linear journey such as a form → a Continue button and a Back link.
-- Only one page → show nothing.
-- Content that sits on one page without slowing it → no pagination.
+- Going to another page or resource → Link.
+- An icon-only button whose glyph is not universal and has no tooltip → a labelled button.
+
 
 ```html
-<nav class="pagination" aria-label="Pagination">
-  <a class="pagination-link" href="/cases?page=5" rel="prev" aria-label="Previous page"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
-  <ul class="pagination-list">
-    <li><a class="pagination-link" href="/cases?page=1" aria-label="Page 1">1</a></li>
-    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
-    <li><a class="pagination-link" href="/cases?page=5" aria-label="Page 5">5</a></li>
-    <li><a class="pagination-link" href="/cases?page=6" aria-label="Page 6" aria-current="page">6</a></li>
-    <li><a class="pagination-link" href="/cases?page=7" aria-label="Page 7">7</a></li>
-    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
-    <li><a class="pagination-link" href="/cases?page=12" aria-label="Page 12">12</a></li>
-  </ul>
-  <a class="pagination-link" href="/cases?page=7" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
-</nav>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-ghost">Ghost</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-danger">Destructive</button>
+<button class="btn btn-primary" disabled>Unavailable</button>
+<button class="btn btn-primary is-loading" disabled aria-label="Submitting">Submit <span class="loader loader-xs" role="status" aria-hidden="true">…</span></button>
+<button class="btn btn-secondary"><svg class="icon" aria-hidden="true">…</svg> New case study</button>
+<button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
+<button class="btn btn-floating" type="button"><svg class="icon" aria-hidden="true">…</svg> Back</button>
+```
 
-<!-- compact: for narrow spaces and table footers; on the first page Previous is disabled, with no href -->
-<nav class="pagination" aria-label="Pagination">
-  <a class="pagination-link" rel="prev" aria-label="Previous page" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
-  <span class="pagination-status">Page 1 of 12</span>
-  <a class="pagination-link" href="/cases?page=2" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
+| Variant | Background | Text | Use |
+|---|---|---|---|
+| `.btn-primary` | `--primary-500` | `--obsidian-050` | One per screen — the affirmative action |
+| `.btn-secondary` | `--obsidian-800` | `--obsidian-100` | Neutral action |
+| `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
+| `.btn-outline` | transparent | `--obsidian-100` | Bordered tertiary — hover borrows the magenta edge |
+| `.btn-danger` | `--danger` | `--obsidian-950` | Destructive only |
+| `.btn-floating` | `--surface-glass` | `--obsidian-100` | Stays on screen over scrolling content — Back in a long page |
+
+**Rules:**
+- One `.btn-primary` per screen. Everything else recedes.
+- **Sizes: 32 · 40 · 48.** `.btn-sm` is `--s-8` tall, the default `--s-10`, `.btn-lg` `--s-12` — declared as `min-height` with no block padding, so the height is the number and not a sum of padding and line-height. Inline padding `--s-4` · `--s-6` · `--s-8`; label `--t-small` on `.btn-sm`, `--t-body` on the other two. Size signals density, not importance: the variant does that.
+- **Touch.** On a coarse pointer every `.btn` grows to at least 44px tall and every `.btn-icon` 44px wide — the § 6 floor. `.btn-lg` already clears it; dense desktop keeps 32.
+- **Icon + label.** `<svg class="icon">` leading or trailing, 14px, `currentColor`, `aria-hidden="true"`; the gap is `--s-2`, always, and the label stays.
+- **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
+- **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill `--surface-glass` under `backdrop-filter: blur(8px)`, border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
+- Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.19's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
+- Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
+- **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
+
+**Do / Don't.** Do keep one `.btn-primary` per screen and let the rest recede; give an icon-only button an `aria-label` that names the action. Don't bold the label, lighten the primary on hover, or remove the outline without a focus ring in its place.
+
+**Do / Don't.** Do pick the size for density (32 · 40 · 48) and let the variant carry importance. Don't use a button to go to another page: that is a Link.
+
+### Link
+
+**Site:** § 10 Link.
+
+Text that **takes the reader to another page or resource**. It lives inside running text or on its own line, it is underlined at rest, and it is the only element that does this: an action on the current page is a Button (§ 3.6).
+
+**Usage**
+
+*Use it when*
+- Going to another page, document or resource, in a sentence or on its own line.
+- A reference the reader may want to follow: the spec, the source, the next page.
+
+*Use something else when*
+- An action on the current page: submit, save, open a panel → Button.
+- A trail of the current hierarchy → Breadcrumb.
+- Switching between views of the same content → Tabs.
+
+```html
+<p>Every value is <a class="link" href="/spec">derived from a token</a>.</p>
+
+<a class="link" aria-disabled="true">Read the case study</a>
+
+<nav aria-label="Resources">
+  <a class="link-quiet" href="/changelog">Changelog</a>
+  <a class="link-quiet" href="/spec">Specification</a>
 </nav>
 ```
 
-| Part | Class | Note |
-|---|---|---|
-| Nav | `.pagination` | The `nav`, with an `aria-label`. Flex, gap `--s-1`. Sits below the set it pages, never inside it |
-| List | `.pagination-list` | The numbered pages, a `ul` with no marker |
-| Link | `.pagination-link` | A page, Previous or Next. A 32px target (`--s-8`), `--r-md`, type `--t-small` with tabular numerals. Previous and Next carry the § 3.32 chevron and a word |
-| Gap | `.pagination-gap` | `…` for the pages left out. Not a link, hidden from the screen reader |
-| Status | `.pagination-status` | The compact form's "Page 6 of 12": text, not a link |
+| Variant | Underline at rest | Use | Never |
+|---|---|---|---|
+| `.link` | `--bw-1`, always | Every link inside a sentence or a paragraph, and any link whose context does not already say it is a link. The default | — |
+| `.link-quiet` | none — appears on hover and focus | A **standalone** link: the only thing on its line or in its cell, where position and label already say it is a link. A menu, a footer, a list of resources, the title of a row that opens another page, a "Read more" at the end of a card | Inside a sentence or a paragraph, next to running text, in a caption or in a helper line. There the colour is 2.1:1 against the text and WCAG 1.4.1 fails |
+
+- **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect, and check 60 fails it.
+- **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.16).
+- **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
+- **No visited state.** In an application the colour of a link carries no history, and a second colour would need its own contrast pair.
+- **Focus:** the pressable ring — outline `--focus-width` `--obsidian-100`, offset `--focus-offset`, `--ring-halo`, radius `--r-sm`.
+- **The label names the destination.** "The spec", never "click here" and never a bare URL; a link that opens a file or another site says so in the label.
+- **Disabled** is an anchor without `href` carrying `aria-disabled="true"`: `--obsidian-400`, `cursor: not-allowed`. A disabled link is rare; if the destination is not available, prefer plain text.
+- **Not a button.** A link that triggers an action on the page is a defect: it is announced as navigation and cannot be pressed with Space. Use § 3.6.
+- **States: § 3.0.1** — `default` · `hover` · `focus-visible` · `active` · `disabled`. Motion: the colour and the thickness on `--d-quick` · `--ease-standard`, in the § 8.3 index.
+
+**Do / Don't.** Do put the link on the words that name the destination. Don't use a link for an action on the current page — that is § 3.6 Button.
+
+### Checkbox · Switch · Radio
+
+**Site:** § 11 Checkbox · § 12 Radio · § 13 Switch.
+
+Three controls, one family, one rule: **shape carries the meaning before colour does** (§ 6 floor #1).
+
+**Usage · Checkbox**
+
+*Use it when*
+- Many of many; the value applies on submit.
+- A single opt-in, such as accepting terms.
+
+*Use something else when*
+- The change applies immediately → Switch.
+- Only one option can be chosen → Radio.
+
+**Usage · Radio**
+
+*Use it when*
+- One of many, always in a named group with a default.
+
+*Use something else when*
+- Several options can be chosen → Checkbox.
+- Four or more options and little room → Select.
+
+**Usage · Switch**
+
+*Use it when*
+- One of two, applied immediately: a setting, not a form value.
+- Turning a preference on or off with instant save.
+
+*Use something else when*
+- The change needs a Save button → Checkbox.
+- More than two options → Radio or Select.
+
+
+```html
+<label class="check"><input type="checkbox" checked> Published</label>
+<label class="switch"><input type="checkbox" checked> Show dates</label>
+<label class="radio"><input type="radio" name="scope" checked> Everyone</label>
+```
+
+| Control | Shape | Checked treatment | Use |
+|---|---|---|---|
+| `.check` | 16px square, `--r-xs` corner | `--primary-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
+| `.switch` | 32×18, `--r-full`, no border | `--primary-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
+| `.radio` | 16px circle | `--primary-500` ring + centred `--primary-500` dot | One-of-many. Always in a named group, always with a default |
 
 **Rules.**
-- **What to show.** The first page, the last page, the current page and one on each side; a gap stands for the rest. A gap never sits at an end, and a gap for a single page shows that page instead. Under `--bp-sm` use the compact form; the numbered one still fits there, as icons without their words, but it is the fallback.
-- **The current page is marked, not hidden.** `aria-current="page"` on its link, with the fill and the border of § 3.0.1. It stays a link.
-- **Name every link (WCAG 2.5.3).** A number carries `aria-label="Page 6"`. Previous and Next carry `rel="prev"` and `rel="next"`, and their arrows are decorative.
-- **The ends stay in place.** On the first page Previous is disabled, on the last page Next is: `aria-disabled="true"` and no `href`, so the row does not move and the link is not a target.
-- **Pages are addresses.** Each page is a URL that loads without script. The page number goes in the document title ("Search results, page 6 of 12"), and a page that no longer exists goes to the first.
-- **Not for a journey, and not scrolling forever.** A form or any linear journey takes a Continue button and a Back link. Infinite scroll takes the keyboard away from the reader; it is not a replacement.
-- **Motion.** Hover and focus change the background and the colour on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+- Checkbox and radio are told apart by **shape** — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.
+- The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.
+- The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
+- The focus ring lives on the `input`, not the label, so the halo traces the control.
+- A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
+- State matrix: § 3.0.1. Motion: § 06.4.
 
-**Do / Don't.** Do mark the current page with `aria-current`, name every number and put the page number in the title. Don't use it for a form, show it for a single page, or replace it with infinite scroll.
+**Do / Don't.** Do make the whole label the target, at least 44×44 on a phone, and keep the focus ring on the input. Don't put a tick in a circle, or use a checkbox for a change that applies at once: that is a Switch.
+
+**Do / Don't.** Do keep exactly one option checked in a named group, with a default. Don't put a dot in a square, or leave a group with nothing checked.
+
+**Do / Don't.** Do let the fill carry the switch's state: `--obsidian-700` off, `--primary-500` on. Don't stroke the switch track: the fill carries the state.
 
 ### Slider
+
+**Site:** § 14 Slider.
 
 A number, or a range of two, chosen by position on a scale. Native range inputs underneath: the keyboard, the form value and the screen reader come with them.
 
@@ -2581,53 +1112,686 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **The fill is the script's.** `--p` on the input (single), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
 - **No error state.** The value is always inside the scale. A slider that cannot be changed is `disabled`.
 - **Targets (WCAG 2.5.8).** The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.
-- **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 08.3).
+- **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
 
 **Do / Don't.** Do set a step that gives between ten and a few hundred positions, show the value beside the label and name each handle of a range. Don't use a slider for three choices or for a value that must be exact, or start a range on the whole scale.
 
-### Divider
+### Input · textarea · select
 
-A hairline between two blocks of one container: a thematic break. Three forms: horizontal, vertical, and horizontal with a word in the middle.
+**Site:** § 15 Text input.
 
 **Usage**
 
 *Use it when*
-- A change of topic inside one container: two blocks of a card, a modal or a menu.
-- Groups side by side that need a boundary: the groups of a toolbar.
+- Free text on a single line: a name, a search, a URL.
+- Always with a persistent label; the placeholder is never the label.
 
 *Use something else when*
-- The rows of a List or a Table → the row's own hairline.
-- Space already separates the blocks → no line.
-- The sections of a page → a heading and space.
+- The answer runs over several lines → the textarea.
+- The answer comes from a known list → Select or Radio.
+- A time or a date → Time input, Date picker.
+
 
 ```html
-<!-- horizontal: a thematic break; the implicit role is separator -->
-<hr class="divider">
+<label class="field">
+  <span class="label">EMAIL</span>
+  <input class="input" type="email" placeholder="you@studio">
+  <span class="help">We never share it.</span>
+</label>
+<label class="field">
+  <span class="label">SLUG</span>
+  <input class="input" value="Bad URL" aria-invalid="true" aria-describedby="slug-error">
+  <span class="help error" id="slug-error">Lowercase with hyphens.</span>
+</label>
+<form role="search">
+  <div class="field">
+    <label class="label" for="q">SEARCH</label>
+    <div class="input-wrap">
+      <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg>
+      <input class="input" id="q" type="search" placeholder="Search the archive…">
+      <button class="input-action" type="button" aria-label="Clear search" data-input-clear><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+    </div>
+  </div>
+</form>
+<label class="field">
+  <span class="label">SUMMARY</span>
+  <textarea class="textarea" rows="4" placeholder="Two sentences."></textarea>
+</label>
+<label class="field">
+  <span class="label">PRIORITY</span>
+  <select class="select">
+    <option>Low</option>
+    <option selected>Normal</option>
+    <option>High</option>
+  </select>
+</label>
+```
 
-<!-- vertical: a div has no meaning of its own, so it carries the role -->
-<div class="divider divider-vertical" role="separator" aria-orientation="vertical"></div>
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
+- **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
+- Helper text is `.help`; the error variant is `.help.error`.
+- Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index (`hover` is the `.input-action`; `error` is not a search state). No state is described in prose here.
+- **Icon left.** A `.icon` as a direct child of `.input-wrap`: decorative (`aria-hidden`), `--icon-sm`, `--obsidian-300`, no click. The field pads `--s-8` on the left to clear it.
+- **Action right.** `.input-action`: a `<button type="button">` last in the `.input-wrap`, 32px square, `--r-sm`, `--icon-sm`, `--obsidian-300` and `--obsidian-100` on hover. The field pads `--s-10` on the right. It carries an `aria-label`: it has no text. The date picker and the time picker use this same part (§ 3.13).
+- **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.1. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
+- **Search.** The field sits in `<form role="search">` with `type="search"`, so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field.
 
-<!-- with a word: not a separator, the word is content -->
-<div class="divider-label"><span>or</span></div>
+**Do / Don't.** Do give every field a persistent label, and say an error in the helper text as well as in the border. Don't use the placeholder as the label, or let colour alone say "error".
+
+**Do / Don't.** Do show the clear button only while the field has a value, and show "no results" where the results go. Don't give a search field an error state, or keep the browser's own clear button beside ours.
+
+### Dropdown / Select
+
+**Site:** § 16 Select.
+
+One trigger, one panel, three uses. A value chosen from a list is a **Select**; a number set without typing it is a **Select with a Slider**; an action run on an item is a **Menu**. The three share the panel (`.select-menu`), its placement and its row (`.select-option`); they keep their own ARIA roles. Pick the smallest variant that covers the requirement.
+
+**Usage**
+
+*Use it when*
+- Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.
+- Four or more options, or little room on screen.
+- A number set by feel rather than typed, such as a price → the Slider variant.
+- Actions on an item that do not fit on screen → the Menu variant.
+
+*Use something else when*
+- Two or three options → Radio, all of them visible.
+- A value the person must hit exactly → Text input.
+- A place to go → Navigation or Link.
+
+
+**The rule that separates them: a choice stays, an action runs.** A Select holds a value and shows it in its trigger; a Menu holds none, runs the action and closes. A Menu never carries radio or checkbox items: a choice that stays is a Select. A link to another page is not a Menu item, it is Navigation.
+
+#### A. Native enhanced — `<select class="select">`
+
+Default choice. Use when options are fixed, short, no custom rendering required. Inherits browser keyboard nav, mobile UI, accessibility for free.
+
+**Exception — never directly above important content.** The browser/OS renders the native option popup *over* the control and can cover whatever sits beneath it (e.g. a chat composer the select sits above). When the control may sit near a viewport edge or above content the user must still see, use variant B (viewport-aware placement) instead.
+
+```html
+<select class="select">
+  <option>Draft</option>
+  <option>Pending</option>
+  <option>Published</option>
+</select>
+```
+
+**Style contract:**
+- `appearance: none; -webkit-appearance: none; -moz-appearance: none`
+- Background: inline SVG chevron (down) as `background-image`, **canonical stroke `%238A94A3`**, 12×12 viewBox, `stroke-width:2.5`. Positioned `right 12px center`, size `12px 12px`.
+- `padding-right: var(--s-8)` to reserve space for the chevron.
+- Same border / radius / focus glow as `.input` (§ 3.10).
+
+**Placement — progressive enhancement (v4.2.2).** Where the customizable select ships (`@supports (appearance: base-select)`, Chromium today), `select.select` and its `::picker(select)` take `appearance: base-select`. The picker then follows variant B's placement rule: it opens below the control and flips above only when the bottom edge would clip it (`position-try-order: normal` + `position-try-fallbacks: flip-block`; the UA default instead picks the roomier side). It carries the same surface as `.select-menu`, and `::picker-icon` is hidden so the background chevron stays the only chevron. Elsewhere the OS popup stays, and the exception above still applies.
+
+#### B. Custom listbox — `<button class="select-trigger">`
+
+Reach for this only when native can't carry the requirement: search/filter inside menu, multi-select with chips, custom option rendering (icons, avatars, badges), grouped headings beyond `<optgroup>`.
+
+```html
+<div class="select-wrap" data-select>
+  <button type="button" class="select select-trigger"
+    aria-haspopup="listbox" aria-expanded="false" aria-labelledby="status-label">
+    <span class="select-value">Draft</span>
+  </button>
+  <ul class="select-menu" role="listbox" aria-labelledby="status-label" hidden>
+    <li class="select-option" role="option" aria-selected="true" data-value="Draft">
+      <span class="select-option-label">Draft</span>
+      <svg class="icon select-check" viewBox="0 0 16 16" aria-hidden="true"><!-- icon "check" --></svg>
+    </li>
+    <li class="select-option" role="option" aria-selected="false" data-value="Pending">…</li>
+    <li class="select-option" role="option" aria-selected="false" aria-disabled="true" data-value="Archived">…</li>
+  </ul>
+</div>
+```
+
+**Behavior:**
+- `aria-expanded` on `.select-trigger` toggles `"true"`/`"false"`; open state activates the magenta border + glow (same focus treatment as `.input:focus`).
+- **Keyboard focus on the trigger is the pressable ring**, not the field glow: the `.input` `.textarea` `.select` | focus-visible row of the state index does not apply to `.select-trigger`, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from `.select:focus`.
+- `.select-menu` **placement is viewport-aware**: open **below** the trigger by default; **flip above** only when the menu's height does not fit below **and** above offers more room; `max-height` = `min(240px, room on the chosen side)`, with internal scroll beyond it — measure the menu's natural height with `getBoundingClientRect()` rounded up (not `scrollHeight`, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu **never covers adjacent content** (e.g. a chat composer the control sits above). Use `position:fixed` measured from the trigger's rect (`.select-menu.is-fixed`) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where `(0,0)` lands and subtract it; `position:absolute; top:calc(100% + 4px); left:0; right:0` is acceptable only when there is always room below. Background `--obsidian-850` (or `--obsidian-900` for an elevated overlay); `hidden` attribute used to dismiss (do not toggle `display` directly).
+- **The panel never transitions.** Its box is measured and written by script at open; under reduced motion the global 0.01ms rule gives every property a transition, and a script that reads the start of one places the panel off screen. `.select-menu` carries `transition:none` inside the reduced-motion override (v5.0.0).
+- `.select-option[aria-selected="true"]` is rendered in `--primary-400`, with a **check after the label** (`.select-check`, the album's *check*, 14px) in the colour of the text. The check's room is reserved on every row, so labels never move when the choice changes. Hover/focus background is `--obsidian-800`.
+- Only one menu open at a time — opening one closes any other open `.select-menu`.
+
+**Keyboard:**
+- `Enter`/`Space`/`↓` on trigger opens.
+- `↓`/`↑` navigate options; `Home`/`End` jump to the first and last; no wrap from the last to the first. First open lands on the currently selected option (`aria-selected="true"`), or the first if none.
+- A printable character jumps to the next option that starts with the letters typed (typeahead, 500ms).
+- `Enter`/`Space` on focused option commits + closes; trigger receives focus back.
+- `Esc` closes without committing; trigger receives focus back.
+- `Tab` from open menu closes and proceeds.
+
+**Dismissal:**
+- Click outside the wrapper closes the menu.
+- A **fixed-position** (viewport-aware) menu also closes on `resize`, and on a page `scroll` that moves the trigger. Its anchored coordinates would otherwise drift from the trigger. Scrolling **inside the menu** never closes it.
+- Window `blur` does not auto-close (browser-quirk; leave the menu, let the next click handle it).
+
+#### C. Slider — `<div class="select-menu-slider">`
+
+A number set without typing it, such as a price. The field is variant B's trigger; the panel holds **one** Slider (§ 3.9) instead of a list.
+
+```html
+<span class="label" id="price-label">Price</span>
+<div class="select-wrap" data-select-slider>
+  <button type="button" class="select select-trigger" aria-haspopup="dialog"
+    aria-expanded="false" aria-labelledby="price-label price-value">
+    <span class="select-value" id="price-value">€40 – €140</span>
+  </button>
+  <div class="select-menu select-menu-slider" role="dialog" aria-labelledby="price-label" hidden>
+    <div class="slider">
+      <div class="slider-pair" role="group" aria-labelledby="price-label">
+        <input class="slider-input" type="range" min="0" max="200" step="5" value="40" aria-label="Minimum price">
+        <input class="slider-input" type="range" min="0" max="200" step="5" value="140" aria-label="Maximum price">
+      </div>
+      <div class="slider-scale"><span>€0</span><span>€200</span></div>
+    </div>
+  </div>
+</div>
+```
+
+- **One Slider per panel**, single or range (a range is one Slider with two handles, § 3.9). Never a Slider together with options, never two Sliders. Check 63 holds it.
+- The panel is the width of the field and holds the track and the scale. The label and the value stay in the field: the trigger shows the value, formatted (`Up to €80`, `€40 – €140`), and follows it live while the handle moves.
+- A listbox may own options only, so the panel is a **non-modal dialog**: `aria-haspopup="dialog"` on the trigger, `role="dialog"` on the panel, named by the field's label. Placement is variant B's.
+- Keyboard: opening puts the focus on the first handle; the arrows, `Home`/`End` and `PageUp`/`PageDown` adjust it (the range input's own keys); `Tab` moves to the second handle. **`Esc` cancels**: the value goes back to what it was when the panel opened, and the panel closes. `Enter`, a click outside, or `Tab` past the last handle **commit** and close. Focus returns to the trigger.
+
+#### D. Menu — `<ul class="select-menu-actions">`
+
+Actions on an item, behind one button. The panel and the row are variant B's; the roles are the menu button's (APG): `aria-haspopup="menu"` on the trigger, `role="menu"` on the panel, `role="menuitem"` on each row.
+
+```html
+<div class="select-wrap" data-menu>
+  <button type="button" class="btn btn-secondary" id="actions-btn"
+    aria-haspopup="menu" aria-expanded="false">Actions <svg class="icon" …><!-- icon "chevron-down" --></svg></button>
+  <ul class="select-menu select-menu-actions" role="menu" aria-labelledby="actions-btn" hidden>
+    <li class="select-option" role="menuitem"><svg class="icon" …><!-- icon "edit" --></svg>
+      <span class="select-option-label">Rename</span><span class="select-kbd">R</span></li>
+    <li class="select-option" role="menuitem" aria-disabled="true">…</li>
+    <li class="select-divider" role="separator"></li>
+    <li class="select-option select-option-danger" role="menuitem">…<span class="select-option-label">Delete</span></li>
+  </ul>
+</div>
+```
+
+| Part | Class | Rule |
+|---|---|---|
+| Trigger | `.btn.btn-secondary` or `.btn.btn-ghost.btn-icon` | A labelled button with the *chevron-down* icon, or an icon-only button with the *kebab* icon and an `aria-label` that names the item. The chevron does not turn |
+| Panel | `.select-menu.select-menu-actions` | At least the trigger and at least `--s-32`; grows to the longest item; stops at the drawer menu's measure (30ch + padding) and truncates |
+| Row | `.select-option` | Leading icon (14px, `--obsidian-300`), label (`.select-option-label`, one line, ellipsis), shortcut after it (`.select-kbd`) |
+| Group heading | `.select-group` | The `.label` grammar: mono, micro, uppercase, `--obsidian-300` |
+| Divider | `.select-divider` | `--bw-1` of `--obsidian-700`, full bleed (the panel's inset taken back), `--s-1` above and below |
+| Danger | `.select-option-danger` | Text and icon `--danger` (6.1:1 on the panel); the hover stays neutral. Always last, after a divider |
+| Disabled | `[aria-disabled="true"]` | Opacity 0.4, skipped by the arrow keys and by typeahead |
+
+- **Horizontal placement: toward the middle.** A trigger in the left half of the viewport aligns the panel to its start; in the right half, to its end, so a kebab at the end of a row opens inward. Then the viewport clamp of variant B. The vertical rule is variant B's.
+- Keyboard (APG menu button): `Enter`/`Space`/`↓` open on the first item, `↑` on the last; `↓`/`↑`, `Home`/`End` and typeahead as in variant B, no wrap; `Enter`/`Space` runs the item and closes; `Esc` closes; focus returns to the trigger; `Tab` closes and proceeds.
+
+**Do / Don't.** Do open the panel below the field and above it only when the bottom edge would clip it, open a kebab at the end of a row inward, put a destructive action last after a divider, and keep one Slider at most in a panel. Don't pin the panel below a field at the bottom of the screen or let it cover what the person still needs, use a Menu to hold a value, mix a Slider with options, or put two Sliders in one panel.
+
+### Time input
+
+**Site:** § 17 Time input.
+
+**Usage**
+
+*Use it when*
+- A time of day, HH:MM in 24 hours, formatted as it is typed.
+
+*Use something else when*
+- A date and a time together → pair it with the Date picker.
+
+
+```html
+<label class="field">
+  <span class="label">Time</span>
+  <input class="input" type="text" id="time-input"
+    placeholder="e.g. 18:00"
+    autocomplete="off"
+    maxlength="5"
+    inputmode="numeric" />
+</label>
+```
+
+HH:MM, 24 hours, formatted as it is typed.
+
+**Digit by digit:**
+- Digit 1 (H1): at most `2`
+- Digit 2 (H2): at most `3` when H1 is `2`, otherwise `0–9`
+- Digit 3 (M1): at most `5`
+- Digit 4 (M2): `0–9`
+
+The `:` goes in after the first two digits on its own; the person types only numbers.
+
+```javascript
+document.getElementById("time-input").addEventListener("input", function () {
+  let raw = this.value.replace(/\D/g, "");
+  let out = "";
+  for (let i = 0; i < Math.min(raw.length, 4); i++) {
+    let d = parseInt(raw[i]);
+    if (i === 0) d = Math.min(d, 2);
+    if (i === 1 && out[0] === "2") d = Math.min(d, 3);
+    if (i === 2) d = Math.min(d, 5);
+    out += d;
+  }
+  this.value = out.length >= 3 ? out.slice(0, 2) + ":" + out.slice(2) : out;
+});
+```
+
+**Rules.**
+- `maxlength="5"` and `inputmode="numeric"` are required.
+- Optional by default; a context can make it required.
+- No `type="time"`: the native picker does not follow the system.
+- Focus and error follow § 3.10.
+
+**Do / Don't.** Do let the field format HH:MM as it is typed, with `inputmode="numeric"` and `maxlength="5"`. Don't use `type="time"`: the native picker does not follow the system.
+
+### Date picker
+
+**Site:** § 18 Date picker.
+
+**Usage**
+
+*Use it when*
+- A single date or a range, typed or picked from the calendar.
+- Dates near today, where the relation to other days matters.
+
+*Use something else when*
+- A date the reader already knows, such as a birth date → typed Text inputs, no calendar.
+
+
+```html
+<div class="dp-wrap">
+  <div class="input-wrap">
+    <input class="input" type="text" readonly value="12 Aug 2026" aria-haspopup="dialog" aria-expanded="false">
+    <button class="input-action" type="button" aria-label="Open calendar"><svg>…</svg></button>
+  </div>
+  <div class="dp-popover" role="dialog" aria-label="Choose a date" hidden>
+    <div class="dp-header">
+      <button class="dp-nav" type="button" aria-label="Previous month"><svg>…</svg></button>
+      <button class="dp-title" type="button" aria-label="Choose year">August 2026 <svg>…</svg></button>
+      <button class="dp-nav" type="button" aria-label="Next month"><svg>…</svg></button>
+    </div>
+    <div class="dp-dow" aria-hidden="true"><span>M</span>…<span>S</span></div>
+    <div class="dp-grid" role="grid">
+      <button class="dp-day is-today" type="button">12</button>
+      …
+    </div>
+    <div class="dp-footer"><button class="dp-today-btn" type="button">Today</button></div>
+  </div>
+</div>
 ```
 
 | Part | Class | Note |
 |---|---|---|
-| Horizontal | `.divider` | An `hr`: 1px, `--obsidian-700`, the full width of its container, no margin |
-| Vertical | `.divider-vertical` | A `div` that stretches to the height of its row (`align-self: stretch`, min `--s-4`) |
-| Label | `.divider-label` | Two lines around a word, `--t-caption` · `--obsidian-300`, gap `--s-3` |
+| Anchor | `.dp-wrap` | `position: relative` — the popover is anchored, never portalled |
+| Panel | `.dp-popover` | 280px single month · `--obsidian-900` · `--r-lg` · `--sh-3` · `--z-popover` |
+| Header | `.dp-header` `.dp-nav` `.dp-title` | Title is a **button** — it opens the year grid, `[data-mode="years"]` rotates its chevron |
+| Weekday row | `.dp-dow` | Mono, `--obsidian-500`, `aria-hidden` — the day buttons carry the accessible date |
+| Day grid | `.dp-grid` `.dp-day` | 7 columns, 2px gap, 32px cells, tabular numerals |
+| Range | `.dp-range` `.dp-months` `.dp-month-title` | 580px, two months side by side; collapses to one month under 600px |
+| Presets | `.dp-presets` `.dp-preset` | 4 columns of mono-uppercase shortcuts; 2 columns under 600px |
+| Year jump | `.dp-year-grid` `.dp-year` | 3 columns, 36px cells |
+| Footer | `.dp-footer` `.dp-today-btn` | Single "Today" affordance, right-aligned |
+
+**Day state flags** — a closed set, applied on `.dp-day`:
+
+| Flag | Meaning | Treatment |
+|---|---|---|
+| `.is-today` | Today, unselected | `--primary-400` text on an 8% magenta wash + 2px inset ring |
+| `.is-selected` | The chosen date | `--primary-500` fill, `--obsidian-950` label, weight 600 |
+| `.is-outside` | Leading/trailing month | `--obsidian-500` |
+| `.is-in-range` | Between range ends | 12% magenta wash, square corners |
+| `.is-range-preview` | Hover preview of a range | 6% magenta wash, square corners |
+| `.is-range-start` `.is-range-end` | Range ends | `--primary-500` fill, rounded on the outer edge only |
 
 **Rules.**
-- **A break, not decoration.** The horizontal divider is an `hr`: a change of topic, with the implicit role `separator`. A line that only decorates is not a Divider: the rows of a List and a Table already carry their own hairline.
-- **The vertical one names itself.** A `div` has no meaning, so it carries `role="separator"` and `aria-orientation="vertical"`. The parent has a definite height or is a flex row.
-- **The labelled one is content.** It has no `role="separator"`: that role makes its children presentational and the word would be lost to the screen reader. The two lines are pseudo-elements.
-- **The space belongs to the container.** No margin on the divider: the gap on both sides is the parent's (`--s-4` to `--s-6`), like the icon's.
-- **One weight, one colour.** `--obsidian-700`, 1px. `--border-subtle` (`--obsidian-800`) vanishes inside a card, which is `--obsidian-800`; a heavier line is a different component, not a thicker divider.
-- **Static.** No hover, no focus, no motion.
+- The trigger is a real `<input>` plus a labelled `<button>` — never a bare div. The popover is `role="dialog"` with an accessible name.
+- `.is-today` and `.is-selected` are visually distinct on purpose: today is a ring, selection is a fill. When a range end lands on today, the ring is dropped (the fill already says it).
+- Range corners are geometric, not decorative: square in the middle, rounded at the ends, fully rounded when start and end are the same day.
+- Disabled days are `<button disabled>`, not styled-out divs — keyboard users must be able to tell.
+- State matrix: § 3.0.1. Motion: § 06.4.
 
-**Do / Don't.** Do draw it where the topic changes and let the container give the space on both sides. Don't put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.
+**Do / Don't.** Do pair a real `<input>` with a labelled button; today is a ring, the selection a fill. Don't build the trigger from a div, style disabled days out instead of disabling them, or open a calendar for a date the reader already knows, such as a birth date.
+
+### Badge
+
+**Site:** § 19 Badge.
+
+Status the system computed — live, shipped, pending, blocker — shown next to the thing it describes. A value a person chose is a Chip (§ 3.15).
+
+**Usage**
+
+*Use it when*
+- A status the system computed, next to the thing it describes.
+- The solid variant: the one featured accent of the viewport.
+
+*Use something else when*
+- A value a person chose → Chip.
+- It needs hover or focus → Button or Chip.
+
+
+```html
+<span class="badge"><span class="dot"></span>Default</span>
+<span class="badge badge-brand"><span class="dot"></span>Live</span>
+<span class="badge badge-success"><span class="dot"></span>Shipped</span>
+<span class="badge badge-warn"><span class="dot"></span>Pending</span>
+<span class="badge badge-danger"><span class="dot"></span>Blocker</span>
+<span class="badge"><span class="dot"></span>Archive</span>
+<span class="badge badge-solid">Featured</span>
+<span class="badge badge-info"><span class="dot"></span>Info</span>
+```
+
+The example is the § 19.1 demo, badge for badge; check 47 holds the two together.
+
+| Variant | Surface | Use |
+|---|---|---|
+| `.badge` | `--tertiary-500` × `--tint-fill-deep` / `--tint-edge-deep`, text `--tertiary-300` | Default — a quiet tag; archive |
+| `.badge-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | Live — spends the accent |
+| `.badge-success` | `--success` × `--tint-fill` / `--tint-edge` | Shipped |
+| `.badge-warn` | `--warning` × `--tint-fill` / `--tint-edge` | Pending |
+| `.badge-danger` | `--danger` × `--tint-fill` / `--tint-edge` | Blocker |
+| `.badge-solid` | `--primary-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
+| `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | Info — a neutral fact |
+
+- **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
+- **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
+- **One line, always.** A badge never wraps (`white-space: nowrap`) and never shrinks in a flex row (`flex: none`): when room runs out, the text beside it wraps instead.
+- **The dot** (`.dot`, `--s-1` square, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
+- **The solid badge takes the light label**, `--obsidian-050` on `--primary-500`: the second ratified exception of § 6.3, bounded like the first.
+- **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
+
+**Do / Don't.** Do keep it to a word or two, the status first, on one line beside what it describes. Don't let it break onto two lines: when room runs out the text beside it wraps; the badge never does.
+
+### Chip
+
+**Site:** § 20 Chip.
+
+A compact label for **one value that belongs to something else** — a tag on a post, a facet on a result set, a recipient already entered in a field. Where a badge reports a state the system computed, a chip carries a value a person chose, which is why a chip can be pressed or removed and a badge never is.
+
+**Usage**
+
+*Use it when*
+- A value someone entered, chose or can take back: a tag, a facet, a recipient.
+- Pressable chips narrow a set.
+
+*Use something else when*
+- A status the system computed → Badge.
+- Pressable and dismissible at once → a list row.
+- A link to another page → Link.
+
+
+```html
+<span class="chip"><span class="chip-dot"></span> Design systems</span>
+
+<button class="chip" aria-pressed="true">Motion</button>
+
+<span class="chip chip-info">
+  Angelo Macaione
+  <button class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button>
+</span>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Object | `.chip` | `--r-full`, label at `--t-small`, padding `--s-1` `--s-3`, `inline-flex` with `--s-1` between parts |
+| Leading dot | `.chip-dot` | Optional. The same part as the Badge dot, in the variant's colour |
+| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes |
+
+| Variant | Surface | Use |
+|---|---|---|
+| `.chip` | `--obsidian-800` on `--obsidian-700`, text `--obsidian-100` | Neutral — the default, and most chips |
+| `.chip-brand` | `--primary-500` × `--tint-fill` / `--tint-edge`, text `--primary-400` | The one chip that spends the accent — see the 85 / 10 / 5 law |
+| `.chip-success` | `--success` × `--tint-fill` / `--tint-edge` | A value that resolved |
+| `.chip-warn` | `--warning` × `--tint-fill` / `--tint-edge` | A value that needs attention |
+| `.chip-danger` | `--danger` × `--tint-fill` / `--tint-edge` | A value that is broken or destructive |
+| `.chip-info` | `--info` × `--tint-fill` / `--tint-edge` | A neutral fact the reader didn't ask for |
+
+**Rules.**
+- **The variant is a tint, at the Badge's two strengths.** Background at `--tint-fill` (0.08), border at `--tint-edge` (0.3) — tokens since v4.3.0 — text on the full token — the same pair § 3.14 already uses, so the two small labelled objects of the system read as one family. The neutral chip is the exception and the majority case: `--obsidian-800` on `--obsidian-700`, the card surfaces. A *filled* chip — solid magenta behind white — is off-system: one filled accent per viewport is the whole 85 / 10 / 5 budget, and a filter row would spend it six times over.
+- **A chip may be static.** A chip that is neither pressable nor dismissible is legal and is the common case — a tag, a category, a value shown but not editable here. What makes it a chip rather than a § 3.14 Badge is **who owns the value**: a chip carries something a person entered or chose, a badge reports state the system computed. The affordance follows from the context, not from the definition.
+- **`--r-full`, always.** A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.
+- **The label rides `--t-small`.** `--t-micro` is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.
+- **A chip carries at most one affordance, never two (RIGID).** Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a `<button>` and the whole object is the target; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: *"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks"*. It is a decision, not a law — Calcite and Fluent ship the combination deliberately.
+- **The touch target grows, the chip does not.** At `--t-small` the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.
+- **A filter chip declares `aria-pressed`,** and a group of them is a `role="group"` with an accessible name. Selection lands on the border and the text (`--primary-500` · `--primary-400`), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.
+- **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).
+- **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
+- **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
+
+**Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.14 Badge, and the giveaway is that nobody can remove it — or let it break onto two lines: the text beside it wraps instead.
+
+### Alert
+
+**Site:** § 21 Alert.
+
+Inline, in flow, addressed to the whole surface — not to one field, and never on a timer.
+
+**Usage**
+
+*Use it when*
+- A condition that applies to the whole surface, inline, as long as it is true.
+
+*Use something else when*
+- The reader must be able to dismiss it → Toast.
+- It concerns one field → the field's `.help.error`.
+- Two alerts on one surface → merge them into one.
+
+
+```html
+<div class="alert alert-warn" role="status">
+  <svg class="alert-icon" aria-hidden="true">…</svg>
+  <div class="alert-title">Draft not published</div>
+  <div class="alert-body">Changes are saved locally until you publish.</div>
+</div>
+```
+
+**Layout.** Two columns — icon, content — on a grid, the content column `minmax(0, 1fr)` so a long word can't push the box past its container. In a **titled** alert the icon labels the *title*, so the title sits beside it and the body drops to a second row that returns to the **icon's left edge**. Indenting the paragraph to the title's x makes the block read lopsided: a wide ragged column hanging off a short label. In a **single-line** alert (no `.alert-title`) the body stays beside the icon. `.alert-title` and `.alert-body` are siblings, never nested.
+
+| Variant | Left rule · icon | Use |
+|---|---|---|
+| `.alert` | `--primary-500` | System voice — the default |
+| `.alert-info` | `--info` | Neutral fact the reader didn't ask for |
+| `.alert-success` | `--success` | Something completed and stayed completed |
+| `.alert-warn` | `--warning` | Something needs attention but nothing is broken |
+| `.alert-danger` | `--danger` | Something is broken or destructive |
+
+**Rules.**
+- **The fill never changes.** Every variant sits on `--obsidian-850`; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 5% semantic budget on furniture (§ Law, L1).
+- The icon is mandatory and `aria-hidden` — it is the shape half of "colour never alone" (§ 6 floor #1). The text carries the meaning.
+- `role="status"` for informative, `role="alert"` for danger. Nothing else.
+- **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.17 Toast — that is the whole difference between the two components.
+- **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
+
+**Do / Don't.** Do let an alert clear when the *condition* clears. If the reader has to be able to make the message go away, it was never an alert — it was a toast. Don't give an alert a close button. It lets someone hide a state that is still true, and the next reader inherits a screen that lies.
+
+### Toast
+
+**Site:** § 22 Toast.
+
+Transient, stacked, bottom-right. A toast is what an alert becomes when the message is about an action that just happened somewhere else.
+
+**Usage**
+
+*Use it when*
+- An event that just happened somewhere else.
+
+*Use something else when*
+- A fourth message in the stack → Alert.
+- It is the only record of the information → keep it somewhere durable.
+- A critical message that needs an action → Modal.
+
+
+```html
+<div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
+  <div class="toast toast-success is-in" role="status">
+    <svg class="toast-icon" aria-hidden="true">…</svg>
+    <div class="toast-title">Draft published</div>
+    <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg aria-hidden="true">…</svg></button>
+    <div class="toast-body">Live at amaca.design/blog. <button class="toast-action" type="button">Undo</button></div>
+  </div>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
+| Toast | `.toast` | 360px, capped at the viewport minus `--s-8`; full width under 600px |
+| Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.16 |
+| Action | `.toast-action` | At most one. Mono-uppercase, `--primary-400` |
+
+**Rules.**
+- **Auto-dismiss is opt-in and bounded** (§ 6 floor #6). `data-autohide` is permitted only when the toast carries no action and is not `.toast-danger`; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.
+- The region is `aria-live="polite"`; a `.toast-danger` carries `role="alert"` on the toast itself.
+- Newest enters at the bottom of the stack. Three visible at most — a fourth means the surface should be showing an § 3.16 Alert instead.
+- A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
+- **Same grid as § 3.16**: icon and title on the first row, body returning to the icon's left edge below.
+- **A toast enters and leaves on the same side it lives on** — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.
+- **The stack closes the gap, it never snaps.** Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on `--d-quick` · `--ease-accel` — that is the exit. Its box then collapses on `--d-base` · **`--ease-decel`** — and that is not an exit at all: it is the **repositioning of the toasts below**, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.34). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
+- **The two rides differ in speed, not in path.** In: `.is-in`, `--d-base` · `--ease-decel` — the system announcing itself. Out: `.is-out`, `--d-quick` · `--ease-accel` — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.
+- **The toast keeps its close button.** It is the dismissible half of the pair: § 3.16 Alert has none by contract.
+- Motion: § 06.4.
+
+**Do / Don't.** Do mirror every toast somewhere durable. A toast is a notification of a result, never the record of it. Don't auto-hide a toast that carries an Undo or an error. The countdown races the reader; hover and focus must pause it.
+
+### Progress
+
+**Site:** § 23 Progress.
+
+How far a task with a known end has come: a track, a fill and the value written beside it.
+
+**Usage**
+
+*Use it when*
+- A wait with a known end, longer than about three seconds.
+
+*Use something else when*
+- A short or unknown wait → Loader.
+- Content arriving into a known layout → Skeleton.
+- Steps the reader takes → Stepper.
+
+```html
+<div class="progress">
+  <span class="progress-label" id="upload-label">Upload</span>
+  <div class="progress-track" role="progressbar" aria-labelledby="upload-label"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+    <div class="progress-fill" style="--value:60%"></div>
+  </div>
+  <span class="progress-value">60%</span>
+</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Progress | `.progress` | A row: label, track, value, gap `--s-4`. `.progress-sm` for the 4px bar |
+| Label | `.progress-label` | Mono `--t-micro` uppercase `--obsidian-300`; it names the bar |
+| Track | `.progress-track` | `role="progressbar"`, 8px (`--s-2`) or 4px, `--obsidian-700`, `--r-full` |
+| Fill | `.progress-fill` | Width from `--value`, `--grad-progress`, `--sh-glow-soft` |
+| Value | `.progress-value` | `--t-small` `--obsidian-100`, tabular figures; the number is always written |
+
+**Rules.**
+- **Two heights.** 8px by default; `.progress-sm`, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.
+- **Named and valued.** The track carries `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name; the value is also written as text.
+- **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
+- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
+
+**Do / Don't.** Do write the value beside the bar and name the bar. Don't use it for an unknown wait, or stack two bars for one task.
+
+### Loader
+
+**Site:** § 24 Loader.
+
+The brand mark (animated SVG) at four scales, plus composition variants. A loader is a contract: <em>something is happening, don't leave</em>. If it isn't communicating a real wait, it doesn't ship.
+
+**Usage**
+
+*Use it when*
+- A real wait; the large size for full-page waits, the extra-small inline and in buttons.
+
+*Use something else when*
+- A wait under 200 ms → show the result, no loader.
+- A wait past 800 ms → Skeleton, when the shape of the content is known.
+- Progress is known → Progress.
+
+
+```html
+<span class="loader loader-md" role="status" aria-label="Loading">
+  <img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true" />
+  <span class="loader-fallback" aria-hidden="true">
+    <svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="13"/></svg>
+  </span>
+</span>
+```
+
+**Tokens:**
+
+| Token | Px | Use |
+|---|---|---|
+| `--loader-xs` | `16` | Inline with text, inside buttons |
+| `--loader-sm` | `24` | Beside an input, chat hints |
+| `--loader-md` | `48` | Inside a card / section overlay |
+| `--loader-lg` | `96` | Full-page / modal / hero wait |
+
+**Required classes:**
+- `.loader` — root. `display: inline-flex`, vertical-align: middle. Size mod (`.loader-xs` / `-sm` / `-md` / `-lg`) sets both width and height.
+- `.loader-anim` — the moving brand mark. Width/height 100%, `object-fit: contain` so the source ratio is preserved at any size.
+- `.loader-fallback` — CSS ring spinner. Hidden by default; shown under `prefers-reduced-motion: reduce` via `display: flex` (the `.loader-anim` is hidden in lockstep). Stroke `--primary-500`, `stroke-width 2.5`, `stroke-dasharray 60 60`, `stroke-dashoffset 30`, `animation: loader-spin 1400ms linear infinite`.
+- `.loader-check` — success checkmark overlay. Hidden at rest; revealed when `[data-loader-state="success"]` is set on a parent.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
+| success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
+| skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
+
+The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on their own clocks per the **Continuous loops** class in § Motion — each is ratified by its row in the motion index; see **Loop** and **Reduced motion** below.
+
+**Variants:**
+- **Standalone** — the loader root alone.
+- **With label** — add `.loader-with-label`. Vertical stack, `gap: var(--s-3)`. Label uses `--t-body / --obsidian-200`. Supports a cycling label via `data-loader-cycle` on the label span — rotates phrases every 2400ms with a 200ms opacity crossfade; under reduced motion the swap is instant. The host's `aria-label` updates in lockstep with the visible phrase so the SR announcement matches what's on screen.
+- **Inline** — add `.loader-inline`. Horizontal layout, `gap: var(--s-2)`, smaller label (`--t-small / --obsidian-300`). Used for async input validation and chat hints.
+- **Inside a button** — add `.is-loading` to a `.btn`. The label collapses to transparent (`color: transparent !important`) so the button keeps its size, and `.loader` is absolutely positioned at the center. No layout shift.
+- **Skeleton handoff** — after a `--d-scene` wait, swap the full-page loader for a Skeleton (§ 3.20). The structure becomes visible while the data is still in flight.
+- **Success state** — add `data-loader-state="success"` on the loader root. `.loader-anim` fades; `.loader-check` scales in with a spring. Use this when a wait resolves green.
+
+**Loop:**
+- The brand mark loops infinitely while mounted. There is no "play once and hold" variant in this version.
+- If you need a finite wait with a deterministic end state, transition to `[data-loader-state="success"]` and let the check carry the resolution.
+
+**Inside `.btn-primary`:**
+- **Anything composed inside `.btn-primary` wears the label's colour.** The label is near-white on magenta (`--obsidian-050`, ratified § 6.3), so the loader is too: `.btn-primary .loader-anim` applies `filter: brightness(0) invert(1)` — a flat near-white silhouette, alpha preserved — and the fallback ring and the success check take `--obsidian-050`. Cyan-on-magenta stays off-system either way; at this size the cube detail isn't legible, so the mark reads as a silhouette by design.
+- Applies at rest **and** while loading — the visual contract holds before the trigger fires too.
+- Inside `.btn-primary.is-loading`, the fallback ring and check icon also tint to `--obsidian-950` for the same reason.
+
+**Reduced motion:**
+- `.loader-anim` hidden via `display: none !important`.
+- `.loader-fallback` shown (CSS ring continues to spin — ring rotation is a single transform on a slow linear loop, considered tolerable feedback even under reduced-motion rules; the alternative is a static circle, which reads as broken).
+- `.loader-check` transition disabled; the swap is instant.
+- The Skeleton shimmer is disabled (§ 3.20).
+
+**Anatomy:**
+- Gap between logo and label: `--s-3` (with-label vertical) or `--s-2` (inline horizontal).
+- Overlay backdrop alpha: `rgba(11, 14, 18, 0.72)` with 2px backdrop blur.
+- Skeleton: its own component, § 3.20.
+
+**Accessibility:**
+- Every loader carries `role="status"` with a contextual `aria-label` (e.g. "Generating tokens", not just "Loading").
+- Inner `.loader-anim` and `.loader-check` are `aria-hidden="true"` — the role-status announcement reads from the loader root's `aria-label`.
+- For the cycling label variant, the JS that swaps the phrase also rewrites the root's `aria-label` so the SR announcement matches what's on screen.
+- For inline async validation, the inline loader sits in an `aria-live="polite"` region so the resolution ("Available…") announces.
+
+**Rules:**
+- Show the loader within 100ms of the action that triggered the wait. Late loaders read as glitches, not feedback.
+- A 200ms wait deserves no loader at all — show the result.
+- One full-page loader per route at a time. After 800ms hand off to a Skeleton.
+- Don't stack a section loader inside a card that already sits inside a full-page loader.
+- Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
+- Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
+
+**Do / Don't.** Do show the loader within *100ms* of the action that triggered the wait. Late loaders read as a glitch, not feedback. Don't pop the loader after the response already returned. A 200ms wait deserves no loader at all — show the result.
 
 ### Skeleton
+
+**Site:** § 25 Skeleton.
 
 The grey shape of content that has not arrived yet: it holds the place and the size of the real thing, so the page does not jump when the data lands. Three shapes: a line, a circle and a block.
 
@@ -2670,11 +1834,82 @@ The grey shape of content that has not arrived yet: it holds the place and the s
 - **Quiet.** The shimmer is a magenta tint at `--tint-fill` over 1600 ms, linear, in a loop. No high-contrast sweep.
 - **Not the only signal.** The region carries `aria-busy="true"` and a name (`aria-label`). When the content lands, `aria-busy` goes away and a live region (`role="status"`) says so.
 - **Silent shapes.** Every shape is `aria-hidden="true"`. A skeleton is never focusable and never a link.
-- **Reduced motion.** The shimmer is off and the fill stays still (§ 08.3).
+- **Reduced motion.** The shimmer is off and the fill stays still (§ 06.4).
 
 **Do / Don't.** Do draw the shapes at the size of the content and announce the end of the wait. Don't use a skeleton for a wait of a few hundred milliseconds, for content whose shape you do not know, or as the only sign that something is loading.
 
+### Modal
+
+**Site:** § 26 Modal.
+
+A window that **interrupts the page to ask for a decision or to collect a piece of data**, and nothing else. It holds the person's attention until they answer or dismiss it, which is why it is rare. It is a native `<dialog>` opened with `showModal()`; an image that needs the screen is the Lightbox (§ 3.22).
+
+**Usage**
+
+*Use it when*
+- A decision that must be made before the person goes on: confirm a destructive action, answer one question.
+- A short form that belongs to one task: rename, invite, create.
+
+*Use something else when*
+- A message that needs no answer → Alert or Toast.
+- Content that is long or the person will come back to → a page.
+- An image to look at closely → Lightbox.
+- A menu or text from the edge, with the page still visible behind it → Drawer.
+
+```html
+<dialog class="modal" aria-labelledby="del-title">
+  <div class="modal-head">
+    <h2 class="modal-title" id="del-title">Delete the project?</h2>
+    <button class="btn btn-ghost btn-sm btn-icon" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+  </div>
+  <p class="modal-body">The project and its 14 versions will be removed. This cannot be undone.</p>
+  <div class="modal-foot">
+    <button class="btn btn-secondary" data-modal-close>Cancel</button>
+    <button class="btn btn-danger">Delete project</button>
+  </div>
+</dialog>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
+| Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
+| Body | `.modal-body` | `--t-body`, `--obsidian-200` |
+| Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
+
+**Rules.**
+- **The panel is the card's surface, not a new one.** Same fill, border and radius; what lifts it off the page is `--sh-4` and the `--scrim` behind it. A modal with a radius of its own is a second card shape.
+- **`--scrim` is a veil.** The page stays visible and dimmed; it never blurs. The Lightbox keeps its own, darker backdrop because it is a viewer.
+- **Open it with `showModal()`.** The browser then traps focus, makes the rest of the page inert, and closes on `Esc`; none of that is rebuilt. It rides `--z-overlay`, and the page behind does not scroll.
+- **The title is the name.** `aria-labelledby` points at `.modal-title`. A confirmation that needs the answer to proceed uses `role="alertdialog"` and `aria-describedby` on the body.
+- **Focus goes to a control, never to the panel.** The first control, or for a destructive confirmation the *least* destructive one (Cancel). On close it returns to the control that opened the modal.
+- **Closing (RIGID).** `Esc` always closes. A click on the scrim closes too, **except** in a `role="alertdialog"` and whenever the modal holds data not yet saved. The close button is always present, so the way out never depends on a gesture.
+- **Actions: one primary, at the end.** A destructive action is `.btn-danger` and is never the default focus. A modal has at most two actions and no third "learn more" link; that goes in the body.
+- **Never stack.** A modal opened from a modal is a flow that wants a page.
+- **Small screens:** at ≤480px the panel keeps `--s-4` of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.
+- **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
+- **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
+
+**Do / Don't.** Do ask one thing and give it two clear answers. Don't use a modal to show a message that needs no reply: that is an Alert or a Toast.
+
+### Lightbox
+
+**Site:** none, the figures of § 48 Case study.
+
+- Backdrop: `--obsidian-950` at 85% (`rgba(7,9,11,0.85)`) under a 12px blur.
+- Close button: top-right, `Esc` closes.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+
+**Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
+
 ### Popover
+
+**Site:** § 27 Popover.
 
 A panel anchored to the button that opened it, richer than a tooltip: a sentence and a link, a short form, a few actions. It opens on a click and stays out of the way of the page.
 
@@ -2730,12 +1965,14 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - **Up to 360 px.** Wider, or taller than the view, is a Modal. No horizontal scroll.
 - **A name.** With a title or a form it has `role="dialog"` and `aria-labelledby`; a text-only one has `aria-label`. It is not modal: Tab can leave it.
 - **No arrow.** The 4px gap and the anchoring point to the trigger, as in the Tooltip.
-- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.44): its popover stays inside the map and beside its cluster, so the map's script places it.
-- **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 08.3).
+- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.42): its popover stays inside the map and beside its cluster, so the map's script places it.
+- **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 06.4).
 
 **Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
 
 ### Drawer
+
+**Site:** § 28 Drawer.
 
 A modal anchored to a side of the screen: a menu or a piece of text, flush with the edge, the page still visible behind a scrim. It is the modal's surface and scrim without the window.
 
@@ -2796,12 +2033,533 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 - **Not for a form.** A short form is a Modal, a long one a page. The drawer is for reading and for choosing where to go.
 - **Never stacked, no bottom.** A drawer opened from a drawer wants a page; one from the bottom is a different component.
 - **A menu opens on the side of its toggle.** A toggle at the end of the bar opens it at the end (the default); one at the start uses `.drawer-start`.
-- **Motion.** It slides in from its edge on `--d-base` · `--ease-decel` and the scrim fades with it; out, the same on `--ease-accel`. Reduced motion: instant (§ 08.3).
+- **Motion.** It slides in from its edge on `--d-base` · `--ease-decel` and the scrim fades with it; out, the same on `--ease-accel`. Reduced motion: instant (§ 06.4).
 - **No state matrix beyond `default` and `current`.** The panel is never focused or pressed (§ 3.0.1); the rows carry the List's states.
 
 **Do / Don't.** Do use it for a menu or a text the person reads with the page still behind it, and name it with its title. Don't put a form in it, stack one drawer on another, or make it a panel that stays on the page.
 
+### Tooltip
+
+**Site:** § 29 Tooltip.
+
+A label for something already visible. Never a container for content.
+
+**Usage**
+
+*Use it when*
+- A label for something already on screen.
+- Only on interactive elements, such as an icon-only button.
+
+*Use something else when*
+- The information is needed to finish the task → `.help` or Alert.
+- It needs a title → Alert.
+- It holds a link or a button → Popover.
+
+
+```html
+<span class="tooltip-wrap">
+  <button class="btn btn-ghost btn-sm" aria-describedby="tt-sync">Sync</button>
+  <span class="tooltip" id="tt-sync" role="tooltip">Pushes local tokens to Figma</span>
+</span>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Anchor | `.tooltip-wrap` | `position: relative`, `inline-flex` — wraps the trigger, doesn't replace it |
+| Bubble | `.tooltip` | 220px max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
+| Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
+
+**Rules.**
+- **Opens on hover and on focus.** A tooltip reachable only by pointer fails § 6 floor #5.
+- **At most one tooltip is open at a time (RIGID).** Opening one closes every other — two bubbles on screen overlap, and an overlapped label is a label that can't be read. `Escape` closes; scrolling closes. This cannot be expressed in CSS (`:hover` has no memory of the others), so the open state is the `.is-open` class and a controller owns it. A tooltip that opens on a bare `:hover` rule is off-system.
+- The trigger references it with `aria-describedby`; the bubble is `role="tooltip"`. A tooltip with no trigger relationship is decoration.
+- **No interactive content.** No links, no buttons, no form controls — there is no accessible path to reach them.
+- Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in `.help` or in an § 3.16 Alert.
+- No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
+- Plain text only, one or two lines. A tooltip that needs a title is an alert.
+
+**Do / Don't.** Do keep one tooltip open at a time, opened on hover *and* on focus. Two bubbles on screen overlap, and an overlapped label cannot be read. Don't put a link, a button, or anything required inside a tooltip. There is no accessible path to reach it, and it disappears the moment the pointer leaves.
+
+### Navigation
+
+**Site:** § 30 Navigation.
+
+**Usage**
+
+*Use it when*
+- The sidebar for documentation; the top bar for marketing.
+- The sidebar when there are more than five destinations.
+
+*Use something else when*
+- A linear journey with an order → Stepper.
+
+
+- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.
+- **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (the group *Feedback* names badges, chips, alerts and toasts as one family) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
+- **Top nav** for marketing only.
+
+#### Top bar
+
+The bar at the top of a page: the brand, the destinations, one action. Flat and flush; at narrow widths its links move to the Drawer menu.
+
+```html
+<header class="navbar">
+  <a class="navbar-brand" href="/"><span class="brand-mark"><img src="mark.png" alt=""></span>Name</a>
+  <nav class="navbar-nav" aria-label="Main">
+    <ul class="navbar-list">
+      <li><a class="navbar-item" href="/work" aria-current="page" data-label="Work">Work</a></li>
+      <li><a class="navbar-item" href="/about" data-label="About">About</a></li>
+    </ul>
+  </nav>
+  <div class="navbar-end">
+    <a class="btn btn-primary btn-sm" href="/contact">Contact</a>
+    <button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu"
+            aria-haspopup="dialog" aria-expanded="false" aria-controls="menu"><!-- icon "menu" --></button>
+  </div>
+</header>
+<dialog class="drawer drawer-nav" id="menu" aria-labelledby="menu-title">…</dialog>
+```
+
+| Part | Class | Spec |
+|---|---|---|
+| Bar | `.navbar` | `--surface-sunken`, a `1px` `--border-subtle` line below, no radius; min-height `--s-12`; sticky at the top on `--z-sticky` |
+| Brand | `.navbar-brand` | The Brand mark at `--s-8` and the name at `--t-body` 700; inset `--s-6` from the start edge |
+| Destinations | `.navbar-nav` `.navbar-list` `.navbar-item` | A `nav` with an `aria-label`; items as tall as the bar, padding-inline `--s-4`, `--t-small` 500 |
+| End | `.navbar-end` | One action (a small primary button) and the toggle; inset `--s-6` from the end edge |
+| Toggle | `.navbar-toggle` | A ghost icon button with the icon *menu*; shown only at narrow widths |
+
+**Rules.**
+- **Flat and flush.** No radius, no floating variant, no shadow on scroll. The bar is separated from the page by its line only.
+- **The item is the target.** Each item takes the full height of the bar, so the target is 48px wide-open (§ 6 floor #7).
+- **States.** Hover fills `--obsidian-800`; pressed goes one step further, `--obsidian-700`. The darkening rule of the pressed fill is for coloured fills; a neutral fill on the dark surface steps away from the bar, as the hover does. The current page is `--primary-400` at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against `--obsidian-200` is 1.44:1 (WCAG 1.4.1). `data-label` repeats the label so its bold width is reserved and selecting an item never moves its neighbours.
+- **Focus inside.** The ring is drawn inside the item, as on the List's row, so the bar clips nothing.
+- **It reads its own width.** The bar is a size container: at 720px of its own width or less (`--bp-md`) the destinations and the action leave and the toggle appears. The same markup works in a page, a frame or a panel.
+- **The menu opens on the toggle's side.** The toggle opens the Drawer menu (`.drawer.drawer-nav`, § 3.24) with `showModal()`; a toggle at the end opens it at the end, one at the start uses `.drawer-start`. The action moves into the drawer's foot.
+- **The glyph sits on the inset.** The toggle is pulled out by the space around its 16px glyph, so the icon lines up with the brand's edge on the other side.
+- **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.6).
+- **Motion.** Background and colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 06.4).
+
+**Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round it, float it, underline the current item or open its menu on the side opposite the toggle.
+- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.28.
+
+### Tabs
+
+**Site:** § 31 Tabs.
+
+**Usage**
+
+*Use it when*
+- Related views of one page, read one at a time.
+
+*Use something else when*
+- Moving between pages → Navigation.
+- A linear process → Stepper.
+- The reader needs several sections open at once → Accordion.
+
+
+```html
+<div class="tabs" role="tablist" data-tabs>
+  <button class="tab active" role="tab" aria-selected="true" data-panel="p1">First</button>
+  <button class="tab" role="tab" aria-selected="false" data-panel="p2">Second</button>
+  <span class="tab-indicator" aria-hidden="true"></span>
+</div>
+<div class="tab-panels">
+  <div class="tab-panel active is-in" id="p1" role="tabpanel">…</div>
+  <div class="tab-panel" id="p2" role="tabpanel">…</div>
+</div>
+```
+
+**Required classes:**
+- `.tabs` — wrapper, `position:relative`, bottom border 1px `--obsidian-800`.
+- `.tab` — trigger button. `.active` sets weight 600 + text `--obsidian-100`.
+- `.tab-indicator` — single magenta underline, `position:absolute; bottom:-1px; height:2px; width:0`. Positioned by JS via `transform: translateX(...)` + `width`.
+- `.tab-panels` / `.tab-panel` — panels hidden via `display:none`; `.active` reveals; `.is-in` fades in.
+
+**Indicator positioning (canonical JS pattern):**
+```javascript
+function moveIndicator(tab){
+  const rect = tab.getBoundingClientRect();
+  const parentRect = tablist.getBoundingClientRect();
+  indicator.style.width = rect.width + 'px';
+  indicator.style.transform = 'translateX(' + (rect.left - parentRect.left) + 'px)';
+}
+```
+Use `will-change: transform, width` on the indicator.
+
+**Initial position:** double `requestAnimationFrame` so layout is measured after first paint. Re-measure on `window.resize`, and also when the parent section becomes visible (the tablist may live inside a hidden `.section` on first paint and `getBoundingClientRect` returns zeros). An `IntersectionObserver` at threshold 0.01 covers that case.
+
+**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
+| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+
+**Rules:**
+- Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
+- Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
+
+**Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
+
+### Breadcrumb
+
+**Site:** § 32 Breadcrumb.
+
+**Usage**
+
+*Use it when*
+- A hierarchy deeper than two levels.
+
+*Use something else when*
+- A flat site → Navigation alone.
+- Progress through a flow → Stepper.
+- As the only navigation → it sits beside Navigation, never instead.
+
+
+```html
+<div class="breadcrumb">
+  <span>Work</span><span class="sep">/</span><span class="active">Case study</span>
+</div>
+```
+
+- Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
+- In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
+- ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
+
+**Do / Don't.** Do wrap a breadcrumb that navigates in `<nav aria-label="Breadcrumb">` and mark the current page with `aria-current="page"`. Don't use it as the only navigation, or to show progress through a flow: that is a Stepper.
+
+### Pagination
+
+**Site:** § 33 Pagination.
+
+Links between the pages of one set of items. A `nav` of numbered links, or, in a narrow space, previous, status and next.
+
+**Usage**
+
+*Use it when*
+- Pages of similar items too long for one page: search results, a list of case studies.
+- The rows of a table that do not fit on the screen, in the compact form below it.
+
+*Use something else when*
+- A linear journey such as a form → a Continue button and a Back link.
+- Only one page → show nothing.
+- Content that sits on one page without slowing it → no pagination.
+
+```html
+<nav class="pagination" aria-label="Pagination">
+  <a class="pagination-link" href="/cases?page=5" rel="prev" aria-label="Previous page"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
+  <ul class="pagination-list">
+    <li><a class="pagination-link" href="/cases?page=1" aria-label="Page 1">1</a></li>
+    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
+    <li><a class="pagination-link" href="/cases?page=5" aria-label="Page 5">5</a></li>
+    <li><a class="pagination-link" href="/cases?page=6" aria-label="Page 6" aria-current="page">6</a></li>
+    <li><a class="pagination-link" href="/cases?page=7" aria-label="Page 7">7</a></li>
+    <li><span class="pagination-gap" aria-hidden="true">…</span></li>
+    <li><a class="pagination-link" href="/cases?page=12" aria-label="Page 12">12</a></li>
+  </ul>
+  <a class="pagination-link" href="/cases?page=7" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
+</nav>
+
+<!-- compact: for narrow spaces and table footers; on the first page Previous is disabled, with no href -->
+<nav class="pagination" aria-label="Pagination">
+  <a class="pagination-link" rel="prev" aria-label="Previous page" aria-disabled="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 3L5 8l5 5"/></svg><span>Previous</span></a>
+  <span class="pagination-status">Page 1 of 12</span>
+  <a class="pagination-link" href="/cases?page=2" rel="next" aria-label="Next page"><span>Next</span><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></a>
+</nav>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Nav | `.pagination` | The `nav`, with an `aria-label`. Flex, gap `--s-1`. Sits below the set it pages, never inside it |
+| List | `.pagination-list` | The numbered pages, a `ul` with no marker |
+| Link | `.pagination-link` | A page, Previous or Next. A 32px target (`--s-8`), `--r-md`, type `--t-small` with tabular numerals. Previous and Next carry the § 3.1 chevron and a word |
+| Gap | `.pagination-gap` | `…` for the pages left out. Not a link, hidden from the screen reader |
+| Status | `.pagination-status` | The compact form's "Page 6 of 12": text, not a link |
+
+**Rules.**
+- **What to show.** The first page, the last page, the current page and one on each side; a gap stands for the rest. A gap never sits at an end, and a gap for a single page shows that page instead. Under `--bp-sm` use the compact form; the numbered one still fits there, as icons without their words, but it is the fallback.
+- **The current page is marked, not hidden.** `aria-current="page"` on its link, with the fill and the border of § 3.0.1. It stays a link.
+- **Name every link (WCAG 2.5.3).** A number carries `aria-label="Page 6"`. Previous and Next carry `rel="prev"` and `rel="next"`, and their arrows are decorative.
+- **The ends stay in place.** On the first page Previous is disabled, on the last page Next is: `aria-disabled="true"` and no `href`, so the row does not move and the link is not a target.
+- **Pages are addresses.** Each page is a URL that loads without script. The page number goes in the document title ("Search results, page 6 of 12"), and a page that no longer exists goes to the first.
+- **Not for a journey, and not scrolling forever.** A form or any linear journey takes a Continue button and a Back link. Infinite scroll takes the keyboard away from the reader; it is not a replacement.
+- **Motion.** Hover and focus change the background and the colour on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
+
+**Do / Don't.** Do mark the current page with `aria-current`, name every number and put the page number in the title. Don't use it for a form, show it for a single page, or replace it with infinite scroll.
+
+### Stepper
+
+**Site:** § 34 Stepper.
+
+The steps of a linear journey, in order: done, current, upcoming. It shows where the reader is; it does not move them.
+
+**Usage**
+
+*Use it when*
+- A linear flow: forms, onboarding, checkout.
+- Three or more steps.
+
+*Use something else when*
+- Fewer than three steps → a Next button.
+- Steps that can be done in any order → Tabs.
+
+```html
+<nav class="stepper" aria-label="Checkout">
+  <ol class="stepper-list">
+    <li class="stepper-step is-done" style="--i:0">
+      <span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span>
+      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span>
+    </li>
+    <li class="stepper-step" aria-current="step" style="--i:1">
+      <span class="stepper-dot">2</span>
+      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Current: </span>Payment</span><span class="stepper-meta">In progress</span></span>
+    </li>
+    <li class="stepper-step" style="--i:2">
+      <span class="stepper-dot">3</span>
+      <span class="stepper-text"><span class="stepper-label">Review</span><span class="stepper-meta">Pending</span></span>
+    </li>
+  </ol>
+</nav>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Stepper | `.stepper` | A `nav` with a name; a size container. `.stepper-vertical` forces the column |
+| List | `.stepper-list` | An `ol`: the order is the meaning |
+| Step | `.stepper-step` | Upcoming by default; `.is-done`; the current one carries `aria-current="step"`. `--i` is its index, for the reveal |
+| Dot | `.stepper-dot` | 24px (`--s-6`), the current one 32px (`--s-8`), a circle. Done: the `check` icon; otherwise the number |
+| Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta mono `--t-micro` uppercase |
+| Hidden word | `.stepper-sr-only` | "Completed: " and "Current: " for the screen reader; colour never carries the state alone |
+
+**Rules.**
+- **Horizontal while the labels fit.** Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); `.stepper-vertical` forces the column for long labels or more steps.
+- **One current step.** Exactly one `aria-current="step"`; done steps before it, upcoming steps after.
+- **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
+- **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
+- **Not a control.** The steps are not links: going back is the flow's own Back button.
+- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+
+**Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
+
+**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
+
+### Card
+
+**Site:** § 35 Card.
+
+**Usage**
+
+*Use it when*
+- One project or one stat: micro-header, title, body, at most one action.
+- A concept the reader scans and acts on as one unit.
+
+*Use something else when*
+- Secondary information shown on demand → Popover or Modal.
+- A gradient background → never; the surface stays on the obsidian ramp.
+
+
+```html
+<div class="card">
+  <div class="card-meta"><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
+  <div class="card-media"><img src="cover.jpg" alt="The center stack of the Arc HMI"></div>
+  <h3>Arc · Automotive HMI</h3>
+  <p>Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+  <div class="card-actions"><button type="button" class="btn btn-secondary">Open case file</button></div>
+</div>
+```
+
+- Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
+- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
+- **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
+- **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
+- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+- **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+
+**Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
+
+**Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
+
+### Accordion
+
+**Site:** § 36 Accordion.
+
+**Usage**
+
+*Use it when*
+- Dense reference content: headers scanned first, read selectively.
+- Multi-open sparingly, when answers are compared side by side.
+
+*Use something else when*
+- Content the reader will read in full → a page with headings.
+- Switching quickly between sections → Tabs.
+
+
+- Single-open by default.
+- Chevron rotates 90° on expand.
+- Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
+| close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
+| open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
+| close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
+| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
+
+**Do / Don't.** Do open one panel at a time by default, each header a real button with `aria-expanded`. Don't fold away content the reader will read in full: that is a page with headings.
+
+### Divider
+
+**Site:** § 37 Divider.
+
+A hairline between two blocks of one container: a thematic break. Three forms: horizontal, vertical, and horizontal with a word in the middle.
+
+**Usage**
+
+*Use it when*
+- A change of topic inside one container: two blocks of a card, a modal or a menu.
+- Groups side by side that need a boundary: the groups of a toolbar.
+
+*Use something else when*
+- The rows of a List or a Table → the row's own hairline.
+- Space already separates the blocks → no line.
+- The sections of a page → a heading and space.
+
+```html
+<!-- horizontal: a thematic break; the implicit role is separator -->
+<hr class="divider">
+
+<!-- vertical: a div has no meaning of its own, so it carries the role -->
+<div class="divider divider-vertical" role="separator" aria-orientation="vertical"></div>
+
+<!-- with a word: not a separator, the word is content -->
+<div class="divider-label"><span>or</span></div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Horizontal | `.divider` | An `hr`: 1px, `--obsidian-700`, the full width of its container, no margin |
+| Vertical | `.divider-vertical` | A `div` that stretches to the height of its row (`align-self: stretch`, min `--s-4`) |
+| Label | `.divider-label` | Two lines around a word, `--t-caption` · `--obsidian-300`, gap `--s-3` |
+
+**Rules.**
+- **A break, not decoration.** The horizontal divider is an `hr`: a change of topic, with the implicit role `separator`. A line that only decorates is not a Divider: the rows of a List and a Table already carry their own hairline.
+- **The vertical one names itself.** A `div` has no meaning, so it carries `role="separator"` and `aria-orientation="vertical"`. The parent has a definite height or is a flex row.
+- **The labelled one is content.** It has no `role="separator"`: that role makes its children presentational and the word would be lost to the screen reader. The two lines are pseudo-elements.
+- **The space belongs to the container.** No margin on the divider: the gap on both sides is the parent's (`--s-4` to `--s-6`), like the icon's.
+- **One weight, one colour.** `--obsidian-700`, 1px. `--border-subtle` (`--obsidian-800`) vanishes inside a card, which is `--obsidian-800`; a heavier line is a different component, not a thicker divider.
+- **Static.** No hover, no focus, no motion.
+
+**Do / Don't.** Do draw it where the topic changes and let the container give the space on both sides. Don't put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.
+
+### Chat & Messaging
+
+**Site:** § 38 Chat.
+
+For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
+
+**Usage**
+
+*Use it when*
+- Conversational interfaces: a chatbot, an assistant.
+
+*Use something else when*
+- A one-way notice from the system → Toast or Alert.
+- Reference content the reader consults, not a dialogue → a page or Accordion.
+
+
+```html
+<div class="chat-stage" aria-label="Conversation with Amaca">
+  <div class="chat-stage-head">…</div>
+  <div class="chat-stage-scroll" role="log" aria-live="polite" aria-relevant="additions">
+    <div class="chat-msg chat-msg-bot">
+      <div class="chat-avatar chat-avatar-bot" aria-hidden="true">AM</div>
+      <div class="chat-stack">
+        <div class="chat-meta"><span class="chat-meta-name">Amaca</span><span class="chat-meta-time">10:42</span></div>
+        <div class="chat-bubble chat-bubble-bot">
+          <span class="chat-sr-only">Amaca said: </span>
+          <div class="chat-bubble-content">Welcome.</div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-msg chat-msg-own">
+      <div class="chat-stack">
+        <div class="chat-bubble chat-bubble-own">
+          <span class="chat-sr-only">You said: </span>
+          <div class="chat-bubble-content">Hi.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+**Required classes:**
+- `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
+- `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
+- `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
+- `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
+- `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
+- `.chat-meta` — sender + time row, only on the first bubble of a streak.
+- `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
+- `.chat-sr-only` — visually-hidden sender prefix inside every bubble (`"Amaca said: "` / `"You said: "` / `"Amaca sent a file: "`). The avatar streak-suppression rule means screen readers would otherwise lose sender identity on bot follow-ups.
+
+**Reserved colors:**
+- Own bubbles fill with `--primary-700` — the deep brand accent.
+- The brighter `--primary-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
+- A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
+
+**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
+| message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
+| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
+| roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
+| send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
+
+**Typing indicator:**
+- Lives **inside a bot bubble** (`.chat-bubble.chat-bubble-typing`), never floats as a gutter caption. For a single-bot UI the avatar already says who's typing.
+- Three `.chat-dot` spans inside `.chat-typing`. Each: `width 6px; height 6px; background --obsidian-300`.
+- Animation: `chat-dot-wave`, infinite — spec in the motion table above. Stagger via `animation-delay` on `:nth-child(2)` and `:nth-child(3)`.
+- The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
+
+**Composer:**
+- `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
+- `.chat-composer-send` idle: `--obsidian-700` background, `--obsidian-400` color. With `.is-ready` (first keystroke): `--primary-500` background, `--obsidian-950` color. Send hover at ready: `transform: scale(1.04)`.
+- Composer focus-within: border shifts to `--primary-500` + `--ring-field` — same focus treatment as `.input`.
+- Enter sends. `⇧ Enter` inserts a newline.
+- Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
+
+**Day separator:**
+- `.chat-day` — inserted between bubbles when the date changes. Mono label centered between two hairline rules. Use "Today", "Yesterday", or `DD MMM` for older.
+
+**Accessibility:**
+- `.chat-stage-scroll` carries `role="log" aria-live="polite" aria-relevant="additions"`. New bubbles announce; the demo wrapper does not.
+- Every visible bubble has a `.chat-sr-only` sender prefix as its first child. `.chat-bubble-typing` carries `aria-label="<name> is typing"`; `.chat-bubble-media` carries an `.chat-sr-only` prefix `"<name> sent a file: "`.
+- Composer attach, send, and any replay buttons get a dual-ring focus state (§ 6.2).
+- Touch hit areas on composer buttons bump from 36 to 44px below 720px wide.
+
+**Rules:**
+- One avatar per streak. The rest of the streak uses `.chat-avatar-spacer` for column alignment, never repeats the avatar.
+- Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
+- After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion `.is-out` still hides (instantly), per the motion table.
+
+**Do / Don't.** Do own bubbles fill with `--primary-700` — the deep brand accent. Bright `--primary-500` stays reserved for CTAs and focus rings. Don't paint own bubbles with `--primary-500`. The bubble starts reading as a CTA and the actual primary action on the page loses its weight.
+
 ### Swatch
+
+**Site:** § 39 Swatch.
 
 A token shown, not pressed. Eight forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the space tile, the radius tile, the shadow tile, the motion tile of an easing, and the icon tile of the album: the order of the foundations.
 
@@ -2874,108 +2632,316 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 - **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
 - **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).
 - **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
-- **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.13).
+- **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.43).
 
 **Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, loop a motion tile for ever, or stretch the hex swatch out of a regular hexagon.
 
-### Stepper
+### Avatar
 
-The steps of a linear journey, in order: done, current, upcoming. It shows where the reader is; it does not move them.
+**Site:** § 40 Avatar.
 
-**Usage**
-
-*Use it when*
-- A linear flow: forms, onboarding, checkout.
-- Three or more steps.
-
-*Use something else when*
-- Fewer than three steps → a Next button.
-- Steps that can be done in any order → Tabs.
-
-```html
-<nav class="stepper" aria-label="Checkout">
-  <ol class="stepper-list">
-    <li class="stepper-step is-done" style="--i:0">
-      <span class="stepper-dot"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg></span>
-      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Completed: </span>Cart</span><span class="stepper-meta">2 items</span></span>
-    </li>
-    <li class="stepper-step" aria-current="step" style="--i:1">
-      <span class="stepper-dot">2</span>
-      <span class="stepper-text"><span class="stepper-label"><span class="stepper-sr-only">Current: </span>Payment</span><span class="stepper-meta">In progress</span></span>
-    </li>
-    <li class="stepper-step" style="--i:2">
-      <span class="stepper-dot">3</span>
-      <span class="stepper-text"><span class="stepper-label">Review</span><span class="stepper-meta">Pending</span></span>
-    </li>
-  </ol>
-</nav>
-```
-
-| Part | Class | Note |
-|---|---|---|
-| Stepper | `.stepper` | A `nav` with a name; a size container. `.stepper-vertical` forces the column |
-| List | `.stepper-list` | An `ol`: the order is the meaning |
-| Step | `.stepper-step` | Upcoming by default; `.is-done`; the current one carries `aria-current="step"`. `--i` is its index, for the reveal |
-| Dot | `.stepper-dot` | 24px (`--s-6`), the current one 32px (`--s-8`), a circle. Done: the `check` icon; otherwise the number |
-| Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta mono `--t-micro` uppercase |
-| Hidden word | `.stepper-sr-only` | "Completed: " and "Current: " for the screen reader; colour never carries the state alone |
-
-**Rules.**
-- **Horizontal while the labels fit.** Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); `.stepper-vertical` forces the column for long labels or more steps.
-- **One current step.** Exactly one `aria-current="step"`; done steps before it, upcoming steps after.
-- **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
-- **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
-- **Not a control.** The steps are not links: going back is the flow's own Back button.
-- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
-
-**Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
-
-**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
-
-### Progress
-
-How far a task with a known end has come: a track, a fill and the value written beside it.
+A circle that says **who a person, team or account is**: their picture, their initials or, with no name at all, a person glyph. It sits beside a name or stands in for it, and it is always a circle.
 
 **Usage**
 
 *Use it when*
-- A wait with a known end, longer than about three seconds.
+- Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.
+- Several people share one item and a count is enough: a stack of up to five.
 
 *Use something else when*
-- A short or unknown wait → Loader.
-- Content arriving into a known layout → Skeleton.
-- Steps the reader takes → Stepper.
+- A picture of a thing rather than of a person or account: a product, a place → an image in a Card.
+- A count or a status standing alone → Badge.
+- An icon that stands for an action → an icon-only Button, § 3.6.
 
 ```html
-<div class="progress">
-  <span class="progress-label" id="upload-label">Upload</span>
-  <div class="progress-track" role="progressbar" aria-labelledby="upload-label"
-       aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
-    <div class="progress-fill" style="--value:60%"></div>
-  </div>
-  <span class="progress-value">60%</span>
+<!-- on its own: the name is the only information -->
+<span class="avatar" role="img" aria-label="Anna Rossi">
+  <img class="avatar-img" src="anna.jpg" alt="" onerror="this.remove()">
+  <span aria-hidden="true">AR</span>
+</span>
+
+<!-- beside the name: decorative -->
+<span class="avatar avatar-sm" aria-hidden="true">AR</span> Anna Rossi
+
+<!-- a status, named in the label -->
+<span class="avatar avatar-lg" role="img" aria-label="Anna Rossi, online">
+  <span aria-hidden="true">AR</span>
+  <i class="avatar-dot" data-status="online" aria-hidden="true"></i>
+</span>
+
+<!-- a group: the last slot is the count -->
+<div class="avatar-group" role="group" aria-label="Team">
+  <span class="avatar" role="img" aria-label="Anna Rossi"><span aria-hidden="true">AR</span></span>
+  <span class="avatar" role="img" aria-label="Marco Bianchi"><span aria-hidden="true">MB</span></span>
+  <span class="avatar avatar-more" role="img" aria-label="3 more people">+3</span>
 </div>
 ```
 
 | Part | Class | Note |
 |---|---|---|
-| Progress | `.progress` | A row: label, track, value, gap `--s-4`. `.progress-sm` for the 4px bar |
-| Label | `.progress-label` | Mono `--t-micro` uppercase `--obsidian-300`; it names the bar |
-| Track | `.progress-track` | `role="progressbar"`, 8px (`--s-2`) or 4px, `--obsidian-700`, `--r-full` |
-| Fill | `.progress-fill` | Width from `--value`, `--grad-progress`, `--sh-glow-soft` |
-| Value | `.progress-value` | `--t-small` `--obsidian-100`, tabular figures; the number is always written |
+| Avatar | `.avatar` | A circle, `--obsidian-700` on `--obsidian-600`, 32px. Sizes: `.avatar-sm` 24 · default 32 · `.avatar-lg` 40 · `.avatar-xl` 48 · `.avatar-2xl` 64 |
+| Image | `.avatar-img` | `cover` inside the circle. It sits over the initials, so if it fails to load the initials show |
+| Brand mark | `.avatar-mark` | `--obsidian-850`, the mark contained at 56% of the side. For Amaca itself, never for a person |
+| Initials | the inner `<span>` | At most two letters, weight 700: `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` by size |
+| Hue | `.avatar-hue-1` … `-5` | Optional tints to tell people apart in a long list: `--primary-300` · `--info` · `--success` · `--warning` · `--tertiary-200`, the badge recipe |
+| Status | `.avatar-dot` `[data-status]` | Bottom right, ringed in `--avatar-ring`; `online` `away` `busy` `offline` |
+| Group | `.avatar-group` `.avatar-more` | Overlapped by a quarter of the side; the "+N" is the last slot and has the same size |
 
 **Rules.**
-- **Two heights.** 8px by default; `.progress-sm`, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.
-- **Named and valued.** The track carries `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name; the value is also written as text.
-- **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
-- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
+- **Always a circle (RIGID).** There is no square variant, and the shape never means "person" or "organisation". A team or an account is told apart by its image or its initials, not by its corners.
+- **The name sits on the wrapper (RIGID).** `role="img"` with `aria-label="Anna Rossi"`; the image has `alt=""` and the initials are `aria-hidden`. Next to the name in text the whole avatar is `aria-hidden="true"`, so the name is read once. An avatar with no name and no text beside it is a defect.
+- **Image, then initials, then the glyph.** The image fails over to the initials by itself (`onerror="this.remove()"` in the markup, no script of the system). With no name there is the `user` icon of § 3.1 at 60% of the side, `--obsidian-300`. Initials are at most two letters.
+- **Neutral by default.** Every avatar starts on `--obsidian-700`. The five `.avatar-hue-*` tints are for telling people apart in a long list, assigned by the caller from a stable key such as the id, never by position and never reshuffled. `--danger` is not one of them: it reads as an error.
+- **A 1px edge on every variant,** the image included, so a dark photo and a light one weigh the same on a dark page.
+- **Status is never colour alone (WCAG 1.4.1).** The offline dot is a hollow ring, and the status goes in the accessible name: "Anna Rossi, online". The ring around the dot is the surface the avatar sits on: set `--avatar-ring` on a card (`--obsidian-800`); the default is the page, `--obsidian-950`.
+- **Groups.** Overlap is a quarter of the side, and each avatar is cut out of the one before by `--bw-2` of the surface, so it works on any background. The last avatar sits on top. Show at most five slots; past that the fifth is "+N", the same size, labelled "N more people".
+- **Interactive only when it goes somewhere.** An `<a>` or a `<button>` carries `.avatar` and its label names the destination ("Open Anna Rossi's profile"). Hover moves the edge to `--primary-400`, pressed to `--primary-500`, focus is the pressable ring. Any other avatar does not react.
+- **Motion.** The edge colour on `--d-quick` · `--ease-standard` — a row in the § 06.4 index; reduced motion is instant.
+- **No other states.** The avatar is not disabled, selected or loading; a pending picture shows the initials.
 
-**Do / Don't.** Do write the value beside the bar and name the bar. Don't use it for an unknown wait, or stack two bars for one task.
+**Do / Don't.** Do give the avatar a name the screen reader can say. Don't use it as decoration or to mark a thing that is not a person or an account.
+
+### List
+
+**Site:** § 41 List.
+
+Rows in a column. Either **many things of one kind**, one row each (the items), or **the facts of one thing**, one row per fact (the summary). The same hairlines and the same type; what sits in the row is what differs.
+
+**Usage**
+
+*Use it when*
+- Many things of one kind, each a line or two, to scan or open: projects, settings, people.
+- The facts of one item as label and value pairs, with an action beside a value to change it.
+
+*Use something else when*
+- Several columns to compare or sort → Table, § 3.38.
+- A choice from a fixed set → Select or Radio.
+- Bullets inside running text → a plain `ul` or `ol` in the prose, no component.
+
+```html
+<!-- items: static rows -->
+<ul class="list">
+  <li>
+    <div class="list-item">
+      <span class="avatar" role="img" aria-label="Arc"><span aria-hidden="true">AR</span></span>
+      <span class="list-body"><span class="list-title">Arc · Automotive HMI</span><span class="list-meta">CS-017 · 2025</span></span>
+      <span class="list-end"><span class="badge badge-brand">Live</span></span>
+    </div>
+  </li>
+</ul>
+
+<!-- items: a row that opens something is an a or a button -->
+<ul class="list">
+  <li>
+    <a class="list-item" href="/settings/profile">
+      <svg class="icon icon-fill" viewBox="0 0 16 16" aria-hidden="true" focusable="false">…</svg>
+      <span class="list-body"><span class="list-title">Profile</span><span class="list-meta">Name, photo, language</span></span>
+      <span class="list-end"><svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
+    </a>
+  </li>
+</ul>
+
+<!-- summary: the facts of one item -->
+<dl class="list-summary">
+  <div>
+    <dt class="list-key">Owner</dt>
+    <dd class="list-value">Anna Rossi</dd>
+    <dd class="list-actions"><button type="button" class="btn btn-ghost btn-sm" aria-label="Change owner">Change</button></dd>
+  </div>
+  <div>
+    <dt class="list-key">Last updated</dt>
+    <dd class="list-value">12 Aug 2026</dd>
+    <dd class="list-actions"></dd>
+  </div>
+</dl>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| List | `.list` | A `ul` with no marker; a hairline `--obsidian-700` above the first row and under every row (the border sits on the `li`). Nothing around it: no box, no radius |
+| Item | `.list-item` | The row, inside the `li`: `div` when static, `a` or `button` when it opens something. Min-height `--s-12`, padding `--s-3` `--s-4`, gap `--s-3`, type `--t-small` |
+| Body | `.list-body` `.list-title` `.list-meta` | The text: a title and an optional meta line (`--t-caption`, `--obsidian-300`) |
+| End | `.list-end` | Badge, action or chevron, pushed to the right edge, gap `--s-2` |
+| Summary | `.list-summary` | A `dl` of rows, each a `div` of `dt` and `dd`; three columns that line up from one row to the next (key · value · `--s-20` of actions). Stacks under 720px (`--bp-md`) |
+| Key | `.list-key` | The label, in the mono register of `.label` (`--t-micro`, uppercase, `--obsidian-300`) |
+| Value | `.list-value` | The fact, `--t-small`, `--obsidian-100` |
+| Actions | `.list-actions` | One short action at the right edge, or the empty `dd` so the columns hold |
+
+**Rules.**
+- **A row is one thing.** Every row of a list has the same parts in the same order; a row that needs more columns is a Table row, § 3.25. A list is not nested inside a row.
+- **Static or interactive, by the element.** A `div` row has no hover and no pointer. An `a` or a `button` row has hover, focus-visible and disabled (`aria-disabled="true"`), values in § 3.0.1. The whole row is the one target: no link around a row that holds a button.
+- **Name every action (WCAG 2.5.3).** An icon-only action in a row carries an `aria-label` that says which row (`More actions for Arc`). A text action keeps its visible word at the start of its name (`Change owner`).
+- **Summary semantics.** `dl` with a `div` per row is valid HTML; each `dt` has at least one `dd`. A fact without a value is not a row.
+- **The hairlines stay.** They tie each row to its action and help the reader who zooms. Drop them only in a list with no actions, and then for the whole list.
+- **One density.** One row height; there is no small or large list. A list that has to be denser is a Table.
+- **Motion.** Hover changes the background on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
+
+**Do / Don't.** Do keep the same parts in every row and name every action in a row. Don't put columns in a row to compare them, nest a list in a row, or wrap a whole row in a link and put a button inside it.
+
+### Table
+
+**Site:** § 42 Table.
+
+**Usage**
+
+*Use it when*
+- Content, not chrome.
+- Comparing values across rows and columns.
+
+*Use something else when*
+- Laying out a page → Grid.
+- Key facts about one item → List.
+
+
+```html
+<table class="table">
+  <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+  <tbody>
+    <tr><td><code>--s-4</code></td><td>16</td><td class="muted">Default content gap</td></tr>
+  </tbody>
+</table>
+```
+
+```html
+<!-- sortable: a button in each header that sorts; the driver th carries aria-sort -->
+<table class="table">
+  <thead><tr>
+    <th aria-sort="ascending"><button class="table-sort" type="button">Project <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
+    <th><button class="table-sort" type="button">Updated <svg class="icon icon-xs table-sort-asc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M5.5 3.5h2M3.75 8h3.75M2 12.5h5.5M12 13.5v-11M10 4.5l2-2 2 2"/></svg><svg class="icon icon-xs table-sort-desc" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 3.5h5.5M3.75 8h3.75M5.5 12.5h2M12 2.5v11M10 11.5l2 2 2-2"/></svg></button></th>
+  </tr></thead>
+  <tbody>
+    <tr><td>Atlas</td><td data-sort="2026-10-12">12 Oct</td></tr>
+  </tbody>
+</table>
+```
+
+| Part | Treatment |
+|---|---|
+| Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
+| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
+| Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
+| Row rule | `1px solid --obsidian-800`; the last row drops it |
+| Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
+| Secondary cell | `.muted` — `--obsidian-300` |
+| Sort button | `.table-sort` — a `<button>` that fills its header cell, label then icon at 14 (`.icon-xs`), gap `--s-2`; it carries both drawings, `.table-sort-asc` and `.table-sort-desc`, and the header shows one |
+| Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--obsidian-200`; one per table |
+| Sort value | `data-sort` on a cell whose text does not sort as written (a date, a size); otherwise the text, compared with numbers in order |
+
+**Rules.**
+- No zebra striping. The row rule carries the scan; a second device would double the noise.
+- Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
+- The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.10).
+- A table wider than its container scrolls in a wrapper — never shrink the type to fit.
+- Tables are content, not chrome: no hover row highlight unless the row is a link or a control.
+- **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
+- **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
+- **The whole header is the target.** The button fills the cell, so the target is the header's height and width, never the icon alone. Focus is the pressable halo with the outline inside the cell (offset `-2px`, as the date picker's days): the frame clips the halo on the table's outer edges, the outline always shows.
+
+**Do / Don't.** Do open a sortable table already sorted, with its driver named by `aria-sort` and a step lighter. Don't let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.
+
+### Chart card
+
+**Site:** § 43 Charts.
+
+**Usage · Charts**
+
+*Use it when*
+- Bars for comparison, labelled at the value; the donut for composition.
+- Lines for trends over time and for several series.
+- Areas for cumulative totals.
+
+*Use something else when*
+- Several time series → lines, not bars.
+- Five points or fewer → bars, not a line.
+
+
+```html
+<div class="chart-card">
+  <div class="chart-head"><span class="t">Retention · D30</span><span class="s">CS-017</span></div>
+  <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
+  <div class="chart-delta">+2.4 vs Q2</div>
+</div>
+```
+
+- The card ramp (§ 3.31): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
+- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
+- `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
+- `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
+- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.35) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
+- **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
+- **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
+
+**Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
+
+| Part | Hook | Note |
+|---|---|---|
+| Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
+| Grid | a `<g>` of lines | `--border-subtle`; no hook, it does not move |
+| Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` mono, `--tr-mono`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
+| Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
+| Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
+| Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
+| Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r`, 6 on the 700 viewBox: 18px on a desktop card, halfway between the line's weight and the 24px done step of the Stepper |
+| Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's value is a `.chart-label-value` (`--obsidian-100`) whose `left` rides the bar's end and counts up; a column's peak value is a `.chart-label-center` |
+| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` mono uppercase `--obsidian-300` |
+
+- **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
+- **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
+- **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
+- **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
+- **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points `--d-quick` apart. Under reduced motion every part lands drawn.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
+| plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
+| plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
+| plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
+| plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
+
+**Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
+
+**Do / Don't.** Do give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px. Don't let a phone shrink the desktop drawing until its points and labels cannot be read.
+
+**Do / Don't.** Do start each part of the reveal when the one before it reads, with every duration, curve and delay from a token. Don't type a duration or a delay by hand, or give the plot a hover or a focus.
+
+### Pie
+
+**Site:** § 43 Charts.
+
+```html
+<div class="pie-wrap">
+  <svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">…</svg>
+  <ul class="pie-legend">
+    <li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct">54%</span></li>
+  </ul>
+</div>
+```
+
+- `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
+- `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.43).
+- `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
+- `.swatch` — the Swatch (§ 3.35), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.39) (§ 6 floor #1).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
+
+**Do / Don't.** Do give every slice its legend row, with its percentage written. Don't let colour carry a slice alone, or paste a hex where a palette token exists.
 
 ### Timeline
 
-A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.25) whose plot is lanes instead of series.
+**Site:** § 44 Timeline.
+
+A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.39) whose plot is lanes instead of series.
 
 **Usage**
 
@@ -3002,7 +2968,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 | Part | Class · hook | Note |
 |---|---|---|
-| Chart card | `.chart-card` `.chart-head` | the frame (§ 3.25); the badge counts the lanes |
+| Chart card | `.chart-card` `.chart-head` | the frame (§ 3.39); the badge counts the lanes |
 | Scroll | `.timeline-scroll` | scrolls sideways under the width the lanes need; nothing shrinks |
 | Plot | `.chart-plot` `.timeline-plot` | at least `--s-32` × 5 (640px); canvas `--primary-950`, the same margin left and right, and top and bottom |
 | Grid | a `<g>` of lines | `--border-subtle`, one line every two weeks; it does not move |
@@ -3012,7 +2978,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 | Bar label | `.timeline-bar-label` · `.timeline-bar-label-dark` | `--t-micro` 700: `--primary-950` on the light bars, `--primary-100` on the dark ones |
 | Today | a dashed line · `.timeline-today` | `--primary-200` dashed 3 3; the pill is HTML, `--t-micro` mono uppercase on `--primary-200`, `--r-xs` |
 
-- **Text is HTML, never inside the svg (RIGID)**: the § 3.25 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
+- **Text is HTML, never inside the svg (RIGID)**: the § 3.39 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
 - **Scroll, don't shrink.** Under 640px the plot keeps its size and the reader scrolls it sideways. A lane label smaller than its token is a defect.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index); dates and lanes are written as text.
 - **Colour never carries the work alone**: the bar label names it (§ 6 floor #1).
@@ -3026,7 +2992,9 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 ### Map
 
-Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.25) whose plot is the land.
+**Site:** § 45 Maps.
+
+Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.39) whose plot is the land.
 
 **Usage**
 
@@ -3061,7 +3029,7 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 | Cluster | `[data-cl]` `[data-st]` | the cells of one place; the colour of its worst state: `--primary-500` primary hub, `--warning` high load, `--danger` active incident |
 | Country | `[data-co]` | every land cell knows its country, so grey land lights a whole country on hover |
 | Target | `.hexmap-area` | one button per cluster over its bounding box, at least 24px (`--s-6`): the name, the focus and the anchor; it takes the pointer only under 720px |
-| Legend | `.chart-legend` · `.swatch-hex` | the Swatch as a regular pointy-top hexagon, 12px high (§ 3.40) |
+| Legend | `.chart-legend` · `.swatch-hex` | the Swatch as a regular pointy-top hexagon, 12px high (§ 3.35) |
 | Detail | `.popover` · `.drawer` | the cluster's name, its state and node count, and its nodes as a `.list`; a Popover on a wide screen, a Drawer under 720px |
 
 - **The cluster is the unit (RIGID).** Hover, focus and a click act on the whole cluster, never on one hex. The grid never moves: no scale, only light.
@@ -3084,7 +3052,129 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 
 **Do / Don't.** Do open the Popover inside the map, beside its cluster, and dim the rest of the land while it is open. Under 720px, open the Drawer instead. Don't let the popover leave the map or cover its cluster, or open a popover on a phone.
 
+### Diagrams
+
+**Site:** § 46 Diagrams.
+
+Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
+
+**Usage**
+
+*Use it when*
+- Flowcharts and system architecture, box and line with grouping.
+
+*Use something else when*
+- Sequence, tree or ER diagrams → out of scope.
+
+
+```html
+<figure class="diagram" data-anim="pending">
+  <div class="diagram-canvas" role="img" aria-label="…description…">
+    <template class="diagram-src">
+flowchart TD
+  P["Request + DESIGN.md"]:::focus --> R{"Token covers it?"}
+  R -->|yes| W["Reference var by name"]
+  R -->|no| A["Stop · ask owner"]
+  W --> C["85/10/5 + a11y pass"]
+  C --> S["Ship"]
+    </template>
+  </div>
+  <figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token-resolution path</figcaption>
+</figure>
+```
+
+**Required classes:**
+- `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
+- `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
+- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
+- `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
+
+**Theming — no hardcoded hex:**
+- Mermaid's `themeVariables` accepts only hex, which conflicts with the token-by-name contract. Resolve it: read the tokens off `:root` with `getComputedStyle` at runtime and pass those values into `themeVariables`; build the `:::focus` and state `classDef` strings from the same tokens at render time. The theming config holds zero hex literals — the source of truth stays `tokens.css`.
+
+**Token map:**
+
+| Element | Token |
+|---|---|
+| Canvas / background | `--obsidian-900` |
+| Node fill | `--obsidian-800` |
+| Node border · text | `--obsidian-600` · `--obsidian-100` |
+| Edge line + arrowhead | `--obsidian-500` |
+| Edge label | `--obsidian-300` on `--obsidian-900` |
+| Cluster fill · border | `--obsidian-850` · `--obsidian-700` |
+| Node radius · font | `--r-md` · Satoshi (`--font-sans`) |
+| Node label · edge label | `--t-small` · ≥ `--t-caption` (12) |
+| Focus node border | `--primary-500` · one per diagram |
+| State nodes | `--success` · `--warning` · `--danger` |
+
+**Shapes & routing:**
+- Regular shapes only: rounded rectangles (`--r-md`) for steps, diamonds for gates; varied shapes reserved for the semantic-state case. Connectors are orthogonal (H/V) with soft elbows — never diagonal. One magenta focus node marks the entry / narrative focus.
+
+**Accessibility:**
+- One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.31). The entrance runs once, never loops (§ 6 #6).
+
+**Motion (reuse § 7.3):**
+- `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). **Opacity only** — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
+| enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
+
+**Responsive:**
+- `.diagram-canvas` is `width:100%`; the rendered `<svg>` is `max-width:100%; height:auto` — it scales to fit. Below ~720px the canvas switches to `overflow-x:auto` with an intrinsic `min-width`, so wide architecture maps scroll instead of shrinking illegibly. Caption and legend wrap.
+
+**Label-class reset (scoped):**
+- The global `.label` (§ 3.10) and Mermaid's `.nodeLabel` / `.edgeLabel` / `.cluster-label` would otherwise upcase and track the diagram text. Reset them scoped under `.diagram`: `text-transform:none; letter-spacing:normal; font-family:var(--font-sans); font-weight:400`. `await document.fonts.ready` before render so measurement uses Satoshi metrics.
+
+**Rules:**
+- One diagram per figure; the source lives in `<template class="diagram-src">` and never renders as raw text.
+- Theme only from tokens read at runtime. A hex literal in `themeVariables` is a regression (§ 9).
+- Exactly one magenta focus node per diagram (`:::focus`). More than one = decorating (§ 1.4).
+- Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
+- Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
+
+**Do / Don't.** Do keep every node neutral obsidian and spend the magenta once — on the entry or the narrative focus. One accent per diagram is the budget. Don't color nodes by category with a per-type rainbow palette. The hues stop meaning anything and the surface goes loud.
+
+### Presentations
+
+**Site:** § 47 Presentations.
+
+Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
+
+**Usage**
+
+*Use it when*
+- Slide decks on the system, advanced by hand.
+
+*Use something else when*
+- Auto-advance → never (accessibility floor #6).
+
+
+**Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = mono + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
+
+**Eight layouts** — a single `.slide` + a modifier:
+- `.slide--cover` — opening; big title (one `.accent` word on the signal gradient) + `.slide-lead`.
+- `.slide--divider` — chapter break; a ghosted oversized `.slide-index` numeral (obsidian — a graphic, not an accent).
+- `.slide--content` / `.slide--data` — title + body copy / `.slide-bars`.
+- `.slide--split` — two columns: title + a `.split-list` of key/value rows.
+- `.slide--stat` — one giant gradient `.slide-stat` + label + context.
+- `.slide--image` — full-bleed media (`.slide-ph`) under a `.slide-scrim`, title bottom-aligned.
+- `.slide--closing` — closing; oversized title + `.slide-contacts`.
+
+**Deck.** The live demo (`.deck-stage` + `.deck-bar` → `.deck-nav` / `.deck-dots`) walks the gallery slides — **manual only** (no auto-advance, § 6 floor #6), position remembered across reloads, ← / → keys.
+
+**Rules.**
+- The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
+- Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
+- Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
+- Worked example on the site: **§ 47 · Presentations** (demo deck + the eight layouts + anatomy + rules).
+
+**Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
+
 ### Case study
+
+**Site:** § 48 Case study.
 
 The starting frame for a project told as a story. It composes the system's components in a fixed order: hero, dossier, numbered sections, more cases.
 
@@ -3136,16 +3226,16 @@ The starting frame for a project told as a story. It composes the system's compo
 
 | Part | Class | Treatment |
 |---|---|---|
-| Back | `.btn.btn-floating` | § 3.1 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
+| Back | `.btn.btn-floating` | § 3.6 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
 | Hero | `.cs-hero` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2`, lede `--t-lead`; the brand mark on the right scales with the hero |
-| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.28) |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.15) |
 | Dossier | `.cs-dossier` | The facts of the project in four columns (two under 900px): role, team, platform, outcome |
 | Section | `.cs-section` | A numbered eyebrow with a magenta rule, a title `--t-h4`, running text `--t-body` at `--lh-loose`, 68ch |
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, 52ch |
-| Figure | `.cs-img` `.cs-img-caption` `.cs-img-hint` | 16:9, opens the Lightbox (§ 3.8); the hint on hover sits on `--surface-glass` |
-| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.36) between points |
-| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.25) |
-| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.3) with their tags as Chips |
+| Figure | `.cs-img` `.cs-img-caption` `.cs-img-hint` | 16:9, opens the Lightbox (§ 3.22); the hint on hover sits on `--surface-glass` |
+| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.33) between points |
+| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.39) |
+| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.31) with their tags as Chips |
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -3295,7 +3385,7 @@ Every screen, every component, every full-bleed surface resolves to:
 
 - **≥ 85% Obsidian** — page, surfaces, type: backgrounds, borders, body text, neutral UI
 - **≤ 10% Primary + Cyan, combined** — CTA, focus, emphasis
-- **≤ 5% Semantic** — feedback only. One exception: the categorical data palette of a chart (§ 3.25) names series with the semantic hues, and then nothing in the same view uses a colour for a state.
+- **≤ 5% Semantic** — feedback only. One exception: the categorical data palette of a chart (§ 3.39) names series with the semantic hues, and then nothing in the same view uses a colour for a state.
 
 If a layout violates this rule, it's decoration, not hierarchy. If the primary budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), cut and earn the accent back.
 
@@ -3518,11 +3608,11 @@ Two patterns ship:
 
 The floor admits one documented exception pair, on two selectors.
 
-**`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.1); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
+**`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.6); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten). Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
 
-**`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.4), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
+**`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.14), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
 
-**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--primary-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.1). Medium 500 is the ratified weight.
+**APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--primary-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.6). Medium 500 is the ratified weight.
 
 **Ceiling note.** No light color can reach 4.5 : 1 on `#F051D5` — pure white tops out at 3.07 : 1. AA-strict with a light label is achievable only by darkening the fill (≈ `#CA11AB` at equal hue/sat → 4.64 : 1 with `--obsidian-050`), a brand-level MAJOR decision, not a label-level one.
 
@@ -3541,7 +3631,7 @@ The floor admits one documented exception pair, on two selectors.
   - `.card-media > *` — `margin` — outranks a media child's own margin, inline or from an element rule, so nothing offsets the child inside the clip (§ Card).
   - `.doc-row` (≤720px) — `grid-template-columns` · `gap` · `padding` — outranks the inline grid the site's install rows carry, to stack them in one column on mobile.
   - `.spec-card` (≤720px) — `grid-template-columns` · `gap` — no instance on the site since v2.4.1; ratified as it stands, and removing the rule is its own decision.
-  - `.btn.is-loading` — `color: transparent` — outranks every variant's label colour, hover included, so the label keeps its width without showing (§ 3.12).
+  - `.btn.is-loading` — `color: transparent` — outranks every variant's label colour, hover included, so the label keeps its width without showing (§ 3.19).
 
 ### Browser chrome
 
@@ -3553,7 +3643,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 | `::-webkit-scrollbar-track` | `transparent` — the page shows through |
 | `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `2px solid --obsidian-950` border (the border is what makes it read as inset) |
 | `::-webkit-scrollbar-thumb:hover` | `--obsidian-600` |
-| `::selection` | `--primary-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 04.6) |
+| `::selection` | `--primary-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 01.2) |
 | `caret-color` | `--primary-500` on `input` and `textarea` — the browser's default blue is off-system |
 
 **Closure clause.** Browser chrome not listed here is native and is not styled — focus rings on non-components, resize handles, autofill backgrounds, spell-check underlines, `overscroll-behavior`. Overriding one is a system decision, not a component decision.
@@ -3570,13 +3660,13 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 ### JavaScript
 
 - Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
-- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.13 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
+- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.43 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
 - Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
 - **Collapse-to-zero (canonical):** when a transition animates a measured dimension, **both ends must live in the same place**. Pinning the start inline (`el.style.maxHeight = el.scrollHeight + 'px'`) and declaring the end in a class (`.is-collapsing{max-height:0}`) silently fails: the inline value outranks the class, so the box never collapses and only the properties the class *does* own — padding, border, margin — animate. The element then disappears in one frame when it is removed, which reads as a second beat. Set the start inline, flush, add the class for the transition and the sibling properties, then set the end **inline too** on the next frame. Measured symptom: a toast dismissal that glided 46px of the 101px it owed and jumped the rest.
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.41):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Stepper choreography (§ 3.30):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming

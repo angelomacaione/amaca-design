@@ -254,7 +254,7 @@
 .grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media (max-width: 900px){.grid-3,.grid-4,.grid-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ─────────── § 3.40 SWATCH (v5.0.0) ───────────
+/* ─────────── § 3.35 SWATCH (v5.0.0) ───────────
    A token shown, not pressed: no hover, no focus. Colour forms are still; the motion tile moves because the motion is its value. The colour comes from --sw, set to var() of a token.
    Inline marker before a label, the gap is the container's; tile for one step of a palette.
    Always bordered with an inset 1px of --border-input, so the size stays and a dark colour reads on the page (WCAG 1.4.11). */
@@ -274,7 +274,7 @@
 /* Radius tile: a neutral shape at the token's radius, 1:1. --sw-r is var() of a radius token, set on the tile. */
 .swatch-tile-radius .swatch-tile-fill{display:flex;align-items:center;justify-content:center;background:var(--obsidian-950)}
 .swatch-tile-shape{width:var(--s-24);height:calc(var(--s-24) * .6);border-radius:var(--sw-r, 0);background:var(--obsidian-800);box-shadow:inset 0 0 0 var(--bw-1) var(--obsidian-400)}
-/* Icon tile: the album drawing 4x on its 16 grid, the 14 live area dashed (§ 3.32); 16 and 24 at 1:1 beside.
+/* Icon tile: the album drawing 4x on its 16 grid, the 14 live area dashed (§ 3.1); 16 and 24 at 1:1 beside.
    The zoom is the same drawing in the same .icon, so the stroke is the real 1.5 grid units, scaled. */
 .swatch-tile-icon .swatch-tile-fill{height:auto;display:flex;align-items:center;justify-content:center;gap:var(--s-5);padding:var(--s-5);background:var(--obsidian-950);color:var(--obsidian-100)}
 .swatch-tile-zoom{position:relative;flex:none;width:var(--s-16);height:var(--s-16);background-image:linear-gradient(var(--obsidian-700) var(--bw-1),transparent var(--bw-1)),linear-gradient(90deg,var(--obsidian-700) var(--bw-1),transparent var(--bw-1));background-size:calc(100% / 16) calc(100% / 16);box-shadow:inset calc(-1 * var(--bw-1)) calc(-1 * var(--bw-1)) 0 var(--obsidian-700)}
@@ -370,7 +370,7 @@
 .table tr:last-child td{border-bottom:0}
 .table code{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--primary-400);background:var(--obsidian-850);padding:var(--s-0-5) var(--s-1);border-radius:var(--r-sm);letter-spacing:var(--tr-mono)}
 .table .muted{color:var(--obsidian-300)}
-/* Sortable header (§ 3.16). The button fills the cell, so the whole header is the target. The driver th carries
+/* Sortable header (§ 3.38). The button fills the cell, so the whole header is the target. The driver th carries
    aria-sort, one per table, a step lighter. The button holds both drawings and the header shows one: ascending until
    the column drives descending. Colour is inherited. No transition: the sort is a state, not a move. */
 .table th:has(> .table-sort){padding:0}
@@ -393,7 +393,7 @@
   border:var(--bw-1) solid transparent;
   white-space:nowrap;
 }
-/* Floating (§ 3.1): a button that stays on screen while its content scrolls, translucent so the content reads through.
+/* Floating (§ 3.6): a button that stays on screen while its content scrolls, translucent so the content reads through.
    Sticky on --z-sticky at --float-top; the negative bottom margin gives its height back, so it floats over what follows
    instead of pushing it down. Label --t-small, inline padding --s-4 before the icon, --s-5 after the label. */
 .btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-5) 0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(8px)}
@@ -413,7 +413,7 @@
 .btn-danger:hover{filter:brightness(1.05)}
 .btn-sm{min-height:var(--s-8);padding:0 var(--s-4);font-size:var(--t-small)}
 .btn-lg{min-height:var(--s-12);padding:0 var(--s-8)}
-/* Icon-only: a square at the size's height. aria-label is mandatory (§ 3.1). */
+/* Icon-only: a square at the size's height. aria-label is mandatory (§ 3.6). */
 .btn-icon{width:var(--s-10);padding:0}
 .btn-sm.btn-icon{width:var(--s-8)}
 .btn-lg.btn-icon{width:var(--s-12)}
@@ -475,7 +475,7 @@
 }
 .select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
 .select-option[aria-selected="true"]{color:var(--primary-400)}
-/* Select · Menu (v5.0.0, § 3.10). One panel and one row for three uses: a value
+/* Select · Menu (v5.0.0, § 3.11). One panel and one row for three uses: a value
    chosen from a list (variant B, listbox), a number set on a Slider (variant C,
    dialog) and an action run from a Menu (variant D, menu). The row: a leading
    icon, the label (one line, ellipsis), then a check that follows the text
@@ -495,7 +495,7 @@
 /* Variant D: the Menu grows to its longest item, from the trigger (at least
    --s-32) to the drawer menu's measure, then truncates. */
 .select-menu-actions{width:max-content;min-width:var(--s-32);max-width:calc(30ch + 2 * var(--s-1))}
-/* Variant C: one Slider (§ 3.35), single or range, the width of the field. The
+/* Variant C: one Slider (§ 3.9), single or range, the width of the field. The
    label and the value stay in the field; the panel holds the track and the scale. */
 .select-menu-slider{padding:var(--s-3) var(--s-4) var(--s-2)}
 .select-menu-slider .slider{gap:var(--s-1)}
@@ -831,7 +831,7 @@
 .radio:has(input:disabled){color:var(--obsidian-400);cursor:not-allowed}
 
 /* ─────────── BADGES ─────────── */
-/* § 3.4 — status the system computed. Its own register: --t-small, --tr-snug,
+/* § 3.14 — status the system computed. Its own register: --t-small, --tr-snug,
    padding --s-2 --s-4, gap --s-1, dot --s-1. The default mixes its deep hue at
    --tint-fill-deep / --tint-edge-deep; the variants at the chip's two strengths,
    --tint-fill and --tint-edge (tokens, v4.3.0). */
@@ -858,7 +858,7 @@
 .badge-solid{background:var(--primary-500);color:var(--obsidian-050);border-color:var(--primary-500)}
 
 /* ─────────── CHIPS ─────────── */
-/* § 3.28 — a value a person put there. Status the system computed is a .badge. */
+/* § 3.15 — a value a person put there. Status the system computed is a .badge. */
 .chip{
   display:inline-flex;align-items:center;gap:var(--s-1);position:relative;
   font-family:var(--font-sans);font-size:var(--t-small);font-weight:500;
@@ -922,7 +922,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-label-center{translate:-50% -50%}
 .chart-label-end{translate:-100% -50%}
 /* Labels centre with the translate property: [data-fade] owns transform, the two compose.
-   Timeline (§ 3.43): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
+   Timeline (§ 3.41): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
 .timeline-scroll{overflow-x:auto;overscroll-behavior-x:contain}
 .timeline-plot{min-width:calc(var(--s-32) * 5)}
 .timeline-lane{position:absolute;translate:0 -50%;font-size:var(--t-small);font-weight:500;line-height:1;color:var(--obsidian-100);white-space:nowrap}
@@ -944,7 +944,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-big.accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .chart-delta{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--success)}
 .chart-delta.neg{color:var(--danger)}
-/* v5.0.0 — the legend of a chart with two or more series: a Swatch (§ 3.40) before each name, under the plot */
+/* v5.0.0 — the legend of a chart with two or more series: a Swatch (§ 3.35) before each name, under the plot */
 .chart-legend{list-style:none;margin:var(--s-3) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-4);font-size:var(--t-small);color:var(--obsidian-200)}
 .chart-legend li{display:inline-flex;align-items:center;gap:var(--s-2);white-space:nowrap}
 
@@ -1013,7 +1013,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .cs-section .eyebrow::before{content:"";width:20px;height:1px;background:var(--primary-500)}
 .cs-section p{font-size:var(--t-body);color:var(--obsidian-200);line-height:var(--lh-loose);max-width:68ch;margin:0 0 var(--s-4)}
 /* Case study key points (v5.0.0, from the portfolio): a dot on the title's line, the text under the title,
-   a Divider (§ 3.36) between points; the gap on both sides of the divider is the list's. */
+   a Divider (§ 3.33) between points; the gap on both sides of the divider is the list's. */
 .cs-points{display:flex;flex-direction:column;gap:var(--s-6);margin-top:var(--s-6);max-width:68ch}
 .cs-point{display:grid;grid-template-columns:var(--s-4) minmax(0,1fr);column-gap:var(--s-4);row-gap:var(--s-2)}
 .cs-point::before{content:"";grid-row:1;width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);background:var(--primary-500);align-self:center}
@@ -1411,7 +1411,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 /* ============ ACCORDION ============ */
 /* Separators only. A border-top with no side borders draws a lid with no
    walls: the radius curves it at the corners and it ends in mid-air. Same
-   discipline as § 3.16 Table — the row rule carries the scan. */
+   discipline as § 3.38 Table — the row rule carries the scan. */
 .accordion{display:flex;flex-direction:column;border-radius:var(--r-lg);overflow:hidden;background:var(--obsidian-950)}
 .acc-item{border-bottom:var(--bw-1) solid var(--obsidian-800);background:transparent;transition:background var(--d-quick) var(--ease-decel)}
 .acc-item:last-child{border-bottom:0}
@@ -1450,12 +1450,12 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   color:var(--obsidian-500);text-transform:uppercase;flex-shrink:0;
 }
 .acc-item.is-open .acc-num{color:var(--primary-400)}
-/* Duration is chosen by distance (§ 08.3). --acc-d is set on the item by the
+/* Duration is chosen by distance (§ 09.3). --acc-d is set on the item by the
    controller from the measured panel height, picking one of the existing
    duration tokens — never a computed value. The fallback below is the middle
    bucket, so the component still behaves without JS.
    Direction decides the curve: the resting rule is the CLOSING ride
-   (user-triggered → --ease-standard, per the § 08.3 pairing), the .is-open
+   (user-triggered → --ease-standard, per the § 09.3 pairing), the .is-open
    rule is the OPENING ride (system revealing → --ease-decel). --ease-accel is
    wrong here: it holds for 150ms then drops, which reads as lag, not leaving. */
 .acc-panel{
@@ -1531,7 +1531,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 
 
-/* ============ FOCUS / KEYBOARD DEMO (§ 18.2) ============ */
+/* ============ FOCUS / KEYBOARD DEMO (§ 21.2) ============ */
 .focus-row{
   margin-top:var(--s-5);
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);
@@ -1819,7 +1819,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 @media (prefers-reduced-motion: reduce){ .device-preview-inner{transition:none !important} }
 
 
-/* ─────────── AI RULES LIST · § 17.4 ─────────── */
+/* ─────────── AI RULES LIST · § 20.4 ─────────── */
 .ai-rules{
   margin:0;
   padding-left:var(--s-6);
@@ -1834,7 +1834,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .ai-rules li::marker{color:var(--primary-400); font-family:var(--font-mono); font-size:var(--t-small)}
 .ai-rules em{font-style:italic; color:var(--obsidian-100)}
 
-/* ─────────── AI CARD · § 17.4 (do/dont visual language) ─────────── */
+/* ─────────── AI CARD · § 20.4 (do/dont visual language) ─────────── */
 .ai-card{
   border:var(--bw-1) solid var(--obsidian-800);
   border-left:var(--bw-2) solid var(--primary-500);
@@ -1867,7 +1867,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .do em, .dont em{font-style:italic; color:var(--obsidian-100); font-weight:500}
 
 
-/* ─────────── CHAT / MESSAGING · § 16 ─────────── */
+/* ─────────── CHAT / MESSAGING · § 19 ─────────── */
 /* Conversation surface — fixed height, bottom-aligned, bubbles push up */
 .chat-stage{
   display:flex;
@@ -2320,7 +2320,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   color:var(--obsidian-200);
 }
 
-/* ─── Anatomy diagram (§ 16.1) ─── */
+/* ─── Anatomy diagram (§ 19.1) ─── */
 .chat-anatomy{
   display:grid;
   grid-template-columns:minmax(280px, 380px) 1fr;
@@ -2372,7 +2372,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   text-transform:uppercase;
 }
 
-/* ─── Live demo wrapper (§ 16.2) — replay button + chat-stage ─── */
+/* ─── Live demo wrapper (§ 19.2) — replay button + chat-stage ─── */
 .chat-demo{ display:grid; gap:var(--s-4) }
 .chat-demo-head{
   display:flex; align-items:center; gap:var(--s-3);
@@ -2439,7 +2439,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 
 
-/* ─────────── LOADER · § 17 ─────────── */
+/* ─────────── LOADER · § 20 ─────────── */
 /* Brand logo Lottie at four sizes. Under reduced motion: SVG ring spinner. */
 
 .loader{
@@ -2625,7 +2625,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   z-index:var(--z-sticky);
 }
 
-/* ─── § 3.37 Skeleton — the shape of content that has not arrived ─── */
+/* ─── § 3.20 Skeleton — the shape of content that has not arrived ─── */
 .skeleton-stack{
   display:grid;
   gap:var(--s-3);
@@ -2672,7 +2672,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   to  { transform:translateX(100%) }
 }
 
-/* ─── § 3.38 Popover — anchored, richer than a tooltip, opened by a click ───
+/* ─── § 3.23 Popover — anchored, richer than a tooltip, opened by a click ───
    The native Popover API does the dismissal (click outside, Escape on an
    auto popover) and the top layer; the position is CSS anchor positioning
    from the invoker (popovertarget). --z-popover does not apply: a popover
@@ -2713,7 +2713,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .popover-body{display:grid;gap:var(--s-3);color:var(--obsidian-200)}
 .popover-foot{display:flex;justify-content:flex-end;gap:var(--s-2);margin-top:var(--s-4)}
 
-/* ─── § 3.39 Drawer — a modal anchored to a side: a menu or text, flush with the edge ───
+/* ─── § 3.24 Drawer — a modal anchored to a side: a menu or text, flush with the edge ───
    A <dialog> opened with showModal(): the modal's surface and scrim, no radius, the shadow one
    step below the modal's (so no edge), the width a readable line. .drawer-nav is the side menu. */
 .drawer{
@@ -2777,7 +2777,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 @keyframes drawer-demo-in-start{from{transform:translateX(-100%)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.drawer-demo .drawer[open]{animation:none}}
 
-/* ─── § 3.5 Navigation · top bar — brand, destinations, one action. Flat, flush, items as tall as the bar ───
+/* ─── § 3.26 Navigation · top bar — brand, destinations, one action. Flat, flush, items as tall as the bar ───
    The bar is its own container: at 720px of its OWN width or less the list and the action leave and the
    toggle opens the Drawer menu, on the toggle's side. One markup, whatever the frame or the page. */
 .navbar{
@@ -2822,7 +2822,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   .navbar-toggle{display:inline-flex}
 }
 
-/* site chrome, § 23.1: the bar alone in the tab card, and a page below it that follows the tab — its width,
+/* site chrome, § 30.1: the bar alone in the tab card, and a page below it that follows the tab — its width,
    its sticky bar, its Drawer menu. Only the page's toggle opens the menu; the card's bar is a specimen. */
 .navbar-demo-strip{background:var(--surface);border:var(--bw-1) solid var(--border-subtle)}
 .navbar-demo-strip .navbar{position:static;border-bottom:0}
@@ -2840,7 +2840,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .navbar-demo .drawer[open]{display:flex;transition:none;animation:drawer-demo-in var(--d-base) var(--ease-decel)}
 @media (prefers-reduced-motion:reduce){.navbar-demo .drawer[open]{animation:none}.navbar-demo::before{transition:none}}
 
-/* ─── Loader compositions (§ 17.3) — frames for the demo cards ─── */
+/* ─── Loader compositions (§ 20.3) — frames for the demo cards ─── */
 .loader-comp{
   display:flex;
   flex-direction:column;
@@ -2943,7 +2943,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   color:var(--obsidian-200);
 }
 
-/* ─── Scale subsection (§ 17.1) — the four sizes side-by-side ─── */
+/* ─── Scale subsection (§ 20.1) — the four sizes side-by-side ─── */
 .loader-scale{
   display:grid;
   grid-template-columns:repeat(4, 1fr);
@@ -2984,7 +2984,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   color:var(--obsidian-300);
 }
 
-/* ─── Variants subsection (§ 17.2) — five labeled specimens ─── */
+/* ─── Variants subsection (§ 20.2) — five labeled specimens ─── */
 .loader-variants{
   display:grid;
   grid-template-columns:repeat(5, minmax(0, 1fr));
@@ -3015,7 +3015,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   text-transform:uppercase;
 }
 
-/* ─── Anatomy diagram (§ 17.4) — annotated specimen ─── */
+/* ─── Anatomy diagram (§ 20.4) — annotated specimen ─── */
 .loader-anatomy{
   display:grid;
   grid-template-columns:minmax(280px, 380px) 1fr;
@@ -3082,7 +3082,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 }
 
 
-/* ─────────── DIAGRAMS · § 18 ─────────── */
+/* ─────────── DIAGRAMS · § 21 ─────────── */
 /* Auto-layout flow/architecture diagrams (Mermaid, theme base) themed entirely
    from tokens read at runtime. The figure chrome is coherent with .card (§ 12):
    --obsidian-900 surface, --obsidian-700 border, --r-lg, --s-6 padding. */
@@ -3318,17 +3318,17 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
 }
 /* Open state is a class, never :hover — the RIGID single-open rule
-   (§ 3.20) cannot be expressed in CSS alone. The controller opens on
+   (§ 3.25) cannot be expressed in CSS alone. The controller opens on
    pointerenter and focusin and closes every other tooltip first. */
 .tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
 .tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1));transform:translate(-50%, -2px)}
 .tooltip-bottom.is-open{transform:translate(-50%, 0)}
 
-/* § 21.1 — a swatch (§ 3.40) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
+/* § 24.1 — a swatch (§ 3.35) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
    Swatch and name are one unit that never breaks across lines. */
 .table-contrast .tok{display:inline-flex;align-items:center;gap:var(--s-1);white-space:nowrap}
 
-/* § 3.29 — Link (v5.0.0): inline text link, underlined at rest (WCAG 1.4.1 — the colour alone is 2.1:1 against the body text).
+/* § 3.7 — Link (v5.0.0): inline text link, underlined at rest (WCAG 1.4.1 — the colour alone is 2.1:1 against the body text).
    Rest 1px, hover 2px + lighter; pressed --primary-500; the pressable ring on focus-visible; no visited state. */
 .link{
   color:var(--primary-400);
@@ -3341,7 +3341,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .link:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 .link[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-thickness:var(--bw-1);cursor:not-allowed}
 
-/* § 3.29 — Link, quiet variant (v5.0.0): no underline at rest. For a standalone link only (menu, footer, list of links),
+/* § 3.7 — Link, quiet variant (v5.0.0): no underline at rest. For a standalone link only (menu, footer, list of links),
    where the context already says it is a link. In running text it fails WCAG 1.4.1 — the colour is 2.1:1 against the text. */
 .link-quiet{
   color:var(--primary-400);
@@ -3354,7 +3354,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .link-quiet:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 .link-quiet[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-color:transparent;cursor:not-allowed}
 
-/* § 3.30 — Modal (v5.0.0): a native <dialog> opened with showModal(). The panel is the card's surface and radius, the top
+/* § 3.21 — Modal (v5.0.0): a native <dialog> opened with showModal(). The panel is the card's surface and radius, the top
    step of the shadow scale, over --scrim. Opens on opacity + a short rise; closes on opacity + the same travel, faster. */
 .modal{
   width:calc(100% - var(--s-8));max-width:480px;max-height:calc(100vh - var(--s-8));overflow:auto;
@@ -3391,7 +3391,7 @@ body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal()
   .modal,.modal[open]{transition:none;transform:none}
   .modal::backdrop,.modal[open]::backdrop{transition:none}
 }
-/* § 3.31 Avatar — who a person, team or account is. A circle; the name sits on the wrapper (role="img"). */
+/* § 3.36 Avatar — who a person, team or account is. A circle; the name sits on the wrapper (role="img"). */
 .avatar{--size:var(--s-8);--fs:var(--t-caption);--dot:var(--s-2);--o:var(--s-2);position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:var(--size);height:var(--size);padding:0;border:var(--bw-1) solid var(--obsidian-600);border-radius:var(--r-full);background:var(--obsidian-700);color:var(--obsidian-100);font:700 var(--fs)/1 var(--font-sans);text-transform:uppercase;text-decoration:none;vertical-align:middle;user-select:none}
 .avatar-sm{--size:var(--s-6);--fs:var(--t-micro);--o:calc(var(--s-1) + var(--s-0-5))}
 .avatar-lg{--size:var(--s-10);--fs:var(--t-body);--dot:var(--s-3);--o:var(--s-3)}
@@ -3422,7 +3422,7 @@ a.avatar:active,button.avatar:active{border-color:var(--primary-500)}
 a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 @media (prefers-reduced-motion:reduce){a.avatar,button.avatar{transition:none}}
 
-/* § 3.32 Icon — one hand: viewBox 16, stroke 1.5 on the grid (so it grows with the size), round ends, outline only. Colour is inherited. */
+/* § 3.1 Icon — one hand: viewBox 16, stroke 1.5 on the grid (so it grows with the size), round ends, outline only. Colour is inherited. */
 .icon{width:var(--icon-sm);height:var(--icon-sm);flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
 .icon-xs{width:var(--icon-xs);height:var(--icon-xs)}
 .icon-md{width:var(--icon-md);height:var(--icon-md)}
@@ -3430,7 +3430,7 @@ a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) so
 .icon-muted{color:var(--obsidian-300)}
 .icon-fill{fill:currentColor;stroke-width:var(--bw-1)}  /* solid: the same box, filled; the 1px stroke only rounds the corners */
 
-/* § 3.33 List — rows in a column: many things of one kind (.list-item), or the facts of one (.list-summary). Hairlines between rows, nothing around. */
+/* § 3.37 List — rows in a column: many things of one kind (.list-item), or the facts of one (.list-summary). Hairlines between rows, nothing around. */
 .list{list-style:none;margin:0;padding:0;border-top:var(--bw-1) solid var(--obsidian-700)}
 .list > li{border-bottom:var(--bw-1) solid var(--obsidian-700)}
 .list-item{display:flex;align-items:center;gap:var(--s-3);box-sizing:border-box;width:100%;min-height:var(--s-12);padding:var(--s-3) var(--s-4);color:var(--obsidian-100);font:inherit;font-size:var(--t-small);text-align:left;text-decoration:none;background:transparent;border:0}
@@ -3450,7 +3450,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width:720px){.list-summary > div{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){a.list-item,button.list-item{transition:none}}
 
-/* § 3.34 Pagination — move between pages of similar items. A nav of links: numbered, or compact (previous · status · next). */
+/* § 3.29 Pagination — move between pages of similar items. A nav of links: numbered, or compact (previous · status · next). */
 .pagination{display:flex;align-items:center;gap:var(--s-1)}
 .pagination-list{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:var(--s-1)}
 .pagination-link{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);box-sizing:border-box;min-width:var(--s-8);height:var(--s-8);padding:0 var(--s-2);border:var(--bw-1) solid transparent;border-radius:var(--r-md);background:transparent;color:var(--obsidian-300);font:inherit;font-size:var(--t-small);font-variant-numeric:tabular-nums;text-decoration:none;cursor:pointer;transition:background var(--d-quick) var(--ease-standard),color var(--d-quick) var(--ease-standard)}
@@ -3463,7 +3463,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width:480px){.pagination{flex-wrap:wrap}.pagination-link > span{display:none}.pagination-gap{min-width:var(--s-6)}}  /* the numbered form still fits: the words drop out and the names stay on aria-label; the compact form is the real answer */
 @media (prefers-reduced-motion:reduce){.pagination-link{transition:none}}
 
-/* § 3.35 Slider — a number, or a range of two, chosen by dragging. Native range inputs underneath: keyboard, form value and screen reader come with them. */
+/* § 3.9 Slider — a number, or a range of two, chosen by dragging. Native range inputs underneath: keyboard, form value and screen reader come with them. */
 .slider{display:flex;flex-direction:column;gap:var(--s-2)}
 .slider-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-3)}
 .slider-value{color:var(--obsidian-100);font-size:var(--t-small);font-variant-numeric:tabular-nums}
@@ -3489,7 +3489,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .slider-pair .slider-input::-moz-range-thumb{pointer-events:auto;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.slider-input::-webkit-slider-thumb,.slider-input::-moz-range-thumb{transition:none}}
 
-/* § 3.36 Divider — a thematic break inside one container. One hairline; the space around it belongs to the container. */
+/* § 3.33 Divider — a thematic break inside one container. One hairline; the space around it belongs to the container. */
 .divider{display:block;width:100%;height:0;margin:0;padding:0;border:0;border-top:var(--bw-1) solid var(--obsidian-700)}
 .divider-vertical{align-self:stretch;width:0;height:auto;min-height:var(--s-4);border-top:0;border-left:var(--bw-1) solid var(--obsidian-700)}
 .divider-label{display:flex;align-items:center;gap:var(--s-3);width:100%;color:var(--obsidian-300);font-size:var(--t-caption)}
@@ -3504,7 +3504,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .modal-demo > .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 
 
-/* § 3.41 Stepper — the steps of a linear journey: done, current, upcoming. An ordered list; the current step carries aria-current="step".
+/* § 3.30 Stepper — the steps of a linear journey: done, current, upcoming. An ordered list; the current step carries aria-current="step".
    Horizontal; vertical below 480px of its own width (container query) or with .stepper-vertical. */
 .stepper{--stp-dot:var(--s-6);--stp-cur:var(--s-8);container-type:inline-size}
 .stepper-list{list-style:none;margin:0;padding:0;display:flex}
@@ -3561,7 +3561,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   .stepper-step[aria-current="step"] .stepper-dot::after{animation:none;transform:none;opacity:0.4}
 }
 
-/* § 3.42 Progress — how far a task with a known end has come. role="progressbar" with a name, a value, a min and a max.
+/* § 3.18 Progress — how far a task with a known end has come. role="progressbar" with a name, a value, a min and a max.
    8px by default, .progress-sm 4px; the fill animates to its value on --d-scene. */
 .progress{display:flex;align-items:center;gap:var(--s-4)}
 .progress-label{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
@@ -3576,7 +3576,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   .progress[data-reveal] .progress-fill,.progress[data-reveal].is-in .progress-fill{transform:none;transition:none}
 }
 
-/* ─── § 3.44 Map — the land as a grid of hexes; a cluster of cells is one place, and acts as one ───
+/* ─── § 3.42 Map — the land as a grid of hexes; a cluster of cells is one place, and acts as one ───
    The land is baked (Natural Earth 1:110m), so the page asks nothing at run time. Grey is the land;
    a cluster takes the colour of its state. The sea is never drawn, so it can never take a colour. */
 .hexmap{position:relative;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}

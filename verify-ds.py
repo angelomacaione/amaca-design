@@ -249,7 +249,7 @@ def c04():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# MOTION GRAMMAR (§ 08.3)
+# MOTION GRAMMAR (§ 09.3)
 # ─────────────────────────────────────────────────────────────────────────────
 
 @check("05", "Every duration token is paired with an easing token",
@@ -266,7 +266,7 @@ def c05():
 
 
 @check("06", "--ease-spring never rides an effect property",
-       "§ 08.3 RIGID: spatial properties may overshoot, effect properties "
+       "§ 09.3 RIGID: spatial properties may overshoot, effect properties "
        "(color, background, opacity, shadow) may not.")
 def c06():
     EFFECT = ("color", "background", "opacity", "box-shadow", "border-color", "fill")
@@ -280,10 +280,10 @@ def c06():
 
 
 @check("07", "No raw ms durations outside the ratified loops",
-       "The loop exception is a closed list (§ 08.4). Anything else with a "
+       "The loop exception is a closed list (§ 09.4). Anything else with a "
        "literal duration is drift.")
 def c07():
-    # Closed list: the ratified continuous loops (§ 08.4) plus the stepper
+    # Closed list: the ratified continuous loops (§ 09.4) plus the stepper
     # choreography, which § Code conventions documents as a literal by design.
     LOOPS = {"1400ms", "2400ms", "1600ms", "1s", "520ms"}
     fails = []
@@ -437,7 +437,7 @@ def c14():
 
 
 @check("15", "The two changelogs tell the same story",
-       "§ Versioning step 2: DESIGN.md § 14 and the site panel must open on "
+       "§ Versioning step 2: DESIGN.md § 18 and the site panel must open on "
        "the same release, and only one entry ships open.")
 def c15():
     design = read(DESIGN)
@@ -523,7 +523,7 @@ def c19():
 
 
 @check("20", "Duration-by-distance buckets agree between spec and controller",
-       "§ 08.3: the thresholds are the contract. A component that scales its "
+       "§ 09.3: the thresholds are the contract. A component that scales its "
        "duration and a spec table that disagree is the same class of drift as "
        "a version stamp that lags — silent, and only visible in motion.")
 def c20():
@@ -534,7 +534,7 @@ def c20():
     js = re.findall(r"h\s*<\s*(\d+)\s*\?\s*'(--d-[a-z]+)'\s*:\s*\(h\s*<=\s*(\d+)\s*\?\s*'(--d-[a-z]+)'\s*:\s*'(--d-[a-z]+)'",
                     read(INDEX))
     if not spec:
-        return ["DESIGN.md: § 08.3 duration-by-distance table not found"]
+        return ["DESIGN.md: § 09.3 duration-by-distance table not found"]
     if not js:
         return ["index.html: accordion controller does not implement the buckets"]
     lo, t1, hi, t2, t3 = js[0]
@@ -544,7 +544,7 @@ def c20():
     if got != want:
         fails.append(f"spec says {got}, controller says {want}")
     if f"`{t3}`" not in read(DESIGN):
-        fails.append(f"controller uses {t3}, absent from the § 08.3 table")
+        fails.append(f"controller uses {t3}, absent from the § 09.3 table")
     return fails
 
 @check("21", "The document's own version line agrees with its frontmatter",
@@ -898,7 +898,7 @@ def c25():
        "2026-08-27: § Card's example emitted .card-meta, a class the CSS did not "
        "know (.card-header shipped instead), and declared surfaces one ramp step "
        "lighter than the rendered ones, with a hover shadow the CSS never applied. "
-       "Writing this check found a fourth: § 3.4 emitted .badge-live/.badge-draft, "
+       "Writing this check found a fourth: § 3.14 emitted .badge-live/.badge-draft, "
        "dead names for .badge-success/.badge-warn. The spec is the surface models "
        "read — a defect there multiplies per generation, and the gate stayed green: "
        "check 10 walks CSS -> registry, nothing walked spec -> CSS.")
@@ -1212,7 +1212,7 @@ def c32():
     return fails
 
 @check("33", "Every canonical component has a demo on the site",
-       "v4.1.0: the Chip entered the contract as § 3.28 — registry row "
+       "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
        "amaca.design at all: not one .chip element in index.html, no nav entry. "
        "The release skill says a component's demo is part of the component; "
@@ -1448,8 +1448,8 @@ def c38():
 
 
 @check("39", "A component that lists its states lists the rows the state index carries",
-       "v4.2.0: the site rendered a Button in `loading` and § 3.12 composed it, "
-       "while § 3.1 listed four states and the state index had no `.btn | loading` "
+       "v4.2.0: the site rendered a Button in `loading` and § 3.19 composed it, "
+       "while § 3.6 listed four states and the state index had no `.btn | loading` "
        "row. A reader of the Button section — a generator — drew the state "
        "as absent, faithfully. v4.1.0 had already named this class for `selected` "
        "in § 3.0.1 and fixed it by hand; nothing compared the two lists.")
@@ -1829,8 +1829,8 @@ def c45():
 
 
 @check("46", "Every selector in a component's variant table has a row in the state index",
-       "v4.3.0: § 3.28 listed five tinted chip variants and the state index carried "
-       "none of them; § 3.4 and its badge variants were in the same position until "
+       "v4.3.0: § 3.15 listed five tinted chip variants and the state index carried "
+       "none of them; § 3.14 and its badge variants were in the same position until "
        "this release. A generator reads the index, not the prose table, so a "
        "variant with no row is a variant it must guess.")
 def c46():
@@ -2382,7 +2382,7 @@ def c59():
        "v5.0.0: the Link has two variants. .link is underlined at rest; .link-quiet is not, and "
        "the magenta link colour is 2.1:1 against the body text, under the 3:1 WCAG 1.4.1 asks of "
        "a link with no other cue. The variant is legal only where nothing around the link is "
-       "running text, and § 3.29 says so as a RIGID rule. A rule that depends on the author "
+       "running text, and § 3.7 says so as a RIGID rule. A rule that depends on the author "
        "remembering it drifts the first time someone pastes a quiet link into a sentence, so the "
        "harness reads the site markup: a .link-quiet inside <p>, <figcaption>, <blockquote> or "
        ".help, or beside text that carries a letter or a digit, fails.")
@@ -2441,13 +2441,13 @@ def c60():
             if re.search(r"[A-Za-z0-9\u00C0-\u024F]", around):
                 why = f"beside running text in <{n.parent.tag}>"
         if why:
-            fails.append(f"index.html: .link-quiet \"{label}\" {why} — use .link (§ 3.29)")
+            fails.append(f"index.html: .link-quiet \"{label}\" {why} — use .link (§ 3.7)")
     return fails
 
 
 @check("61", "Every svg.icon in the site is a drawing of the Icon album, in the style the album gives it",
        "v5.0.0: the system had 27 drawings of 19 icons on five grids and six stroke weights: a "
-       "check drawn four times, the exclamation circle three times. § 3.32 makes the album the "
+       "check drawn four times, the exclamation circle three times. § 3.1 makes the album the "
        "registry: one drawing per name, viewBox 16, stroke 1.5 set by .icon, and a `solid` style "
        "for the few icons that read better filled. A convention an author can bend is a "
        "convention that drifts, so the harness reads the album out of DESIGN.md and every "
@@ -2457,7 +2457,7 @@ def c61():
     d = read(DESIGN)
     m = re.search(r"\*\*The album\.\*\*(.*?)\*\*Rules\.\*\*", d, re.S)
     if not m:
-        return ["DESIGN.md: § 3.32 has no album"]
+        return ["DESIGN.md: § 3.1 has no album"]
     line, solid = set(), set()
     for st, b in re.findall(r"\| `[a-z-]+` \| (line|solid) \| `(.+?)` \|", m.group(1)):
         (solid if st == "solid" else line).add(re.sub(r"\s+", " ", b))
@@ -2624,7 +2624,7 @@ def c65():
     html = read(INDEX)
     for cls in ("swatch-chip", "tok-sw", "law-dot", "sw"):
         if re.search(rf'class="(?:[^"]* )?{cls}(?: [^"]*)?"', html):
-            fails.append(f"index.html: class .{cls} survives; it is a Swatch now (§ 3.40)")
+            fails.append(f"index.html: class .{cls} survives; it is a Swatch now (§ 3.35)")
     for m in re.finditer(r'<(?:span|div) class="(swatch|swatch-tile)"([^>]*)>', html):
         style = re.search(r'style="([^"]*)"', m.group(2))
         tok = re.fullmatch(r"\s*--sw\s*:\s*var\(--([a-z0-9-]+)\)\s*;?\s*", style.group(1)) if style else None
@@ -2694,9 +2694,9 @@ def c66():
         fails.append("#charts 'Task time · Arc HMI': two series and no .chart-legend")
     d = read(DESIGN)
     if "`--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`" not in d:
-        fails.append("DESIGN.md: the categorical order is not stated in § 3.25")
+        fails.append("DESIGN.md: the categorical order is not stated in § 3.39")
     if "`--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`" not in d:
-        fails.append("DESIGN.md: the sequential ramp is not stated in § 3.25")
+        fails.append("DESIGN.md: the sequential ramp is not stated in § 3.39")
     return fails
 
 
@@ -2711,7 +2711,7 @@ def c67():
     fails = []
     html = read(INDEX)
     if re.search(r'class="stepper-svg|data-step-(dot|labels|line|fade)', html):
-        fails.append("index.html: the SVG stepper survives; the Stepper is § 3.41")
+        fails.append("index.html: the SVG stepper survives; the Stepper is § 3.30")
     for m in re.finditer(r'<nav class="stepper[^"]*"([^>]*)>(.*?)</nav>', html, re.S):
         attrs, body = m.group(1), m.group(2)
         if "aria-label=" not in attrs and "aria-labelledby=" not in attrs:
@@ -2856,7 +2856,7 @@ def _bezier_of(value):
 
 @check("71", "A motion tile shows its tokens: curve, path and milliseconds, three plays, no var() in a keyframe",
        "v5.0.0: § 06.1 drew five easings as balls on a track, and the eye could not tell a 350 ms decel from "
-       "a 350 ms linear, because the decel tail is invisible. The easings became Swatch motion tiles (§ 3.40) "
+       "a 350 ms linear, because the decel tail is invisible. The easings became Swatch motion tiles (§ 3.35) "
        "on the standard graph, time across and position up. The first draft set the curve inside @keyframes "
        "with var(): the browser does not read it there, and all five curves ran as ease while the labels said "
        "otherwise. This check holds every motion tile to its tokens (the path drawn, the curve and the ms "
@@ -2921,7 +2921,7 @@ def c71():
 
 
 @check("72", "A radius tile and an icon tile show their token and their drawing, the same in every place",
-       "v5.0.0: Radius and the Icon album became Swatch tiles (§ 3.40). Radius printed '--r-md · 8px' by hand "
+       "v5.0.0: Radius and the Icon album became Swatch tiles (§ 3.35). Radius printed '--r-md · 8px' by hand "
        "beside an inline border-radius; the album printed the drawing twice, at 16 and 24, and the zoom adds a "
        "third copy. A tile that prints one radius and draws another, or a zoom that drifts from its 16 and 24, "
        "would teach the wrong value. This check holds every radius tile to its token, and every icon tile to one "
@@ -2944,7 +2944,7 @@ def c72():
         names.setdefault(re.sub(r"\s+", " ", b), set()).add(nm)
     icons = re.findall(r'<div class="swatch-tile swatch-tile-icon">(.*?)<span class="swatch-tile-name">([a-z-]+)</span>', html)
     if len(icons) < 50:
-        fails.append(f"§ 45.1: {len(icons)} icon tiles, the album has more")
+        fails.append(f"§ 07.1: {len(icons)} icon tiles, the album has more")
     for body, nm in icons:
         draws = [re.sub(r"\s+", " ", x).strip() for x in re.findall(r'<svg class="icon[^"]*"[^>]*>(.*?)</svg>', body)]
         if len(draws) != 3 or len(set(draws)) != 1:
@@ -3054,7 +3054,7 @@ def c73():
 @check("74", "Every shadow and ring token has a shadow tile on § 05.1, and the tile names it",
        "v5.0.0: § 05.1 showed nine of the eleven shadow and ring tokens; --sh-0 and --sh-menu were in "
        "tokens.css and nowhere on the page, so a reader of the site did not know they existed. Shadows became "
-       "Swatch shadow tiles (§ 3.40). This check holds the tiles of § 05.1 to the --sh-* and --ring-* tokens, "
+       "Swatch shadow tiles (§ 3.35). This check holds the tiles of § 05.1 to the --sh-* and --ring-* tokens, "
        "one each, and the token each tile prints to the one it paints.")
 def c74():
     fails = []
@@ -3072,7 +3072,7 @@ def c74():
 @check("75", "Every type step has a type tile, and the tile prints what its .ty-* class renders",
        "v5.0.0: the Typography page printed each step's size and leading by hand beside a sample. Body said "
        "15 / 1.45 while .ty-body set --lh-loose, 1.65; --t-h6 and --t-micro were tokens with no row, and "
-       "--t-micro had no class at all. The steps became Swatch type tiles (§ 3.40). This check holds one tile "
+       "--t-micro had no class at all. The steps became Swatch type tiles (§ 3.35). This check holds one tile "
        "per --t-* step, the sample in its own .ty-* class, and the size / leading / tracking and weight each "
        "tile prints to the values that class sets in components.css and tokens.css.")
 def c75():
@@ -3110,9 +3110,9 @@ def c75():
 @check("76", "Every spacing step has a space tile, and the Swatch page shows every form of the component",
        "v5.0.0: the Spacing page drew thirteen of the fifteen steps (--s-0-5 had no row), its lede counted "
        "thirteen, and 'Where to reach' gave the button --s-12 as a '12px' block padding the button does not "
-       "have. Foundations became Swatch tiles (§ 3.40) and the component page still showed three of its "
+       "have. Foundations became Swatch tiles (§ 3.35) and the component page still showed three of its "
        "eight forms. This check holds one space tile per --s-* step printing the token's px, the lede count "
-       "to the steps, and § 53 to a demo of every tile form the foundations use.")
+       "to the steps, and § 39 to a demo of every tile form the foundations use.")
 def c76():
     fails = []
     words = {13: "thirteen", 14: "fourteen", 15: "fifteen", 16: "sixteen", 17: "seventeen"}
@@ -3133,7 +3133,7 @@ def c76():
     sw = _html_section(html, "swatch")
     for form in ("swatch-tile-type", "swatch-tile-space", "swatch-tile-radius", "swatch-tile-shadow", "swatch-tile-icon", "swatch-tile-motion"):
         if f'class="swatch-tile {form}"' not in sw:
-            fails.append(f"§ 53 Swatch shows no .{form}")
+            fails.append(f"§ 39 Swatch shows no .{form}")
     return fails
 
 
@@ -3158,7 +3158,7 @@ def c77():
 @check("78", "The plot's parts are the hooks the contract names, and its reveal reads every duration and curve from tokens",
        "v5.0.0: the line chart's reveal was timed by hand: the line drew in 1.4s from 1.25s, area and points "
        "waited until 2.65s, the points grew in 0.4s; two of those numbers were tokens by accident and none by "
-       "name. The plot got its anatomy (§ 3.25, one data-* hook per part) and choreography E, every duration "
+       "name. The plot got its anatomy (§ 3.39, one data-* hook per part) and choreography E, every duration "
        "and curve a token. This check holds the hooks of the contract's Plot table to the site's markup and "
        "script, and the reveal to no literal duration.")
 def c78():
@@ -3166,7 +3166,7 @@ def c78():
     d = read(DESIGN)
     m = re.search(r"\*\*Plot\.\*\*[^\n]*\n\n\| Part \| Hook \| Note \|\n\|[-|]+\|\n((?:\|[^\n]*\n)+)", d)
     if not m:
-        return ["DESIGN.md: § 3.25 has no Plot table"]
+        return ["DESIGN.md: § 3.39 has no Plot table"]
     html = read(INDEX)
     for row in m.group(1).strip("\n").split("\n"):
         part = row.split("|")[1].strip()
@@ -3218,7 +3218,7 @@ def c80():
     sec = _html_section(html, "charts")
     for m in re.finditer(r"<svg\b.*?</svg>", sec, re.S):
         if "<text" in m.group(0) and 'class="icon' not in m.group(0)[:60]:
-            fails.append(f"§ 31: a plot svg holds <text>: {m.group(0)[:70]}")
+            fails.append(f"§ 43: a plot svg holds <text>: {m.group(0)[:70]}")
     css = read(ROOT / "styles" / "components.css")
     for sel, prop in ((".chart-label", "font-size:var(--t-caption)"), (".pie-total", "font-size:var(--t-h4)"), (".pie-caption", "font-size:var(--t-micro)")):
         m = re.search(r"(?m)^" + re.escape(sel) + r"\{([^}]*)\}", css)
@@ -3243,7 +3243,7 @@ def c81():
     a = html.find('<section class="section" id="timeline">')
     sec = html[a:html.index("</section>", a)] if a >= 0 else ""
     if "<text" in sec:
-        fails.append("#timeline: a <text> inside the plot; labels are HTML (§ 3.43)")
+        fails.append("#timeline: a <text> inside the plot; labels are HTML (§ 3.41)")
     if 'class="timeline-scroll"' not in sec or "timeline-plot" not in sec:
         fails.append("#timeline: the plot is not inside .timeline-scroll")
     if not re.search(r"(?m)^\.timeline-plot\{[^}]*min-width:", css):
@@ -3274,7 +3274,7 @@ def c81():
 @check("82", "The Map acts by cluster, opens a Popover or a Drawer that exist, and asks nothing at run time",
        "v5.0.0: the hex map fetched three libraries and the land from a CDN at every load, opened a card of its "
        "own that was clipped on a phone and printed a negative latency, could not be reached by keyboard, and "
-       "let a 2px hex be the target. It became a contract (§ 3.44): the land baked into the page, one button "
+       "let a 2px hex be the target. It became a contract (§ 3.42): the land baked into the page, one button "
        "per cluster opening the system's Popover, or its Drawer under 720px, and a hex Swatch in the legend. "
        "This check holds the markup, the script, the CSS and the registry to that.")
 def c82():
@@ -3314,7 +3314,7 @@ def c82():
         if f"| `.hexmap-area` | {st} |" not in d:
             fails.append(f"DESIGN.md state index: no .hexmap-area {st} row")
     if re.search(r"\.hexmap[^{]*\{[^}]*transform:\s*scale", css):
-        fails.append("components.css: a map cell scales; the grid never moves (§ 3.44)")
+        fails.append("components.css: a map cell scales; the grid never moves (§ 3.42)")
     return fails
 
 
@@ -3347,6 +3347,60 @@ def c86():
             sec = html[a:html.index("</section>", a)] if a >= 0 else ""
             if 'class="do-dont"' not in sec:
                 fails.append(f"site #{sid}: no Do / Don't block")
+    return fails
+
+
+@check("87", "One numbering: the site counts its pages in menu order, and § 3 follows the site",
+       "v5.0.0: the site numbered its pages in the order they were born (Icon 45 among the foundations, Link "
+       "42 after Button 08, Swatch 53 inside Data display) and DESIGN.md numbered § 3 in its own order "
+       "(Button 3.1, Card 3.3 … Case study 3.45). A reader following '§ 3.25' or '§ 31' had two maps and "
+       "no bridge. The site now counts 01–53 in menu order, § 3 follows the same order and every component "
+       "names its page with a Site line. This check holds the three together.")
+def c87():
+    import html as _html
+    fails = []
+    html = read(INDEX)
+    nav = re.findall(r'data-target="([a-z-]+)"><span class="num">(\d+)</span>\s*([^<]+)<', html)
+    nums = [int(n) for _, n, _ in nav]
+    if nums != list(range(1, len(nums) + 1)):
+        fails.append(f"site menu: numbers {nums} are not 1..{len(nums)} in menu order")
+    dom = [s for s in re.findall(r'<section class="section" id="([a-z-]+)">', html) if s in {i for i, _, _ in nav}]
+    if dom != [i for i, _, _ in nav]:
+        fails.append("site: the sections are not in menu order")
+    label = {int(n): _html.unescape(t).strip() for _, n, t in nav}
+    d = read(DESIGN)
+    reg = d[d.index("| Component | Classes | State | Spec |"):]
+    reg = reg[:reg.index("\n\n")]
+    specs = [int(x) for x in re.findall(r"\| § 3\.(\d+)\b", reg)]
+    if specs != list(range(1, len(specs) + 1)):
+        fails.append(f"DESIGN.md registry: § 3 numbers {specs} are not 1..{len(specs)} in table order")
+    comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
+    last, cited = 0, set()
+    for s in re.split(r"\n### ", comp)[1:]:
+        name = s.split("\n")[0].strip()
+        if name.startswith("§"):
+            continue
+        m = re.search(r"(?m)^\*\*Site:\*\* (.+)$", s)
+        if not m:
+            fails.append(f"DESIGN.md § 3 {name}: no Site line")
+            continue
+        pages = re.findall(r"§ (\d{2}) ([^·.]+?)(?= ·|\.$|$)", m.group(1))
+        for n, t in pages:
+            if label.get(int(n)) != t.strip():
+                fails.append(f"DESIGN.md § 3 {name}: Site says § {n} {t.strip()}, the menu says § {n} {label.get(int(n))}")
+            cited.add(int(n))
+        if pages and not m.group(1).startswith("none"):
+            first = int(pages[0][0])
+            if first < last:
+                fails.append(f"DESIGN.md § 3 {name}: § {first:02d} comes after § {last:02d}; § 3 follows the site")
+            last = first
+    groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', html[html.index('<aside'):html.index('</aside>')], re.S)
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    for g, body in groups:
+        if _html.unescape(g) in comp_groups:
+            for n in re.findall(r'<span class="num">(\d+)</span>', body):
+                if int(n) not in cited:
+                    fails.append(f"site § {n} {label[int(n)]}: no § 3 component names it in a Site line")
     return fails
 
 
@@ -3504,11 +3558,11 @@ def c84():
         if worst is not None and name not in _GAP_DEBT:
             fails.append(f"album {name}: two strokes {worst - 1.5:.2f} unit apart at the edges; touch them or leave one unit")
         if worst is None and name in _GAP_DEBT:
-            fails.append(f"album {name}: passes now; take it off _GAP_DEBT and the list in § 3.32")
+            fails.append(f"album {name}: passes now; take it off _GAP_DEBT and the list in § 3.1")
     d = read(DESIGN)
     for name in _GAP_DEBT:
         if f"`{name}`" not in d.split("**Strokes that do not touch keep one unit clear (RIGID).**", 1)[-1].split("\n", 1)[0]:
-            fails.append(f"DESIGN.md § 3.32: {name} is in the verifier's waiting list and not in the rule's")
+            fails.append(f"DESIGN.md § 3.1: {name} is in the verifier's waiting list and not in the rule's")
     return fails
 
 
@@ -3543,7 +3597,7 @@ def c85():
 
 
 @check("83", "A sortable table has one driver, a button in each sortable header and both album drawings in it",
-       "v5.0.0: the Table gained sorting (§ 3.16, site § 30.2). A sortable header is a contract of five parts that each "
+       "v5.0.0: the Table gained sorting (§ 3.38, site § 42.2). A sortable header is a contract of five parts that each "
        "fail silently: a button (a th that listens for clicks cannot be reached by keyboard), one header with aria-sort "
        "(none, and the order is invisible to a screen reader; two, and it lies), the two album drawings in the button "
        "(the header shows ascending until it drives descending), the driver a step lighter, and no transition. This "
@@ -3578,11 +3632,11 @@ def c83():
         if "table-sort" in txt and "data-sort" not in txt and where == "index.html":
             fails.append("index.html: the sortable demo sets no data-sort, so a date column sorts as text")
     if seen == 0:
-        fails.append("index.html: no sortable table; § 30.2 shows one")
+        fails.append("index.html: no sortable table; § 42.2 shows one")
     css = read(COMPONENTS)
     m = re.search(r"\.table th\[aria-sort\]\{([^}]*)\}", css)
     if not m or "var(--obsidian-800)" not in m.group(1) or "var(--obsidian-200)" not in m.group(1):
-        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.16 says")
+        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.38 says")
     for sel, decl in re.findall(r"(\.table-sort[^{]*)\{([^}]*)\}", css):
         if "transition" in decl:
             fails.append(f"components.css: {sel.strip()} has a transition; the sort is a state")

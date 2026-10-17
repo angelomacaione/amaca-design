@@ -1,6 +1,6 @@
 # Third-party notices
 
-A few drawings of the Icon album (§ 3.32) are adapted from open icon sets: redrawn on the 16 grid with the 1.5 stroke of the system and fitted to its 14 live area.
+A few drawings of the Icon album (§ 3.1) are adapted from open icon sets: redrawn on the 16 grid with the 1.5 stroke of the system and fitted to its 14 live area.
 
 ## Lucide
 
@@ -54,4 +54,4 @@ SOFTWARE.
 
 ## Natural Earth (public domain) via world-atlas (ISC)
 
-The land and the country borders of the Map (§ 3.44) are Natural Earth 1:110m, a public-domain dataset (naturalearthdata.com), read from the TopoJSON of world-atlas 2 (ISC, Mike Bostock) and baked into `index.html` as rows of hex cells. Nothing is fetched at run time.
+The land and the country borders of the Map (§ 3.42) are Natural Earth 1:110m, a public-domain dataset (naturalearthdata.com), read from the TopoJSON of world-atlas 2 (ISC, Mike Bostock) and baked into `index.html` as rows of hex cells. Nothing is fetched at run time.
