@@ -496,7 +496,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.22 — image only |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.23 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.24 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.25 |
+| Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` `.tooltip-end` | canonical | § 3.25 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
 | Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.28 |
@@ -2166,6 +2166,7 @@ A label for something already visible. Never a container for content.
 | Anchor | `.tooltip-wrap` | `position: relative`, `inline-flex` — wraps the trigger, doesn't replace it |
 | Bubble | `.tooltip` | `--w-tooltip` max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
 | Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
+| End variant | `.tooltip-end` | When the anchor sits near the end edge: the bubble's end aligns to the anchor's end instead of centring past the screen. Combines with `.tooltip-bottom` |
 
 **Rules.**
 - **Opens on hover and on focus.** A tooltip reachable only by pointer fails § 6 floor #5.

@@ -1449,7 +1449,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   }
 
   /* collapse grids */
-  .grid-2, .grid-3, .grid-4, .grid-6{grid-template-columns:1fr}
+  .grid-2, .grid-3, .grid-4, .grid-6{grid-template-columns:minmax(0,1fr)}
 
   /* typography scale down */
   .page-title{font-size:var(--t-h1-fluid);max-width:none}
@@ -3450,6 +3450,11 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
 .tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1));transform:translate(-50%, -2px)}
 .tooltip-bottom.is-open{transform:translate(-50%, 0)}
+/* near the end edge the bubble aligns its end to the anchor's end, instead of centring past the screen */
+.tooltip-end{left:auto;right:0;transform:translate(0, 2px)}
+.tooltip-end.is-open{transform:translate(0, 0)}
+.tooltip-bottom.tooltip-end{transform:translate(0, -2px)}
+.tooltip-bottom.tooltip-end.is-open{transform:translate(0, 0)}
 
 /* § 24.1 — a swatch (§ 3.35) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
    Swatch and name are one unit that never breaks across lines. */

@@ -2360,8 +2360,7 @@ def c58():
 
 # Classes the markup uses on purpose without a rule: JS hooks and plain markers. v4.3.2 shipped
 # the wcag-* markers unstyled already; they stay listed until the Accessibility table styles them.
-UNSTYLED_OK = {"deck", "diagram-src", "loader-device-content", "cols-desktop", "unit",
-               "wcag", "wcag-aa", "wcag-aaa", "wcag-exc"}
+UNSTYLED_OK = {"deck", "diagram-src", "loader-device-content", "cols-desktop", "unit"}
 
 
 @check("59", "Every class the site markup uses has a rule, unless it is a declared hook",
