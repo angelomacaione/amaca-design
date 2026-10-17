@@ -464,7 +464,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.35 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.36 — always a circle; the chat's `.chat-avatar` (§ 3.34) keeps its own look until the chat is re-audited |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.37 |
-| Table | `.table` `.table-sort` `.table-row-link` | canonical | § 3.38 |
+| Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.38 |
 | Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.39 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.40 |
 | Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.41 — a Chart card whose plot is lanes |
@@ -1955,7 +1955,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 
 **Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
@@ -2966,7 +2966,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - No zebra striping. The row rule carries the scan; a second device would double the noise.
 - Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
 - The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.10).
-- A table wider than its container scrolls in a wrapper — never shrink the type to fit.
+- A table wider than its container scrolls in a wrapper, `.table-scroll` (`overflow-x: auto`) — never shrink the type to fit.
 - Tables are content, not chrome: a row has no state. **A row that is a link** holds one `.table-row-link`, the anchor in its first cell, whose hit area covers the row: the row then hovers `--obsidian-850`, presses `--obsidian-800` and takes the pressable ring. One link per row and nothing else pressable in it: a second target would sit under the first.
 - **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
 - **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
@@ -3639,15 +3639,16 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Slider | hover · focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
-| Chat | message enter · container | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
+| Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
 | Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
-| Loader | success | check scale-in (spatial) · anim fade + scale 0.7 (spatial/effect) | `--d-base` · `--ease-spring` | instant |
-| Loader | skeleton handoff | loader → skeleton swap | after a `--d-scene` wait | instant swap, shimmer disabled |
+| Loader | success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
+| Loader | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
+| Loader | skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
 | Diagrams | enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
 | Diagrams | enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
@@ -3689,6 +3690,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
+| Case study | enter | section eyebrow, title, text (spatial) | `--d-base` · `--ease-decel`, 0 / 80 / 160 / 240ms | instant |
+| Case study | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Case study | hover · focus | figure caption scale (spatial) | `--d-base` · `--ease-decel` | none |
+| Case study | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
 
 **Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 

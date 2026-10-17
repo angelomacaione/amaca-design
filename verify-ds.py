@@ -3671,6 +3671,55 @@ def c95():
     return fails
 
 
+@check("96", "The motion index carries every motion row of § 3 word for word, and the site's index is the contract's",
+       "v5.0.0: the index called itself the aggregate of every ratified motion row, and a comparison found twenty "
+       "rows that disagreed with their component or were missing: the Loader's two success rows folded into one, "
+       "the Chat entry rows without their selectors, four Case study rows absent, the typing dots with the "
+       "opposite reduced-motion promise. The site's copy of the index held 25 of 90 rows, and drew the "
+       "Lightbox's open and close on one row with the wrong curve.")
+def c96():
+    import html as _h
+    fails = []
+    d = read(DESIGN)
+    j = d.index("Motion index (site-canonical)")
+    s0 = d.index("\n| Component", j) + 1
+    idx = []
+    for ln in d[s0:].splitlines():
+        if not ln.startswith("|"):
+            break
+        c = [x.strip() for x in ln.strip().strip("|").split("|")]
+        if c[0] != "Component" and not c[0].startswith("---"):
+            idx.append(c)
+    tails = {tuple(c[1:]) for c in idx}
+    comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
+    for sec in re.split(r"\n### ", comp)[1:]:
+        name = sec.split("\n")[0].strip()
+        lines = sec.splitlines()
+        for k, ln in enumerate(lines):
+            if not ln.startswith("| Trigger | Property (type) | Motion | Reduced motion |"):
+                continue
+            for row in lines[k + 2:]:
+                if not row.startswith("|"):
+                    break
+                c = tuple(x.strip() for x in row.strip().strip("|").split("|"))
+                if c not in tails:
+                    fails.append(f"§ {name}: motion row '{c[0]} | {c[1][:40]}' is not in the motion index word for word")
+    html = read(INDEX)
+    m = re.search(r"<thead><tr><th>Component</th><th>Trigger</th><th>Property \(type\)</th><th>Motion</th><th>Reduced motion</th></tr></thead>\s*<tbody>(.*?)</tbody>", html, re.S)
+    if not m:
+        return fails + ["site: no motion index table"]
+    def norm(x):
+        return re.sub(r"\s+", " ", _h.unescape(re.sub(r"<[^>]+>", "", x)).replace("`", "").replace("**", "")).strip()
+    site = [tuple(norm(x) for x in re.findall(r"<td[^>]*>(.*?)</td>", r)) for r in re.findall(r"<tr>(.*?)</tr>", m.group(1), re.S)]
+    want = [tuple(norm(x) for x in c) for c in idx]
+    if site != want:
+        missing = [w for w in want if w not in site]
+        extra = [x for x in site if x not in want]
+        fails.append(f"site motion index differs from the contract's: {len(missing)} rows missing, {len(extra)} rows the contract does not carry"
+                     + (f" (first: {(missing or extra)[0][:2]})" if (missing or extra) else " (order)"))
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

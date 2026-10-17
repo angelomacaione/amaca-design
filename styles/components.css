@@ -418,6 +418,8 @@
   color:var(--obsidian-400);background:var(--obsidian-850);font-weight:500;
 }
 .table tr:last-child td{border-bottom:0}
+/* a table wider than its container scrolls in its wrapper; the type never shrinks to fit */
+.table-scroll{overflow-x:auto;max-width:100%}
 /* a row that holds a .table-row-link is the link: the anchor's hit area covers the row */
 .table tbody tr:has(.table-row-link){position:relative;cursor:pointer;transition:background var(--d-quick) var(--ease-standard)}
 .table tbody tr:has(.table-row-link):hover{background:var(--obsidian-850)}
