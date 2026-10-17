@@ -454,7 +454,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` | canonical | § 3.25 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
-| Breadcrumb | `.breadcrumb` | canonical | § 3.28 |
+| Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.28 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.29 |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.30 — an ordered list; the current step carries `aria-current="step"` |
 | Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.31 |
@@ -464,7 +464,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.35 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.36 — always a circle; the chat's `.chat-avatar` (§ 3.34) keeps its own look until the chat is re-audited |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.37 |
-| Table | `.table` `.table-sort` | canonical | § 3.38 |
+| Table | `.table` `.table-sort` `.table-row-link` | canonical | § 3.38 |
 | Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.39 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.40 |
 | Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.41 — a Chart card whose plot is lanes |
@@ -536,6 +536,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact |
 | `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured · light label, ratified § 6.3 |
 | `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` |
+| `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field |
 | `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` |
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` |
@@ -575,6 +576,26 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar |
 | `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static |
 | `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` |
+| `.nav-item` | default | transparent | none | `--obsidian-200` | — | `--r-md` · padding `--s-2` `--s-3` · `--t-small` |
+| `.nav-item` | hover | — | — | `--obsidian-050` | — | no fill: the sidebar wears the Bar material |
+| `.nav-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
+| `.nav-item` | current | — | — | `--obsidian-100` | — | `.active`: a box tinted magenta to cyan, edge magenta at 20% · its number `--primary-400` · the group's one `.nav-indicator` |
+| `.nav-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
+| `.tab` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · padding `--s-3` `--s-4` |
+| `.tab` | hover | — | — | `--obsidian-100` | — | transition — see the motion index |
+| `.tab` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held |
+| `.tab` | selected | — | — | `--obsidian-100` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it |
+| `.tab` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
+| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, mono `--t-caption` · a static shell crumb is a `span`, with no other state |
+| `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index |
+| `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held |
+| `.breadcrumb` crumb | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · `--r-sm` |
+| `.breadcrumb` crumb | current | — | — | `--obsidian-100` | — | `.active` with `aria-current="page"` · a `span`, not a link |
+| `.acc-trigger` | default | transparent | none | `--obsidian-100` | — | the whole header row · `--t-body` |
+| `.acc-trigger` | hover | — | — | `--obsidian-050` | — | transition — see the motion index |
+| `.acc-trigger` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held |
+| `.acc-trigger` | expanded | — | — | — | — | `aria-expanded="true"` · the item tinted magenta at 4% · chevron at 90° and `--primary-400` · its number `--primary-400` |
+| `.acc-trigger` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100`, inside the row |
 | `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--obsidian-100` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area |
 | `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 |
 | `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index |
@@ -660,6 +681,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour |
 | `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover |
 | `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` |
+| `.table-row-link` | default | transparent | none | — | — | the anchor in a row's first cell; its `::after` covers the row, so the row is the target · one per row, nothing else pressable in it |
+| `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index |
+| `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held |
+| `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it |
 | `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives |
 | `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state |
 | `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell |
@@ -1198,7 +1223,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
-- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index (`hover` is the `.input-action`; `error` is not a search state). No state is described in prose here.
+- **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `error` · `disabled` · `readonly`, values in the state index (`hover` is the field's outline, one step lighter, and the `.input-action`'s; `error` is not a search state). No state is described in prose here.
 - **Icon left.** A `.icon` as a direct child of `.input-wrap`: decorative (`aria-hidden`), `--icon-sm`, `--obsidian-300`, no click. The field pads `--s-8` on the left to clear it.
 - **Action right.** `.input-action`: a `<button type="button">` last in the `.input-wrap`, 32px square, `--r-sm`, `--icon-sm`, `--obsidian-300` and `--obsidian-100` on hover. The field pads `--s-10` on the right. It carries an `aria-label`: it has no text. The date picker and the time picker use this same part (§ 3.13).
 - **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.1. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
@@ -2121,7 +2146,7 @@ A label for something already visible. Never a container for content.
 - A linear journey with an order → Stepper.
 
 
-- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.
+- **Sidebar nav** for documentation. Items use `.nav-item`. The sidebar wears the Bar material, so an item never fills: hover lightens the label to `--obsidian-050`, pressed dims it to `--obsidian-300`, as on the top bar. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.
 - **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (the group *Feedback* names badges, chips, alerts and toasts as one family) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
 - **Top nav** for marketing only.
 
@@ -2228,7 +2253,7 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 
 **Required classes:**
 - `.tabs` — wrapper, `position:relative`, bottom border 1px `--obsidian-800`.
-- `.tab` — trigger button. `.active` sets weight 600 + text `--obsidian-100`.
+- `.tab` — trigger button. `.active` sets weight 600 + text `--obsidian-100`. **States: § 3.0.1.** `default` · `hover` · `active` · `selected` · `focus-visible`, values in the state index.
 - `.tab-indicator` — single magenta underline, `position:absolute; bottom:-1px; height:2px; width:0`. Positioned by JS via `transform: translateX(...)` + `width`.
 - `.tab-panels` / `.tab-panel` — panels hidden via `display:none`; `.active` reveals; `.is-in` fades in.
 
@@ -2281,6 +2306,7 @@ Use `will-change: transform, width` on the indicator.
 
 - Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
 - In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
+- **A crumb that is a link** hovers `--obsidian-100`, presses `--obsidian-400` and takes the pressable ring; the current page stays a `span`.
 - ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
 
 **Do / Don't.** Do wrap a breadcrumb that navigates in `<nav aria-label="Breadcrumb">` and mark the current page with `aria-current="page"`. Don't use it as the only navigation, or to show progress through a flow: that is a Stepper.
@@ -2488,9 +2514,25 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Switching quickly between sections → Tabs.
 
 
+```html
+<div class="accordion" data-accordion>
+  <div class="acc-item">
+    <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="acc-1">
+      <span class="acc-chevron" aria-hidden="true"><!-- icon "chevron-right" --></span>
+      <span class="acc-label">Continuous evolution</span>
+      <span class="acc-num">01 / 04</span>
+    </button>
+    <div class="acc-panel" id="acc-1" role="region">
+      <div class="acc-panel-inner"><div class="acc-panel-body"><p>…</p></div></div>
+    </div>
+  </div>
+</div>
+```
+
 - Single-open by default.
 - Chevron rotates 90° on expand.
 - Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
+- **States: § 3.0.1.** `default` · `hover` · `active` · `expanded` · `focus-visible` on the trigger, values in the state index. Focus is the system's pressable ring, drawn inside the row.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -2920,12 +2962,14 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
 - The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.10).
 - A table wider than its container scrolls in a wrapper — never shrink the type to fit.
-- Tables are content, not chrome: no hover row highlight unless the row is a link or a control.
+- Tables are content, not chrome: a row has no state. **A row that is a link** holds one `.table-row-link`, the anchor in its first cell, whose hit area covers the row: the row then hovers `--obsidian-850`, presses `--obsidian-800` and takes the pressable ring. One link per row and nothing else pressable in it: a second target would sit under the first.
 - **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
 - **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
 - **The whole header is the target.** The button fills the cell, so the target is the header's height and width, never the icon alone. Focus is the pressable halo with the outline inside the cell (offset `-2px`, as the date picker's days): the frame clips the halo on the table's outer edges, the outline always shows.
 
 **Do / Don't.** Do open a sortable table already sorted, with its driver named by `aria-sort` and a step lighter. Don't let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.
+
+**Do / Don't.** Do make a row that opens a page one link, its anchor in the first cell covering the row. Don't highlight a row that is not a link, or put a second link or button in a linked row.
 
 ### Chart card
 
@@ -3616,6 +3660,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
 | Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Navigation · sidebar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Breadcrumb | crumb hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Table | link row hover / press | background (effect) | `--d-quick` · `--ease-standard` | instant |
+| Input | hover | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | A11y caret (demo) | idle (loop) | caret opacity blink (effect) | 1s · steps(1) · infinite | stopped by the kill-switch |
 | Date picker | open | popover opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Date picker | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |

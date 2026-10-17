@@ -3547,6 +3547,56 @@ def c92():
     return fails
 
 
+@check("93", "Every pressable says what pressing does, and nothing on a translucent bar fills",
+       "v5.0.0: six components drew states the state index never listed, or missed one: tabs, the sidebar "
+       "item, breadcrumb links (the contract described them and the CSS drew none), table rows, the accordion "
+       "(a magenta focus outline unlike every other pressable) and the text field (no hover). This check holds "
+       "each one to its rows, its pressed state, the system ring and the no-fill rule of the Bar material.")
+def c93():
+    fails = []
+    css = read(COMPONENTS)
+    d = read(DESIGN)
+    need_css = {
+        ".tab:active": "color:var(--obsidian-300)",
+        ".nav-item:hover": "color:var(--obsidian-050)",
+        ".nav-item:active": "color:var(--obsidian-300)",
+        ".breadcrumb a:hover": "color:var(--obsidian-100)",
+        ".breadcrumb a:active": "color:var(--obsidian-400)",
+        ".breadcrumb a:focus-visible": "var(--ring-halo)",
+        ".acc-trigger:active": "color:var(--obsidian-300)",
+        ".acc-trigger:focus-visible": "var(--ring-halo)",
+        ".table tbody tr:has(.table-row-link):hover": "background:var(--obsidian-850)",
+        ".table tbody tr:has(.table-row-link):active": "background:var(--obsidian-800)",
+        ".table tbody tr:has(.table-row-link:focus-visible)": "var(--ring-halo)",
+    }
+    for sel, val in need_css.items():
+        m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
+        if not m or val not in m.group(1):
+            fails.append(f"components.css: {sel} must carry {val}")
+    if re.search(r"\.nav-item:hover\{[^}]*background", css) or re.search(r"\.navbar-item:hover\{[^}]*background", css):
+        fails.append("components.css: an item on a translucent bar fills on hover; it lightens its label")
+    if not re.search(r"\.input:hover[^{]*\{border-color:var\(--obsidian-300\)\}", css):
+        fails.append("components.css: the text field has no hover outline")
+    rows = {
+        "`.tab`": ["default", "hover", "active", "selected", "focus-visible"],
+        "`.nav-item`": ["default", "hover", "active", "current", "focus-visible"],
+        "`.breadcrumb` crumb": ["default", "hover", "active", "focus-visible", "current"],
+        "`.acc-trigger`": ["default", "hover", "active", "expanded", "focus-visible"],
+        "`.table-row-link`": ["default", "hover", "active", "focus-visible"],
+        "`.input` `.textarea` `.select`": ["hover"],
+    }
+    for comp, states in rows.items():
+        for st in states:
+            if f"| {comp} | {st} |" not in d:
+                fails.append(f"DESIGN.md state index: no row {comp} | {st}")
+    html = read(INDEX)
+    for m in re.finditer(r"<tr>(.*?)</tr>", html, re.S):
+        row = m.group(1)
+        if "table-row-link" in row and len(re.findall(r"<(a|button)\b", row)) > 1:
+            fails.append("site: a linked table row holds a second target")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

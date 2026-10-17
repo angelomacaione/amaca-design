@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=03ff96d1">
-<link rel="stylesheet" href="styles/components.css?v=206dba07">
+<link rel="stylesheet" href="styles/components.css?v=a3545068">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -2885,10 +2885,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A hierarchy deeper than two levels.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A flat site → Navigation alone.</li><li>Progress through a flow → Stepper.</li><li>As the only navigation → it sits beside Navigation, never instead.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Breadcrumbs</h2><span class="subsection-num">§ 32.1</span></div>
-          <p class="subsection-desc">Breadcrumbs in the mono register: the path recedes, the current page is lit. Component spec: § 3.28 in the contract.</p>
+          <p class="subsection-desc">Breadcrumbs in the mono register: the path recedes, the current page is lit. The first two are static labels, as in the shell; the third navigates: its crumbs are links that light on hover and take the focus ring. Component spec: § 3.28 in the contract.</p>
           <div class="card" style="padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)">
             <div class="breadcrumb"><span>Work</span><span class="sep">/</span><span>Case studies</span><span class="sep">/</span><span class="active">Arc Automotive HMI</span></div>
             <div class="breadcrumb"><span>Journal</span><span class="sep">/</span><span>2026</span><span class="sep">/</span><span class="active">On systems that outlive the work</span></div>
+            <nav aria-label="Breadcrumb"><div class="breadcrumb"><a href="#">Work</a><span class="sep">/</span><a href="#">Case studies</a><span class="sep">/</span><span class="active" aria-current="page">Atlas token pipeline</span></div></nav>
           </div>
         </div>
         <div class="subsection">
@@ -3741,8 +3742,18 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </table>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 42.3</span></div>
-          <p class="subsection-desc">One rule for sorting: there is always a driver.</p>
+          <div class="subsection-head"><h2 class="subsection-title">Linked rows</h2><span class="subsection-num">§ 42.3</span></div>
+          <p class="subsection-desc">A row that opens a page is the link: one anchor in its first cell, whose hit area covers the row. The row lightens on hover, a step more while pressed, and takes the focus ring as a whole. A row that is not a link has no state.</p>
+          <table class="table">
+            <thead><tr><th>Project</th><th>Scope</th><th>Year</th></tr></thead>
+            <tbody>
+              <tr><td><a class="table-row-link" href="#">Orion</a></td><td class="muted">Fleet console</td><td class="muted">2025</td></tr><tr><td><a class="table-row-link" href="#">Nova</a></td><td class="muted">Onboarding</td><td class="muted">2025</td></tr><tr><td><a class="table-row-link" href="#">Atlas</a></td><td class="muted">Token pipeline</td><td class="muted">2026</td></tr><tr><td><a class="table-row-link" href="#">Field</a></td><td class="muted">Observability</td><td class="muted">2024</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don't</h2><span class="subsection-num">§ 42.4</span></div>
+          <p class="subsection-desc">One rule for sorting: there is always a driver. One target per row.</p>
           <div class="do-dont">
             <div class="do">
               <div class="hd"><span>✓</span>Do</div>
@@ -3751,6 +3762,16 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div class="dont">
               <div class="hd"><span>✕</span>Don't</div>
               <p>Let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Make a row that opens a page one link, its anchor in the first cell covering the row.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Highlight a row that is not a link, or put a second link or button in a linked row.</p>
             </div>
           </div>
         </div>
