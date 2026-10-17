@@ -122,7 +122,7 @@ Motion: [Motion One](https://motion.dev) by Matt Perry.
 
 * Website — [angelomacaione.com](https://angelomacaione.com)
 * Design System — [amaca.design](https://amaca.design)
-* Email — [angelo.macaione@gmail.com](mailto:angelo.macaione@gmail.com)
+* Email — [a@amaca.design](mailto:a@amaca.design)
 
 ---
 
