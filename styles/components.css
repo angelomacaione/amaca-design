@@ -901,10 +901,20 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-plot > svg{display:block;width:100%;height:auto}
 /* Labels of a plot: HTML over the drawing, positioned in % of its viewBox, sized by tokens. The drawing scales with
    the card; the text stays at its token at every width. No <text> inside a plot's svg. */
-.chart-label{position:absolute;font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);line-height:1;white-space:nowrap;transform:translateY(-50%);pointer-events:none}
+.chart-label{position:absolute;font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);line-height:1;white-space:nowrap;translate:0 -50%;pointer-events:none}
 .chart-label-axis{color:var(--obsidian-200)}
 .chart-label-value{color:var(--obsidian-100)}
-.chart-label-center{transform:translate(-50%,-50%)}
+.chart-label-center{translate:-50% -50%}
+.chart-label-end{translate:-100% -50%}
+/* Labels centre with the translate property: [data-fade] owns transform, the two compose.
+   Timeline (§ 3.43): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
+.timeline-scroll{overflow-x:auto;overscroll-behavior-x:contain}
+.timeline-plot{min-width:calc(var(--s-32) * 5)}
+.timeline-lane{position:absolute;translate:0 -50%;font-size:var(--t-small);font-weight:500;line-height:1;color:var(--obsidian-100);white-space:nowrap}
+.timeline-meta{position:absolute;translate:0 -50%;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;line-height:1;color:var(--obsidian-200);white-space:nowrap}
+.timeline-bar-label{position:absolute;translate:0 -50%;font-size:var(--t-micro);font-weight:700;line-height:1;color:var(--primary-950);white-space:nowrap}
+.timeline-bar-label-dark{color:var(--primary-100)}
+.timeline-today{position:absolute;translate:-50% -50%;padding:var(--s-0-5) var(--s-1);border-radius:var(--r-xs);background:var(--primary-200);color:var(--primary-950);font-family:var(--font-mono);font-size:var(--t-micro);font-weight:700;letter-spacing:var(--tr-mono);text-transform:uppercase;line-height:1}
 /* Bars keep two columns down to --bp-md (one column at 900 made each bar chart twice its size); under it the labels grow so they stay readable at phone scale. */
 @media (max-width: 900px){.grid-2.chart-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width: 720px){.grid-2.chart-grid{grid-template-columns:1fr}}

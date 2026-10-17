@@ -435,7 +435,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
 | Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
 | Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` | canonical | § 3.25 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.25 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
@@ -453,6 +453,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
+| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.43 — a Chart card whose plot is lanes |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
@@ -623,6 +624,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
 | `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
 | `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.25) |
+| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.43) |
 
 ### § 3.0.2 Stacking
 
@@ -1872,7 +1874,7 @@ A label for something already visible. Never a container for content.
 | Part | Hook | Note |
 |---|---|---|
 | Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
-| Grid | a `<g>` of lines | white at 5%; no hook, it does not move |
+| Grid | a `<g>` of lines | `--border-subtle`; no hook, it does not move |
 | Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` mono, `--tr-mono`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
 | Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
@@ -1885,14 +1887,18 @@ A label for something already visible. Never a container for content.
 - **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
-- **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points 220ms apart. Under reduced motion every part lands drawn.
+- **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points `--d-quick` apart. Under reduced motion every part lands drawn.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
 | plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
-| plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + 220ms × i | none — drawn |
+| plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
+| plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
+| plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
 
 ### Pie
 
@@ -1909,7 +1915,7 @@ A label for something already visible. Never a container for content.
 - `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.13).
 - `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
 - `.swatch` — the Swatch (§ 3.40), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
-- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-draw` (§ 6 floor #1).
+- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.25) (§ 6 floor #1).
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -2867,6 +2873,55 @@ How far a task with a known end has come: a track, a fill and the value written 
 
 **Do / Don't.** Do write the value beside the bar and name the bar. Don't use it for an unknown wait, or stack two bars for one task.
 
+### Timeline
+
+A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.25) whose plot is lanes instead of series.
+
+**Usage**
+
+*Use it when*
+- Tasks on one shared time axis, so overlap and sequence read at a glance.
+
+*Use something else when*
+- Dates with no duration and no overlap → List or Table.
+- Steps done in order, one at a time → Stepper.
+
+
+```html
+<div class="chart-card">
+  <div class="chart-head"><div><div class="t">Project · Orion launch</div>…</div><span class="badge">5 lanes</span></div>
+  <div class="timeline-scroll"><div class="chart-plot timeline-plot">
+    <svg viewBox="0 0 700 290" aria-hidden="true">…grid, bars, today line…</svg>
+    <span class="chart-label chart-label-axis chart-label-center" style="left:18.571%;top:6.207%">W1</span>
+    <span class="timeline-lane" style="left:3.429%;top:21.724%">Discovery</span>
+    <span class="timeline-bar-label" style="left:19.714%;top:22.069%">Research</span>
+    <span class="timeline-today" style="left:57.571%;top:15.517%">Today</span>
+  </div></div>
+</div>
+```
+
+| Part | Class · hook | Note |
+|---|---|---|
+| Chart card | `.chart-card` `.chart-head` | the frame (§ 3.25); the badge counts the lanes |
+| Scroll | `.timeline-scroll` | scrolls sideways under the width the lanes need; nothing shrinks |
+| Plot | `.chart-plot` `.timeline-plot` | at least `--s-32` × 5 (640px); canvas `--primary-950`, the same margin left and right, and top and bottom |
+| Grid | a `<g>` of lines | `--border-subtle`, one line every two weeks; it does not move |
+| Axes | `.chart-label-axis` `.chart-label-center` · `.chart-label-end` | weeks above, dates below, `--t-caption` mono `--obsidian-200`; the last date ends on the last gridline |
+| Lane label | `.timeline-lane` · `.timeline-meta` | `--t-small` 500 `--obsidian-100`; the meta `--t-micro` mono uppercase `--obsidian-200` |
+| Bar | `rect[data-bar-h]` | a gradient of the sequential palette (`gantt-bar-1` `-2` `-3`), radius 4 on the 700 viewBox; grows from its start |
+| Bar label | `.timeline-bar-label` · `.timeline-bar-label-dark` | `--t-micro` 700: `--primary-950` on the light bars, `--primary-100` on the dark ones |
+| Today | a dashed line · `.timeline-today` | `--primary-200` dashed 3 3; the pill is HTML, `--t-micro` mono uppercase on `--primary-200`, `--r-xs` |
+
+- **Text is HTML, never inside the svg (RIGID)**: the § 3.25 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
+- **Scroll, don't shrink.** Under 640px the plot keeps its size and the reader scrolls it sideways. A lane label smaller than its token is a defect.
+- **The plot is not interactive.** No hover, no focus, no state but `default` (state index); dates and lanes are written as text.
+- **Colour never carries the work alone**: the bar label names it (§ 6 floor #1).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| plot reveal | bar width (spatial) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| plot reveal | labels · today (effect · spatial) | the entrance reveal: `--d-slow` · `--ease-decel` | none — shown |
+
 ## Do's and Don'ts
 
 ### For the AI agent
@@ -3083,7 +3138,13 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
 | Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
-| Plot | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + 220ms × i | none — drawn |
+| Plot | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
+| Plot | plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| Plot | plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| Plot | plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
+| Plot | plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
+| Timeline | plot reveal | bar width (spatial) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
+| Timeline | plot reveal | labels · today (effect · spatial) | the entrance reveal: `--d-slow` · `--ease-decel` | none — shown |
 | Pie | legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Accordion | open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |

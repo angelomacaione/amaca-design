@@ -2206,7 +2206,7 @@ def _usage_site(html):
 
 # Site sections whose § 3 entry arrives with phase 3 of v5.0.0; their Usage lives on the site
 # only until then. The exemption expires with the release (debt_is_live).
-USAGE_SITE_ONLY = {"timeline", "maps", "casestudy"}
+USAGE_SITE_ONLY = {"maps", "casestudy"}
 
 
 @check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
@@ -3181,6 +3181,9 @@ def c78():
     body = html[a:b] if a > 0 and b > a else ""
     for lit in re.findall(r"duration:\s*([\d.]+)", body):
         fails.append(f"chart reveal: a literal duration {lit}, not a token")
+    for dl in re.findall(r"delay:\s*([^,\n}]+)", body):
+        if re.search(r"\d*\.\d+", dl):
+            fails.append(f"chart reveal: a literal delay '{dl.strip()}', not a token")
     for ease in re.findall(r"ease:\s*'([a-z-]+)'", body):
         fails.append(f"chart reveal: a literal easing '{ease}', not a token")
     if "| `.chart-card` plot | default |" not in d:
@@ -3223,6 +3226,48 @@ def c80():
             fails.append(f"components.css: {sel} must set {prop}")
     if re.search(r"\.chart-[a-z-]+ text\{[^}]*font-size:\s*\d", css):
         fails.append("components.css: a raw font-size on svg text of a chart")
+    return fails
+
+
+@check("81", "The Timeline is a plot of the contract: its text is HTML, it scrolls instead of shrinking, its labels keep their centre",
+       "v5.0.0: the gantt drew its weeks, lanes and dates inside the svg, so on a phone they shrank to 4px, and "
+       "the last date ran off the canvas. Its labels moved to HTML on tokens, the plot got a minimum width and "
+       "a sideways scroll, and the labels centre with the translate property: the entrance reveal owns "
+       "transform, and its end state had moved every centred label by half its width ('1.7k' sat 11px off). "
+       "The plot grid was a hand-typed rgba. This check holds the section, the CSS and the registry together.")
+def c81():
+    fails = []
+    html = read(INDEX)
+    css = read(ROOT / "styles" / "components.css")
+    d = read(DESIGN)
+    a = html.find('<section class="section" id="timeline">')
+    sec = html[a:html.index("</section>", a)] if a >= 0 else ""
+    if "<text" in sec:
+        fails.append("#timeline: a <text> inside the plot; labels are HTML (§ 3.43)")
+    if 'class="timeline-scroll"' not in sec or "timeline-plot" not in sec:
+        fails.append("#timeline: the plot is not inside .timeline-scroll")
+    if not re.search(r"(?m)^\.timeline-plot\{[^}]*min-width:", css):
+        fails.append("components.css: .timeline-plot has no min-width")
+    used = set(re.findall(r"\.(timeline-[a-z-]+)", css))
+    row = re.search(r"(?m)^\| Timeline \|([^\n]*)", d)
+    reg = set(re.findall(r"`\.(timeline-[a-z-]+)`", row.group(1))) if row else set()
+    for c in sorted(used ^ reg):
+        fails.append(f"Timeline registry and components.css disagree on .{c}")
+    for sel in ("chart-label", "chart-label-center", "chart-label-end", "timeline-lane", "timeline-meta", "timeline-bar-label", "timeline-today"):
+        m = re.search(r"(?m)^\." + sel + r"\{([^}]*)\}", css)
+        if not m:
+            fails.append(f"components.css: no .{sel} rule")
+        elif re.search(r"(?<![-\w])transform:", m.group(1)):
+            fails.append(f".{sel} centres with transform; [data-fade] replaces it, use translate")
+    for sid in ("charts", "timeline"):
+        b = html.find(f'<section class="section" id="{sid}">')
+        body = html[b:html.index("</section>", b)] if b >= 0 else ""
+        for svg in re.findall(r"<svg(?![^>]*class=\"icon)[^>]*>.*?</svg>", body, re.S):
+            if re.search(r"rgba?\(|#[0-9a-fA-F]{3,6}\b", svg):
+                fails.append(f"#{sid}: a plot carries a literal colour; every colour is a token")
+                break
+    if "| `.timeline` plot | default |" not in d:
+        fails.append("DESIGN.md state index: no Timeline row")
     return fails
 
 
