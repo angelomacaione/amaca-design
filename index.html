@@ -52,12 +52,14 @@ html{scroll-behavior:smooth}
     if (__tok) return __tok;
     const cs = getComputedStyle(document.documentElement);
     const bez = n => (cs.getPropertyValue(n).match(/-?[\d.]+/g) || []).map(Number);
+    const ease = n => cs.getPropertyValue(n).trim() === 'linear' ? 'linear' : bez(n);
     const sec = n => parseFloat(cs.getPropertyValue(n)) / 1000;
     __tok = {
       easeStandard: bez('--ease-standard'),
       easeAccel:    bez('--ease-accel'),
       easeDecel:    bez('--ease-decel'),
       easeSpring:   bez('--ease-spring'),
+      easeLinear:   ease('--ease-linear'),
       dInstant: sec('--d-instant'),
       dQuick:   sec('--d-quick'),
       dBase:    sec('--d-base'),
@@ -6339,6 +6341,8 @@ if ('IntersectionObserver' in window) {
     // Stepper and Progress (§ 3.41, § 3.42): the reveal is CSS; the replay drops .is-in here and run() adds it back
     root.querySelectorAll('[data-reveal]').forEach(el => el.classList.remove('is-in'));
     root.querySelectorAll('[data-line-draw]').forEach(p => {
+      // the dash comes back too: the last reveal cleared it, and a replay with no dash showed the line already drawn
+      p.style.strokeDasharray = p._len;
       p.style.strokeDashoffset = p._len;
     });
     root.querySelectorAll('[data-baseline-clip]').forEach(r => r.setAttribute('width', 0));
@@ -6391,40 +6395,37 @@ if ('IntersectionObserver' in window) {
     const charts = root.querySelectorAll('[data-fade-chart]');
     charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), 120 + i * 150));
 
+    // The plot (§ 3.25), choreography E: each part waits for the one before it to read, never for it to end.
+    // Baseline from --d-base; the line --d-slow after it; area and points --d-slow after the line starts;
+    // points 220ms apart. Every duration and curve is a token; the 220ms step is composition.
+    const tBase = T.dBase, tLine = T.dBase + T.dSlow, tFill = tLine + T.dSlow;
     root.querySelectorAll('[data-baseline-clip]').forEach(r => {
       animate(0, 650, {
-        duration: T.dScene, ease: decel, delay: 0.35,
+        duration: T.dScene, ease: decel, delay: tBase,
         onUpdate: v => r.setAttribute('width', v.toFixed(1))
       });
     });
 
-    const mains = root.querySelectorAll('[data-line-draw]');
-    mains.forEach(p => {
-      const delay = p.hasAttribute('data-delay') ? +p.getAttribute('data-delay') : 1.25;
-      const dur = p.hasAttribute('data-dur') ? +p.getAttribute('data-dur') : 1.4;
+    root.querySelectorAll('[data-line-draw]').forEach(p => {
       animate(p._len, 0, {
-        duration: dur, ease: decel, delay: delay,
+        duration: T.dDraw, ease: decel, delay: tLine,
         onUpdate: v => { p.style.strokeDashoffset = v; },
         onComplete: () => { p.style.strokeDasharray = 'none'; p.style.strokeDashoffset = '0'; }
       });
     });
 
-    const areas = Array.from(root.querySelectorAll('[data-area-fade]'));
-    areas.forEach(a => {
+    root.querySelectorAll('[data-area-fade]').forEach(a => {
       animate(0, 1, {
-        duration: T.dSlow, ease: decel, delay: 2.65,
+        duration: T.dSlow, ease: T.easeLinear, delay: tFill,
         onUpdate: v => { a.style.opacity = v; }
       });
     });
 
-    const dotCircles = root.querySelectorAll('[data-line-dots] [data-dot]');
-    dotCircles.forEach((c, i) => {
-      const delay = c.hasAttribute('data-delay') ? +c.getAttribute('data-delay') : (2.65 + i * 0.22);
-      const dur = c.hasAttribute('data-dur') ? +c.getAttribute('data-dur') : 0.4;
+    root.querySelectorAll('[data-line-dots] [data-dot]').forEach((c, i) => {
       const rTarget = c.hasAttribute('data-r') ? +c.getAttribute('data-r') : 4;
       animate(0, rTarget, {
-        duration: dur, ease: decel, delay: delay,
-        onUpdate: v => c.setAttribute('r', v.toFixed(2))
+        duration: T.dBase, ease: spring, delay: tFill + i * 0.22,
+        onUpdate: v => c.setAttribute('r', Math.max(0, v).toFixed(2))
       });
     });
 

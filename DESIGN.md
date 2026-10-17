@@ -622,6 +622,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour |
 | `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` |
 | `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` |
+| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.25) |
 
 ### § 3.0.2 Stacking
 
@@ -1863,6 +1864,30 @@ A label for something already visible. Never a container for content.
 |---|---|---|---|
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
+**Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
+
+| Part | Hook | Note |
+|---|---|---|
+| Canvas | `svg[data-fade-chart]` | `--primary-950` wash; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
+| Grid | a `<g>` of lines | white at 5%; no hook, it does not move |
+| Axis labels | a `<g>` of text | `--obsidian-200`, 10.52 : 1 on the canvas; no hook |
+| Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
+| Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
+| Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
+| Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r` |
+| Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's label rides its end and counts up |
+| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them |
+
+- **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
+- **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points 220ms apart. Under reduced motion every part lands drawn.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
+| plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
+| plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + 220ms × i | none — drawn |
+
 ### Pie
 
 ```html
@@ -3049,6 +3074,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
 | Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
+| Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
+| Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
+| Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| Plot | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + 220ms × i | none — drawn |
 | Pie | legend hover | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Accordion | open | panel grid-rows (spatial) | duration by distance · `--ease-decel` | instant |
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |

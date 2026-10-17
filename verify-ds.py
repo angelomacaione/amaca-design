@@ -3155,6 +3155,39 @@ def c77():
     return fails
 
 
+@check("78", "The plot's parts are the hooks the contract names, and its reveal reads every duration and curve from tokens",
+       "v5.0.0: the line chart's reveal was timed by hand: the line drew in 1.4s from 1.25s, area and points "
+       "waited until 2.65s, the points grew in 0.4s; two of those numbers were tokens by accident and none by "
+       "name. The plot got its anatomy (§ 3.25, one data-* hook per part) and choreography E, every duration "
+       "and curve a token. This check holds the hooks of the contract's Plot table to the site's markup and "
+       "script, and the reveal to no literal duration.")
+def c78():
+    fails = []
+    d = read(DESIGN)
+    m = re.search(r"\*\*Plot\.\*\*[^\n]*\n\n\| Part \| Hook \| Note \|\n\|[-|]+\|\n((?:\|[^\n]*\n)+)", d)
+    if not m:
+        return ["DESIGN.md: § 3.25 has no Plot table"]
+    html = read(INDEX)
+    for row in m.group(1).strip("\n").split("\n"):
+        part = row.split("|")[1].strip()
+        hooks = re.findall(r"\[(data-[a-z-]+)\]", row)
+        for hk in hooks:
+            if not re.search(rf"<[a-z]+[^>]*\s{hk}(?=[\s=>/])", html):
+                fails.append(f"Plot {part}: hook {hk} is in the contract, not in the site's markup")
+        if hooks and not any(f"[{hk}" in html for hk in hooks):
+            fails.append(f"Plot {part}: none of its hooks is read by the reveal script")
+    a = html.find("function run(M, root){")
+    b = html.find("waitForMotion(M => {", a)
+    body = html[a:b] if a > 0 and b > a else ""
+    for lit in re.findall(r"duration:\s*([\d.]+)", body):
+        fails.append(f"chart reveal: a literal duration {lit}, not a token")
+    for ease in re.findall(r"ease:\s*'([a-z-]+)'", body):
+        fails.append(f"chart reveal: a literal easing '{ease}', not a token")
+    if "| `.chart-card` plot | default |" not in d:
+        fails.append("DESIGN.md state index: no row saying the plot is not interactive")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
