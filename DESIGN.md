@@ -2657,13 +2657,16 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
 | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
 | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 
 **Typing indicator:**
 - Lives **inside a bot bubble** (`.chat-bubble.chat-bubble-typing`), never floats as a gutter caption. For a single-bot UI the avatar already says who's typing.
 - Three `.chat-dot` spans inside `.chat-typing`. Each: `width 6px; height 6px; background --obsidian-300`.
-- Animation: `chat-dot-wave`, infinite — spec in the motion table above. Stagger via `animation-delay` on `:nth-child(2)` and `:nth-child(3)`.
+- Animation: `chat-dot-wave`, infinite, a continuous loop (§ Motion › Continuous loops). Stagger via `animation-delay` on `:nth-child(2)` and `:nth-child(3)`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
 
 **Composer:**
@@ -3641,7 +3644,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chat | message enter · content | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | instant — rest state |
+| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
 | Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Loader | success | check scale-in (spatial) · anim fade + scale 0.7 (spatial/effect) | `--d-base` · `--ease-spring` | instant |
 | Loader | skeleton handoff | loader → skeleton swap | after a `--d-scene` wait | instant swap, shimmer disabled |

@@ -3644,6 +3644,33 @@ def c94():
     return fails
 
 
+@check("95", "The typing dots are written once: their own row, the same in the Chat section, the motion index and the site",
+       "v5.0.0: the typing dots sat in the Chat section's entry choreography table, a loop among transitions, "
+       "and the motion index carried a second, shorter version of the row ('opacity (effect)' without its values) "
+       "with a reduced-motion cell, 'instant — rest state', that said the opposite of the CSS: under reduced "
+       "motion the dots hold still at full opacity. The site's two tables copied the short row.")
+def c95():
+    fails = []
+    d = read(DESIGN)
+    want = "translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity"
+    chat = d[d.index("\n### Chat"):d.index("\n### ", d.index("\n### Chat") + 5)]
+    if chat.count("| typing dots (loop) | " + want + " |") != 1:
+        fails.append("DESIGN.md § Chat: the typing dots row is not the canonical one, or it appears twice")
+    entry = chat[chat.find("Two-stage entry choreography"):chat.find("**Typing indicator:**")]
+    if "typing dots" in entry:
+        fails.append("DESIGN.md § Chat: the typing dots sit in the entry choreography table; they are a loop")
+    if d.count("| Chat | typing dots (loop) | " + want + " |") != 1:
+        fails.append("DESIGN.md motion index: the Chat typing dots row is not the section's row")
+    html = read(INDEX)
+    site = re.findall(r"typing dots[^<]*(?:<code>[^<]*</code>)?[^<]*\(loop\)</td>(.*?)</tr>", html)
+    if len(site) != 2 or any("0.35→1→0.35" not in r or "hold still at full opacity" not in r for r in site):
+        fails.append("site: the two typing dots rows are not the contract's row")
+    css = read(COMPONENTS)
+    if not re.search(r"\.chat-dot\{\s*animation:none !important;\s*opacity:1 !important\s*\}", css):
+        fails.append("components.css: under reduced motion the dots must hold still at full opacity")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
