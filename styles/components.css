@@ -1003,6 +1003,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 
 /* ─────────── VOICE / TONE ─────────── */
 .do-dont{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-4)}
+.do-dont + .do-dont{margin-top:var(--s-4)}
 @media (max-width:900px){.do-dont{grid-template-columns:1fr}}
 .do, .dont{border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg);padding:var(--s-5);background:var(--obsidian-900)}
 .do{border-left:var(--bw-2) solid var(--success)}

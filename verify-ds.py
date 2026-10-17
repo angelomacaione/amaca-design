@@ -3488,6 +3488,27 @@ def c90():
     return fails
 
 
+@check("91", "Two Do / Don't pairs in a row keep their gap, and a demo link stays where it is",
+       "v5.0.0: on § 06 the second Do / Don't pair sat flush on the first, the grid gap living only inside a "
+       "pair; and the row cards of § 35 pointed to #card, so a click on a demo threw the reader back to the "
+       "top of the page. A demo link is href=\"#\" and the site keeps it in place.")
+def c91():
+    fails = []
+    css = read(COMPONENTS)
+    gap = re.search(r"^\.do-dont\{[^}]*gap:([^;}]+)", css, re.M)
+    stack = re.search(r"^\.do-dont \+ \.do-dont\{[^}]*margin-top:([^;}]+)", css, re.M)
+    if not stack or not gap or stack.group(1).strip() != gap.group(1).strip():
+        fails.append("components.css: .do-dont + .do-dont must keep the pair's own gap as margin-top")
+    html = read(INDEX)
+    if not re.search(r"closest\('a\[href=\"#\"\]'\)[^\n]*\n\s*if\(a\) e\.preventDefault\(\)", html):
+        fails.append("index.html: no handler keeps a demo link (href=\"#\") in place")
+    ids = set(re.findall(r'<section class="section[^"]*" id="([a-z-]+)"', html))
+    for m in re.finditer(r'<a class="card[^"]*" href="#([a-z-]+)"', html):
+        if m.group(1) in ids:
+            fails.append(f"site: a demo card links to the section #{m.group(1)}: use href=\"#\"")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

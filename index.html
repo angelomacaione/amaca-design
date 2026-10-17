@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=03ff96d1">
-<link rel="stylesheet" href="styles/components.css?v=fb2bf321">
+<link rel="stylesheet" href="styles/components.css?v=6dcd0f3c">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -3053,17 +3053,17 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <div class="subsection-head"><h2 class="subsection-title">Row card</h2><span class="subsection-num">§ 35.3</span></div>
           <p class="subsection-desc">One line of a list: a square media, the micro-header, a title and one clipped line, then a chevron. The whole card is the link, so it holds no button; it hovers like any card and takes the focus ring of a pressable.</p>
           <div style="display:grid;gap:var(--s-3);max-width:calc(var(--s-24) * 6)">
-              <a class="card card-row" href="#card">
+              <a class="card card-row" href="#">
                 <div class="card-media"><div style="background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div>
                 <div><div class="card-meta"><span>CS-018 · 2025</span></div><h3>Orion · Fleet console</h3><p>A control room for 40k connected vans, from the depot to the road.</p></div>
                 <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
               </a>
-              <a class="card card-row" href="#card">
+              <a class="card card-row" href="#">
                 <div class="card-media"><div style="background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div>
                 <div><div class="card-meta"><span>CS-019 · 2025</span></div><h3>Nova · Onboarding</h3><p>Three screens instead of eleven.</p></div>
                 <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
               </a>
-              <a class="card card-row" href="#card">
+              <a class="card card-row" href="#">
                 <div class="card-media"><div style="background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div>
                 <div><div class="card-meta"><span>CS-020 · 2026</span></div><h3>Atlas · Token pipeline</h3><p>One source, four platforms.</p></div>
                 <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
@@ -6414,6 +6414,12 @@ navItems.forEach(n => n.addEventListener('click', (e) => {
 
 // Browser back/forward through hash history
 window.addEventListener('hashchange', syncFromHash);
+
+// A demo link (href="#") stays where it is: it never jumps to the top of the page.
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('a[href="#"]');
+  if(a) e.preventDefault();
+});
 
 // Initial route: always land on #overview unless a valid hash is present.
 // (No localStorage fallback — fresh visits to amaca.design always start at Overview.)
