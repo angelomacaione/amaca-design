@@ -3468,8 +3468,8 @@ def c90():
     if not m or "var(--primary-500)" not in m.group(1) or "blur(var(--blur-light))" not in m.group(1):
         fails.append("components.css: .card-feature::before must paint --primary-500 under blur(var(--blur-light))")
     t = re.search(r"\.card-feature-tab\{([^}]*)\}", css)
-    if not t or "var(--sh-glow)" not in t.group(1) or "var(--primary-500)" not in t.group(1):
-        fails.append("components.css: .card-feature-tab must be --primary-500 with --sh-glow")
+    if not t or "var(--sh-glow)" not in t.group(1) or "var(--primary-500)" not in t.group(1) or "border-radius:0 0 var(--r-xl) 0" not in t.group(1):
+        fails.append("components.css: .card-feature-tab must be --primary-500 with --sh-glow, its free corner on the card's --r-xl")
     d = read(DESIGN)
     sources = [("index.html", read(INDEX))] + [("DESIGN.md", d)]
     for name, text in sources:
@@ -3483,6 +3483,11 @@ def c90():
         n = sm.group(2).count('class="card card-feature"')
         if n > 1:
             fails.append(f"site #{sm.group(1)}: {n} feature cards on one page")
+    css_link = re.search(r"a\.chip:hover", css)
+    for name, text in sources:
+        for g in re.finditer(r'class="card-feature-tags">(.*?)</div>', text, re.S):
+            if re.search(r'<span class="chip', g.group(1)) or not css_link:
+                fails.append(f"{name}: a feature card's tags are link chips (<a class=\"chip\">) that hover")
     if 'class="card card-row"' not in html or 'class="card card-feature"' not in html:
         fails.append("site #card: the row card and the feature card each need a demo")
     return fails
