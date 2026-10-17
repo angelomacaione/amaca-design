@@ -14,8 +14,8 @@
   position:sticky;top:0;
   height:100vh;
   border-right:var(--bw-1) solid var(--obsidian-700);
-  background:rgba(11,14,18,0.85);
-  backdrop-filter:blur(16px);
+  background:var(--surface-bar);
+  backdrop-filter:blur(var(--blur-bar));
   padding:var(--s-6) var(--s-5);
   display:flex;flex-direction:column;gap:var(--s-8);
   overflow-y:auto;
@@ -118,8 +118,8 @@
   display:flex;align-items:center;justify-content:space-between;
   padding:var(--s-4) var(--s-10);
   border-bottom:var(--bw-1) solid var(--obsidian-800);
-  background:rgba(7,9,11,0.8);
-  backdrop-filter:blur(16px);
+  background:var(--surface-bar);
+  backdrop-filter:blur(var(--blur-bar));
 }
 .breadcrumb{display:flex;align-items:center;gap:var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
 .breadcrumb .sep{color:var(--obsidian-500)}
@@ -396,7 +396,7 @@
 /* Floating (§ 3.6): a button that stays on screen while its content scrolls, translucent so the content reads through.
    Sticky on --z-sticky at --float-top; the negative bottom margin gives its height back, so it floats over what follows
    instead of pushing it down. Label --t-small, inline padding --s-4 before the icon, --s-5 after the label. */
-.btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-5) 0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(8px)}
+.btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-5) 0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(var(--blur-glass))}
 .btn-floating:hover{border-color:var(--border-strong)}
 .btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn .icon{width:var(--icon-xs);height:var(--icon-xs)}
@@ -1068,7 +1068,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   display:inline-flex;align-items:center;gap:var(--s-1);
   padding:var(--s-1) var(--s-2);
   background:var(--surface-glass);
-  backdrop-filter:blur(8px);
+  backdrop-filter:blur(var(--blur-glass));
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-md);
   font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);
@@ -1130,8 +1130,8 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   position:fixed;inset:0;z-index:var(--z-overlay);
   display:flex;align-items:center;justify-content:center;
   padding:var(--s-8);
-  background:rgba(7,9,11,0.85);
-  backdrop-filter:blur(12px);
+  background:var(--surface-bar);
+  backdrop-filter:blur(var(--blur-bar));
   opacity:0;
   pointer-events:none;
   transition:opacity var(--d-quick) var(--ease-accel);
@@ -1160,7 +1160,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   display:inline-flex;align-items:center;justify-content:center;
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-md);
-  background:var(--surface-glass);backdrop-filter:blur(8px);
+  background:var(--surface-glass);backdrop-filter:blur(var(--blur-glass));
   color:var(--obsidian-100);
   cursor:pointer;
   transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
@@ -1349,8 +1349,8 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .sidebar-scrim{
   display:none;
   position:fixed;inset:0;
-  background:rgba(7,9,11,0.6);
-  backdrop-filter:blur(4px);
+  background:var(--scrim);
+  backdrop-filter:blur(var(--blur-veil));
   z-index:var(--z-scrim);
   opacity:0;
   transition:opacity var(--d-quick) var(--ease-standard);
@@ -2091,7 +2091,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   font-size:var(--t-micro); letter-spacing:var(--tr-mono);
   text-transform:uppercase;
   padding:var(--s-1) var(--s-2);
-  background:rgba(7,9,11,0.85);
+  background:var(--surface-glass);backdrop-filter:blur(var(--blur-glass));
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-sm);
   color:var(--obsidian-200);
@@ -2607,8 +2607,8 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(11, 14, 18, 0.72);
-  backdrop-filter:blur(2px);
+  background:var(--scrim);
+  backdrop-filter:blur(var(--blur-veil));
   z-index:5;
   width:auto; height:auto;
   border-radius:inherit;
@@ -2746,7 +2746,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   background:transparent;
   transition:background var(--d-base) var(--ease-accel), overlay var(--d-base) var(--ease-accel) allow-discrete, display var(--d-base) var(--ease-accel) allow-discrete;
 }
-.drawer[open]::backdrop{background:var(--scrim); transition-timing-function:var(--ease-decel)}
+.drawer[open]::backdrop{background:var(--scrim);backdrop-filter:blur(var(--blur-veil)); transition-timing-function:var(--ease-decel)}
 @starting-style{ .drawer[open]::backdrop{background:transparent} }
 .drawer-head{flex:none; display:flex; align-items:center; justify-content:space-between; gap:var(--s-4); padding:var(--pad) var(--pad) var(--s-4)}
 .drawer-head .btn-icon{flex:none}
@@ -2770,7 +2770,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 }
 /* the anatomy frame on the documentation site: a page behind a scrim, the drawer held inside it */
 .drawer-demo{position:relative;overflow:hidden;overflow:clip;min-height:var(--s-24);height:480px;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
-.drawer-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:1}
+.drawer-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);backdrop-filter:blur(var(--blur-veil));z-index:1}
 .drawer-demo .drawer{position:absolute;inset-block:0;z-index:2}
 .drawer-demo .drawer[open]{display:flex}
 .drawer-demo .drawer{width:min(72%, calc(45ch + 2 * var(--pad)))}
@@ -2843,7 +2843,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .navbar-demo-body{padding:var(--s-8) var(--s-6) var(--s-16);display:grid;gap:var(--s-4)}
 .navbar-demo-title{margin:0;color:var(--obsidian-100);font-size:var(--t-h4);font-weight:700;letter-spacing:var(--tr-snug)}
 .navbar-demo-row{display:flex;justify-content:space-between;gap:var(--s-4);padding-block:var(--s-4);border-bottom:var(--bw-1) solid var(--border-subtle);color:var(--obsidian-300);font-size:var(--t-small)}
-.navbar-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:var(--z-scrim);opacity:0;pointer-events:none;transition:opacity var(--d-base) var(--ease-accel)}
+.navbar-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);backdrop-filter:blur(var(--blur-veil));z-index:var(--z-scrim);opacity:0;pointer-events:none;transition:opacity var(--d-base) var(--ease-accel)}
 .navbar-demo.is-open::before{opacity:1;pointer-events:auto;transition-timing-function:var(--ease-decel)}
 .navbar-demo .drawer{position:absolute;inset-block:0;z-index:var(--z-menu);width:min(86%, calc(30ch + 2 * var(--pad)))}
 .navbar-demo .drawer[open]{display:flex;transition:none;animation:drawer-demo-in var(--d-base) var(--ease-decel)}
@@ -3386,7 +3386,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   background:transparent;
   transition:background var(--d-quick) var(--ease-accel),overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;
 }
-.modal[open]::backdrop{background:var(--scrim);transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete}
+.modal[open]::backdrop{background:var(--scrim);backdrop-filter:blur(var(--blur-veil));transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete}
 @starting-style{.modal[open]::backdrop{background:transparent}}
 body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal() locks the page; the inline demo (static `open`) must not */
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
@@ -3506,7 +3506,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
-.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);z-index:1}
+.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);backdrop-filter:blur(var(--blur-veil));z-index:1}
 .modal-demo .modal{position:relative;inset:auto;margin:0;opacity:1;transform:none;transition:none;z-index:2}
 .modal-demo.is-closed::before{display:none}
 .modal-demo .modal:not([open]){display:block;visibility:hidden}

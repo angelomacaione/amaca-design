@@ -1452,6 +1452,44 @@
     "$type": "color",
     "$description": "a control floating over content, read through a blur: obsidian-950 at 70%"
   },
+  "surface-bar": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0275,
+        0.0353,
+        0.0431
+      ],
+      "alpha": 0.8,
+      "hex": "#07090BCC"
+    },
+    "$type": "color",
+    "$description": "a bar that stays on top while the page scrolls: obsidian-950 at 80%"
+  },
+  "blur-veil": {
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of the scrim (Veil material)"
+  },
+  "blur-glass": {
+    "$value": {
+      "value": 8,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of surface-glass (Glass material)"
+  },
+  "blur-bar": {
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of surface-bar (Bar material)"
+  },
   "ring-halo": {
     "$value": {
       "color": {

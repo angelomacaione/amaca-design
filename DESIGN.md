@@ -326,10 +326,24 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sh-glow-soft` | Ambient brand glow (rare) |
 | `--sh-menu` | Select menu and native picker — a floating list over content |
 | `--scrim` | The page behind a modal, dimmed — `--obsidian-950` at 60%, `#07090B99`. A translucent colour: a veil, never a surface |
-| `--surface-glass` | A control floating over content, read through `backdrop-filter: blur(8px)` — `--obsidian-950` at 70%, `#07090BB3`. The floating button, the lightbox close, the figure hint |
+| `--surface-glass` | A control floating over content, read through `--blur-glass` — `--obsidian-950` at 70%, `#07090BB3`. The floating button, the lightbox close, the figure hint |
+| `--surface-bar` | A bar that stays on top while the page scrolls, read through `--blur-bar` — `--obsidian-950` at 80%, `#07090BCC`. The top bar, the sidebar, the lightbox |
+| `--blur-veil` | `4px` — the blur of `--scrim` |
+| `--blur-glass` | `8px` — the blur of `--surface-glass` |
+| `--blur-bar` | `16px` — the blur of `--surface-bar` |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
+
+**Materials (v5.0.0).** A translucent fill always blurs what it covers, and the fill and its blur travel together: the more the fill covers, the more it blurs. Three, closed:
+
+| Material | Fill | Blur | For |
+|---|---|---|---|
+| Veil | `--scrim` (60%) | `--blur-veil` (4px) | the page behind an overlay: Modal, Drawer, the mobile sidebar, the full-page Loader |
+| Glass | `--surface-glass` (70%) | `--blur-glass` (8px) | a control over the content: the floating button, the figure hint, the lightbox close, the chat media tag |
+| Bar | `--surface-bar` (80%) | `--blur-bar` (16px) | a bar or a viewer over the content: the top bar, the sidebar, the lightbox |
+
+A translucent fill without its blur, a blur without its fill, or a fill and a blur from two materials is off-system.
 
 Shadows are inset-first, low-key. Never use them as decoration — only for depth hierarchy.
 
@@ -501,7 +515,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
 | `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | |
 | `.btn-outline` | active | — | `--primary-600` | `--primary-500` | — | the link's pressed magenta |
-| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `backdrop-filter: blur(8px)` · takes no height |
+| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `--blur-glass` · takes no height |
 | `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent |
 | `.btn-floating` | active | — | `--obsidian-500` | — | — | the fill stays translucent |
 | `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
@@ -856,7 +870,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 - `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
 - `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
-- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. Scrim: `--obsidian-950` at 0.8 over a 16px backdrop blur; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.28) on the left and `.topbar-actions` on the right.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.28) on the left and `.topbar-actions` on the right.
 - `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 - `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
 - `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
@@ -943,7 +957,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - **Touch.** On a coarse pointer every `.btn` grows to at least 44px tall and every `.btn-icon` 44px wide — the § 6 floor. `.btn-lg` already clears it; dense desktop keeps 32.
 - **Icon + label.** `<svg class="icon">` leading or trailing, 14px, `currentColor`, `aria-hidden="true"`; the gap is `--s-2`, always, and the label stays.
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
-- **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill `--surface-glass` under `backdrop-filter: blur(8px)`, border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
+- **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill: the Glass material (`--surface-glass` under `--blur-glass`), border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
 - Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
 - **States: § 3.0.1.** `default` · `hover` · `active` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.19's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
 - **Pressed (`active`).** A coloured fill darkens toward `--obsidian-950`: the primary lands on `--primary-600` (the palette's pressed step, 4.09 : 1 for its label), the danger fill on 85% `--danger`. A neutral fill goes one step past its hover; the outline takes the link's pressed magenta; the floating button keeps its translucent fill and darkens its edge. Only the primary moves: it gives to `scale(.97)` on `--d-quick` · `--ease-spring` (L8), and under reduced motion it does not move. Never a lighter fill on press (§ 6.3).
@@ -1777,7 +1791,7 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 
 **Anatomy:**
 - Gap between logo and label: `--s-3` (with-label vertical) or `--s-2` (inline horizontal).
-- Overlay backdrop alpha: `rgba(11, 14, 18, 0.72)` with 2px backdrop blur.
+- Overlay backdrop: the Veil material, `--scrim` under `--blur-veil`.
 - Skeleton: its own component, § 3.20.
 
 **Accessibility:**
@@ -1887,7 +1901,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 **Rules.**
 - **The panel is the card's surface, not a new one.** Same fill, border and radius; what lifts it off the page is `--sh-4` and the `--scrim` behind it. A modal with a radius of its own is a second card shape.
-- **`--scrim` is a veil.** The page stays visible and dimmed; it never blurs. The Lightbox keeps its own, darker backdrop because it is a viewer.
+- **`--scrim` is a veil.** The page stays visible, dimmed and softened by `--blur-veil` (the Veil material). The Lightbox takes the Bar material, darker and more blurred, because it is a viewer.
 - **Open it with `showModal()`.** The browser then traps focus, makes the rest of the page inert, and closes on `Esc`; none of that is rebuilt. It rides `--z-overlay`, and the page behind does not scroll.
 - **The title is the name.** `aria-labelledby` points at `.modal-title`. A confirmation that needs the answer to proceed uses `role="alertdialog"` and `aria-describedby` on the body.
 - **Focus goes to a control, never to the panel.** The first control, or for a destructive confirmation the *least* destructive one (Cancel). On close it returns to the control that opened the modal.
@@ -1904,7 +1918,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 **Site:** none, the figures of § 48 Case study.
 
-- Backdrop: `--obsidian-950` at 85% (`rgba(7,9,11,0.85)`) under a 12px blur.
+- Backdrop: the Bar material, `--surface-bar` under `--blur-bar`.
 - Close button: top-right, `Esc` closes.
 
 | Trigger | Property (type) | Motion | Reduced motion |

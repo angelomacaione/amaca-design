@@ -186,6 +186,11 @@
   --sh-menu: 0 8px 24px rgba(0,0,0,0.4);   /* select menu and native picker (v4.3.0) */
   --scrim: #07090B99;                      /* the page behind a modal, dimmed: --obsidian-950 at 60% (v5.0.0) */
   --surface-glass: #07090BB3;              /* a control floating over content, read through a blur: --obsidian-950 at 70% (v5.0.0) */
+  --surface-bar: #07090BCC;                /* a bar that stays on top while the page scrolls: --obsidian-950 at 80% (v5.0.0) */
+  /* Materials (v5.0.0): a translucent fill and its blur travel together. The more the fill covers, the more it blurs. */
+  --blur-veil: 4px;                        /* pairs with the scrim: the page behind an overlay */
+  --blur-glass: 8px;                       /* pairs with the glass surface: a control over the content */
+  --blur-bar: 16px;                        /* pairs with the bar surface: a bar over the content */
   /* focus rings (v4.2.0) — the two § 6.2 literals and the error twin, now named */
   --ring-halo: 0 0 0 4px rgba(240,81,213,0.35);
   --ring-field: 0 0 0 3px rgba(240,81,213,0.15);

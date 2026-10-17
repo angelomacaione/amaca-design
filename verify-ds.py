@@ -3430,6 +3430,32 @@ def c88():
     return fails
 
 
+@check("89", "A translucent fill blurs what it covers, with the blur of its own material",
+       "v5.0.0: six surfaces drew a translucent fill with six different blurs (2, 4, 8, 12, 16px) and two "
+       "drew none at all: the veil behind Modal and Drawer, and the chat media tag. Fill and blur are now "
+       "three materials (Veil, Glass, Bar), each a fill token and a blur token that travel together. This "
+       "check holds every backdrop-filter and every translucent fill in components.css to its pair.")
+def c89():
+    fails = []
+    css = read(ROOT / "styles" / "components.css")
+    pair = {"--scrim": "--blur-veil", "--surface-glass": "--blur-glass", "--surface-bar": "--blur-bar"}
+    for m in re.finditer(r"([^{}]+)\{([^}]*)\}", css):
+        sel, body = m.group(1).strip().split("\n")[-1], m.group(2)
+        bf = re.search(r"backdrop-filter:\s*([^;]+)", body)
+        bg = re.search(r"background:\s*var\((--scrim|--surface-glass|--surface-bar)\)", body)
+        if bf and not re.fullmatch(r"blur\(var\(--blur-(?:veil|glass|bar)\)\)", bf.group(1).strip()):
+            fails.append(f"{sel}: backdrop-filter '{bf.group(1).strip()}' is not a material's blur")
+        if bg and "::before" not in sel or bg and bf:
+            want = pair[bg.group(1)]
+            if not bf or want not in bf.group(1):
+                fails.append(f"{sel}: {bg.group(1)} without {want}")
+        if bf and not bg and "var(--blur-" in bf.group(1):
+            fails.append(f"{sel}: a blur without its material's fill")
+    if re.search(r"background:\s*rgba\(\s*(?:7,\s*9,\s*11|11,\s*14,\s*18)\s*,", css):
+        fails.append("components.css: a hand-typed translucent obsidian fill; use a material")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
