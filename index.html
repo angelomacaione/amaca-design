@@ -3300,7 +3300,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
-              <p>Make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, or loop a motion tile for ever.</p>
+              <p>Make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, loop a motion tile for ever, or stretch the hex swatch out of a regular hexagon.</p>
             </div>
           </div>
         </div>
@@ -3645,6 +3645,40 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
           </div>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 31.5</span></div>
+          <p class="subsection-desc">Text over the drawing, timing from tokens, nothing to press.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Put a <code>&lt;text&gt;</code> inside the svg, or let a label touch the edge of the canvas.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Let a phone shrink the desktop drawing until its points and labels cannot be read.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Start each part of the reveal when the one before it reads, with every duration, curve and delay from a token.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Type a duration or a delay by hand, or give the plot a hover or a focus.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="timeline">
@@ -3732,6 +3766,20 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 32.2</span></div>
+          <p class="subsection-desc">It scrolls; it never shrinks.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Let the plot scroll sideways under the width its lanes need, keep the labels at their tokens, and end the last date on the last gridline.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Shrink the gantt to fit a phone, write its labels inside the svg, or let a date run off the canvas.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="maps">
@@ -3775,6 +3823,40 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <dialog class="drawer" id="hm-mz-drawer" aria-labelledby="hm-mz-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-mz-dt">Mozambique</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-411</span><span class="list-meta">26.0°S 32.6°E · p95 118 ms · 99.42%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-412</span><span class="list-meta">19.8°S 34.8°E · p95 64 ms · 99.88%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
           <dialog class="drawer" id="hm-kz-drawer" aria-labelledby="hm-kz-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-kz-dt">Kazakhstan</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span> Active incident · 2 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-511</span><span class="list-meta">43.2°N 76.9°E · p95 412 ms · 96.10%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--danger)" aria-hidden="true"></span><span class="list-meta">Active incident</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-512</span><span class="list-meta">51.1°N 71.4°E · p95 73 ms · 99.81%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
           <dialog class="drawer" id="hm-id-drawer" aria-labelledby="hm-id-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-id-dt">Indonesia</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-611</span><span class="list-meta">6.2°S 106.8°E · p95 141 ms · 99.37%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-612</span><span class="list-meta">7.3°S 112.7°E · p95 58 ms · 99.90%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-613</span><span class="list-meta">5.1°S 119.4°E · p95 61 ms · 99.89%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 33.2</span></div>
+          <p class="subsection-desc">The cluster is the unit; the sea is never coloured.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Act on the whole cluster: it glows in its colour on hover and focus, and a click opens its Popover.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Scale the cells, light one hex alone, or colour the sea.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Keep a few clusters on land that stays grey, each in the colour of its worst state and named in the legend.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Colour every place, or let a colour carry a state with no legend.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Open the Popover inside the map, beside its cluster, and dim the rest of the land while it is open. Under 720px, open the Drawer instead.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Let the popover leave the map or cover its cluster, or open a popover on a phone.</p>
+            </div>
+          </div>
         </div>
       </section>
 

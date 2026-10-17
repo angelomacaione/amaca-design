@@ -1905,6 +1905,12 @@ A label for something already visible. Never a container for content.
 | plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
 | plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
 
+**Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
+
+**Do / Don't.** Do give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px. Don't let a phone shrink the desktop drawing until its points and labels cannot be read.
+
+**Do / Don't.** Do start each part of the reveal when the one before it reads, with every duration, curve and delay from a token. Don't type a duration or a delay by hand, or give the plot a hover or a focus.
+
 ### Pie
 
 ```html
@@ -2782,7 +2788,7 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 - **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
 - **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.13).
 
-**Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, or loop a motion tile for ever.
+**Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, loop a motion tile for ever, or stretch the hex swatch out of a regular hexagon.
 
 ### Stepper
 
@@ -2928,6 +2934,8 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 | plot reveal | bar width (spatial) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | plot reveal | labels · today (effect · spatial) | the entrance reveal: `--d-slow` · `--ease-decel` | none — shown |
 
+**Do / Don't.** Do let the plot scroll sideways under the width its lanes need, keep the labels at their tokens, and end the last date on the last gridline. Don't shrink the gantt to fit a phone, write its labels inside the svg, or let a date run off the canvas.
+
 ### Map
 
 Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.25) whose plot is the land.
@@ -2981,6 +2989,12 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 | hover · focus | cluster glow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover on grey land | country fill + faint glow (effect) | `--d-quick` · `--ease-standard` | instant |
 | open | the rest of the land dims (effect) | `--d-quick` · `--ease-standard` | instant |
+
+**Do / Don't.** Do act on the whole cluster: it glows in its colour on hover and focus, and a click opens its Popover. Don't scale the cells, light one hex alone, or colour the sea.
+
+**Do / Don't.** Do keep a few clusters on land that stays grey, each in the colour of its worst state and named in the legend. Don't colour every place, or let a colour carry a state with no legend.
+
+**Do / Don't.** Do open the Popover inside the map, beside its cluster, and dim the rest of the land while it is open. Under 720px, open the Drawer instead. Don't let the popover leave the map or cover its cluster, or open a popover on a phone.
 
 ## Do's and Don'ts
 
