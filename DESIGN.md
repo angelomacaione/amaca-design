@@ -450,7 +450,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.37 |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.38 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.39 — a `<dialog>`; the side menu is `.drawer-nav` |
-| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Swatch | `.swatch` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.40 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.41 — an ordered list; the current step carries `aria-current="step"` |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Empty state · File upload | — | off-system | Stop and ask |
@@ -654,10 +654,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 *Use it when*
 - The affirmative action of the screen, as the one `.btn-primary`.
-- Any action on the current page: submit, save, open, apply. *(Carbon, Atlassian, GOV.UK)*
+- Any action on the current page: submit, save, open, apply.
 
 *Use something else when*
-- Going to another page or resource → Link. *(Carbon, Atlassian)*
+- Going to another page or resource → Link.
 - An icon-only button whose glyph is not universal and has no tooltip → a labelled button.
 
 
@@ -696,12 +696,12 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 **Usage**
 
 *Use it when*
-- Free text on a single line: a name, a search, a URL. *(Carbon)*
+- Free text on a single line: a name, a search, a URL.
 - Always with a persistent label; the placeholder is never the label.
 
 *Use something else when*
-- The answer runs over several lines → the textarea. *(GOV.UK, Carbon)*
-- The answer comes from a known list → Select or Radio. *(Carbon)*
+- The answer runs over several lines → the textarea.
+- The answer comes from a known list → Select or Radio.
 - A time or a date → Time input, Date picker.
 
 
@@ -756,10 +756,10 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 *Use it when*
 - One project or one stat: micro-header, title, body, at most one action.
-- A concept the reader scans and acts on as one unit. *(Polaris, Carbon)*
+- A concept the reader scans and acts on as one unit.
 
 *Use something else when*
-- Secondary information shown on demand → Popover or Modal. *(Carbon)*
+- Secondary information shown on demand → Popover or Modal.
 - A gradient background → never; the surface stays on the obsidian ramp.
 
 
@@ -836,13 +836,13 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 
 *Use it when*
 - The sidebar for documentation; the top bar for marketing.
-- The sidebar when there are more than five destinations. *(Carbon)*
+- The sidebar when there are more than five destinations.
 
 *Use something else when*
-- A linear journey with an order → Stepper. *(GOV.UK)*
+- A linear journey with an order → Stepper.
 
 
-- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`).
+- **Sidebar nav** for documentation. Items use `.nav-item`. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.
 - **A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (§ 13 is *Chips & Feedback*: badges, alerts, toasts and tooltips are the feedback) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.
 - **Top nav** for marketing only.
 
@@ -899,8 +899,8 @@ The bar at the top of a page: the brand, the destinations, one action. Flat and 
 - Multi-open sparingly, when answers are compared side by side.
 
 *Use something else when*
-- Content the reader will read in full → a page with headings. *(Carbon)*
-- Switching quickly between sections → Tabs. *(GOV.UK)*
+- Content the reader will read in full → a page with headings.
+- Switching quickly between sections → Tabs.
 
 
 - Single-open by default.
@@ -921,12 +921,12 @@ The bar at the top of a page: the brand, the destinations, one action. Flat and 
 **Usage**
 
 *Use it when*
-- Related views of one page, read one at a time. *(Carbon, GOV.UK)*
+- Related views of one page, read one at a time.
 
 *Use something else when*
-- Moving between pages → Navigation. *(GOV.UK, Atlassian)*
-- A linear process → Stepper. *(Carbon)*
-- The reader needs several sections open at once → Accordion. *(GOV.UK)*
+- Moving between pages → Navigation.
+- A linear process → Stepper.
+- The reader needs several sections open at once → Accordion.
 
 
 ```html
@@ -989,7 +989,7 @@ Use `will-change: transform, width` on the indicator.
 - A time of day, HH:MM in 24 hours, formatted as it is typed.
 
 *Use something else when*
-- A date and a time together → pair it with the Date picker. *(Atlassian)*
+- A date and a time together → pair it with the Date picker.
 
 
 ```html
@@ -1042,14 +1042,14 @@ One trigger, one panel, three uses. A value chosen from a list is a **Select**; 
 
 *Use it when*
 - Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.
-- Four or more options, or little room on screen. *(Polaris, Carbon)*
-- A number set by feel rather than typed, such as a price → the Slider variant. *(Polaris)*
-- Actions on an item that do not fit on screen → the Menu variant. *(Carbon, Atlassian)*
+- Four or more options, or little room on screen.
+- A number set by feel rather than typed, such as a price → the Slider variant.
+- Actions on an item that do not fit on screen → the Menu variant.
 
 *Use something else when*
-- Two or three options → Radio, all of them visible. *(Carbon, Polaris)*
+- Two or three options → Radio, all of them visible.
 - A value the person must hit exactly → Text input.
-- A place to go → Navigation or Link. *(APG, Pajamas)*
+- A place to go → Navigation or Link.
 
 
 **The rule that separates them: a choice stays, an action runs.** A Select holds a value and shows it in its trigger; a Menu holds none, runs the action and closes. A Menu never carries radio or checkbox items: a choice that stays is a Select. A link to another page is not a Menu item, it is Navigation.
@@ -1285,7 +1285,7 @@ The brand mark (animated SVG) at four scales, plus composition variants. A loade
 *Use something else when*
 - A wait under 200 ms → show the result, no loader.
 - A wait past 800 ms → Skeleton, when the shape of the content is known.
-- Progress is known → Progress. *(Carbon)*
+- Progress is known → Progress.
 
 
 ```html
@@ -1480,10 +1480,10 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 *Use it when*
 - A single date or a range, typed or picked from the calendar.
-- Dates near today, where the relation to other days matters. *(Carbon)*
+- Dates near today, where the relation to other days matters.
 
 *Use something else when*
-- A date the reader already knows, such as a birth date → typed Text inputs, no calendar. *(GOV.UK, Carbon)*
+- A date the reader already knows, such as a birth date → typed Text inputs, no calendar.
 
 
 ```html
@@ -1544,11 +1544,11 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 
 *Use it when*
 - Content, not chrome.
-- Comparing values across rows and columns. *(GOV.UK, Atlassian)*
+- Comparing values across rows and columns.
 
 *Use something else when*
-- Laying out a page → Grid. *(GOV.UK)*
-- Key facts about one item → List. *(GOV.UK)*
+- Laying out a page → Grid.
+- Key facts about one item → List.
 
 
 ```html
@@ -1584,11 +1584,11 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 
 *Use it when*
 - Many of many; the value applies on submit.
-- A single opt-in, such as accepting terms. *(GOV.UK)*
+- A single opt-in, such as accepting terms.
 
 *Use something else when*
 - The change applies immediately → Switch.
-- Only one option can be chosen → Radio. *(GOV.UK)*
+- Only one option can be chosen → Radio.
 
 **Usage · Radio**
 
@@ -1596,18 +1596,18 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - One of many, always in a named group with a default.
 
 *Use something else when*
-- Several options can be chosen → Checkbox. *(GOV.UK, Carbon)*
-- Four or more options and little room → Select. *(Polaris)*
+- Several options can be chosen → Checkbox.
+- Four or more options and little room → Select.
 
 **Usage · Switch**
 
 *Use it when*
 - One of two, applied immediately: a setting, not a form value.
-- Turning a preference on or off with instant save. *(Atlassian, Carbon, Primer)*
+- Turning a preference on or off with instant save.
 
 *Use something else when*
 - The change needs a Save button → Checkbox.
-- More than two options → Radio or Select. *(Carbon)*
+- More than two options → Radio or Select.
 
 
 ```html
@@ -1643,7 +1643,7 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 *Use something else when*
 - The reader must be able to dismiss it → Toast.
 - It concerns one field → the field's `.help.error`.
-- Two alerts on one surface → merge them into one. *(Primer)*
+- Two alerts on one surface → merge them into one.
 
 
 ```html
@@ -1683,7 +1683,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 *Use something else when*
 - A fourth message in the stack → Alert.
 - It is the only record of the information → keep it somewhere durable.
-- A critical message that needs an action → Modal. *(Atlassian, Carbon)*
+- A critical message that needs an action → Modal.
 
 
 ```html
@@ -1724,12 +1724,12 @@ A label for something already visible. Never a container for content.
 
 *Use it when*
 - A label for something already on screen.
-- Only on interactive elements, such as an icon-only button. *(Atlassian, Primer)*
+- Only on interactive elements, such as an icon-only button.
 
 *Use something else when*
 - The information is needed to finish the task → `.help` or Alert.
 - It needs a title → Alert.
-- It holds a link or a button → Popover. *(Carbon, Atlassian)*
+- It holds a link or a button → Popover.
 
 
 ```html
@@ -1800,12 +1800,12 @@ A label for something already visible. Never a container for content.
 **Usage**
 
 *Use it when*
-- A hierarchy deeper than two levels. *(Carbon, GOV.UK)*
+- A hierarchy deeper than two levels.
 
 *Use something else when*
-- A flat site → Navigation alone. *(GOV.UK)*
-- Progress through a flow → Stepper. *(GOV.UK, Carbon)*
-- As the only navigation → it sits beside Navigation, never instead. *(Atlassian)*
+- A flat site → Navigation alone.
+- Progress through a flow → Stepper.
+- As the only navigation → it sits beside Navigation, never instead.
 
 
 ```html
@@ -1835,12 +1835,12 @@ A label for something already visible. Never a container for content.
 
 *Use it when*
 - Bars for comparison, labelled at the value; the donut for composition.
-- Lines for trends over time and for several series. *(Carbon, UK Analysis Function)*
-- Areas for cumulative totals. *(ONS)*
+- Lines for trends over time and for several series.
+- Areas for cumulative totals.
 
 *Use something else when*
-- Several time series → lines, not bars. *(UK Analysis Function)*
-- Five points or fewer → bars, not a line. *(ONS)*
+- Several time series → lines, not bars.
+- Five points or fewer → bars, not a line.
 
 
 ```html
@@ -1912,7 +1912,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 *Use something else when*
 - A status the system computed → Badge.
 - Pressable and dismissible at once → a list row.
-- A link to another page → Link. *(Carbon)*
+- A link to another page → Link.
 
 
 ```html
@@ -1962,11 +1962,11 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 **Usage**
 
 *Use it when*
-- Going to another page, document or resource, in a sentence or on its own line. *(Carbon, Atlassian)*
-- A reference the reader may want to follow: the spec, the source, the next page. *(GOV.UK)*
+- Going to another page, document or resource, in a sentence or on its own line.
+- A reference the reader may want to follow: the spec, the source, the next page.
 
 *Use something else when*
-- An action on the current page: submit, save, open a panel → Button. *(Carbon, Atlassian)*
+- An action on the current page: submit, save, open a panel → Button.
 - A trail of the current hierarchy → Breadcrumb.
 - Switching between views of the same content → Tabs.
 
@@ -2005,12 +2005,12 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 **Usage**
 
 *Use it when*
-- A decision that must be made before the person goes on: confirm a destructive action, answer one question. *(Carbon, Atlassian)*
-- A short form that belongs to one task: rename, invite, create. *(Polaris, Primer)*
+- A decision that must be made before the person goes on: confirm a destructive action, answer one question.
+- A short form that belongs to one task: rename, invite, create.
 
 *Use something else when*
-- A message that needs no answer → Alert or Toast. *(Carbon, Polaris)*
-- Content that is long or the person will come back to → a page. *(GOV.UK)*
+- A message that needs no answer → Alert or Toast.
+- Content that is long or the person will come back to → a page.
 - An image to look at closely → Lightbox.
 - A menu or text from the edge, with the page still visible behind it → Drawer.
 
@@ -2058,8 +2058,8 @@ A circle that says **who a person, team or account is**: their picture, their in
 **Usage**
 
 *Use it when*
-- Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list. *(Carbon, Atlassian, Polaris)*
-- Several people share one item and a count is enough: a stack of up to five. *(Primer, Spectrum)*
+- Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.
+- Several people share one item and a count is enough: a stack of up to five.
 
 *Use something else when*
 - A picture of a thing rather than of a person or account: a product, a place → an image in a Card.
@@ -2121,8 +2121,8 @@ A small drawing that **names an action or a state** beside a label, or in place 
 **Usage**
 
 *Use it when*
-- Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay. *(Carbon, Primer, Fluent)*
-- Telling a state apart from its neighbours without colour alone: the warning triangle in an alert, the check in a done step. *(Polaris, Atlassian)*
+- Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay.
+- Telling a state apart from its neighbours without colour alone: the warning triangle in an alert, the check in a done step.
 
 *Use something else when*
 - The picture is the content: a photo, a logo, a map → an image, never an icon.
@@ -2264,8 +2264,8 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 **Usage**
 
 *Use it when*
-- Many things of one kind, each a line or two, to scan or open: projects, settings, people. *(Carbon)*
-- The facts of one item as label and value pairs, with an action beside a value to change it. *(GOV.UK)*
+- Many things of one kind, each a line or two, to scan or open: projects, settings, people.
+- The facts of one item as label and value pairs, with an action beside a value to change it.
 
 *Use something else when*
 - Several columns to compare or sort → Table, § 3.16.
@@ -2339,11 +2339,11 @@ Links between the pages of one set of items. A `nav` of numbered links, or, in a
 **Usage**
 
 *Use it when*
-- Pages of similar items too long for one page: search results, a list of case studies. *(GOV.UK, Carbon)*
-- The rows of a table that do not fit on the screen, in the compact form below it. *(Carbon)*
+- Pages of similar items too long for one page: search results, a list of case studies.
+- The rows of a table that do not fit on the screen, in the compact form below it.
 
 *Use something else when*
-- A linear journey such as a form → a Continue button and a Back link. *(GOV.UK, Carbon)*
+- A linear journey such as a form → a Continue button and a Back link.
 - Only one page → show nothing.
 - Content that sits on one page without slowing it → no pagination.
 
@@ -2396,12 +2396,12 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 **Usage**
 
 *Use it when*
-- Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity. *(Carbon)*
+- Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity.
 
 *Use something else when*
-- Fewer than about ten steps → Radio or Select. *(Carbon)*
-- More than a few hundred steps, or an exact value to type → a number in a Text input. *(Carbon)*
-- A date or a time → Date picker, Time input. *(Carbon)*
+- Fewer than about ten steps → Radio or Select.
+- More than a few hundred steps, or an exact value to type → a number in a Text input.
+- A date or a time → Date picker, Time input.
 
 ```html
 <!-- single -->
@@ -2456,8 +2456,8 @@ A hairline between two blocks of one container: a thematic break. Three forms: h
 **Usage**
 
 *Use it when*
-- A change of topic inside one container: two blocks of a card, a modal or a menu. *(Polaris)*
-- Groups side by side that need a boundary: the groups of a toolbar. *(Carbon)*
+- A change of topic inside one container: two blocks of a card, a modal or a menu.
+- Groups side by side that need a boundary: the groups of a toolbar.
 
 *Use something else when*
 - The rows of a List or a Table → the row's own hairline.
@@ -2498,13 +2498,13 @@ The grey shape of content that has not arrived yet: it holds the place and the s
 **Usage**
 
 *Use it when*
-- The shape of the content is known and the wait is past 800 ms: a list, a card, a profile. *(Carbon)*
-- The content replaces it in the same place and at the same size. *(Polaris)*
+- The shape of the content is known and the wait is past 800 ms: a list, a card, a profile.
+- The content replaces it in the same place and at the same size.
 
 *Use something else when*
-- The shape is unknown → Loader. *(Polaris)*
+- The shape is unknown → Loader.
 - A wait under 800 ms → show the result, no skeleton.
-- Progress is known → Progress. *(Carbon)*
+- Progress is known → Progress.
 
 ```html
 <!-- the region is busy; the shapes are hidden from the screen reader -->
@@ -2545,12 +2545,12 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 **Usage**
 
 *Use it when*
-- Details about one element that carry a link or a button, and do not need to leave the view. *(Carbon)*
-- A short form or a choice tied to one control: a rename, a share link. *(Atlassian)*
+- Details about one element that carry a link or a button, and do not need to leave the view.
+- A short form or a choice tied to one control: a rename, a share link.
 
 *Use something else when*
 - Short text with nothing to click → Tooltip.
-- The content is wider than 360 px, or the person must answer before going on → Modal. *(Carbon)*
+- The content is wider than 360 px, or the person must answer before going on → Modal.
 - A list of actions → a menu.
 - A menu or text that needs the full height of the screen → Drawer.
 
@@ -2606,8 +2606,8 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 **Usage**
 
 *Use it when*
-- A menu or a few groups of links that open from the edge: the main navigation on a small screen. *(Material 3, Carbon)*
-- Text or details of one item that need the full height: release notes, the facts of a row. *(Atlassian)*
+- A menu or a few groups of links that open from the edge: the main navigation on a small screen.
+- Text or details of one item that need the full height: release notes, the facts of a row.
 
 *Use something else when*
 - A decision to answer before going on, or a short form → Modal.
@@ -2672,9 +2672,9 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 **Usage**
 
 *Use it when*
-- A label names a colour: a legend key, a token in a table. *(Carbon)*
-- A palette shows its values, one tile per step. *(Spectrum)*
-- An easing token shows its curve and the duration it rides, one tile per token. *(Material)*
+- A label names a colour: a legend key, a token in a table.
+- A palette shows its values, one tile per step.
+- An easing token shows its curve and the duration it rides, one tile per token.
 - A foundation page shows its scale: type, space, radius, shadow, the icon album, one tile per token or drawing.
 
 *Use something else when*
@@ -2748,11 +2748,11 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 *Use it when*
 - A linear flow: forms, onboarding, checkout.
-- Three or more steps. *(Carbon, Atlassian)*
+- Three or more steps.
 
 *Use something else when*
-- Fewer than three steps → a Next button. *(Atlassian, Carbon)*
-- Steps that can be done in any order → Tabs. *(Carbon)*
+- Fewer than three steps → a Next button.
+- Steps that can be done in any order → Tabs.
 
 ```html
 <nav class="stepper" aria-label="Checkout">
@@ -2801,12 +2801,12 @@ How far a task with a known end has come: a track, a fill and the value written 
 **Usage**
 
 *Use it when*
-- A wait with a known end, longer than about three seconds. *(Atlassian, Carbon, Primer)*
+- A wait with a known end, longer than about three seconds.
 
 *Use something else when*
-- A short or unknown wait → Loader. *(Atlassian, Carbon)*
-- Content arriving into a known layout → Skeleton. *(Carbon)*
-- Steps the reader takes → Stepper. *(Carbon)*
+- A short or unknown wait → Loader.
+- Content arriving into a known layout → Skeleton.
+- Steps the reader takes → Stepper.
 
 ```html
 <div class="progress">

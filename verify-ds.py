@@ -2184,7 +2184,7 @@ def _usage_md(design):
     body = design[:design.find("## Changelog")]
     out = {}
     for m in re.finditer(r"^\*\*(Usage[^*]*)\*\*\n\n\*Use it when\*\n((?:- .*\n)+)\n\*Use something else when\*\n((?:- .*\n)*)", body, re.M):
-        clean = lambda block: [re.sub(r"\s*\*\([^)]*\)\*$", "", l[2:]).replace("`", "").strip()
+        clean = lambda block: [l[2:].replace("`", "").strip()
                                for l in block.strip("\n").split("\n") if l.startswith("- ")]
         out[f"{m.group(1)}@{m.start()}"] = (clean(m.group(2)), clean(m.group(3)))
     return out
@@ -2199,7 +2199,7 @@ def _usage_site(html):
         if not u:
             continue
         cols = re.findall(r'<div class="usage-col"><div class="hd">([^<]+)</div><ul>(.*?)</ul>', sec[u.start():], re.S)[:2]
-        lis = lambda ul: [_text(re.sub(r'<span class="usage-ref">.*?</span>', "", li)) for li in re.findall(r"<li>(.*?)</li>", ul, re.S)]
+        lis = lambda ul: [_text(li) for li in re.findall(r"<li>(.*?)</li>", ul, re.S)]
         out[m.group(1)] = tuple(lis(c[1]) for c in cols)
     return out
 
@@ -3134,6 +3134,24 @@ def c76():
     for form in ("swatch-tile-type", "swatch-tile-space", "swatch-tile-radius", "swatch-tile-shadow", "swatch-tile-icon", "swatch-tile-motion"):
         if f'class="swatch-tile {form}"' not in sw:
             fails.append(f"§ 53 Swatch shows no .{form}")
+    return fails
+
+
+@check("77", "A Usage line says the rule; it does not cite the design systems that agree with it",
+       "v5.0.0: every Usage line carried the names of the systems that state the same rule (Carbon, GOV.UK, "
+       "Polaris and others), 35 on the site and more in the contract. On rules a designer already knows "
+       "('a single opt-in: a checkbox') the names added nothing but noise. They were removed; this check "
+       "keeps them out.")
+def c77():
+    fails = []
+    n = read(INDEX).count('class="usage-ref"')
+    if n:
+        fails.append(f"index.html: {n} .usage-ref left in a Usage block")
+    body = read(DESIGN)
+    body = body[:body.find("## Changelog")]
+    for m in re.finditer(r"(?m)^\*\*Usage[^*\n]*\*\*\n\n\*Use it when\*\n(?:- [^\n]*\n)+\n\*Use something else when\*\n(?:- [^\n]*\n)*", body):
+        for line in re.findall(r"(?m)^- [^\n]*\*\([^)\n]*\)\*$", m.group(0)):
+            fails.append(f"DESIGN.md Usage cites: {line[:80]}")
     return fails
 
 
