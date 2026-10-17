@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=98f09b22">
+<link rel="stylesheet" href="styles/components.css?v=396b3d17">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1778,6 +1778,20 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div style="display:flex;align-items:center;justify-content:space-between;padding:var(--s-4) 0"><div><div style="font-weight:600;font-size:var(--t-body)">Field observability</div><div class="ty-small" style="margin-top:var(--s-0-5)">2023 · 6 months</div></div><span class="badge"><span class="dot"></span>Archive</span></div>
           </div>
         </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 16.3</span></div>
+          <p class="subsection-desc">A badge is a label read at a glance; it holds its line.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>✓</span>Do</div>
+              <p>Keep it to a word or two, the status first, on one line beside what it describes.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>✕</span>Don't</div>
+              <p>Let it break onto two lines. When room runs out the text beside it wraps; the badge never does.</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="section" id="chip">
@@ -1837,7 +1851,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
             </div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don't</div>
-              <p>Use a chip to report status the system computed. That is a badge, and the giveaway is that nobody can remove it.</p>
+              <p>Use a chip to report status the system computed: that is a badge, and the giveaway is that nobody can remove it. Or let it break onto two lines: the text beside it wraps instead.</p>
             </div>
           </div>
         </div>
@@ -3431,7 +3445,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               </div>
               <div style="display:flex;gap:var(--s-2)"><span class="badge" data-fade>2026 baseline</span></div>
             </div>
-            <svg data-fade-chart viewBox="0 0 700 260" style="width:100%;height:auto">
+            <svg data-fade-chart class="chart-plot chart-plot-lg" viewBox="0 0 700 260" style="width:100%;height:auto">
               <defs>
                 <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0%" style="stop-color:var(--primary-500)" stop-opacity="0.55"/>
@@ -3450,7 +3464,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
                     <feMergeNode in="SourceGraphic"/>
                   </feMerge>
                 </filter>
-                <clipPath id="baseline-clip"><rect x="40" y="40" width="0" height="80" data-baseline-clip/></clipPath>
+                <clipPath id="baseline-clip"><rect x="40" y="40" width="0" height="80" data-baseline-clip data-clip-w="650"/></clipPath>
               </defs>
               <!-- deep purple wash -->
               <rect x="0" y="0" width="700" height="260" style="fill:var(--primary-950)" rx="6"/>
@@ -3480,6 +3494,57 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <!-- x labels -->
               <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="10" letter-spacing="1">
                 <text x="40" y="256">Q1</text><text x="200" y="256">Q2</text><text x="380" y="256">Q3</text><text x="560" y="256">Q4</text>
+              </g>
+            </svg>
+            <svg data-fade-chart class="chart-plot chart-plot-sm" viewBox="0 0 344 260" style="width:100%;height:auto" aria-hidden="true">
+              <defs>
+                <linearGradient id="area-sm" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" style="stop-color:var(--primary-500)" stop-opacity="0.55"/>
+                  <stop offset="55%" style="stop-color:var(--primary-700)" stop-opacity="0.30"/>
+                  <stop offset="100%" style="stop-color:var(--primary-950)" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="neon-line-sm" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" style="stop-color:var(--primary-200)"/>
+                  <stop offset="50%" style="stop-color:var(--primary-500)"/>
+                  <stop offset="100%" style="stop-color:var(--primary-600)"/>
+                </linearGradient>
+                <filter id="neon-glow-sm" x="-10%" y="-10%" width="120%" height="120%">
+                  <feGaussianBlur stdDeviation="3.5" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+                <clipPath id="baseline-clip-sm"><rect x="28" y="40" width="0" height="80" data-baseline-clip data-clip-w="304"/></clipPath>
+              </defs>
+              <!-- deep purple wash -->
+              <rect x="0" y="0" width="344" height="260" style="fill:var(--primary-950)" rx="6"/>
+              <!-- gridlines -->
+              <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+                <line x1="28" y1="40" x2="332" y2="40"/>
+                <line x1="28" y1="100" x2="332" y2="100"/>
+                <line x1="28" y1="160" x2="332" y2="160"/>
+                <line x1="28" y1="220" x2="332" y2="220"/>
+              </g>
+              <!-- y labels -->
+              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="12" letter-spacing="1">
+                <text x="2" y="44">45</text><text x="2" y="104">30</text><text x="2" y="164">15</text><text x="2" y="224">0</text>
+              </g>
+              <!-- baseline dashed (clipped for left-to-right reveal) -->
+              <g clip-path="url(#baseline-clip-sm)">
+                <path data-line-baseline d="M28,80 C65.4,70 93.5,95 130.9,85 S196.4,60 243.1,70 S308.6,75 332,82" style="stroke:var(--obsidian-400)" stroke-width="1.5" fill="none" stroke-dasharray="3 3"/>
+              </g>
+              <!-- area fill (gradient, starts transparent) -->
+              <path data-area-fade d="M28,140 C65.4,155 93.5,145 130.9,160 S196.4,180 243.1,195 S308.6,200 332,205 L332,240 L28,240 Z" fill="url(#area-sm)" opacity="0"/>
+              <!-- main neon line connecting dots (gradient: first dot pink → last dot magenta) -->
+              <path data-line-draw d="M28,140 C65.4,155 93.5,145 130.9,160 S196.4,180 243.1,195 S308.6,200 332,205" stroke="url(#neon-line-sm)" stroke-width="2.5" fill="none" filter="url(#neon-glow-sm)"/>
+              <!-- data points -->
+              <g data-line-dots style="fill:var(--primary-500)">
+                <circle cx="28" cy="140" r="7" data-dot data-r="7"/><circle cx="130.9" cy="160" r="7" data-dot data-r="7"/><circle cx="243.1" cy="195" r="7" data-dot data-r="7"/><circle cx="332" cy="205" r="7" data-dot data-r="7"/>
+              </g>
+              <!-- x labels -->
+              <g style="fill:var(--obsidian-200)" font-family="Satoshi" font-size="12" letter-spacing="1">
+                <text x="28" y="256">Q1</text><text x="102.8" y="256">Q2</text><text x="187" y="256">Q3</text><text x="271.2" y="256">Q4</text>
               </g>
             </svg>
               <ul class="chart-legend"><li><span class="swatch" style="--sw:var(--obsidian-400)" aria-hidden="true"></span>Baseline</li><li><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span>After redesign</li></ul>
@@ -6400,7 +6465,7 @@ if ('IntersectionObserver' in window) {
     // points 220ms apart. Every duration and curve is a token; the 220ms step is composition.
     const tBase = T.dBase, tLine = T.dBase + T.dSlow, tFill = tLine + T.dSlow;
     root.querySelectorAll('[data-baseline-clip]').forEach(r => {
-      animate(0, 650, {
+      animate(0, +r.getAttribute('data-clip-w') || 650, {
         duration: T.dScene, ease: decel, delay: tBase,
         onUpdate: v => r.setAttribute('width', v.toFixed(1))
       });
@@ -6422,7 +6487,7 @@ if ('IntersectionObserver' in window) {
     });
 
     root.querySelectorAll('[data-line-dots] [data-dot]').forEach((c, i) => {
-      const rTarget = c.hasAttribute('data-r') ? +c.getAttribute('data-r') : 6;
+      const rTarget = +c.getAttribute('data-r');
       animate(0, rTarget, {
         duration: T.dBase, ease: spring, delay: tFill + i * 0.22,
         onUpdate: v => c.setAttribute('r', Math.max(0, v).toFixed(2))

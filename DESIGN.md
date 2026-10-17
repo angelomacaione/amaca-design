@@ -435,7 +435,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.22 |
 | Breadcrumb | `.breadcrumb` | canonical | § 3.23 |
 | Skip link | `.skip-link` | canonical | § 3.24 — behaviour in § 6.2 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` | canonical | § 3.25 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` | canonical | § 3.25 |
 | Pie | `.pie-wrap` `.pie` `.pie-legend` | canonical | § 3.26 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.27 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.28 |
@@ -647,7 +647,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
 - An explanation that fits none of these five is `off-system`. Add a surface deliberately, or use one of these.
 
-**Status (v5.0.0).** The debt declared in v3.4.0 is closed: all 102 subsections carry framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears in 10 of 44 sections: pairs are written where a rule is contestable, never to fill a quota.
+**Status (v5.0.0).** The debt declared in v3.4.0 is closed: every subsection carries framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears where a rule is contestable, never to fill a quota. (Counts are left out on purpose: they were written by hand and had drifted, 102 subsections and 10 of 44 sections against 151 and 23 of 40.)
 
 ### Button
 
@@ -827,9 +827,12 @@ The example is the § 13.1 demo, badge for badge; check 47 holds the two togethe
 
 - **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
 - **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
+- **One line, always.** A badge never wraps (`white-space: nowrap`) and never shrinks in a flex row (`flex: none`): when room runs out, the text beside it wraps instead.
 - **The dot** (`.dot`, `--s-1` square, `--r-full`, `currentColor`) leads every status badge. The solid badge carries none.
 - **The solid badge takes the light label**, `--obsidian-050` on `--primary-500`: the second ratified exception of § 6.3, bounded like the first.
 - **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
+
+**Do / Don't.** Do keep it to a word or two, the status first, on one line beside what it describes. Don't let it break onto two lines: when room runs out the text beside it wraps; the badge never does.
 
 ### Navigation
 
@@ -1853,7 +1856,7 @@ A label for something already visible. Never a container for content.
 ```
 
 - The card ramp (§ 3.3): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
-- `.chart-head` — a baseline-aligned pair, `margin-bottom: --s-5`: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
+- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
 - `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
 - `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.40) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
@@ -1868,7 +1871,7 @@ A label for something already visible. Never a container for content.
 
 | Part | Hook | Note |
 |---|---|---|
-| Canvas | `svg[data-fade-chart]` | `--primary-950` wash; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
+| Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
 | Grid | a `<g>` of lines | white at 5%; no hook, it does not move |
 | Axis labels | a `<g>` of text | `--obsidian-200`, 10.52 : 1 on the canvas; no hook |
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
@@ -1878,6 +1881,7 @@ A label for something already visible. Never a container for content.
 | Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's label rides its end and counts up |
 | Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them |
 
+- **Two drawings, one shown.** A plot whose points and labels would shrink below reading size on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data, labels at 12 and points at `data-r` 7; under `--bp-md` it replaces `.chart-plot-lg`. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
 - **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points 220ms apart. Under reduced motion every part lands drawn.
 
@@ -1978,7 +1982,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
 
-**Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.4 Badge, and the giveaway is that nobody can remove it.
+**Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.4 Badge, and the giveaway is that nobody can remove it — or let it break onto two lines: the text beside it wraps instead.
 
 ### Link
 

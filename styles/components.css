@@ -828,7 +828,7 @@
   border:var(--bw-1) solid color-mix(in srgb, var(--tint-hue) calc(var(--tint-edge-deep) * 100%), transparent);
   color:var(--tertiary-300);
   background:color-mix(in srgb, var(--tint-hue) calc(var(--tint-fill-deep) * 100%), transparent);
-  font-weight:500;
+  font-weight:500;white-space:nowrap;flex:none;
 }
 .badge .dot{width:var(--s-1);height:var(--s-1);border-radius:var(--r-full);background:currentColor}
 .badge-success,.badge-warn,.badge-danger,.badge-info,.badge-brand{
@@ -895,8 +895,14 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 
 /* ─────────── DATA-VIZ ─────────── */
+/* A plot with two drawings: the wide one, and one for small screens with its own proportions, where
+   points and labels stay readable instead of shrinking with the width. One shows at a time. */
+.chart-plot{display:block;width:100%;height:auto}
+.chart-plot-sm{display:none}
+@media (max-width: 720px){.chart-plot-lg{display:none}.chart-plot-sm{display:block}}
 .chart-card{background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);padding:var(--s-6)}
-.chart-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:var(--s-5)}
+.chart-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.chart-head > :first-child{min-width:0}
 .chart-head .t{font-size:var(--t-body);font-weight:600}
 .chart-head .s{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-400);text-transform:uppercase}
 .chart-big{font-size:var(--t-h2);font-weight:700;letter-spacing:var(--tr-tight);margin:var(--s-2) 0}

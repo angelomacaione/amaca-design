@@ -3188,6 +3188,22 @@ def c78():
     return fails
 
 
+@check("79", "A badge and a chip stay on one line; the text beside them wraps instead",
+       "v5.0.0: on a phone the '2026 baseline' badge of the line chart broke onto two lines while the title "
+       "beside it had room to wrap. A badge or a chip on two lines reads as two labels. This check holds "
+       "both rules to white-space: nowrap, and the badge to flex: none.")
+def c79():
+    css = read(ROOT / "styles" / "components.css")
+    fails = []
+    for sel, need in ((".badge", ("white-space:nowrap", "flex:none")), (".chip", ("white-space:nowrap",))):
+        m = re.search(r"(?m)^" + re.escape(sel) + r"\{([^}]*)\}", css)
+        body = re.sub(r"\s+", "", m.group(1)) if m else ""
+        for n in need:
+            if n not in body:
+                fails.append(f"components.css: {sel} lacks {n}")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
