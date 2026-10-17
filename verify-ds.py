@@ -3529,6 +3529,9 @@ def c92():
     pill = re.search(r"\.navbar-floating \.navbar-nav\{([^}]*)\}", mob)
     if not pill or "position:fixed" not in pill.group(1) or "env(safe-area-inset-bottom)" not in pill.group(1):
         fails.append("components.css: under --bp-md the floating bar's .navbar-nav must be fixed, clear of env(safe-area-inset-bottom)")
+    tile = re.search(r"\.navbar-floating \.brand-mark\{([^}]*)\}", css)
+    if not tile or "background:transparent" not in tile.group(1) or "border:0" not in tile.group(1):
+        fails.append("components.css: in the floating bar the brand mark drops its tile (no fill, no edge)")
     if not re.search(r"body:has\(\.navbar-floating\)\{padding-bottom:", mob):
         fails.append("components.css: a page with a floating bar keeps the pill's room at its foot")
     for name, text in (("index.html", read(INDEX)), ("DESIGN.md", read(DESIGN))):

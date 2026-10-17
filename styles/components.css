@@ -2917,6 +2917,8 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 }
 .navbar-floating::before{content:none}
 .navbar-floating .navbar-brand{padding-inline-start:var(--s-2)}
+/* a square tile reads as a stranger in a pill: the mark drops its tile and keeps its glyph and glow */
+.navbar-floating .brand-mark{background:transparent;border:0;overflow:visible}
 .navbar-floating .navbar-end{padding-inline-end:var(--s-2)}
 .navbar-floating .navbar-item{padding-inline:var(--s-3)}
 @media (max-width: 720px){

@@ -942,6 +942,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - One per shell, at the head of the rail; hairline `--obsidian-800` below, padding-bottom `--s-6`, gap `--s-3`.
 - `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
 - `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
+- **In a pill, the glyph alone.** Inside the floating navigation bar (§ 3.26) the mark drops its tile — no fill, no edge — and keeps the logo and its glow: a square tile in a pill reads as a stranger.
 - Static. The animated brand-mark loop belongs to the Loader (§ 3.19) and its ratified motion row — this one does not move.
 
 **Do / Don't.** Do put one at the head of the rail, and keep it still. Don't animate it (that is the Loader), or use its cyan glow anywhere else in the chrome.
@@ -2215,6 +2216,7 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 **Rules.**
 - **The Bar material, its line all round, lifted.** `--surface-bar` under `--blur-bar`, a `1px` `--border-subtle` line on every edge, `--sh-3`, `--r-full`. No fading edge: the pill has an edge of its own.
 - **Wide: one pill at the top.** As wide as its content, centred, sticky `--s-4` from the top, at most the page width less `--s-8`. Brand, destinations and the action sit in it.
+- **The brand mark loses its tile** in both forms: the logo and its glow, no fill and no edge (§ 3.5). A square tile in a pill reads as a stranger.
 - **At `--bp-md` or less: a row and a pill.** The bar becomes a plain row that scrolls away with the page, holding the brand and the action; the destinations float in a pill fixed `--s-4` above the bottom edge and above the safe area (`env(safe-area-inset-bottom)`, Safari's bottom toolbar), centred. The page keeps the pill's room at its foot (`--s-12` + `--s-8`), so its last line is never under the pill. It reads the viewport, not its own width: the pill belongs to the screen the thumb holds.
 - **One markup.** The `nav` stays where it is in the document, after the brand and before the action; the CSS moves it. Reading and tab order do not change between the two forms, and nothing animates between them: a device sees one.
 - **At most five destinations, and no toggle.** Each keeps its label. A site with more destinations uses the flush bar and its Drawer menu.
