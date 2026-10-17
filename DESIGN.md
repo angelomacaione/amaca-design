@@ -2667,7 +2667,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 
 ### Swatch
 
-A token shown, not pressed. Eight forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the space tile, the radius tile, the shadow tile, the icon tile of the album, and the motion tile of an easing.
+A token shown, not pressed. Eight forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the space tile, the radius tile, the shadow tile, the motion tile of an easing, and the icon tile of the album: the order of the foundations.
 
 **Usage**
 
@@ -2716,14 +2716,14 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 | Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
 | Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
-| Radius tile | `.swatch-tile-radius` `.swatch-tile-shape` | the same tile; a `--obsidian-800` shape with a 1px `--obsidian-400` edge at the radius of `--sw-r` (`var()` of a radius token), 1:1 |
 | Type tile | `.swatch-tile-type` `.swatch-list` `.swatch-type-sample` | horizontal: the sample in its `.ty-*` class at full size on `--obsidian-950`, one line, cropped at the end; a 1px `--border-input` divider; then name, token, size / leading / tracking and role · weight. Under `--bp-md` the specs drop below the sample |
 | Space tile | `.swatch-tile-space` `.swatch-space-bar` | horizontal, in a `.swatch-list`: a `--primary-500` bar `--s-4` high and `--sw-s` long (`var()` of a spacing token), 1:1, on a 4px grid of `--obsidian-800` hairlines; a divider; name, token, px on one line |
+| Radius tile | `.swatch-tile-radius` `.swatch-tile-shape` | the same tile; a `--obsidian-800` shape with a 1px `--obsidian-400` edge at the radius of `--sw-r` (`var()` of a radius token), 1:1 |
 | Shadow tile | `.swatch-tile-shadow` `.swatch-tile-surface` | the same tile; a `--obsidian-850` surface, `--r-md`, on a `--obsidian-900` section ground, with the shadow or ring of `--sw-sh` (`var()` of a `--sh-*` or `--ring-*` token). On the page ground (`--obsidian-950`) levels 1 to 4 read alike: elevation here is tonal |
-| Icon tile | `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` | the same tile; the album drawing 4× (`--s-16`) in `--primary-300` on its 16 grid (`--obsidian-700`), the 14 live area dashed `--obsidian-400`; then the drawing at 16 and 24 |
 | Motion tile | `.swatch-tile-motion` | the same tile; the fill is `--obsidian-950` and holds the plot. `--e` and `--d` are `var()` of an easing and a duration |
 | Plot | `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` | square, time across and position up (CSS Easing L1); curve 2px `--primary-300`, axes `--obsidian-400`, guides dashed `--obsidian-700`, ticks mono `--t-micro` `--obsidian-300` |
 | Movers | `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-level` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | the dot (`--s-2`) on the curve, a dashed `--obsidian-400` level, the ball (`--s-3`, `--primary-500`) on a `--obsidian-900` rail at the right |
+| Icon tile | `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` | the same tile; the album drawing 4× (`--s-16`) in `--primary-300` on its 16 grid (`--obsidian-700`), the 14 live area dashed `--obsidian-400`; then the drawing at 16 and 24 |
 
 **Rules.**
 - **Static.** No hover, no focus: a swatch is not a button and not a picker. Choosing a colour is off-system. The colour forms never move.
