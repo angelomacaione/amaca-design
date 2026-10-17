@@ -1438,6 +1438,20 @@
     },
     "$type": "color"
   },
+  "surface-glass": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0275,
+        0.0353,
+        0.0431
+      ],
+      "alpha": 0.702,
+      "hex": "#07090BB3"
+    },
+    "$type": "color",
+    "$description": "a control floating over content, read through a blur: obsidian-950 at 70%"
+  },
   "ring-halo": {
     "$value": {
       "color": {

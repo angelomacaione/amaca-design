@@ -393,6 +393,11 @@
   border:var(--bw-1) solid transparent;
   white-space:nowrap;
 }
+/* Floating (§ 3.1): a button that stays on screen while its content scrolls, translucent so the content reads through.
+   Sticky on --z-sticky at --float-top; the negative bottom margin gives its height back, so it floats over what follows
+   instead of pushing it down. Label --t-small, inline padding --s-4 before the icon, --s-5 after the label. */
+.btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-5) 0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(8px)}
+.btn-floating:hover{border-color:var(--border-strong)}
 .btn:disabled{opacity:0.4;cursor:not-allowed}
 .btn .icon{width:var(--icon-xs);height:var(--icon-xs)}
 .btn-icon .icon{width:var(--icon-sm);height:var(--icon-sm)}  /* an icon-only button keeps the 16 glyph: the 14 is for an icon beside a label */
@@ -994,6 +999,13 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .cs-dossier .item{display:flex;flex-direction:column;gap:var(--s-1)}
 .cs-dossier .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
 .cs-dossier .v{font-size:var(--t-small);font-weight:500;color:var(--obsidian-100)}
+/* Hero meta (v5.0.0, from the portfolio): reading time and tags under the lede, the dossier's label register. */
+.cs-meta{position:relative;display:flex;flex-wrap:wrap;gap:var(--s-6) var(--s-10);margin-top:var(--s-6)}
+.cs-meta .item{display:flex;flex-direction:column;gap:var(--s-2)}
+.cs-meta .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+.cs-meta .v{font-size:var(--t-small);font-weight:500;color:var(--obsidian-100)}
+.cs-meta .tags{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cs-more{margin-top:var(--s-16)}
 
 .cs-section{margin-bottom:var(--s-12)}
 .cs-section h3{font-size:var(--t-h4);font-weight:700;letter-spacing:var(--tr-snug);margin:0 0 var(--s-4)}
@@ -1046,7 +1058,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   top:var(--s-3);right:var(--s-3);
   display:inline-flex;align-items:center;gap:var(--s-1);
   padding:var(--s-1) var(--s-2);
-  background:rgba(7,9,11,0.7);
+  background:var(--surface-glass);
   backdrop-filter:blur(8px);
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-md);
@@ -1139,7 +1151,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   display:inline-flex;align-items:center;justify-content:center;
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-md);
-  background:rgba(7,9,11,0.7);backdrop-filter:blur(8px);
+  background:var(--surface-glass);backdrop-filter:blur(8px);
   color:var(--obsidian-100);
   cursor:pointer;
   transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);

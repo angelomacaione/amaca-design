@@ -326,6 +326,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--sh-glow-soft` | Ambient brand glow (rare) |
 | `--sh-menu` | Select menu and native picker — a floating list over content |
 | `--scrim` | The page behind a modal, dimmed — `--obsidian-950` at 60%, `#07090B99`. A translucent colour: a veil, never a surface |
+| `--surface-glass` | A control floating over content, read through `backdrop-filter: blur(8px)` — `--obsidian-950` at 70%, `#07090BB3`. The floating button, the lightbox close, the figure hint |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -411,7 +412,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 
 | Component | Classes | State | Spec |
 |---|---|---|---|
-| Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.1 |
+| Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.1 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.2 |
 | Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.3 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.4 |
@@ -455,8 +456,9 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.42 — `role="progressbar"` with a name, a value, a min and a max |
 | Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.43 — a Chart card whose plot is lanes |
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.44 — a cluster opens a Popover (§ 3.38) or, under 720px, a Drawer (§ 3.39) |
+| Case study | `.cs-hero` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-pull` `.cs-img` `.cs-img-caption` `.cs-img-hint` `.cs-points` `.cs-point` `.cs-point-title` `.cs-more` | canonical | § 3.45 — a page template: it composes Button, Chip, Chart card, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.cs-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.28 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -495,6 +497,8 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-ghost` | hover | `--obsidian-800` | — | — | — | |
 | `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | |
 | `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | |
+| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `backdrop-filter: blur(8px)` · takes no height |
+| `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent |
 | `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent |
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
@@ -682,6 +686,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 <button class="btn btn-primary is-loading" disabled aria-label="Submitting">Submit <span class="loader loader-xs" role="status" aria-hidden="true">…</span></button>
 <button class="btn btn-secondary"><svg class="icon" aria-hidden="true">…</svg> New case study</button>
 <button class="btn btn-ghost btn-sm btn-icon" aria-label="Add item"><svg class="icon" aria-hidden="true">…</svg></button>
+<button class="btn btn-floating" type="button"><svg class="icon" aria-hidden="true">…</svg> Back</button>
 ```
 
 | Variant | Background | Text | Use |
@@ -691,6 +696,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 | `.btn-ghost` | transparent | `--obsidian-100` | Tertiary — sits inside cards |
 | `.btn-outline` | transparent | `--obsidian-100` | Bordered tertiary — hover borrows the magenta edge |
 | `.btn-danger` | `--danger` | `--obsidian-950` | Destructive only |
+| `.btn-floating` | `--surface-glass` | `--obsidian-100` | Stays on screen over scrolling content — Back in a long page |
 
 **Rules:**
 - One `.btn-primary` per screen. Everything else recedes.
@@ -698,6 +704,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Touch.** On a coarse pointer every `.btn` grows to at least 44px tall and every `.btn-icon` 44px wide — the § 6 floor. `.btn-lg` already clears it; dense desktop keeps 32.
 - **Icon + label.** `<svg class="icon">` leading or trailing, 14px, `currentColor`, `aria-hidden="true"`; the gap is `--s-2`, always, and the label stays.
 - **Icon-only — `.btn-icon`.** A square at its size's height: 32 · 40 · 48, 44 on touch. It has no visible name, so `aria-label` is mandatory and names the action, not the glyph ("Add item", not "Plus"). Use it only where the glyph is universal or a tooltip (§ Tooltip) carries the name on hover and focus. States are the `.btn` rows of the § 3.0.1 index.
+- **Floating — `.btn-floating`.** Sticky on `--z-sticky` at `--float-top` (default `--s-4`; a page with a sticky bar sets it below the bar), so it stays on screen while its container scrolls past. A negative bottom margin gives its 40px back: it floats over what follows and never pushes it. Fill `--surface-glass` under `backdrop-filter: blur(8px)`, border `--border`, `--border-strong` on hover; label `--t-small`, icon first. One per page, for navigation that must stay at hand — Back, not an action of the page.
 - Focus: dual-ring (white outline + `--ring-halo`). Never remove `outline` without re-implementing focus visibility.
 - **States: § 3.0.1.** `default` · `hover` · `focus-visible` · `disabled` · `loading`, values in the state index. `loading` is `.is-loading` on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.12's. `disabled` is the native attribute — `<button disabled>` — which the CSS reads as `:disabled`; no class produces it.
 - Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten). The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
@@ -3024,6 +3031,84 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 **Do / Don't.** Do keep a few clusters on land that stays grey, each in the colour of its worst state and named in the legend. Don't colour every place, or let a colour carry a state with no legend.
 
 **Do / Don't.** Do open the Popover inside the map, beside its cluster, and dim the rest of the land while it is open. Under 720px, open the Drawer instead. Don't let the popover leave the map or cover its cluster, or open a popover on a phone.
+
+### Case study
+
+The starting frame for a project told as a story. It composes the system's components in a fixed order: hero, dossier, numbered sections, more cases.
+
+**Usage**
+
+*Use it when*
+- The starting frame for every case study.
+- A project told as a narrative: the hero with its reading time and tags, the facts in a dossier, numbered sections with figures and points, the outcome in numbers, a reflection, more cases.
+
+*Use something else when*
+- A project shown in a grid among others → Card (project).
+
+
+```html
+<button class="btn btn-floating" type="button"><svg class="icon" aria-hidden="true">…</svg> Back</button>
+<div class="cs-hero">
+  <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
+  <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
+  <p>A next-generation automotive HMI for a connected EV.</p>
+  <div class="cs-meta">
+    <div class="item"><span class="k">Reading time</span><span class="v">8 minutes</span></div>
+    <div class="item"><span class="k">Tags</span><span class="tags"><span class="chip">Automotive</span></span></div>
+  </div>
+</div>
+<div class="cs-dossier">
+  <div class="item"><span class="k">Role</span><span class="v">Lead Product Designer</span></div>
+</div>
+<div class="cs-section">
+  <div class="eyebrow">01 · Brief</div>
+  <h3>The legacy stack made drivers work.</h3>
+  <p>…</p>
+</div>
+<div class="cs-pull">"The design system was the outcome."</div>
+<div class="cs-section">
+  <div class="eyebrow">03 · What changed</div>
+  <h3>Three decisions carried the rest.</h3>
+  <div class="cs-points">
+    <div class="cs-point"><h4 class="cs-point-title">Three flows, not thirty</h4><p>…</p></div>
+    <hr class="divider">
+    <div class="cs-point"><h4 class="cs-point-title">Glanceable by default</h4><p>…</p></div>
+  </div>
+</div>
+<div class="cs-section cs-more">
+  <div class="eyebrow">More cases</div>
+  <h3>Learn more.</h3>
+  <div class="grid grid-3"><div class="card">…</div></div>
+</div>
+```
+
+| Part | Class | Treatment |
+|---|---|---|
+| Back | `.btn.btn-floating` | § 3.1 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
+| Hero | `.cs-hero` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2`, lede `--t-lead`; the brand mark on the right scales with the hero |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.28) |
+| Dossier | `.cs-dossier` | The facts of the project in four columns (two under 900px): role, team, platform, outcome |
+| Section | `.cs-section` | A numbered eyebrow with a magenta rule, a title `--t-h4`, running text `--t-body` at `--lh-loose`, 68ch |
+| Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, 52ch |
+| Figure | `.cs-img` `.cs-img-caption` `.cs-img-hint` | 16:9, opens the Lightbox (§ 3.8); the hint on hover sits on `--surface-glass` |
+| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.36) between points |
+| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.25) |
+| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.3) with their tags as Chips |
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| enter | section eyebrow, title, text (spatial) | `--d-base` · `--ease-decel`, 0 / 80 / 160 / 240ms | instant |
+| hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| hover · focus | figure caption scale (spatial) | `--d-base` · `--ease-decel` | none |
+| hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
+
+**Rules.**
+- **The order is fixed.** Back, hero with its meta, dossier, numbered sections (brief, process, what changed, outcome, reflection), more cases. A section can be left out; the order of the rest does not change.
+- **No call to action at the end.** The page closes on more cases, as Cards; a "next case" or "contact" button belongs to a portfolio, not to the template.
+- **Back is the floating button.** It stays on screen for the whole story; the template has no other Back.
+- **Outcomes are numbers.** The result of the project is shown as stat cards, not as a list.
+
+**Do / Don't.** Do open with the hero, its reading time and tags, and close on more cases as Cards. Don't end on a call-to-action button, or repeat Back at the bottom of the page.
 
 ## Do's and Don'ts
 

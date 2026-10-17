@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=b1c070a8">
+<link rel="stylesheet" href="styles/tokens.css?v=dd0ebf4a">
+<link rel="stylesheet" href="styles/components.css?v=34858326">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1215,7 +1215,22 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <button class="btn btn-outline btn-icon" aria-label="Add item" disabled><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button>
           </div>
         </div>
-      </section>
+              <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Floating</h2><span class="subsection-num">§ 08.4</span></div>
+          <p class="subsection-desc">A button that stays on screen while the content under it scrolls: Back in a long page, such as a case study. The fill is translucent and blurred, so the text reads through it, and it takes no height of its own. Scroll inside the frame.</p>
+          <div class="card" style="padding:0;height:calc(var(--s-24) * 2.5);overflow:auto">
+            <div style="padding:var(--s-6)">
+              <button class="btn btn-floating" type="button"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.5 8h-11M7 3.5L2.5 8 7 12.5"/></svg> Back</button>
+              <div style="padding-top:var(--s-16);max-width:68ch;color:var(--obsidian-200);line-height:var(--lh-loose)">
+                <p style="margin:0 0 var(--s-4)">Three months of observation came before a single screen. Every interaction was logged for six weeks, then read against eye-tracking data from the research partners.</p>
+                <p style="margin:0 0 var(--s-4)">The map that came back was clear: most distracted-driving events clustered around three flows. Those three became the targets, and everything else waited until they had shipped and been measured.</p>
+                <p style="margin:0 0 var(--s-4)">Every screen had to read in one glance at arm's length. Type grew a step, labels lost a word, and every state that mattered got its own colour and its own word.</p>
+                <p style="margin:0">The center stack, the cluster and the companion app read the same tokens, so a change shipped once and landed everywhere.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+</section>
 
       <section class="section" id="link">
         <div class="page-header">
@@ -4446,11 +4461,16 @@ flowchart TD
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The starting frame for every case study.</li><li>A project told as a narrative: intro, an accordion with the project data, text alternating with images, closure and references.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A project shown in a grid among others → Card (project).</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The starting frame for every case study.</li><li>A project told as a narrative: the hero with its reading time and tags, the facts in a dossier, numbered sections with figures and points, the outcome in numbers, a reflection, more cases.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A project shown in a grid among others → Card (project).</li></ul></div></div>
+        <button class="btn btn-floating" type="button" style="--float-top:calc(var(--s-16) + var(--s-2))"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.5 8h-11M7 3.5L2.5 8 7 12.5"/></svg> Back</button>
         <div class="cs-hero">
           <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
           <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
           <p>A next-generation automotive HMI for a connected EV — reshaping how drivers interact with their vehicle at 70mph and at a standstill.</p>
+          <div class="cs-meta">
+            <div class="item"><span class="k">Reading time</span><span class="v">8 minutes</span></div>
+            <div class="item"><span class="k">Tags</span><span class="tags"><span class="chip">Product design</span><span class="chip">Automotive</span><span class="chip">HMI</span></span></div>
+          </div>
           <img class="cube" src="assets/logo.svg" alt=""/>
         </div>
 
@@ -4534,9 +4554,32 @@ flowchart TD
           <p>We underinvested in the companion mobile app for the first 6 months, treating it as a delivery vehicle for the in-car experience rather than its own surface. By the time we corrected course, three flows had to be rebuilt. The lesson — surfaces are equal citizens from day one — is now baked into how I scope every multi-platform project.</p>
         </div>
 
-        <div style="display:flex;gap:var(--s-3);padding-top:var(--s-8);border-top:var(--bw-1) solid var(--obsidian-800);margin-top:var(--s-10)">
-          <button class="btn btn-primary">Next case · Orion →</button>
-          <button class="btn btn-ghost">Back to index</button>
+        <div class="cs-section cs-more">
+          <div class="eyebrow">More cases</div>
+          <h3>Learn more.</h3>
+          <div class="grid grid-3">
+            <div class="card">
+              <div class="card-meta"><span>CS-018 · 2025</span></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Orion · Fleet console</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">A control room for 40k connected vans.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">SaaS</span><span class="chip">Data display</span><span class="chip">B2B</span></div>
+            </div>
+            <div class="card">
+              <div class="card-meta"><span>CS-019 · 2025</span></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-800), var(--obsidian-600))"></div></div>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Nova · Onboarding</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">Three screens instead of eleven.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">Mobile</span><span class="chip">Research</span></div>
+            </div>
+            <div class="card">
+              <div class="card-meta"><span>CS-020 · 2026</span></div>
+              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Atlas · Token pipeline</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">One source, four platforms.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">Design systems</span><span class="chip">Tooling</span></div>
+            </div>
+          </div>
         </div>
       </section>
 

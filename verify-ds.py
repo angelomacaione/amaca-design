@@ -2206,7 +2206,7 @@ def _usage_site(html):
 
 # Site sections whose § 3 entry arrives with phase 3 of v5.0.0; their Usage lives on the site
 # only until then. The exemption expires with the release (debt_is_live).
-USAGE_SITE_ONLY = {"casestudy"}
+USAGE_SITE_ONLY = set()
 
 
 @check("55", "Every component carries a Usage block, and the site and the contract say the same thing",
