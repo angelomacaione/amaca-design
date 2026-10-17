@@ -403,8 +403,53 @@ Dimensions that are part of a component's contract take a token; the widths of t
 | `--icon-lg` | `24` | Icon in a large control or an empty state |
 | `--target-dense` | `32` | Hit area on dense desktop (§ 6, floor #7) |
 | `--target-touch` | `44` | Hit area on touch (§ 6, floor #7) |
+| `--w-tooltip` | `220` | The widest a tooltip runs before it wraps (§ 3.25) |
+| `--w-popover-min` | `200` | The narrowest popover (§ 3.23) |
+| `--w-popover` | `360` | The widest popover (§ 3.23) |
+| `--w-modal` | `480` | The widest modal (§ 3.21) |
+| `--w-toast` | `360` | The width of the toast region (§ 3.17) |
 
 **Sub-scale hairlines (ratified exception).** Shapes 4px or smaller — the nav-label dot and the menu-toggle bars — carry a literal `1px` radius. Below `--r-xs` the scale has no step, and rounding them to 2px changes the shape rather than the corner. Closed list, two instances, greppable. Everything larger takes a token.
+
+#### Size index
+
+The aggregate of every component's dimensions: its box, its padding, its type, its radius and its icon. A generator sizes a component from this table and never measures a screenshot. A dimension here is a token, or a sum of tokens; a box marked *content* takes the height of its padding and its line.
+
+| Component | Size | Box | Padding | Type | Radius | Icon |
+|---|---|---|---|---|---|---|
+| `.btn` | sm | min-height `--s-8` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
+| `.btn` | md | min-height `--s-10` | `0 --s-6` | `--t-body` 500 | `--r-full` | `--icon-xs` |
+| `.btn` | lg | min-height `--s-12` | `0 --s-8` | `--t-body` 500 | `--r-full` | `--icon-xs` |
+| `.btn-icon` | sm · md · lg | square `--s-8` · `--s-10` · `--s-12` | `0` | — | `--r-full` | `--icon-sm` |
+| `.btn-floating` | — | min-height `--s-10` | `0 --s-5 0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
+| `.input` `.textarea` `.select` | — | min-height `--s-10` | `--s-2 --s-3` | `--t-small` | `--r-md` | `--icon-sm` |
+| `.input-action` | — | square `--s-8` | — | — | `--r-sm` | `--icon-sm` |
+| `.select-option` | — | content | `--s-2` | `--t-small` | `--r-md` − `--r-xs` | `--icon-xs` |
+| `.check input` | — | square `--s-4` | — | label `--t-small` | `--r-xs` | — |
+| `.radio input` | — | square `--s-4` | — | label `--t-small` | `--r-full` | — |
+| `.switch input` | — | `--s-8` × (`--s-4` + `--s-0-5`) | — | label `--t-small` | `--r-full` | — |
+| `.slider-input` | — | row `--s-8` · track `--s-1` · thumb `--s-5` | `0` | — | `--r-full` | — |
+| `.chip` | default | content · pressable target `--target-touch` | `--s-1 --s-3` | `--t-small` 500 | `--r-full` | — |
+| `.chip` | dense | content | `--s-1 --s-2` | `--t-micro` | `--r-full` | — |
+| `.chip-dismiss` | — | square `--s-4` · target `--target-touch` | — | — | `--r-full` | — |
+| `.badge` | — | content | `--s-2 --s-4` | `--t-small` 500 | `--r-md` | — |
+| `.avatar` | sm · md · lg · xl | square `--s-6` · `--s-8` · `--s-10` · `--s-12` | `0` | `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` 700 | `--r-full` | — |
+| `.loader` | xs · sm · md · lg | square `--loader-xs` · `--loader-sm` · `--loader-md` · `--loader-lg` | — | — | — | — |
+| `.tab` | — | content | `--s-3 --s-4` | `--t-small` 500 | — | — |
+| `.nav-item` | — | content | `--s-2 --s-3` | `--t-small` | `--r-md` | — |
+| `.navbar` | — | min-height `--s-12` | item `0 --s-4` | `--t-small` 500 | — | `--icon-sm` |
+| `.pagination-link` | — | height `--s-8` · min-width `--s-8` | `0 --s-2` | `--t-small` | `--r-md` | `--icon-sm` |
+| `.list-item` | — | min-height `--s-12` | `--s-3 --s-4` | `--t-small` | — | `--icon-sm` |
+| `.acc-trigger` | — | min-height `--s-12` + `--s-2` | `--s-4 --s-6` | `--t-body` | — | `--icon-xs` |
+| `.table` | cell · header | content | `--s-3 --s-4` | `--t-small` · `--t-micro` | `--r-md` | — |
+| `.dp-day` | — | height `--s-8` | — | `--t-small` | `--r-sm` | — |
+| `.stepper-dot` | — | square `--s-6` · current `--s-8` | — | `--t-caption` 600 | `--r-full` | — |
+| `.progress-track` | default · sm | height `--s-2` · `--s-1` | — | — | `--r-full` | — |
+| `.tooltip` | — | max-width `--w-tooltip` | `--s-1 --s-2` | `--t-caption` | `--r-sm` | — |
+| `.popover` | — | `--w-popover-min` to `--w-popover` | `--s-4` | `--t-small` | `--r-lg` | — |
+| `.modal` | — | max-width `--w-modal` | `--s-6` | — | `--r-lg` | — |
+| `.toast` | — | region `--w-toast` | `--s-4` | `--t-small` | `--r-md` | `--icon-sm` |
+| `.card` | default · row · feature | content | `--s-6` · `--s-3` · `--s-8` | — | `--r-lg` · `--r-lg` · `--r-xl` | — |
 
 ## Components
 
@@ -602,7 +647,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
 | `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill | — |
 | `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item | — |
-| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · 200 to 360px · no arrow · in the top layer, so `--z-popover` does not apply | — |
+| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · `--w-popover-min` to `--w-popover` · no arrow · in the top layer, so `--z-popover` does not apply | — |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` | — |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into | — |
 | `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` | — |
@@ -655,7 +700,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears | — |
 | `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays | — |
 | `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` | — |
-| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width 480px · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside | — |
+| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width `--w-modal` · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside | — |
 | `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table | — |
 | `.avatar` | default | `--obsidian-700` | `1px solid --obsidian-600` | `--obsidian-100` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` | — |
 | `.avatar-mark` | default | `--obsidian-850` | — | — | — | the brand mark, contained, at 56% of the side | — |
@@ -1090,7 +1135,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 | Control | Shape | Checked treatment | Use |
 |---|---|---|---|
 | `.check` | 16px square, `--r-xs` corner | `--primary-500` fill + `--obsidian-950` tick | Many-of-many. The value applies on submit |
-| `.switch` | 32×18, `--r-full`, no border | `--primary-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
+| `.switch` | `--s-8` × (`--s-4` + `--s-0-5`), `--r-full`, no border | `--primary-500` track, knob travels to the right | One-of-two, applied **immediately**. Never inside a form that needs saving |
 | `.radio` | 16px circle | `--primary-500` ring + centred `--primary-500` dot | One-of-many. Always in a named group, always with a default |
 
 **Rules.**
@@ -1688,7 +1733,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 | Part | Class | Note |
 |---|---|---|
 | Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
-| Toast | `.toast` | 360px, capped at the viewport minus `--s-8`; full width under 600px |
+| Toast | `.toast` | `--w-toast`, capped at the viewport minus `--s-8`; full width under 600px |
 | Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.16 |
 | Action | `.toast-action` | At most one. Mono-uppercase, `--primary-400` |
 
@@ -1925,7 +1970,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 | Part | Class | Note |
 |---|---|---|
-| Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, 480px wide |
+| Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, `--w-modal` wide |
 | Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
 | Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
 | Body | `.modal-body` | `--t-body`, `--obsidian-200` |
@@ -2005,7 +2050,7 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 
 | Part | Class | Note |
 |---|---|---|
-| Panel | `.popover` | `--obsidian-900` · `--r-lg` · `--sh-3` · padding `--s-4` · 200 to 360px · 4px (`--s-1`) from the trigger · no arrow |
+| Panel | `.popover` | `--obsidian-900` · `--r-lg` · `--sh-3` · padding `--s-4` · `--w-popover-min` to `--w-popover` · 4px (`--s-1`) from the trigger · no arrow |
 | Placement | `.popover-top` `.popover-end` | Above and at the end side; the default is below, aligned to the start. It flips when there is no room |
 | Head | `.popover-head` `.popover-title` | A title and, when the popover is manual, a close button |
 | Body | `.popover-body` | A grid, gap `--s-3`, `--obsidian-200` |
@@ -2119,7 +2164,7 @@ A label for something already visible. Never a container for content.
 | Part | Class | Note |
 |---|---|---|
 | Anchor | `.tooltip-wrap` | `position: relative`, `inline-flex` — wraps the trigger, doesn't replace it |
-| Bubble | `.tooltip` | 220px max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
+| Bubble | `.tooltip` | `--w-tooltip` max, `--obsidian-800` on `--obsidian-700` border, `--r-sm`, `--sh-2`, `--z-popover` |
 | Below variant | `.tooltip-bottom` | When the anchor sits near the top edge |
 
 **Rules.**

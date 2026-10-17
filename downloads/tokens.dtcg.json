@@ -1062,6 +1062,46 @@
     },
     "$type": "dimension"
   },
+  "w-tooltip": {
+    "$value": {
+      "value": 220,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest a tooltip runs before it wraps"
+  },
+  "w-popover-min": {
+    "$value": {
+      "value": 200,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the narrowest popover"
+  },
+  "w-popover": {
+    "$value": {
+      "value": 360,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest popover"
+  },
+  "w-modal": {
+    "$value": {
+      "value": 480,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest modal"
+  },
+  "w-toast": {
+    "$value": {
+      "value": 360,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the width of the toast region"
+  },
   "sh-0": {
     "$value": "none",
     "$type": "other"

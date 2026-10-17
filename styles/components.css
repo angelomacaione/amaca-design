@@ -85,7 +85,7 @@
   font-size:var(--t-micro);
   color:var(--obsidian-400);
   letter-spacing:var(--tr-mono);
-  min-width:18px;
+  min-width:calc(var(--s-4) + var(--s-0-5));
 }
 /* the sidebar wears the Bar material: a fill would read as a block over the blur, so the item never fills */
 .nav-item:hover{color:var(--obsidian-050)}
@@ -488,8 +488,8 @@
 .btn-lg.btn-icon{width:var(--s-12)}
 /* Touch: the § 6 floor asks 44x44 on coarse pointers; dense desktop keeps 32. */
 @media (pointer:coarse){
-  .btn:not(.btn-lg){min-height:44px}
-  .btn-icon:not(.btn-lg){min-width:44px}
+  .btn:not(.btn-lg){min-height:var(--target-touch)}
+  .btn-icon:not(.btn-lg){min-width:var(--target-touch)}
 }
 
 /* ─────────── INPUTS ─────────── */
@@ -618,7 +618,7 @@
 .input-action{
   position:absolute;right:var(--s-1);top:50%;transform:translateY(-50%);
   display:grid;place-items:center;
-  width:32px;height:32px;border:0;background:transparent;cursor:pointer;
+  width:var(--s-8);height:var(--s-8);border:0;background:transparent;cursor:pointer;
   color:var(--obsidian-300);border-radius:var(--r-sm);
   transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
@@ -688,7 +688,7 @@
 .dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s-0-5)}
 .dp-day{
   display:grid;place-items:center;
-  height:32px;border:0;background:transparent;cursor:pointer;
+  height:var(--s-8);border:0;background:transparent;cursor:pointer;
   font-family:var(--font-sans);font-size:var(--t-small);font-variant-numeric:tabular-nums;
   color:var(--obsidian-100);border-radius:var(--r-sm);
   transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
@@ -864,11 +864,11 @@
 
 /* checkbox & switch */
 .check{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
-.check input{appearance:none;width:16px;height:16px;border:var(--bw-1) solid var(--border-input);border-radius:var(--r-xs);background:var(--surface-field);display:grid;place-items:center;transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
+.check input{appearance:none;width:var(--s-4);height:var(--s-4);border:var(--bw-1) solid var(--border-input);border-radius:var(--r-xs);background:var(--surface-field);display:grid;place-items:center;transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
 .check input:checked{background:var(--primary-500);border-color:var(--primary-500)}
 .check input:checked::after{content:"";width:10px;height:6px;border:var(--bw-2) solid var(--obsidian-950);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .switch{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
-.switch input{appearance:none;width:32px;height:18px;background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
+.switch input{appearance:none;width:var(--s-8);height:calc(var(--s-4) + var(--s-0-5));background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
 .switch input::after{content:"";position:absolute;top:var(--s-0-5);left:var(--s-0-5);width:14px;height:14px;background:var(--obsidian-200);border-radius:var(--r-full);transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
 .switch input:checked{background:var(--primary-500)}
 .switch input:checked::after{left:var(--s-4);background:var(--obsidian-950)}
@@ -877,7 +877,7 @@
    meaning is never carried by color alone). Circle + dot, never a tick. */
 .radio{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
 .radio input{
-  appearance:none;width:16px;height:16px;
+  appearance:none;width:var(--s-4);height:var(--s-4);
   border:var(--bw-1) solid var(--border-input);border-radius:var(--r-full);
   background:var(--surface-field);display:grid;place-items:center;
   transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
@@ -943,7 +943,7 @@
 /* Only a target grows: the pressable chip, and the dismiss inside a removable one.
    v4.1.0 had the inset on every .chip with pointer-events:none, which extends
    nothing — a pseudo-element that ignores the pointer is not a hit area. */
-button.chip::before,a.chip::before{content:"";position:absolute;top:50%;left:50%;width:max(100%,44px);height:44px;transform:translate(-50%,-50%)}
+button.chip::before,a.chip::before{content:"";position:absolute;top:50%;left:50%;width:max(100%,var(--target-touch));height:var(--target-touch);transform:translate(-50%,-50%)}
 .chip .chip-dot{width:var(--s-1);height:var(--s-1);border-radius:var(--r-full);background:currentColor;flex:none}
 .chip-dense{font-size:var(--t-micro);padding:var(--s-1) var(--s-2)}
 .chip-brand,.chip-success,.chip-warn,.chip-danger,.chip-info{
@@ -969,7 +969,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   transition:color var(--d-quick) var(--ease-standard);
 }
 .chip-dismiss{position:relative}
-.chip-dismiss::before{content:"";position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.chip-dismiss::before{content:"";position:absolute;top:50%;left:50%;width:var(--target-touch);height:var(--target-touch);transform:translate(-50%,-50%)}
 .chip-dismiss:hover{color:var(--obsidian-100)}
 .chip-dismiss:focus-visible{
   outline:var(--focus-width) solid var(--obsidian-100);outline-offset:calc(-1 * var(--s-px));
@@ -1494,7 +1494,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   align-items:center;
   gap:var(--s-4);
   width:100%;
-  min-height:56px;
+  min-height:calc(var(--s-12) + var(--s-2));
   padding:var(--s-4) var(--s-6);
   background:transparent;
   border:0;
@@ -1515,7 +1515,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   color:var(--obsidian-400);
   transition:transform var(--d-base) var(--ease-standard), color var(--d-quick) var(--ease-standard);
 }
-.acc-chevron svg{width:14px;height:14px;display:block}
+.acc-chevron svg{width:var(--icon-xs);height:var(--icon-xs);display:block}
 .acc-item.is-open .acc-chevron{transform:rotate(90deg);color:var(--primary-400);transition:transform var(--d-base) var(--ease-decel), color var(--d-quick) var(--ease-standard)}
 .acc-label{min-width:0;font-weight:500}
 .acc-num{
@@ -2756,7 +2756,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
   position-try-fallbacks:flip-block, flip-inline;
   margin-block:var(--s-1);
   width:max-content;
-  min-width:200px; max-width:min(360px, calc(100vw - var(--s-8)));
+  min-width:var(--w-popover-min); max-width:min(var(--w-popover), calc(100vw - var(--s-8)));
   padding:var(--s-4);
   background:var(--obsidian-900);
   color:var(--obsidian-100);
@@ -3346,7 +3346,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   position:fixed;right:var(--s-6);bottom:var(--s-6);
   z-index:var(--z-toast);
   display:flex;flex-direction:column;gap:var(--s-3);
-  width:min(360px, calc(100vw - var(--s-8)));
+  width:min(var(--w-toast), calc(100vw - var(--s-8)));
   pointer-events:none;
 }
 .toast{
@@ -3390,7 +3390,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 @media (prefers-reduced-motion: reduce){
   .toast.is-collapsing{transition:none}
 }
-.toast-icon{grid-column:1;grid-row:1;width:16px;height:16px;color:var(--primary-400)}
+.toast-icon{grid-column:1;grid-row:1;width:var(--icon-sm);height:var(--icon-sm);color:var(--primary-400)}
 .toast-title{grid-column:2;grid-row:1;font-weight:600;color:var(--obsidian-100);min-width:0}
 .toast-body{grid-column:2;grid-row:1;min-width:0;overflow-wrap:anywhere}
 .toast:has(.toast-title) .toast-body{grid-column:1 / -1;grid-row:2}
@@ -3433,7 +3433,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   position:absolute;bottom:calc(100% + var(--s-1));left:50%;
   transform:translate(-50%, 2px);
   z-index:var(--z-popover);
-  max-width:220px;width:max-content;
+  max-width:var(--w-tooltip);width:max-content;
   padding:var(--s-1) var(--s-2);
   background:var(--obsidian-800);
   border:var(--bw-1) solid var(--obsidian-700);
@@ -3484,7 +3484,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 /* § 3.21 — Modal (v5.0.0): a native <dialog> opened with showModal(). The panel is the card's surface and radius, the top
    step of the shadow scale, over --scrim. Opens on opacity + a short rise; closes on opacity + the same travel, faster. */
 .modal{
-  width:calc(100% - var(--s-8));max-width:480px;max-height:calc(100vh - var(--s-8));overflow:auto;
+  width:calc(100% - var(--s-8));max-width:var(--w-modal);max-height:calc(100vh - var(--s-8));overflow:auto;
   margin:auto;padding:var(--s-6);
   background:var(--obsidian-800);color:var(--obsidian-100);
   border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);box-shadow:var(--sh-4);

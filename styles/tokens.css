@@ -174,6 +174,11 @@
   --icon-lg: 24px;
   --target-dense: 32px;   /* accessibility floor #7, dense desktop */
   --target-touch: 44px;   /* accessibility floor #7, touch */
+  --w-tooltip: 220px;      /* v5.0.0: the widest a tooltip runs before it wraps */
+  --w-popover-min: 200px;  /* v5.0.0: the narrowest popover */
+  --w-popover: 360px;      /* v5.0.0: the widest popover */
+  --w-modal: 480px;        /* v5.0.0: the widest modal */
+  --w-toast: 360px;        /* v5.0.0: the width of the toast region */
 
   /* — SHADOW — */
   --sh-0: none;

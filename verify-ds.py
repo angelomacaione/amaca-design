@@ -3720,6 +3720,57 @@ def c96():
     return fails
 
 
+@check("97", "The size index states every component's box in tokens, and the stylesheet draws it with them",
+       "v5.0.0: § Size said a component's dimensions take a token, and no table said which. Writing the index "
+       "found ten literals in the stylesheet behind it: 32px for the field action and the calendar day, 16px "
+       "for the check and the radio, 32 by 18 for the switch, 56px for the accordion row, 44px for two touch "
+       "targets, 14 and 16px icons, and the widths of the tooltip, the popover, the modal and the toast. Each is "
+       "now a token or a sum of tokens, and this check holds the index and the stylesheet to each other.")
+def c97():
+    fails = []
+    d = read(DESIGN)
+    i = d.find("#### Size index")
+    if i < 0:
+        return ["DESIGN.md: no '#### Size index'"]
+    toks = set(re.findall(r"(--[a-z0-9-]+)\s*:", read(TOKENS)))
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    rules = [(re.sub(r"\s+", " ", m.group(1)).strip(), m.group(2)) for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css)]
+    rows = 0
+    for line in d[i:].splitlines()[1:]:
+        if line.startswith("#"):
+            break
+        if not line.startswith("| `"):
+            continue
+        rows += 1
+        c = [x.strip() for x in line.strip().strip("|").split("|")]
+        if len(c) != 7:
+            fails.append(f"size index row has {len(c)} cells, the schema has 7: {line[:50]}")
+            continue
+        base = re.search(r"`\.([a-z0-9-]+)", c[0]).group(1).split("-")[0]
+        mine = [b for sel, b in rules if re.search(r"(^|[ ,.>+~(])\." + re.escape(base) + r"(?![a-z0-9-])", sel)
+                or re.search(r"\." + re.escape(base) + r"-", sel)]
+        body = " ".join(mine)
+        for col, v in zip(("Box", "Padding", "Type", "Radius", "Icon"), c[2:7]):
+            bare = re.sub(r"`[^`]*`", "", v)
+            if col == "Type":
+                bare = re.sub(r"\b[1-9]00\b", "", bare)
+            if re.search(r"\d+px|\b\d{2,}\b", bare):
+                fails.append(f"{c[0]} · {col}: '{v}' carries a number, not a token")
+            for t in re.findall(r"--[a-z0-9-]+", v):
+                if t not in toks:
+                    fails.append(f"{c[0]} · {col}: {t} is not declared in tokens.css")
+                elif col != "Icon" and t not in body and t not in ("--target-touch",):
+                    fails.append(f"{c[0]} · {col}: {t} is in the index but no rule of .{base} uses it")
+        for sel, b in rules:
+            if re.match(r"\." + re.escape(base) + r"(?![a-z0-9-])", sel) and not re.search(r"input(:checked)?::after", sel):
+                for prop, val in re.findall(r"(?:^|;)\s*((?:min-|max-)?(?:width|height|inline-size|block-size))\s*:\s*([^;]+)", b):
+                    if re.search(r"(?<![\w.-])\d+(\.\d+)?px", val):
+                        fails.append(f"components.css: {sel} {{ {prop}: {val.strip()} }} — a component dimension is a token")
+    if rows < 30:
+        fails.append(f"size index: {rows} rows, fewer than the components it must cover")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
