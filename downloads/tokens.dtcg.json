@@ -1490,6 +1490,14 @@
     "$type": "dimension",
     "$description": "the blur of surface-bar (Bar material)"
   },
+  "blur-light": {
+    "$value": {
+      "value": 96,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of the feature card's light: it blurs its own glow, not what is behind"
+  },
   "ring-halo": {
     "$value": {
       "color": {

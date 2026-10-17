@@ -3456,6 +3456,38 @@ def c89():
     return fails
 
 
+@check("90", "A row card is one link with nothing pressable inside, and a feature card leads once, in the brand's light",
+       "v5.0.0: two Card forms joined the system. The row card is a whole-card link: a button inside it nests "
+       "one pressable in another, and a keyboard reader meets two stops for one item. The feature card is the "
+       "one item a page leads with: its light and its tab are the brand's, and two of them on a page make "
+       "neither lead. This check holds the markup of the site and of § 3.31 to both, and the light to its tokens.")
+def c90():
+    fails = []
+    css = read(COMPONENTS)
+    m = re.search(r"\.card-feature::before\{([^}]*)\}", css)
+    if not m or "var(--primary-500)" not in m.group(1) or "blur(var(--blur-light))" not in m.group(1):
+        fails.append("components.css: .card-feature::before must paint --primary-500 under blur(var(--blur-light))")
+    t = re.search(r"\.card-feature-tab\{([^}]*)\}", css)
+    if not t or "var(--sh-glow)" not in t.group(1) or "var(--primary-500)" not in t.group(1):
+        fails.append("components.css: .card-feature-tab must be --primary-500 with --sh-glow")
+    d = read(DESIGN)
+    sources = [("index.html", read(INDEX))] + [("DESIGN.md", d)]
+    for name, text in sources:
+        for r in re.finditer(r'<(\w+) class="card card-row"[^>]*>(.*?)</\1>', text, re.S):
+            if r.group(1) != "a":
+                fails.append(f"{name}: a .card-row on <{r.group(1)}>, the whole card is the link")
+            if re.search(r"<(button|a|input|select|textarea)\b", r.group(2)):
+                fails.append(f"{name}: a .card-row holds a pressable inside it")
+    html = read(INDEX)
+    for sm in re.finditer(r'<section class="section" id="([a-z-]+)">(.*?)</section>', html, re.S):
+        n = sm.group(2).count('class="card card-feature"')
+        if n > 1:
+            fails.append(f"site #{sm.group(1)}: {n} feature cards on one page")
+    if 'class="card card-row"' not in html or 'class="card card-feature"' not in html:
+        fails.append("site #card: the row card and the feature card each need a demo")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "

@@ -10,8 +10,8 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<link rel="stylesheet" href="styles/tokens.css?v=1cb08dac">
-<link rel="stylesheet" href="styles/components.css?v=10560def">
+<link rel="stylesheet" href="styles/tokens.css?v=03ff96d1">
+<link rel="stylesheet" href="styles/components.css?v=fb2bf321">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -2994,7 +2994,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <h1 class="page-title">Containers with <span class="accent">metadata bones.</span></h1>
           <p class="page-lede">Every card carries a micro-header with context — project code, date, index. The case-file influence sits here, quietly.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One project or one stat: micro-header, title, body, at most one action.</li><li>A concept the reader scans and acts on as one unit.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Secondary information shown on demand → Popover or Modal.</li><li>A gradient background → never; the surface stays on the obsidian ramp.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One project or one stat: micro-header, title, body, at most one action.</li><li>A concept the reader scans and acts on as one unit.</li><li>A list of items, each opening its own page → the row card.</li><li>The one item a page leads with → the feature card, once per page.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Secondary information shown on demand → Popover or Modal.</li><li>A gradient background → never; the surface stays on the obsidian ramp. The light of the feature card is a glow behind the content, not a fill.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Project card</h2><span class="subsection-num">§ 35.1</span></div>
           <p class="subsection-desc">The project card: micro-header, media, title, body, and at most one action. Surfaces ride the card ramp; the media scales on hover, the card itself never lifts.</p>
@@ -3050,7 +3050,45 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 35.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Row card</h2><span class="subsection-num">§ 35.3</span></div>
+          <p class="subsection-desc">One line of a list: a square media, the micro-header, a title and one clipped line, then a chevron. The whole card is the link, so it holds no button; it hovers like any card and takes the focus ring of a pressable.</p>
+          <div style="display:grid;gap:var(--s-3);max-width:calc(var(--s-24) * 6)">
+              <a class="card card-row" href="#card">
+                <div class="card-media"><div style="background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div>
+                <div><div class="card-meta"><span>CS-018 · 2025</span></div><h3>Orion · Fleet console</h3><p>A control room for 40k connected vans, from the depot to the road.</p></div>
+                <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
+              </a>
+              <a class="card card-row" href="#card">
+                <div class="card-media"><div style="background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div>
+                <div><div class="card-meta"><span>CS-019 · 2025</span></div><h3>Nova · Onboarding</h3><p>Three screens instead of eleven.</p></div>
+                <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
+              </a>
+              <a class="card card-row" href="#card">
+                <div class="card-media"><div style="background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div>
+                <div><div class="card-meta"><span>CS-020 · 2026</span></div><h3>Atlas · Token pipeline</h3><p>One source, four platforms.</p></div>
+                <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
+              </a>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Feature card</h2><span class="subsection-num">§ 35.4</span></div>
+          <p class="subsection-desc">The one item a page leads with: media and tags on one side, title, text, reading time and the action on the other, a magenta light from the top right corner and a tab that names why it leads. Once per page; one column under the medium breakpoint.</p>
+          <article class="card card-feature">
+            <span class="card-feature-tab">Latest project</span>
+            <div class="card-feature-side">
+              <div class="card-media"><div style="aspect-ratio:3/2;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div>
+              <div class="card-feature-tags"><span class="chip">Design systems</span><span class="chip">Tooling</span><span class="chip">AI</span></div>
+            </div>
+            <div class="card-feature-body">
+              <div><div class="card-meta"><span>CS-020 · 2026</span></div><h3>One source, four platforms: a token pipeline for a fleet console</h3></div>
+              <div><p>How a single token file reached web, iOS, Android and the in-car cluster without a hand-copied value, and what the team stopped arguing about.</p>
+                <div class="card-feature-foot"><span class="card-feature-time">Reading time · 8 min</span><button type="button" class="btn btn-primary">Read more</button></div></div>
+            </div>
+          </article>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 35.5</span></div>
           <p class="subsection-desc">One micro-header, at most one action.</p>
           <div class="do-dont">
             <div class="do">
@@ -3070,6 +3108,16 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <div class="dont">
               <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
               <p>Grow the card itself, or invent a spacing the anatomy does not have: stop and ask.</p>
+            </div>
+          </div>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Make the whole row card the link, and use the feature card once per page.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Put a button inside a row card, or give the feature card&rsquo;s light, tab or surface another colour.</p>
             </div>
           </div>
         </div>

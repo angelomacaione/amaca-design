@@ -331,6 +331,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--blur-veil` | `4px` — the blur of `--scrim` |
 | `--blur-glass` | `8px` — the blur of `--surface-glass` |
 | `--blur-bar` | `16px` — the blur of `--surface-bar` |
+| `--blur-light` | `96px` — the light of the feature card (§ 3.31): it blurs the card's own glow, never what is behind it, so it is not a material |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -456,7 +457,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Breadcrumb | `.breadcrumb` | canonical | § 3.28 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.29 |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.30 — an ordered list; the current step carries `aria-current="step"` |
-| Card | `.card` `.card-meta` `.card-media` `.card-actions` | canonical | § 3.31 |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.31 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.32 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.33 |
 | Chat · Messaging | `.chat-*` | canonical | § 3.34 |
@@ -523,6 +524,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-danger` | active | `--danger` · `--obsidian-950` | — | — | — | `color-mix(in srgb, --danger 85%, --obsidian-950)` · label 4.95 : 1 · the hover filter is dropped |
 | `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered |
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index |
+| `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link |
+| `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` |
+| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at 15% under `--blur-light` · hovers as a `.card` |
+| `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-050` | `--sh-glow` | not interactive |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus |
 | `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget |
 | `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped |
@@ -2373,10 +2378,12 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 *Use it when*
 - One project or one stat: micro-header, title, body, at most one action.
 - A concept the reader scans and acts on as one unit.
+- A list of items, each opening its own page → the row card.
+- The one item a page leads with → the feature card, once per page.
 
 *Use something else when*
 - Secondary information shown on demand → Popover or Modal.
-- A gradient background → never; the surface stays on the obsidian ramp.
+- A gradient background → never; the surface stays on the obsidian ramp. The light of the feature card is a glow behind the content, not a fill.
 
 
 ```html
@@ -2396,6 +2403,33 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
+- **Row — `.card-row`.** One line of a list: a square media of `--s-16`, then the micro-header, the title (`h3`, `--t-body`) and one line of text clipped with an ellipsis, then a chevron (`.icon-muted`). Padding `--s-3`, gap `--s-4`. The whole card is the link — an `<a>` — so it holds no action and no other focusable; it takes the focus ring of a pressable (`--ring-halo`, outline `--focus-width` `--obsidian-100`). Rows stack with `--s-3` between them.
+
+```html
+<a class="card card-row" href="/work/orion">
+  <div class="card-media"><img src="orion.jpg" alt=""></div>
+  <div><div class="card-meta"><span>CS-018 · 2025</span></div><h3>Orion · Fleet console</h3><p>A control room for 40k connected vans.</p></div>
+  <svg class="icon icon-muted" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg>
+</a>
+```
+
+- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, Chips); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-050`, mono `--t-micro` uppercase, radius `--r-md` on its free corner, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
+
+```html
+<article class="card card-feature">
+  <span class="card-feature-tab">Latest project</span>
+  <div class="card-feature-side">
+    <div class="card-media"><img src="atlas.jpg" alt="The token pipeline of the fleet console"></div>
+    <div class="card-feature-tags"><span class="chip">Design systems</span><span class="chip">Tooling</span></div>
+  </div>
+  <div class="card-feature-body">
+    <div><div class="card-meta"><span>CS-020 · 2026</span></div><h3>One source, four platforms</h3></div>
+    <div><p>How a single token file reached web, iOS and Android without a hand-copied value.</p>
+      <div class="card-feature-foot"><span class="card-feature-time">Reading time · 8 min</span><a class="btn btn-primary" href="/work/atlas">Read more</a></div></div>
+  </div>
+</article>
+```
+
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -2405,6 +2439,8 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 **Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
 
 **Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
+
+**Do / Don't.** Do make the whole row card the link, and use the feature card once per page. Don't put a button inside a row card, or give the feature card's light, tab or surface another colour.
 
 ### Accordion
 

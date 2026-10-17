@@ -191,6 +191,7 @@
   --blur-veil: 4px;                        /* pairs with the scrim: the page behind an overlay */
   --blur-glass: 8px;                       /* pairs with the glass surface: a control over the content */
   --blur-bar: 16px;                        /* pairs with the bar surface: a bar over the content */
+  --blur-light: 96px;                      /* the light of the feature card: blurs its own glow, not what is behind */
   /* focus rings (v4.2.0) — the two § 6.2 literals and the error twin, now named */
   --ring-halo: 0 0 0 4px rgba(240,81,213,0.35);
   --ring-field: 0 0 0 3px rgba(240,81,213,0.15);
