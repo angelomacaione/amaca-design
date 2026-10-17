@@ -284,6 +284,17 @@
 /* Shadow tile: a surface (--obsidian-850) on a section ground (--obsidian-900), where cards and popovers sit; --sw-sh is var() of a shadow or ring token. */
 .swatch-tile-shadow .swatch-tile-fill{height:calc(var(--s-24) * 1.25);overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--obsidian-900)}
 .swatch-tile-surface{width:var(--s-24);height:calc(var(--s-24) * .5);border-radius:var(--r-md);background:var(--obsidian-850);box-shadow:var(--sw-sh, none)}
+/* Type tile: horizontal. The sample in its .ty-* class at full size on the page ground, cropped at the end of the
+   line; a divider; then name, token, size / leading / tracking and role. Under --bp-md the specs drop below. */
+.swatch-type-list{display:flex;flex-direction:column;gap:var(--s-3)}
+.swatch-tile-type{display:flex}
+.swatch-tile-type .swatch-tile-fill{flex:1;min-width:0;height:auto;max-height:calc(var(--s-24) * 1.25);display:flex;align-items:center;overflow:hidden;padding:var(--s-5) 0 var(--s-5) var(--s-5);background:var(--obsidian-950);box-shadow:none}
+.swatch-type-sample{margin:0;white-space:nowrap;color:var(--obsidian-100)}
+.swatch-tile-type .swatch-tile-meta{flex:none;width:calc(var(--s-24) * 2.25);justify-content:center;border-left:var(--bw-1) solid var(--border-input)}
+@media (max-width: 720px){
+  .swatch-tile-type{flex-direction:column}
+  .swatch-tile-type .swatch-tile-meta{width:auto;border-left:0;border-top:var(--bw-1) solid var(--border-input)}
+}
 .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:var(--s-3)}
 .swatch-tile-motion .swatch-tile-fill{height:auto;display:flex;justify-content:center;background:var(--obsidian-950);padding:var(--s-6) var(--s-5)}
 .swatch-tile-plot{position:relative;flex:1 1 auto;max-width:calc(var(--s-24) * 2);aspect-ratio:1;margin:0 calc(var(--s-6) + var(--s-3)) 0 var(--s-2)}
@@ -315,20 +326,6 @@
   .swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{transform:translateY(-100%)}
 }
 
-/* ─────────── TYPE SPECIMENS ─────────── */
-.type-specimen{
-  display:grid;grid-template-columns:140px 1fr;gap:var(--s-6);
-  padding:var(--s-5) 0;
-  border-bottom:var(--bw-1) solid var(--obsidian-800);
-  align-items:baseline;
-}
-.type-specimen:last-child{border-bottom:0}
-.type-specimen .spec{
-  font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);
-  color:var(--obsidian-400);text-transform:uppercase;line-height:1.6;
-}
-.type-specimen .spec .token{display:block;color:var(--primary-400)}
-.type-specimen .sample{color:var(--obsidian-100);margin:0}
 
 .ty-display{font-size:var(--t-display);line-height:var(--lh-tight);letter-spacing:var(--tr-tight);font-weight:900}
 .ty-h1{font-size:var(--t-h1);line-height:var(--lh-tight);letter-spacing:var(--tr-tight);font-weight:700}
@@ -341,6 +338,7 @@
 .ty-body{font-size:var(--t-body);line-height:var(--lh-loose);font-weight:400}
 .ty-small{font-size:var(--t-small);line-height:var(--lh-normal);color:var(--obsidian-300)}
 .ty-caption{font-size:var(--t-caption);line-height:var(--lh-normal);color:var(--obsidian-400)}
+.ty-micro{font-size:var(--t-micro);line-height:var(--lh-normal);color:var(--obsidian-300)}
 .ty-mono{font-family:var(--font-mono);font-size:var(--t-small);letter-spacing:var(--tr-mono);color:var(--obsidian-200);text-transform:uppercase}
 
 /* ─────────── TOKEN TABLE ─────────── */
@@ -1711,17 +1709,6 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 
 /* ─────────── TYPE · MOBILE OVERFLOW PROTECTION ─────────── */
 @media (max-width: 720px){
-  .type-specimen{
-    grid-template-columns:1fr;
-    gap:var(--s-3);
-    padding:var(--s-5) 0;
-  }
-  .type-specimen .sample{
-    max-width:100%;
-    overflow-wrap:anywhere;
-    word-break:break-word;
-    hyphens:auto;
-  }
   /* clamp display sizes so they never overflow */
   .ty-display{font-size:var(--t-display-fluid)}
   .ty-h1{font-size:var(--t-h1-fluid)}

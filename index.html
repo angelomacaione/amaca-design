@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=9a0d8992">
-<link rel="stylesheet" href="styles/components.css?v=6c742496">
+<link rel="stylesheet" href="styles/components.css?v=5efcb953">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -721,25 +721,27 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Long-form text left-aligned, at most 80 characters per line.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Body text centred or wider than 80 characters → left-align it and cap the measure.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Display scale</h2><span class="subsection-num">§ 02.1</span></div>
-          <p class="subsection-desc">The display end of the scale — hero and headline steps with size, leading, tracking, and weight declared per row. Negative tracking is part of the voice at this size, not a tweak.</p>
-          <div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-display</span>112 / 1.05 / -4%<br/>Black · 900</div><p class="sample ty-display">Reshape.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-h1</span>76 / 1.05 / -4%<br/>Bold · 700</div><p class="sample ty-h1">Design that compounds.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-h2</span>52 / 1.05 / -4%<br/>Bold · 700</div><p class="sample ty-h2">A case for quiet precision.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-h3</span>38 / 1.2 / -2%<br/>Bold · 700</div><p class="sample ty-h3">Systems outlive the work</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-h4</span>30 / 1.2 / -2%<br/>Bold · 700</div><p class="sample ty-h4">Evidence over opinion</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-h5</span>24 / 1.2 / -2%<br/>Semibold · 600</div><p class="sample ty-h5">The obvious answer, made inevitable</p></div>
+          <p class="subsection-desc">The display end of the scale, display to h6, one Swatch type tile each (§ 3.40): the sample in its class at full size, cropped at the end of the line, then size / leading / tracking and weight. Negative tracking is part of the voice at this size, not a tweak.</p>
+          <div class="swatch-type-list">
+            <div class="swatch-tile swatch-tile-type" data-type="display"><div class="swatch-tile-fill"><p class="ty-display swatch-type-sample">Reshape.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Display</span><span class="swatch-tile-hex">--t-display</span><span class="swatch-tile-hex">112 / 1.05 / -4%</span><span class="swatch-tile-role">Marketing hero only · Black 900</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h1"><div class="swatch-tile-fill"><p class="ty-h1 swatch-type-sample">Design that compounds.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 1</span><span class="swatch-tile-hex">--t-h1</span><span class="swatch-tile-hex">76 / 1.05 / -4%</span><span class="swatch-tile-role">Page title (one per page) · Bold 700</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h2"><div class="swatch-tile-fill"><p class="ty-h2 swatch-type-sample">A case for quiet precision.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 2</span><span class="swatch-tile-hex">--t-h2</span><span class="swatch-tile-hex">52 / 1.05 / -4%</span><span class="swatch-tile-role">Section title · Bold 700</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h3"><div class="swatch-tile-fill"><p class="ty-h3 swatch-type-sample">Systems outlive the work</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 3</span><span class="swatch-tile-hex">--t-h3</span><span class="swatch-tile-hex">38 / 1.2 / -2%</span><span class="swatch-tile-role">Subsection title · Bold 700</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h4"><div class="swatch-tile-fill"><p class="ty-h4 swatch-type-sample">Evidence over opinion</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 4</span><span class="swatch-tile-hex">--t-h4</span><span class="swatch-tile-hex">30 / 1.2 / -2%</span><span class="swatch-tile-role">Card title · Bold 700</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h5"><div class="swatch-tile-fill"><p class="ty-h5 swatch-type-sample">The obvious answer, made inevitable</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 5</span><span class="swatch-tile-hex">--t-h5</span><span class="swatch-tile-hex">24 / 1.2 / -2%</span><span class="swatch-tile-role">Small heading · Semibold 600</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="h6"><div class="swatch-tile-fill"><p class="ty-h6 swatch-type-sample">A label that leads a group</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Heading 6</span><span class="swatch-tile-hex">--t-h6</span><span class="swatch-tile-hex">20 / 1.2 / 0</span><span class="swatch-tile-role">Eyebrow heading · Semibold 600</span></div></div>
           </div>
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Text scale</h2><span class="subsection-num">§ 02.2</span></div>
-          <p class="subsection-desc">The text scale, lede to micro: the steps running copy actually uses. Each row declares its size and leading — reference the token, never the number.</p>
-          <div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-lead</span>18 / 1.65<br/>Regular · 400</div><p class="sample ty-lead">Lede paragraph. Sits under page titles. Used once per page to set the register before body text takes over.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-body</span>15 / 1.45<br/>Regular · 400</div><p class="sample ty-body">Body copy. Reads comfortably at 62–72 characters per line. Default for paragraphs, long-form notes, and case studies. Leading stays loose to respect the dark background — tight type on dark surfaces strains eyes.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-small</span>13 / 1.45<br/>Regular · 400</div><p class="sample ty-small">Small text. Captions, table rows, secondary UI copy.</p></div>
-            <div class="type-specimen"><div class="spec"><span class="token">--t-caption</span>12 / 1.45<br/>Regular · 400</div><p class="sample ty-caption">Caption · image credit, footnote, timestamp.</p></div>
+          <p class="subsection-desc">The text scale, lede to micro: the steps running copy actually uses, one Swatch type tile each. Each tile declares its size and leading — reference the token, never the number.</p>
+          <div class="swatch-type-list">
+            <div class="swatch-tile swatch-tile-type" data-type="lead"><div class="swatch-tile-fill"><p class="ty-lead swatch-type-sample">Lede paragraph. Sits under page titles, once per page, to set the register before body text takes over.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Lead</span><span class="swatch-tile-hex">--t-lead</span><span class="swatch-tile-hex">18 / 1.65 / 0</span><span class="swatch-tile-role">Page lede / intro paragraph · Regular 400</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="body"><div class="swatch-tile-fill"><p class="ty-body swatch-type-sample">Body copy. Reads comfortably at 62–72 characters per line. Default for paragraphs, long-form notes and case studies.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Body</span><span class="swatch-tile-hex">--t-body</span><span class="swatch-tile-hex">15 / 1.65 / 0</span><span class="swatch-tile-role">Default body text · Regular 400</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="small"><div class="swatch-tile-fill"><p class="ty-small swatch-type-sample">Small text. Captions, table rows, secondary UI copy.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Small</span><span class="swatch-tile-hex">--t-small</span><span class="swatch-tile-hex">13 / 1.45 / 0</span><span class="swatch-tile-role">Captions, table cells · Regular 400</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="caption"><div class="swatch-tile-fill"><p class="ty-caption swatch-type-sample">Caption · image credit, footnote, timestamp.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Caption</span><span class="swatch-tile-hex">--t-caption</span><span class="swatch-tile-hex">12 / 1.45 / 0</span><span class="swatch-tile-role">Smallest readable text · Regular 400</span></div></div>
+            <div class="swatch-tile swatch-tile-type" data-type="micro"><div class="swatch-tile-fill"><p class="ty-micro swatch-type-sample">Micro · mono labels, eyebrows, kbd keys.</p></div><div class="swatch-tile-meta"><span class="swatch-tile-name">Micro</span><span class="swatch-tile-hex">--t-micro</span><span class="swatch-tile-hex">10 / 1.45 / 0</span><span class="swatch-tile-role">Mono labels, eyebrows, kbd keys · Regular 400</span></div></div>
           </div>
         </div>
 

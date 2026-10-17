@@ -3069,6 +3069,44 @@ def c74():
     return fails
 
 
+@check("75", "Every type step has a type tile, and the tile prints what its .ty-* class renders",
+       "v5.0.0: the Typography page printed each step's size and leading by hand beside a sample. Body said "
+       "15 / 1.45 while .ty-body set --lh-loose, 1.65; --t-h6 and --t-micro were tokens with no row, and "
+       "--t-micro had no class at all. The steps became Swatch type tiles (§ 3.40). This check holds one tile "
+       "per --t-* step, the sample in its own .ty-* class, and the size / leading / tracking and weight each "
+       "tile prints to the values that class sets in components.css and tokens.css.")
+def c75():
+    fails = []
+    tok = read(TOKENS)
+    css = read(ROOT / "styles" / "components.css")
+    T = dict((k, int(v)) for k, v in re.findall(r"--t-([a-z0-9]+):\s*(\d+)px;", tok))
+    LH = dict(re.findall(r"--lh-([a-z]+):\s*([\d.]+);", tok))
+    TR = dict((k, float(v)) for k, v in re.findall(r"--tr-([a-z]+):\s*(-?[\d.]+)em;", tok))
+    cls = {}
+    for m in re.finditer(r"\.ty-([a-z0-9]+)\{([^}]*)\}", css): cls.setdefault(m.group(1), m.group(2))
+    sec = _html_section(read(INDEX), "type")
+    tiles = re.findall(r'<div class="swatch-tile swatch-tile-type" data-type="([a-z0-9]+)"><div class="swatch-tile-fill"><p class="ty-([a-z0-9]+) swatch-type-sample">.*?'
+                       r'<span class="swatch-tile-hex">--t-([a-z0-9]+)</span><span class="swatch-tile-hex">(\d+) / ([\d.]+) / ([-+\d%]+)</span><span class="swatch-tile-role">[^<]*? (\d+)</span>', sec, re.S)
+    if sorted(t[0] for t in tiles) != sorted(T):
+        fails.append(f"§ 02 type tiles {[t[0] for t in tiles]} ≠ --t-* steps {sorted(T)}")
+    for k, c, t, size, lh, tr, w in tiles:
+        if not (k == c == t):
+            fails.append(f"type tile {k}: sample class .ty-{c}, token --t-{t}")
+            continue
+        rule = cls.get(k)
+        if rule is None:
+            fails.append(f"--t-{k} has a tile and no .ty-{k} class")
+            continue
+        m = re.search(r"line-height:var\(--lh-([a-z]+)\)", rule)
+        trm = re.search(r"letter-spacing:var\(--tr-([a-z]+)\)", rule)
+        wm = re.search(r"font-weight:(\d+)", rule)
+        want = (T[k], float(LH[m.group(1)]) if m else None, f"{round(TR[trm.group(1)] * 100):+d}%" if trm and TR[trm.group(1)] else "0", wm.group(1) if wm else "400")
+        got = (int(size), float(lh), tr, w)
+        if got != want:
+            fails.append(f"type tile {k} prints {got}, .ty-{k} renders {want}")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
