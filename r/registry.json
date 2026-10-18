@@ -778,6 +778,48 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart card",
+      "description": "Bars for comparison, labelled at the value; the donut for composition.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/chart.css",
+          "type": "registry:file",
+          "target": "styles/amaca/chart.css"
+        },
+        {
+          "path": "amaca/chart.html",
+          "type": "registry:file",
+          "target": "components/amaca/chart.html"
+        }
+      ]
+    },
+    {
+      "name": "diagram",
+      "type": "registry:item",
+      "title": "Diagrams",
+      "description": "Flowcharts and system architecture, box and line with grouping.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/diagram.css",
+          "type": "registry:file",
+          "target": "styles/amaca/diagram.css"
+        },
+        {
+          "path": "amaca/diagram.html",
+          "type": "registry:file",
+          "target": "components/amaca/diagram.html"
+        }
+      ]
+    },
+    {
       "name": "icon",
       "type": "registry:item",
       "title": "Icon",

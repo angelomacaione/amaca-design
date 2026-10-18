@@ -1,0 +1,160 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart",
+  "type": "registry:item",
+  "title": "Chart card",
+  "description": "Bars for comparison, labelled at the value; the donut for composition.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/chart.css",
+      "type": "registry:file",
+      "target": "styles/amaca/chart.css",
+      "content": ".chart-plot{\n  position:relative;\n}\n.chart-plot > svg{\n  display:block;\n  width:100%;\n  height:auto;\n}\n.chart-label{\n  position:absolute;\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  line-height:1;\n  white-space:nowrap;\n  translate:0 -50%;\n  pointer-events:none;\n}\n.chart-label-axis{\n  color:var(--obsidian-200);\n}\n.chart-label-value{\n  color:var(--obsidian-100);\n}\n.chart-label-center{\n  translate:-50% -50%;\n}\n.chart-label-end{\n  translate:-100% -50%;\n}\n.chart-plot-sm{\n  display:none;\n}\n@media (max-width: 720px){\n  .chart-plot-lg{\n    display:none;\n  }\n  .chart-plot-sm{\n    display:block;\n  }\n}\n.chart-card{\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  padding:var(--s-6);\n}\n.chart-head{\n  display:flex;\n  align-items:baseline;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-5);\n}\n.chart-head > :first-child{\n  min-width:0;\n}\n.chart-head .t{\n  font-size:var(--t-body);\n  font-weight:600;\n}\n.chart-head .s{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-400);\n  text-transform:uppercase;\n}\n.chart-big{\n  font-size:var(--t-h2);\n  font-weight:700;\n  letter-spacing:var(--tr-tight);\n  margin:var(--s-2) 0;\n}\n.chart-big.accent{\n  background:var(--grad-signal);\n  -webkit-background-clip:text;\n  background-clip:text;\n  color:transparent;\n}\n.chart-delta{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--success);\n}\n.chart-delta.neg{\n  color:var(--danger);\n}\n.chart-legend{\n  list-style:none;\n  margin:var(--s-3) 0 0;\n  padding:0;\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-4);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.chart-legend li{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  white-space:nowrap;\n}\n"
+    },
+    {
+      "path": "amaca/chart.html",
+      "type": "registry:file",
+      "target": "components/amaca/chart.html",
+      "content": "<div class=\"chart-card\"><div class=\"chart-head\"><span class=\"t\">Retention · D30</span><span class=\"s\">CS-017</span></div><div class=\"chart-big accent\">84%</div><div class=\"chart-delta\">+2.4 vs Q2</div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.40 Chart card",
+      "site": "https://www.amaca.design/#charts",
+      "usage": {
+        "use_it_when": [
+          "Bars for comparison, labelled at the value; the donut for composition.",
+          "Lines for trends over time and for several series.",
+          "Areas for cumulative totals."
+        ],
+        "use_something_else_when": [
+          "Several time series → lines, not bars.",
+          "Five points or fewer → bars, not a line."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "plot",
+          "values": [
+            "stat",
+            "line",
+            "area",
+            "bars",
+            "columns",
+            "donut"
+          ],
+          "default": "stat"
+        },
+        {
+          "axis": "value",
+          "values": [
+            "neutral",
+            "accent"
+          ],
+          "default": "neutral"
+        },
+        {
+          "axis": "delta",
+          "values": [
+            "up",
+            "down"
+          ],
+          "default": "up"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Card",
+          "tokens": [
+            "--obsidian-800",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-lg",
+            "--s-6"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--t-body"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Source",
+          "tokens": [
+            "--obsidian-400",
+            "--font-mono",
+            "--t-caption",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Value",
+          "tokens": [
+            "--t-h2",
+            "--tr-tight"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Accent",
+          "tokens": [
+            "--grad-signal"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Delta",
+          "tokens": [
+            "--success",
+            "--font-mono",
+            "--t-caption",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": "down --danger"
+        }
+      ],
+      "rules": [
+        "Text is HTML, never inside the svg (RIGID). Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A &lt;text&gt; inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.",
+        "Two drawings, one shown. A plot whose proportions or points do not hold on a phone carries a second drawing, .chart-plot-sm, with its own viewBox (344 wide against 700), the same data and points at data-r 8; under --bp-md it replaces .chart-plot-lg, labels included. The small one is aria-hidden: the chart has one accessible name. The baseline clip reads its width from data-clip-w.",
+        "Bars keep two columns down to --bp-md (.chart-grid): one column at 900 made each bar chart twice its size.",
+        "The plot is not interactive. No hover, no focus, no state but default (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.",
+        "Choreography E (the line and area plot). Each part starts when the one before it reads, not when it ends: the baseline at --d-base, the line --d-slow later, area and points --d-slow after the line starts, the points --d-quick apart. Under reduced motion every part lands drawn."
+      ],
+      "classes": [
+        "accent",
+        "chart-big",
+        "chart-card",
+        "chart-delta",
+        "chart-grid",
+        "chart-head",
+        "chart-label",
+        "chart-label-axis",
+        "chart-label-center",
+        "chart-label-end",
+        "chart-label-value",
+        "chart-legend",
+        "chart-plot",
+        "chart-plot-lg",
+        "chart-plot-sm",
+        "neg",
+        "s",
+        "t"
+      ]
+    }
+  }
+}

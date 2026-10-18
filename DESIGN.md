@@ -519,7 +519,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
-| Case study | `.cs-hero` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-pull` `.cs-img` `.cs-img-caption` `.cs-img-hint` `.cs-points` `.cs-point` `.cs-point-title` `.cs-more` | canonical | § 3.46 — a page template: it composes Button, Chip, Chart card, Lightbox, Divider and Card |
+| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-stat` `.cs-stat-label` `.cs-stat-value` `.cs-stat-note` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
@@ -3256,6 +3256,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's value is a `.chart-label-value` (`--obsidian-100`) whose `left` rides the bar's end and counts up; a column's peak value is a `.chart-label-center` |
 | Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` mono uppercase `--obsidian-300` |
 
+**Rules.**
 - **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
 - **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
@@ -3273,6 +3274,11 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | plot reveal | donut slice sweep (spatial) · legend % count-up (effect · text) | `--d-slow` · `--ease-decel` · delay `--d-slow` + `--d-instant` × i | none — drawn |
 | plot reveal | donut total count-up (effect · text) | `--d-draw` · `--ease-decel` · delay 2 × `--d-base` | none — jumps to the value |
 
+
+**Variants.**
+- `plot` — stat (default) · line · area · bars · columns · donut
+- `value` — neutral (default) · accent
+- `delta` — up (default) · down
 **Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
 
 **Do / Don't.** Do give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px. Don't let a phone shrink the desktop drawing until its points and labels cannot be read.
@@ -3501,6 +3507,10 @@ flowchart TD
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
 
+
+**Variants.**
+- `kind` — flowchart (default) · architecture · states
+- `legend` — none (default) · semantic states
 **Do / Don't.** Do keep every node neutral obsidian and spend the magenta once — on the entry or the narrative focus. One accent per diagram is the budget. Don't color nodes by category with a per-type rainbow palette. The hues stop meaning anything and the surface goes loud.
 
 ### Presentations
@@ -3557,67 +3567,91 @@ The starting frame for a project told as a story. It composes the system's compo
 
 ```html
 <button class="btn btn-floating" type="button"><svg class="icon" aria-hidden="true">…</svg> Back</button>
-<div class="cs-hero">
-  <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
-  <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
-  <p>A next-generation automotive HMI for a connected EV.</p>
+<header class="cs-hero">
+  <p class="eyebrow">2024–2025 · 18 months</p>
+  <h1 class="cs-hero-title">Rebuilding Arc's in-car interface, one glance at a time.</h1>
+  <p class="cs-hero-lede">A next-generation automotive HMI for a connected EV.</p>
   <div class="cs-meta">
     <div class="item"><span class="k">Reading time</span><span class="v">8 minutes</span></div>
-    <div class="item"><span class="k">Tags</span><span class="tags"><span class="chip">Automotive</span></span></div>
+    <div class="item"><span class="k">Tags</span><ul class="tags"><li><a class="chip" href="…">Automotive</a></li></ul></div>
   </div>
-</div>
-<div class="cs-dossier">
-  <div class="item"><span class="k">Role</span><span class="v">Lead Product Designer</span></div>
-</div>
-<div class="cs-section">
-  <div class="eyebrow">01 · Brief</div>
-  <h3>The legacy stack made drivers work.</h3>
-  <p>…</p>
-</div>
-<div class="cs-pull">"The design system was the outcome."</div>
-<div class="cs-section">
-  <div class="eyebrow">03 · What changed</div>
-  <h3>Three decisions carried the rest.</h3>
-  <div class="cs-points">
-    <div class="cs-point"><h4 class="cs-point-title">Three flows, not thirty</h4><p>…</p></div>
+  <img class="cube" src="assets/logo.svg" alt="">
+</header>
+<dl class="cs-dossier">
+  <div class="item"><dt class="k">Role</dt><dd class="v">Lead Product Designer</dd></div>
+</dl>
+<section class="cs-section">
+  <p class="eyebrow">02 · Process</p>
+  <h2 class="cs-section-title">Measure twice, cut once.</h2>
+  <div class="cs-section-body">
+    <p>…</p>
+    <figure class="cs-figure">
+      <button type="button" class="cs-img" data-lightbox aria-label="Expand figure: Fig. 01 · …"><img src="…" alt="…"><span class="cs-img-hint" aria-hidden="true">…Expand</span></button>
+      <figcaption class="cs-figure-caption"><span class="n">Fig. 01</span>…</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="cs-section">
+  <p class="eyebrow">03 · What changed</p>
+  <h2 class="cs-section-title">Three decisions carried the rest.</h2>
+  <div class="cs-section-body"><div class="cs-points">
+    <div class="cs-point"><h3 class="cs-point-title">Three flows, not thirty</h3><div class="cs-point-body"><p>…</p></div></div>
     <hr class="divider">
-    <div class="cs-point"><h4 class="cs-point-title">Glanceable by default</h4><p>…</p></div>
-  </div>
-</div>
-<div class="cs-section cs-more">
-  <div class="eyebrow">More cases</div>
-  <h3>Learn more.</h3>
-  <div class="grid grid-3"><div class="card">…</div></div>
-</div>
+    <div class="cs-point"><h3 class="cs-point-title">Glanceable by default</h3><div class="cs-point-body"><p>…</p></div></div>
+  </div></div>
+</section>
+<section class="cs-section">
+  <p class="eyebrow">04 · Outcome</p>
+  <h2 class="cs-section-title">Measured, shipped, maintained.</h2>
+  <div class="cs-section-body"><ul class="cs-stats" data-count="3">
+    <li class="cs-stat"><span class="cs-stat-label">Task time</span><span class="cs-stat-value">−41%</span><span class="cs-stat-note">38s → 22s median</span></li>
+  </ul></div>
+</section>
+<section class="cs-section">
+  <p class="eyebrow">05 · Reflection</p>
+  <h2 class="cs-section-title">What I'd do differently.</h2>
+  <div class="cs-section-body"><p>…</p><p class="cs-note"><span class="cs-note-label">Note</span>…</p></div>
+</section>
+<section class="cs-section cs-more">
+  <p class="eyebrow">More cases</p>
+  <h2 class="cs-section-title">Learn more.</h2>
+  <ul class="cs-more-grid"><li><a class="cs-card" href="…"><span class="cs-card-meta">2025</span><span class="cs-card-media"><img src="…" alt=""></span><h3 class="cs-card-title">…</h3><p class="cs-card-text">…</p><ul class="cs-card-tags"><li class="chip">…</li></ul></a></li></ul>
+</section>
 ```
 
 | Part | Class | Treatment |
 |---|---|---|
 | Back | `.btn.btn-floating` | § 3.6 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
-| Hero | `.cs-hero` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2`, lede `--t-lead`; the brand mark on the right scales with the hero |
-| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.15) |
-| Dossier | `.cs-dossier` | The facts of the project in four columns (two under 900px): role, team, platform, outcome |
-| Section | `.cs-section` | A numbered eyebrow with a magenta rule, a title `--t-h4`, running text `--t-body` at `--lh-loose`, 68ch |
-| Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, 52ch |
-| Figure | `.cs-img` `.cs-img-caption` `.cs-img-hint` | 16:9, opens the Lightbox (§ 3.22); the hint on hover sits on `--surface-glass` |
-| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.34) between points |
-| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.40) |
-| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.32) with their tags as Chips |
+| Hero | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2` 500, lede `--t-h6` `--obsidian-200`. The animated mark on the right scales with the hero: a placeholder for the project's own object (a render, a 3D scene) |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
+| Dossier | `.cs-dossier` | A `<dl>` of the project's facts in four columns (two under 900px): role, team, platform, outcome; a missing fact is left out |
+| Section | `.cs-section` `.cs-section-title` `.cs-section-body` | One centred column of 36em at the `--t-h6` body (about 65 characters a line) for eyebrow, title, text and figures. Numbered eyebrow with a magenta rule, title `--t-h3` 400, text `--t-h6` at `--lh-loose` in `--obsidian-100`; under 720px title `--t-h4`, text `--t-lead` |
+| Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
+| Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in mono, centred |
+| Points | `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` | A dot on the title's line, title `--t-h6` 700, the text under it, a Divider (§ 3.34) between points |
+| Outcome | `.cs-stats` `.cs-stat*` | Stat cards before the text: label `--t-body` 600, number `--t-h2` on `--grad-signal` counting up on entry, note mono `--success`. Three share a row; two or four go two by two; one column under 480px |
+| Note | `.cs-note` `.cs-note-label` | The closing note of the Reflection (confidentiality, a source): a `--obsidian-700` rule, a mono label, `--t-small` `--obsidian-300` |
+| More cases | `.cs-more` `.cs-more-grid` `.cs-card*` | `--s-16` above; three project Cards as wide as the hero, each one link: period, picture, title, lede, tags as Chips |
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter | section eyebrow, title, text (spatial) | `--d-base` · `--ease-decel`, 0 / 80 / 160 / 240ms | instant |
+| enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
-| hover · focus | figure caption scale (spatial) | `--d-base` · `--ease-decel` | none |
 | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
+| hover · focus | more-case picture scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none |
 
 **Rules.**
-- **The order is fixed.** Back, hero with its meta, dossier, numbered sections (brief, process, what changed, outcome, reflection), more cases. A section can be left out; the order of the rest does not change.
-- **No call to action at the end.** The page closes on more cases, as Cards; a "next case" or "contact" button belongs to a portfolio, not to the template.
-- **Back is the floating button.** It stays on screen for the whole story; the template has no other Back.
-- **Outcomes are numbers.** The result of the project is shown as stat cards, not as a list.
+- **The order is fixed.** Back, hero with its meta, dossier, numbered sections (brief, process, what changed, outcome, reflection), more cases. A section can be left out; the order of the rest does not change, and its number is its place on the page.
+- **One reading column.** Each section's eyebrow, title, text and figures share one centred column of 36em at the `--t-h6` body; the hero, the dossier and More cases keep the full width.
+- **Headings on a page of their own.** The hero title is the page's `h1`, a section title `h2`, a point or a card `h3`. Inside a documentation page (as on this site) each steps down one level.
+- **Figures are real.** An image or an inline diagram with its `alt` or `aria-label`, never enlarged past its file, with a caption under it; the Lightbox shows the same image and keeps focus on its close button.
+- **Outcomes are numbers.** The result is shown as stat cards, not as a list: only the numbers the project produced, never context figures. Four go two by two.
+- **The template has no call to action of its own.** The page closes on More cases; a portfolio may follow it with its own site footer, contact included.
+- **Back is the floating button.** It stays on screen for the whole story; the template has no other Back. Under 720px the hero's top padding clears it.
+- **The mark is a placeholder.** The animated mark holds the hero's right side for the project's own object; without one, the title and lede keep their measures.
 
-**Do / Don't.** Do open with the hero, its reading time and tags, and close on more cases as Cards. Don't end on a call-to-action button, or repeat Back at the bottom of the page.
+**Do / Don't.** Do open with the hero, its reading time and tags, and close on more cases as Cards. Don't add a call-to-action button of the template's own, or repeat Back at the bottom of the page.
 
 ## Do's and Don'ts
 
@@ -3923,10 +3957,11 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
-| Case study | enter | section eyebrow, title, text (spatial) | `--d-base` · `--ease-decel`, 0 / 80 / 160 / 240ms | instant |
+| Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| Case study | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | Case study | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
-| Case study | hover · focus | figure caption scale (spatial) | `--d-base` · `--ease-decel` | none |
 | Case study | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
+| Case study | hover · focus | more-case picture scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none |
 
 **Continuous loops (ratified).** Loops are not transitions: they run while the component is mounted, so their clocks are per-component literals — the `--d-*` scale describes perceived transitions, not idle rhythm. Rules: mechanical loops ride `linear` (or `steps`), never an easing curve; every loop is ratified by its own row in the motion index (trigger marked *loop*), and a loop literal without an index row is drift — the raw-duration grep exception covers exactly this list, nothing else. An expressive loop that rides the duration scale (the chat typing dots) is a normal motion row, not a member of this class.
 

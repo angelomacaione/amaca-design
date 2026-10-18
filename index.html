@@ -11,19 +11,18 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=036412ff">
-<link rel="stylesheet" href="styles/components.css?v=3323c1f8">
+<link rel="stylesheet" href="styles/components.css?v=26fd4bc4">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 [data-fade].is-in{opacity:1;transform:translateY(0)}
 [data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity var(--d-scene) var(--ease-decel), transform var(--d-scene) var(--ease-decel)}
 [data-fade-chart].is-in{opacity:1;transform:translateY(0) scale(1)}
-.cs-section > .eyebrow,.cs-section > h3,.cs-section > p,.cs-pull{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel)}
-.cs-section.is-in > .eyebrow,.cs-section.is-in > h3,.cs-section.is-in > p,.cs-pull.is-in{opacity:1;transform:translateY(0)}
+.cs-section > .eyebrow,.cs-section > .cs-section-title,.cs-section > .cs-section-body,.cs-pull{opacity:0;transform:translateY(var(--s-6));transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
+.cs-section.is-in > .eyebrow,.cs-section.is-in > .cs-section-title,.cs-section.is-in > .cs-section-body,.cs-pull.is-in{opacity:1;transform:translateY(0)}
 .cs-section.is-in > .eyebrow{transition-delay:0ms}
-.cs-section.is-in > h3{transition-delay:80ms}
-.cs-section.is-in > p{transition-delay:160ms}
-.cs-section.is-in > p ~ p{transition-delay:240ms}
+.cs-section.is-in > .cs-section-title{transition-delay:80ms}
+.cs-section.is-in > .cs-section-body{transition-delay:160ms}
 html{scroll-behavior:smooth}
 .section[id]{scroll-margin-top:var(--s-24)}
 @media (prefers-reduced-motion: reduce){
@@ -277,19 +276,19 @@ html{scroll-behavior:smooth}
           <p class="subsection-desc">The system in three layers — hard tokens at the base, components built strictly from them, and the applied patterns that compose both. Each layer cites the one below it, never the reverse.</p>
           <div class="grid grid-3">
             <div class="card">
-              <div class="card-meta"><span>01 · Foundations</span><span>06</span></div>
+              <div class="card-meta"><span>01 · Foundations</span><span>08</span></div>
               <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">Hard tokens</h3>
               <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The tokens everything else is built from. Color, type, spacing, motion, and the rules that hold them together.</p>
             </div>
             <div class="card">
-              <div class="card-meta"><span>02 · Components</span><span>06</span></div>
+              <div class="card-meta"><span>02 · Components</span><span>39</span></div>
               <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">Build blocks</h3>
               <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The primitives I reach for when designing a product surface. Buttons, forms, cards, and the patterns that emerge from them.</p>
             </div>
             <div class="card">
-              <div class="card-meta"><span>03 · Applied</span><span>04</span></div>
+              <div class="card-meta"><span>03 · Applied</span><span>07</span></div>
               <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">In practice</h3>
-              <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">How the system performs in practice. Data viz, voice, accessibility, and a worked case study template using every primitive in the kit.</p>
+              <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">How the system performs in practice: the presentation and case study templates, and the guidelines, from the principles to voice and accessibility.</p>
             </div>
           </div>
         </div>
@@ -1070,10 +1069,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Chip</td><td>select</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>deselect</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>dismiss</td><td class="muted">opacity (effect) · scale 1→0.92 (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still removes</td></tr>
-              <tr><td>Case study</td><td>enter</td><td class="muted">section eyebrow, title, text (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code>, 0 / 80 / 160 / 240ms</td><td class="muted">instant</td></tr>
+              <tr><td>Case study</td><td>enter</td><td class="muted">section eyebrow, title, text: a 24px rise (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code>, 0 / 80 / 160ms</td><td class="muted">instant</td></tr>
+              <tr><td>Case study</td><td>enter</td><td class="muted">outcome number count-up (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">the final number, no count</td></tr>
               <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure border and shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure caption scale (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">none</td></tr>
               <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure hint (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Case study</td><td>hover · focus</td><td class="muted">more-case picture scale 1→1.05 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none</td></tr>
             </tbody>
           </table></div>
         </div>
@@ -7135,7 +7135,66 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Bars for comparison, labelled at the value; the donut for composition.</li><li>Lines for trends over time and for several series.</li><li>Areas for cumulative totals.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several time series → lines, not bars.</li><li>Five points or fewer → bars, not a line.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 44.1</span></div>
+          <p class="subsection-desc">The chart card, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <!-- kit:chart --><div class="kit" data-kit="chart" data-kit-file="amaca-chart.html"><div class="kit-stage"><div class="chart-card"><div class="chart-head"><span class="t">Retention · D30</span><span class="s">CS-017</span></div><div class="chart-big accent">84%</div><div class="chart-delta">+2.4 vs Q2</div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-chart-anatomy-tab" aria-selected="true" aria-controls="kit-chart-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-chart-code-tab" aria-selected="false" aria-controls="kit-chart-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-chart-anatomy" aria-labelledby="kit-chart-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Card</span><span class="kit-main">--obsidian-800 --bw-1 --obsidian-700 --r-lg --s-6</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Title</span><span class="kit-main">--t-body</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Source</span><span class="kit-main">--obsidian-400 --font-mono --t-caption --tr-mono</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Value</span><span class="kit-main">--t-h2 --tr-tight</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Accent</span><span class="kit-main">--grad-signal</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Delta</span><span class="kit-main">--success --font-mono --t-caption --tr-mono<span class="kit-sub">down --danger</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-chart-code" aria-labelledby="kit-chart-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;chart-card&quot;&gt;&lt;div class=&quot;chart-head&quot;&gt;&lt;span class=&quot;t&quot;&gt;Retention · D30&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;CS-017&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;chart-big accent&quot;&gt;84%&lt;/div&gt;&lt;div class=&quot;chart-delta&quot;&gt;+2.4 vs Q2&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.chart-card{
+  background:var(<b>--obsidian-800</b>);
+  border:var(<b>--bw-1</b>) solid var(<b>--obsidian-700</b>);
+  border-radius:var(<b>--r-lg</b>);
+  padding:var(<b>--s-6</b>);
+}
+.chart-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:var(<b>--s-4</b>);
+  margin-bottom:var(<b>--s-5</b>);
+}
+.chart-head &gt; :first-child{
+  min-width:0;
+}
+.chart-head .t{
+  font-size:var(<b>--t-body</b>);
+  font-weight:600;
+}
+.chart-head .s{
+  font-family:var(<b>--font-mono</b>);
+  font-size:var(<b>--t-caption</b>);
+  letter-spacing:var(<b>--tr-mono</b>);
+  color:var(<b>--obsidian-400</b>);
+  text-transform:uppercase;
+}
+.chart-big{
+  font-size:var(<b>--t-h2</b>);
+  font-weight:700;
+  letter-spacing:var(<b>--tr-tight</b>);
+  margin:var(<b>--s-2</b>) 0;
+}
+.chart-big.accent{
+  background:var(<b>--grad-signal</b>);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.chart-delta{
+  font-family:var(<b>--font-mono</b>);
+  font-size:var(<b>--t-caption</b>);
+  letter-spacing:var(<b>--tr-mono</b>);
+  color:var(<b>--success</b>);
+}
+.chart-delta.neg{
+  color:var(<b>--danger</b>);
+}</pre></div></div></div><!-- /kit:chart -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 44.2</span></div>
+          <p class="subsection-desc">What the contract holds the chart card to, word for word from its section of DESIGN.md.</p>
+          <!-- rules:charts --><ul class="page-rules"><li><strong>Text is HTML, never inside the svg (RIGID).</strong> Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A <code>&lt;text&gt;</code> inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.</li><li><strong>Two drawings, one shown.</strong> A plot whose proportions or points do not hold on a phone carries a second drawing, <code>.chart-plot-sm</code>, with its own viewBox (344 wide against 700), the same data and points at <code>data-r</code> 8; under <code>--bp-md</code> it replaces <code>.chart-plot-lg</code>, labels included. The small one is <code>aria-hidden</code>: the chart has one accessible name. The baseline clip reads its width from <code>data-clip-w</code>.</li><li><strong>Bars keep two columns down to <code>--bp-md</code></strong> (<code>.chart-grid</code>): one column at 900 made each bar chart twice its size.</li><li><strong>The plot is not interactive.</strong> No hover, no focus, no state but <code>default</code> (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.</li><li><strong>Choreography E (the line and area plot).</strong> Each part starts when the one before it reads, not when it ends: the baseline at <code>--d-base</code>, the line <code>--d-slow</code> later, area and points <code>--d-slow</code> after the line starts, the points <code>--d-quick</code> apart. Under reduced motion every part lands drawn.</li></ul><!-- /rules:charts -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.3</span></div>
           <p class="subsection-desc">Line and area: one series lit, the rest recede. The draw-on traces once on reveal — data motion is information, not decoration.</p>
           <div class="chart-card">
             <div class="chart-head">
@@ -7236,7 +7295,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
 
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 44.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 44.4</span></div>
           <p class="subsection-desc">Bars for comparison, labeled at the value. One accent series against neutrals — 85/10/5 applies to data too.</p>
           <div class="grid grid-2 chart-grid">
             <div class="chart-card">
@@ -7276,7 +7335,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 44.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 44.5</span></div>
           <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.41 in the contract.</p>
           <div class="grid grid-2">
             <div class="chart-card">
@@ -7324,7 +7383,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div><div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.6</span></div>
           <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series, in this order — and nothing outside them. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).</p>
           <div class="grid grid-2">
             <div class="chart-card">
@@ -7348,7 +7407,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.7</span></div>
           <p class="subsection-desc">Text over the drawing, timing from tokens, nothing to press.</p>
           <div class="do-dont">
             <div class="do">
@@ -7581,7 +7640,72 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Flowcharts and system architecture, box and line with grouping.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Sequence, tree or ER diagrams → out of scope.</li></ul></div></div>
         <!-- § 21.1 Flowchart -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 47.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 47.1</span></div>
+          <p class="subsection-desc">The diagram, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <!-- kit:diagram --><div class="kit kit-wide" data-kit="diagram" data-kit-file="amaca-diagram.html"><div class="kit-stage"><figure class="diagram" data-anim="pending"><div class="diagram-canvas" role="img" aria-label="Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner."><template class="diagram-src">
+flowchart LR
+  P["Request"]:::focus --> R{"Token covers it?"}
+  R -->|yes| S["Reference and ship"]
+  R -->|no| A["Ask the owner"]
+</template></div><figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token gate</figcaption></figure></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-diagram-anatomy-tab" aria-selected="true" aria-controls="kit-diagram-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-diagram-code-tab" aria-selected="false" aria-controls="kit-diagram-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-diagram-anatomy" aria-labelledby="kit-diagram-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Shell</span><span class="kit-main">--obsidian-900 --bw-1 --obsidian-700 --r-lg --s-6 --s-5</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Canvas</span><span class="kit-main">140px</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Caption</span><span class="kit-main">--obsidian-400 --font-mono --t-micro --tr-mono</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Index</span><span class="kit-main">--primary-400</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-diagram-code" aria-labelledby="kit-diagram-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;figure class=&quot;diagram&quot; data-anim=&quot;pending&quot;&gt;&lt;div class=&quot;diagram-canvas&quot; role=&quot;img&quot; aria-label=&quot;Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner.&quot;&gt;&lt;template class=&quot;diagram-src&quot;&gt;
+flowchart LR
+  P[&quot;Request&quot;]:::focus --&gt; R{&quot;Token covers it?&quot;}
+  R --&gt;|yes| S[&quot;Reference and ship&quot;]
+  R --&gt;|no| A[&quot;Ask the owner&quot;]
+&lt;/template&gt;&lt;/div&gt;&lt;figcaption class=&quot;diagram-caption&quot;&gt;&lt;span class=&quot;num&quot;&gt;FIG-01&lt;/span&gt; · Token gate&lt;/figcaption&gt;&lt;/figure&gt;</pre><pre class="kit-code" data-kit-part="css">.diagram{
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:var(<b>--s-5</b>);
+  padding:var(<b>--s-6</b>);
+  background:var(<b>--obsidian-900</b>);
+  border:var(<b>--bw-1</b>) solid var(<b>--obsidian-700</b>);
+  border-radius:var(<b>--r-lg</b>);
+}
+.diagram-canvas{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:140px;
+  padding:var(<b>--s-4</b>) var(<b>--s-2</b>);
+  overflow-x:auto;
+}
+.diagram-canvas svg{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+.diagram-canvas foreignObject{
+  overflow:visible;
+}
+.diagram-caption{
+  font-family:var(<b>--font-mono</b>);
+  font-size:var(<b>--t-micro</b>);
+  letter-spacing:var(<b>--tr-mono</b>);
+  text-transform:uppercase;
+  color:var(<b>--obsidian-400</b>);
+}
+.diagram-caption .num{
+  color:var(<b>--primary-400</b>);
+}
+@media (max-width: 720px){
+  .diagram{
+    padding:var(<b>--s-5</b>);
+  }
+  .diagram-canvas{
+    padding:var(<b>--s-2</b>) 0;
+  }
+}</pre></div></div></div><!-- /kit:diagram -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 47.2</span></div>
+          <p class="subsection-desc">What the contract holds the diagram to, word for word from its section of DESIGN.md.</p>
+          <!-- rules:diagrams --><ul class="page-rules"><li>One diagram per figure; the source lives in <code>&lt;template class="diagram-src"&gt;</code> and never renders as raw text.</li><li>Theme only from tokens read at runtime. A hex literal in <code>themeVariables</code> is a regression (§ 9).</li><li>Exactly one magenta focus node per diagram (<code>:::focus</code>). More than one = decorating (§ 1.4).</li><li>Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).</li><li>Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG <code>&lt;g&gt;</code> (§ 7.3).</li></ul><!-- /rules:diagrams -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 47.3</span></div>
           <p class="subsection-desc">Decisions and paths. Rectangles are steps, diamonds are gates, dashed edges are loops. One magenta node — the entry — anchors where to start reading. Everything else recedes to obsidian.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7603,7 +7727,7 @@ flowchart TD
 
         <!-- § 21.2 System architecture -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">System architecture · grouped</h2><span class="subsection-num">§ 47.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">System architecture · grouped</h2><span class="subsection-num">§ 47.4</span></div>
           <p class="subsection-desc">Box-and-line with grouping. Subgraphs become clusters — <code>--obsidian-850</code> fill, <code>--obsidian-700</code> border — so related boxes read as one zone. The one magenta node is the source of truth every surface derives from.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7637,7 +7761,7 @@ flowchart LR
 
         <!-- § 18.3 Semantic states -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Semantic states · legend</h2><span class="subsection-num">§ 47.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Semantic states · legend</h2><span class="subsection-num">§ 47.5</span></div>
           <p class="subsection-desc">The one case for color beyond magenta. When a node encodes a real state, it carries the semantic hue — but never alone: every state node also changes <em>shape</em> and spells the state in its <em>label</em> (§ 6 floor #1). A legend maps each pairing.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7665,7 +7789,7 @@ flowchart TD
 
         <!-- § 18.4 Anatomy -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 47.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Token map</h2><span class="subsection-num">§ 47.6</span></div>
           <p class="subsection-desc">A <code>&lt;figure class="diagram"&gt;</code> wraps a <code>.diagram-canvas[role="img"]</code> (holding the rendered SVG) and a <code>.diagram-caption</code>. Surface, border, and radius are coherent with <code>.card</code>. Semantic-state diagrams add a <code>.diagram-legend</code>.</p>
           <table class="table">
             <thead><tr><th style="width:26%">Class</th><th>Role</th></tr></thead>
@@ -7696,7 +7820,7 @@ flowchart TD
 
         <!-- § 18.5 Motion spec -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 47.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 47.7</span></div>
           <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 09.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
           <table class="table">
             <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
@@ -7709,7 +7833,7 @@ flowchart TD
 
         <!-- § 18.6 Do / Don't -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 47.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 47.8</span></div>
           <p class="subsection-desc">A diagram is structure, not decoration. Most of these are 85/10/5 violations or auto-layout breakers.</p>
 
           <div class="do-dont">
@@ -8134,122 +8258,80 @@ flowchart TD
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The starting frame for every case study.</li><li>A project told as a narrative: the hero with its reading time and tags, the facts in a dossier, numbered sections with figures and points, the outcome in numbers, a reflection, more cases.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A project shown in a grid among others → Card (project).</li></ul></div></div>
         <button class="btn btn-floating" type="button" style="--float-top:calc(var(--s-16) + var(--s-2))"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M13.5 8h-11M7 3.5L2.5 8 7 12.5"/></svg> Back</button>
         <div class="cs-hero">
-          <div class="eyebrow">CS-017 · 2024–2025 · 18 months</div>
-          <h2>Rebuilding Arc's in-car interface, one glance at a time.</h2>
-          <p>A next-generation automotive HMI for a connected EV — reshaping how drivers interact with their vehicle at 70mph and at a standstill.</p>
+          <p class="eyebrow">2024–2025 · 18 months</p>
+          <h2 class="cs-hero-title">Rebuilding Arc's in-car interface, one glance at a time.</h2>
+          <p class="cs-hero-lede">A next-generation automotive HMI for a connected EV — reshaping how drivers interact with their vehicle at 70mph and at a standstill.</p>
           <div class="cs-meta">
             <div class="item"><span class="k">Reading time</span><span class="v">8 minutes</span></div>
-            <div class="item"><span class="k">Tags</span><span class="tags"><span class="chip">Product design</span><span class="chip">Automotive</span><span class="chip">HMI</span></span></div>
+            <div class="item"><span class="k">Tags</span><ul class="tags"><li class="chip">Product design</li><li class="chip">Automotive</li><li class="chip">HMI</li></ul></div>
           </div>
           <img class="cube" src="assets/logo.svg" alt=""/>
         </div>
 
-        <div class="cs-dossier">
-          <div class="item"><span class="k">Role</span><span class="v">Lead Product Designer</span></div>
-          <div class="item"><span class="k">Team</span><span class="v">3 designers, 14 engineers, 2 researchers</span></div>
-          <div class="item"><span class="k">Platform</span><span class="v">Center stack · cluster · companion</span></div>
-          <div class="item"><span class="k">Outcome</span><span class="v">−41% task time · +12pt retention</span></div>
-        </div>
+        <dl class="cs-dossier">
+          <div class="item"><dt class="k">Role</dt><dd class="v">Lead Product Designer</dd></div>
+          <div class="item"><dt class="k">Team</dt><dd class="v">3 designers, 14 engineers, 2 researchers</dd></div>
+          <div class="item"><dt class="k">Platform</dt><dd class="v">Center stack · cluster · companion</dd></div>
+          <div class="item"><dt class="k">Outcome</dt><dd class="v">−41% task time · +12pt retention</dd></div>
+        </dl>
 
         <div class="cs-section">
-          <div class="eyebrow">01 · Brief</div>
-          <h3>The legacy stack made drivers work.</h3>
-          <p>Arc's previous HMI borrowed patterns from mobile — deep hierarchies, tap-heavy flows — and dropped them into a 70mph context. Users were spending 38 seconds on average to complete the top-three priority tasks. That number needed to move.</p>
-          <p>We started with a constraint: <strong>every primary task completes in under 3 interactions, under 10 seconds, eyes-on-road.</strong> Everything else followed.</p>
+          <p class="eyebrow">01 · Brief</p>
+          <h3 class="cs-section-title">The legacy stack made drivers work.</h3>
+          <div class="cs-section-body">
+            <p>Arc's previous HMI borrowed patterns from mobile — deep hierarchies, tap-heavy flows — and dropped them into a 70mph context. Drivers spent 38 seconds on average on the top-three priority tasks. That number needed to move.</p>
+            <p>We started with a constraint: <strong>every primary task completes in under 3 interactions, under 10 seconds, eyes-on-road.</strong> Everything else followed.</p>
+          </div>
         </div>
 
         <div class="cs-pull">"The design system was the outcome. Every shipped screen was a byproduct of the tokens."</div>
 
         <div class="cs-section">
-          <div class="eyebrow">02 · Process</div>
-          <h3>Measure twice, cut once.</h3>
-          <p>Three months of in-vehicle observation before a single screen was drawn. We instrumented the legacy HMI and logged every interaction over a 6-week period, then correlated with eye-tracking data from our research partners.</p>
-          <div class="cs-img" role="button" tabindex="0" aria-label="Expand figure: Fig. 01 · In-vehicle observation · 6 weeks, 42 participants" data-lightbox>
-            <span class="cs-img-caption">Fig. 01 · In-vehicle observation · 6 weeks, 42 participants</span>
-            <span class="cs-img-hint" aria-hidden="true">
-              <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/></svg>
-              Click to expand
-            </span>
+          <p class="eyebrow">02 · Process</p>
+          <h3 class="cs-section-title">Measure twice, cut once.</h3>
+          <div class="cs-section-body">
+            <p>Three months of in-vehicle observation before a single screen was drawn. We logged every interaction on the legacy HMI over six weeks, then matched it to eye-tracking data from our research partners.</p>
+            <figure class="cs-figure"><button type="button" class="cs-img" data-lightbox aria-label="Expand figure: Fig. 01 · Distracted-driving events by flow, 6 weeks, 42 participants"><svg viewBox="0 0 640 260" role="img" aria-label="Distracted-driving events by flow: navigation 31%, media 24%, calls 18%, climate 9%, settings 7%, other 11%"><text x="24" y="36" style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);fill:var(--obsidian-400)">DISTRACTED-DRIVING EVENTS BY FLOW</text><text x="24" y="75" style="font-size:var(--t-small);fill:var(--obsidian-200)">Navigation</text><rect x="168" y="60" width="310" height="20" rx="4" style="fill:var(--primary-500)"/><text x="486" y="75" style="font-size:var(--t-small);fill:var(--obsidian-100)">31%</text><text x="24" y="107" style="font-size:var(--t-small);fill:var(--obsidian-200)">Media</text><rect x="168" y="92" width="240" height="20" rx="4" style="fill:var(--primary-500)"/><text x="416" y="107" style="font-size:var(--t-small);fill:var(--obsidian-100)">24%</text><text x="24" y="139" style="font-size:var(--t-small);fill:var(--obsidian-200)">Calls</text><rect x="168" y="124" width="180" height="20" rx="4" style="fill:var(--primary-500)"/><text x="356" y="139" style="font-size:var(--t-small);fill:var(--obsidian-100)">18%</text><text x="24" y="171" style="font-size:var(--t-small);fill:var(--obsidian-200)">Climate</text><rect x="168" y="156" width="90" height="20" rx="4" style="fill:var(--obsidian-600)"/><text x="266" y="171" style="font-size:var(--t-small);fill:var(--obsidian-300)">9%</text><text x="24" y="203" style="font-size:var(--t-small);fill:var(--obsidian-200)">Settings</text><rect x="168" y="188" width="70" height="20" rx="4" style="fill:var(--obsidian-600)"/><text x="246" y="203" style="font-size:var(--t-small);fill:var(--obsidian-300)">7%</text><text x="24" y="235" style="font-size:var(--t-small);fill:var(--obsidian-200)">Other</text><rect x="168" y="220" width="110" height="20" rx="4" style="fill:var(--obsidian-600)"/><text x="286" y="235" style="font-size:var(--t-small);fill:var(--obsidian-300)">11%</text></svg><span class="cs-img-hint" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M10 2h4v4M6 14H2v-4M14 2l-4.5 4.5M2 14l4.5-4.5"/></svg>Expand</span></button><figcaption class="cs-figure-caption"><span class="n">Fig. 01</span>Distracted-driving events by flow, 6 weeks, 42 participants.</figcaption></figure>
+            <p>The map that came back was unambiguous: 73% of distracted-driving events clustered around three flows. Those three became our design targets.</p>
           </div>
-          <p>The map that came back was unambiguous: 73% of distracted-driving events clustered around three flows. Those three became our design targets.</p>
         </div>
 
         <div class="cs-section">
-            <div class="eyebrow">03 · What changed</div>
-            <h3>Three decisions carried the rest.</h3>
+          <p class="eyebrow">03 · What changed</p>
+          <h3 class="cs-section-title">Three decisions carried the rest.</h3>
+          <div class="cs-section-body">
             <div class="cs-points">
-              <div class="cs-point">
-                <h4 class="cs-point-title">Three flows, not thirty</h4>
-                <p>The observation data pointed at three flows. We redesigned those first and left the long tail on the legacy patterns until the new ones had shipped and been measured.</p>
-              </div>
+              <div class="cs-point"><h4 class="cs-point-title">Three flows, not thirty</h4><div class="cs-point-body"><p>The observation data pointed at three flows. We redesigned those first and left the long tail on the legacy patterns until the new ones had shipped and been measured.</p></div></div>
               <hr class="divider">
-              <div class="cs-point">
-                <h4 class="cs-point-title">Glanceable by default</h4>
-                <p>Every screen had to read in one glance at arm's length. Type grew a step, labels lost a word, and every state that mattered got its own colour and its own word.</p>
-                <p>Anything that failed the one-glance test moved to the companion app.</p>
-              </div>
+              <div class="cs-point"><h4 class="cs-point-title">Glanceable by default</h4><div class="cs-point-body"><p>Every screen had to read in one glance at arm's length. Type grew a step, labels lost a word, and every state that mattered got its own colour and its own word.</p><p>Anything that failed the one-glance test moved to the companion app.</p></div></div>
               <hr class="divider">
-              <div class="cs-point">
-                <h4 class="cs-point-title">One token set, three surfaces</h4>
-                <p>The center stack, the cluster and the companion app read the same tokens, so a change shipped once and landed everywhere.</p>
-              </div>
+              <div class="cs-point"><h4 class="cs-point-title">One token set, three surfaces</h4><div class="cs-point-body"><p>The center stack, the cluster and the companion app read the same tokens, so a change shipped once and landed everywhere.</p></div></div>
             </div>
           </div>
-        <div class="cs-section">
-          <div class="eyebrow">04 · Outcome</div>
-          <h3>Measured, shipped, maintained.</h3>
-          <div class="grid grid-3" style="margin:var(--s-5) 0">
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Task time</span><span class="s" data-fade>Priority flows</span></div>
-              <div class="chart-big accent" data-count-to="-41" data-suffix="%" data-prefix="−">0%</div>
-              <div class="chart-delta" data-fade>38s → 22s median</div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Eyes-off-road</span><span class="s" data-fade>NHTSA 12s rule</span></div>
-              <div class="chart-big accent" data-count-to="-64" data-suffix="%" data-prefix="−">0%</div>
-              <div class="chart-delta" data-fade>Below safety threshold</div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Retention</span><span class="s" data-fade>D30</span></div>
-              <div class="chart-big accent" data-count-to="12" data-suffix="pt" data-prefix="+">0pt</div>
-              <div class="chart-delta" data-fade>72 → 84%</div>
-            </div>
-          </div>
-          <p>Shipped to 2 vehicle platforms in Q4 2024. The token system that emerged from this project became the foundation for Arc's entire product design language — and for this design system.</p>
         </div>
 
         <div class="cs-section">
-          <div class="eyebrow">05 · Reflection</div>
-          <h3>What I'd do differently.</h3>
-          <p>We underinvested in the companion mobile app for the first 6 months, treating it as a delivery vehicle for the in-car experience rather than its own surface. By the time we corrected course, three flows had to be rebuilt. The lesson — surfaces are equal citizens from day one — is now baked into how I scope every multi-platform project.</p>
+          <p class="eyebrow">04 · Outcome</p>
+          <h3 class="cs-section-title">Measured, shipped, maintained.</h3>
+          <div class="cs-section-body">
+            <ul class="cs-stats" data-count="3"><li class="cs-stat"><span class="cs-stat-label">Task time</span><span class="cs-stat-value" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</span><span class="cs-stat-note">38s → 22s median</span></li><li class="cs-stat"><span class="cs-stat-label">Eyes-off-road</span><span class="cs-stat-value" data-count-to="-64" data-prefix="−" data-suffix="%">−0%</span><span class="cs-stat-note">Below the 12s rule</span></li><li class="cs-stat"><span class="cs-stat-label">Retention</span><span class="cs-stat-value" data-count-to="12" data-prefix="+" data-suffix="pt">+0pt</span><span class="cs-stat-note">D30, 72 → 84%</span></li></ul>
+            <p>Shipped to 2 vehicle platforms in Q4 2024. The token system that emerged from this project became the foundation for Arc's whole product design language.</p>
+          </div>
+        </div>
+
+        <div class="cs-section">
+          <p class="eyebrow">05 · Reflection</p>
+          <h3 class="cs-section-title">What I'd do differently.</h3>
+          <div class="cs-section-body">
+            <p>We underinvested in the companion app for the first 6 months, treating it as a delivery vehicle for the in-car experience rather than its own surface. By the time we corrected course, three flows had to be rebuilt. The lesson — surfaces are equal citizens from day one — is now how I scope every multi-platform project.</p>
+            <p class="cs-note"><span class="cs-note-label">Note</span>Figures are rounded; the vehicle platforms are not named under the client's agreement.</p>
+          </div>
         </div>
 
         <div class="cs-section cs-more">
-          <div class="eyebrow">More cases</div>
-          <h3>Learn more.</h3>
-          <div class="grid grid-3">
-            <div class="card">
-              <div class="card-meta"><span>CS-018 · 2025</span></div>
-              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div>
-              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Orion · Fleet console</h4>
-              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">A control room for 40k connected vans.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">SaaS</span><span class="chip">Data display</span><span class="chip">B2B</span></div>
-            </div>
-            <div class="card">
-              <div class="card-meta"><span>CS-019 · 2025</span></div>
-              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-800), var(--obsidian-600))"></div></div>
-              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Nova · Onboarding</h4>
-              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">Three screens instead of eleven.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">Mobile</span><span class="chip">Research</span></div>
-            </div>
-            <div class="card">
-              <div class="card-meta"><span>CS-020 · 2026</span></div>
-              <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div>
-              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Atlas · Token pipeline</h4>
-              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0 0 var(--s-4);line-height:var(--lh-loose)">One source, four platforms.</p>
-              <div style="display:flex;flex-wrap:wrap;gap:var(--s-2)"><span class="chip">Design systems</span><span class="chip">Tooling</span></div>
-            </div>
-          </div>
+          <p class="eyebrow">More cases</p>
+          <h3 class="cs-section-title">Learn more.</h3>
+          <ul class="cs-more-grid"><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-018 · 2025</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></span></span><h4 class="cs-card-title">Orion · Fleet console</h4><p class="cs-card-text">A control room for 40k connected vans.</p><ul class="cs-card-tags"><li class="chip">SaaS</li><li class="chip">Data display</li><li class="chip">B2B</li></ul></a></li><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-019 · 2025</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--obsidian-800), var(--obsidian-600))"></span></span><h4 class="cs-card-title">Nova · Onboarding</h4><p class="cs-card-text">Three screens instead of eleven.</p><ul class="cs-card-tags"><li class="chip">Mobile</li><li class="chip">Research</li></ul></a></li><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-020 · 2026</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></span></span><h4 class="cs-card-title">Atlas · Token pipeline</h4><p class="cs-card-text">One source, four platforms.</p><ul class="cs-card-tags"><li class="chip">Design systems</li><li class="chip">Tooling</li></ul></a></li></ul>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 49.1</span></div>
@@ -8261,7 +8343,7 @@ flowchart TD
             </div>
             <div class="dont">
               <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
-              <p>End on a call-to-action button, or repeat Back at the bottom of the page.</p>
+              <p>Add a call-to-action button of the template's own, or repeat Back at the bottom of the page.</p>
             </div>
           </div>
         </div>
@@ -9679,7 +9761,9 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
     <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close">
       <svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>
     </button>
-    <span id="lightbox-caption"></span>
+    <img class="lightbox-img" id="lightbox-img" alt="" hidden>
+    <div class="lightbox-svg" id="lightbox-svg" hidden></div>
+    <p class="lightbox-caption" id="lightbox-caption"></p>
   </div>
 </div>
 
@@ -9971,7 +10055,7 @@ if ('IntersectionObserver' in window) {
     // --- case study outcome cards (§ 29) — same pattern as § 12.2 ---
     function runCsOutcome(){
       if (!csOutcomeRegion) return;
-      const cards = csOutcomeRegion.querySelectorAll('.chart-card');
+      const cards = csOutcomeRegion.querySelectorAll('.cs-stat');
       cards.forEach((card, ci) => {
         const fades = card.querySelectorAll('[data-fade]');
         const counter = card.querySelector('[data-count-to]');
@@ -11643,8 +11727,15 @@ if ('IntersectionObserver' in window) {
   let lastFocused = null;
 
   function open(el){
-    const text = (el.querySelector('.cs-img-caption')?.textContent || el.textContent || '').trim();
-    caption.textContent = text;
+    // the figure's own image, or a copy of its inline diagram; the caption from its figcaption
+    const img = document.getElementById('lightbox-img'), box = document.getElementById('lightbox-svg');
+    const src = el.querySelector('img'), svg = el.querySelector('svg:not(.icon)');
+    img.hidden = !src; box.hidden = !svg;
+    box.replaceChildren(...(svg ? [svg.cloneNode(true)] : []));
+    if (src) { img.src = src.currentSrc || src.src; img.alt = src.alt; }
+    const cap = el.closest('figure')?.querySelector('figcaption');
+    const n = cap?.querySelector('.n')?.textContent || '';
+    caption.textContent = cap ? [n, cap.textContent.slice(n.length).trim()].filter(Boolean).join(' · ') : '';
     lastFocused = document.activeElement;
     lb.classList.add('open');
     lb.setAttribute('aria-hidden','false');
@@ -11659,14 +11750,13 @@ if ('IntersectionObserver' in window) {
   }
   document.querySelectorAll('[data-lightbox]').forEach(el => {
     el.addEventListener('click', () => open(el));
-    el.addEventListener('keydown', e => {
-      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); open(el); }
-    });
   });
   closeBtn.addEventListener('click', close);
   lb.addEventListener('click', e => { if(e.target === lb) close(); });
   document.addEventListener('keydown', e => {
-    if(e.key==='Escape' && lb.classList.contains('open')) close();
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') close();
+    if(e.key==='Tab'){ e.preventDefault(); closeBtn.focus(); }   // the close button is the dialog's only stop
   });
 })();
 </script>

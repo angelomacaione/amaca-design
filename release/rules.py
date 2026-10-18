@@ -56,6 +56,8 @@ PAGES = {
     "avatar": ("Avatar", ["Rules"], set()),
     "list": ("List", ["Rules"], set()),
     "table": ("Table", ["Rules"], set()),
+    "charts": ("Chart card", ["Rules"], set()),
+    "diagrams": ("Diagrams", ["Rules"], set()),
 }
 
 

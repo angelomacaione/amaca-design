@@ -1048,105 +1048,134 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .do p, .dont p{margin:0;font-size:var(--t-small);color:var(--obsidian-100);line-height:var(--lh-loose)}
 
 /* ─────────── CASE STUDY APPLIED ─────────── */
+/* v5.0.0, aligned to the portfolio that runs it (angelomacaione.com): long reading on the --t-h6 body,
+   one centred column for each section's text and figures, real figures under a caption, outcome stat
+   cards, a closing note, More cases as linked Cards. The hero keeps the animated mark on its right: a placeholder
+   for the project's own object (a render, a 3D scene). */
 .cs-hero{
-  position:relative;
-  border:var(--bw-1) solid var(--obsidian-800);
-  border-radius:var(--r-xl);
-  overflow:hidden;
-  padding:var(--s-16) var(--s-10);
+  position:relative;overflow:hidden;
+  margin-bottom:var(--s-10);padding:var(--s-16) var(--s-10);
+  border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-xl);
   background:radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%), var(--obsidian-900);
-  margin-bottom:var(--s-10);
+  color:var(--obsidian-100);
   --cube:clamp(120px, 26%, 220px); /* the mark scales with the hero; the text column keeps clear of it */
 }
-.cs-hero .eyebrow{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:var(--s-4)}
-.cs-hero h2{font-size:var(--t-h2);line-height:var(--lh-tight);letter-spacing:var(--tr-tight);margin:0 0 var(--s-5);max-width:min(18ch, calc(100% - var(--cube) - var(--s-6)))}
-.cs-hero p{font-size:var(--t-lead);color:var(--obsidian-200);max-width:min(56ch, calc(100% - var(--cube) - var(--s-6)));margin:0}
+.cs-hero .eyebrow{margin:0 0 var(--s-4);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400)}
+.cs-hero-title{margin:0 0 var(--s-5);max-width:min(18ch, calc(100% - var(--cube) - var(--s-6)));font-size:var(--t-h2);font-weight:500;line-height:var(--lh-tight);letter-spacing:var(--tr-tight)}
+.cs-hero-lede{margin:0;max-width:min(56ch, calc(100% - var(--cube) - var(--s-6)));font-size:var(--t-h6);line-height:var(--lh-normal);color:var(--obsidian-200)}
 .cs-hero .cube{
   position:absolute;right:var(--s-10);top:50%;transform:translateY(-50%);
   width:var(--cube);height:auto;aspect-ratio:1;filter:drop-shadow(0 0 48px rgba(240,81,213,0.25));
   opacity:0.9;
 }
-.cs-dossier{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);
-  padding:var(--s-6);background:var(--obsidian-900);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg);
-  margin-bottom:var(--s-10);
-}
-@media(max-width:900px){.cs-dossier{grid-template-columns:repeat(2,1fr)}}
-.cs-dossier .item{display:flex;flex-direction:column;gap:var(--s-1)}
-.cs-dossier .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
-.cs-dossier .v{font-size:var(--t-small);font-weight:500;color:var(--obsidian-100)}
-/* Hero meta (v5.0.0, from the portfolio): reading time and tags under the lede, the dossier's label register. */
 .cs-meta{position:relative;display:flex;flex-wrap:wrap;gap:var(--s-6) var(--s-10);margin-top:var(--s-6)}
 .cs-meta .item{display:flex;flex-direction:column;gap:var(--s-2)}
 .cs-meta .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
 .cs-meta .v{font-size:var(--t-small);font-weight:500;color:var(--obsidian-100)}
-.cs-meta .tags{display:flex;flex-wrap:wrap;gap:var(--s-2)}
-.cs-more{margin-top:var(--s-16)}
+.cs-meta .tags{display:flex;flex-wrap:wrap;gap:var(--s-2);margin:0;padding:0;list-style:none}
+.cs-dossier{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s-4);
+  margin:0 0 var(--s-10);padding:var(--s-6);
+  background:var(--obsidian-900);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg);
+}
+@media(max-width:900px){.cs-dossier{grid-template-columns:repeat(2,1fr)}}
+.cs-dossier .item{display:flex;flex-direction:column;gap:var(--s-1)}
+.cs-dossier .k{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+.cs-dossier .v{margin:0;font-size:var(--t-small);font-weight:500;color:var(--obsidian-100)}
 
-.cs-section{margin-bottom:var(--s-12)}
-.cs-section h3{font-size:var(--t-h4);font-weight:700;letter-spacing:var(--tr-snug);margin:0 0 var(--s-4)}
-.cs-section .eyebrow{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400);margin-bottom:var(--s-2);display:flex;align-items:center;gap:var(--s-2)}
+/* Sections: one centred column, 36em of the --t-h6 body (about 65 characters a line), for eyebrow, title, text and figures. */
+.cs-section{margin:0 0 var(--s-12);--cs-col:calc(var(--t-h6) * 36)}
+.cs-section > :is(.eyebrow,.cs-section-title,.cs-section-body){max-width:var(--cs-col);margin-left:auto;margin-right:auto}
+.cs-section .eyebrow{display:flex;align-items:center;gap:var(--s-2);margin-top:0;margin-bottom:var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400)}
 .cs-section .eyebrow::before{content:"";width:20px;height:1px;background:var(--primary-500)}
-.cs-section p{font-size:var(--t-body);color:var(--obsidian-200);line-height:var(--lh-loose);max-width:68ch;margin:0 0 var(--s-4)}
-/* Case study key points (v5.0.0, from the portfolio): a dot on the title's line, the text under the title,
-   a Divider (§ 3.34) between points; the gap on both sides of the divider is the list's. */
-.cs-points{display:flex;flex-direction:column;gap:var(--s-6);margin-top:var(--s-6);max-width:68ch}
-.cs-point{display:grid;grid-template-columns:var(--s-4) minmax(0,1fr);column-gap:var(--s-4);row-gap:var(--s-2)}
-.cs-point::before{content:"";grid-row:1;width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);background:var(--primary-500);align-self:center}
-.cs-point-title{grid-column:2;grid-row:1;margin:0;font-size:var(--t-lead);font-weight:700;letter-spacing:var(--tr-snug);line-height:var(--lh-snug);color:var(--obsidian-100)}
-.cs-point p{grid-column:2;margin:0}
+.cs-section-title{margin:0 0 var(--s-4);font-size:var(--t-h3);font-weight:400;line-height:var(--lh-snug);letter-spacing:var(--tr-snug);color:var(--obsidian-100)}
+.cs-section-body{font-size:var(--t-h6);line-height:var(--lh-loose);color:var(--obsidian-100)}
+.cs-section-body :is(p,ul,ol){max-width:36em}
+.cs-section-body :where(p,ul,ol,figure){margin:0}
+.cs-section-body > * + *,.cs-point-body > * + *{margin-top:var(--s-4)}
+.cs-section-body :is(* + .cs-figure,.cs-figure + *){margin-top:var(--s-8)}
+.cs-section-body strong{font-weight:700}
 .cs-pull{
   border-left:var(--bw-2) solid var(--primary-500);padding:var(--s-3) var(--s-6);
   font-size:var(--t-h5);font-weight:500;line-height:var(--lh-snug);letter-spacing:var(--tr-snug);
-  color:var(--obsidian-100);max-width:52ch;margin:var(--s-8) 0;
+  color:var(--obsidian-100);max-width:calc(var(--t-h6) * 36);margin:var(--s-8) auto;
 }
+/* Key points: the dot on the title's line, the text under the title, a Divider (§ 3.34) between points. */
+.cs-points{display:flex;flex-direction:column;gap:var(--s-6)}
+.cs-section-body > .cs-points{margin-top:var(--s-6)}
+.cs-section-body > .cs-points:first-child{margin-top:0}
+.cs-point{display:grid;grid-template-columns:var(--s-4) minmax(0,1fr);column-gap:var(--s-4);row-gap:var(--s-2)}
+.cs-point::before{content:"";grid-row:1;width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);background:var(--primary-500);align-self:center}
+.cs-point-title{grid-column:2;grid-row:1;margin:0;font-size:var(--t-h6);font-weight:700;letter-spacing:var(--tr-snug);line-height:var(--lh-snug);color:var(--obsidian-100)}
+.cs-point-body{grid-column:2}
+/* Figure: a real image or an inline diagram, never enlarged past its file, opening the Lightbox (§ 3.22).
+   The caption sits under it: over a light image an overlaid caption would not read. */
 .cs-img{
-  position:relative;
-  aspect-ratio:16/9;
-  background:linear-gradient(135deg, rgba(0,255,242,0.04), rgba(248,104,216,0.02)),
-    repeating-linear-gradient(45deg, transparent 0, transparent 6px, rgba(255,255,255,0.02) 6px, rgba(255,255,255,0.02) 7px),
-    var(--obsidian-850);
-  border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400);
-  margin:var(--s-6) 0;
-  cursor:zoom-in;
-  overflow:hidden;
+  position:relative;display:block;width:fit-content;max-width:100%;margin:0 auto;padding:0;
+  border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg);overflow:hidden;
+  background:var(--obsidian-900);cursor:zoom-in;font:inherit;color:inherit;
   transition:border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-base) var(--ease-decel);
 }
+.cs-img img{display:block;max-width:100%;height:auto}
+.cs-img svg{display:block;width:100%;height:auto}
+.cs-img:has(svg){width:100%}
 .cs-img:hover,
 .cs-img:focus-visible{
   border-color:var(--primary-500);
   box-shadow:0 12px 48px rgba(240,81,213,0.18), 0 0 0 1px rgba(240,81,213,0.2);
   outline:none;
 }
-.cs-img-caption{
-  display:inline-block;
-  transition:transform var(--d-base) var(--ease-decel);
-  will-change:transform;
-}
-.cs-img:hover .cs-img-caption,
-.cs-img:focus-visible .cs-img-caption{
-  transform:scale(1.06);
-}
 .cs-img-hint{
-  position:absolute;
-  top:var(--s-3);right:var(--s-3);
+  position:absolute;top:var(--s-3);right:var(--s-3);
   display:inline-flex;align-items:center;gap:var(--s-1);
   padding:var(--s-1) var(--s-2);
-  background:var(--surface-glass);
-  backdrop-filter:blur(var(--blur-glass));
-  border:var(--bw-1) solid var(--obsidian-700);
-  border-radius:var(--r-md);
-  font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);
-  color:var(--obsidian-200);
-  opacity:0;transform:translateY(-4px);
+  background:var(--surface-glass);backdrop-filter:blur(var(--blur-glass));
+  border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-md);
+  font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-200);
+  opacity:0;transform:translateY(-4px);pointer-events:none;
   transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
-  pointer-events:none;
 }
 .cs-img:hover .cs-img-hint,
-.cs-img:focus-visible .cs-img-hint{
-  opacity:1;transform:translateY(0);
+.cs-img:focus-visible .cs-img-hint{opacity:1;transform:translateY(0)}
+.cs-figure-caption{max-width:36em;margin:var(--s-3) auto 0;font-size:var(--t-small);line-height:var(--lh-normal);color:var(--obsidian-300);text-align:center}
+.cs-figure-caption .n{margin-right:var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+/* Outcome: the numbers as stat cards, before the text. Two or four go two by two, three share a row. */
+.cs-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin:0;padding:0;list-style:none}
+.cs-section-body .cs-stats{max-width:none}
+.cs-stats[data-count="2"],.cs-stats[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.cs-stat{display:flex;flex-direction:column;padding:var(--s-6);background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg)}
+.cs-stat-label{font-size:var(--t-body);font-weight:600;line-height:var(--lh-snug);color:var(--obsidian-100)}
+.cs-stat-value{margin:var(--s-2) 0;font-size:var(--t-h2);font-weight:700;line-height:var(--lh-tight);letter-spacing:var(--tr-tight);font-variant-numeric:tabular-nums;background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cs-stat-note{margin-top:auto;font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);line-height:var(--lh-normal);color:var(--success)}
+/* Closing note of the Reflection (confidentiality, a source): under a rule, a mono label, small type. */
+.cs-note{margin-top:var(--s-10);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-700);font-size:var(--t-small);line-height:var(--lh-normal);color:var(--obsidian-300)}
+.cs-section-body > .cs-note{margin-top:var(--s-10)}
+.cs-note-label{display:block;margin-bottom:var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+/* More cases: three project Cards, each one link, as wide as the hero. */
+.cs-more{margin-top:var(--s-16)}
+.cs-more > :is(.eyebrow,.cs-section-title){max-width:none;margin-left:0;margin-right:0}
+.cs-more .eyebrow{display:flex;align-items:center;gap:var(--s-2);margin:0 0 var(--s-2);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--primary-400)}
+.cs-more .eyebrow::before{content:"";width:20px;height:1px;background:var(--primary-500)}
+.cs-more-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin:var(--s-6) 0 0;padding:0;list-style:none}
+.cs-card{
+  display:flex;flex-direction:column;height:100%;padding:var(--s-6);
+  background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);color:inherit;text-decoration:none;
+  transition:border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-quick) var(--ease-standard);
+}
+.cs-card:hover{border-color:var(--obsidian-600);box-shadow:var(--sh-2)}
+.cs-card:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
+.cs-card-meta{margin-bottom:var(--s-4);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-400)}
+.cs-card-media{display:block;margin:0 0 var(--s-5);border-radius:var(--r-md);overflow:hidden;aspect-ratio:480 / 315}
+.cs-card-media > *{display:block;width:100%;height:100%;object-fit:cover;transition:transform var(--d-slow) var(--ease-decel)}
+.cs-card:hover .cs-card-media > *,.cs-card:focus-visible .cs-card-media > *{transform:scale(1.05)}
+.cs-card-title{margin:0 0 var(--s-1);font-size:var(--t-lead);font-weight:500;line-height:var(--lh-snug);letter-spacing:var(--tr-snug);color:var(--obsidian-100)}
+.cs-card-text{margin:0 0 var(--s-4);font-size:var(--t-small);line-height:var(--lh-loose);color:var(--obsidian-300)}
+.cs-card-tags{display:flex;flex-wrap:wrap;gap:var(--s-2);margin:auto 0 0;padding:0;list-style:none}
+@media(max-width:900px){.cs-more-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.cs-more-grid,.cs-stats{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){
+  .cs-card,.cs-card-media > *{transition:none}
+  .cs-card:hover .cs-card-media > *,.cs-card:focus-visible .cs-card-media > *{transform:none}
 }
 
 /* ─────────── PIE / DONUT CHART ─────────── */
@@ -1205,21 +1234,14 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 .lightbox.open{opacity:1;pointer-events:auto;transition:opacity var(--d-quick) var(--ease-decel)}
 .lightbox-content{
-  position:relative;
-  width:100%;max-width:1400px;
-  aspect-ratio:16/9;
-  max-height:calc(100vh - var(--s-20));
-  background:linear-gradient(135deg, rgba(0,255,242,0.04), rgba(248,104,216,0.02)),
-    repeating-linear-gradient(45deg, transparent 0, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 11px),
-    var(--obsidian-850);
-  border:var(--bw-1) solid var(--obsidian-700);
-  border-radius:var(--r-lg);
-  box-shadow:0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(240,81,213,0.1);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--font-mono);font-size:var(--t-small);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-200);
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--s-3);max-width:1400px;
   transform:scale(0.96);
   transition:transform var(--d-base) var(--ease-accel);
 }
+.lightbox-img,.lightbox-svg{display:block;max-width:100%;max-height:calc(100vh - var(--s-20) - var(--s-8));width:auto;height:auto;border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);background:var(--obsidian-900);box-shadow:0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(240,81,213,0.1)}
+.lightbox-svg svg{display:block;width:min(1000px, calc(100vw - 2 * var(--s-8)));height:auto}
+.lightbox-img[hidden],.lightbox-svg[hidden]{display:none}
+.lightbox-caption{margin:0;font-size:var(--t-small);color:var(--obsidian-200);text-align:center}
 .lightbox.open .lightbox-content{transform:scale(1);transition:transform var(--d-base) var(--ease-decel)}
 .lightbox-close{
   position:absolute;top:var(--s-3);right:var(--s-3);
@@ -1234,8 +1256,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 .lightbox-close:hover{border-color:var(--primary-500);background:rgba(240,81,213,0.1)}
 @media (prefers-reduced-motion: reduce){
-  .cs-img,.cs-img-caption,.cs-img-hint,.lightbox,.lightbox-content{transition:none}
-  .cs-img:hover .cs-img-caption,.cs-img:focus-visible .cs-img-caption{transform:none}
+  .cs-img,.cs-img-hint,.lightbox,.lightbox-content{transition:none}
 }
 
 /* ─────────── GRID OVERLAY DEMO ─────────── */
@@ -1728,18 +1749,14 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 }
 
 
-/* cs-hero stacks vertically on mobile so the cube doesn't overlap the headline */
+/* Case study under 720px: the floating Back sits over the hero, so the top padding clears it; the reading scale steps down. */
 @media (max-width: 720px){
-  .cs-hero{padding:var(--s-6); text-align:left}
-  .cs-hero h2{max-width:none; font-size:var(--t-h4)}
-  .cs-hero p{max-width:none}
-  .cs-hero .cube{
-    position:static;
-    transform:none;
-    width:120px;height:120px;
-    margin:var(--s-5) 0 0;
-    display:block;
-  }
+  .cs-hero{padding:calc(var(--s-10) + var(--s-6)) var(--s-6) var(--s-6)}
+  .cs-hero-title{max-width:none;font-size:var(--t-h4)}
+  .cs-hero-lede{max-width:none;font-size:var(--t-lead)}
+  .cs-hero .cube{position:static;transform:none;width:120px;height:120px;margin:var(--s-5) 0 0;display:block}
+  .cs-section-title{font-size:var(--t-h4)}
+  .cs-section-body{font-size:var(--t-lead)}
 }
 
 

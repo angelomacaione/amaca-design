@@ -67,6 +67,8 @@ ITEMS = {
     "avatar": ("Avatar", None, ["avatar"], "avatar", "Usage"),
     "list": ("List", None, ["list"], "list", "Usage"),
     "table": ("Table", None, ["table"], "table", "Usage"),
+    "chart": ("Chart card", None, ["chart"], "charts", "Usage · Charts"),
+    "diagram": ("Diagrams", None, ["diagram"], "diagrams", "Usage"),
     "icon": ("Icon", None, ["icon"], None, "Usage"),
 }
 

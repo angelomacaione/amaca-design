@@ -3782,6 +3782,33 @@ def c97():
     return fails
 
 
+@check("105", "The three layers on Overview count what the sidebar lists",
+       "v5.0.0: What's inside still counted 06 foundations, 06 components and 04 applied pages, the "
+       "numbers of v4.3.2, while the sidebar listed 8, 39 and 7. A count typed by hand is stale the "
+       "first time a page is added; this check counts the sidebar groups instead.")
+def c105():
+    html = read(INDEX)
+    a = html.index('<aside class="sidebar"'); b = html.index("</aside>", a)
+    groups = []
+    for part in html[a:b].split('<div class="nav-group">')[1:]:
+        lab = re.search(r'nav-label">([^<]+)', part)
+        groups.append((unescape(lab.group(1)) if lab else "", part.count('class="nav-item')))
+    names = [g for g, _ in groups]
+    try:
+        f = names.index("Foundations"); t = names.index("Layout & templates"); m = names.index("Meta")
+    except ValueError as e:
+        return [f"sidebar: a group is missing ({e})"]
+    want = {"01 · Foundations": groups[f][1],
+            "02 · Components": sum(n for _, n in groups[f + 1:t]),
+            "03 · Applied": sum(n for _, n in groups[t:m])}
+    fails = []
+    for label, n in want.items():
+        got = re.search(r"<span>" + re.escape(label) + r"</span><span>(\d+)</span>", html)
+        if not got or int(got.group(1)) != n:
+            fails.append(f"index.html Overview: {label} says {got.group(1) if got else '?'}, the sidebar lists {n}")
+    return fails
+
+
 @check("104", "A model can recommend the right file: llms.txt and llms-full.txt carry the same tool guide, and it links only real files",
        "v5.0.0: Amaca ships many ways in (a plugin, a skill, rules files, a paste-in, npm, a shadcn "
        "registry, DTCG) and a model asked 'how do I use this in my tool' read a flat list of files. "
