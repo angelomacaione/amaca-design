@@ -70,6 +70,12 @@ ROWS = [
      [("shadcn registry", "r/registry.json", None)],
      "`npx shadcn add https://www.amaca.design/r/<name>.json`, one component at a time; the first one brings the tokens",
      None),
+    ("An agent with MCP (Claude Code, Cursor, VS Code, Codex), components on request",
+     [("shadcn registry", "r/registry.json", None)],
+     "turn on the shadcn MCP server (`npx shadcn@latest mcp init --client claude`, or `cursor`, `vscode`, `codex`) and add "
+     "`\"registries\": { \"@amaca\": \"https://www.amaca.design/r/{name}.json\" }` to the project's components.json; "
+     "the agent then lists, reads and installs `@amaca/<name>` items, each with its contract",
+     None),
     ("A token pipeline: Style Dictionary, Tokens Studio",
      [("tokens.dtcg.json", "downloads/tokens.dtcg.json", None)],
      "feed the W3C DTCG file to the pipeline",
@@ -79,6 +85,10 @@ ROWS = [
      "one fetch: the agent rules and every token, inlined",
      None),
 ]
+
+
+# the namespace the MCP row and the Documentation row both give, word for word
+MCP_REGISTRY = '"@amaca": "https://www.amaca.design/r/{name}.json"'
 
 
 def url(path):

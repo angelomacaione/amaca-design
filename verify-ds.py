@@ -3800,6 +3800,13 @@ def c104():
     a = html.find("<!-- 03.0 · Pick your tool")
     b = html.find("§ 03.1", a)
     zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
+    ns = tg.MCP_REGISTRY
+    if "https://www.amaca.design/r/{name}.json" not in ns or not (ROOT / "r" / "registry.json").exists():
+        fails.append("the MCP namespace does not point at the shadcn registry in r/")
+    for name, txt in (("release/toolguide.py", tg.render()), ("llms.txt", read(ROOT / "llms.txt")),
+                      ("index.html § 03.1", html)):
+        if ns not in txt:
+            fails.append(f"{name}: the MCP namespace is not {ns}")
     named = {Path(p).name for p in tg.paths()}
     for z in sorted(zips - named):
         fails.append(f"index.html § 03.0 offers {z}; the tool guide never recommends it")
