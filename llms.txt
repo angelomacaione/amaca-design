@@ -11,6 +11,10 @@
 - [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-primary-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
 - [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): the W3C DTCG token file for Style Dictionary / Tokens Studio pipelines.
 
+## Install
+- [npm package (amaca-design)](https://www.npmjs.com/package/amaca-design): `npm install amaca-design` — tokens.css, components.css, theme.css, tokens.dtcg.json and DESIGN.md, versioned; also on jsDelivr (`cdn.jsdelivr.net/npm/amaca-design@5/`).
+- [shadcn registry (registry.json)](https://www.amaca.design/r/registry.json): one item per component — `npx shadcn add https://www.amaca.design/r/<name>.json` writes its CSS and an example, with the tokens; `meta.amaca` carries its usage, parts, rules and variants.
+
 ## Use with AI tools
 - [AGENTS.md](https://amaca.design/downloads/AGENTS.md): the agent rules (token discipline, the laws, the a11y floor, the verify checklist) on the AGENTS.md standard.
 - [CLAUDE.md](https://amaca.design/downloads/CLAUDE.md): the same rules as Claude Code repo memory.

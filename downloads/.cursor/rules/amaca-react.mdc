@@ -4,13 +4,13 @@ globs: ["**/*.tsx","**/*.jsx"]
 alwaysApply: false
 ---
 
-<!-- Amaca React/Tailwind v4 target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Requires DESIGN.md v3.0.0 §13 Multi-deploy + theme.css @theme block. -->
+<!-- Amaca React/Tailwind v4 target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Requires DESIGN.md v3.0.0 › Multi-deploy compatibility + theme.css @theme block. -->
 
 # Amaca — React / Tailwind v4 target
 
 Scoped rules for React (Vue/Svelte applicable) on Tailwind v4. The token discipline, laws, a11y floor, and never-ship list are in `amaca-core.mdc` (always loaded) — this file adds only what's React-specific.
 
-**Tailwind v4 `@theme`** (from `styles/theme.css`, canonical mapping in `DESIGN.md → §13 Multi-deploy`): tokens are exposed as namespaced custom properties that auto-generate utilities. Prefer the utilities; the raw `var(--token)` form still works at runtime.
+**Tailwind v4 `@theme`** (from `styles/theme.css`, canonical mapping in `DESIGN.md → Multi-deploy compatibility`): tokens are exposed as namespaced custom properties that auto-generate utilities. Prefer the utilities; the raw `var(--token)` form still works at runtime.
 
 | token | namespaced | utilities |
 |---|---|---|
