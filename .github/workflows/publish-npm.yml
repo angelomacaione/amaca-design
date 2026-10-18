@@ -1,11 +1,17 @@
 # Publishes the npm package amaca-design when a release tag is pushed (release/release.py tag).
 # The package is built from the repo by release/npm.py; nothing in it is written by hand.
 # Needs the repository secret NPM_TOKEN (an npm automation token).
+# Run workflow (Actions tab) publishes a tag again by hand, e.g. after a failed run: it builds from that tag.
 name: Publish to npm
 
 on:
   push:
     tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "The release tag to publish, e.g. v5.0.0"
+        required: true
 
 permissions:
   contents: read
@@ -14,8 +20,12 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -28,8 +38,9 @@ jobs:
       - name: The tag is the version DESIGN.md states
         run: |
           v=$(node -p "require('./build/npm/package.json').version")
-          if [ "v$v" != "$GITHUB_REF_NAME" ]; then echo "tag $GITHUB_REF_NAME, DESIGN.md $v"; exit 1; fi
+          if [ "v$v" != "$TAG" ]; then echo "tag $TAG, DESIGN.md $v"; exit 1; fi
       - name: Publish
-        run: npm publish build/npm --provenance --access public
+        # ./ matters: without it npm reads build/npm as the GitHub repository build/npm
+        run: npm publish ./build/npm --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
