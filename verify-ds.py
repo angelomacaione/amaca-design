@@ -3776,6 +3776,41 @@ def c97():
     return fails
 
 
+@check("103", "The npm package builds from the repo, at the version DESIGN.md states, without the font files",
+       "v5.0.0: amaca-design is published to npm by a GitHub Action when a release tag is pushed. The package "
+       "is written by release/npm.py from the files the site ships, so it cannot drift; this check builds it, "
+       "holds its version to DESIGN.md, keeps the Satoshi files out (their licence is Fontshare's) and checks "
+       "that the workflow publishes only when the tag is that version.")
+def c103():
+    import importlib.util, json, tempfile
+    spec = importlib.util.spec_from_file_location("npm", ROOT / "release" / "npm.py")
+    npm = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(npm)
+    fails = []
+    with tempfile.TemporaryDirectory() as tmp:
+        out = npm.build(Path(tmp) / "pkg")
+        pkg = json.loads((out / "package.json").read_text(encoding="utf-8"))
+        ver = re.search(r"^version: (\S+)", read(DESIGN), re.M).group(1)
+        if pkg.get("name") != "amaca-design" or pkg.get("version") != ver:
+            fails.append(f"package.json: {pkg.get('name')}@{pkg.get('version')}, DESIGN.md states {ver}")
+        for f in pkg.get("files", []):
+            if not (out / f).exists():
+                fails.append(f"package: {f} is listed and not built")
+        if any(p.suffix.lower() in (".otf", ".ttf", ".woff", ".woff2") for p in out.rglob("*")):
+            fails.append("package: a font file is inside; Satoshi loads from www.amaca.design")
+        if 'url("../fonts/' in (out / "tokens.css").read_text(encoding="utf-8"):
+            fails.append("package tokens.css: the fonts point to ../fonts, which the package does not carry")
+    wf = ROOT / ".github" / "workflows" / "publish-npm.yml"
+    text = wf.read_text(encoding="utf-8") if wf.exists() else ""
+    for need, what in (('tags: ["v*"]', "runs on a release tag"), ("release/npm.py", "builds with release/npm.py"),
+                       ('"v$v" != "$GITHUB_REF_NAME"', "refuses a tag that is not the package version"), ("secrets.NPM_TOKEN", "publishes with NPM_TOKEN")):
+        if need not in text:
+            fails.append(f".github/workflows/publish-npm.yml: no step that {what}")
+    if "npm install amaca-design" not in read(INDEX) or "www.amaca.design/r/" not in read(INDEX):
+        fails.append("index.html: Documentation does not say how to install from npm and from the registry")
+    return fails
+
+
 @check("101", "The shadcn registry in r/ is what release/registry.py writes from the repo",
        "v5.0.0: every component installs with `npx shadcn add https://www.amaca.design/r/<name>.json`. "
        "An item carries the CSS of its classes, one example and its contract (usage, parts, rules, variants); "
