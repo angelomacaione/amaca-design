@@ -331,7 +331,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--blur-veil` | `4px` — the blur of `--scrim` |
 | `--blur-glass` | `8px` — the blur of `--surface-glass` |
 | `--blur-bar` | `16px` — the blur of `--surface-bar` |
-| `--blur-light` | `96px` — the light of the feature card (§ 3.31): it blurs the card's own glow, never what is behind it, so it is not a material |
+| `--blur-light` | `96px` — the light of the feature card (§ 3.32): it blurs the card's own glow, never what is behind it, so it is not a material |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -356,7 +356,7 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 
 *Use it when*
 - Rectangles inside the 8–12px working range; `--r-xl` for the hero of a case study, `--r-2xl` for a hero block.
-- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, skeleton circle, the key-point dot of a case study, the floating navigation bar).
+- `--r-full` as a shape, not a size: it makes a pill or a circle (button, chip, switch, radio, avatar, status dots, slider track and thumb, the segmented control's track and thumb, skeleton circle, the key-point dot of a case study, the floating navigation bar).
 
 *Use something else when*
 - A small rectangle past 16px → it reads as a toy: stay in the working range, or make it a pill.
@@ -436,6 +436,8 @@ The aggregate of every component's dimensions: its box, its padding, its type, i
 | `.avatar` | sm · md · lg · xl | square `--s-6` · `--s-8` · `--s-10` · `--s-12` | `0` | `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` 700 | `--r-full` | — |
 | `.loader` | xs · sm · md · lg | square `--loader-xs` · `--loader-sm` · `--loader-md` · `--loader-lg` | — | — | — | — |
 | `.tab` | — | content | `--s-3 --s-4` | `--t-small` 500 | — | — |
+| `.segmented` | — | content · `.segmented-fill` the container's width | `--s-1` | — | `--r-full` | — |
+| `.segmented-item` | — | height `--s-10` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-md` |
 | `.nav-item` | — | content | `--s-2 --s-3` | `--t-small` | `--r-md` | — |
 | `.navbar` | — | min-height `--s-12` | item `0 --s-4` | `--t-small` 500 | — | `--icon-sm` |
 | `.pagination-link` | — | height `--s-8` · min-width `--s-8` | `0 --s-2` | `--t-small` | `--r-md` | `--icon-sm` |
@@ -499,24 +501,25 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` `.tooltip-end` | canonical | § 3.25 |
 | Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
-| Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.28 |
-| Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.29 |
-| Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.30 — an ordered list; the current step carries `aria-current="step"` |
-| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.31 |
-| Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.32 |
-| Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.33 |
-| Chat · Messaging | `.chat-*` | canonical | § 3.34 |
-| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.35 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
-| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.36 — always a circle; the chat's `.chat-avatar` (§ 3.34) keeps its own look until the chat is re-audited |
-| List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.37 |
-| Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.38 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.39 |
-| Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.40 |
-| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.41 — a Chart card whose plot is lanes |
-| Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.42 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
-| Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.43 |
-| Presentations | `.slide-*` `.deck-*` | canonical | § 3.44 |
-| Case study | `.cs-hero` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-pull` `.cs-img` `.cs-img-caption` `.cs-img-hint` `.cs-points` `.cs-point` `.cs-point-title` `.cs-more` | canonical | § 3.45 — a page template: it composes Button, Chip, Chart card, Lightbox, Divider and Card |
+| Segmented control | `.segmented` `.segmented-item` `.segmented-thumb` `.segmented-panel` · `.segmented-fill` | canonical | § 3.28 — two or three views of one thing; a tablist on a pill, one thumb that travels |
+| Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.29 |
+| Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.30 |
+| Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.31 — an ordered list; the current step carries `aria-current="step"` |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.32 |
+| Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.33 |
+| Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.34 |
+| Chat · Messaging | `.chat-*` | canonical | § 3.35 |
+| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.36 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
+| List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.38 |
+| Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.39 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.40 |
+| Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.41 |
+| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
+| Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
+| Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
+| Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
+| Case study | `.cs-hero` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-pull` `.cs-img` `.cs-img-caption` `.cs-img-hint` `.cs-points` `.cs-point` `.cs-point-title` `.cs-more` | canonical | § 3.46 — a page template: it composes Button, Chip, Chart card, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
@@ -631,6 +634,11 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.tab` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
 | `.tab` | selected | — | — | `--obsidian-100` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it | — |
 | `.tab` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
+| `.segmented-item` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · height `--s-10` · padding `0` `--s-4` · icon `--icon-md` beside the label | — |
+| `.segmented-item` | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.segmented-item` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
+| `.segmented-item` | selected | — | — | `--obsidian-100` | — | `aria-selected="true"` · the one `.segmented-thumb` under it: fill `--obsidian-700`, edge `--bw-1` solid `--border-input` (3.27 : 1 on the track), `--sh-1` | — |
+| `.segmented-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
 | `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, mono `--t-caption` · a static shell crumb is a `span`, with no other state | — |
 | `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
 | `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held | — |
@@ -720,9 +728,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour | — |
 | `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` | — |
 | `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` | — |
-| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.39) | — |
-| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.41) | — |
-| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.42) | — |
+| `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.40) | — |
+| `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.42) | — |
+| `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.43) | — |
 | `.hexmap-area` | hover | — | — | — | — | the cluster glows: `drop-shadow(0 0 --s-3)` in its own colour | — |
 | `.hexmap-area` | focus-visible | — | — | — | — | outline `--focus-width` solid `--primary-500` · offset `--focus-offset` · the cluster glows, as on hover | — |
 | `.hexmap-area` | expanded | — | — | — | — | its Popover or Drawer is open: the cluster glows, the rest of the land `--obsidian-700` | — |
@@ -946,7 +954,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 - `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
 - `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
-- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.28) on the left and `.topbar-actions` on the right.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
 - `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 - `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
 - `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
@@ -1744,7 +1752,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 - A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.
 - **Same grid as § 3.16**: icon and title on the first row, body returning to the icon's left edge below.
 - **A toast enters and leaves on the same side it lives on** — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.
-- **The stack closes the gap, it never snaps.** Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on `--d-quick` · `--ease-accel` — that is the exit. Its box then collapses on `--d-base` · **`--ease-decel`** — and that is not an exit at all: it is the **repositioning of the toasts below**, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.34). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
+- **The stack closes the gap, it never snaps.** Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on `--d-quick` · `--ease-accel` — that is the exit. Its box then collapses on `--d-base` · **`--ease-decel`** — and that is not an exit at all: it is the **repositioning of the toasts below**, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.35). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.
 - **The two rides differ in speed, not in path.** In: `.is-in`, `--d-base` · `--ease-decel` — the system announcing itself. Out: `.is-out`, `--d-quick` · `--ease-accel` — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.
 - **The toast keeps its close button.** It is the dismissible half of the pair: § 3.16 Alert has none by contract.
 - Motion: § 06.4.
@@ -1993,7 +2001,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 ### Lightbox
 
-**Site:** none, the figures of § 48 Case study.
+**Site:** none, the figures of § 49 Case study.
 
 - Backdrop: the Bar material, `--surface-bar` under `--blur-bar`.
 - Close button: top-right, `Esc` closes.
@@ -2063,7 +2071,7 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - **Up to 360 px.** Wider, or taller than the view, is a Modal. No horizontal scroll.
 - **A name.** With a title or a form it has `role="dialog"` and `aria-labelledby`; a text-only one has `aria-label`. It is not modal: Tab can leave it.
 - **No arrow.** The 4px gap and the anchoring point to the trigger, as in the Tooltip.
-- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.42): its popover stays inside the map and beside its cluster, so the map's script places it.
+- **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.43): its popover stays inside the map and beside its cluster, so the map's script places it.
 - **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 06.4).
 
 **Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
@@ -2270,7 +2278,7 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 - **States.** The item's, as on the flush bar: hover lightens the label, pressed dims it, the current page is `--primary-400` at 600, the ring is drawn inside the item.
 
 **Do / Don't.** Do keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill. Don't move the `nav` in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.
-- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.28.
+- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.29.
 
 ### Tabs
 
@@ -2331,9 +2339,57 @@ Use `will-change: transform, width` on the indicator.
 
 **Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
 
+### Segmented control
+
+**Site:** § 32 Segmented.
+
+Two or three views of one thing, side by side on a pill, with **one thumb that travels** to the selected segment. It switches the content under it in place, as Tabs do; it is a `tablist`, after the content switcher of Carbon.
+
+**Usage**
+
+*Use it when*
+- Two or three views of the same content, switched in place: the anatomy and the code of a component, a chart and its table.
+
+*Use something else when*
+- Views of different content, or more than three → Tabs.
+- Moving between pages → Navigation.
+- A value the reader submits with a form → Radio.
+
+```html
+<div class="segmented" role="tablist" aria-label="View" data-segmented>
+  <button type="button" class="segmented-item" role="tab" id="v-anatomy-tab" aria-selected="true" aria-controls="v-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button>
+  <button type="button" class="segmented-item" role="tab" id="v-code-tab" aria-selected="false" aria-controls="v-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button>
+  <span class="segmented-thumb" aria-hidden="true"></span>
+</div>
+<div class="segmented-panel is-in" role="tabpanel" id="v-anatomy" aria-labelledby="v-anatomy-tab">…</div>
+<div class="segmented-panel" role="tabpanel" id="v-code" aria-labelledby="v-code-tab" hidden>…</div>
+```
+
+| Part | Class | Note |
+|---|---|---|
+| Track | `.segmented` | `role="tablist"` with a name. Fill `--surface-sunken`, edge `--bw-1` solid `--border-subtle`, radius `--r-full`, padding `--s-1` |
+| Segment | `.segmented-item` | `role="tab"`, `aria-controls` its panel. Height `--s-10`, padding `0 --s-4`, gap `--s-2`, `--t-small` 500. An `.icon-md` drawing beside the label |
+| Thumb | `.segmented-thumb` | One per control, under the selected segment. Fill `--obsidian-700`, edge `--bw-1` solid `--border-input`, `--sh-1`, radius `--r-full`. The script places it with `transform` and `width` |
+| Full width | `.segmented-fill` | The segments share the container's width in equal parts |
+| Panel | `.segmented-panel` | `role="tabpanel"`. The panels not selected carry `hidden`; `.is-in` fades the selected one in |
+
+- **States: § 3.0.1.** `default` · `hover` · `active` · `selected` · `focus-visible`, values in the state index.
+- **The thumb is the selection.** Its edge, `--border-input` on `--surface-sunken`, reads at 3.27 : 1 (WCAG 1.4.11); without the edge the fill alone is 1.24 : 1. The label of the selected segment is `--obsidian-100` (12.57 : 1 on the thumb), the others `--obsidian-300` (6.30 : 1 on the track).
+- **One stop on Tab.** The selected segment carries `tabindex="0"`, the others `-1`. Arrow Left and Right select the neighbour and move the focus to it, Home and End go to the ends.
+- **Two or three segments**, each an icon and a label. The label stays: an icon alone does not say which view it opens.
+- **The thumb travels under 120px** between neighbouring segments, so it rides `--d-base` (Motion, duration by distance).
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| select | thumb transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
+| hover · select | segment label color (effect) | `--d-quick` · `--ease-standard` | instant |
+| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+
+**Do / Don't.** Do keep two or three segments, each with an icon and a label, under one thumb that travels. Don't drop the labels, put more than three views in it, or use it for a value a form submits: that is a Radio.
+
 ### Breadcrumb
 
-**Site:** § 32 Breadcrumb.
+**Site:** § 33 Breadcrumb.
 
 **Usage**
 
@@ -2361,7 +2417,7 @@ Use `will-change: transform, width` on the indicator.
 
 ### Pagination
 
-**Site:** § 33 Pagination.
+**Site:** § 34 Pagination.
 
 Links between the pages of one set of items. A `nav` of numbered links, or, in a narrow space, previous, status and next.
 
@@ -2420,7 +2476,7 @@ Links between the pages of one set of items. A `nav` of numbered links, or, in a
 
 ### Stepper
 
-**Site:** § 34 Stepper.
+**Site:** § 35 Stepper.
 
 The steps of a linear journey, in order: done, current, upcoming. It shows where the reader is; it does not move them.
 
@@ -2476,7 +2532,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 ### Card
 
-**Site:** § 35 Card.
+**Site:** § 36 Card.
 
 **Usage**
 
@@ -2549,7 +2605,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 ### Accordion
 
-**Site:** § 36 Accordion.
+**Site:** § 37 Accordion.
 
 **Usage**
 
@@ -2595,7 +2651,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 ### Divider
 
-**Site:** § 37 Divider.
+**Site:** § 38 Divider.
 
 A hairline between two blocks of one container: a thematic break. Three forms: horizontal, vertical, and horizontal with a word in the middle.
 
@@ -2639,7 +2695,7 @@ A hairline between two blocks of one container: a thematic break. Three forms: h
 
 ### Chat & Messaging
 
-**Site:** § 38 Chat.
+**Site:** § 39 Chat.
 
 For chatbot interfaces. Conversation surface with bot and own bubbles, typing indicator, composer.
 
@@ -2740,7 +2796,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 ### Swatch
 
-**Site:** § 39 Swatch.
+**Site:** § 40 Swatch.
 
 A token shown, not pressed. Eight forms: the inline marker beside the word that names a colour (a legend key, a token in a table), the tile of a palette, the type tile, the space tile, the radius tile, the shadow tile, the motion tile of an easing, and the icon tile of the album: the order of the foundations.
 
@@ -2813,13 +2869,13 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 - **Before its label.** The gap is the container's (a legend row `--s-3`, a token in a table `--s-1`); swatch and label are one unit that never breaks across lines.
 - **The word carries the meaning.** A swatch never stands for a state or a series alone: the label names it (§ 6 floor #1).
 - **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
-- **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.43).
+- **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.44).
 
 **Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, loop a motion tile for ever, or stretch the hex swatch out of a regular hexagon.
 
 ### Avatar
 
-**Site:** § 40 Avatar.
+**Site:** § 41 Avatar.
 
 A circle that says **who a person, team or account is**: their picture, their initials or, with no name at all, a person glyph. It sits beside a name or stands in for it, and it is always a circle.
 
@@ -2884,7 +2940,7 @@ A circle that says **who a person, team or account is**: their picture, their in
 
 ### List
 
-**Site:** § 41 List.
+**Site:** § 42 List.
 
 Rows in a column. Either **many things of one kind**, one row each (the items), or **the facts of one thing**, one row per fact (the summary). The same hairlines and the same type; what sits in the row is what differs.
 
@@ -2895,7 +2951,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - The facts of one item as label and value pairs, with an action beside a value to change it.
 
 *Use something else when*
-- Several columns to compare or sort → Table, § 3.38.
+- Several columns to compare or sort → Table, § 3.39.
 - A choice from a fixed set → Select or Radio.
 - Bullets inside running text → a plain `ul` or `ol` in the prose, no component.
 
@@ -2961,7 +3017,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Table
 
-**Site:** § 42 Table.
+**Site:** § 43 Table.
 
 **Usage**
 
@@ -3024,7 +3080,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Chart card
 
-**Site:** § 43 Charts.
+**Site:** § 44 Charts.
 
 **Usage · Charts**
 
@@ -3046,11 +3102,11 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 </div>
 ```
 
-- The card ramp (§ 3.31): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
+- The card ramp (§ 3.32): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
 - `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
 - `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
-- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.35) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
+- `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.36) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
 - **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
 - **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
 
@@ -3097,7 +3153,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Pie
 
-**Site:** § 43 Charts.
+**Site:** § 44 Charts.
 
 ```html
 <div class="pie-wrap">
@@ -3109,10 +3165,10 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 ```
 
 - `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
-- `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.43).
+- `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.44).
 - `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
-- `.swatch` — the Swatch (§ 3.35), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
-- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.39) (§ 6 floor #1).
+- `.swatch` — the Swatch (§ 3.36), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.40) (§ 6 floor #1).
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -3122,9 +3178,9 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Timeline
 
-**Site:** § 44 Timeline.
+**Site:** § 45 Timeline.
 
-A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.39) whose plot is lanes instead of series.
+A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.40) whose plot is lanes instead of series.
 
 **Usage**
 
@@ -3151,7 +3207,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 | Part | Class · hook | Note |
 |---|---|---|
-| Chart card | `.chart-card` `.chart-head` | the frame (§ 3.39); the badge counts the lanes |
+| Chart card | `.chart-card` `.chart-head` | the frame (§ 3.40); the badge counts the lanes |
 | Scroll | `.timeline-scroll` | scrolls sideways under the width the lanes need; nothing shrinks |
 | Plot | `.chart-plot` `.timeline-plot` | at least `--s-32` × 5 (640px); canvas `--primary-950`, the same margin left and right, and top and bottom |
 | Grid | a `<g>` of lines | `--border-subtle`, one line every two weeks; it does not move |
@@ -3161,7 +3217,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 | Bar label | `.timeline-bar-label` · `.timeline-bar-label-dark` | `--t-micro` 700: `--primary-950` on the light bars, `--primary-100` on the dark ones |
 | Today | a dashed line · `.timeline-today` | `--primary-200` dashed 3 3; the pill is HTML, `--t-micro` mono uppercase on `--primary-200`, `--r-xs` |
 
-- **Text is HTML, never inside the svg (RIGID)**: the § 3.39 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
+- **Text is HTML, never inside the svg (RIGID)**: the § 3.40 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
 - **Scroll, don't shrink.** Under 640px the plot keeps its size and the reader scrolls it sideways. A lane label smaller than its token is a defect.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index); dates and lanes are written as text.
 - **Colour never carries the work alone**: the bar label names it (§ 6 floor #1).
@@ -3175,9 +3231,9 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 ### Map
 
-**Site:** § 45 Maps.
+**Site:** § 46 Maps.
 
-Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.39) whose plot is the land.
+Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.40) whose plot is the land.
 
 **Usage**
 
@@ -3212,7 +3268,7 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 | Cluster | `[data-cl]` `[data-st]` | the cells of one place; the colour of its worst state: `--primary-500` primary hub, `--warning` high load, `--danger` active incident |
 | Country | `[data-co]` | every land cell knows its country, so grey land lights a whole country on hover |
 | Target | `.hexmap-area` | one button per cluster over its bounding box, at least 24px (`--s-6`): the name, the focus and the anchor; it takes the pointer only under 720px |
-| Legend | `.chart-legend` · `.swatch-hex` | the Swatch as a regular pointy-top hexagon, 12px high (§ 3.35) |
+| Legend | `.chart-legend` · `.swatch-hex` | the Swatch as a regular pointy-top hexagon, 12px high (§ 3.36) |
 | Detail | `.popover` · `.drawer` | the cluster's name, its state and node count, and its nodes as a `.list`; a Popover on a wide screen, a Drawer under 720px |
 
 - **The cluster is the unit (RIGID).** Hover, focus and a click act on the whole cluster, never on one hex. The grid never moves: no scale, only light.
@@ -3237,7 +3293,7 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 
 ### Diagrams
 
-**Site:** § 46 Diagrams.
+**Site:** § 47 Diagrams.
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
 
@@ -3294,7 +3350,7 @@ flowchart TD
 - Regular shapes only: rounded rectangles (`--r-md`) for steps, diamonds for gates; varied shapes reserved for the semantic-state case. Connectors are orthogonal (H/V) with soft elbows — never diagonal. One magenta focus node marks the entry / narrative focus.
 
 **Accessibility:**
-- One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.31). The entrance runs once, never loops (§ 6 #6).
+- One accessible name per figure: `.diagram-canvas[role="img"]` carries the `aria-label`; the rendered `<svg>` is `aria-hidden`. Color never carries meaning alone — semantic state is color + distinct shape + written label + `.diagram-legend`. No content text below 12px (node labels `--t-small`, edge labels ≥ `--t-caption`); the `FIG-NN` caption is `--t-micro` per the `.card-meta` precedent (§ 3.32). The entrance runs once, never loops (§ 6 #6).
 
 **Motion (reuse § 7.3):**
 - `IntersectionObserver` on the wrapper fires once (threshold 0.15, `rootMargin '0px 0px -8% 0px'`, `unobserve` after fire). **Opacity only** — never CSS transforms on the SVG `<g>` (they compose with the cascade and break the auto-layout). Hook after the async render resolves. Because a `.section` is `display:none` until navigated, also reveal in-viewport figures when the section gains `.active`.
@@ -3321,7 +3377,7 @@ flowchart TD
 
 ### Presentations
 
-**Site:** § 47 Presentations.
+**Site:** § 48 Presentations.
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
 
@@ -3351,13 +3407,13 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
 - Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
-- Worked example on the site: **§ 47 · Presentations** (demo deck + the eight layouts + anatomy + rules).
+- Worked example on the site: **§ 48 · Presentations** (demo deck + the eight layouts + anatomy + rules).
 
 **Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
 
 ### Case study
 
-**Site:** § 48 Case study.
+**Site:** § 49 Case study.
 
 The starting frame for a project told as a story. It composes the system's components in a fixed order: hero, dossier, numbered sections, more cases.
 
@@ -3416,9 +3472,9 @@ The starting frame for a project told as a story. It composes the system's compo
 | Section | `.cs-section` | A numbered eyebrow with a magenta rule, a title `--t-h4`, running text `--t-body` at `--lh-loose`, 68ch |
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, 52ch |
 | Figure | `.cs-img` `.cs-img-caption` `.cs-img-hint` | 16:9, opens the Lightbox (§ 3.22); the hint on hover sits on `--surface-glass` |
-| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.33) between points |
-| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.39) |
-| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.31) with their tags as Chips |
+| Points | `.cs-points` `.cs-point` `.cs-point-title` | A dot on the title's line, the text under it, a Divider (§ 3.34) between points |
+| Outcome | `.chart-card` in a `.grid-3` | The numbers of the result as stat cards (§ 3.40) |
+| More cases | `.cs-section.cs-more` | `--s-16` above; three project Cards (§ 3.32) with their tags as Chips |
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
@@ -3568,7 +3624,7 @@ Every screen, every component, every full-bleed surface resolves to:
 
 - **≥ 85% Obsidian** — page, surfaces, type: backgrounds, borders, body text, neutral UI
 - **≤ 10% Primary + Cyan, combined** — CTA, focus, emphasis
-- **≤ 5% Semantic** — feedback only. One exception: the categorical data palette of a chart (§ 3.39) names series with the semantic hues, and then nothing in the same view uses a colour for a state.
+- **≤ 5% Semantic** — feedback only. One exception: the categorical data palette of a chart (§ 3.40) names series with the semantic hues, and then nothing in the same view uses a colour for a state.
 
 If a layout violates this rule, it's decoration, not hierarchy. If the primary budget is being spent decoratively (gradient backgrounds, accent borders, glowing dividers), cut and earn the accent back.
 
@@ -3672,6 +3728,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Segmented control | select | thumb transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
+| Segmented control | hover · select | segment label color (effect) | `--d-quick` · `--ease-standard` | instant |
+| Segmented control | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
@@ -3854,13 +3913,13 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 ### JavaScript
 
 - Vanilla preferred. Frameworks only when state crosses three components or persists across sessions.
-- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.43 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
+- **Runtime-token anti-drift (canonical):** when a JS library can't consume `var(--token)` (Mermaid wants hex, Motion wants arrays), never copy the value into JS — read it off `:root` with `getComputedStyle` at runtime and convert at the boundary, in one memoized helper. The value lives only in `tokens.css`. Applies to vocabulary values (colors, durations, easings, radii); composition values (choreography delays, staggers) stay literal by design. Instances: § 3.44 theming, the `window.__motion` tokens() helper. A hand-copied token value in JS is a regression (§ 9) — it is exactly how the v2.0.0 easing redistribution silently drifted.
 - Animations driven by CSS class toggles + `IntersectionObserver`. Avoid JS-driven `requestAnimationFrame` loops for entrance animations.
 - **Collapse-to-zero (canonical):** when a transition animates a measured dimension, **both ends must live in the same place**. Pinning the start inline (`el.style.maxHeight = el.scrollHeight + 'px'`) and declaring the end in a class (`.is-collapsing{max-height:0}`) silently fails: the inline value outranks the class, so the box never collapses and only the properties the class *does* own — padding, border, margin — animate. The element then disappears in one frame when it is removed, which reads as a second beat. Set the start inline, flush, add the class for the transition and the sibling properties, then set the end **inline too** on the next frame. Measured symptom: a toast dismissal that glided 46px of the 101px it owed and jumped the rest.
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.30):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Stepper choreography (§ 3.31):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming

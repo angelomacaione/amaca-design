@@ -304,7 +304,7 @@
 .grid-6{grid-template-columns:repeat(6,minmax(0,1fr))}
 @media (max-width: 900px){.grid-3,.grid-4,.grid-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
-/* ─────────── § 3.35 SWATCH (v5.0.0) ───────────
+/* ─────────── § 3.36 SWATCH (v5.0.0) ───────────
    A token shown, not pressed: no hover, no focus. Colour forms are still; the motion tile moves because the motion is its value. The colour comes from --sw, set to var() of a token.
    Inline marker before a label, the gap is the container's; tile for one step of a palette.
    Always bordered with an inset 1px of --border-input, so the size stays and a dark colour reads on the page (WCAG 1.4.11). */
@@ -430,7 +430,7 @@
 .table tbody tr:has(.table-row-link:focus-visible){outline:var(--focus-width) solid var(--obsidian-100);outline-offset:calc(-1 * var(--focus-width));box-shadow:var(--ring-halo)}
 .table code{font-family:var(--font-mono);font-size:var(--t-caption);color:var(--primary-400);background:var(--obsidian-850);padding:var(--s-0-5) var(--s-1);border-radius:var(--r-sm);letter-spacing:var(--tr-mono)}
 .table .muted{color:var(--obsidian-300)}
-/* Sortable header (§ 3.38). The button fills the cell, so the whole header is the target. The driver th carries
+/* Sortable header (§ 3.39). The button fills the cell, so the whole header is the target. The driver th carries
    aria-sort, one per table, a step lighter. The button holds both drawings and the header shows one: ascending until
    the column drives descending. Colour is inherited. No transition: the sort is a state, not a move. */
 .table th:has(> .table-sort){padding:0}
@@ -992,7 +992,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-label-center{translate:-50% -50%}
 .chart-label-end{translate:-100% -50%}
 /* Labels centre with the translate property: [data-fade] owns transform, the two compose.
-   Timeline (§ 3.41): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
+   Timeline (§ 3.42): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
 .timeline-scroll{overflow-x:auto;overscroll-behavior-x:contain}
 .timeline-plot{min-width:calc(var(--s-32) * 5)}
 .timeline-lane{position:absolute;translate:0 -50%;font-size:var(--t-small);font-weight:500;line-height:1;color:var(--obsidian-100);white-space:nowrap}
@@ -1014,7 +1014,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .chart-big.accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .chart-delta{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--success)}
 .chart-delta.neg{color:var(--danger)}
-/* v5.0.0 — the legend of a chart with two or more series: a Swatch (§ 3.35) before each name, under the plot */
+/* v5.0.0 — the legend of a chart with two or more series: a Swatch (§ 3.36) before each name, under the plot */
 .chart-legend{list-style:none;margin:var(--s-3) 0 0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-4);font-size:var(--t-small);color:var(--obsidian-200)}
 .chart-legend li{display:inline-flex;align-items:center;gap:var(--s-2);white-space:nowrap}
 
@@ -1084,7 +1084,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .cs-section .eyebrow::before{content:"";width:20px;height:1px;background:var(--primary-500)}
 .cs-section p{font-size:var(--t-body);color:var(--obsidian-200);line-height:var(--lh-loose);max-width:68ch;margin:0 0 var(--s-4)}
 /* Case study key points (v5.0.0, from the portfolio): a dot on the title's line, the text under the title,
-   a Divider (§ 3.33) between points; the gap on both sides of the divider is the list's. */
+   a Divider (§ 3.34) between points; the gap on both sides of the divider is the list's. */
 .cs-points{display:flex;flex-direction:column;gap:var(--s-6);margin-top:var(--s-6);max-width:68ch}
 .cs-point{display:grid;grid-template-columns:var(--s-4) minmax(0,1fr);column-gap:var(--s-4);row-gap:var(--s-2)}
 .cs-point::before{content:"";grid-row:1;width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);background:var(--primary-500);align-self:center}
@@ -1289,6 +1289,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 .menu-toggle:focus-visible,
 .chip:focus-visible,
 .tab:focus-visible,
+.segmented-item:focus-visible,
 .select-trigger:focus-visible,
 .lightbox-close:focus-visible,
 .replay-btn:focus-visible,
@@ -1374,6 +1375,48 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 @media (prefers-reduced-motion: reduce){
   .tab-indicator{transition:none}
   .tab-panel{transition:none;opacity:1;transform:none}
+}
+
+/* ─── § 3.28 Segmented control (v5.0.0): two or three views of one thing, one thumb that travels ─── */
+.segmented{
+  position:relative;display:inline-flex;align-items:stretch;
+  padding:var(--s-1);
+  background:var(--surface-sunken);
+  border:var(--bw-1) solid var(--border-subtle);
+  border-radius:var(--r-full);
+}
+.segmented-fill{display:flex}
+.segmented-item{
+  position:relative;z-index:1;
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);
+  height:var(--s-10);padding:0 var(--s-4);
+  background:transparent;border:none;border-radius:var(--r-full);cursor:pointer;
+  font-family:var(--font-sans);font-size:var(--t-small);font-weight:500;line-height:1;white-space:nowrap;
+  color:var(--obsidian-300);
+  transition:color var(--d-quick) var(--ease-standard);
+}
+.segmented-fill .segmented-item{flex:1 1 0}
+.segmented-item:hover{color:var(--obsidian-100)}
+.segmented-item:active{color:var(--obsidian-300)}
+.segmented-item[aria-selected="true"]{color:var(--obsidian-100)}
+.segmented-thumb{
+  position:absolute;top:var(--s-1);bottom:var(--s-1);left:0;width:0;
+  background:var(--obsidian-700);
+  border:var(--bw-1) solid var(--border-input);
+  border-radius:var(--r-full);
+  box-shadow:var(--sh-1);
+  transition:transform var(--d-base) var(--ease-decel), width var(--d-base) var(--ease-decel);
+  pointer-events:none;
+  will-change:transform,width;
+}
+.segmented-panel{
+  opacity:0;transform:translateY(6px);
+  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+}
+.segmented-panel.is-in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion: reduce){
+  .segmented-item,.segmented-thumb{transition:none}
+  .segmented-panel{transition:none;opacity:1;transform:none}
 }
 
 /* =========================================================
@@ -1483,7 +1526,7 @@ button.chip:disabled{opacity:0.4;cursor:not-allowed;color:var(--obsidian-400)}
 /* ============ ACCORDION ============ */
 /* Separators only. A border-top with no side borders draws a lid with no
    walls: the radius curves it at the corners and it ends in mid-air. Same
-   discipline as § 3.38 Table — the row rule carries the scan. */
+   discipline as § 3.39 Table — the row rule carries the scan. */
 .accordion{display:flex;flex-direction:column;border-radius:var(--r-lg);overflow:hidden;background:var(--obsidian-950)}
 .acc-item{border-bottom:var(--bw-1) solid var(--obsidian-800);background:transparent;transition:background var(--d-quick) var(--ease-decel)}
 .acc-item:last-child{border-bottom:0}
@@ -3456,7 +3499,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .tooltip-bottom.tooltip-end{transform:translate(0, -2px)}
 .tooltip-bottom.tooltip-end.is-open{transform:translate(0, 0)}
 
-/* § 24.1 — a swatch (§ 3.35) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
+/* § 24.1 — a swatch (§ 3.36) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
    Swatch and name are one unit that never breaks across lines. */
 .table-contrast .tok{display:inline-flex;align-items:center;gap:var(--s-1);white-space:nowrap}
 
@@ -3523,7 +3566,7 @@ body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal()
   .modal,.modal[open]{transition:none;transform:none}
   .modal::backdrop,.modal[open]::backdrop{transition:none}
 }
-/* § 3.36 Avatar — who a person, team or account is. A circle; the name sits on the wrapper (role="img"). */
+/* § 3.37 Avatar — who a person, team or account is. A circle; the name sits on the wrapper (role="img"). */
 .avatar{--size:var(--s-8);--fs:var(--t-caption);--dot:var(--s-2);--o:var(--s-2);position:relative;display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:var(--size);height:var(--size);padding:0;border:var(--bw-1) solid var(--obsidian-600);border-radius:var(--r-full);background:var(--obsidian-700);color:var(--obsidian-100);font:700 var(--fs)/1 var(--font-sans);text-transform:uppercase;text-decoration:none;vertical-align:middle;user-select:none}
 .avatar-sm{--size:var(--s-6);--fs:var(--t-micro);--o:calc(var(--s-1) + var(--s-0-5))}
 .avatar-lg{--size:var(--s-10);--fs:var(--t-body);--dot:var(--s-3);--o:var(--s-3)}
@@ -3562,7 +3605,7 @@ a.avatar:focus-visible,button.avatar:focus-visible{outline:var(--focus-width) so
 .icon-muted{color:var(--obsidian-300)}
 .icon-fill{fill:currentColor;stroke-width:var(--bw-1)}  /* solid: the same box, filled; the 1px stroke only rounds the corners */
 
-/* § 3.37 List — rows in a column: many things of one kind (.list-item), or the facts of one (.list-summary). Hairlines between rows, nothing around. */
+/* § 3.38 List — rows in a column: many things of one kind (.list-item), or the facts of one (.list-summary). Hairlines between rows, nothing around. */
 .list{list-style:none;margin:0;padding:0;border-top:var(--bw-1) solid var(--obsidian-700)}
 .list > li{border-bottom:var(--bw-1) solid var(--obsidian-700)}
 .list-item{display:flex;align-items:center;gap:var(--s-3);box-sizing:border-box;width:100%;min-height:var(--s-12);padding:var(--s-3) var(--s-4);color:var(--obsidian-100);font:inherit;font-size:var(--t-small);text-align:left;text-decoration:none;background:transparent;border:0}
@@ -3582,7 +3625,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width:720px){.list-summary > div{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){a.list-item,button.list-item{transition:none}}
 
-/* § 3.29 Pagination — move between pages of similar items. A nav of links: numbered, or compact (previous · status · next). */
+/* § 3.30 Pagination — move between pages of similar items. A nav of links: numbered, or compact (previous · status · next). */
 .pagination{display:flex;align-items:center;gap:var(--s-1)}
 .pagination-list{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:var(--s-1)}
 .pagination-link{display:inline-flex;align-items:center;justify-content:center;gap:var(--s-2);box-sizing:border-box;min-width:var(--s-8);height:var(--s-8);padding:0 var(--s-2);border:var(--bw-1) solid transparent;border-radius:var(--r-md);background:transparent;color:var(--obsidian-300);font:inherit;font-size:var(--t-small);font-variant-numeric:tabular-nums;text-decoration:none;cursor:pointer;transition:background var(--d-quick) var(--ease-standard),color var(--d-quick) var(--ease-standard)}
@@ -3621,7 +3664,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .slider-pair .slider-input::-moz-range-thumb{pointer-events:auto;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.slider-input::-webkit-slider-thumb,.slider-input::-moz-range-thumb{transition:none}}
 
-/* § 3.33 Divider — a thematic break inside one container. One hairline; the space around it belongs to the container. */
+/* § 3.34 Divider — a thematic break inside one container. One hairline; the space around it belongs to the container. */
 .divider{display:block;width:100%;height:0;margin:0;padding:0;border:0;border-top:var(--bw-1) solid var(--obsidian-700)}
 .divider-vertical{align-self:stretch;width:0;height:auto;min-height:var(--s-4);border-top:0;border-left:var(--bw-1) solid var(--obsidian-700)}
 .divider-label{display:flex;align-items:center;gap:var(--s-3);width:100%;color:var(--obsidian-300);font-size:var(--t-caption)}
@@ -3636,7 +3679,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .modal-demo > .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 
 
-/* § 3.30 Stepper — the steps of a linear journey: done, current, upcoming. An ordered list; the current step carries aria-current="step".
+/* § 3.31 Stepper — the steps of a linear journey: done, current, upcoming. An ordered list; the current step carries aria-current="step".
    Horizontal; vertical below 480px of its own width (container query) or with .stepper-vertical. */
 .stepper{--stp-dot:var(--s-6);--stp-cur:var(--s-8);container-type:inline-size}
 .stepper-list{list-style:none;margin:0;padding:0;display:flex}
@@ -3708,7 +3751,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   .progress[data-reveal] .progress-fill,.progress[data-reveal].is-in .progress-fill{transform:none;transition:none}
 }
 
-/* ─── § 3.42 Map — the land as a grid of hexes; a cluster of cells is one place, and acts as one ───
+/* ─── § 3.43 Map — the land as a grid of hexes; a cluster of cells is one place, and acts as one ───
    The land is baked (Natural Earth 1:110m), so the page asks nothing at run time. Grey is the land;
    a cluster takes the colour of its state. The sea is never drawn, so it can never take a colour. */
 .hexmap{position:relative;border-radius:var(--r-md);overflow:hidden;background:radial-gradient(130% 130% at 50% 38%, var(--obsidian-850) 0%, var(--obsidian-950) 70%)}

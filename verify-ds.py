@@ -1725,7 +1725,7 @@ _ALL_MARKS = [m for ms in _STATE_MARK.values() for m in ms]
 _PROPS = {"Background": ("background", "background-color"),
           "Border": ("border", "border-color", "border-top", "border-top-color", "border-left", "border-left-color"),
           "Foreground": ("color",), "Ring": ("box-shadow",)}
-_SCOPE = ("btn", "input", "textarea", "select", "card", "badge", "chip", "check", "radio", "switch", "alert")
+_SCOPE = ("btn", "input", "textarea", "select", "card", "badge", "chip", "check", "radio", "switch", "alert", "segmented")
 _ALIAS = {"select-trigger": ("select-trigger", "select")}
 
 
@@ -2314,6 +2314,7 @@ R_FULL_RATIFIED = {
     ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".swatch-tile-pos::after", ".swatch-tile-rail", ".swatch-tile-ball", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
     ".stepper-dot", '.stepper-step[aria-current="step"] .stepper-dot::after', ".progress-track",
     ".navbar-floating", ".navbar-floating .navbar-nav",
+    ".segmented", ".segmented-item", ".segmented-thumb",
 }
 
 
@@ -2629,7 +2630,7 @@ def c65():
     html = read(INDEX)
     for cls in ("swatch-chip", "tok-sw", "law-dot", "sw"):
         if re.search(rf'class="(?:[^"]* )?{cls}(?: [^"]*)?"', html):
-            fails.append(f"index.html: class .{cls} survives; it is a Swatch now (§ 3.35)")
+            fails.append(f"index.html: class .{cls} survives; it is a Swatch now (§ 3.36)")
     for m in re.finditer(r'<(?:span|div) class="(swatch|swatch-tile)"([^>]*)>', html):
         style = re.search(r'style="([^"]*)"', m.group(2))
         tok = re.fullmatch(r"\s*--sw\s*:\s*var\(--([a-z0-9-]+)\)\s*;?\s*", style.group(1)) if style else None
@@ -2699,9 +2700,9 @@ def c66():
         fails.append("#charts 'Task time · Arc HMI': two series and no .chart-legend")
     d = read(DESIGN)
     if "`--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`" not in d:
-        fails.append("DESIGN.md: the categorical order is not stated in § 3.39")
+        fails.append("DESIGN.md: the categorical order is not stated in § 3.40")
     if "`--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`" not in d:
-        fails.append("DESIGN.md: the sequential ramp is not stated in § 3.39")
+        fails.append("DESIGN.md: the sequential ramp is not stated in § 3.40")
     return fails
 
 
@@ -2716,7 +2717,7 @@ def c67():
     fails = []
     html = read(INDEX)
     if re.search(r'class="stepper-svg|data-step-(dot|labels|line|fade)', html):
-        fails.append("index.html: the SVG stepper survives; the Stepper is § 3.30")
+        fails.append("index.html: the SVG stepper survives; the Stepper is § 3.31")
     for m in re.finditer(r'<nav class="stepper[^"]*"([^>]*)>(.*?)</nav>', html, re.S):
         attrs, body = m.group(1), m.group(2)
         if "aria-label=" not in attrs and "aria-labelledby=" not in attrs:
@@ -2861,7 +2862,7 @@ def _bezier_of(value):
 
 @check("71", "A motion tile shows its tokens: curve, path and milliseconds, three plays, no var() in a keyframe",
        "v5.0.0: § 06.1 drew five easings as balls on a track, and the eye could not tell a 350 ms decel from "
-       "a 350 ms linear, because the decel tail is invisible. The easings became Swatch motion tiles (§ 3.35) "
+       "a 350 ms linear, because the decel tail is invisible. The easings became Swatch motion tiles (§ 3.36) "
        "on the standard graph, time across and position up. The first draft set the curve inside @keyframes "
        "with var(): the browser does not read it there, and all five curves ran as ease while the labels said "
        "otherwise. This check holds every motion tile to its tokens (the path drawn, the curve and the ms "
@@ -2926,7 +2927,7 @@ def c71():
 
 
 @check("72", "A radius tile and an icon tile show their token and their drawing, the same in every place",
-       "v5.0.0: Radius and the Icon album became Swatch tiles (§ 3.35). Radius printed '--r-md · 8px' by hand "
+       "v5.0.0: Radius and the Icon album became Swatch tiles (§ 3.36). Radius printed '--r-md · 8px' by hand "
        "beside an inline border-radius; the album printed the drawing twice, at 16 and 24, and the zoom adds a "
        "third copy. A tile that prints one radius and draws another, or a zoom that drifts from its 16 and 24, "
        "would teach the wrong value. This check holds every radius tile to its token, and every icon tile to one "
@@ -3059,7 +3060,7 @@ def c73():
 @check("74", "Every shadow and ring token has a shadow tile on § 05.1, and the tile names it",
        "v5.0.0: § 05.1 showed nine of the eleven shadow and ring tokens; --sh-0 and --sh-menu were in "
        "tokens.css and nowhere on the page, so a reader of the site did not know they existed. Shadows became "
-       "Swatch shadow tiles (§ 3.35). This check holds the tiles of § 05.1 to the --sh-* and --ring-* tokens, "
+       "Swatch shadow tiles (§ 3.36). This check holds the tiles of § 05.1 to the --sh-* and --ring-* tokens, "
        "one each, and the token each tile prints to the one it paints.")
 def c74():
     fails = []
@@ -3077,7 +3078,7 @@ def c74():
 @check("75", "Every type step has a type tile, and the tile prints what its .ty-* class renders",
        "v5.0.0: the Typography page printed each step's size and leading by hand beside a sample. Body said "
        "15 / 1.45 while .ty-body set --lh-loose, 1.65; --t-h6 and --t-micro were tokens with no row, and "
-       "--t-micro had no class at all. The steps became Swatch type tiles (§ 3.35). This check holds one tile "
+       "--t-micro had no class at all. The steps became Swatch type tiles (§ 3.36). This check holds one tile "
        "per --t-* step, the sample in its own .ty-* class, and the size / leading / tracking and weight each "
        "tile prints to the values that class sets in components.css and tokens.css.")
 def c75():
@@ -3115,7 +3116,7 @@ def c75():
 @check("76", "Every spacing step has a space tile, and the Swatch page shows every form of the component",
        "v5.0.0: the Spacing page drew thirteen of the fifteen steps (--s-0-5 had no row), its lede counted "
        "thirteen, and 'Where to reach' gave the button --s-12 as a '12px' block padding the button does not "
-       "have. Foundations became Swatch tiles (§ 3.35) and the component page still showed three of its "
+       "have. Foundations became Swatch tiles (§ 3.36) and the component page still showed three of its "
        "eight forms. This check holds one space tile per --s-* step printing the token's px, the lede count "
        "to the steps, and § 39 to a demo of every tile form the foundations use.")
 def c76():
@@ -3138,7 +3139,7 @@ def c76():
     sw = _html_section(html, "swatch")
     for form in ("swatch-tile-type", "swatch-tile-space", "swatch-tile-radius", "swatch-tile-shadow", "swatch-tile-icon", "swatch-tile-motion"):
         if f'class="swatch-tile {form}"' not in sw:
-            fails.append(f"§ 39 Swatch shows no .{form}")
+            fails.append(f"§ 40 Swatch shows no .{form}")
     return fails
 
 
@@ -3163,7 +3164,7 @@ def c77():
 @check("78", "The plot's parts are the hooks the contract names, and its reveal reads every duration and curve from tokens",
        "v5.0.0: the line chart's reveal was timed by hand: the line drew in 1.4s from 1.25s, area and points "
        "waited until 2.65s, the points grew in 0.4s; two of those numbers were tokens by accident and none by "
-       "name. The plot got its anatomy (§ 3.39, one data-* hook per part) and choreography E, every duration "
+       "name. The plot got its anatomy (§ 3.40, one data-* hook per part) and choreography E, every duration "
        "and curve a token. This check holds the hooks of the contract's Plot table to the site's markup and "
        "script, and the reveal to no literal duration.")
 def c78():
@@ -3171,7 +3172,7 @@ def c78():
     d = read(DESIGN)
     m = re.search(r"\*\*Plot\.\*\*[^\n]*\n\n\| Part \| Hook \| Note \|\n\|[-|]+\|\n((?:\|[^\n]*\n)+)", d)
     if not m:
-        return ["DESIGN.md: § 3.39 has no Plot table"]
+        return ["DESIGN.md: § 3.40 has no Plot table"]
     html = read(INDEX)
     for row in m.group(1).strip("\n").split("\n"):
         part = row.split("|")[1].strip()
@@ -3223,7 +3224,7 @@ def c80():
     sec = _html_section(html, "charts")
     for m in re.finditer(r"<svg\b.*?</svg>", sec, re.S):
         if "<text" in m.group(0) and 'class="icon' not in m.group(0)[:60]:
-            fails.append(f"§ 43: a plot svg holds <text>: {m.group(0)[:70]}")
+            fails.append(f"§ 44: a plot svg holds <text>: {m.group(0)[:70]}")
     css = read(ROOT / "styles" / "components.css")
     for sel, prop in ((".chart-label", "font-size:var(--t-caption)"), (".pie-total", "font-size:var(--t-h4)"), (".pie-caption", "font-size:var(--t-micro)")):
         m = re.search(r"(?m)^" + re.escape(sel) + r"\{([^}]*)\}", css)
@@ -3248,7 +3249,7 @@ def c81():
     a = html.find('<section class="section" id="timeline">')
     sec = html[a:html.index("</section>", a)] if a >= 0 else ""
     if "<text" in sec:
-        fails.append("#timeline: a <text> inside the plot; labels are HTML (§ 3.41)")
+        fails.append("#timeline: a <text> inside the plot; labels are HTML (§ 3.42)")
     if 'class="timeline-scroll"' not in sec or "timeline-plot" not in sec:
         fails.append("#timeline: the plot is not inside .timeline-scroll")
     if not re.search(r"(?m)^\.timeline-plot\{[^}]*min-width:", css):
@@ -3279,7 +3280,7 @@ def c81():
 @check("82", "The Map acts by cluster, opens a Popover or a Drawer that exist, and asks nothing at run time",
        "v5.0.0: the hex map fetched three libraries and the land from a CDN at every load, opened a card of its "
        "own that was clipped on a phone and printed a negative latency, could not be reached by keyboard, and "
-       "let a 2px hex be the target. It became a contract (§ 3.42): the land baked into the page, one button "
+       "let a 2px hex be the target. It became a contract (§ 3.43): the land baked into the page, one button "
        "per cluster opening the system's Popover, or its Drawer under 720px, and a hex Swatch in the legend. "
        "This check holds the markup, the script, the CSS and the registry to that.")
 def c82():
@@ -3319,7 +3320,7 @@ def c82():
         if f"| `.hexmap-area` | {st} |" not in d:
             fails.append(f"DESIGN.md state index: no .hexmap-area {st} row")
     if re.search(r"\.hexmap[^{]*\{[^}]*transform:\s*scale", css):
-        fails.append("components.css: a map cell scales; the grid never moves (§ 3.42)")
+        fails.append("components.css: a map cell scales; the grid never moves (§ 3.43)")
     return fails
 
 
@@ -3465,7 +3466,7 @@ def c89():
        "v5.0.0: two Card forms joined the system. The row card is a whole-card link: a button inside it nests "
        "one pressable in another, and a keyboard reader meets two stops for one item. The feature card is the "
        "one item a page leads with: its light and its tab are the brand's, and two of them on a page make "
-       "neither lead. This check holds the markup of the site and of § 3.31 to both, and the light to its tokens.")
+       "neither lead. This check holds the markup of the site and of § 3.32 to both, and the light to its tokens.")
 def c90():
     fails = []
     css = read(COMPONENTS)
@@ -3775,6 +3776,57 @@ def c97():
     return fails
 
 
+@check("98", "A segmented control is a tablist of two or three named segments, one stop on Tab and one thumb",
+       "v5.0.0: the Segmented control was born for the Anatomy | Code switch of every component page. "
+       "Its contract is mostly markup a generator writes by hand: the roles, the one tab stop, the label "
+       "beside each icon, the thumb that travels on --d-base and --ease-decel. A copy that drops the label "
+       "or leaves two segments selected renders and looks right; this check reads the markup instead.")
+def c98():
+    fails = []
+    d = read(DESIGN)
+    sec = d[d.index("\n### Segmented control\n"):]
+    sec = sec[:sec.index("\n### ", 1)]
+    ex = re.search(r"```html\n(.*?)```", sec, re.S)
+    sources = [("DESIGN.md § Segmented control", ex.group(1) if ex else "")]
+    html = read(INDEX)
+    sources.append(("index.html", html))
+    ids = set(re.findall(r'\bid="([^"]+)"', html)) | set(re.findall(r'\bid="([^"]+)"', sources[0][1]))
+    panels = set(re.findall(r'<div class="segmented-panel[^"]*" role="tabpanel" id="([^"]+)"', html + sources[0][1]))
+    seen = 0
+    for where, text in sources:
+        for m in re.finditer(r'<div class="segmented( [^"]*)?"([^>]*)>(.*?)</div>', text, re.S):
+            seen += 1
+            attrs, inner = m.group(2), m.group(3)
+            if 'role="tablist"' not in attrs or "aria-label=" not in attrs:
+                fails.append(f"{where}: a .segmented without role=\"tablist\" and a name")
+            items = re.findall(r'<button([^>]*class="segmented-item"[^>]*)>(.*?)</button>', inner, re.S)
+            if not 2 <= len(items) <= 3:
+                fails.append(f"{where}: a segmented control with {len(items)} segments; two or three")
+            sel = [a for a, _ in items if 'aria-selected="true"' in a]
+            if len(sel) != 1:
+                fails.append(f"{where}: {len(sel)} segments selected; exactly one")
+            for a, body in items:
+                on = 'aria-selected="true"' in a
+                if 'role="tab"' not in a:
+                    fails.append(f"{where}: a segment without role=\"tab\"")
+                if on == ('tabindex="-1"' in a):
+                    fails.append(f"{where}: the tab stop is not on the selected segment alone")
+                if 'class="icon' not in body or not re.sub(r"<[^>]+>", "", body).strip():
+                    fails.append(f"{where}: a segment without both an icon and a label")
+                c = re.search(r'aria-controls="([^"]+)"', a)
+                if not c or c.group(1) not in panels:
+                    fails.append(f"{where}: a segment controls no .segmented-panel")
+            if inner.count('class="segmented-thumb"') != 1 or 'class="segmented-thumb" aria-hidden="true"' not in inner:
+                fails.append(f"{where}: a segmented control needs one .segmented-thumb, hidden from assistive tech")
+    if seen < 3:
+        fails.append(f"{seen} segmented controls found; the contract example and the two demos of § 32 are three")
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    t = re.search(r"\.segmented-thumb\{([^}]*)\}", css)
+    if not t or not re.search(r"transition:transform var\(--d-base\) var\(--ease-decel\), width var\(--d-base\) var\(--ease-decel\)", t.group(1)):
+        fails.append("components.css: the thumb does not travel on --d-base · --ease-decel")
+    return fails
+
+
 @check("70", "The brand mark is the animated SVG: every asset the site names exists, and no GIF is left",
        "v5.0.0: the brand mark and the loader were two 3.29 MB GIFs of the same 225 frames, one at 40 ms "
        "and one at 20 ms a frame. They became one 375 KB SVG (17 KB over the wire) and its 4.5 s twin. "
@@ -3968,7 +4020,7 @@ def c85():
 
 
 @check("83", "A sortable table has one driver, a button in each sortable header and both album drawings in it",
-       "v5.0.0: the Table gained sorting (§ 3.38, site § 42.2). A sortable header is a contract of five parts that each "
+       "v5.0.0: the Table gained sorting (§ 3.39, site § 43.2). A sortable header is a contract of five parts that each "
        "fail silently: a button (a th that listens for clicks cannot be reached by keyboard), one header with aria-sort "
        "(none, and the order is invisible to a screen reader; two, and it lies), the two album drawings in the button "
        "(the header shows ascending until it drives descending), the driver a step lighter, and no transition. This "
@@ -4007,7 +4059,7 @@ def c83():
     css = read(COMPONENTS)
     m = re.search(r"\.table th\[aria-sort\]\{([^}]*)\}", css)
     if not m or "var(--obsidian-800)" not in m.group(1) or "var(--obsidian-200)" not in m.group(1):
-        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.38 says")
+        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.39 says")
     for sel, decl in re.findall(r"(\.table-sort[^{]*)\{([^}]*)\}", css):
         if "transition" in decl:
             fails.append(f"components.css: {sel.strip()} has a transition; the sort is a state")
