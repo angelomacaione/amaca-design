@@ -11,7 +11,7 @@
 
    Usage (React / Tailwind v4 project):
      @import "tailwindcss";
-     @import "amaca-design/styles/theme.css";
+     @import "amaca-design/theme.css";   (npm install amaca-design)
 
    Tokens with no Tailwind namespace (gradients --grad-*,
    loader sizes --loader-*, layout --sidebar-w / --content-max /

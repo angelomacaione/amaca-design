@@ -27,8 +27,10 @@ Per-runtime install instructions, model capability tiers, and a 30-second compli
 Tailwind v4 `@theme` is first-class. One line wires the full token scale into a project:
 
 ```css
-@import "amaca-design/styles/theme.css";
+@import "amaca-design/theme.css";
 ```
+
+(`npm install amaca-design`; `theme.css` brings `tokens.css` with it.)
 
 `theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-primary-500`, `rounded-md`) against the same chain the CSS surface uses.
 

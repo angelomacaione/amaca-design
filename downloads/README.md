@@ -86,7 +86,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 ### Tailwind · `zips/amaca-tailwind.zip`
 - **What** — every token as a Tailwind v4 `@theme` block (`theme.css`) → `bg-primary-500`, `p-4`, `rounded-lg`.
 - **For** — React/Vue/Svelte on Tailwind v4.
-- **Get it / where it goes** — `npm install github:angelomacaione/amaca-design`; `@import "amaca-design/styles/theme.css";` after `@import "tailwindcss";`.
+- **Get it / where it goes** — `npm install amaca-design`; `@import "amaca-design/theme.css";` after `@import "tailwindcss";`.
 - **Use** — write the utilities; Tailwind generates them from the `@theme` names.
 - **Verify** — `npm run build`; `bg-primary-500` resolves to `#F051D5`, a typo like `bg-primary-550` produces nothing.
 - **Pairs with** — `tokens.css` (raw `var()` fallback), the IDE/Claude rules that enforce token-only use.

@@ -4103,8 +4103,10 @@ The same logical token wears three names. `var(--primary-500)` (HTML), `bg-prima
 
 ```css
 @import "tailwindcss";
-@import "amaca-design/styles/theme.css";
+@import "amaca-design/theme.css";
 ```
+
+The package is `amaca-design` on npm; `theme.css` imports `tokens.css` itself.
 
 Tailwind generates the utilities (`bg-primary-500`, `p-4`, `rounded-lg`, `duration-quick`). Where Tailwind v4 is unavailable, fall back to CSS modules with raw `var(--token)` syntax — functionally identical, less ergonomic.
 

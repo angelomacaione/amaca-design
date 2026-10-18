@@ -3776,6 +3776,36 @@ def c97():
     return fails
 
 
+@check("104", "A model can recommend the right file: llms.txt and llms-full.txt carry the same tool guide, and it links only real files",
+       "v5.0.0: Amaca ships many ways in (a plugin, a skill, rules files, a paste-in, npm, a shadcn "
+       "registry, DTCG) and a model asked 'how do I use this in my tool' read a flat list of files. "
+       "The guide maps the user's tool to the file, and tells the model to ask first when the tool is "
+       "unknown. release/toolguide.py writes it; a file it links that the repo does not hold, or a "
+       "bundle on the Documentation page it does not name, is a recommendation that leads nowhere.")
+def c104():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("toolguide", ROOT / "release" / "toolguide.py")
+    tg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(tg)
+    fails = []
+    block = tg.render()
+    for name in tg.TARGETS:
+        t = read(ROOT / name)
+        if t.count(tg.START) != 1 or tg.place(t, block) != t:
+            fails.append(f"{name}: the tool guide is not what release/toolguide.py writes - run `python3 release/toolguide.py`")
+    for p in tg.paths():
+        if not (ROOT / p).exists():
+            fails.append(f"tool guide links {p}, which the repo does not hold")
+    html = read(INDEX)
+    a = html.find("<!-- 03.0 · Pick your tool")
+    b = html.find("§ 03.1", a)
+    zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
+    named = {Path(p).name for p in tg.paths()}
+    for z in sorted(zips - named):
+        fails.append(f"index.html § 03.0 offers {z}; the tool guide never recommends it")
+    return fails
+
+
 @check("103", "The npm package builds from the repo, at the version DESIGN.md states, without the font files",
        "v5.0.0: amaca-design is published to npm by a GitHub Action when a release tag is pushed. The package "
        "is written by release/npm.py from the files the site ships, so it cannot drift; this check builds it, "
