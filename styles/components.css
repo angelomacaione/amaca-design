@@ -3773,3 +3773,36 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .hexmap[data-open] .hexmap-svg polygon:not([data-sel]){fill:var(--obsidian-700)}
 /* the legend's hex: a regular hexagon, pointy-top (the map's cell turned 30 degrees), 12 high */
 .swatch-hex{width:calc(var(--s-3) * 0.866);border-radius:0;box-shadow:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+
+
+/* ─── Kit (site chrome, v5.0.0): the Anatomy | Code card of a component page.
+   release/kit.py writes the markup from the repo; the stage on the left, the panel on the right ─── */
+.kit{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+  border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-lg);
+  background:var(--surface-raised);overflow:hidden;
+}
+.kit-stage{
+  display:flex;align-items:center;justify-content:center;padding:var(--s-10);
+  background-image:linear-gradient(var(--obsidian-700) var(--bw-1),transparent var(--bw-1)),linear-gradient(90deg,var(--obsidian-700) var(--bw-1),transparent var(--bw-1));
+  background-size:var(--s-4) var(--s-4);background-position:center;
+}
+.kit-panel{display:flex;flex-direction:column;min-width:0;background:var(--surface-sunken);border-left:var(--bw-1) solid var(--border-subtle)}
+.kit-head{display:flex;align-items:center;padding:var(--s-4);border-bottom:var(--bw-1) solid var(--border-subtle)}
+.kit-body{padding:var(--s-4) var(--s-5);overflow:auto;max-height:calc(var(--s-32) * 3)}
+.kit-group{display:block;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.kit-part{display:grid;grid-template-columns:var(--s-6) var(--s-16) minmax(0,1fr);gap:var(--s-3);align-items:start;padding:var(--s-3) 0;border-bottom:var(--bw-1) solid var(--border-subtle);font-size:var(--t-small)}
+.kit-part:last-child{border-bottom:0}
+.kit-num{display:flex;align-items:center;justify-content:center;width:var(--s-5);height:var(--s-5);border:var(--bw-1) solid var(--obsidian-400);border-radius:var(--r-full);font-size:var(--t-micro);color:var(--obsidian-100)}
+.kit-label{color:var(--obsidian-300);line-height:var(--s-5)}
+.kit-main{font-family:var(--font-mono);color:var(--obsidian-100);line-height:var(--s-5);overflow-wrap:anywhere}
+.kit-sub{display:block;font-size:var(--t-caption);color:var(--obsidian-300);line-height:1.5}
+.kit-code-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);margin-bottom:var(--s-3)}
+.kit-tools{display:flex;gap:var(--s-1)}
+.kit-code{margin:0 0 var(--s-4);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-200);white-space:pre}
+.kit-code b{font-weight:500;color:var(--obsidian-050)}
+@media (max-width: 720px){
+  .kit{grid-template-columns:1fr}
+  .kit-stage{padding:var(--s-8)}
+  .kit-panel{border-left:0;border-top:var(--bw-1) solid var(--border-subtle)}
+}

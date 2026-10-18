@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=593410be">
-<link rel="stylesheet" href="styles/components.css?v=dd465fd1">
+<link rel="stylesheet" href="styles/components.css?v=3b42cbe7">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -1329,7 +1329,62 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 09.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 09.5</span></div>
+          <p class="subsection-desc">The primary button, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <!-- kit:button --><div class="kit" data-kit="button" data-kit-file="amaca-button.html"><div class="kit-stage"><button class="btn btn-primary">Primary action</button></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-button-anatomy-tab" aria-selected="true" aria-controls="kit-button-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-button-code-tab" aria-selected="false" aria-controls="kit-button-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-button-anatomy" aria-labelledby="kit-button-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Fill</span><span class="kit-main">--primary-500<span class="kit-sub">pressed --primary-600</span></span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Label</span><span class="kit-main">--obsidian-050<span class="kit-sub">--t-body 500 · --tr-snug</span></span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Edge</span><span class="kit-main">--bw-1 --primary-500<span class="kit-sub">pressed --primary-600</span></span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Box</span><span class="kit-main">min-height --s-10<span class="kit-sub">padding 0 --s-6 · gap --s-2</span></span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Shape</span><span class="kit-main">--r-full</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Shadow</span><span class="kit-main">--sh-2<span class="kit-sub">hover --sh-glow + --sh-3 · pressed --sh-1</span></span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Focus</span><span class="kit-main">--ring-halo<span class="kit-sub">outline --focus-width --obsidian-100 · offset --focus-offset</span></span></div><div class="kit-part"><span class="kit-num">8</span><span class="kit-label">Motion</span><span class="kit-main">--d-quick · --ease-standard<span class="kit-sub">transform --d-quick · --ease-spring</span></span></div><div class="kit-part"><span class="kit-num">9</span><span class="kit-label">Disabled</span><span class="kit-main">opacity 0.4<span class="kit-sub">cursor not-allowed</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-button-code" aria-labelledby="kit-button-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;button class="btn btn-primary"&gt;Primary action&lt;/button&gt;</pre><pre class="kit-code" data-kit-part="css">.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(<b>--s-2</b>);
+  font-family:var(<b>--font-sans</b>);
+  font-size:var(<b>--t-body</b>);
+  font-weight:500;
+  letter-spacing:var(<b>--tr-snug</b>);
+  line-height:1;
+  min-height:var(<b>--s-10</b>);
+  padding:0 var(<b>--s-6</b>);
+  border-radius:var(<b>--r-full</b>);
+  transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
+  border:var(<b>--bw-1</b>) solid transparent;
+  white-space:nowrap;
+}
+.btn:disabled{
+  opacity:0.4;
+  cursor:not-allowed;
+}
+.btn-primary{
+  background:var(<b>--primary-500</b>);
+  color:var(<b>--obsidian-050</b>);
+  border-color:var(<b>--primary-500</b>);
+  box-shadow:var(<b>--sh-2</b>);
+  transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>), transform var(<b>--d-quick</b>) var(<b>--ease-spring</b>);
+}
+.btn-primary:hover{
+  background:var(<b>--primary-500</b>);
+  color:var(<b>--obsidian-050</b>);
+  border-color:var(<b>--primary-500</b>);
+  box-shadow:var(<b>--sh-glow</b>), var(<b>--sh-3</b>);
+}
+.btn-primary:active:not(:disabled){
+  background:var(<b>--primary-600</b>);
+  border-color:var(<b>--primary-600</b>);
+  box-shadow:var(<b>--sh-1</b>);
+  transform:scale(.97);
+}
+@media (prefers-reduced-motion: reduce){
+  .btn-primary:active:not(:disabled){
+    transform:none;
+  }
+}
+.btn:focus-visible{
+  outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
+  outline-offset:var(<b>--focus-offset</b>);
+  box-shadow:var(<b>--ring-halo</b>);
+}</pre></div></div></div><!-- /kit:button -->
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 09.6</span></div>
           <p class="subsection-desc">One primary per screen; the variant says how much it matters.</p>
           <div class="do-dont">
             <div class="do">
@@ -8202,6 +8257,34 @@ if ('IntersectionObserver' in window) {
         trigger.setAttribute('aria-expanded', String(!isOpen));
       });
     });
+  });
+})();
+</script>
+<script>
+// --- kit: the Anatomy | Code card of a component page (release/kit.py writes it) ---
+(function(){
+  document.querySelectorAll('[data-kit]').forEach(function(kit){
+    function part(n){ const el = kit.querySelector('[data-kit-part="' + n + '"]'); return el ? el.textContent : ''; }
+    const copy = kit.querySelector('[data-kit-copy]');
+    const save = kit.querySelector('[data-kit-download]');
+    if(copy){
+      copy.addEventListener('click', function(){
+        const text = part('html') + '\n\n' + part('css') + '\n';
+        const done = function(){ copy.textContent = 'Copied'; };
+        if(navigator.clipboard){ navigator.clipboard.writeText(text).then(done, function(){}); }
+      });
+      copy.addEventListener('blur', function(){ copy.textContent = 'Copy'; });
+    }
+    if(save){
+      save.addEventListener('click', function(){
+        const body = '<!-- Amaca. Load the Amaca tokens (styles/tokens.css) before this file. -->\n<style>\n' + part('css') + '\n</style>\n' + part('html') + '\n';
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([body], {type: 'text/html'}));
+        a.download = kit.dataset.kitFile || 'amaca.html';
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(a.href);
+      });
+    }
   });
 })();
 </script>

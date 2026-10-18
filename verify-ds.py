@@ -2314,7 +2314,7 @@ R_FULL_RATIFIED = {
     ".slider-input::-webkit-slider-thumb", ".slider-input::-moz-range-thumb", ".slider-pair::before", ".swatch-tile-pos::after", ".swatch-tile-rail", ".swatch-tile-ball", ".chat-waveform .bar", ".diagram-legend-swatch.is-ok", ".hexmap-card .hc-dot", ".deck-dot", ".cs-point::before",
     ".stepper-dot", '.stepper-step[aria-current="step"] .stepper-dot::after', ".progress-track",
     ".navbar-floating", ".navbar-floating .navbar-nav",
-    ".segmented", ".segmented-item", ".segmented-thumb",
+    ".segmented", ".segmented-item", ".segmented-thumb", ".kit-num",
 }
 
 
@@ -3773,6 +3773,30 @@ def c97():
                         fails.append(f"components.css: {sel} {{ {prop}: {val.strip()} }} — a component dimension is a token")
     if rows < 30:
         fails.append(f"size index: {rows} rows, fewer than the components it must cover")
+    return fails
+
+
+@check("99", "A page's Anatomy | Code card is what release/kit.py writes from the repo",
+       "v5.0.0: every component page gains a card with its example, its parts with the tokens that draw them, and its code. "
+       "The card copies the CSS of components.css and the values of tokens.css; a copy written by hand "
+       "drifts the first time either file changes. release/kit.py writes it, and this check runs the "
+       "generator and compares, so a stale card fails the release instead of reaching a reader.")
+def c99():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("kit", ROOT / "release" / "kit.py")
+    kit = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(kit)
+    html = read(INDEX)
+    found = {m.group(2): m.group(3) for m in kit.blocks(html)}
+    fails = []
+    for name in kit.KITS:
+        if name not in found:
+            fails.append(f"index.html: no <!-- kit:{name} --> block")
+        elif found[name] != kit.build(name):
+            fails.append(f"index.html: the {name} kit is not what release/kit.py writes — run `python3 release/kit.py`")
+    for name in found:
+        if name not in kit.KITS:
+            fails.append(f"index.html: a kit:{name} block with no entry in release/kit.py")
     return fails
 
 
