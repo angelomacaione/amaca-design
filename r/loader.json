@@ -1,0 +1,134 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "type": "registry:item",
+  "title": "Loader",
+  "description": "A real wait; the large size for full-page waits, the extra-small inline and in buttons.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/loader.css",
+      "type": "registry:file",
+      "target": "styles/amaca/loader.css",
+      "content": ".loader{\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  position:relative;\n  flex-shrink:0;\n  vertical-align:middle;\n  line-height:1;\n}\n.loader-xs{\n  width:var(--loader-xs);\n  height:var(--loader-xs);\n}\n.loader-sm{\n  width:var(--loader-sm);\n  height:var(--loader-sm);\n}\n.loader-md{\n  width:var(--loader-md);\n  height:var(--loader-md);\n}\n.loader-lg{\n  width:var(--loader-lg);\n  height:var(--loader-lg);\n}\n.loader-anim{\n  display:block;\n  width:100%;\n  height:100%;\n  object-fit:contain;\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);\n}\n.loader-fallback{\n  position:absolute;\n  inset:0;\n  display:none;\n  align-items:center;\n  justify-content:center;\n}\n.loader-fallback svg{\n  width:100%;\n  height:100%;\n  display:block;\n}\n.loader-fallback circle{\n  fill:none;\n  stroke:var(--primary-500);\n  stroke-width:2.5;\n  stroke-linecap:round;\n  stroke-dasharray:60 60;\n  stroke-dashoffset:30;\n  transform-origin:center;\n  animation:loader-spin 1400ms linear infinite;\n}\n.loader-xs .loader-fallback circle{\n  stroke-width:2;\n}\n.loader-lg .loader-fallback circle{\n  stroke-width:3;\n}\n.loader-with-label{\n  display:inline-flex;\n  flex-direction:column;\n  align-items:center;\n  gap:var(--s-3);\n  width:auto;\n  height:auto;\n}\n.loader-with-label .loader-anim, .loader-with-label .loader-fallback{\n  position:relative;\n}\n.loader-with-label > .loader-anim, .loader-with-label > .loader-fallback{\n  width:var(--loader-md);\n  height:var(--loader-md);\n  position:relative;\n}\n.loader-with-label.loader-sm > .loader-anim, .loader-with-label.loader-sm > .loader-fallback{\n  width:var(--loader-sm);\n  height:var(--loader-sm);\n}\n.loader-with-label.loader-lg > .loader-anim, .loader-with-label.loader-lg > .loader-fallback{\n  width:var(--loader-lg);\n  height:var(--loader-lg);\n}\n.loader-inline{\n  display:inline-flex;\n  flex-direction:row;\n  align-items:center;\n  gap:var(--s-2);\n  width:auto;\n  height:auto;\n}\n.loader-inline > .loader-anim, .loader-inline > .loader-fallback{\n  width:var(--loader-xs);\n  height:var(--loader-xs);\n  position:relative;\n}\n.loader-inline.loader-sm > .loader-anim, .loader-inline.loader-sm > .loader-fallback{\n  width:var(--loader-sm);\n  height:var(--loader-sm);\n}\n.loader-label{\n  font-size:var(--t-body);\n  color:var(--obsidian-200);\n  letter-spacing:var(--tr-snug);\n  white-space:nowrap;\n}\n.loader-inline .loader-label{\n  font-size:var(--t-small);\n  color:var(--obsidian-300);\n}\n.loader-check{\n  position:absolute;\n  inset:0;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  opacity:0;\n  transform:scale(0.5);\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-base) var(--ease-spring);\n  pointer-events:none;\n}\n.loader-check svg{\n  width:60%;\n  height:60%;\n  color:var(--success);\n}\n.loader-overlay{\n  position:absolute;\n  inset:0;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  background:var(--scrim);\n  backdrop-filter:blur(var(--blur-veil));\n  z-index:5;\n  width:auto;\n  height:auto;\n  border-radius:inherit;\n  opacity:0;\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-standard);\n}\n.loader-page{\n  position:absolute;\n  inset:0;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-5);\n  background:var(--obsidian-950);\n  z-index:var(--z-sticky);\n}\n.loader-comp{\n  display:flex;\n  flex-direction:column;\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-lg);\n  overflow:hidden;\n  min-height:220px;\n}\n.loader-comp-head{\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  padding:var(--s-4) var(--s-5);\n  border-bottom:var(--bw-1) solid var(--obsidian-800);\n}\n.loader-comp-eyebrow{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  color:var(--primary-400);\n  text-transform:uppercase;\n}\n.loader-comp-title{\n  font-size:var(--t-small);\n  font-weight:600;\n  color:var(--obsidian-100);\n  letter-spacing:var(--tr-snug);\n}\n.loader-comp-body{\n  flex:1;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  padding:var(--s-6);\n  position:relative;\n}\n.loader-comp-actions{\n  display:flex;\n  gap:var(--s-3);\n  padding:var(--s-3) var(--s-5);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n  background:var(--obsidian-850);\n}\n.loader-device{\n  width:100%;\n  height:240px;\n  background:var(--obsidian-950);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-md);\n  position:relative;\n  overflow:hidden;\n}\n.loader-device-bar{\n  display:flex;\n  align-items:center;\n  gap:var(--s-1);\n  padding:var(--s-2) var(--s-3);\n  border-bottom:var(--bw-1) solid var(--obsidian-800);\n  background:var(--obsidian-900);\n}\n.loader-mini-composer{\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  padding:var(--s-3);\n  background:var(--obsidian-850);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n}\n.loader-mini-bubble{\n  align-self:flex-start;\n  margin-bottom:var(--s-3);\n  padding:var(--s-3) var(--s-4);\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-3);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.loader-scale{\n  display:grid;\n  grid-template-columns:repeat(4, 1fr);\n  gap:var(--s-4);\n}\n.loader-scale-cell{\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  gap:var(--s-4);\n  padding:var(--s-6) var(--s-4);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-md);\n  min-height:180px;\n  justify-content:center;\n}\n.loader-scale-cell .loader-anim{\n  position:relative;\n}\n.loader-scale-cell .loader-fallback{\n  position:absolute;\n  inset:0;\n}\n.loader-variants{\n  display:grid;\n  grid-template-columns:repeat(5, minmax(0, 1fr));\n  gap:var(--s-4);\n}\n.loader-variant-cell{\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-4);\n  padding:var(--s-6) var(--s-4);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-md);\n  min-height:220px;\n  position:relative;\n}\n.loader-anatomy{\n  display:grid;\n  grid-template-columns:minmax(280px, 380px) 1fr;\n  gap:var(--s-10);\n  padding:var(--s-8);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-lg);\n  align-items:center;\n}\n.loader-anatomy-canvas{\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  gap:var(--s-4);\n  padding:var(--s-8);\n  background:var(--obsidian-950);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-radius:var(--r-md);\n}\n.loader-anatomy-canvas .loader-anim{\n  position:relative;\n}\n.loader-anatomy-canvas .loader-fallback{\n  position:absolute;\n  inset:0;\n}\n.loader-anatomy-legend{\n  display:grid;\n  gap:var(--s-3);\n}\n.loader-anatomy-row{\n  display:grid;\n  grid-template-columns:28px 1fr auto;\n  gap:var(--s-3);\n  align-items:baseline;\n  padding-bottom:var(--s-3);\n  border-bottom:var(--bw-1) solid var(--obsidian-800);\n}\n.loader-anatomy-row:last-child{\n  border-bottom:none;\n  padding-bottom:0;\n}\n.loader-anatomy-num{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  color:var(--primary-400);\n}\n.loader-anatomy-label{\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n  font-weight:500;\n}\n.loader-anatomy-value{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-300);\n  text-transform:uppercase;\n}\n@media (prefers-reduced-motion: reduce){\n  .loader-anim{\n    display:none !important;\n  }\n  .loader-fallback{\n    display:flex;\n  }\n  .loader-check{\n    transition:none;\n  }\n}\n@media (max-width: 720px){\n  .loader-scale{\n    grid-template-columns:repeat(2, 1fr);\n  }\n  .loader-variants{\n    grid-template-columns:repeat(2, 1fr);\n  }\n  .loader-anatomy{\n    grid-template-columns:1fr;\n    padding:var(--s-5);\n    gap:var(--s-6);\n  }\n}\n"
+    },
+    {
+      "path": "amaca/loader.html",
+      "type": "registry:file",
+      "target": "components/amaca/loader.html",
+      "content": "<span class=\"loader loader-lg\" role=\"status\" aria-label=\"Loading\"><img class=\"loader-anim\" src=\"assets/logo-loader-fast.svg\" alt=\"\" aria-hidden=\"true\"></span>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.19 Loader",
+      "site": "https://www.amaca.design/#loader",
+      "usage": {
+        "use_it_when": [
+          "A real wait; the large size for full-page waits, the extra-small inline and in buttons."
+        ],
+        "use_something_else_when": [
+          "A wait under 200 ms → show the result, no loader.",
+          "A wait past 800 ms → Skeleton, when the shape of the content is known.",
+          "Progress is known → Progress."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "size",
+          "values": [
+            ".loader-xs",
+            ".loader-sm",
+            ".loader-md",
+            ".loader-lg"
+          ],
+          "default": ".loader-md",
+          "role": "size"
+        },
+        {
+          "axis": "type",
+          "values": [
+            "standalone",
+            ".loader-with-label",
+            ".loader-inline",
+            "in a button"
+          ],
+          "default": "standalone",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Size",
+          "tokens": [
+            "--loader-lg"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Mark",
+          "tokens": [],
+          "value": "logo-loader-fast.svg",
+          "states": "the Amaca logo, drawn and animated in the file"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Show the loader within 100ms of the action that triggered the wait. Late loaders read as glitches, not feedback.",
+        "A 200ms wait deserves no loader at all — show the result.",
+        "One full-page loader per route at a time. After 800ms hand off to a Skeleton.",
+        "Don't stack a section loader inside a card that already sits inside a full-page loader.",
+        "Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.",
+        "Never use the loader as a decorative animation. The mark is in motion because something is loading."
+      ],
+      "classes": [
+        "loader",
+        "loader-anatomy",
+        "loader-anatomy-canvas",
+        "loader-anatomy-label",
+        "loader-anatomy-legend",
+        "loader-anatomy-num",
+        "loader-anatomy-row",
+        "loader-anatomy-value",
+        "loader-anim",
+        "loader-check",
+        "loader-comp",
+        "loader-comp-actions",
+        "loader-comp-body",
+        "loader-comp-eyebrow",
+        "loader-comp-head",
+        "loader-comp-title",
+        "loader-device",
+        "loader-device-bar",
+        "loader-fallback",
+        "loader-inline",
+        "loader-label",
+        "loader-lg",
+        "loader-md",
+        "loader-mini-bubble",
+        "loader-mini-composer",
+        "loader-overlay",
+        "loader-page",
+        "loader-scale",
+        "loader-scale-cell",
+        "loader-sm",
+        "loader-variant-cell",
+        "loader-variants",
+        "loader-with-label",
+        "loader-xs"
+      ]
+    }
+  }
+}

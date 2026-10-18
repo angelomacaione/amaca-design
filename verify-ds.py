@@ -3776,6 +3776,48 @@ def c97():
     return fails
 
 
+@check("101", "The shadcn registry in r/ is what release/registry.py writes from the repo",
+       "v5.0.0: every component installs with `npx shadcn add https://www.amaca.design/r/<name>.json`. "
+       "An item carries the CSS of its classes, one example and its contract (usage, parts, rules, variants); "
+       "a JSON written by hand drifts the first time the CSS or the contract changes. release/registry.py "
+       "writes r/, and this check runs it and compares.")
+def c101():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("registry", ROOT / "release" / "registry.py")
+    reg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(reg)
+    want = reg.build_all()
+    d = ROOT / "r"
+    have = {p.name: p.read_text(encoding="utf-8") for p in d.glob("*.json")} if d.exists() else {}
+    bad = sorted(n for n in set(want) | set(have) if want.get(n) != have.get(n))
+    return [f"r/{n}: not what release/registry.py writes - run `python3 release/registry.py`" for n in bad]
+
+
+@check("102", "Every variant the contract declares is on its page, in a demo",
+       "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
+       "visual source of truth the owner validates against, so a declared class no demo shows is a variant "
+       "nobody has seen: the contract and the page have drifted apart.")
+def c102():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("registry", ROOT / "release" / "registry.py")
+    reg = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(reg)
+    html = read(INDEX)
+    # a demo built by script names its classes in className / classList.add strings
+    scripted = {c for g in re.findall(r"(?:className\s*=\s*|classList\.add\()\s*'([^']+)'", html) for c in re.split(r"[\s,']+", g) if c}
+    fails = []
+    for name, (row, only, kits, page, uhead) in reg.ITEMS.items():
+        pid = page or name
+        m = re.search(r'<section class="section" id="' + pid + r'">(.*?)(?=<section class="section"|$)', html, re.S)
+        used = {c for g in re.findall(r'class="([^"]+)"', m.group(1) if m else "") for c in g.split()}
+        used |= scripted
+        for ax in reg.variants(reg.DESIGN_TITLE.get(name, row)):
+            for val in ax["values"]:
+                if val.startswith(".") and val[1:] not in used:
+                    fails.append(f"§ {pid}: `{val}` ({ax['axis']}) is declared in DESIGN.md and shown in no demo")
+    return fails
+
+
 @check("100", "A component page reads in one order, and its Rules are the contract's, word for word",
        "v5.0.0: a component page reads Usage, the Anatomy card, Rules, the variants, Do and don't. "
        "The Rules repeat the rule lists of the component's section of DESIGN.md; a copy written by hand "

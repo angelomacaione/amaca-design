@@ -1,0 +1,125 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segmented",
+  "type": "registry:item",
+  "title": "Segmented control",
+  "description": "Two or three views of the same content, switched in place: the anatomy and the code of a component, a chart and its table.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/segmented.css",
+      "type": "registry:file",
+      "target": "styles/amaca/segmented.css",
+      "content": ".segmented-item:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.segmented{\n  position:relative;\n  display:inline-flex;\n  align-items:stretch;\n  padding:var(--s-1);\n  background:var(--surface-sunken);\n  border:var(--bw-1) solid var(--border-subtle);\n  border-radius:var(--r-full);\n}\n.segmented-fill{\n  display:flex;\n}\n.segmented-item{\n  position:relative;\n  z-index:1;\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-2);\n  height:var(--s-10);\n  padding:0 var(--s-4);\n  background:transparent;\n  border:none;\n  border-radius:var(--r-full);\n  cursor:pointer;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-weight:500;\n  line-height:1;\n  white-space:nowrap;\n  color:var(--obsidian-300);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.segmented-fill .segmented-item{\n  flex:1 1 0;\n}\n.segmented-item:hover{\n  color:var(--obsidian-100);\n}\n.segmented-item:active{\n  color:var(--obsidian-300);\n}\n.segmented-item[aria-selected=\"true\"]{\n  color:var(--obsidian-100);\n}\n.segmented-thumb{\n  position:absolute;\n  top:var(--s-1);\n  bottom:var(--s-1);\n  left:0;\n  width:0;\n  background:var(--obsidian-700);\n  border:var(--bw-1) solid var(--border-input);\n  border-radius:var(--r-full);\n  box-shadow:var(--sh-1);\n  transition:transform var(--d-base) var(--ease-decel), width var(--d-base) var(--ease-decel);\n  pointer-events:none;\n  will-change:transform,width;\n}\n.segmented-panel{\n  opacity:0;\n  transform:translateY(6px);\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);\n}\n@media (prefers-reduced-motion: reduce){\n  .segmented-item, .segmented-thumb{\n    transition:none;\n  }\n  .segmented-panel{\n    transition:none;\n    opacity:1;\n    transform:none;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/segmented.html",
+      "type": "registry:file",
+      "target": "components/amaca/segmented.html",
+      "content": "<div class=\"segmented\" role=\"tablist\" aria-label=\"View\" data-segmented><button type=\"button\" class=\"segmented-item\" role=\"tab\" id=\"kit-seg-list-tab\" aria-selected=\"true\" aria-controls=\"kit-seg-list\"><svg class=\"icon icon-md\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z\"/><path d=\"M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z\"/><path d=\"M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z\"/><path d=\"M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z\"/></svg>List</button><button type=\"button\" class=\"segmented-item\" role=\"tab\" id=\"kit-seg-code-tab\" aria-selected=\"false\" aria-controls=\"kit-seg-code\" tabindex=\"-1\"><svg class=\"icon icon-md\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10\"/></svg>Code</button><span class=\"segmented-thumb\" aria-hidden=\"true\"></span></div><div class=\"segmented-panel\" role=\"tabpanel\" id=\"kit-seg-list\" aria-labelledby=\"kit-seg-list-tab\"></div><div class=\"segmented-panel\" role=\"tabpanel\" id=\"kit-seg-code\" aria-labelledby=\"kit-seg-code-tab\" hidden></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.28 Segmented control",
+      "site": "https://www.amaca.design/#segmented",
+      "usage": {
+        "use_it_when": [
+          "Two or three views of the same content, switched in place: the anatomy and the code of a component, a chart and its table."
+        ],
+        "use_something_else_when": [
+          "Views of different content, or more than three → Tabs.",
+          "Moving between pages → Navigation.",
+          "A value the reader submits with a form → Radio."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "size",
+          "values": [
+            "hug",
+            ".segmented-fill"
+          ],
+          "default": "hug",
+          "role": "size"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Track",
+          "tokens": [
+            "--surface-sunken",
+            "--bw-1",
+            "--border-subtle",
+            "--r-full",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Item",
+          "tokens": [
+            "--obsidian-300",
+            "--font-sans",
+            "--t-small",
+            "--s-4",
+            "--s-2"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100 · selected --obsidian-100"
+        },
+        {
+          "name": "Thumb",
+          "tokens": [
+            "--obsidian-700",
+            "--bw-1",
+            "--border-input",
+            "--r-full",
+            "--sh-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-base",
+            "--ease-decel"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "States: § 3.0.1. default · hover · active · selected · focus-visible, values in the state index.",
+        "The thumb is the selection. Its edge, --border-input on --surface-sunken, reads at 3.27 : 1 (WCAG 1.4.11); without the edge the fill alone is 1.24 : 1. The label of the selected segment is --obsidian-100 (12.57 : 1 on the thumb), the others --obsidian-300 (6.30 : 1 on the track).",
+        "One stop on Tab. The selected segment carries tabindex=\"0\", the others -1. Arrow Left and Right select the neighbour and move the focus to it, Home and End go to the ends.",
+        "Two or three segments, each an icon and a label. The label stays: an icon alone does not say which view it opens.",
+        "The thumb travels under 120px between neighbouring segments, so it rides --d-base (Motion, duration by distance)."
+      ],
+      "classes": [
+        "segmented",
+        "segmented-fill",
+        "segmented-item",
+        "segmented-panel",
+        "segmented-thumb"
+      ]
+    }
+  }
+}

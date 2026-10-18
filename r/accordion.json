@@ -1,0 +1,146 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "type": "registry:item",
+  "title": "Accordion",
+  "description": "Dense reference content: headers scanned first, read selectively.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/accordion.css",
+      "type": "registry:file",
+      "target": "styles/amaca/accordion.css",
+      "content": ".accordion{\n  display:flex;\n  flex-direction:column;\n  border-radius:var(--r-lg);\n  overflow:hidden;\n  background:var(--obsidian-950);\n}\n.acc-item{\n  border-bottom:var(--bw-1) solid var(--obsidian-800);\n  background:transparent;\n  transition:background var(--d-quick) var(--ease-decel);\n}\n.acc-item:last-child{\n  border-bottom:0;\n}\n.acc-item.is-open{\n  background:rgba(240,81,213,0.04);\n}\n.acc-trigger{\n  display:grid;\n  grid-template-columns:auto minmax(0,1fr) auto;\n  align-items:center;\n  gap:var(--s-4);\n  width:100%;\n  min-height:calc(var(--s-12) + var(--s-2));\n  padding:var(--s-4) var(--s-6);\n  background:transparent;\n  border:0;\n  color:var(--obsidian-100);\n  text-align:left;\n  cursor:pointer;\n  font:inherit;\n  font-size:var(--t-body);\n  letter-spacing:var(--tr-snug);\n  transition:color var(--d-quick) var(--ease-decel);\n}\n.acc-trigger:hover{\n  color:var(--obsidian-050);\n}\n.acc-trigger:active{\n  color:var(--obsidian-300);\n}\n.acc-trigger:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--focus-width));\n  box-shadow:var(--ring-halo);\n}\n.acc-chevron{\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  width:16px;\n  height:16px;\n  flex:0 0 16px;\n  color:var(--obsidian-400);\n  transition:transform var(--d-base) var(--ease-standard), color var(--d-quick) var(--ease-standard);\n}\n.acc-chevron svg{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n  display:block;\n}\n.acc-item.is-open .acc-chevron{\n  transform:rotate(90deg);\n  color:var(--primary-400);\n  transition:transform var(--d-base) var(--ease-decel), color var(--d-quick) var(--ease-standard);\n}\n.acc-label{\n  min-width:0;\n  font-weight:500;\n}\n.acc-num{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-500);\n  text-transform:uppercase;\n  flex-shrink:0;\n}\n.acc-item.is-open .acc-num{\n  color:var(--primary-400);\n}\n.acc-panel{\n  display:grid;\n  grid-template-rows:0fr;\n  transition:grid-template-rows var(--acc-d, var(--d-slow)) var(--ease-standard);\n}\n.acc-item.is-open .acc-panel{\n  grid-template-rows:1fr;\n  transition:grid-template-rows var(--acc-d, var(--d-slow)) var(--ease-decel);\n}\n.acc-panel-inner{\n  overflow:hidden;\n  min-height:0;\n}\n.acc-panel-body{\n  padding:0 var(--s-6) var(--s-6) calc(var(--s-4) + var(--s-4) + var(--s-6));\n  color:var(--obsidian-300);\n  line-height:1.7;\n  font-size:var(--t-small);\n  opacity:0;\n  transition:opacity var(--d-quick) var(--ease-decel) 80ms;\n}\n.acc-item.is-open .acc-panel-body{\n  opacity:1;\n}\n.acc-panel-body p{\n  margin:0 0 var(--s-3);\n}\n.acc-panel-body p:last-child{\n  margin-bottom:0;\n}\n@media (prefers-reduced-motion: reduce){\n  .acc-trigger, .acc-chevron, .acc-panel, .acc-panel-body, .acc-item{\n    transition:none;\n  }\n}\n.accordion{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
+    },
+    {
+      "path": "amaca/accordion.html",
+      "type": "registry:file",
+      "target": "components/amaca/accordion.html",
+      "content": "<div class=\"accordion\"><div class=\"acc-item is-open\"><button type=\"button\" class=\"acc-trigger\" aria-expanded=\"true\" aria-controls=\"kit-acc-panel\"><span class=\"acc-chevron\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 3l5 5-5 5\"/></svg></span><span class=\"acc-label\">Continuous evolution</span><span class=\"acc-num\">01 / 01</span></button><div class=\"acc-panel\" id=\"kit-acc-panel\"><div class=\"acc-panel-inner\"><div class=\"acc-panel-body\"><p>Every release keeps the old names working for one minor, then removes them.</p></div></div></div></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.33 Accordion",
+      "site": "https://www.amaca.design/#accordion",
+      "usage": {
+        "use_it_when": [
+          "Dense reference content: headers scanned first, read selectively.",
+          "Multi-open sparingly, when answers are compared side by side."
+        ],
+        "use_something_else_when": [
+          "Content the reader will read in full → a page with headings.",
+          "Switching quickly between sections → Tabs."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "single-open",
+            "multi-open"
+          ],
+          "default": "single-open",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Item",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-800"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Trigger",
+          "tokens": [
+            "--s-4",
+            "--s-6"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Chevron",
+          "tokens": [
+            "--obsidian-400"
+          ],
+          "value": "",
+          "states": "open --primary-400"
+        },
+        {
+          "name": "Label",
+          "tokens": [],
+          "value": "500",
+          "states": ""
+        },
+        {
+          "name": "Number",
+          "tokens": [
+            "--obsidian-500",
+            "--font-mono",
+            "--t-caption",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": "open --primary-400"
+        },
+        {
+          "name": "Body",
+          "tokens": [
+            "--obsidian-300",
+            "--t-small",
+            "--s-6",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-slow",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": "open --ease-decel"
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Single-open by default.",
+        "Chevron rotates 90° on expand.",
+        "Keyboard-operable: aria-expanded toggled, Enter/Space opens/closes.",
+        "States: § 3.0.1. default · hover · active · expanded · focus-visible on the trigger, values in the state index. Focus is the system's pressable ring, drawn inside the row."
+      ],
+      "classes": [
+        "acc-chevron",
+        "acc-item",
+        "acc-label",
+        "acc-num",
+        "acc-panel",
+        "acc-panel-body",
+        "acc-panel-inner",
+        "acc-trigger",
+        "accordion",
+        "is-open"
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link",
+  "type": "registry:item",
+  "title": "Link",
+  "description": "Going to another page, document or resource, in a sentence or on its own line.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/link.css",
+      "type": "registry:file",
+      "target": "styles/amaca/link.css",
+      "content": ".link{\n  color:var(--primary-400);\n  text-decoration:underline;\n  text-decoration-thickness:var(--bw-1);\n  text-underline-offset:var(--s-1);\n  border-radius:var(--r-sm);\n  cursor:pointer;\n  transition:color var(--d-quick) var(--ease-standard),text-decoration-thickness var(--d-quick) var(--ease-standard);\n}\n.link:hover{\n  color:var(--primary-300);\n  text-decoration-thickness:var(--bw-2);\n}\n.link:active{\n  color:var(--primary-500);\n}\n.link:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.link[aria-disabled=\"true\"]{\n  color:var(--obsidian-400);\n  text-decoration-thickness:var(--bw-1);\n  cursor:not-allowed;\n}\n.link-quiet{\n  color:var(--primary-400);\n  text-decoration:underline;\n  text-decoration-color:transparent;\n  text-decoration-thickness:var(--bw-1);\n  text-underline-offset:var(--s-1);\n  border-radius:var(--r-sm);\n  cursor:pointer;\n  transition:color var(--d-quick) var(--ease-standard),text-decoration-color var(--d-quick) var(--ease-standard);\n}\n.link-quiet:hover, .link-quiet:focus-visible{\n  color:var(--primary-300);\n  text-decoration-color:currentColor;\n}\n.link-quiet:active{\n  color:var(--primary-500);\n  text-decoration-color:currentColor;\n}\n.link-quiet:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.link-quiet[aria-disabled=\"true\"]{\n  color:var(--obsidian-400);\n  text-decoration-color:transparent;\n  cursor:not-allowed;\n}\n"
+    },
+    {
+      "path": "amaca/link.html",
+      "type": "registry:file",
+      "target": "components/amaca/link.html",
+      "content": "<p>Every value is <a class=\"link\" href=\"#\">derived from a token</a> in the file.</p>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.7 Link",
+      "site": "https://www.amaca.design/#link",
+      "usage": {
+        "use_it_when": [
+          "Going to another page, document or resource, in a sentence or on its own line.",
+          "A reference the reader may want to follow: the spec, the source, the next page."
+        ],
+        "use_something_else_when": [
+          "An action on the current page: submit, save, open a panel → Button.",
+          "A trail of the current hierarchy → Breadcrumb.",
+          "Switching between views of the same content → Tabs."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            ".link",
+            ".link-quiet"
+          ],
+          "default": ".link",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--primary-400"
+          ],
+          "value": "",
+          "states": "hover --primary-300 · pressed --primary-500 · disabled --obsidian-400"
+        },
+        {
+          "name": "Underline",
+          "tokens": [
+            "--bw-1",
+            "--s-1"
+          ],
+          "value": "",
+          "states": "hover --bw-2"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Choosing the variant is a rule, not a taste (RIGID). If a sentence or a paragraph holds the link, it is .link. .link-quiet is legal only when nothing around the link is running text. When in doubt, .link: an underline that is not needed costs nothing, a missing one is a WCAG failure. A .link-quiet inside a &lt;p&gt;, an &lt;li&gt; of prose or any element that carries running text is a defect, and check 60 fails it.",
+        "Colour --primary-400, underlined at rest. The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. --info is not a link colour: it belongs to status (§ 3.16).",
+        "Underline --bw-1, offset --s-1, so it clears the descenders. It thickens to --bw-2 on hover while the colour moves to --primary-300; pressed lands on --primary-500. --primary-600 is reserved for the filled button.",
+        "No visited state. In an application the colour of a link carries no history, and a second colour would need its own contrast pair.",
+        "Focus: the pressable ring — outline --focus-width --obsidian-100, offset --focus-offset, --ring-halo, radius --r-sm.",
+        "The label names the destination. \"The spec\", never \"click here\" and never a bare URL; a link that opens a file or another site says so in the label.",
+        "Disabled is an anchor without href carrying aria-disabled=\"true\": --obsidian-400, cursor: not-allowed. A disabled link is rare; if the destination is not available, prefer plain text.",
+        "Not a button. A link that triggers an action on the page is a defect: it is announced as navigation and cannot be pressed with Space. Use § 3.6.",
+        "States: § 3.0.1 — default · hover · focus-visible · active · disabled. Motion: the colour and the thickness on --d-quick · --ease-standard, in the § 8.3 index."
+      ],
+      "classes": [
+        "link",
+        "link-quiet"
+      ]
+    }
+  }
+}

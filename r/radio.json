@@ -1,0 +1,104 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio",
+  "type": "registry:item",
+  "title": "Radio",
+  "description": "One of many, always in a named group with a default.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/radio.css",
+      "type": "registry:file",
+      "target": "styles/amaca/radio.css",
+      "content": ".radio{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  cursor:pointer;\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n}\n.radio input{\n  appearance:none;\n  width:var(--s-4);\n  height:var(--s-4);\n  border:var(--bw-1) solid var(--border-input);\n  border-radius:var(--r-full);\n  background:var(--surface-field);\n  display:grid;\n  place-items:center;\n  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.radio input:checked{\n  border-color:var(--primary-500);\n}\n.radio input:checked::after{\n  content:\"\";\n  width:8px;\n  height:8px;\n  border-radius:var(--r-full);\n  background:var(--primary-500);\n}\n.radio input:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.radio input:disabled{\n  opacity:0.4;\n  cursor:not-allowed;\n}\n.radio:has(input:disabled){\n  color:var(--obsidian-400);\n  cursor:not-allowed;\n}\n"
+    },
+    {
+      "path": "amaca/radio.html",
+      "type": "registry:file",
+      "target": "components/amaca/radio.html",
+      "content": "<label class=\"radio\"><input type=\"radio\" name=\"kit-radio\" checked> Everyone</label>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.8 Checkbox · Switch · Radio",
+      "site": "https://www.amaca.design/#radio",
+      "usage": {
+        "use_it_when": [
+          "One of many, always in a named group with a default."
+        ],
+        "use_something_else_when": [
+          "Several options can be chosen → Checkbox.",
+          "Four or more options and little room → Select."
+        ]
+      },
+      "variants": [],
+      "parts": [
+        {
+          "name": "Circle",
+          "tokens": [
+            "--surface-field",
+            "--bw-1",
+            "--border-input",
+            "--r-full",
+            "--s-4"
+          ],
+          "value": "",
+          "states": "checked --primary-500"
+        },
+        {
+          "name": "Dot",
+          "tokens": [
+            "--primary-500",
+            "--r-full"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": "disabled --obsidian-400"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Checkbox and radio are told apart by shape — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.",
+        "The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.",
+        "The whole &lt;label&gt; is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.",
+        "The focus ring lives on the input, not the label, so the halo traces the control.",
+        "A radio group has exactly one checked member at all times. A group with none is a defect, not a state.",
+        "State matrix: § 3.0.1. Motion: § 06.4."
+      ],
+      "classes": [
+        "radio"
+      ]
+    }
+  }
+}

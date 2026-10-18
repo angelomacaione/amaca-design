@@ -1,0 +1,168 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer",
+  "type": "registry:item",
+  "title": "Drawer",
+  "description": "A menu or a few groups of links that open from the edge: the main navigation on a small screen.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/button.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/drawer.css",
+      "type": "registry:file",
+      "target": "styles/amaca/drawer.css",
+      "content": ".drawer{\n  --pad:var(--s-6);\n  position:fixed;\n  inset:0 0 0 auto;\n  margin:0;\n  padding:0;\n  width:min(100%, calc(45ch + 2 * var(--pad)));\n  max-width:100%;\n  height:100%;\n  max-height:none;\n  flex-direction:column;\n  overflow:hidden;\n  background:var(--obsidian-800);\n  color:var(--obsidian-100);\n  border:0;\n  border-radius:0;\n  box-shadow:var(--sh-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-body);\n  transform:translateX(100%);\n  transition:transform var(--d-base) var(--ease-accel), overlay var(--d-base) var(--ease-accel) allow-discrete, display var(--d-base) var(--ease-accel) allow-discrete;\n}\n.drawer[open]{\n  display:flex;\n  transform:none;\n  transition-timing-function:var(--ease-decel);\n}\n.drawer-start{\n  inset:0 auto 0 0;\n  transform:translateX(-100%);\n}\n.drawer-wide{\n  width:min(100%, calc(60ch + 2 * var(--pad)));\n}\n.drawer-nav{\n  --pad:var(--s-4);\n  width:min(100%, calc(30ch + 2 * var(--pad)));\n  font-size:var(--t-lead);\n}\n.drawer::backdrop{\n  background:transparent;\n  transition:background var(--d-base) var(--ease-accel), overlay var(--d-base) var(--ease-accel) allow-discrete, display var(--d-base) var(--ease-accel) allow-discrete;\n}\n.drawer[open]::backdrop{\n  background:var(--scrim);\n  backdrop-filter:blur(var(--blur-veil));\n  transition-timing-function:var(--ease-decel);\n}\n.drawer-head{\n  flex:none;\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  padding:var(--pad) var(--pad) var(--s-4);\n}\n.drawer-title{\n  margin:0;\n  font-size:var(--t-h6);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.drawer-body{\n  flex:1;\n  min-height:0;\n  overflow:auto;\n  padding:0 var(--pad) var(--pad);\n  display:grid;\n  gap:var(--s-4);\n  align-content:start;\n  color:var(--obsidian-200);\n  font-size:var(--t-body);\n}\n.drawer-body > p{\n  margin:0;\n}\n.drawer-nav .drawer-body{\n  gap:var(--s-2);\n}\n.drawer-label{\n  margin:var(--s-4) 0 0;\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.drawer-label:first-child{\n  margin-top:0;\n}\n.drawer-foot{\n  flex:none;\n  display:flex;\n  justify-content:flex-end;\n  flex-wrap:wrap;\n  gap:var(--s-2);\n  padding:var(--s-4) var(--pad);\n  border-top:var(--bw-1) solid var(--obsidian-700);\n}\n@media (max-width:480px){\n  .drawer{\n    width:100%;\n  }\n}\n@media (prefers-reduced-motion:reduce){\n  .drawer, .drawer[open], .drawer-start, .drawer-start[open]{\n    transition:none;\n    transform:none;\n  }\n  .drawer::backdrop, .drawer[open]::backdrop{\n    transition:none;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/drawer.html",
+      "type": "registry:file",
+      "target": "components/amaca/drawer.html",
+      "content": "<dialog class=\"drawer\" aria-labelledby=\"kit-drawer-title\"><div class=\"drawer-head\"><h2 class=\"drawer-title\" id=\"kit-drawer-title\">Release notes</h2><button class=\"btn btn-ghost btn-sm btn-icon\" type=\"button\" aria-label=\"Close\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3.5 3.5l9 9M12.5 3.5l-9 9\"/></svg></button></div><div class=\"drawer-body\"><p>Two new tokens, one renamed. The full list is below.</p></div><div class=\"drawer-foot\"><button class=\"btn btn-secondary btn-sm\" type=\"button\">Close</button></div></dialog>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.24 Drawer",
+      "site": "https://www.amaca.design/#drawer",
+      "usage": {
+        "use_it_when": [
+          "A menu or a few groups of links that open from the edge: the main navigation on a small screen.",
+          "Text or details of one item that need the full height: release notes, the facts of a row."
+        ],
+        "use_something_else_when": [
+          "A decision to answer before going on, or a short form → Modal.",
+          "A long form, or work that deserves its own address → a page.",
+          "A panel that stays beside the page → a layout, not a Drawer.",
+          "Short text tied to one button → Popover."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "panel",
+            ".drawer-nav"
+          ],
+          "default": "panel",
+          "role": "type"
+        },
+        {
+          "axis": "placement",
+          "values": [
+            "end",
+            ".drawer-start"
+          ],
+          "default": "end"
+        },
+        {
+          "axis": "size",
+          "values": [
+            "default",
+            ".drawer-wide"
+          ],
+          "default": "default",
+          "role": "size"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Surface",
+          "tokens": [
+            "--obsidian-800",
+            "--sh-3",
+            "--pad"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Head",
+          "tokens": [
+            "--pad",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--t-h6",
+            "--lh-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Body",
+          "tokens": [
+            "--obsidian-200",
+            "--t-body",
+            "--pad",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Foot",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-700",
+            "--s-4",
+            "--pad",
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Backdrop",
+          "tokens": [
+            "--scrim",
+            "--blur-veil"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-base",
+            "--ease-accel"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "A modal, anchored. The modal's surface, padding and scrim; no radius, since it sits flush with the edge. The shadow is one step below the modal's (--sh-3 against --sh-4), so it takes no edge.",
+        "Open it with showModal(). As the modal: focus is trapped, the page behind is inert and does not scroll, Esc closes, and focus returns to the button that opened it. It has the same data-modal-open and data-modal-close hooks.",
+        "The title is the name. aria-labelledby points at .drawer-title; the menu is a nav with an aria-label, and the current page carries aria-current=\"page\".",
+        "Closing. Esc always closes, and so does a click on the scrim, except when the drawer holds data not yet saved. The close button is always present. A click on a link of the menu closes it too.",
+        "The width is a line. 45 characters plus the padding for text, 30 for a menu, never wider than the screen; at 480px or less it takes the full width.",
+        "A menu uses the List. The rows are a.list-item of the List, at --t-lead; groups are named with .drawer-label, two levels at most.",
+        "Not for a form. A short form is a Modal, a long one a page. The drawer is for reading and for choosing where to go.",
+        "Never stacked, no bottom. A drawer opened from a drawer wants a page; one from the bottom is a different component.",
+        "A menu opens on the side of its toggle. A toggle at the end of the bar opens it at the end (the default); one at the start uses .drawer-start.",
+        "Motion. It slides in from its edge on --d-base · --ease-decel and the scrim fades with it; out, the same on --ease-accel. Reduced motion: instant (§ 06.4).",
+        "No state matrix beyond default and current. The panel is never focused or pressed (§ 3.0.1); the rows carry the List's states."
+      ],
+      "classes": [
+        "drawer",
+        "drawer-body",
+        "drawer-foot",
+        "drawer-head",
+        "drawer-label",
+        "drawer-nav",
+        "drawer-start",
+        "drawer-title",
+        "drawer-wide"
+      ]
+    }
+  }
+}

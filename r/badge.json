@@ -1,0 +1,113 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:item",
+  "title": "Badge",
+  "description": "A status the system computed, next to the thing it describes.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/badge.css",
+      "type": "registry:file",
+      "target": "styles/amaca/badge.css",
+      "content": ".badge{\n  --tint-hue:var(--tertiary-500);\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-1);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  letter-spacing:var(--tr-snug);\n  padding:var(--s-2) var(--s-4);\n  border-radius:var(--r-md);\n  border:var(--bw-1) solid color-mix(in srgb, var(--tint-hue) calc(var(--tint-edge-deep) * 100%), transparent);\n  color:var(--tertiary-300);\n  background:color-mix(in srgb, var(--tint-hue) calc(var(--tint-fill-deep) * 100%), transparent);\n  font-weight:500;\n  white-space:nowrap;\n  flex:none;\n}\n.badge .dot{\n  width:var(--s-1);\n  height:var(--s-1);\n  border-radius:var(--r-full);\n  background:currentColor;\n}\n.badge-success, .badge-warn, .badge-danger, .badge-info, .badge-brand{\n  border-color:color-mix(in srgb, var(--tint-hue) calc(var(--tint-edge) * 100%), transparent);\n  background:color-mix(in srgb, var(--tint-hue) calc(var(--tint-fill) * 100%), transparent);\n}\n.badge-success{\n  --tint-hue:var(--success);\n  color:var(--success);\n}\n.badge-warn{\n  --tint-hue:var(--warning);\n  color:var(--warning);\n}\n.badge-danger{\n  --tint-hue:var(--danger);\n  color:var(--danger);\n}\n.badge-info{\n  --tint-hue:var(--info);\n  color:var(--info);\n}\n.badge-brand{\n  --tint-hue:var(--primary-500);\n  color:var(--primary-400);\n}\n.badge-solid{\n  background:var(--primary-500);\n  color:var(--obsidian-050);\n  border-color:var(--primary-500);\n}\n"
+    },
+    {
+      "path": "amaca/badge.html",
+      "type": "registry:file",
+      "target": "components/amaca/badge.html",
+      "content": "<span class=\"badge badge-brand\"><span class=\"dot\"></span>Published</span>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.14 Badge",
+      "site": "https://www.amaca.design/#badge",
+      "usage": {
+        "use_it_when": [
+          "A status the system computed, next to the thing it describes.",
+          "The solid variant: the one featured accent of the viewport."
+        ],
+        "use_something_else_when": [
+          "A value a person chose → Chip.",
+          "It needs hover or focus → Button or Chip."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "default",
+            ".badge-brand",
+            ".badge-success",
+            ".badge-warn",
+            ".badge-danger",
+            ".badge-info",
+            ".badge-solid"
+          ],
+          "default": "default",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Pill",
+          "tokens": [
+            "--tint-hue",
+            "--tint-fill",
+            "--bw-1",
+            "--tint-edge-deep",
+            "--tint-edge",
+            "--r-md",
+            "--s-2",
+            "--s-4",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--primary-400",
+            "--font-sans",
+            "--t-small",
+            "--tr-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Dot",
+          "tokens": [
+            "--r-full",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "The badge's own register. --t-small, weight 500, --tr-snug; padding --s-2 --s-4, gap --s-1; corner --r-md. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.",
+        "A tint is a hue at two strengths, a fill and an edge, text on the full token. The variants use the Chip's pair, --tint-fill / --tint-edge. The default's deep hue, --tertiary-500, uses the heavier --tint-fill-deep / --tint-edge-deep. Never a hand-written rgba.",
+        "One line, always. A badge never wraps (white-space: nowrap) and never shrinks in a flex row (flex: none): when room runs out, the text beside it wraps instead.",
+        "The dot (.dot, --s-1 square, --r-full, currentColor) leads every status badge. The solid badge carries none.",
+        "The solid badge takes the light label, --obsidian-050 on --primary-500: the second ratified exception of § 6.3, bounded like the first.",
+        "States: § 3.0.1. default only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip."
+      ],
+      "classes": [
+        "badge",
+        "badge-brand",
+        "badge-danger",
+        "badge-info",
+        "badge-solid",
+        "badge-success",
+        "badge-warn",
+        "dot"
+      ]
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "type": "registry:item",
+  "title": "Input",
+  "description": "Free text on a single line: a name, a search, a URL.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/input.css",
+      "type": "registry:file",
+      "target": "styles/amaca/input.css",
+      "content": ".field{\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-1);\n}\n.label{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.input, .textarea{\n  background:var(--surface-field);\n  border:var(--bw-1) solid var(--border-input);\n  border-radius:var(--r-md);\n  color:var(--obsidian-100);\n  min-height:var(--s-10);\n  padding:var(--s-2) var(--s-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  outline:none;\n  transition:all var(--d-quick) var(--ease-standard);\n  width:100%;\n}\n.input:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=\"true\"]), .textarea:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=\"true\"]){\n  border-color:var(--obsidian-300);\n}\n.input:focus, .textarea:focus{\n  border-color:var(--primary-500);\n  box-shadow:var(--ring-field);\n}\n.input[aria-invalid=\"true\"], .textarea[aria-invalid=\"true\"]{\n  border-color:var(--danger);\n}\n.input[aria-invalid=\"true\"]:focus, .textarea[aria-invalid=\"true\"]:focus{\n  border-color:var(--danger);\n  box-shadow:var(--ring-field-danger);\n}\n.input:disabled, .textarea:disabled{\n  opacity:0.4;\n  cursor:not-allowed;\n}\n.input[readonly], .textarea[readonly]{\n  background:var(--obsidian-900);\n  color:var(--obsidian-300);\n}\n.input::placeholder, .textarea::placeholder{\n  color:var(--obsidian-400);\n}\n.input-wrap{\n  position:relative;\n  width:100%;\n}\n.input-wrap:has(> .input-action) .input{\n  padding-right:var(--s-10);\n}\n.input[type=\"search\"]::-webkit-search-cancel-button, .input[type=\"search\"]::-webkit-search-decoration{\n  -webkit-appearance:none;\n  appearance:none;\n}\n.help{\n  font-size:var(--t-caption);\n  color:var(--obsidian-400);\n}\n.input-action{\n  position:absolute;\n  right:var(--s-1);\n  top:50%;\n  transform:translateY(-50%);\n  display:grid;\n  place-items:center;\n  width:var(--s-8);\n  height:var(--s-8);\n  border:0;\n  background:transparent;\n  cursor:pointer;\n  color:var(--obsidian-300);\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.input-action:hover{\n  color:var(--obsidian-100);\n  background:var(--obsidian-800);\n}\n.input-action:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n  color:var(--obsidian-100);\n}\n.input:placeholder-shown ~ .input-action[data-input-clear], .input[readonly] ~ .input-action[data-input-clear], .input:disabled ~ .input-action{\n  visibility:hidden;\n}\n@media (prefers-reduced-motion: reduce){\n  .input-action{\n    transition:none;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/input.html",
+      "type": "registry:file",
+      "target": "components/amaca/input.html",
+      "content": "<label class=\"field\"><span class=\"label\">Email</span><input class=\"input\" type=\"email\" placeholder=\"you@studio\"><span class=\"help\">We never share it.</span></label>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.10 Input · textarea",
+      "site": "https://www.amaca.design/#input",
+      "usage": {
+        "use_it_when": [
+          "Free text on a single line: a name, a search, a URL.",
+          "Always with a persistent label; the placeholder is never the label."
+        ],
+        "use_something_else_when": [
+          "The answer runs over several lines → the textarea.",
+          "The answer comes from a known list → Select or Radio.",
+          "A time or a date → Time input, Date picker."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            ".input",
+            ".textarea",
+            "search"
+          ],
+          "default": ".input",
+          "role": "type"
+        },
+        {
+          "axis": "adornment",
+          "values": [
+            "none",
+            "icon",
+            "action"
+          ],
+          "default": "none"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Field",
+          "tokens": [
+            "--surface-field",
+            "--bw-1",
+            "--border-input",
+            "--r-md",
+            "--s-10"
+          ],
+          "value": "",
+          "states": "hover --obsidian-300 · focus --primary-500 · error --danger"
+        },
+        {
+          "name": "Value",
+          "tokens": [
+            "--obsidian-100",
+            "--font-sans",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Placeholder",
+          "tokens": [
+            "--obsidian-400"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Help",
+          "tokens": [
+            "--obsidian-400",
+            "--t-caption"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus ring",
+          "tokens": [
+            "--ring-field"
+          ],
+          "value": "",
+          "states": "error --ring-field-danger"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Labels are mono-uppercase, --t-micro, --obsidian-300 — one step lighter than the --obsidian-400 mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is not a label.",
+        "Height --s-10, declared. min-height: var(--s-10), block padding --s-2, type --t-small: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.",
+        "Helper text is .help; the error variant is .help.error.",
+        "Error is marked with aria-invalid=\"true\" — the border and the helper text both follow from it. Colour alone never says \"error\" (§ 6 floor #1).",
+        "States: § 3.0.1. default · hover · focus-visible · error · disabled · readonly, values in the state index (hover is the field's outline, one step lighter, and the .input-action's; error is not a search state). No state is described in prose here.",
+        "Icon left. A .icon as a direct child of .input-wrap: decorative (aria-hidden), --icon-sm, --obsidian-300, no click. The field pads --s-8 on the left to clear it.",
+        "Action right. .input-action: a &lt;button type=\"button\"&gt; last in the .input-wrap, 32px square, --r-sm, --icon-sm, --obsidian-300 and --obsidian-100 on hover. The field pads --s-10 on the right. It carries an aria-label: it has no text. The date picker and the time picker use this same part (§ 3.13).",
+        "Clear. An .input-action with data-input-clear and the x of § 3.1. It is visible only while the field has a value (:placeholder-shown, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires input and gives the focus back to the field.",
+        "Search. The field sits in &lt;form role=\"search\"&gt; with type=\"search\", so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field."
+      ],
+      "classes": [
+        "field",
+        "help",
+        "input",
+        "input-action",
+        "input-wrap",
+        "label",
+        "textarea"
+      ]
+    }
+  }
+}

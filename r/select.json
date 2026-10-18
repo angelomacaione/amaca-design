@@ -1,0 +1,157 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "type": "registry:item",
+  "title": "Dropdown",
+  "description": "Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json",
+    "https://www.amaca.design/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/select.css",
+      "type": "registry:file",
+      "target": "styles/amaca/select.css",
+      "content": ".select{\n  background:var(--surface-field);\n  border:var(--bw-1) solid var(--border-input);\n  border-radius:var(--r-md);\n  color:var(--obsidian-100);\n  min-height:var(--s-10);\n  padding:var(--s-2) var(--s-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  outline:none;\n  transition:all var(--d-quick) var(--ease-standard);\n  width:100%;\n}\n.select{\n  appearance:none;\n  -webkit-appearance:none;\n  -moz-appearance:none;\n  padding-right:var(--s-8);\n  background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%238A94A3' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E\");\n  background-repeat:no-repeat;\n  background-position:right var(--s-3) center;\n  background-size:var(--icon-xs) var(--icon-xs);\n}\n.select-wrap{\n  position:relative;\n  width:100%;\n}\n.select-trigger{\n  display:flex;\n  align-items:center;\n  justify-content:flex-start;\n  text-align:left;\n  cursor:pointer;\n  width:100%;\n}\n.select-trigger[aria-expanded=\"true\"]{\n  border-color:var(--primary-500);\n  box-shadow:var(--ring-field);\n}\n.select-value{\n  flex:1;\n  color:var(--obsidian-100);\n}\n.select-menu{\n  position:absolute;\n  top:calc(100% + var(--s-1));\n  left:0;\n  right:0;\n  margin:0;\n  padding:var(--s-1);\n  list-style:none;\n  background:var(--obsidian-850);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-md);\n  box-shadow:var(--sh-menu);\n  z-index:var(--z-menu);\n  max-height:240px;\n  overflow:auto;\n}\n.select-menu[hidden]{\n  display:none;\n}\n.select-option{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  min-width:0;\n  padding:var(--s-2);\n  border-radius:calc(var(--r-md) - var(--r-xs));\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n  cursor:pointer;\n  transition:background var(--d-quick) var(--ease-standard);\n}\n.select-option:hover, .select-option:focus-visible{\n  background:var(--obsidian-800);\n  outline:none;\n}\n.select-option[aria-selected=\"true\"]{\n  color:var(--primary-400);\n}\n.select-option-label{\n  flex:1;\n  min-width:0;\n  overflow:hidden;\n  text-overflow:ellipsis;\n  white-space:nowrap;\n}\n.select-check{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n  visibility:hidden;\n}\n.select-option > .select-check{\n  color:inherit;\n}\n.select-option[aria-selected=\"true\"] .select-check{\n  visibility:visible;\n}\n.select-kbd{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-300);\n}\n.select-group{\n  padding:var(--s-2) var(--s-2) var(--s-1);\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n  cursor:default;\n}\n.select-divider{\n  height:var(--bw-1);\n  margin:var(--s-1) calc(-1 * var(--s-1));\n  padding:0;\n  background:var(--obsidian-700);\n  list-style:none;\n}\n.select-option-danger{\n  color:var(--danger);\n}\n.select-option[aria-disabled=\"true\"]{\n  opacity:0.4;\n  cursor:not-allowed;\n}\n.select-option[aria-disabled=\"true\"]:hover{\n  background:transparent;\n}\n.select-menu-actions{\n  width:max-content;\n  min-width:var(--s-32);\n  max-width:calc(30ch + 2 * var(--s-1));\n}\n.select-menu-slider{\n  padding:var(--s-3) var(--s-4) var(--s-2);\n}\n@supports (appearance: base-select){\n  select.select, select.select::picker(select){\n    appearance:base-select;\n  }\n  select.select{\n    line-height:normal;\n  }\n  select.select::picker-icon{\n    display:none;\n  }\n  select.select::picker(select){\n    position-try-order:normal;\n    position-try-fallbacks:flip-block;\n    margin-block:var(--s-1);\n    padding:var(--s-1);\n    max-height:240px;\n    overflow:auto;\n    background:var(--obsidian-850);\n    border:var(--bw-1) solid var(--obsidian-700);\n    border-radius:var(--r-md);\n    box-shadow:var(--sh-menu);\n  }\n  select.select option{\n    padding:var(--s-2);\n    border-radius:calc(var(--r-md) - var(--r-xs));\n    font-family:var(--font-sans);\n    font-size:var(--t-small);\n    color:var(--obsidian-100);\n    cursor:pointer;\n    transition:background var(--d-quick) var(--ease-standard);\n  }\n  select.select option::checkmark{\n    display:none;\n  }\n  select.select option:hover, select.select option:focus-visible{\n    background:var(--obsidian-800);\n    outline:none;\n  }\n  select.select option:checked{\n    color:var(--primary-400);\n  }\n}\n.select:hover:not(:focus):not(:disabled):not([aria-invalid=\"true\"]){\n  border-color:var(--obsidian-300);\n}\n.select:focus{\n  border-color:var(--primary-500);\n  box-shadow:var(--ring-field);\n}\n.select[aria-invalid=\"true\"]{\n  border-color:var(--danger);\n}\n.select[aria-invalid=\"true\"]:focus{\n  border-color:var(--danger);\n  box-shadow:var(--ring-field-danger);\n}\n.select:disabled{\n  opacity:0.4;\n  cursor:not-allowed;\n}\n.select-trigger:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n@media (prefers-reduced-motion: reduce){\n  .select-menu{\n    transition:none !important;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/select.html",
+      "type": "registry:file",
+      "target": "components/amaca/select.html",
+      "content": "<div class=\"field\"><span class=\"label\" id=\"kit-select-label\">Status</span><div class=\"select-wrap\"><button type=\"button\" class=\"select select-trigger\" aria-haspopup=\"listbox\" aria-expanded=\"false\" aria-labelledby=\"kit-select-label\"><span class=\"select-value\">Published</span></button><ul class=\"select-menu\" role=\"listbox\" aria-labelledby=\"kit-select-label\" hidden><li class=\"select-option\" role=\"option\" aria-selected=\"false\"><span class=\"select-option-label\">Draft</span><svg class=\"icon select-check\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg></li><li class=\"select-option\" role=\"option\" aria-selected=\"false\"><span class=\"select-option-label\">Pending</span><svg class=\"icon select-check\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg></li><li class=\"select-option\" role=\"option\" aria-selected=\"true\"><span class=\"select-option-label\">Published</span><svg class=\"icon select-check\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg></li><li class=\"select-option\" role=\"option\" aria-selected=\"false\"><span class=\"select-option-label\">Archived</span><svg class=\"icon select-check\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg></li></ul></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.11 Dropdown · Select · Menu",
+      "site": "https://www.amaca.design/#select",
+      "usage": {
+        "use_it_when": [
+          "Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.",
+          "Four or more options, or little room on screen.",
+          "A number set by feel rather than typed, such as a price → the Slider variant.",
+          "Actions on an item that do not fit on screen → the Menu variant."
+        ],
+        "use_something_else_when": [
+          "Two or three options → Radio, all of them visible.",
+          "A value the person must hit exactly → Text input.",
+          "A place to go → Navigation or Link."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "native",
+            "listbox",
+            "slider",
+            "menu"
+          ],
+          "default": "native",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Trigger",
+          "tokens": [
+            "--surface-field",
+            "--bw-1",
+            "--border-input",
+            "--r-md",
+            "--s-10"
+          ],
+          "value": "",
+          "states": "hover --obsidian-300 · open --primary-500 · error --danger"
+        },
+        {
+          "name": "Value",
+          "tokens": [
+            "--obsidian-100"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Menu",
+          "tokens": [
+            "--obsidian-850",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-md",
+            "--sh-menu",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Option",
+          "tokens": [
+            "--obsidian-100",
+            "--font-sans",
+            "--t-small",
+            "--s-2"
+          ],
+          "value": "",
+          "states": "hover --obsidian-800 · selected --primary-400"
+        },
+        {
+          "name": "Check",
+          "tokens": [
+            "--icon-xs"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "aria-expanded on .select-trigger toggles \"true\"/\"false\"; open state activates the magenta border + glow (same focus treatment as .input:focus).",
+        "Keyboard focus on the trigger is the pressable ring, not the field glow: the .input .textarea .select | focus-visible row of the state index does not apply to .select-trigger, which has its own row — a trigger is pressed, not typed into. The magenta border stays, from .select:focus.",
+        ".select-menu placement is viewport-aware: open below the trigger by default; flip above only when the menu's height does not fit below and above offers more room; max-height = min(240px, room on the chosen side), with internal scroll beyond it — measure the menu's natural height with getBoundingClientRect() rounded up (not scrollHeight, which rounds and skips the border), and scroll only when the menu is really shortened; clamp horizontally to the viewport. The menu never covers adjacent content (e.g. a chat composer the control sits above). Use position:fixed measured from the trigger's rect (.select-menu.is-fixed) when the control may sit near a viewport edge or above important content. A transformed ancestor becomes the containing block of a fixed element, so measure where (0,0) lands and subtract it; position:absolute; top:calc(100% + 4px); left:0; right:0 is acceptable only when there is always room below. Background --obsidian-850 (or --obsidian-900 for an elevated overlay); hidden attribute used to dismiss (do not toggle display directly).",
+        "The panel never transitions. Its box is measured and written by script at open; under reduced motion the global 0.01ms rule gives every property a transition, and a script that reads the start of one places the panel off screen. .select-menu carries transition:none inside the reduced-motion override (v5.0.0).",
+        ".select-option[aria-selected=\"true\"] is rendered in --primary-400, with a check after the label (.select-check, the album's check, 14px) in the colour of the text. The check's room is reserved on every row, so labels never move when the choice changes. Hover/focus background is --obsidian-800.",
+        "Only one menu open at a time — opening one closes any other open .select-menu.",
+        "Enter/Space/↓ on trigger opens.",
+        "↓/↑ navigate options; Home/End jump to the first and last; no wrap from the last to the first. First open lands on the currently selected option (aria-selected=\"true\"), or the first if none.",
+        "A printable character jumps to the next option that starts with the letters typed (typeahead, 500ms).",
+        "Enter/Space on focused option commits + closes; trigger receives focus back.",
+        "Esc closes without committing; trigger receives focus back.",
+        "Tab from open menu closes and proceeds.",
+        "Click outside the wrapper closes the menu.",
+        "A fixed-position (viewport-aware) menu also closes on resize, and on a page scroll that moves the trigger. Its anchored coordinates would otherwise drift from the trigger. Scrolling inside the menu never closes it.",
+        "Window blur does not auto-close (browser-quirk; leave the menu, let the next click handle it)."
+      ],
+      "classes": [
+        "select",
+        "select-check",
+        "select-divider",
+        "select-group",
+        "select-kbd",
+        "select-menu",
+        "select-menu-actions",
+        "select-menu-slider",
+        "select-option",
+        "select-option-danger",
+        "select-option-label",
+        "select-trigger",
+        "select-value",
+        "select-wrap"
+      ]
+    }
+  }
+}

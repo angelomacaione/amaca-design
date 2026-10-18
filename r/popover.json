@@ -1,0 +1,144 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "type": "registry:item",
+  "title": "Popover",
+  "description": "Details about one element that carry a link or a button, and do not need to leave the view.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/button.json",
+    "https://www.amaca.design/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/popover.css",
+      "type": "registry:file",
+      "target": "styles/amaca/popover.css",
+      "content": ".popover{\n  margin:0;\n  inset:auto;\n  position-area:bottom span-right;\n  position-try-fallbacks:flip-block, flip-inline;\n  margin-block:var(--s-1);\n  width:max-content;\n  min-width:var(--w-popover-min);\n  max-width:min(var(--w-popover), calc(100vw - var(--s-8)));\n  padding:var(--s-4);\n  background:var(--obsidian-900);\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  line-height:var(--lh-snug);\n  opacity:0;\n  transform:translateY(calc(-1 * var(--s-1)));\n  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete, display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.popover:popover-open{\n  opacity:1;\n  transform:none;\n  transition-timing-function:var(--ease-decel);\n}\n.popover-top{\n  position-area:top span-right;\n  transform:translateY(var(--s-1));\n}\n.popover-end{\n  position-area:right span-bottom;\n  margin-block:0;\n  margin-inline:var(--s-1);\n  transform:translateX(calc(-1 * var(--s-1)));\n}\n@media (max-width:480px){\n  .popover-end{\n    position-area:bottom span-right;\n    margin-block:var(--s-1);\n    margin-inline:0;\n    transform:translateY(calc(-1 * var(--s-1)));\n  }\n}\n.popover-head{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-3);\n}\n.popover-title{\n  margin:0;\n  font-size:var(--t-body);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.popover-body{\n  display:grid;\n  gap:var(--s-3);\n  color:var(--obsidian-200);\n}\n.popover-foot{\n  display:flex;\n  justify-content:flex-end;\n  gap:var(--s-2);\n  margin-top:var(--s-4);\n}\n@media (prefers-reduced-motion: reduce){\n  .popover, .popover-top, .popover-end{\n    transition:none;\n    transform:none;\n  }\n}\n.popover{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n.popover){\n  display:block;\n  position:static;\n  inset:auto;\n  margin:0;\n  opacity:1;\n  transform:none;\n}\n"
+    },
+    {
+      "path": "amaca/popover.html",
+      "type": "registry:file",
+      "target": "components/amaca/popover.html",
+      "content": "<div class=\"popover\" id=\"kit-popover\" popover><div class=\"popover-head\"><h3 class=\"popover-title\">Rename</h3></div><div class=\"popover-body\"><label class=\"label\" for=\"kit-popover-name\">Name</label><input class=\"input\" id=\"kit-popover-name\" value=\"Atlas tokens\"></div><div class=\"popover-foot\"><button class=\"btn btn-ghost btn-sm\" type=\"button\">Cancel</button><button class=\"btn btn-primary btn-sm\" type=\"button\">Save</button></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.23 Popover",
+      "site": "https://www.amaca.design/#popover",
+      "usage": {
+        "use_it_when": [
+          "Details about one element that carry a link or a button, and do not need to leave the view.",
+          "A short form or a choice tied to one control: a rename, a share link."
+        ],
+        "use_something_else_when": [
+          "Short text with nothing to click → Tooltip.",
+          "The content is wider than 360 px, or the person must answer before going on → Modal.",
+          "A list of actions → a menu.",
+          "A menu or text that needs the full height of the screen → Drawer."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "read-only",
+            "form"
+          ],
+          "default": "read-only",
+          "role": "type"
+        },
+        {
+          "axis": "placement",
+          "values": [
+            "bottom start",
+            ".popover-top",
+            ".popover-end"
+          ],
+          "default": "bottom start"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Surface",
+          "tokens": [
+            "--obsidian-900",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-lg",
+            "--sh-3",
+            "--s-32",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Head",
+          "tokens": [
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--t-body",
+            "--lh-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Body",
+          "tokens": [
+            "--obsidian-200",
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Foot",
+          "tokens": [
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-accel",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "A click opens it, never a hover. Hover belongs to the Tooltip. The trigger is a real button with popovertarget, so the browser sets aria-expanded and the link to the panel.",
+        "Two kinds of close. A read-only popover is popover (auto): a click outside or Escape closes it. A popover with a form is popover=\"manual\": it closes only on its own buttons and on Escape, so a stray click does not lose the field. Escape on a manual one is handled by the page controller, and the focus goes back to the trigger.",
+        "One at a time, never nested. An auto popover closes the one that is open. A popover inside a popover is a Modal.",
+        "Up to 360 px. Wider, or taller than the view, is a Modal. No horizontal scroll.",
+        "A name. With a title or a form it has role=\"dialog\" and aria-labelledby; a text-only one has aria-label. It is not modal: Tab can leave it.",
+        "No arrow. The 4px gap and the anchoring point to the trigger, as in the Tooltip.",
+        "It is placed by CSS. From the invoker, with position-area and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.43): its popover stays inside the map and beside its cluster, so the map's script places it.",
+        "Motion. It fades in and rises --s-1 on --d-quick; out, the same, faster. Reduced motion: instant (§ 06.4)."
+      ],
+      "classes": [
+        "popover",
+        "popover-body",
+        "popover-end",
+        "popover-foot",
+        "popover-head",
+        "popover-title",
+        "popover-top"
+      ]
+    }
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "type": "registry:item",
+  "title": "Alert",
+  "description": "A condition that applies to the whole surface, inline, as long as it is true.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/alert.css",
+      "type": "registry:file",
+      "target": "styles/amaca/alert.css",
+      "content": ".alert{\n  display:grid;\n  grid-template-columns:auto minmax(0,1fr);\n  column-gap:var(--s-3);\n  row-gap:var(--s-1);\n  align-items:center;\n  padding:var(--s-3) var(--s-4);\n  background:var(--obsidian-850);\n  border:var(--bw-1) solid var(--obsidian-800);\n  border-left:var(--bw-2) solid var(--primary-500);\n  border-radius:var(--r-md);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.alert-icon{\n  grid-column:1;\n  grid-row:1;\n  width:16px;\n  height:16px;\n  color:var(--primary-400);\n}\n.alert-title{\n  grid-column:2;\n  grid-row:1;\n  font-weight:600;\n  color:var(--obsidian-100);\n  min-width:0;\n}\n.alert-body{\n  grid-column:2;\n  grid-row:1;\n  min-width:0;\n  overflow-wrap:anywhere;\n}\n.alert:has(.alert-title) .alert-body{\n  grid-column:1 / -1;\n  grid-row:2;\n}\n.alert-success{\n  border-left-color:var(--success);\n}\n.alert-success .alert-icon{\n  color:var(--success);\n}\n.alert-warn{\n  border-left-color:var(--warning);\n}\n.alert-warn .alert-icon{\n  color:var(--warning);\n}\n.alert-danger{\n  border-left-color:var(--danger);\n}\n.alert-danger .alert-icon{\n  color:var(--danger);\n}\n.alert-info{\n  border-left-color:var(--info);\n}\n.alert-info .alert-icon{\n  color:var(--info);\n}\n"
+    },
+    {
+      "path": "amaca/alert.html",
+      "type": "registry:file",
+      "target": "components/amaca/alert.html",
+      "content": "<div class=\"alert alert-success\" role=\"status\"><svg class=\"icon alert-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg><div class=\"alert-title\">Draft published</div><div class=\"alert-body\">The changes are live for every reader.</div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.16 Alert",
+      "site": "https://www.amaca.design/#alert",
+      "usage": {
+        "use_it_when": [
+          "A condition that applies to the whole surface, inline, as long as it is true."
+        ],
+        "use_something_else_when": [
+          "The reader must be able to dismiss it → Toast.",
+          "It concerns one field → the field's `.help.error`.",
+          "Two alerts on one surface → merge them into one."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "default",
+            ".alert-info",
+            ".alert-success",
+            ".alert-warn",
+            ".alert-danger"
+          ],
+          "default": "default",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Box",
+          "tokens": [
+            "--obsidian-850",
+            "--r-md",
+            "--s-3",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Side",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-800",
+            "--bw-2",
+            "--primary-500"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Icon",
+          "tokens": [
+            "--success"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--obsidian-100"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Body",
+          "tokens": [
+            "--obsidian-200",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Position",
+          "tokens": [],
+          "value": "inline",
+          "states": "in the flow of the page, above what it talks about"
+        }
+      ],
+      "rules": [
+        "The fill never changes. Every variant sits on --obsidian-850; semantics ride the 2px left rule and the icon. A tinted alert surface would spend the 5% semantic budget on furniture (§ Law, L1).",
+        "The icon is mandatory and aria-hidden — it is the shape half of \"colour never alone\" (§ 6 floor #1). The text carries the meaning.",
+        "role=\"status\" for informative, role=\"alert\" for danger. Nothing else.",
+        "An alert is not dismissible, at all. Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the condition clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.17 Toast — that is the whole difference between the two components.",
+        "Entrance is the system's canonical reveal — [data-alert-fade] + .is-in, opacity plus 12px from below on --d-slow · --ease-decel, the same ride as [data-fade]. Staggered when several land together. Under reduced motion they are simply there."
+      ],
+      "classes": [
+        "alert",
+        "alert-body",
+        "alert-danger",
+        "alert-icon",
+        "alert-info",
+        "alert-success",
+        "alert-title",
+        "alert-warn"
+      ]
+    }
+  }
+}

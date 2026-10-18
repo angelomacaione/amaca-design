@@ -1,0 +1,137 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chip",
+  "type": "registry:item",
+  "title": "Chip",
+  "description": "A value someone entered, chose or can take back: a tag, a facet, a recipient.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/chip.css",
+      "type": "registry:file",
+      "target": "styles/amaca/chip.css",
+      "content": ".chip{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-1);\n  position:relative;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-weight:500;\n  letter-spacing:var(--tr-snug);\n  line-height:var(--lh-snug);\n  white-space:nowrap;\n  padding:var(--s-1) var(--s-3);\n  border-radius:var(--r-full);\n  border:var(--bw-1) solid var(--obsidian-700);\n  background:var(--obsidian-800);\n  color:var(--obsidian-100);\n  transition:border-color var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\nbutton.chip::before, a.chip::before{\n  content:\"\";\n  position:absolute;\n  top:50%;\n  left:50%;\n  width:max(100%,var(--target-touch));\n  height:var(--target-touch);\n  transform:translate(-50%,-50%);\n}\n.chip .chip-dot{\n  width:var(--s-1);\n  height:var(--s-1);\n  border-radius:var(--r-full);\n  background:currentColor;\n  flex:none;\n}\n.chip-brand, .chip-success, .chip-warn, .chip-danger, .chip-info{\n  border-color:color-mix(in srgb, var(--tint-hue) calc(var(--tint-edge) * 100%), transparent);\n  background:color-mix(in srgb, var(--tint-hue) calc(var(--tint-fill) * 100%), transparent);\n}\n.chip-brand{\n  --tint-hue:var(--primary-500);\n  color:var(--primary-400);\n}\n.chip-success{\n  --tint-hue:var(--success);\n  color:var(--success);\n}\n.chip-warn{\n  --tint-hue:var(--warning);\n  color:var(--warning);\n}\n.chip-danger{\n  --tint-hue:var(--danger);\n  color:var(--danger);\n}\n.chip-info{\n  --tint-hue:var(--info);\n  color:var(--info);\n}\nbutton.chip, a.chip{\n  cursor:pointer;\n  text-decoration:none;\n}\nbutton.chip:hover, a.chip:hover{\n  border-color:var(--obsidian-600);\n}\nbutton.chip:active, a.chip:active{\n  background:var(--obsidian-700);\n}\nbutton.chip[aria-pressed=\"true\"]{\n  border-color:var(--primary-500);\n  color:var(--primary-400);\n}\nbutton.chip:disabled{\n  opacity:0.4;\n  cursor:not-allowed;\n  color:var(--obsidian-400);\n}\n.chip-dismiss{\n  all:unset;\n  cursor:pointer;\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  width:var(--s-4);\n  height:var(--s-4);\n  border-radius:var(--r-full);\n  color:var(--obsidian-400);\n  line-height:var(--lh-tight);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.chip-dismiss{\n  position:relative;\n}\n.chip-dismiss::before{\n  content:\"\";\n  position:absolute;\n  top:50%;\n  left:50%;\n  width:var(--target-touch);\n  height:var(--target-touch);\n  transform:translate(-50%,-50%);\n}\n.chip-dismiss:hover{\n  color:var(--obsidian-100);\n}\n.chip-dismiss:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--s-px));\n  box-shadow:var(--ring-halo);\n}\n@media (prefers-reduced-motion: reduce){\n  .chip, .chip-dismiss{\n    transition:none;\n  }\n}\n.chip:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n"
+    },
+    {
+      "path": "amaca/chip.html",
+      "type": "registry:file",
+      "target": "components/amaca/chip.html",
+      "content": "<span class=\"chip chip-brand\"><span class=\"chip-dot\"></span> Design systems</span>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.15 Chip",
+      "site": "https://www.amaca.design/#chip",
+      "usage": {
+        "use_it_when": [
+          "A value someone entered, chose or can take back: a tag, a facet, a recipient.",
+          "Pressable chips narrow a set."
+        ],
+        "use_something_else_when": [
+          "A status the system computed → Badge.",
+          "Pressable and dismissible at once → a list row.",
+          "A link to another page → Link."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "default",
+            ".chip-brand",
+            ".chip-success",
+            ".chip-warn",
+            ".chip-danger",
+            ".chip-info"
+          ],
+          "default": "default",
+          "role": "type"
+        },
+        {
+          "axis": "behaviour",
+          "values": [
+            "static",
+            "filter",
+            "removable"
+          ],
+          "default": "static"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Pill",
+          "tokens": [
+            "--tint-hue",
+            "--tint-fill",
+            "--bw-1",
+            "--obsidian-700",
+            "--tint-edge",
+            "--r-full",
+            "--s-1",
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--primary-400",
+            "--font-sans",
+            "--t-small",
+            "--tr-snug",
+            "--lh-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Dot",
+          "tokens": [
+            "--r-full",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "The variant is a tint, at the Badge's two strengths. Background at --tint-fill (0.08), border at --tint-edge (0.3) — tokens since v4.3.0 — text on the full token — the same pair § 3.14 already uses, so the two small labelled objects of the system read as one family. The neutral chip is the exception and the majority case: --obsidian-800 on --obsidian-700, the card surfaces. A filled chip — solid magenta behind white — is off-system: one filled accent per viewport is the whole 85 / 10 / 5 budget, and a filter row would spend it six times over.",
+        "A chip may be static. A chip that is neither pressable nor dismissible is legal and is the common case — a tag, a category, a value shown but not editable here. What makes it a chip rather than a § 3.14 Badge is who owns the value: a chip carries something a person entered or chose, a badge reports state the system computed. The affordance follows from the context, not from the definition.",
+        "--r-full, always. A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.",
+        "The label rides --t-small. --t-micro is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.",
+        "A chip carries at most one affordance, never two (RIGID). Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a &lt;button&gt; and the whole object is the target; a tag that leads to the list of its tag is an &lt;a&gt;, pressable the same way, with no aria-pressed and no disabled state; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: \"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks\". It is a decision, not a law — Calcite and Fluent ship the combination deliberately.",
+        "The touch target grows, the chip does not. At --t-small the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.",
+        "A filter chip declares aria-pressed, and a group of them is a role=\"group\" with an accessible name. Selection lands on the border and the text (--primary-500 · --primary-400), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.",
+        "The dismiss names its value. aria-label=\"Remove Motion\", never a bare × and never \"Remove\". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).",
+        "Never colour alone (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.",
+        "Chips wrap, they never scroll and never truncate. A collection long enough to need either collapses behind a trailing +N chip, which is itself a .chip and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike."
+      ],
+      "classes": [
+        "chip",
+        "chip-brand",
+        "chip-danger",
+        "chip-dismiss",
+        "chip-dot",
+        "chip-info",
+        "chip-success",
+        "chip-warn"
+      ]
+    }
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "type": "registry:item",
+  "title": "Breadcrumb",
+  "description": "A hierarchy deeper than two levels.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/breadcrumb.css",
+      "type": "registry:file",
+      "target": "styles/amaca/breadcrumb.css",
+      "content": ".breadcrumb{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.breadcrumb .sep{\n  color:var(--obsidian-500);\n}\n.breadcrumb .active{\n  color:var(--obsidian-100);\n}\n.breadcrumb a{\n  color:inherit;\n  text-decoration:none;\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.breadcrumb a:hover{\n  color:var(--obsidian-100);\n}\n.breadcrumb a:active{\n  color:var(--obsidian-400);\n}\n.breadcrumb a:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-0-5);\n  box-shadow:var(--ring-halo);\n}\n"
+    },
+    {
+      "path": "amaca/breadcrumb.html",
+      "type": "registry:file",
+      "target": "components/amaca/breadcrumb.html",
+      "content": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\"><a href=\"#\">Work</a><span class=\"sep\" aria-hidden=\"true\">/</span><a href=\"#\">Case studies</a><span class=\"sep\" aria-hidden=\"true\">/</span><span class=\"active\" aria-current=\"page\">Atlas</span></nav>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.29 Breadcrumb",
+      "site": "https://www.amaca.design/#breadcrumb",
+      "usage": {
+        "use_it_when": [
+          "A hierarchy deeper than two levels."
+        ],
+        "use_something_else_when": [
+          "A flat site → Navigation alone.",
+          "Progress through a flow → Stepper.",
+          "As the only navigation → it sits beside Navigation, never instead."
+        ]
+      },
+      "variants": [],
+      "parts": [
+        {
+          "name": "Link",
+          "tokens": [],
+          "value": "same as the trail",
+          "states": "hover --obsidian-100 · pressed --obsidian-400"
+        },
+        {
+          "name": "Separator",
+          "tokens": [
+            "--obsidian-500"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Current",
+          "tokens": [
+            "--obsidian-100"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Trail",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-caption",
+            "--tr-mono",
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--s-0-5",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Mono uppercase --t-caption · --tr-mono, gap --s-2. Crumbs --obsidian-300, .sep --obsidian-500, .active --obsidian-100.",
+        "In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in &lt;nav aria-label=\"Breadcrumb\"&gt; and marks the current page with aria-current=\"page\".",
+        "A crumb that is a link hovers --obsidian-100, presses --obsidian-400 and takes the pressable ring; the current page stays a span.",
+        "≤480px: only .active survives — crumbs and separators hide, and the register drops to --t-micro."
+      ],
+      "classes": [
+        "active",
+        "breadcrumb",
+        "sep"
+      ]
+    }
+  }
+}

@@ -768,7 +768,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
 - An explanation that fits none of these seven is `off-system`. Add a surface deliberately, or use one of these.
 
-**Page order (v5.0.0).** A component page reads in one order: Usage (*Use it when* / *Use something else when*), the Anatomy card, Rules, the variants grouped by axis (type, size, state, orientation, placement, composition, the live demo), Do and don't. The order follows the component schema the contract is read into: description, parts and tokens, rules, variant axes.
+**Page order (v5.0.0).** A component page reads in one order: Usage (*Use it when* / *Use something else when*), the Anatomy card, Rules, the variants grouped by axis (type, size, state, orientation, placement, composition, the live demo), Do and don't. The axes are declared once, in the section's **Variants.** block: one line per axis, its values in order, the default marked; the states stay in the State index. The demos on the site show every declared value (check 102). The order follows the component schema the contract is read into: description, parts and tokens, rules, variant axes.
 
 **Status (v5.0.0).** The debt declared in v3.4.0 is closed: every subsection carries framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears where a rule is contestable, never to fill a quota. (Counts are left out on purpose: they were written by hand and had drifted, 102 subsections and 10 of 44 sections against 151 and 23 of 40.)
 
@@ -919,6 +919,10 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - **The select caret is the one exception to inherited colour.** It is a CSS `background-image` and cannot read `currentColor`: it draws the `chevron-down` album shape with the literal `#8A94A3`.
 - **Not icons.** The loader ring, the honeycomb map and the brand marks are graphics with their own rules.
 
+
+**Variants.**
+- `size` — `.icon-xs` · sm (default) · `.icon-md` · `.icon-lg`
+- `tone` — default (default) · `.icon-muted` · `.icon-fill`
 **Do / Don't.** Do copy the drawing from the album. Don't redraw an icon, set a stroke width or a colour on it, or fill an outline icon.
 
 ### Grid system
@@ -1053,6 +1057,12 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - Primary label is near-white (`--obsidian-050`) on `--primary-500` — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to `.btn-primary`; rest and hover are bounded to `--primary-500` (no lighten); pressed darkens to `--primary-600`. The only other light label on magenta is `.badge-solid` (§ 6.3); never elsewhere.
 - **Label weight is Medium 500 — ratified 2026-06-12** after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500.
 
+
+**Variants.**
+- `type` — `.btn-primary` (default) · `.btn-secondary` · `.btn-ghost` · `.btn-outline` · `.btn-danger`
+- `size` — `.btn-sm` · md (default) · `.btn-lg`
+- `content` — label (default) · `.btn-icon`
+- `placement` — inline (default) · `.btn-floating`
 **Do / Don't.** Do keep one `.btn-primary` per screen and let the rest recede; give an icon-only button an `aria-label` that names the action. Don't bold the label, lighten the primary on hover, or remove the outline without a focus ring in its place.
 
 **Do / Don't.** Do pick the size for density (32 · 40 · 48) and let the variant carry importance. Don't use a button to go to another page: that is a Link.
@@ -1101,6 +1111,9 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 - **Not a button.** A link that triggers an action on the page is a defect: it is announced as navigation and cannot be pressed with Space. Use § 3.6.
 - **States: § 3.0.1** — `default` · `hover` · `focus-visible` · `active` · `disabled`. Motion: the colour and the thickness on `--d-quick` · `--ease-standard`, in the § 8.3 index.
 
+
+**Variants.**
+- `type` — `.link` (default) · `.link-quiet`
 **Do / Don't.** Do put the link on the words that name the destination. Don't use a link for an action on the current page — that is § 3.6 Button.
 
 ### Checkbox · Switch · Radio
@@ -1159,6 +1172,8 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
+
+**Variants.** None: one form each. The states are the State index's.
 **Do / Don't.** Do make the whole label the target, at least 44×44 on a phone, and keep the focus ring on the input. Don't put a tick in a circle, or use a checkbox for a change that applies at once: that is a Switch.
 
 **Do / Don't.** Do keep exactly one option checked in a named group, with a default. Don't put a dot in a square, or leave a group with nothing checked.
@@ -1225,6 +1240,9 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Targets (WCAG 2.5.8).** The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.
 - **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
 
+
+**Variants.**
+- `type` — single (default) · `.slider-pair`
 **Do / Don't.** Do set a step that gives between ten and a few hundred positions, show the value beside the label and name each handle of a range. Don't use a slider for three choices or for a value that must be exact, or start a range on the whole scale.
 
 ### Input · textarea · select
@@ -1289,6 +1307,10 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Clear.** An `.input-action` with `data-input-clear` and the `x` of § 3.1. It is visible only while the field has a value (`:placeholder-shown`, so the field needs a placeholder) and hidden when the field is disabled or readonly. Clicking it empties the field, fires `input` and gives the focus back to the field.
 - **Search.** The field sits in `<form role="search">` with `type="search"`, so Enter submits natively. The browser's own clear button is removed: there is one. A search has no error state: no results is a result and is shown where the results go, never on the field.
 
+
+**Variants.**
+- `type` — `.input` (default) · `.textarea` · search
+- `adornment` — none (default) · icon · action
 **Do / Don't.** Do give every field a persistent label, and say an error in the helper text as well as in the border. Don't use the placeholder as the label, or let colour alone say "error".
 
 **Do / Don't.** Do show the clear button only while the field has a value, and show "no results" where the results go. Don't give a search field an error state, or keep the browser's own clear button beside ours.
@@ -1438,6 +1460,9 @@ Actions on an item, behind one button. The panel and the row are variant B's; th
 - **Horizontal placement: toward the middle.** A trigger in the left half of the viewport aligns the panel to its start; in the right half, to its end, so a kebab at the end of a row opens inward. Then the viewport clamp of variant B. The vertical rule is variant B's.
 - Keyboard (APG menu button): `Enter`/`Space`/`↓` open on the first item, `↑` on the last; `↓`/`↑`, `Home`/`End` and typeahead as in variant B, no wrap; `Enter`/`Space` runs the item and closes; `Esc` closes; focus returns to the trigger; `Tab` closes and proceeds.
 
+
+**Variants.**
+- `type` — native (default) · listbox · slider · menu
 **Do / Don't.** Do open the panel below the field and above it only when the bottom edge would clip it, open a kebab at the end of a row inward, put a destructive action last after a divider, and keep one Slider at most in a panel. Don't pin the panel below a field at the bottom of the screen or let it cover what the person still needs, use a Menu to hold a value, mix a Slider with options, or put two Sliders in one panel.
 
 ### Time input
@@ -1495,6 +1520,8 @@ document.getElementById("time-input").addEventListener("input", function () {
 - No `type="time"`: the native picker does not follow the system.
 - Focus and error follow § 3.10.
 
+
+**Variants.** None: one form. The states are the State index's.
 **Do / Don't.** Do let the field format HH:MM as it is typed, with `inputmode="numeric"` and `maxlength="5"`. Don't use `type="time"`: the native picker does not follow the system.
 
 ### Date picker
@@ -1563,6 +1590,9 @@ document.getElementById("time-input").addEventListener("input", function () {
 - Disabled days are `<button disabled>`, not styled-out divs — keyboard users must be able to tell.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
+
+**Variants.**
+- `type` — single (default) · `.dp-range`
 **Do / Don't.** Do pair a real `<input>` with a labelled button; today is a ring, the selection a fill. Don't build the trigger from a div, style disabled days out instead of disabling them, or open a calendar for a date the reader already knows, such as a birth date.
 
 ### Badge
@@ -1613,6 +1643,9 @@ The example is the § 19.1 demo, badge for badge; check 47 holds the two togethe
 - **The solid badge takes the light label**, `--obsidian-050` on `--primary-500`: the second ratified exception of § 6.3, bounded like the first.
 - **States: § 3.0.1.** `default` only: a badge is static — no hover, no focus. If it needs one, it is a button or a chip.
 
+
+**Variants.**
+- `type` — default (default) · `.badge-brand` · `.badge-success` · `.badge-warn` · `.badge-danger` · `.badge-info` · `.badge-solid`
 **Do / Don't.** Do keep it to a word or two, the status first, on one line beside what it describes. Don't let it break onto two lines: when room runs out the text beside it wraps; the badge never does.
 
 ### Chip
@@ -1671,6 +1704,10 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
 
+
+**Variants.**
+- `type` — default (default) · `.chip-brand` · `.chip-success` · `.chip-warn` · `.chip-danger` · `.chip-info`
+- `behaviour` — static (default) · filter · removable
 **Do / Don't.** Do use a chip for a value someone entered, chose or can take back. Don't use one to report status the system computed — that is § 3.14 Badge, and the giveaway is that nobody can remove it — or let it break onto two lines: the text beside it wraps instead.
 
 ### Alert
@@ -1715,6 +1752,9 @@ Inline, in flow, addressed to the whole surface — not to one field, and never 
 - **An alert is not dismissible, at all.** Not on a timer (§ 6 floor #6) and not by the reader either: it clears when the *condition* clears. A close button would let someone hide a state that is still true. If the reader must be able to make it go away, the message is transient and belongs in § 3.17 Toast — that is the whole difference between the two components.
 - **Entrance is the system's canonical reveal** — `[data-alert-fade]` + `.is-in`, opacity plus 12px from below on `--d-slow` · `--ease-decel`, the same ride as `[data-fade]`. Staggered when several land together. Under reduced motion they are simply there.
 
+
+**Variants.**
+- `type` — default (default) · `.alert-info` · `.alert-success` · `.alert-warn` · `.alert-danger`
 **Do / Don't.** Do let an alert clear when the *condition* clears. If the reader has to be able to make the message go away, it was never an alert — it was a toast. Don't give an alert a close button. It lets someone hide a state that is still true, and the next reader inherits a screen that lies.
 
 ### Toast
@@ -1764,6 +1804,9 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 - **The toast keeps its close button.** It is the dismissible half of the pair: § 3.16 Alert has none by contract.
 - Motion: § 06.4.
 
+
+**Variants.**
+- `type` — default (default) · `.toast-success` · `.toast-warn` · `.toast-danger`
 **Do / Don't.** Do mirror every toast somewhere durable. A toast is a notification of a result, never the record of it. Don't auto-hide a toast that carries an Undo or an error. The countdown races the reader; hover and focus must pause it.
 
 ### Progress
@@ -1807,6 +1850,9 @@ How far a task with a known end has come: a track, a fill and the value written 
 - **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
 - **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
 
+
+**Variants.**
+- `size` — md (default) · `.progress-sm`
 **Do / Don't.** Do write the value beside the bar and name the bar. Don't use it for an unknown wait, or stack two bars for one task.
 
 ### Loader
@@ -1900,6 +1946,10 @@ The continuous loops (brand mark, fallback ring, label cycle, shimmer) run on th
 - Resolve to the success state when a wait completes green. Let the loader keep spinning after the wait is over and you've shipped a bug surface, not a state.
 - Never use the loader as a decorative animation. The mark is in motion **because** something is loading.
 
+
+**Variants.**
+- `size` — `.loader-xs` · `.loader-sm` · `.loader-md` (default) · `.loader-lg`
+- `type` — standalone (default) · `.loader-with-label` · `.loader-inline` · in a button
 **Do / Don't.** Do show the loader within *100ms* of the action that triggered the wait. Late loaders read as a glitch, not feedback. Don't pop the loader after the response already returned. A 200ms wait deserves no loader at all — show the result.
 
 ### Skeleton
@@ -1949,6 +1999,9 @@ The grey shape of content that has not arrived yet: it holds the place and the s
 - **Silent shapes.** Every shape is `aria-hidden="true"`. A skeleton is never focusable and never a link.
 - **Reduced motion.** The shimmer is off and the fill stays still (§ 06.4).
 
+
+**Variants.**
+- `type` — `.skeleton-line` (default) · `.skeleton-circle` · `.skeleton-block`
 **Do / Don't.** Do draw the shapes at the size of the content and announce the end of the wait. Don't use a skeleton for a wait of a few hundred milliseconds, for content whose shape you do not know, or as the only sign that something is loading.
 
 ### Modal
@@ -2004,6 +2057,9 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 - **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
 - **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
 
+
+**Variants.**
+- `size` — 480 (default) · `.modal-wide`
 **Do / Don't.** Do ask one thing and give it two clear answers. Don't use a modal to show a message that needs no reply: that is an Alert or a Toast.
 
 ### Lightbox
@@ -2081,6 +2137,10 @@ A panel anchored to the button that opened it, richer than a tooltip: a sentence
 - **It is placed by CSS.** From the invoker, with `position-area` and a flip when there is no room; no script measures anything. The one exception is the Map (§ 3.43): its popover stays inside the map and beside its cluster, so the map's script places it.
 - **Motion.** It fades in and rises `--s-1` on `--d-quick`; out, the same, faster. Reduced motion: instant (§ 06.4).
 
+
+**Variants.**
+- `type` — read-only (default) · form
+- `placement` — bottom start (default) · `.popover-top` · `.popover-end`
 **Do / Don't.** Do open it with a button and give it a name, and let a form popover close only on its own buttons. Don't open it on hover, put a popover inside a popover, or use it for content wider than 360 px.
 
 ### Drawer
@@ -2149,6 +2209,11 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 - **Motion.** It slides in from its edge on `--d-base` · `--ease-decel` and the scrim fades with it; out, the same on `--ease-accel`. Reduced motion: instant (§ 06.4).
 - **No state matrix beyond `default` and `current`.** The panel is never focused or pressed (§ 3.0.1); the rows carry the List's states.
 
+
+**Variants.**
+- `type` — panel (default) · `.drawer-nav`
+- `placement` — end (default) · `.drawer-start`
+- `size` — default (default) · `.drawer-wide`
 **Do / Don't.** Do use it for a menu or a text the person reads with the page still behind it, and name it with its title. Don't put a form in it, stack one drawer on another, or make it a panel that stays on the page.
 
 ### Tooltip
@@ -2192,6 +2257,9 @@ A label for something already visible. Never a container for content.
 - No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.
 - Plain text only, one or two lines. A tooltip that needs a title is an alert.
 
+
+**Variants.**
+- `placement` — top (default) · `.tooltip-bottom` · `.tooltip-end`
 **Do / Don't.** Do keep one tooltip open at a time, opened on hover *and* on focus. Two bubbles on screen overlap, and an overlapped label cannot be read. Don't put a link, a button, or anything required inside a tooltip. There is no accessible path to reach it, and it disappears the moment the pointer leaves.
 
 ### Navigation
@@ -2253,6 +2321,9 @@ The bar at the top of a page: the brand, the destinations, one action. Flush and
 - **States: § 3.0.1.** `default` · `hover` · `active` · `current` · `focus-visible` on the item; the action and the toggle are Buttons and carry the Button's rows: `disabled` · `loading` included (§ 3.6).
 - **Motion.** Colour on `--d-quick` · `--ease-standard`; reduced motion: instant (§ 06.4).
 
+
+**Variants.**
+- `type` — top bar (default) · `.navbar-floating` · sidebar
 **Do / Don't.** Do keep it to the brand, a few destinations and one action, and mark the current page with `aria-current`. Don't round the flush bar or lift it off the page (that is the floating bar), underline the current item or open its menu on the side opposite the toggle.
 
 #### Floating bar
@@ -2346,6 +2417,8 @@ Use `will-change: transform, width` on the indicator.
 - **One indicator.** One `.tab-indicator` per tablist, 2px of `--primary-500`, moved with `transform` and `width`; never an underline per tab.
 - **Views of one page.** Tabs switch what one page shows; going to another page is Navigation.
 
+
+**Variants.** None: one form. The states are the State index's.
 **Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
 
 ### Segmented control
@@ -2395,6 +2468,9 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 | hover · select | segment label color (effect) | `--d-quick` · `--ease-standard` | instant |
 | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
 
+
+**Variants.**
+- `size` — hug (default) · `.segmented-fill`
 **Do / Don't.** Do keep two or three segments, each with an icon and a label, under one thumb that travels. Don't drop the labels, put more than three views in it, or use it for a value a form submits: that is a Radio.
 
 ### Breadcrumb
@@ -2424,6 +2500,8 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 - **A crumb that is a link** hovers `--obsidian-100`, presses `--obsidian-400` and takes the pressable ring; the current page stays a `span`.
 - ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
 
+
+**Variants.** None: one form. The states are the State index's.
 **Do / Don't.** Do wrap a breadcrumb that navigates in `<nav aria-label="Breadcrumb">` and mark the current page with `aria-current="page"`. Don't use it as the only navigation, or to show progress through a flow: that is a Stepper.
 
 ### Pagination
@@ -2483,6 +2561,9 @@ Links between the pages of one set of items. A `nav` of numbered links, or, in a
 - **Not for a journey, and not scrolling forever.** A form or any linear journey takes a Continue button and a Back link. Infinite scroll takes the keyboard away from the reader; it is not a replacement.
 - **Motion.** Hover and focus change the background and the colour on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
 
+
+**Variants.**
+- `type` — numbered (default) · compact
 **Do / Don't.** Do mark the current page with `aria-current`, name every number and put the page number in the title. Don't use it for a form, show it for a single page, or replace it with infinite scroll.
 
 ### Stepper
@@ -2537,6 +2618,9 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
 - **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
 
+
+**Variants.**
+- `orientation` — horizontal (default) · `.stepper-vertical`
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
 **Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
@@ -2610,6 +2694,10 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 
+
+**Variants.**
+- `type` — project (default) · stat · `.card-row` · `.card-feature`
+- `media` — none (default) · `.card-media`
 **Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
 
 **Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
@@ -2661,6 +2749,9 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
+
+**Variants.**
+- `type` — single-open (default) · multi-open
 **Do / Don't.** Do open one panel at a time by default, each header a real button with `aria-expanded`. Don't fold away content the reader will read in full: that is a page with headings.
 
 ### Divider
@@ -2705,6 +2796,10 @@ A hairline between two blocks of one container: a thematic break. Three forms: h
 - **One weight, one colour.** `--obsidian-700`, 1px. `--border-subtle` (`--obsidian-800`) vanishes inside a card, which is `--obsidian-800`; a heavier line is a different component, not a thicker divider.
 - **Static.** No hover, no focus, no motion.
 
+
+**Variants.**
+- `orientation` — horizontal (default) · `.divider-vertical`
+- `type` — plain (default) · `.divider-label`
 **Do / Don't.** Do draw it where the topic changes and let the container give the space on both sides. Don't put one between the rows of a List or a Table, stack lines to make a heavier one, or add a margin to the divider itself.
 
 ### Chat & Messaging
@@ -2806,6 +2901,9 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - Bot reply replaces the typing bubble **in place** (mutate the existing `.chat-stack`, swap `.chat-bubble` content) so layout doesn't shift.
 - After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion `.is-out` still hides (instantly), per the motion table.
 
+
+**Variants.**
+- `sender` — bot (default) · own
 **Do / Don't.** Do own bubbles fill with `--primary-700` — the deep brand accent. Bright `--primary-500` stays reserved for CTAs and focus rings. Don't paint own bubbles with `--primary-500`. The bubble starts reading as a CTA and the actual primary action on the page loses its weight.
 
 ### Swatch
@@ -2885,6 +2983,10 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 - **Named once.** Beside a visible label it is `aria-hidden="true"`; alone, `role="img"` with an `aria-label` that names the colour.
 - **The Diagrams legend is not a swatch.** Its key shows a node's shape, with a border in the colour of the state (§ 3.44).
 
+
+**Variants.**
+- `type` — `.swatch` (default) · `.swatch-tile`
+- `kind` — colour (default) · `.swatch-tile-motion` · `.swatch-tile-radius` · `.swatch-tile-shadow` · `.swatch-tile-space` · `.swatch-tile-type` · `.swatch-tile-icon`
 **Do / Don't.** Do put it before its label, let the label name the colour, and take the fill, the curve and the duration from tokens. Don't make it a button, let the colour carry the meaning alone, paste a hex or a cubic-bezier where a token exists, loop a motion tile for ever, or stretch the hex swatch out of a regular hexagon.
 
 ### Avatar
@@ -2950,6 +3052,12 @@ A circle that says **who a person, team or account is**: their picture, their in
 - **Motion.** The edge colour on `--d-quick` · `--ease-standard` — a row in the § 06.4 index; reduced motion is instant.
 - **No other states.** The avatar is not disabled, selected or loading; a pending picture shows the initials.
 
+
+**Variants.**
+- `size` — `.avatar-sm` · md (default) · `.avatar-lg` · `.avatar-xl` · `.avatar-2xl`
+- `type` — `.avatar-img` · initials (default) · `.avatar-mark`
+- `status` — none (default) · online · away · busy · offline
+- `composition` — single (default) · `.avatar-group`
 **Do / Don't.** Do give the avatar a name the screen reader can say. Don't use it as decoration or to mark a thing that is not a person or an account.
 
 ### List
@@ -3027,6 +3135,9 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - **One density.** One row height; there is no small or large list. A list that has to be denser is a Table.
 - **Motion.** Hover changes the background on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
 
+
+**Variants.**
+- `type` — items (default) · `.list-summary`
 **Do / Don't.** Do keep the same parts in every row and name every action in a row. Don't put columns in a row to compare them, nest a list in a row, or wrap a whole row in a link and put a button inside it.
 
 ### Table
@@ -3088,6 +3199,9 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - **A click never clears the order.** On the driver it flips ascending and descending; on another column it makes that column the driver, ascending. The table opens sorted, its driver declared in the markup.
 - **The whole header is the target.** The button fills the cell, so the target is the header's height and width, never the icon alone. Focus is the pressable halo with the outline inside the cell (offset `-2px`, as the date picker's days): the frame clips the halo on the table's outer edges, the outline always shows.
 
+
+**Variants.**
+- `type` — plain (default) · sortable · linked rows
 **Do / Don't.** Do open a sortable table already sorted, with its driver named by `aria-sort` and a step lighter. Don't let a click clear the order, put the sort on the icon alone, or mark the driver by its colour only.
 
 **Do / Don't.** Do make a row that opens a page one link, its anchor in the first cell covering the row. Don't highlight a row that is not a link, or put a second link or button in a linked row.

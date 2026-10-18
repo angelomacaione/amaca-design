@@ -1,0 +1,136 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper",
+  "type": "registry:item",
+  "title": "Stepper",
+  "description": "A linear flow: forms, onboarding, checkout.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/stepper.css",
+      "type": "registry:file",
+      "target": "styles/amaca/stepper.css",
+      "content": ".stepper{\n  --stp-dot:var(--s-6);\n  --stp-cur:var(--s-8);\n  container-type:inline-size;\n}\n.stepper-list{\n  list-style:none;\n  margin:0;\n  padding:0;\n  display:flex;\n}\n.stepper-step{\n  flex:1 1 0;\n  min-width:0;\n  position:relative;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  text-align:center;\n  gap:var(--s-2);\n}\n.stepper-step::after{\n  content:\"\";\n  position:absolute;\n  top:calc(var(--stp-cur) / 2);\n  left:50%;\n  width:100%;\n  height:var(--bw-2);\n  background:repeating-linear-gradient(90deg,var(--obsidian-300) 0 var(--s-1),transparent var(--s-1) var(--s-2));\n  transform:translateY(-50%);\n}\n.stepper-step:last-child::after{\n  display:none;\n}\n.stepper-step.is-done::after{\n  height:var(--bw-2);\n  border:0;\n  border-radius:var(--r-xs);\n  background:var(--grad-progress);\n  box-shadow:var(--sh-glow-soft);\n}\n.stepper-dot{\n  position:relative;\n  z-index:1;\n  width:var(--stp-dot);\n  height:var(--stp-dot);\n  margin:calc((var(--stp-cur) - var(--stp-dot)) / 2) 0;\n  border-radius:var(--r-full);\n  display:grid;\n  place-items:center;\n  font-size:var(--t-caption);\n  font-weight:600;\n  color:var(--obsidian-300);\n  background:var(--obsidian-800);\n  box-shadow:inset 0 0 0 var(--bw-1) var(--obsidian-300);\n}\n.stepper-step.is-done .stepper-dot{\n  background:var(--primary-500);\n  box-shadow:none;\n  color:var(--obsidian-950);\n}\n.stepper-step[aria-current=\"step\"] .stepper-dot{\n  width:var(--stp-cur);\n  height:var(--stp-cur);\n  margin:0;\n  background:var(--grad-progress);\n  box-shadow:var(--sh-glow);\n  color:var(--obsidian-950);\n  font-weight:700;\n}\n.stepper-step[aria-current=\"step\"] .stepper-dot::after{\n  content:\"\";\n  position:absolute;\n  inset:calc(-1 * var(--s-1));\n  border-radius:var(--r-full);\n  box-shadow:0 0 0 var(--bw-1) var(--primary-500);\n  animation:stepper-pulse 2400ms var(--ease-standard) infinite;\n}\n.stepper-text{\n  display:flex;\n  flex-direction:column;\n  align-items:inherit;\n  gap:var(--s-0-5);\n}\n.stepper-sr-only{\n  position:absolute;\n  width:var(--s-px);\n  height:var(--s-px);\n  padding:0;\n  margin:calc(-1 * var(--s-px));\n  overflow:hidden;\n  clip:rect(0,0,0,0);\n  white-space:nowrap;\n  border:0;\n}\n.stepper-label{\n  font-size:var(--t-small);\n  font-weight:400;\n  color:var(--obsidian-300);\n}\n.stepper-meta{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.stepper-step.is-done .stepper-label{\n  font-weight:600;\n  color:var(--obsidian-100);\n}\n.stepper-step[aria-current=\"step\"] .stepper-label{\n  font-weight:700;\n  color:var(--primary-200);\n}\n.stepper-step[aria-current=\"step\"] .stepper-meta{\n  color:var(--primary-200);\n}\n.stepper[data-reveal] .stepper-step::after{\n  opacity:0;\n  transform:translateY(-50%) scaleX(0);\n  transform-origin:left;\n}\n.stepper[data-reveal] .stepper-dot{\n  opacity:0;\n  transform:scale(0);\n}\n.stepper[data-reveal] .stepper-text{\n  opacity:0;\n  transform:translateY(var(--s-2));\n}\n.stepper-vertical .stepper-list{\n  flex-direction:column;\n  gap:var(--s-8);\n}\n.stepper-vertical .stepper-step{\n  flex-direction:row;\n  align-items:center;\n  text-align:left;\n  gap:var(--s-3);\n}\n.stepper-vertical .stepper-text{\n  align-items:flex-start;\n}\n.stepper-vertical .stepper-dot{\n  margin:0 calc((var(--stp-cur) - var(--stp-dot)) / 2);\n}\n.stepper-vertical .stepper-step::after{\n  top:calc(var(--stp-cur) / 2);\n  left:calc(var(--stp-cur) / 2);\n  width:var(--bw-2);\n  height:calc(100% + var(--s-8));\n  background:repeating-linear-gradient(180deg,var(--obsidian-300) 0 var(--s-1),transparent var(--s-1) var(--s-2));\n  transform:translateX(-50%);\n}\n.stepper-vertical .stepper-step.is-done::after{\n  width:var(--bw-2);\n  border:0;\n  background:linear-gradient(180deg,var(--primary-200),var(--primary-500));\n}\n.stepper-vertical[data-reveal] .stepper-step::after{\n  transform:translateX(-50%) scaleY(0);\n  transform-origin:top;\n}\n@container (max-width: 480px){\n  .stepper-list{\n    flex-direction:column;\n    gap:var(--s-8);\n  }\n  .stepper-step{\n    flex-direction:row;\n    align-items:center;\n    text-align:left;\n    gap:var(--s-3);\n  }\n  .stepper-text{\n    align-items:flex-start;\n  }\n  .stepper-dot{\n    margin:0 calc((var(--stp-cur) - var(--stp-dot)) / 2);\n  }\n  .stepper-step::after{\n    top:calc(var(--stp-cur) / 2);\n    left:calc(var(--stp-cur) / 2);\n    width:var(--bw-2);\n    height:calc(100% + var(--s-8));\n    background:repeating-linear-gradient(180deg,var(--obsidian-300) 0 var(--s-1),transparent var(--s-1) var(--s-2));\n    transform:translateX(-50%);\n  }\n  .stepper-step.is-done::after{\n    width:var(--bw-2);\n    height:calc(100% + var(--s-8));\n    border:0;\n    background:linear-gradient(180deg,var(--primary-200),var(--primary-500));\n  }\n  .stepper[data-reveal] .stepper-step::after{\n    transform:translateX(-50%) scaleY(0);\n    transform-origin:top;\n  }\n}\n@media (prefers-reduced-motion: reduce){\n  .stepper[data-reveal] .stepper-step::after, .stepper[data-reveal] .stepper-dot, .stepper[data-reveal] .stepper-text{\n    opacity:1;\n    transition:none;\n  }\n  .stepper[data-reveal] .stepper-dot, .stepper[data-reveal] .stepper-text{\n    transform:none;\n  }\n  .stepper[data-reveal] .stepper-step::after{\n    transform:translateY(-50%);\n    transition:none;\n  }\n  .stepper-vertical[data-reveal] .stepper-step::after{\n    transform:translateX(-50%);\n  }\n  .stepper-step[aria-current=\"step\"] .stepper-dot::after{\n    animation:none;\n    transform:none;\n    opacity:0.4;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/stepper.html",
+      "type": "registry:file",
+      "target": "components/amaca/stepper.html",
+      "content": "<nav class=\"stepper stepper-vertical\" aria-label=\"Checkout\"><ol class=\"stepper-list\"><li class=\"stepper-step is-done\"><span class=\"stepper-dot\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg></span><span class=\"stepper-text\"><span class=\"stepper-label\"><span class=\"stepper-sr-only\">Completed: </span>Cart</span><span class=\"stepper-meta\">Done</span></span></li><li class=\"stepper-step\" aria-current=\"step\"><span class=\"stepper-dot\">2</span><span class=\"stepper-text\"><span class=\"stepper-label\"><span class=\"stepper-sr-only\">Current: </span>Payment</span><span class=\"stepper-meta\">Now</span></span></li><li class=\"stepper-step\"><span class=\"stepper-dot\">3</span><span class=\"stepper-text\"><span class=\"stepper-label\">Review</span><span class=\"stepper-meta\">Next</span></span></li></ol></nav>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.31 Stepper",
+      "site": "https://www.amaca.design/#stepper",
+      "usage": {
+        "use_it_when": [
+          "A linear flow: forms, onboarding, checkout.",
+          "Three or more steps."
+        ],
+        "use_something_else_when": [
+          "Fewer than three steps → a Next button.",
+          "Steps that can be done in any order → Tabs."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "orientation",
+          "values": [
+            "horizontal",
+            ".stepper-vertical"
+          ],
+          "default": "horizontal"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Dot",
+          "tokens": [
+            "--obsidian-800",
+            "--bw-1",
+            "--obsidian-300",
+            "--r-full",
+            "--stp-dot"
+          ],
+          "value": "",
+          "states": "done --primary-500 · current --grad-progress --sh-glow --stp-cur"
+        },
+        {
+          "name": "Number",
+          "tokens": [
+            "--obsidian-300",
+            "--t-caption"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Pulse",
+          "tokens": [
+            "--bw-1",
+            "--primary-500",
+            "--r-full"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Connector",
+          "tokens": [
+            "--obsidian-300",
+            "--s-1",
+            "--s-2",
+            "--bw-2"
+          ],
+          "value": "",
+          "states": "done --grad-progress"
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--t-small"
+          ],
+          "value": "",
+          "states": "done --obsidian-100 · current --primary-200"
+        },
+        {
+          "name": "Meta",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": "current --primary-200"
+        }
+      ],
+      "rules": [
+        "Horizontal while the labels fit. Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); .stepper-vertical forces the column for long labels or more steps.",
+        "One current step. Exactly one aria-current=\"step\"; done steps before it, upcoming steps after.",
+        "Done is drawn, upcoming is dashed. The connector after a done step is --grad-progress at --bw-2; the one after the current and upcoming steps is a dashed --obsidian-300 line, 4px dashes and 4px gaps (--s-1) (5.6 : 1 on a card).",
+        "Contrast. Upcoming labels and every meta line are --obsidian-300 (5.6 : 1 on --obsidian-800); the number and the check on a filled dot are --obsidian-950 (6.5 : 1 on --primary-500).",
+        "Not a control. The steps are not links: going back is the flow's own Back button.",
+        "Motion. On view, every dot scales in on --d-slow · --ease-spring (opacity on --ease-decel) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on --d-slow · --ease-decel from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still."
+      ],
+      "classes": [
+        "is-done",
+        "stepper",
+        "stepper-dot",
+        "stepper-label",
+        "stepper-list",
+        "stepper-meta",
+        "stepper-sr-only",
+        "stepper-step",
+        "stepper-text",
+        "stepper-vertical"
+      ]
+    }
+  }
+}

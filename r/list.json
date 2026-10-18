@@ -1,0 +1,142 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "list",
+  "type": "registry:item",
+  "title": "List",
+  "description": "Many things of one kind, each a line or two, to scan or open: projects, settings, people.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/avatar.json",
+    "https://www.amaca.design/r/badge.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/list.css",
+      "type": "registry:file",
+      "target": "styles/amaca/list.css",
+      "content": ".list{\n  list-style:none;\n  margin:0;\n  padding:0;\n  border-top:var(--bw-1) solid var(--obsidian-700);\n}\n.list > li{\n  border-bottom:var(--bw-1) solid var(--obsidian-700);\n}\n.list-item{\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  box-sizing:border-box;\n  width:100%;\n  min-height:var(--s-12);\n  padding:var(--s-3) var(--s-4);\n  color:var(--obsidian-100);\n  font:inherit;\n  font-size:var(--t-small);\n  text-align:left;\n  text-decoration:none;\n  background:transparent;\n  border:0;\n}\n.list-body{\n  flex:1;\n  min-width:0;\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-px);\n}\n.list-title{\n  color:var(--obsidian-100);\n  font-size:var(--t-small);\n}\n.list-meta{\n  color:var(--obsidian-300);\n  font-size:var(--t-caption);\n}\n.list-end{\n  flex:none;\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  margin-left:auto;\n}\na.list-item, button.list-item{\n  cursor:pointer;\n  transition:background var(--d-quick) var(--ease-standard);\n}\na.list-item:hover, button.list-item:hover{\n  background:var(--obsidian-850);\n}\na.list-item:focus-visible, button.list-item:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--focus-width));\n  box-shadow:var(--ring-halo);\n}\n.list-item[aria-disabled=\"true\"]{\n  opacity:0.4;\n  cursor:not-allowed;\n  pointer-events:none;\n}\n.list-summary{\n  margin:0;\n  border-top:var(--bw-1) solid var(--obsidian-700);\n}\n.list-summary > div{\n  display:grid;\n  grid-template-columns:minmax(0,1fr) minmax(0,2fr) var(--s-20);\n  align-items:baseline;\n  gap:var(--s-4);\n  padding:var(--s-3) var(--s-4);\n  border-bottom:var(--bw-1) solid var(--obsidian-700);\n}\n.list-key{\n  margin:0;\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.list-value{\n  margin:0;\n  min-width:0;\n  color:var(--obsidian-100);\n  font-size:var(--t-small);\n}\n.list-actions{\n  margin:0;\n  display:flex;\n  justify-content:flex-end;\n  gap:var(--s-2);\n}\n@media (max-width:720px){\n  .list-summary > div{\n    grid-template-columns:1fr;\n  }\n}\n@media (prefers-reduced-motion:reduce){\n  a.list-item, button.list-item{\n    transition:none;\n  }\n}\n.list{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
+    },
+    {
+      "path": "amaca/list.html",
+      "type": "registry:file",
+      "target": "components/amaca/list.html",
+      "content": "<ul class=\"list\"><li><div class=\"list-item\"><span class=\"avatar avatar-sm\" aria-hidden=\"true\">AT</span><span class=\"list-body\"><span class=\"list-title\">Atlas · tokens</span><span class=\"list-meta\">CS-017 · 2025</span></span><span class=\"list-end\"><span class=\"badge badge-brand\">Live</span></span></div></li><li><div class=\"list-item\"><span class=\"avatar avatar-sm\" aria-hidden=\"true\">OR</span><span class=\"list-body\"><span class=\"list-title\">Orbit · onboarding</span><span class=\"list-meta\">CS-021 · 2026</span></span><span class=\"list-end\"><span class=\"badge\">Draft</span></span></div></li><li><div class=\"list-item\"><span class=\"avatar avatar-sm\" aria-hidden=\"true\">KE</span><span class=\"list-body\"><span class=\"list-title\">Keel · checkout</span><span class=\"list-meta\">CS-009 · 2024</span></span><span class=\"list-end\"><span class=\"badge badge-brand\">Live</span></span></div></li><li><a class=\"list-item\" href=\"#\"><svg class=\"icon icon-fill\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><g stroke-linejoin=\"miter\"><path d=\"M8 1.75l3.25 3.25L8 8.25 4.75 5z\"/><path d=\"M2.5 14.25v-1.75L5 9.75h6l2.5 2.75v1.75z\"/></g></svg><span class=\"list-body\"><span class=\"list-title\">Profile</span><span class=\"list-meta\">Name, photo, language</span></span><span class=\"list-end\"><svg class=\"icon icon-muted\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 3l5 5-5 5\"/></svg></span></a></li></ul>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.38 List",
+      "site": "https://www.amaca.design/#list",
+      "usage": {
+        "use_it_when": [
+          "Many things of one kind, each a line or two, to scan or open: projects, settings, people.",
+          "The facts of one item as label and value pairs, with an action beside a value to change it."
+        ],
+        "use_something_else_when": [
+          "Several columns to compare or sort → Table, § 3.39.",
+          "A choice from a fixed set → Select or Radio.",
+          "Bullets inside running text → a plain `ul` or `ol` in the prose, no component."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "items",
+            ".list-summary"
+          ],
+          "default": "items",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Row",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-700"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Item",
+          "tokens": [
+            "--s-3",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Meta",
+          "tokens": [
+            "--obsidian-300",
+            "--t-caption"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "End",
+          "tokens": [
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "A row is one thing. Every row of a list has the same parts in the same order; a row that needs more columns is a Table row, § 3.25. A list is not nested inside a row.",
+        "Static or interactive, by the element. A div row has no hover and no pointer. An a or a button row has hover, focus-visible and disabled (aria-disabled=\"true\"), values in § 3.0.1. The whole row is the one target: no link around a row that holds a button.",
+        "Name every action (WCAG 2.5.3). An icon-only action in a row carries an aria-label that says which row (More actions for Arc). A text action keeps its visible word at the start of its name (Change owner).",
+        "Summary semantics. dl with a div per row is valid HTML; each dt has at least one dd. A fact without a value is not a row.",
+        "The hairlines stay. They tie each row to its action and help the reader who zooms. Drop them only in a list with no actions, and then for the whole list.",
+        "One density. One row height; there is no small or large list. A list that has to be denser is a Table.",
+        "Motion. Hover changes the background on --d-quick · --ease-standard, none under reduced motion (§ 06.4)."
+      ],
+      "classes": [
+        "list",
+        "list-actions",
+        "list-body",
+        "list-end",
+        "list-item",
+        "list-key",
+        "list-meta",
+        "list-summary",
+        "list-title",
+        "list-value"
+      ]
+    }
+  }
+}

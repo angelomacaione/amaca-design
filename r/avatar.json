@@ -1,0 +1,148 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "type": "registry:item",
+  "title": "Avatar",
+  "description": "Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/avatar.css",
+      "type": "registry:file",
+      "target": "styles/amaca/avatar.css",
+      "content": ".avatar{\n  --size:var(--s-8);\n  --fs:var(--t-caption);\n  --dot:var(--s-2);\n  --o:var(--s-2);\n  position:relative;\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  flex:none;\n  box-sizing:border-box;\n  width:var(--size);\n  height:var(--size);\n  padding:0;\n  border:var(--bw-1) solid var(--obsidian-600);\n  border-radius:var(--r-full);\n  background:var(--obsidian-700);\n  color:var(--obsidian-100);\n  font:700 var(--fs)/1 var(--font-sans);\n  text-transform:uppercase;\n  text-decoration:none;\n  vertical-align:middle;\n  user-select:none;\n}\n.avatar-sm{\n  --size:var(--s-6);\n  --fs:var(--t-micro);\n  --o:calc(var(--s-1) + var(--s-0-5));\n}\n.avatar-lg{\n  --size:var(--s-10);\n  --fs:var(--t-body);\n  --dot:var(--s-3);\n  --o:var(--s-3);\n}\n.avatar-xl{\n  --size:var(--s-12);\n  --fs:var(--t-lead);\n  --dot:var(--s-3);\n  --o:var(--s-3);\n}\n.avatar-2xl{\n  --size:var(--s-16);\n  --fs:var(--t-h5);\n  --dot:var(--s-4);\n  --o:var(--s-4);\n}\n.avatar-img{\n  position:absolute;\n  inset:0;\n  width:100%;\n  height:100%;\n  object-fit:cover;\n  border-radius:inherit;\n}\n.avatar>svg{\n  width:60%;\n  height:60%;\n  color:var(--obsidian-300);\n}\n.avatar-mark{\n  background:var(--obsidian-850);\n}\n.avatar-mark>.avatar-img{\n  inset:22%;\n  width:56%;\n  height:56%;\n  object-fit:contain;\n}\n.avatar-hue-1, .avatar-hue-2, .avatar-hue-3, .avatar-hue-4, .avatar-hue-5{\n  background:color-mix(in srgb,var(--h) calc(var(--tint-fill-deep) * 100%),var(--obsidian-800));\n  border-color:color-mix(in srgb,var(--h) calc(var(--tint-edge) * 100%),transparent);\n  color:var(--h);\n}\n.avatar-hue-1{\n  --h:var(--primary-300);\n}\n.avatar-hue-2{\n  --h:var(--info);\n}\n.avatar-hue-3{\n  --h:var(--success);\n}\n.avatar-hue-4{\n  --h:var(--warning);\n}\n.avatar-hue-5{\n  --h:var(--tertiary-200);\n}\n.avatar-dot{\n  position:absolute;\n  right:calc(-1 * var(--bw-2));\n  bottom:calc(-1 * var(--bw-2));\n  box-sizing:content-box;\n  width:var(--dot);\n  height:var(--dot);\n  border:var(--bw-2) solid var(--avatar-ring,var(--obsidian-950));\n  border-radius:var(--r-full);\n  background:var(--dc);\n}\n.avatar-dot[data-status=\"online\"]{\n  --dc:var(--success);\n}\n.avatar-dot[data-status=\"away\"]{\n  --dc:var(--warning);\n}\n.avatar-dot[data-status=\"busy\"]{\n  --dc:var(--danger);\n}\n.avatar-dot[data-status=\"offline\"]{\n  --dc:transparent;\n  box-shadow:inset 0 0 0 var(--bw-2) var(--obsidian-400);\n}\n.avatar-group{\n  display:inline-flex;\n  align-items:center;\n}\n.avatar-group>.avatar+.avatar{\n  margin-inline-start:calc(-1 * var(--o));\n}\n.avatar-group>.avatar:not(:last-child){\n  --cut:calc(var(--size) / 2 + var(--bw-2));\n  padding-inline-end:calc(var(--o) + var(--bw-2));\n  -webkit-mask:radial-gradient(circle at calc(var(--size) - var(--o) + var(--size) / 2) 50%,transparent var(--cut),black calc(var(--cut) + var(--bw-1) / 2));\n  mask:radial-gradient(circle at calc(var(--size) - var(--o) + var(--size) / 2) 50%,transparent var(--cut),black calc(var(--cut) + var(--bw-1) / 2));\n}\n.avatar-more{\n  background:var(--obsidian-800);\n  color:var(--obsidian-200);\n  font-weight:500;\n}\na.avatar, button.avatar{\n  cursor:pointer;\n  transition:border-color var(--d-quick) var(--ease-standard);\n}\na.avatar:hover, button.avatar:hover{\n  border-color:var(--primary-400);\n}\na.avatar:active, button.avatar:active{\n  border-color:var(--primary-500);\n}\na.avatar:focus-visible, button.avatar:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n@media (prefers-reduced-motion:reduce){\n  a.avatar, button.avatar{\n    transition:none;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/avatar.html",
+      "type": "registry:file",
+      "target": "components/amaca/avatar.html",
+      "content": "<span class=\"avatar avatar-lg\" role=\"img\" aria-label=\"Anna Rossi, online\"><span aria-hidden=\"true\">AR</span><i class=\"avatar-dot\" data-status=\"online\"></i></span>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.37 Avatar",
+      "site": "https://www.amaca.design/#avatar",
+      "usage": {
+        "use_it_when": [
+          "Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.",
+          "Several people share one item and a count is enough: a stack of up to five."
+        ],
+        "use_something_else_when": [
+          "A picture of a thing rather than of a person or account: a product, a place → an image in a Card.",
+          "A count or a status standing alone → Badge.",
+          "An icon that stands for an action → an icon-only Button, § 3.6."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "size",
+          "values": [
+            ".avatar-sm",
+            "md",
+            ".avatar-lg",
+            ".avatar-xl",
+            ".avatar-2xl"
+          ],
+          "default": "md",
+          "role": "size"
+        },
+        {
+          "axis": "type",
+          "values": [
+            ".avatar-img",
+            "initials",
+            ".avatar-mark"
+          ],
+          "default": "initials",
+          "role": "type"
+        },
+        {
+          "axis": "status",
+          "values": [
+            "none",
+            "online",
+            "away",
+            "busy",
+            "offline"
+          ],
+          "default": "none"
+        },
+        {
+          "axis": "composition",
+          "values": [
+            "single",
+            ".avatar-group"
+          ],
+          "default": "single"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Circle",
+          "tokens": [
+            "--obsidian-700",
+            "--bw-1",
+            "--obsidian-600",
+            "--r-full",
+            "--size"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Initials",
+          "tokens": [
+            "--obsidian-100"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Status",
+          "tokens": [
+            "--bw-2",
+            "--obsidian-950",
+            "--dc",
+            "--r-full",
+            "--dot"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Always a circle (RIGID). There is no square variant, and the shape never means \"person\" or \"organisation\". A team or an account is told apart by its image or its initials, not by its corners.",
+        "The name sits on the wrapper (RIGID). role=\"img\" with aria-label=\"Anna Rossi\"; the image has alt=\"\" and the initials are aria-hidden. Next to the name in text the whole avatar is aria-hidden=\"true\", so the name is read once. An avatar with no name and no text beside it is a defect.",
+        "Image, then initials, then the glyph. The image fails over to the initials by itself (onerror=\"this.remove()\" in the markup, no script of the system). With no name there is the user icon of § 3.1 at 60% of the side, --obsidian-300. Initials are at most two letters.",
+        "Neutral by default. Every avatar starts on --obsidian-700. The five .avatar-hue-* tints are for telling people apart in a long list, assigned by the caller from a stable key such as the id, never by position and never reshuffled. --danger is not one of them: it reads as an error.",
+        "A 1px edge on every variant, the image included, so a dark photo and a light one weigh the same on a dark page.",
+        "Status is never colour alone (WCAG 1.4.1). The offline dot is a hollow ring, and the status goes in the accessible name: \"Anna Rossi, online\". The ring around the dot is the surface the avatar sits on: set --avatar-ring on a card (--obsidian-800); the default is the page, --obsidian-950.",
+        "Groups. Overlap is a quarter of the side, and each avatar is cut out of the one before by --bw-2 of the surface, so it works on any background. The last avatar sits on top. Show at most five slots; past that the fifth is \"+N\", the same size, labelled \"N more people\".",
+        "Interactive only when it goes somewhere. An &lt;a&gt; or a &lt;button&gt; carries .avatar and its label names the destination (\"Open Anna Rossi's profile\"). Hover moves the edge to --primary-400, pressed to --primary-500, focus is the pressable ring. Any other avatar does not react.",
+        "Motion. The edge colour on --d-quick · --ease-standard — a row in the § 06.4 index; reduced motion is instant.",
+        "No other states. The avatar is not disabled, selected or loading; a pending picture shows the initials."
+      ],
+      "classes": [
+        "avatar",
+        "avatar-2xl",
+        "avatar-dot",
+        "avatar-group",
+        "avatar-hue-1",
+        "avatar-hue-2",
+        "avatar-hue-3",
+        "avatar-hue-4",
+        "avatar-hue-5",
+        "avatar-img",
+        "avatar-lg",
+        "avatar-mark",
+        "avatar-more",
+        "avatar-sm",
+        "avatar-xl"
+      ]
+    }
+  }
+}

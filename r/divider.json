@@ -1,0 +1,104 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "divider",
+  "type": "registry:item",
+  "title": "Divider",
+  "description": "A change of topic inside one container: two blocks of a card, a modal or a menu.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/divider.css",
+      "type": "registry:file",
+      "target": "styles/amaca/divider.css",
+      "content": ".divider{\n  display:block;\n  width:100%;\n  height:0;\n  margin:0;\n  padding:0;\n  border:0;\n  border-top:var(--bw-1) solid var(--obsidian-700);\n}\n.divider-vertical{\n  align-self:stretch;\n  width:0;\n  height:auto;\n  min-height:var(--s-4);\n  border-top:0;\n  border-left:var(--bw-1) solid var(--obsidian-700);\n}\n.divider-label{\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  width:100%;\n  color:var(--obsidian-300);\n  font-size:var(--t-caption);\n}\n.divider-label::before, .divider-label::after{\n  content:\"\";\n  flex:1;\n  border-top:var(--bw-1) solid var(--obsidian-700);\n}\n.divider-label){\n  width:min(100%, calc(var(--s-32) * 2));\n}\n"
+    },
+    {
+      "path": "amaca/divider.html",
+      "type": "registry:file",
+      "target": "components/amaca/divider.html",
+      "content": "<div class=\"divider-label\" role=\"separator\"><span>or</span></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "4.3.2",
+      "source": "DESIGN.md § 3.34 Divider",
+      "site": "https://www.amaca.design/#divider",
+      "usage": {
+        "use_it_when": [
+          "A change of topic inside one container: two blocks of a card, a modal or a menu.",
+          "Groups side by side that need a boundary: the groups of a toolbar."
+        ],
+        "use_something_else_when": [
+          "The rows of a List or a Table → the row's own hairline.",
+          "Space already separates the blocks → no line.",
+          "The sections of a page → a heading and space."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "orientation",
+          "values": [
+            "horizontal",
+            ".divider-vertical"
+          ],
+          "default": "horizontal"
+        },
+        {
+          "axis": "type",
+          "values": [
+            "plain",
+            ".divider-label"
+          ],
+          "default": "plain",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Line",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-700"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--t-caption",
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Line beside label",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-700"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "A break, not decoration. The horizontal divider is an hr: a change of topic, with the implicit role separator. A line that only decorates is not a Divider: the rows of a List and a Table already carry their own hairline.",
+        "The vertical one names itself. A div has no meaning, so it carries role=\"separator\" and aria-orientation=\"vertical\". The parent has a definite height or is a flex row.",
+        "The labelled one is content. It has no role=\"separator\": that role makes its children presentational and the word would be lost to the screen reader. The two lines are pseudo-elements.",
+        "The space belongs to the container. No margin on the divider: the gap on both sides is the parent's (--s-4 to --s-6), like the icon's.",
+        "One weight, one colour. --obsidian-700, 1px. --border-subtle (--obsidian-800) vanishes inside a card, which is --obsidian-800; a heavier line is a different component, not a thicker divider.",
+        "Static. No hover, no focus, no motion."
+      ],
+      "classes": [
+        "divider",
+        "divider-label",
+        "divider-vertical"
+      ]
+    }
+  }
+}
