@@ -3783,10 +3783,37 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   background:var(--surface-raised);overflow:hidden;
 }
 .kit-stage{
+  position:relative;min-width:0;min-height:calc(var(--s-32) * 2.5);
   display:flex;align-items:center;justify-content:center;padding:var(--s-10);
-  background-image:linear-gradient(var(--obsidian-700) var(--bw-1),transparent var(--bw-1)),linear-gradient(90deg,var(--obsidian-700) var(--bw-1),transparent var(--bw-1));
+  background-color:var(--obsidian-850);
+  background-image:linear-gradient(var(--obsidian-800) var(--bw-1),transparent var(--bw-1)),linear-gradient(90deg,var(--obsidian-800) var(--bw-1),transparent var(--bw-1));
   background-size:var(--s-4) var(--s-4);background-position:center;
 }
+/* The example sits in the middle; a component that lives on an edge leans on that edge, full height or width */
+.kit-stage > *{max-width:100%}
+.kit-stage-row{gap:var(--s-3)}
+.kit-stage-row > .skeleton-stack{width:calc(var(--s-32) * 1.25)}
+.kit-stage-col{flex-direction:column;gap:var(--s-3)}
+.kit-stage-col > *{width:min(100%, calc(var(--s-32) * 2.5))}
+.kit-stage-left{justify-content:flex-start;align-items:stretch;padding:0}
+.kit-stage-right{justify-content:flex-end;align-items:stretch;padding:0}
+.kit-stage-top{align-items:flex-start;padding:0}
+.kit-stage > p{max-width:28ch;margin:0;color:var(--obsidian-300);font-size:var(--t-body);line-height:var(--lh-loose)}
+.kit-stage > .icon{color:var(--obsidian-100)}
+.kit-stage > :is(.field,.slider,.progress,.divider-label){width:min(100%, calc(var(--s-32) * 2))}
+.kit-stage > :is(.alert,.toast,.modal,.popover,.card,.accordion,.list,.table,.tabs){width:min(100%, calc(var(--s-32) * 2.5))}
+.kit-stage > .stepper-vertical{width:calc(var(--s-24) + var(--s-8))}
+.kit-stage > .swatch-tile{width:calc(var(--s-32) * 1.5)}
+/* What a component keeps closed, hidden or fixed, laid open in place: the menu apart from its field */
+.kit-stage :is(.select-menu,.tp-popover,.dp-popover)[hidden]{display:block}
+.kit-stage :is(.select-menu,.tp-popover,.dp-popover){position:static;margin-top:var(--s-6);max-height:none;opacity:1;transform:none;pointer-events:auto}
+.kit-stage > :is(.modal,.popover){display:block;position:static;inset:auto;margin:0;opacity:1;transform:none}
+.kit-stage > .tooltip{position:static;transform:none}
+.kit-stage-right > .drawer{display:flex;position:static;width:65%;height:auto;transform:none}
+.kit-stage-left > .sidebar{position:static;width:60%;height:auto;transform:none;box-shadow:none;z-index:auto}
+.kit-stage-top > .navbar{position:static;width:100%}
+.kit-wide{grid-template-columns:1fr}
+.kit-wide .kit-panel{border-left:0;border-top:var(--bw-1) solid var(--border-subtle)}
 .kit-panel{display:flex;flex-direction:column;min-width:0;background:var(--surface-sunken);border-left:var(--bw-1) solid var(--border-subtle)}
 .kit-head{display:flex;align-items:center;padding:var(--s-4);border-bottom:var(--bw-1) solid var(--border-subtle)}
 .kit-body{padding:var(--s-4) var(--s-5);overflow:auto;max-height:calc(var(--s-32) * 3)}
@@ -3804,5 +3831,6 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 @media (max-width: 720px){
   .kit{grid-template-columns:1fr}
   .kit-stage{padding:var(--s-8)}
+  .kit-stage:is(.kit-stage-left,.kit-stage-right,.kit-stage-top){padding:0}
   .kit-panel{border-left:0;border-top:var(--bw-1) solid var(--border-subtle)}
 }

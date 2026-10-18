@@ -3927,6 +3927,17 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 - `kebab-case.css`, `kebab-case.html`, `kebab-case.svg`.
 - Components named after their role: `card.css`, not `box.css`.
 
+### Anatomy and code card
+
+Every component page carries one card, written by `release/kit.py` from `components.css` and checked by the harness (check 99): the live example on a 16px grid on the left, and a panel with a Segmented control on the right. Anatomy names the visible parts and the tokens that draw each, the states on a second line; Code gives the HTML and the rules of `components.css` that draw it, to copy or download. The card is site chrome (`.kit*`), and six rules shape it:
+
+1. **In the middle.** The example sits in the centre of the grid. Only what lives on an edge (sidebar, drawer, top bar) leans on that edge, full height or width, with no margin and no corners.
+2. **One specimen.** One example per card: the first of its family, the brand colour when there is a choice. A call to action is the primary.
+3. **Default.** The default state, with no focus. A menu or a popover is laid open, apart from its field, so the two read as two parts.
+4. **Nothing around it.** Only the component: no panel, button or text that is not part of it. A molecule shows its own parts; the atoms inside it have their own card.
+5. **As in the system.** Fills, indicators and the loader are the real ones, never a copy.
+6. **The grid.** 16px squares, `--obsidian-850` ground and `--obsidian-800` lines: enough to show a thin edge.
+
 ## Multi-deploy compatibility
 
 The system ships to three targets: vanilla **HTML/CSS/JS**, **React with Tailwind v4**, and **Figma Variables**. `DESIGN.md` + `styles/tokens.css` are the single source of truth. React utilities and Figma Variables are projections of the same tokens — never independent values.
