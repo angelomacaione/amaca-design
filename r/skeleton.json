@@ -1,0 +1,107 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "type": "registry:item",
+  "title": "Skeleton",
+  "description": "The shape of the content is known and the wait is past 800 ms: a list, a card, a profile.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/skeleton.css",
+      "type": "registry:file",
+      "target": "styles/amaca/skeleton.css",
+      "content": ".skeleton-stack{\n  display:grid;\n  gap:var(--s-3);\n  width:100%;\n}\n.skeleton-line, .skeleton-circle, .skeleton-block{\n  position:relative;\n  overflow:hidden;\n  background:var(--obsidian-700);\n}\n.skeleton-line{\n  height:var(--s-3);\n  border-radius:var(--r-sm);\n}\n.skeleton-circle{\n  --size:var(--s-8);\n  flex:none;\n  width:var(--size);\n  height:var(--size);\n  border-radius:var(--r-full);\n}\n.skeleton-block{\n  width:100%;\n  height:var(--s-24);\n  border-radius:var(--r-md);\n}\n.skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n  content:\"\";\n  position:absolute;\n  inset:0;\n  background:linear-gradient( 90deg, transparent 0, color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent) 50%, transparent 100% );\n  animation:skeleton-shimmer 1600ms linear infinite;\n}\n@media (prefers-reduced-motion: reduce){\n  .skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n    animation:none;\n    opacity:0;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/skeleton.html",
+      "type": "registry:file",
+      "target": "components/amaca/skeleton.html",
+      "content": "<div class=\"skeleton-circle\" aria-hidden=\"true\"></div><div class=\"skeleton-stack\"><div class=\"skeleton-line\" style=\"width:70%\" aria-hidden=\"true\"></div><div class=\"skeleton-line\" style=\"width:45%\" aria-hidden=\"true\"></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.20 Skeleton",
+      "site": "https://www.amaca.design/#skeleton",
+      "usage": {
+        "use_it_when": [
+          "The shape of the content is known and the wait is past 800 ms: a list, a card, a profile.",
+          "The content replaces it in the same place and at the same size."
+        ],
+        "use_something_else_when": [
+          "The shape is unknown → Loader.",
+          "A wait under 800 ms → show the result, no skeleton.",
+          "Progress is known → Progress."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            ".skeleton-line",
+            ".skeleton-circle",
+            ".skeleton-block"
+          ],
+          "default": ".skeleton-line",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Line",
+          "tokens": [
+            "--obsidian-700",
+            "--r-sm",
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Circle",
+          "tokens": [
+            "--obsidian-700",
+            "--r-full",
+            "--size"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Shimmer",
+          "tokens": [
+            "--primary-500",
+            "--tint-fill"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Stack",
+          "tokens": [
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "The same size as the content. The shapes take the height and the width of what will arrive, so the swap moves nothing. If the size is not known, the shape is not known: use a Loader.",
+        "Visible inside a card. The fill is --obsidian-700. --obsidian-800 is the colour of the card and the shapes would disappear.",
+        "Quiet. The shimmer is a magenta tint at --tint-fill over 1600 ms, linear, in a loop. No high-contrast sweep.",
+        "Not the only signal. The region carries aria-busy=\"true\" and a name (aria-label). When the content lands, aria-busy goes away and a live region (role=\"status\") says so.",
+        "Silent shapes. Every shape is aria-hidden=\"true\". A skeleton is never focusable and never a link.",
+        "Reduced motion. The shimmer is off and the fill stays still (§ 06.4)."
+      ],
+      "classes": [
+        "skeleton-block",
+        "skeleton-circle",
+        "skeleton-line",
+        "skeleton-stack"
+      ]
+    }
+  }
+}

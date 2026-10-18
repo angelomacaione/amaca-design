@@ -1,10 +1,8 @@
 # Amaca — downloads
 
-Your design system, compiled into rules your AI tools actually follow. Pick your tool, grab the file (or the turnkey `.zip` in `zips/`), drop it in. Every download is **token-only** — it makes any AI reference your tokens by name instead of inventing values.
+Amaca, packaged as rules your AI tools actually follow. Pick your tool, grab the file (or the turnkey `.zip` in `zips/`), drop it in. Every download is **token-only** — it makes any AI reference your tokens by name instead of inventing values.
 
 Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`, the full spec is [`DESIGN.md`](../DESIGN.md). On conflict, `DESIGN.md` wins. MIT — use, learn from, fork.
-
-> These are the hand-authored **gold** versions. [amaca.ai](https://amaca.ai) compiles the same set from any design system — this is the standard it targets.
 
 ---
 
@@ -14,8 +12,8 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **What** — the Amaca rules as a Claude skill + a `CLAUDE.md` for Claude Code.
 - **For** — Claude (Cowork, Claude Code) and Anthropic-stack runtimes.
 - **Get it / where it goes** — install `amaca-frontend.skill` via Settings → Capabilities → Skills; drop `CLAUDE.md` at repo root (it can `@import DESIGN.md`).
-- **Use** — "build with Amaca …"; output references `var(--magenta-500)` + the 85/10/5 law, zero hardcoded hex.
-- **Verify** — ask for a primary button: it uses `var(--magenta-500)`, dual-ring focus, no raw hex/px.
+- **Use** — "build with Amaca …"; output references `var(--primary-500)` + the 85/10/5 law, zero hardcoded hex.
+- **Verify** — ask for a primary button: it uses `var(--primary-500)`, dual-ring focus, no raw hex/px.
 - **Pairs with** — `tokens.css` (bundled), `DESIGN.md` (the spec it enforces).
 
 ### Figma agent — /amaca-figma skill · `zips/amaca-figma.zip`
@@ -51,7 +49,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **For** — ChatGPT, Gemini, Microsoft Copilot, and any chat AI with no filesystem.
 - **Get it / where it goes** — paste the contents into the system prompt / custom-instructions / knowledge box.
 - **Use** — it works standalone (no companion files); a self-check section keeps output token-true.
-- **Verify** — ask for a component; it outputs `var(--token)` and the exact brand hex, ≤5% magenta.
+- **Verify** — ask for a component; it outputs `var(--token)` and the exact brand hex, 85/10/5 respected.
 - **Pairs with** — nothing required; attach `DESIGN.md` for the full component specs.
 - **Shared source** — same `AI-INSTRUCTIONS.md` as the App builder bundle; both baked from one source via `build-paste-in-bundles.sh`.
 
@@ -65,7 +63,7 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **Not inside, on purpose** — no `CLAUDE.md` (Claude Code fails `--strict` on it: context belongs in a skill) and no second copy of the spec (it ships once, inside the skill).
 
 ### IDE (Cursor, Copilot, Codex…) · `zips/amaca-ide.zip`
-- **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md` · **`.agents/skills/amaca-frontend/`** (new in v3.5.0) — the `amaca-frontend` agent skill, unpacked.
+- **What** — core + per-target rules: `.cursor/rules/amaca-core.mdc` (`alwaysApply`) + `amaca-html.mdc` + `amaca-react.mdc` (glob-scoped) · `.github/copilot-instructions.md` (repo-wide) + `.github/instructions/amaca-{html,react}.instructions.md` (`applyTo`) · `AGENTS.md` · **`.agents/skills/amaca-frontend/`** — the `amaca-frontend` agent skill, unpacked.
 - **For** — Cursor, GitHub Copilot, and the AGENTS.md-reading IDE agents.
 - **Get it / where it goes** — `.cursor/rules/*` → `.cursor/rules/`; `.github/*` → `.github/`; `.agents/*` → `.agents/`; `AGENTS.md` → repo root.
 - **Use** — `amaca-core.mdc` is always in scope (token discipline + a11y floor); the target files auto-attach only on the files they govern (`amaca-html.mdc` on CSS/HTML, `amaca-react.mdc` on JSX/TSX). Copilot reads `copilot-instructions.md` repo-wide and the per-target `instructions/` on matching files. **The skill is the third layer**: since Cursor 2.4 the Agent Skills standard is a first-class input, read from `.agents/skills/` (also `.cursor/skills/`, `.claude/skills/`, `.codex/skills/`) — `.agents/` is the vendor-neutral path, so the same folder serves Cursor and Codex. Rules steer generation; the skill runs a procedure, and carries the multi-target workflow (`HTML.md`, `REACT.md`, `FIGMA.md`) that a rules file cannot. Invoke it with `/amaca-frontend`.
@@ -86,11 +84,11 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 ## Tokens & formats
 
 ### Tailwind · `zips/amaca-tailwind.zip`
-- **What** — every token as a Tailwind v4 `@theme` block (`theme.css`) → `bg-magenta-500`, `p-4`, `rounded-lg`.
+- **What** — every token as a Tailwind v4 `@theme` block (`theme.css`) → `bg-primary-500`, `p-4`, `rounded-lg`.
 - **For** — React/Vue/Svelte on Tailwind v4.
-- **Get it / where it goes** — `npm install github:angelomacaione/amaca-design`; `@import "amaca-design/styles/theme.css";` after `@import "tailwindcss";`.
+- **Get it / where it goes** — `npm install amaca-design`; `@import "amaca-design/theme.css";` after `@import "tailwindcss";`.
 - **Use** — write the utilities; Tailwind generates them from the `@theme` names.
-- **Verify** — `npm run build`; `bg-magenta-500` resolves to `#F051D5`, a typo like `bg-magenta-550` produces nothing.
+- **Verify** — `npm run build`; `bg-primary-500` resolves to `#F051D5`, a typo like `bg-primary-550` produces nothing.
 - **Pairs with** — `tokens.css` (raw `var()` fallback), the IDE/Claude rules that enforce token-only use.
 
 ### React / CSS · `zips/amaca-react-css.zip`
@@ -106,9 +104,9 @@ Same source on every surface: tokens come from `tokens.css` / `tokens.dtcg.json`
 - **For** — Style Dictionary, Tokens Studio, and any DTCG-aware pipeline.
 - **Get it / where it goes** — feed `tokens.dtcg.json` into your token build.
 - **Use** — transform to any target (CSS, iOS, Android) from one source.
-- **Verify** — it parses as valid DTCG 2025.10; `magenta-500` carries sRGB components with `#F051D5` as hex fallback.
+- **Verify** — it parses as valid DTCG 2025.10; `primary-500` carries sRGB components with `#F051D5` as hex fallback.
 - **Pairs with** — `theme.css` (the Tailwind projection), `DESIGN.md`.
 
 ---
 
-*Generated-toward by [amaca.ai](https://amaca.ai). Spec + tokens are MIT.*
+*Spec + tokens are MIT.*

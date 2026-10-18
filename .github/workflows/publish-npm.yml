@@ -1,0 +1,35 @@
+# Publishes the npm package amaca-design when a release tag is pushed (release/release.py tag).
+# The package is built from the repo by release/npm.py; nothing in it is written by hand.
+# Needs the repository secret NPM_TOKEN (an npm automation token).
+name: Publish to npm
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+      - name: Build the package from the repo
+        run: python3 release/npm.py build/npm
+      - name: The tag is the version DESIGN.md states
+        run: |
+          v=$(node -p "require('./build/npm/package.json').version")
+          if [ "v$v" != "$GITHUB_REF_NAME" ]; then echo "tag $GITHUB_REF_NAME, DESIGN.md $v"; exit 1; fi
+      - name: Publish
+        run: npm publish build/npm --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

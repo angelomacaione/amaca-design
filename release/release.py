@@ -78,6 +78,21 @@ def remote_tag(tag):
     return shas[-1] if shas else None
 
 
+
+def closed_terms(text):
+    """The closed-product terms check 62 of verify-ds.py keeps out of the files, applied to any text.
+    Imported from the harness so the list (kept as hashes) lives in one place."""
+    import importlib.util
+    spec_ = importlib.util.spec_from_file_location("verify_ds", os.path.join(ROOT, "verify-ds.py"))
+    mod = importlib.util.module_from_spec(spec_)
+    argv, sys.argv = sys.argv, ["verify-ds.py"]
+    try:
+        spec_.loader.exec_module(mod)
+    finally:
+        sys.argv = argv
+    return mod._closed_hits(text)
+
+
 def preflight(args):
     print("\n  AMACA — release preflight\n")
     git("fetch", "--prune", "origin")
@@ -123,6 +138,15 @@ def preflight(args):
         fail(f"{tag} is already published on {existing[:7]} — this would rewrite a shipped release",
              "ship a new version, or pass --retag only if moving the tag is a decision already taken")
     ok(f"{tag} not yet published" if not existing else f"{tag} published — RETAG explicitly requested")
+
+    # 2026-10-14: a product in closed beta was named in commit messages and release notes, both public
+    # for good. The harness guards the files (check 62); this guards the messages that ship with them.
+    msgs = git("log", "--format=%H%x1f%B%x1e", "origin/main..HEAD")
+    bad = [m.split("\x1f", 1)[0][:7] for m in msgs.split("\x1e") if m.strip() and closed_terms(m)]
+    if bad:
+        fail(f"commit message(s) {', '.join(bad)} name a product that is not public",
+             "reword them before the PR (ask the agent for the rewritten messages); the release notes follow the same rule")
+    ok("commit messages carry no closed terms")
 
     r = subprocess.run([sys.executable, "verify-ds.py"], cwd=ROOT, capture_output=True, text=True)
     last = [l for l in r.stdout.splitlines() if "checks pass" in l]

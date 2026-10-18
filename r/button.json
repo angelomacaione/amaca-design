@@ -1,0 +1,175 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:item",
+  "title": "Button",
+  "description": "The affirmative action of the screen, as the one `.btn-primary`.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/button.css",
+      "type": "registry:file",
+      "target": "styles/amaca/button.css",
+      "content": ".btn{\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-body);\n  font-weight:500;\n  letter-spacing:var(--tr-snug);\n  line-height:1;\n  min-height:var(--s-10);\n  padding:0 var(--s-6);\n  border-radius:var(--r-full);\n  transition:all var(--d-quick) var(--ease-standard);\n  border:var(--bw-1) solid transparent;\n  white-space:nowrap;\n}\n.btn-floating{\n  display:flex;\n  width:max-content;\n  position:sticky;\n  top:var(--float-top, var(--s-4));\n  z-index:var(--z-sticky);\n  margin-bottom:calc(-1 * var(--s-10));\n  padding:0 var(--s-5) 0 var(--s-4);\n  font-size:var(--t-small);\n  background:var(--surface-glass);\n  border-color:var(--border);\n  color:var(--obsidian-100);\n  backdrop-filter:blur(var(--blur-glass));\n}\n.btn-floating:hover{\n  border-color:var(--border-strong);\n}\n.btn:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.btn-primary{\n  background:var(--primary-500);\n  color:var(--obsidian-050);\n  border-color:var(--primary-500);\n  box-shadow:var(--sh-2);\n  transition:all var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-spring);\n}\n.btn-primary:hover{\n  background:var(--primary-500);\n  color:var(--obsidian-050);\n  border-color:var(--primary-500);\n  box-shadow:var(--sh-glow), var(--sh-3);\n}\n.btn-secondary{\n  background:var(--obsidian-800);\n  color:var(--obsidian-100);\n  border-color:var(--obsidian-700);\n}\n.btn-secondary:hover{\n  background:var(--obsidian-700);\n  border-color:var(--obsidian-600);\n}\n.btn-ghost{\n  color:var(--obsidian-100);\n  background:transparent;\n}\n.btn-ghost:hover{\n  background:var(--obsidian-800);\n}\n.btn-outline{\n  background:transparent;\n  color:var(--obsidian-100);\n  border-color:var(--obsidian-600);\n}\n.btn-outline:hover{\n  border-color:var(--primary-500);\n  color:var(--primary-400);\n}\n.btn-danger{\n  background:var(--danger);\n  color:var(--obsidian-950);\n}\n.btn-danger:hover{\n  filter:brightness(1.05);\n}\n.btn-primary:active:not(:disabled){\n  background:var(--primary-600);\n  border-color:var(--primary-600);\n  box-shadow:var(--sh-1);\n  transform:scale(.97);\n}\n.btn-secondary:active:not(:disabled){\n  background:var(--obsidian-600);\n  border-color:var(--obsidian-500);\n}\n.btn-ghost:active:not(:disabled){\n  background:var(--obsidian-700);\n}\n.btn-outline:active:not(:disabled){\n  border-color:var(--primary-600);\n  color:var(--primary-500);\n}\n.btn-danger:active:not(:disabled){\n  filter:none;\n  background:color-mix(in srgb, var(--danger) 85%, var(--obsidian-950));\n}\n.btn-floating:active:not(:disabled){\n  border-color:var(--obsidian-500);\n}\n@media (prefers-reduced-motion: reduce){\n  .btn-primary:active:not(:disabled){\n    transform:none;\n  }\n}\n.btn-sm{\n  min-height:var(--s-8);\n  padding:0 var(--s-4);\n  font-size:var(--t-small);\n}\n.btn-lg{\n  min-height:var(--s-12);\n  padding:0 var(--s-8);\n}\n.btn-icon{\n  width:var(--s-10);\n  padding:0;\n}\n.btn-sm.btn-icon{\n  width:var(--s-8);\n}\n.btn-lg.btn-icon{\n  width:var(--s-12);\n}\n@media (pointer:coarse){\n  .btn:not(.btn-lg){\n    min-height:var(--target-touch);\n  }\n  .btn-icon:not(.btn-lg){\n    min-width:var(--target-touch);\n  }\n}\n.btn:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n"
+    },
+    {
+      "path": "amaca/button.html",
+      "type": "registry:file",
+      "target": "components/amaca/button.html",
+      "content": "<button class=\"btn btn-primary\">Primary action</button>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.6 Button",
+      "site": "https://www.amaca.design/#button",
+      "usage": {
+        "use_it_when": [
+          "The affirmative action of the screen, as the one `.btn-primary`.",
+          "Any action on the current page: submit, save, open, apply."
+        ],
+        "use_something_else_when": [
+          "Going to another page or resource → Link.",
+          "An icon-only button whose glyph is not universal and has no tooltip → a labelled button."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            ".btn-primary",
+            ".btn-secondary",
+            ".btn-ghost",
+            ".btn-outline",
+            ".btn-danger"
+          ],
+          "default": ".btn-primary",
+          "role": "type"
+        },
+        {
+          "axis": "size",
+          "values": [
+            ".btn-sm",
+            "md",
+            ".btn-lg"
+          ],
+          "default": "md",
+          "role": "size"
+        },
+        {
+          "axis": "content",
+          "values": [
+            "label",
+            ".btn-icon"
+          ],
+          "default": "label"
+        },
+        {
+          "axis": "placement",
+          "values": [
+            "inline",
+            ".btn-floating"
+          ],
+          "default": "inline"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Fill",
+          "tokens": [
+            "--primary-500"
+          ],
+          "value": "",
+          "states": "pressed --primary-600"
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-050"
+          ],
+          "value": "",
+          "states": "--t-body 500 · --tr-snug"
+        },
+        {
+          "name": "Edge",
+          "tokens": [
+            "--bw-1",
+            "--primary-500"
+          ],
+          "value": "",
+          "states": "pressed --primary-600"
+        },
+        {
+          "name": "Box",
+          "tokens": [],
+          "value": "min-height --s-10",
+          "states": "padding 0 --s-6 · gap --s-2"
+        },
+        {
+          "name": "Shape",
+          "tokens": [
+            "--r-full"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Shadow",
+          "tokens": [
+            "--sh-2"
+          ],
+          "value": "",
+          "states": "hover --sh-glow + --sh-3 · pressed --sh-1"
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": "outline --focus-width --obsidian-100 · offset --focus-offset"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "·",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": "transform --d-quick · --ease-spring"
+        },
+        {
+          "name": "Disabled",
+          "tokens": [],
+          "value": "opacity var(--opacity-disabled)",
+          "states": "cursor not-allowed"
+        }
+      ],
+      "rules": [
+        "One .btn-primary per screen. Everything else recedes.",
+        "Touch. On a coarse pointer every .btn grows to at least 44px tall and every .btn-icon 44px wide — the § 6 floor. .btn-lg already clears it; dense desktop keeps 32.",
+        "Focus: dual-ring (white outline + --ring-halo). Never remove outline without re-implementing focus visibility.",
+        "States: § 3.0.1. default · hover · active · focus-visible · disabled · loading, values in the state index. loading is .is-loading on the button: the label turns transparent but keeps the width, and the loader sits at the centre — its composition is § 3.19's. disabled is the native attribute — &lt;button disabled&gt; — which the CSS reads as :disabled; no class produces it.",
+        "Pressed (active). A coloured fill darkens toward --obsidian-950: the primary lands on --primary-600 (the palette's pressed step, 4.09 : 1 for its label), the danger fill on 85% --danger. A neutral fill goes one step past its hover; the outline takes the link's pressed magenta; the floating button keeps its translucent fill and darkens its edge. Only the primary moves: it gives to scale(.97) on --d-quick · --ease-spring (L8), and under reduced motion it does not move. Never a lighter fill on press (§ 6.3).",
+        "Primary label is near-white (--obsidian-050) on --primary-500 — a ratified exception to the § 6 floor (§ 6.3, ≈ 2.8 : 1), kept on perceptual grounds. Scoped to .btn-primary; rest and hover are bounded to --primary-500 (no lighten); pressed darkens to --primary-600. The only other light label on magenta is .badge-solid (§ 6.3); never elsewhere.",
+        "Label weight is Medium 500 — ratified 2026-06-12 after a 400 / 500 / 700 comparison. Under APCA stroke weight is a contrast input and 700 scores strongest, but at 15px the bold label shifts the button's voice; 500 keeps the register, and the legibility budget is carried by the § 6.3 pairing. Don't bold the primary label for emphasis; don't drop below 500."
+      ],
+      "classes": [
+        "btn",
+        "btn-danger",
+        "btn-floating",
+        "btn-ghost",
+        "btn-icon",
+        "btn-lg",
+        "btn-outline",
+        "btn-primary",
+        "btn-secondary",
+        "btn-sm"
+      ]
+    }
+  }
+}

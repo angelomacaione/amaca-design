@@ -1,0 +1,105 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:item",
+  "title": "Tooltip",
+  "description": "A label for something already on screen.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/tooltip.css",
+      "type": "registry:file",
+      "target": "styles/amaca/tooltip.css",
+      "content": ".tooltip-wrap{\n  position:relative;\n  display:inline-flex;\n}\n.tooltip{\n  position:absolute;\n  bottom:calc(100% + var(--s-1));\n  left:50%;\n  transform:translate(-50%, 2px);\n  z-index:var(--z-popover);\n  max-width:var(--w-tooltip);\n  width:max-content;\n  padding:var(--s-1) var(--s-2);\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-sm);\n  box-shadow:var(--sh-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  line-height:var(--lh-snug);\n  color:var(--obsidian-100);\n  opacity:0;\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);\n}\n.tooltip.is-open{\n  opacity:1;\n  transform:translate(-50%, 0);\n}\n.tooltip-bottom{\n  bottom:auto;\n  top:calc(100% + var(--s-1));\n  transform:translate(-50%, -2px);\n}\n.tooltip-bottom.is-open{\n  transform:translate(-50%, 0);\n}\n.tooltip-end{\n  left:auto;\n  right:0;\n  transform:translate(0, 2px);\n}\n.tooltip-end.is-open{\n  transform:translate(0, 0);\n}\n.tooltip-bottom.tooltip-end{\n  transform:translate(0, -2px);\n}\n.tooltip-bottom.tooltip-end.is-open{\n  transform:translate(0, 0);\n}\n"
+    },
+    {
+      "path": "amaca/tooltip.html",
+      "type": "registry:file",
+      "target": "components/amaca/tooltip.html",
+      "content": "<span class=\"tooltip is-open\" role=\"tooltip\">Pushes local tokens to Figma</span>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.25 Tooltip",
+      "site": "https://www.amaca.design/#tooltip",
+      "usage": {
+        "use_it_when": [
+          "A label for something already on screen.",
+          "Only on interactive elements, such as an icon-only button."
+        ],
+        "use_something_else_when": [
+          "The information is needed to finish the task → `.help` or Alert.",
+          "It needs a title → Alert.",
+          "It holds a link or a button → Popover."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "placement",
+          "values": [
+            "top",
+            ".tooltip-bottom",
+            ".tooltip-end"
+          ],
+          "default": "top"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Bubble",
+          "tokens": [
+            "--obsidian-800",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-sm",
+            "--sh-2",
+            "--s-1",
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-100",
+            "--font-sans",
+            "--t-caption",
+            "--lh-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Opens on hover and on focus. A tooltip reachable only by pointer fails § 6 floor #5.",
+        "At most one tooltip is open at a time (RIGID). Opening one closes every other — two bubbles on screen overlap, and an overlapped label is a label that can't be read. Escape closes; scrolling closes. This cannot be expressed in CSS (:hover has no memory of the others), so the open state is the .is-open class and a controller owns it. A tooltip that opens on a bare :hover rule is off-system.",
+        "The trigger references it with aria-describedby; the bubble is role=\"tooltip\". A tooltip with no trigger relationship is decoration.",
+        "No interactive content. No links, no buttons, no form controls — there is no accessible path to reach them.",
+        "Never the sole carrier of meaning (§ 6 floor #1). If the information is required to complete the task, it belongs in .help or in an § 3.16 Alert.",
+        "No arrow. The 6px offset and the anchoring do the pointing; an arrow adds a shape to maintain at every edge case.",
+        "Plain text only, one or two lines. A tooltip that needs a title is an alert."
+      ],
+      "classes": [
+        "is-open",
+        "tooltip",
+        "tooltip-bottom",
+        "tooltip-end",
+        "tooltip-wrap"
+      ]
+    }
+  }
+}

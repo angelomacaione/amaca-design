@@ -1,0 +1,844 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "amaca",
+  "homepage": "https://www.amaca.design",
+  "items": [
+    {
+      "name": "amaca-tokens",
+      "type": "registry:item",
+      "title": "Amaca tokens",
+      "description": "The tokens of the system: colour, type, space, radius, shadow, motion. Satoshi loads from amaca.design.",
+      "files": [
+        {
+          "path": "amaca/tokens.css",
+          "type": "registry:file",
+          "target": "styles/amaca/tokens.css"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "The affirmative action of the screen, as the one `.btn-primary`.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/button.css",
+          "type": "registry:file",
+          "target": "styles/amaca/button.css"
+        },
+        {
+          "path": "amaca/button.html",
+          "type": "registry:file",
+          "target": "components/amaca/button.html"
+        }
+      ]
+    },
+    {
+      "name": "link",
+      "type": "registry:item",
+      "title": "Link",
+      "description": "Going to another page, document or resource, in a sentence or on its own line.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/link.css",
+          "type": "registry:file",
+          "target": "styles/amaca/link.css"
+        },
+        {
+          "path": "amaca/link.html",
+          "type": "registry:file",
+          "target": "components/amaca/link.html"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "Many of many; the value applies on submit.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/checkbox.css",
+          "type": "registry:file",
+          "target": "styles/amaca/checkbox.css"
+        },
+        {
+          "path": "amaca/checkbox.html",
+          "type": "registry:file",
+          "target": "components/amaca/checkbox.html"
+        }
+      ]
+    },
+    {
+      "name": "radio",
+      "type": "registry:item",
+      "title": "Radio",
+      "description": "One of many, always in a named group with a default.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/radio.css",
+          "type": "registry:file",
+          "target": "styles/amaca/radio.css"
+        },
+        {
+          "path": "amaca/radio.html",
+          "type": "registry:file",
+          "target": "components/amaca/radio.html"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "One of two, applied immediately: a setting, not a form value.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/switch.css",
+          "type": "registry:file",
+          "target": "styles/amaca/switch.css"
+        },
+        {
+          "path": "amaca/switch.html",
+          "type": "registry:file",
+          "target": "components/amaca/switch.html"
+        }
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/input.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/slider.css",
+          "type": "registry:file",
+          "target": "styles/amaca/slider.css"
+        },
+        {
+          "path": "amaca/slider.html",
+          "type": "registry:file",
+          "target": "components/amaca/slider.html"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "Free text on a single line: a name, a search, a URL.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/input.css",
+          "type": "registry:file",
+          "target": "styles/amaca/input.css"
+        },
+        {
+          "path": "amaca/input.html",
+          "type": "registry:file",
+          "target": "components/amaca/input.html"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:item",
+      "title": "Dropdown",
+      "description": "Native for a fixed, short list; the custom listbox only when native cannot carry the requirement.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json",
+        "https://www.amaca.design/r/input.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/select.css",
+          "type": "registry:file",
+          "target": "styles/amaca/select.css"
+        },
+        {
+          "path": "amaca/select.html",
+          "type": "registry:file",
+          "target": "components/amaca/select.html"
+        }
+      ]
+    },
+    {
+      "name": "time-input",
+      "type": "registry:item",
+      "title": "Time input",
+      "description": "A time of day, HH:MM in 24 hours, formatted as it is typed.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json",
+        "https://www.amaca.design/r/input.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/time-input.css",
+          "type": "registry:file",
+          "target": "styles/amaca/time-input.css"
+        },
+        {
+          "path": "amaca/time-input.html",
+          "type": "registry:file",
+          "target": "components/amaca/time-input.html"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "Date picker",
+      "description": "A single date or a range, typed or picked from the calendar.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json",
+        "https://www.amaca.design/r/input.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/date-picker.css",
+          "type": "registry:file",
+          "target": "styles/amaca/date-picker.css"
+        },
+        {
+          "path": "amaca/date-picker.html",
+          "type": "registry:file",
+          "target": "components/amaca/date-picker.html"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "A status the system computed, next to the thing it describes.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/badge.css",
+          "type": "registry:file",
+          "target": "styles/amaca/badge.css"
+        },
+        {
+          "path": "amaca/badge.html",
+          "type": "registry:file",
+          "target": "components/amaca/badge.html"
+        }
+      ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:item",
+      "title": "Chip",
+      "description": "A value someone entered, chose or can take back: a tag, a facet, a recipient.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/chip.css",
+          "type": "registry:file",
+          "target": "styles/amaca/chip.css"
+        },
+        {
+          "path": "amaca/chip.html",
+          "type": "registry:file",
+          "target": "components/amaca/chip.html"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "A condition that applies to the whole surface, inline, as long as it is true.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/alert.css",
+          "type": "registry:file",
+          "target": "styles/amaca/alert.css"
+        },
+        {
+          "path": "amaca/alert.html",
+          "type": "registry:file",
+          "target": "components/amaca/alert.html"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "An event that just happened somewhere else.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/toast.css",
+          "type": "registry:file",
+          "target": "styles/amaca/toast.css"
+        },
+        {
+          "path": "amaca/toast.html",
+          "type": "registry:file",
+          "target": "components/amaca/toast.html"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:item",
+      "title": "Progress",
+      "description": "A wait with a known end, longer than about three seconds.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/progress.css",
+          "type": "registry:file",
+          "target": "styles/amaca/progress.css"
+        },
+        {
+          "path": "amaca/progress.html",
+          "type": "registry:file",
+          "target": "components/amaca/progress.html"
+        }
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:item",
+      "title": "Loader",
+      "description": "A real wait; the large size for full-page waits, the extra-small inline and in buttons.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/loader.css",
+          "type": "registry:file",
+          "target": "styles/amaca/loader.css"
+        },
+        {
+          "path": "amaca/loader.html",
+          "type": "registry:file",
+          "target": "components/amaca/loader.html"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "The shape of the content is known and the wait is past 800 ms: a list, a card, a profile.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/skeleton.css",
+          "type": "registry:file",
+          "target": "styles/amaca/skeleton.css"
+        },
+        {
+          "path": "amaca/skeleton.html",
+          "type": "registry:file",
+          "target": "components/amaca/skeleton.html"
+        }
+      ]
+    },
+    {
+      "name": "modal",
+      "type": "registry:item",
+      "title": "Modal",
+      "description": "A decision that must be made before the person goes on: confirm a destructive action, answer one question.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/button.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/modal.css",
+          "type": "registry:file",
+          "target": "styles/amaca/modal.css"
+        },
+        {
+          "path": "amaca/modal.html",
+          "type": "registry:file",
+          "target": "components/amaca/modal.html"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "Details about one element that carry a link or a button, and do not need to leave the view.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/button.json",
+        "https://www.amaca.design/r/input.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/popover.css",
+          "type": "registry:file",
+          "target": "styles/amaca/popover.css"
+        },
+        {
+          "path": "amaca/popover.html",
+          "type": "registry:file",
+          "target": "components/amaca/popover.html"
+        }
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "A menu or a few groups of links that open from the edge: the main navigation on a small screen.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/button.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/drawer.css",
+          "type": "registry:file",
+          "target": "styles/amaca/drawer.css"
+        },
+        {
+          "path": "amaca/drawer.html",
+          "type": "registry:file",
+          "target": "components/amaca/drawer.html"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "A label for something already on screen.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/tooltip.css",
+          "type": "registry:file",
+          "target": "styles/amaca/tooltip.css"
+        },
+        {
+          "path": "amaca/tooltip.html",
+          "type": "registry:file",
+          "target": "components/amaca/tooltip.html"
+        }
+      ]
+    },
+    {
+      "name": "navigation",
+      "type": "registry:item",
+      "title": "Navigation",
+      "description": "The sidebar for documentation; the top bar for marketing.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/button.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/navigation.css",
+          "type": "registry:file",
+          "target": "styles/amaca/navigation.css"
+        },
+        {
+          "path": "amaca/navigation.html",
+          "type": "registry:file",
+          "target": "components/amaca/navigation.html"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "Related views of one page, read one at a time.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/tabs.css",
+          "type": "registry:file",
+          "target": "styles/amaca/tabs.css"
+        },
+        {
+          "path": "amaca/tabs.html",
+          "type": "registry:file",
+          "target": "components/amaca/tabs.html"
+        }
+      ]
+    },
+    {
+      "name": "segmented",
+      "type": "registry:item",
+      "title": "Segmented control",
+      "description": "Two or three views of the same content, switched in place: the anatomy and the code of a component, a chart and its table.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/segmented.css",
+          "type": "registry:file",
+          "target": "styles/amaca/segmented.css"
+        },
+        {
+          "path": "amaca/segmented.html",
+          "type": "registry:file",
+          "target": "components/amaca/segmented.html"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:item",
+      "title": "Breadcrumb",
+      "description": "A hierarchy deeper than two levels.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/breadcrumb.css",
+          "type": "registry:file",
+          "target": "styles/amaca/breadcrumb.css"
+        },
+        {
+          "path": "amaca/breadcrumb.html",
+          "type": "registry:file",
+          "target": "components/amaca/breadcrumb.html"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:item",
+      "title": "Pagination",
+      "description": "Pages of similar items too long for one page: search results, a list of case studies.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/pagination.css",
+          "type": "registry:file",
+          "target": "styles/amaca/pagination.css"
+        },
+        {
+          "path": "amaca/pagination.html",
+          "type": "registry:file",
+          "target": "components/amaca/pagination.html"
+        }
+      ]
+    },
+    {
+      "name": "stepper",
+      "type": "registry:item",
+      "title": "Stepper",
+      "description": "A linear flow: forms, onboarding, checkout.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/stepper.css",
+          "type": "registry:file",
+          "target": "styles/amaca/stepper.css"
+        },
+        {
+          "path": "amaca/stepper.html",
+          "type": "registry:file",
+          "target": "components/amaca/stepper.html"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "One project or one stat: micro-header, title, body, at most one action.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/badge.json",
+        "https://www.amaca.design/r/button.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/card.css",
+          "type": "registry:file",
+          "target": "styles/amaca/card.css"
+        },
+        {
+          "path": "amaca/card.html",
+          "type": "registry:file",
+          "target": "components/amaca/card.html"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "Dense reference content: headers scanned first, read selectively.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/accordion.css",
+          "type": "registry:file",
+          "target": "styles/amaca/accordion.css"
+        },
+        {
+          "path": "amaca/accordion.html",
+          "type": "registry:file",
+          "target": "components/amaca/accordion.html"
+        }
+      ]
+    },
+    {
+      "name": "divider",
+      "type": "registry:item",
+      "title": "Divider",
+      "description": "A change of topic inside one container: two blocks of a card, a modal or a menu.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/divider.css",
+          "type": "registry:file",
+          "target": "styles/amaca/divider.css"
+        },
+        {
+          "path": "amaca/divider.html",
+          "type": "registry:file",
+          "target": "components/amaca/divider.html"
+        }
+      ]
+    },
+    {
+      "name": "chat",
+      "type": "registry:item",
+      "title": "Chat",
+      "description": "Conversational interfaces: a chatbot, an assistant.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/chat.css",
+          "type": "registry:file",
+          "target": "styles/amaca/chat.css"
+        },
+        {
+          "path": "amaca/chat.html",
+          "type": "registry:file",
+          "target": "components/amaca/chat.html"
+        }
+      ]
+    },
+    {
+      "name": "swatch",
+      "type": "registry:item",
+      "title": "Swatch",
+      "description": "A label names a colour: a legend key, a token in a table.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/swatch.css",
+          "type": "registry:file",
+          "target": "styles/amaca/swatch.css"
+        },
+        {
+          "path": "amaca/swatch.html",
+          "type": "registry:file",
+          "target": "components/amaca/swatch.html"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "Showing who a person, team or account is, beside their name or standing for it: a comment, a list row, a menu header, a member list.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/avatar.css",
+          "type": "registry:file",
+          "target": "styles/amaca/avatar.css"
+        },
+        {
+          "path": "amaca/avatar.html",
+          "type": "registry:file",
+          "target": "components/amaca/avatar.html"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "type": "registry:item",
+      "title": "List",
+      "description": "Many things of one kind, each a line or two, to scan or open: projects, settings, people.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json",
+        "https://www.amaca.design/r/avatar.json",
+        "https://www.amaca.design/r/badge.json",
+        "https://www.amaca.design/r/icon.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/list.css",
+          "type": "registry:file",
+          "target": "styles/amaca/list.css"
+        },
+        {
+          "path": "amaca/list.html",
+          "type": "registry:file",
+          "target": "components/amaca/list.html"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:item",
+      "title": "Table",
+      "description": "Content, not chrome.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/table.css",
+          "type": "registry:file",
+          "target": "styles/amaca/table.css"
+        },
+        {
+          "path": "amaca/table.html",
+          "type": "registry:file",
+          "target": "components/amaca/table.html"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart card",
+      "description": "Bars for comparison, labelled at the value; the donut for composition.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/chart.css",
+          "type": "registry:file",
+          "target": "styles/amaca/chart.css"
+        },
+        {
+          "path": "amaca/chart.html",
+          "type": "registry:file",
+          "target": "components/amaca/chart.html"
+        }
+      ]
+    },
+    {
+      "name": "diagram",
+      "type": "registry:item",
+      "title": "Diagrams",
+      "description": "Flowcharts and system architecture, box and line with grouping.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/diagram.css",
+          "type": "registry:file",
+          "target": "styles/amaca/diagram.css"
+        },
+        {
+          "path": "amaca/diagram.html",
+          "type": "registry:file",
+          "target": "components/amaca/diagram.html"
+        }
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:item",
+      "title": "Icon",
+      "description": "Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay.",
+      "registryDependencies": [
+        "https://www.amaca.design/r/amaca-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "amaca/icon.css",
+          "type": "registry:file",
+          "target": "styles/amaca/icon.css"
+        },
+        {
+          "path": "amaca/icon.html",
+          "type": "registry:file",
+          "target": "components/amaca/icon.html"
+        }
+      ]
+    }
+  ]
+}
