@@ -3776,6 +3776,34 @@ def c97():
     return fails
 
 
+@check("100", "A component page reads in one order, and its Rules are the contract's, word for word",
+       "v5.0.0: a component page reads Usage, the Anatomy card, Rules, the variants, Do and don't. "
+       "The Rules repeat the rule lists of the component's section of DESIGN.md; a copy written by hand "
+       "drifts the first time the contract changes. release/rules.py writes them, and this check runs the "
+       "generator, then holds every component page to the order: Anatomy and code first, Rules second, "
+       "Do and don't last.")
+def c100():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("rules", ROOT / "release" / "rules.py")
+    rules = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(rules)
+    html = read(INDEX)
+    found = {m.group(2): m.group(3) for m in rules.blocks(html)}
+    fails = []
+    for page in rules.PAGES:
+        if page not in found:
+            fails.append(f"index.html: no <!-- rules:{page} --> block")
+        elif found[page] != rules.build(page):
+            fails.append(f"index.html: the {page} rules are not the contract's - run `python3 release/rules.py`")
+        elif found[page].count("<li>") < 3:
+            fails.append(f"DESIGN.md: the {page} section states fewer than three rules")
+        m = re.search(r'<section class="section" id="' + page + r'">(.*?)(?=<section class="section"|$)', html, re.S)
+        titles = [unescape(t) for t in re.findall(r'<h2 class="subsection-title">(.*?)</h2>', m.group(1))] if m else []
+        if titles[:2] != ["Anatomy and code", "Rules"] or not titles[-1].startswith("Do"):
+            fails.append(f"index.html: § {page} reads {' / '.join(titles[:3])} … {titles[-1] if titles else ''}; Anatomy and code, Rules, … Do and don't")
+    return fails
+
+
 @check("99", "A page's Anatomy | Code card is what release/kit.py writes from the repo",
        "v5.0.0: every component page gains a card with its example, its parts with the tokens that draw them, and its code. "
        "The card copies the CSS of components.css and the values of tokens.css; a copy written by hand "

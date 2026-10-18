@@ -749,7 +749,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 
 ### § 3.0.3 Teaching grammar
 
-**How the system explains itself is part of the system.** A component is documented on five surfaces and no others. The list is closed for the same reason § 3.0 is closed: without it, the next section imitates whatever the last one happened to do, and the documentation drifts faster than the code.
+**How the system explains itself is part of the system.** A component is documented on seven surfaces and no others. The list is closed for the same reason § 3.0 is closed: without it, the next section imitates whatever the last one happened to do, and the documentation drifts faster than the code.
 
 | Surface | Job | When | Constraint |
 |---|---|---|---|
@@ -757,6 +757,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 | **Usage** | When to use the component, and what to use instead | Every component section, right under the framing prose | Two lists, *Use it when* and *Use something else when*; every line of the second ends with the alternative after an arrow (→) |
 | **Do / Don't** | Rules that can be got wrong | Every component with at least one contestable rule | Always in pairs. A Do without its Don't states a preference, not a rule |
 | **Demo caption** | The replay affordance | Only where a demo has a choreography with a beginning | Fixed form: *"Click [Replay] to re-trigger animations."* Nothing else goes here |
+| **Anatomy card** | The parts of one example and the tokens that draw each, with its code | One per component page, after Usage | Written by `release/kit.py` from `components.css` (check 99); the six rules under Code conventions |
+| **Rules** | What the contract holds the component to | One per component page, after the Anatomy card | The rule lists of the component's section here, word for word, written by `release/rules.py` (check 100). A rule is written once, in this file |
 | **Contract card** | Discrete values a generator must not guess — input grids, digit rules, allowed keys | Where the rule is a table, not a sentence | Mono register (`--font-mono` + `--tr-mono` + uppercase label). Never a hardcoded font stack |
 
 **Rules of the grammar:**
@@ -764,7 +766,9 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Framing prose is mandatory, not decorative.** A subsection with a demo and no framing tells the reader what the component looks like and never what it is for.
 - **Do / Don't comes in pairs.** The Don't is where the knowledge is: anyone can guess the Do.
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
-- An explanation that fits none of these five is `off-system`. Add a surface deliberately, or use one of these.
+- An explanation that fits none of these seven is `off-system`. Add a surface deliberately, or use one of these.
+
+**Page order (v5.0.0).** A component page reads in one order: Usage (*Use it when* / *Use something else when*), the Anatomy card, Rules, the variants grouped by axis (type, size, state, orientation, placement, composition, the live demo), Do and don't. The order follows the component schema the contract is read into: description, parts and tokens, rules, variant axes.
 
 **Status (v5.0.0).** The debt declared in v3.4.0 is closed: every subsection carries framing prose and no rule lives in a demo caption (checks 17 and 18). Usage sits on every component section, the same in the contract and on the site (check 55). Do / Don't appears where a rule is contestable, never to fill a quota. (Counts are left out on purpose: they were written by hand and had drifted, 102 subsections and 10 of 44 sections against 151 and 23 of 40.)
 
@@ -1086,6 +1090,7 @@ Text that **takes the reader to another page or resource**. It lives inside runn
 | `.link` | `--bw-1`, always | Every link inside a sentence or a paragraph, and any link whose context does not already say it is a link. The default | — |
 | `.link-quiet` | none — appears on hover and focus | A **standalone** link: the only thing on its line or in its cell, where position and label already say it is a link. A menu, a footer, a list of resources, the title of a row that opens another page, a "Read more" at the end of a card | Inside a sentence or a paragraph, next to running text, in a caption or in a helper line. There the colour is 2.1:1 against the text and WCAG 1.4.1 fails |
 
+**Rules.**
 - **Choosing the variant is a rule, not a taste (RIGID).** If a sentence or a paragraph holds the link, it is `.link`. `.link-quiet` is legal only when nothing around the link is running text. When in doubt, `.link`: an underline that is not needed costs nothing, a missing one is a WCAG failure. A `.link-quiet` inside a `<p>`, an `<li>` of prose or any element that carries running text is a defect, and check 60 fails it.
 - **Colour `--primary-400`, underlined at rest.** The colour alone is 2.1:1 against the body text, under the 3:1 a link needs to stand out without a cue (§ 6 floor #1, WCAG 1.4.1), so the underline is not optional and not hover-only. `--info` is not a link colour: it belongs to status (§ 3.16).
 - **Underline** `--bw-1`, offset `--s-1`, so it clears the descenders. It thickens to `--bw-2` on hover while the colour moves to `--primary-300`; pressed lands on `--primary-500`. `--primary-600` is reserved for the filled button.
@@ -1273,6 +1278,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 </label>
 ```
 
+**Rules.**
 - Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
@@ -1599,6 +1605,7 @@ The example is the § 19.1 demo, badge for badge; check 47 holds the two togethe
 | `.badge-solid` | `--primary-500` fill, text `--obsidian-050` | Featured — one filled accent per viewport |
 | `.badge-info` | `--info` × `--tint-fill` / `--tint-edge` | Info — a neutral fact |
 
+**Rules.**
 - **The badge's own register.** `--t-small`, weight 500, `--tr-snug`; padding `--s-2` `--s-4`, gap `--s-1`; corner `--r-md`. Line height and case come from the context. It is taller than the Chip on purpose: the badge reports, the chip is handled.
 - **A tint is a hue at two strengths**, a fill and an edge, text on the full token. The variants use the Chip's pair, `--tint-fill` / `--tint-edge`. The default's deep hue, `--tertiary-500`, uses the heavier `--tint-fill-deep` / `--tint-edge-deep`. Never a hand-written rgba.
 - **One line, always.** A badge never wraps (`white-space: nowrap`) and never shrinks in a flex row (`flex: none`): when room runs out, the text beside it wraps instead.
@@ -2336,6 +2343,8 @@ Use `will-change: transform, width` on the indicator.
 **Rules:**
 - Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
 - Keyboard: `Tab` reaches each trigger; `Enter`/`Space` activates.
+- **One indicator.** One `.tab-indicator` per tablist, 2px of `--primary-500`, moved with `transform` and `width`; never an underline per tab.
+- **Views of one page.** Tabs switch what one page shows; going to another page is Navigation.
 
 **Do / Don't.** Do fade the new panel in once the old one is gone, under one magenta indicator that travels. Don't crossfade or slide both panels, or use tabs to move between pages: that is Navigation.
 
@@ -2373,6 +2382,7 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 | Full width | `.segmented-fill` | The segments share the container's width in equal parts |
 | Panel | `.segmented-panel` | `role="tabpanel"`. The panels not selected carry `hidden`; `.is-in` fades the selected one in |
 
+**Rules.**
 - **States: § 3.0.1.** `default` · `hover` · `active` · `selected` · `focus-visible`, values in the state index.
 - **The thumb is the selection.** Its edge, `--border-input` on `--surface-sunken`, reads at 3.27 : 1 (WCAG 1.4.11); without the edge the fill alone is 1.24 : 1. The label of the selected segment is `--obsidian-100` (12.57 : 1 on the thumb), the others `--obsidian-300` (6.30 : 1 on the track).
 - **One stop on Tab.** The selected segment carries `tabindex="0"`, the others `-1`. Arrow Left and Right select the neighbour and move the focus to it, Home and End go to the ends.
@@ -2408,6 +2418,7 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 </div>
 ```
 
+**Rules.**
 - Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
 - In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
 - **A crumb that is a link** hovers `--obsidian-100`, presses `--obsidian-400` and takes the pressable ring; the current page stays a `span`.
@@ -2557,11 +2568,13 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 </div>
 ```
 
+**Rules.**
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+- **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 - **Row — `.card-row`.** One line of a list: a square media of `--s-16`, then the micro-header, the title (`h3`, `--t-body`) and one line of text clipped with an ellipsis, then a chevron (`.icon-muted`). Padding `--s-3`, gap `--s-4`. The whole card is the link — an `<a>` — so it holds no action and no other focusable; it takes the focus ring of a pressable (`--ring-halo`, outline `--focus-width` `--obsidian-100`). Rows stack with `--s-3` between them.
@@ -2633,6 +2646,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 </div>
 ```
 
+**Rules.**
 - Single-open by default.
 - Chevron rotates 90° on expand.
 - Keyboard-operable: `aria-expanded` toggled, `Enter`/`Space` opens/closes.
