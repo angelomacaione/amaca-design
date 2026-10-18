@@ -3915,7 +3915,9 @@ def c103():
     wf = ROOT / ".github" / "workflows" / "publish-npm.yml"
     text = wf.read_text(encoding="utf-8") if wf.exists() else ""
     for need, what in (('tags: ["v*"]', "runs on a release tag"), ("release/npm.py", "builds with release/npm.py"),
-                       ('"v$v" != "$GITHUB_REF_NAME"', "refuses a tag that is not the package version"), ("secrets.NPM_TOKEN", "publishes with NPM_TOKEN")):
+                       ('"v$v" != "$TAG"', "refuses a tag that is not the package version"), ("secrets.NPM_TOKEN", "publishes with NPM_TOKEN"),
+                       ("npm publish ./build/npm", "publishes the folder (without ./ npm reads build/npm as a GitHub repository)"),
+                       ("workflow_dispatch", "can publish a tag again by hand")):
         if need not in text:
             fails.append(f".github/workflows/publish-npm.yml: no step that {what}")
     if "npm install amaca-design" not in read(INDEX) or "www.amaca.design/r/" not in read(INDEX):
