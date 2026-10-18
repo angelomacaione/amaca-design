@@ -622,6 +622,26 @@
     "$value": 0.4,
     "$type": "number"
   },
+  "tint-faint": {
+    "$value": 0.04,
+    "$type": "number",
+    "$description": "a wash in the hue: the open accordion row, a range preview"
+  },
+  "tint-glow": {
+    "$value": 0.2,
+    "$type": "number",
+    "$description": "a glow or a hairline in the hue"
+  },
+  "tint-strong": {
+    "$value": 0.6,
+    "$type": "number",
+    "$description": "a veil of the hue: a fade's edge, the pulse ring"
+  },
+  "opacity-disabled": {
+    "$value": 0.4,
+    "$type": "number",
+    "$description": "every disabled control"
+  },
   "grad-cube": {
     "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
     "$type": "other",
@@ -640,6 +660,11 @@
   "grad-fog": {
     "$value": "radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),\n                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%)",
     "$type": "other"
+  },
+  "light-hero": {
+    "$value": "radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%)",
+    "$type": "other",
+    "$description": "the light of the case study hero"
   },
   "font-sans": {
     "$value": [

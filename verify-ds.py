@@ -3663,7 +3663,7 @@ def c94():
 def c95():
     fails = []
     d = read(DESIGN)
-    want = "translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity"
+    want = "translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity"
     chat = d[d.index("\n### Chat"):d.index("\n### ", d.index("\n### Chat") + 5)]
     if chat.count("| typing dots (loop) | " + want + " |") != 1:
         fails.append("DESIGN.md § Chat: the typing dots row is not the canonical one, or it appears twice")
@@ -3674,7 +3674,7 @@ def c95():
         fails.append("DESIGN.md motion index: the Chat typing dots row is not the section's row")
     html = read(INDEX)
     site = re.findall(r"typing dots[^<]*(?:<code>[^<]*</code>)?[^<]*\(loop\)</td>(.*?)</tr>", html)
-    if len(site) != 2 or any("0.35→1→0.35" not in r or "hold still at full opacity" not in r for r in site):
+    if len(site) != 2 or any("0.3→1→0.3" not in r or "hold still at full opacity" not in r for r in site):
         fails.append("site: the two typing dots rows are not the contract's row")
     css = read(COMPONENTS)
     if not re.search(r"\.chat-dot\{\s*animation:none !important;\s*opacity:1 !important\s*\}", css):
@@ -3780,6 +3780,26 @@ def c97():
     if rows < 30:
         fails.append(f"size index: {rows} rows, fewer than the components it must cover")
     return fails
+
+
+@check("106", "No rgba and no loose opacity in components.css",
+       "v5.0.0: thirty rgba() values and a dozen opacities sat in components.css, magenta at seven "
+       "alphas no scale named. A colour with an alpha is a token colour times a tint token; an opacity is "
+       "0, 1 or a token. tokens.css is where literal values live, so it is not read here.")
+def c106():
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    fails = [f"components.css: {m.group(0)} - a token colour times a --tint-* token" for m in re.finditer(r"rgba?\([^)]*\)", css)]
+    # a keyframe cannot read var(): there the value is written, and it must be a step of the tint scale
+    steps = {m.group(1) for m in re.finditer(r"--(?:tint-[a-z-]+|opacity-disabled):\s*([\d.]+)", read(TOKENS))}
+    frames = " ".join(m.group(0) for m in re.finditer(r"@keyframes[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}", css))
+    for m in re.finditer(r"(?<![-\w])opacity\s*:\s*([^;}]+)", css):
+        val = m.group(1).replace("!important", "").strip()
+        if val in ("0", "1") or val.startswith("var("):
+            continue
+        if m.group(0) in frames and val in steps:
+            continue
+        fails.append(f"components.css: opacity:{val} - 0, 1 or a token")
+    return sorted(set(fails))
 
 
 @check("105", "The three layers on Overview count what the sidebar lists",

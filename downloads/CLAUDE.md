@@ -31,7 +31,7 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
   border:var(--bw-1) solid transparent; white-space:nowrap; }
-.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
 .btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
   box-shadow:var(--ring-halo); }
 .btn-primary{ background:var(--primary-500); color:var(--obsidian-050);
@@ -45,7 +45,7 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;
   transition:all var(--d-quick) var(--ease-standard); width:100%; }
 .input:focus{ border-color:var(--primary-500); box-shadow:var(--ring-field); }
-.input:disabled{ opacity:0.4; cursor:not-allowed; }
+.input:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
 ```
 
 ## Accessibility floor (non-negotiable)

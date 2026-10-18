@@ -22,7 +22,7 @@ Reference example (token-only):
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
   border:var(--bw-1) solid transparent; white-space:nowrap; }
-.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+.btn:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
 .btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
   box-shadow:var(--ring-halo); }
 .btn-primary{ background:var(--primary-500); color:var(--obsidian-050);

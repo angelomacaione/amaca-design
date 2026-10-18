@@ -86,6 +86,11 @@
   /* the default badge's deep hue (--tertiary-500) needs the heavier mix */
   --tint-fill-deep: 0.12;
   --tint-edge-deep: 0.4;
+  /* v5.0.0: the rest of the scale every alpha in components.css snaps to (nearest, the smaller at equal distance) */
+  --tint-faint:  0.04;   /* a wash: the open accordion row, a range preview */
+  --tint-glow:   0.2;    /* a glow or a hairline in the hue */
+  --tint-strong: 0.6;    /* a veil of the hue: a fade's edge, the pulse ring */
+  --opacity-disabled: 0.4;   /* every disabled control (v5.0.0) */
 
   /* — GRADIENTS — */
   --grad-cube:   linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%);
@@ -93,6 +98,7 @@
   --grad-progress: linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%);   /* v5.0.0: the filled part of a Stepper and a Progress bar, primary-200 to primary-500 */
   --grad-fog:    radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),
                  radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%);
+  --light-hero:  radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%);   /* v5.0.0: the light of the case study hero, the page fog's small sister */
 
   /* — TYPE — */
   --font-sans:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;

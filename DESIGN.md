@@ -332,6 +332,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--blur-glass` | `8px` — the blur of `--surface-glass` |
 | `--blur-bar` | `16px` — the blur of `--surface-bar` |
 | `--blur-light` | `96px` — the light of the feature card (§ 3.32): it blurs the card's own glow, never what is behind it, so it is not a material |
+| `--light-hero` | The light of the case study hero: a `--primary-500` radial at 8% on the hero's right, the page fog's (`--grad-fog`) small sister |
 | `--ring-halo` | Focus ring on pressables — the § 6.2 pressable halo |
 | `--ring-field` | Focus ring on text fields — the § 6.2 field glow |
 | `--ring-field-danger` | The field glow's error twin, on a focused `aria-invalid` field |
@@ -374,6 +375,22 @@ Shadows are inset-first, low-key. Never use them as decoration — only for dept
 | `--r-full` | `999px` | Pills, status dots |
 
 **Working range is 8–12px.** If a component asks for more, justify it.
+
+
+### Tints and opacity (v5.0.0)
+
+Every alpha in `components.css` is a token: a colour with an alpha is a token colour times a tint, `color-mix(in srgb, var(--hue) calc(var(--tint-*) * 100%), transparent)`, and an opacity is `0`, `1` or a token, and inside a `@keyframes`, where `var()` is not read, the value of one. A value between two steps snaps to the nearest one, the smaller at equal distance. Check 106 holds it: no `rgba()` and no loose opacity in `components.css`.
+
+| Token | Value | Use |
+|---|---|---|
+| `--tint-faint` | `0.04` | A wash: the open accordion row, a range preview |
+| `--tint-fill` | `0.08` | A tinted label's fill (Badge, Chip), a selected row |
+| `--tint-fill-deep` | `0.12` | The deep hue's fill; the feature card's light |
+| `--tint-glow` | `0.2` | A glow or a hairline in the hue |
+| `--tint-edge` | `0.3` | A tinted label's edge; the typing dots at rest (a keyframe cannot read `var()`: it writes the value) |
+| `--tint-edge-deep` | `0.4` | The deep hue's edge |
+| `--tint-strong` | `0.6` | A veil of the hue: a fade's edge, the pulse ring |
+| `--opacity-disabled` | `0.4` | Every disabled control |
 
 ### Border width (v5.0.0)
 
@@ -574,7 +591,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index | — |
 | `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link | — |
 | `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at 15% under `--blur-light` · hovers as a `.card` | — |
+| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at `--tint-fill-deep` under `--blur-light` · hovers as a `.card` | — |
 | `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-950` | `--sh-glow` | not interactive · label 6.5 : 1 | — |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus | — |
 | `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget | — |
@@ -2877,7 +2894,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
 
 **Composer:**
@@ -3910,7 +3927,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.35→1→0.35 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
 | Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Loader | success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
 | Loader | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
@@ -4226,7 +4243,8 @@ One page per component, every value on a scale, and a system an agent can instal
 - **AI-readable:** `llms.txt` and `llms-full.txt` open with "Which file for which tool", and a model asks for the tool before recommending a file.
 - **Tokens:** `--s-px` and `--s-0-5`, border widths, focus, icon and target sizes, fluid headings, surface and border roles, three breakpoints, three materials, `--primary-950`, `--ease-linear`; a size index and a state index with an Exception column.
 - **Guidelines:** Usage per component, ranked principles, the law and conventions registries; Browser chrome on the Layout page, the scrollbars included.
-- **Checks 47-105.** Among them: every value a token (51), breakpoints (53), the kit card (99), the Rules (100), the shadcn registry (101), every declared variant shown (102), the npm package (103), the tool guide (104), the Overview counts (105).
+- **Tints and opacity:** `--tint-faint`, `--tint-glow`, `--tint-strong`, `--opacity-disabled` and `--light-hero`; every alpha in `components.css` is a token colour times a tint.
+- **Checks 51-106.** Among them: every value a token (51), breakpoints (53), the kit card (99), the Rules (100), the shadcn registry (101), every declared variant shown (102), the npm package (103), the tool guide (104), the Overview counts (105), no `rgba()` or loose opacity in the stylesheet (106).
 
 **Changed**
 - **`--ease-standard` is an ease in-out** (`0.45, 0, 0.55, 1`) for state changes; it was an ease-out.
@@ -4239,6 +4257,7 @@ One page per component, every value on a scale, and a system an agent can instal
 - **Control outlines reach 3:1** on `--border-input` (fields, checkbox, radio were 1.18:1 and 1.41:1).
 - **The law card and the sidebar indicator move on tokens only**; a raw `cubic-bezier` in `components.css` now fails check 07.
 - **No page scrolls sideways**; the sidebar indicator travels from the last position across groups; the typing dots are written once; the motion index carries every row word for word.
+- **The lightbox is an overlay like the others:** the page behind it on `--scrim` and `--blur-veil`, the figure on `--sh-4`, its close button on the obsidian ramp; a case study figure glows on `--sh-glow`, and its Expand hint keeps the icon size.
 
 ### v4.3.2 — 2026.09.26 (PATCH)
 
