@@ -123,7 +123,7 @@ tool reads: `.agents/skills/` (vendor-neutral, read by Cursor 2.4+ and Codex),
     build a pricing card with Amaca
 
 The skill reads `DESIGN.md` first, every time, and generates token-only output —
-`var(--magenta-500)`, never a raw hex. It self-audits before handing back.
+`var(--primary-500)`, never a raw hex. It self-audits before handing back.
 
 ## What's inside
 

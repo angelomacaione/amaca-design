@@ -1,0 +1,158 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "type": "registry:item",
+  "title": "Toast",
+  "description": "An event that just happened somewhere else.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/toast.css",
+      "type": "registry:file",
+      "target": "styles/amaca/toast.css",
+      "content": ".toast-region{\n  position:fixed;\n  right:var(--s-6);\n  bottom:var(--s-6);\n  z-index:var(--z-toast);\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-3);\n  width:min(var(--w-toast), calc(100vw - var(--s-8)));\n  pointer-events:none;\n}\n.toast{\n  pointer-events:auto;\n  display:grid;\n  grid-template-columns:auto minmax(0,1fr) auto;\n  column-gap:var(--s-3);\n  row-gap:var(--s-1);\n  align-items:center;\n  padding:var(--s-4);\n  background:var(--obsidian-850);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-left:var(--bw-2) solid var(--primary-500);\n  border-radius:var(--r-md);\n  box-shadow:var(--sh-3);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n  opacity:0;\n  transform:translateX(24px);\n  transition:opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel);\n}\n.toast.is-in{\n  opacity:1;\n  transform:translateX(0);\n}\n.toast-icon{\n  grid-column:1;\n  grid-row:1;\n  width:var(--icon-sm);\n  height:var(--icon-sm);\n  color:var(--primary-400);\n}\n.toast-title{\n  grid-column:2;\n  grid-row:1;\n  font-weight:600;\n  color:var(--obsidian-100);\n  min-width:0;\n}\n.toast-body{\n  grid-column:2;\n  grid-row:1;\n  min-width:0;\n  overflow-wrap:anywhere;\n}\n.toast:has(.toast-title) .toast-body{\n  grid-column:1 / -1;\n  grid-row:2;\n}\n.toast-action{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--primary-400);\n  background:transparent;\n  border:0;\n  cursor:pointer;\n  padding:var(--s-1) 0;\n  margin-top:var(--s-2);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.toast-action:hover{\n  color:var(--primary-300);\n}\n.toast-action:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.toast-dismiss{\n  grid-column:3;\n  grid-row:1;\n  display:grid;\n  place-items:center;\n  width:20px;\n  height:20px;\n  color:var(--obsidian-400);\n  border-radius:var(--r-sm);\n  background:transparent;\n  border:0;\n  cursor:pointer;\n  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.toast-dismiss:hover{\n  color:var(--obsidian-100);\n  background:var(--obsidian-800);\n}\n.toast-dismiss:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n}\n.toast-dismiss svg{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n}\n.toast-success{\n  border-left-color:var(--success);\n}\n.toast-success .toast-icon{\n  color:var(--success);\n}\n.toast-warn{\n  border-left-color:var(--warning);\n}\n.toast-warn .toast-icon{\n  color:var(--warning);\n}\n.toast-danger{\n  border-left-color:var(--danger);\n}\n.toast-danger .toast-icon{\n  color:var(--danger);\n}\n@media (max-width:480px){\n  .toast-region{\n    left:var(--s-4);\n    right:var(--s-4);\n    bottom:var(--s-4);\n    width:auto;\n  }\n}\n.toast{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
+    },
+    {
+      "path": "amaca/toast.html",
+      "type": "registry:file",
+      "target": "components/amaca/toast.html",
+      "content": "<div class=\"toast toast-success is-in\" role=\"status\"><svg class=\"icon toast-icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3 8.5l3 3 7-7.5\"/></svg><div class=\"toast-title\">Draft published</div><button class=\"toast-dismiss\" type=\"button\" aria-label=\"Dismiss\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3.5 3.5l9 9M12.5 3.5l-9 9\"/></svg></button><div class=\"toast-body\">Live on the blog. <button class=\"toast-action\" type=\"button\">Undo</button></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.17 Toast",
+      "site": "https://www.amaca.design/#toast",
+      "usage": {
+        "use_it_when": [
+          "An event that just happened somewhere else."
+        ],
+        "use_something_else_when": [
+          "A fourth message in the stack → Alert.",
+          "It is the only record of the information → keep it somewhere durable.",
+          "A critical message that needs an action → Modal."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "default",
+            ".toast-success",
+            ".toast-warn",
+            ".toast-danger"
+          ],
+          "default": "default",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Box",
+          "tokens": [
+            "--obsidian-850",
+            "--bw-1",
+            "--obsidian-700",
+            "--bw-2",
+            "--primary-500",
+            "--r-md",
+            "--sh-3",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Icon",
+          "tokens": [
+            "--success",
+            "--icon-sm"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Title",
+          "tokens": [
+            "--obsidian-100"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Body",
+          "tokens": [
+            "--obsidian-200",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Action",
+          "tokens": [
+            "--primary-400",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": "hover --primary-300"
+        },
+        {
+          "name": "Dismiss",
+          "tokens": [
+            "--obsidian-400",
+            "--r-sm"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-base",
+            "--ease-decel"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Position",
+          "tokens": [],
+          "value": "fixed · bottom right",
+          "states": "--s-6 from the bottom and the right edge, in .toast-region"
+        }
+      ],
+      "rules": [
+        "Auto-dismiss is opt-in and bounded (§ 6 floor #6). data-autohide is permitted only when the toast carries no action and is not .toast-danger; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.",
+        "The region is aria-live=\"polite\"; a .toast-danger carries role=\"alert\" on the toast itself.",
+        "Newest enters at the bottom of the stack. Three visible at most — a fourth means the surface should be showing an § 3.16 Alert instead.",
+        "A toast is never the only place a result appears. If losing it loses the information, it wasn't a toast.",
+        "Same grid as § 3.16: icon and title on the first row, body returning to the icon's left edge below.",
+        "A toast enters and leaves on the same side it lives on — 24px from the right, opacity with it. Coming in from below would read as the page growing; coming in from the edge reads as something arriving from outside the page, which is what it is. Exit retraces the entry exactly: same axis, same distance, opposite direction.",
+        "The stack closes the gap, it never snaps. Dismissal is two moves on two curves, and they are not the same move. The toast fades and slides out on --d-quick · --ease-accel — that is the exit. Its box then collapses on --d-base · --ease-decel — and that is not an exit at all: it is the repositioning of the toasts below, which are not leaving, they are settling into a new place. Accel on the collapse would tell the survivors they are being dismissed too. Same roll-off shape as the chat message (§ 3.35). Removing the node outright drops everything below it by a full toast height in one frame — that reads as a glitch, not a dismissal.",
+        "The two rides differ in speed, not in path. In: .is-in, --d-base · --ease-decel — the system announcing itself. Out: .is-out, --d-quick · --ease-accel — the reader dismissed it, get out of the way. Remove the node after the exit resolves; under reduced motion it goes at once.",
+        "The toast keeps its close button. It is the dismissible half of the pair: § 3.16 Alert has none by contract.",
+        "Motion: § 06.4."
+      ],
+      "classes": [
+        "is-in",
+        "toast",
+        "toast-action",
+        "toast-body",
+        "toast-danger",
+        "toast-dismiss",
+        "toast-icon",
+        "toast-region",
+        "toast-success",
+        "toast-title",
+        "toast-warn"
+      ]
+    }
+  }
+}

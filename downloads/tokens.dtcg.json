@@ -3,7 +3,7 @@
   "$description": "Amaca design tokens - DTCG projection of styles/tokens.css. Generated from the CSS, never edited by hand; the round-trip is guarded by verify-ds.py check 25.",
   "$extensions": {
     "amaca": {
-      "version": "4.3.2",
+      "version": "5.0.0",
       "source": "styles/tokens.css"
     }
   },
@@ -175,7 +175,47 @@
     "$type": "color",
     "$description": "bone"
   },
-  "magenta-100": {
+  "surface": {
+    "$value": "{obsidian-950}",
+    "$type": "color",
+    "$description": "the page"
+  },
+  "surface-sunken": {
+    "$value": "{obsidian-900}",
+    "$type": "color",
+    "$description": "sidebar, wells"
+  },
+  "surface-field": {
+    "$value": "{obsidian-850}",
+    "$type": "color",
+    "$description": "inputs and controls at rest"
+  },
+  "surface-raised": {
+    "$value": "{obsidian-800}",
+    "$type": "color",
+    "$description": "card, menu, modal"
+  },
+  "border-subtle": {
+    "$value": "{obsidian-800}",
+    "$type": "color",
+    "$description": "dividers, table rows"
+  },
+  "border": {
+    "$value": "{obsidian-700}",
+    "$type": "color",
+    "$description": "card, chip, panel"
+  },
+  "border-strong": {
+    "$value": "{obsidian-600}",
+    "$type": "color",
+    "$description": "hover, emphasis"
+  },
+  "border-input": {
+    "$value": "{obsidian-400}",
+    "$type": "color",
+    "$description": "a control's outline: 3:1 on its fill (WCAG 1.4.11)"
+  },
+  "primary-100": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -188,7 +228,7 @@
     },
     "$type": "color"
   },
-  "magenta-200": {
+  "primary-200": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -201,7 +241,7 @@
     },
     "$type": "color"
   },
-  "magenta-300": {
+  "primary-300": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -214,7 +254,7 @@
     },
     "$type": "color"
   },
-  "magenta-400": {
+  "primary-400": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -227,7 +267,7 @@
     },
     "$type": "color"
   },
-  "magenta-500": {
+  "primary-500": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -241,7 +281,7 @@
     "$type": "color",
     "$description": "primary brand"
   },
-  "magenta-600": {
+  "primary-600": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -254,7 +294,7 @@
     },
     "$type": "color"
   },
-  "magenta-700": {
+  "primary-700": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -267,7 +307,7 @@
     },
     "$type": "color"
   },
-  "magenta-800": {
+  "primary-800": {
     "$value": {
       "colorSpace": "srgb",
       "components": [
@@ -277,6 +317,19 @@
       ],
       "alpha": 1,
       "hex": "#66195A"
+    },
+    "$type": "color"
+  },
+  "primary-950": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.1137,
+        0.0196,
+        0.098
+      ],
+      "alpha": 1,
+      "hex": "#1D0519"
     },
     "$type": "color"
   },
@@ -323,12 +376,12 @@
     "$value": {
       "colorSpace": "srgb",
       "components": [
-        0.0,
+        0.098,
         1.0,
-        0.949
+        0.9529
       ],
       "alpha": 1,
-      "hex": "#00FFF2"
+      "hex": "#19FFF3"
     },
     "$type": "color"
   },
@@ -569,6 +622,26 @@
     "$value": 0.4,
     "$type": "number"
   },
+  "tint-faint": {
+    "$value": 0.04,
+    "$type": "number",
+    "$description": "a wash in the hue: the open accordion row, a range preview"
+  },
+  "tint-glow": {
+    "$value": 0.2,
+    "$type": "number",
+    "$description": "a glow or a hairline in the hue"
+  },
+  "tint-strong": {
+    "$value": 0.6,
+    "$type": "number",
+    "$description": "a veil of the hue: a fade's edge, the pulse ring"
+  },
+  "opacity-disabled": {
+    "$value": 0.4,
+    "$type": "number",
+    "$description": "every disabled control"
+  },
   "grad-cube": {
     "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
     "$type": "other",
@@ -579,9 +652,19 @@
     "$type": "other",
     "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
   },
+  "grad-progress": {
+    "$value": "linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%)",
+    "$type": "other",
+    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+  },
   "grad-fog": {
     "$value": "radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),\n                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%)",
     "$type": "other"
+  },
+  "light-hero": {
+    "$value": "radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%)",
+    "$type": "other",
+    "$description": "the light of the case study hero"
   },
   "font-sans": {
     "$value": [
@@ -690,6 +773,41 @@
     },
     "$type": "dimension"
   },
+  "t-display-fluid": {
+    "$value": "clamp(48px, 14vw, 80px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h1-fluid": {
+    "$value": "clamp(40px, 9vw, 64px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h2-fluid": {
+    "$value": "clamp(32px, 9vw, 48px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h3-fluid": {
+    "$value": "clamp(26px, 7vw, 36px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h4-fluid": {
+    "$value": "clamp(22px, 6vw, 28px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-h5-fluid": {
+    "$value": "clamp(var(--t-lead), 5vw, 22px)",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
+  "t-lead-fluid": {
+    "$value": "clamp(16px, 3.6vw, var(--t-h6))",
+    "$type": "other",
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+  },
   "lh-tight": {
     "$value": 1.05,
     "$type": "number"
@@ -709,31 +827,45 @@
   "tr-tight": {
     "$value": "-0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for display text."
   },
   "tr-snug": {
     "$value": "-0.02em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for headings."
   },
   "tr-normal": {
     "$value": "0em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for body text."
   },
   "tr-wide": {
     "$value": "0.04em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for small caps."
   },
   "tr-mono": {
     "$value": "0.06em",
     "$type": "other",
-    "$description": "Letter-spacing in em — DTCG stable dimension supports only px|rem; kept as CSS string."
+    "$description": "Letter-spacing for all-caps mono labels."
   },
   "s-0": {
     "$value": {
       "value": 0,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "s-px": {
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "s-0-5": {
+    "$value": {
+      "value": 2,
       "unit": "px"
     },
     "$type": "dimension"
@@ -884,6 +1016,116 @@
       "unit": "px"
     },
     "$type": "dimension"
+  },
+  "bw-1": {
+    "$value": {
+      "value": 1,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bw-2": {
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "focus-width": {
+    "$value": {
+      "value": 2,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "focus-offset": {
+    "$value": {
+      "value": 3,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-xs": {
+    "$value": {
+      "value": 14,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-sm": {
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-md": {
+    "$value": {
+      "value": 20,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "icon-lg": {
+    "$value": {
+      "value": 24,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "target-dense": {
+    "$value": {
+      "value": 32,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "target-touch": {
+    "$value": {
+      "value": 44,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "w-tooltip": {
+    "$value": {
+      "value": 220,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest a tooltip runs before it wraps"
+  },
+  "w-popover-min": {
+    "$value": {
+      "value": 200,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the narrowest popover"
+  },
+  "w-popover": {
+    "$value": {
+      "value": 360,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest popover"
+  },
+  "w-modal": {
+    "$value": {
+      "value": 480,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the widest modal"
+  },
+  "w-toast": {
+    "$value": {
+      "value": 360,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the width of the toast region"
   },
   "sh-0": {
     "$value": "none",
@@ -1248,6 +1490,79 @@
     },
     "$type": "shadow"
   },
+  "scrim": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0275,
+        0.0353,
+        0.0431
+      ],
+      "alpha": 0.6,
+      "hex": "#07090B99"
+    },
+    "$type": "color"
+  },
+  "surface-glass": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0275,
+        0.0353,
+        0.0431
+      ],
+      "alpha": 0.702,
+      "hex": "#07090BB3"
+    },
+    "$type": "color",
+    "$description": "a control floating over content, read through a blur: obsidian-950 at 70%"
+  },
+  "surface-bar": {
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0275,
+        0.0353,
+        0.0431
+      ],
+      "alpha": 0.8,
+      "hex": "#07090BCC"
+    },
+    "$type": "color",
+    "$description": "a bar that stays on top while the page scrolls: obsidian-950 at 80%"
+  },
+  "blur-veil": {
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of the scrim (Veil material)"
+  },
+  "blur-glass": {
+    "$value": {
+      "value": 8,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of surface-glass (Glass material)"
+  },
+  "blur-bar": {
+    "$value": {
+      "value": 16,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of surface-bar (Bar material)"
+  },
+  "blur-light": {
+    "$value": {
+      "value": 96,
+      "unit": "px"
+    },
+    "$type": "dimension",
+    "$description": "the blur of the feature card's light: it blurs its own glow, not what is behind"
+  },
   "ring-halo": {
     "$value": {
       "color": {
@@ -1340,13 +1655,13 @@
   },
   "ease-standard": {
     "$value": [
-      0.22,
-      1.0,
-      0.36,
+      0.45,
+      0.0,
+      0.55,
       1.0
     ],
     "$type": "cubicBezier",
-    "$description": "Framer default ease-out"
+    "$description": "ease in-out (quad), symmetric: state changes (v5.0.0)"
   },
   "ease-accel": {
     "$value": [
@@ -1376,6 +1691,16 @@
     ],
     "$type": "cubicBezier",
     "$description": "elastic overshoot"
+  },
+  "ease-linear": {
+    "$value": [
+      0.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "$type": "cubicBezier",
+    "$description": "neutral: an opacity with no character, a continuous loop (v5.0.0)"
   },
   "d-instant": {
     "$value": {
@@ -1465,6 +1790,27 @@
   "gutter": {
     "$value": {
       "value": 24,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-sm": {
+    "$value": {
+      "value": 480,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-md": {
+    "$value": {
+      "value": 720,
+      "unit": "px"
+    },
+    "$type": "dimension"
+  },
+  "bp-lg": {
+    "$value": {
+      "value": 900,
       "unit": "px"
     },
     "$type": "dimension"

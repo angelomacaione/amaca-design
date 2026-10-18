@@ -1,0 +1,112 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "type": "registry:item",
+  "title": "Pagination",
+  "description": "Pages of similar items too long for one page: search results, a list of case studies.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/pagination.css",
+      "type": "registry:file",
+      "target": "styles/amaca/pagination.css",
+      "content": ".pagination{\n  display:flex;\n  align-items:center;\n  gap:var(--s-1);\n}\n.pagination-list{\n  list-style:none;\n  margin:0;\n  padding:0;\n  display:flex;\n  align-items:center;\n  gap:var(--s-1);\n}\n.pagination-link{\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-2);\n  box-sizing:border-box;\n  min-width:var(--s-8);\n  height:var(--s-8);\n  padding:0 var(--s-2);\n  border:var(--bw-1) solid transparent;\n  border-radius:var(--r-md);\n  background:transparent;\n  color:var(--obsidian-300);\n  font:inherit;\n  font-size:var(--t-small);\n  font-variant-numeric:tabular-nums;\n  text-decoration:none;\n  cursor:pointer;\n  transition:background var(--d-quick) var(--ease-standard),color var(--d-quick) var(--ease-standard);\n}\n.pagination-link:hover{\n  background:var(--obsidian-700);\n  color:var(--obsidian-100);\n}\n.pagination-link:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n  color:var(--obsidian-100);\n}\n.pagination-link[aria-current=\"page\"]{\n  background:var(--obsidian-700);\n  border-color:var(--obsidian-500);\n  color:var(--obsidian-100);\n  font-weight:600;\n  cursor:default;\n}\n.pagination-link[aria-disabled=\"true\"]{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n  pointer-events:none;\n}\n.pagination-gap{\n  display:inline-flex;\n  align-items:center;\n  justify-content:center;\n  min-width:var(--s-8);\n  color:var(--obsidian-300);\n  font-size:var(--t-small);\n}\n.pagination-status{\n  padding:0 var(--s-3);\n  color:var(--obsidian-300);\n  font-size:var(--t-small);\n  font-variant-numeric:tabular-nums;\n}\n@media (max-width:480px){\n  .pagination{\n    flex-wrap:wrap;\n  }\n  .pagination-link > span{\n    display:none;\n  }\n  .pagination-gap{\n    min-width:var(--s-6);\n  }\n}\n@media (prefers-reduced-motion:reduce){\n  .pagination-link{\n    transition:none;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/pagination.html",
+      "type": "registry:file",
+      "target": "components/amaca/pagination.html",
+      "content": "<nav class=\"pagination\" aria-label=\"Pagination\"><a class=\"pagination-link\" href=\"#\" aria-label=\"Previous page\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M10 3L5 8l5 5\"/></svg></a><ul class=\"pagination-list\"><li><a class=\"pagination-link\" href=\"#\">1</a></li><li><span class=\"pagination-gap\" aria-hidden=\"true\">…</span></li><li><a class=\"pagination-link\" href=\"#\" aria-current=\"page\">6</a></li><li><a class=\"pagination-link\" href=\"#\">7</a></li><li><span class=\"pagination-gap\" aria-hidden=\"true\">…</span></li><li><a class=\"pagination-link\" href=\"#\">12</a></li></ul><a class=\"pagination-link\" href=\"#\" aria-label=\"Next page\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 3l5 5-5 5\"/></svg></a></nav>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.30 Pagination",
+      "site": "https://www.amaca.design/#pagination",
+      "usage": {
+        "use_it_when": [
+          "Pages of similar items too long for one page: search results, a list of case studies.",
+          "The rows of a table that do not fit on the screen, in the compact form below it."
+        ],
+        "use_something_else_when": [
+          "A linear journey such as a form → a Continue button and a Back link.",
+          "Only one page → show nothing.",
+          "Content that sits on one page without slowing it → no pagination."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "numbered",
+            "compact"
+          ],
+          "default": "numbered",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Page",
+          "tokens": [
+            "--obsidian-300",
+            "--t-small",
+            "--bw-1",
+            "--r-md",
+            "--s-8"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100 --obsidian-700 · current --obsidian-100 --obsidian-700 --obsidian-500"
+        },
+        {
+          "name": "Gap",
+          "tokens": [
+            "--obsidian-300",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Row",
+          "tokens": [
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--s-px",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "What to show. The first page, the last page, the current page and one on each side; a gap stands for the rest. A gap never sits at an end, and a gap for a single page shows that page instead. Under --bp-sm use the compact form; the numbered one still fits there, as icons without their words, but it is the fallback.",
+        "The current page is marked, not hidden. aria-current=\"page\" on its link, with the fill and the border of § 3.0.1. It stays a link.",
+        "Name every link (WCAG 2.5.3). A number carries aria-label=\"Page 6\". Previous and Next carry rel=\"prev\" and rel=\"next\", and their arrows are decorative.",
+        "The ends stay in place. On the first page Previous is disabled, on the last page Next is: aria-disabled=\"true\" and no href, so the row does not move and the link is not a target.",
+        "Pages are addresses. Each page is a URL that loads without script. The page number goes in the document title (\"Search results, page 6 of 12\"), and a page that no longer exists goes to the first.",
+        "Not for a journey, and not scrolling forever. A form or any linear journey takes a Continue button and a Back link. Infinite scroll takes the keyboard away from the reader; it is not a replacement.",
+        "Motion. Hover and focus change the background and the colour on --d-quick · --ease-standard, none under reduced motion (§ 06.4)."
+      ],
+      "classes": [
+        "pagination",
+        "pagination-gap",
+        "pagination-link",
+        "pagination-list",
+        "pagination-status"
+      ]
+    }
+  }
+}

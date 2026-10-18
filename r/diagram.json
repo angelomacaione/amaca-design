@@ -1,0 +1,115 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "diagram",
+  "type": "registry:item",
+  "title": "Diagrams",
+  "description": "Flowcharts and system architecture, box and line with grouping.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/diagram.css",
+      "type": "registry:file",
+      "target": "styles/amaca/diagram.css",
+      "content": ".diagram{\n  margin:0;\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-5);\n  padding:var(--s-6);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n}\n.diagram-canvas{\n  display:flex;\n  justify-content:center;\n  align-items:center;\n  min-height:140px;\n  padding:var(--s-4) var(--s-2);\n  overflow-x:auto;\n}\n.diagram-canvas svg{\n  max-width:100%;\n  height:auto;\n  display:block;\n}\n.diagram-canvas foreignObject{\n  overflow:visible;\n}\n.diagram-caption{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-400);\n}\n.diagram-caption .num{\n  color:var(--primary-400);\n}\n.diagram-legend{\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-3) var(--s-5);\n  padding-top:var(--s-4);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n}\n.diagram-legend-item{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.diagram-legend-swatch{\n  width:20px;\n  height:20px;\n  flex-shrink:0;\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-600);\n}\n.diagram-legend-meta{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-400);\n}\n@media (max-width: 720px){\n  .diagram{\n    padding:var(--s-5);\n  }\n  .diagram-canvas{\n    padding:var(--s-2) 0;\n  }\n}\n"
+    },
+    {
+      "path": "amaca/diagram.html",
+      "type": "registry:file",
+      "target": "components/amaca/diagram.html",
+      "content": "<figure class=\"diagram\" data-anim=\"pending\" style=\"width:min(100%, calc(var(--s-32) * 4))\"><div class=\"diagram-canvas\" role=\"img\" aria-label=\"Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner.\"><template class=\"diagram-src\">\nflowchart LR\n  P[\"Request\"]:::focus --> R{\"Token covers it?\"}\n  R -->|yes| S[\"Reference and ship\"]\n  R -->|no| A[\"Ask the owner\"]\n</template></div><figcaption class=\"diagram-caption\"><span class=\"num\">FIG-01</span> · Token gate</figcaption></figure>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.44 Diagrams",
+      "site": "https://www.amaca.design/#diagrams",
+      "usage": {
+        "use_it_when": [
+          "Flowcharts and system architecture, box and line with grouping."
+        ],
+        "use_something_else_when": [
+          "Sequence, tree or ER diagrams → out of scope."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "kind",
+          "values": [
+            "flowchart",
+            "architecture",
+            "states"
+          ],
+          "default": "flowchart"
+        },
+        {
+          "axis": "legend",
+          "values": [
+            "none",
+            "semantic states"
+          ],
+          "default": "none"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Shell",
+          "tokens": [
+            "--obsidian-900",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-lg",
+            "--s-6",
+            "--s-5"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Canvas",
+          "tokens": [],
+          "value": "140px",
+          "states": ""
+        },
+        {
+          "name": "Caption",
+          "tokens": [
+            "--obsidian-400",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Index",
+          "tokens": [
+            "--primary-400"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "One diagram per figure; the source lives in &lt;template class=\"diagram-src\"&gt; and never renders as raw text.",
+        "Theme only from tokens read at runtime. A hex literal in themeVariables is a regression (§ 9).",
+        "Exactly one magenta focus node per diagram (:::focus). More than one = decorating (§ 1.4).",
+        "Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).",
+        "Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG &lt;g&gt; (§ 7.3)."
+      ],
+      "classes": [
+        "diagram",
+        "diagram-canvas",
+        "diagram-caption",
+        "diagram-legend",
+        "diagram-legend-item",
+        "diagram-legend-meta",
+        "diagram-legend-swatch",
+        "num"
+      ]
+    }
+  }
+}

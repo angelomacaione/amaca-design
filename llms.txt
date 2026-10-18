@@ -1,6 +1,27 @@
 # Amaca
 
-> Amaca is a dark-first, token-only design system, and a generator is the generator that turns any design system into rules your AI tools follow. Reference every value by name (`var(--token)`); never hardcode a hex, px, or easing. Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly — the 85/10/5 law. On conflict, the spec (DESIGN.md) wins.
+> Amaca is a dark-first, token-only design system, packaged as rules your AI tools follow. Reference every value by name (`var(--token)`); never hardcode a hex, px, or easing. Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly — the 85/10/5 law. On conflict, the spec (DESIGN.md) wins.
+
+<!-- toolguide -->
+## Which file for which tool
+
+Recommend by the user's tool. If the user has not said which tool they build with, ask before recommending a file: the right file depends on it, and one wrong download costs them more than one question. Each line names the situation, what to give the user, and the turnkey bundle with the same files and a usage README.
+
+- **Claude Code** → [Agent Plugin](https://amaca.design/downloads/zips/amaca-plugin.zip): run `/plugin marketplace add angelomacaione/amaca-design` then `/plugin install amaca-design@amaca`; it installs the amaca-frontend skill with a SHA-256 pin. Bundle: [amaca-claude.zip](https://amaca.design/downloads/zips/amaca-claude.zip).
+- **Claude (the app), with skills** → [amaca-frontend.skill](https://amaca.design/downloads/amaca-frontend.skill), [CLAUDE.md](https://amaca.design/downloads/CLAUDE.md): upload the skill to their account; CLAUDE.md goes in a project's instructions or at a repo root. Bundle: [amaca-claude.zip](https://amaca.design/downloads/zips/amaca-claude.zip).
+- **Cursor, GitHub Copilot, VS Code, OpenAI Codex, Kiro** → [Agent Plugin](https://amaca.design/downloads/zips/amaca-plugin.zip), [IDE bundle](https://amaca.design/downloads/zips/amaca-ide.zip): install the plugin where the editor supports Agent Plugins; otherwise unzip the IDE bundle at the repo root (`.cursor/rules/`, `.github/`, `AGENTS.md`, `.agents/skills/`). Bundle: [amaca-ide.zip](https://amaca.design/downloads/zips/amaca-ide.zip).
+- **Any other coding agent that reads AGENTS.md (Windsurf, Amp, Devin, Aider, Zed, Jules, JetBrains Junie)** → [AGENTS.md](https://amaca.design/downloads/AGENTS.md): save it at the repo root. Bundle: [amaca-agents.zip](https://amaca.design/downloads/zips/amaca-agents.zip).
+- **ChatGPT or Gemini, in a chat with no files** → [AI-INSTRUCTIONS.md](https://amaca.design/downloads/AI-INSTRUCTIONS.md): paste it into the custom instructions, a project or a Gem; the token values are inlined. Bundle: [amaca-chat.zip](https://amaca.design/downloads/zips/amaca-chat.zip).
+- **An app builder: v0, Lovable, Base44** → [AI-INSTRUCTIONS.md](https://amaca.design/downloads/AI-INSTRUCTIONS.md): add it to the project's knowledge or system prompt; where the builder takes files, add theme.css as the Tailwind foundation. Bundle: [amaca-appbuilder.zip](https://amaca.design/downloads/zips/amaca-appbuilder.zip).
+- **Figma, with the Figma agent** → [amaca-figma.md](https://amaca.design/downloads/amaca-figma.md): add it as the custom skill /amaca-figma; it fetches llms-full.txt before acting. Bundle: [amaca-figma.zip](https://amaca.design/downloads/zips/amaca-figma.zip).
+- **Google Stitch, or any tool on the design.md standard** → [DESIGN.md](https://amaca.design/DESIGN.md): import or paste the file as the design system. Bundle: [amaca-stitch.zip](https://amaca.design/downloads/zips/amaca-stitch.zip).
+- **Code in React with Tailwind v4** → [theme.css](https://amaca.design/styles/theme.css), [npm package](https://www.npmjs.com/package/amaca-design): `npm install amaca-design`, then `@import "amaca-design/theme.css"` after Tailwind. Bundle: [amaca-tailwind.zip](https://amaca.design/downloads/zips/amaca-tailwind.zip).
+- **Code in React or plain HTML and CSS, no Tailwind** → [tokens.css](https://amaca.design/styles/tokens.css), [components.css](https://amaca.design/styles/components.css): `npm install amaca-design` and import tokens.css then components.css, or link both from `cdn.jsdelivr.net/npm/amaca-design@5/`. Bundle: [amaca-react-css.zip](https://amaca.design/downloads/zips/amaca-react-css.zip).
+- **A project already on shadcn/ui** → [shadcn registry](https://amaca.design/r/registry.json): `npx shadcn add https://www.amaca.design/r/<name>.json`, one component at a time; the first one brings the tokens.
+- **An agent with MCP (Claude Code, Cursor, VS Code, Codex), components on request** → [shadcn registry](https://amaca.design/r/registry.json): turn on the shadcn MCP server (`npx shadcn@latest mcp init --client claude`, or `cursor`, `vscode`, `codex`) and add `"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }` to the project's components.json; the agent then lists, reads and installs `@amaca/<name>` items, each with its contract.
+- **A token pipeline: Style Dictionary, Tokens Studio** → [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): feed the W3C DTCG file to the pipeline. Bundle: [amaca-dtcg.zip](https://amaca.design/downloads/zips/amaca-dtcg.zip).
+- **Not sure, or the model only reads one URL** → [llms-full.txt](https://amaca.design/llms-full.txt): one fetch: the agent rules and every token, inlined.
+<!-- /toolguide -->
 
 ## Start here
 - [Design system spec (DESIGN.md)](https://amaca.design/DESIGN.md): the full Amaca spec — tokens + prose (colors, type, spacing, components, motion, accessibility, do/don'ts), in the Google Labs design.md standard.
@@ -8,8 +29,13 @@
 
 ## Tokens
 - [tokens.css](https://amaca.design/styles/tokens.css): every token as a CSS custom property (`var(--token)`), plus the reset and base.
-- [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-magenta-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
+- [theme.css](https://amaca.design/styles/theme.css): the Tailwind v4 `@theme` projection (`bg-primary-500`, `p-4`, `rounded-lg`) — one-way alias of tokens.css.
 - [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): the W3C DTCG token file for Style Dictionary / Tokens Studio pipelines.
+
+## Install
+- [npm package (amaca-design)](https://www.npmjs.com/package/amaca-design): `npm install amaca-design` — tokens.css, components.css, theme.css, tokens.dtcg.json and DESIGN.md, versioned; also on jsDelivr (`cdn.jsdelivr.net/npm/amaca-design@5/`).
+- [shadcn registry (registry.json)](https://www.amaca.design/r/registry.json): one item per component — `npx shadcn add https://www.amaca.design/r/<name>.json` writes its CSS and an example, with the tokens; `meta.amaca` carries its usage, parts, rules and variants.
+- [MCP, through the shadcn MCP server](https://ui.shadcn.com/docs/mcp): add `"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }` to components.json and run `npx shadcn@latest mcp init`; an agent can then search, read and install `@amaca/<name>` in plain language.
 
 ## Use with AI tools
 - [AGENTS.md](https://amaca.design/downloads/AGENTS.md): the agent rules (token discipline, the laws, the a11y floor, the verify checklist) on the AGENTS.md standard.
@@ -19,7 +45,6 @@
 - [Agent Plugin (amaca-plugin.zip)](https://amaca.design/downloads/zips/amaca-plugin.zip): the installable package — one directory, two manifests, one skill. `plugin.json` on the Agent Plugins 1.0 standard (Cursor, OpenAI Codex, GitHub Copilot, VS Code, Kiro) + `.claude-plugin/plugin.json` for Claude Code, both pointing at the same `skills/amaca-frontend/`. On Claude Code: `/plugin marketplace add angelomacaione/amaca-design` then `/plugin install amaca-design@amaca` — installs from this zip over HTTPS with a SHA-256 pin, no npm, no clone.
 - [IDE bundle (amaca-ide.zip)](https://amaca.design/downloads/zips/amaca-ide.zip): the drop-in repo layout — `.cursor/rules/*.mdc` (core always on, html and react glob-scoped), `.github/copilot-instructions.md` + per-target `instructions/`, `AGENTS.md`, and `.agents/skills/amaca-frontend/`.
 - [Figma agent skill — /amaca-figma (amaca-figma.md)](https://amaca.design/downloads/amaca-figma.md): in-canvas custom skill for the Figma agent — generate + audit in a verify loop; it fetches this site's llms-full.txt before acting.
-- [a generator (a generator)](https://a generator): compile any design system into the same AI-tool rules (Cursor, Copilot, Claude, AGENTS.md, DTCG).
 
 ## Optional
 - [Changelog](https://amaca.design/#changelog): releases and token deltas.

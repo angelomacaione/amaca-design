@@ -1,0 +1,134 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider",
+  "type": "registry:item",
+  "title": "Slider",
+  "description": "Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/slider.css",
+      "type": "registry:file",
+      "target": "styles/amaca/slider.css",
+      "content": ".slider{\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-2);\n}\n.slider-head{\n  display:flex;\n  align-items:baseline;\n  justify-content:space-between;\n  gap:var(--s-3);\n}\n.slider-value{\n  color:var(--obsidian-100);\n  font-size:var(--t-small);\n  font-variant-numeric:tabular-nums;\n}\n.slider-scale{\n  display:flex;\n  justify-content:space-between;\n  color:var(--obsidian-300);\n  font-size:var(--t-caption);\n  font-variant-numeric:tabular-nums;\n}\n.slider-input{\n  -webkit-appearance:none;\n  appearance:none;\n  display:block;\n  width:100%;\n  height:var(--s-8);\n  margin:0;\n  padding:0;\n  background:transparent;\n  cursor:pointer;\n  outline:none;\n}\n.slider-input::-webkit-slider-runnable-track{\n  height:var(--s-1);\n  border-radius:var(--r-full);\n  background:linear-gradient(to right,var(--primary-500) var(--p,0%),var(--obsidian-600) var(--p,0%));\n}\n.slider-input::-moz-range-track{\n  height:var(--s-1);\n  border-radius:var(--r-full);\n  background:linear-gradient(to right,var(--primary-500) var(--p,0%),var(--obsidian-600) var(--p,0%));\n}\n.slider-input::-webkit-slider-thumb{\n  -webkit-appearance:none;\n  appearance:none;\n  box-sizing:border-box;\n  width:var(--s-5);\n  height:var(--s-5);\n  margin-top:calc((var(--s-1) - var(--s-5)) / 2);\n  border:var(--bw-2) solid var(--obsidian-950);\n  border-radius:var(--r-full);\n  background:var(--obsidian-100);\n  box-shadow:var(--sh-1);\n  transition:box-shadow var(--d-quick) var(--ease-standard);\n}\n.slider-input::-moz-range-thumb{\n  box-sizing:border-box;\n  width:var(--s-5);\n  height:var(--s-5);\n  border:var(--bw-2) solid var(--obsidian-950);\n  border-radius:var(--r-full);\n  background:var(--obsidian-100);\n  box-shadow:var(--sh-1);\n  transition:box-shadow var(--d-quick) var(--ease-standard);\n}\n.slider-input:hover::-webkit-slider-thumb{\n  box-shadow:var(--ring-field);\n}\n.slider-input:hover::-moz-range-thumb{\n  box-shadow:var(--ring-field);\n}\n.slider-input:focus-visible::-webkit-slider-thumb{\n  box-shadow:var(--ring-halo);\n}\n.slider-input:focus-visible::-moz-range-thumb{\n  box-shadow:var(--ring-halo);\n}\n.slider-input:active{\n  cursor:grabbing;\n}\n.slider-input:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.slider-pair{\n  position:relative;\n  height:var(--s-8);\n}\n.slider-pair::before{\n  content:\"\";\n  position:absolute;\n  left:0;\n  right:0;\n  top:50%;\n  height:var(--s-1);\n  transform:translateY(-50%);\n  border-radius:var(--r-full);\n  background:linear-gradient(to right,transparent var(--lo,0%),var(--primary-500) var(--lo,0%),var(--primary-500) var(--hi,100%),transparent var(--hi,100%)),var(--obsidian-600);\n  z-index:0;\n}\n.slider-pair .slider-input{\n  position:absolute;\n  inset:0;\n  z-index:1;\n  pointer-events:none;\n}\n.slider-pair .slider-input::-webkit-slider-runnable-track{\n  background:transparent;\n}\n.slider-pair .slider-input::-moz-range-track{\n  background:transparent;\n}\n.slider-pair .slider-input::-webkit-slider-thumb{\n  pointer-events:auto;\n  cursor:pointer;\n}\n.slider-pair .slider-input::-moz-range-thumb{\n  pointer-events:auto;\n  cursor:pointer;\n}\n@media (prefers-reduced-motion:reduce){\n  .slider-input::-webkit-slider-thumb, .slider-input::-moz-range-thumb{\n    transition:none;\n  }\n}\n.slider{\n  width:min(100%, calc(var(--s-32) * 2));\n}\n"
+    },
+    {
+      "path": "amaca/slider.html",
+      "type": "registry:file",
+      "target": "components/amaca/slider.html",
+      "content": "<div class=\"slider\"><div class=\"slider-head\"><label class=\"label\" for=\"kit-slider\">Volume</label><output class=\"slider-value\" for=\"kit-slider\">40</output></div><input class=\"slider-input\" id=\"kit-slider\" type=\"range\" min=\"0\" max=\"100\" value=\"40\" style=\"--p:40%\"><div class=\"slider-scale\"><span>0</span><span>100</span></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.9 Slider",
+      "site": "https://www.amaca.design/#slider",
+      "usage": {
+        "use_it_when": [
+          "Choosing a number, or a range of two, where the rough position matters as much as the exact value: volume, price, opacity."
+        ],
+        "use_something_else_when": [
+          "Fewer than about ten steps → Radio or Select.",
+          "More than a few hundred steps, or an exact value to type → a number in a Text input.",
+          "A date or a time → Date picker, Time input."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "single",
+            ".slider-pair"
+          ],
+          "default": "single",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Value",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Track",
+          "tokens": [
+            "--primary-500",
+            "--obsidian-600",
+            "--r-full",
+            "--s-1"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Thumb",
+          "tokens": [
+            "--obsidian-100",
+            "--bw-2",
+            "--obsidian-950",
+            "--r-full",
+            "--s-5",
+            "--sh-1"
+          ],
+          "value": "",
+          "states": "hover --ring-field"
+        },
+        {
+          "name": "Scale",
+          "tokens": [
+            "--obsidian-300",
+            "--t-caption"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Count the steps, not the values. The unit is the step: (max − min) ÷ step is the number of positions. Fewer than about ten → Radio or Select. More than a few hundred, or a value the reader has to hit exactly → a number typed in a Text input. 0 to 100 in steps of 5 is 20 positions.",
+        "Native underneath. Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's name.",
+        "A range starts on a selection, not on the whole scale. Each thumb is its own input with its own aria-label (\"Minimum price\", \"Maximum price\"), and the pair is a role=\"group\" named by the visible label. The lower thumb cannot pass the upper one; they can meet.",
+        "The value is always shown. In .slider-value, beside the label; the minimum and the maximum sit in .slider-scale. A slider with no visible value is a guess.",
+        "The fill is the script's. --p on the input (single), --lo and --hi on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.",
+        "No error state. The value is always inside the scale. A slider that cannot be changed is disabled.",
+        "Targets (WCAG 2.5.8). The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.",
+        "Motion. The ring on the thumb changes on --d-quick · --ease-standard, none under reduced motion (§ 06.4)."
+      ],
+      "classes": [
+        "slider",
+        "slider-head",
+        "slider-input",
+        "slider-pair",
+        "slider-scale",
+        "slider-value"
+      ]
+    }
+  }
+}

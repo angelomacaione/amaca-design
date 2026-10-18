@@ -1,0 +1,105 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:item",
+  "title": "Checkbox",
+  "description": "Many of many; the value applies on submit.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/checkbox.css",
+      "type": "registry:file",
+      "target": "styles/amaca/checkbox.css",
+      "content": ".check{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  cursor:pointer;\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n}\n.check input{\n  appearance:none;\n  width:var(--s-4);\n  height:var(--s-4);\n  border:var(--bw-1) solid var(--border-input);\n  border-radius:var(--r-xs);\n  background:var(--surface-field);\n  display:grid;\n  place-items:center;\n  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.check input:checked{\n  background:var(--primary-500);\n  border-color:var(--primary-500);\n}\n.check input:checked::after{\n  content:\"\";\n  width:10px;\n  height:6px;\n  border:var(--bw-2) solid var(--obsidian-950);\n  border-top:0;\n  border-right:0;\n  transform:rotate(-45deg) translate(1px,-1px);\n}\n.check input:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.check input:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.check:has(input:disabled){\n  color:var(--obsidian-400);\n  cursor:not-allowed;\n}\n"
+    },
+    {
+      "path": "amaca/checkbox.html",
+      "type": "registry:file",
+      "target": "components/amaca/checkbox.html",
+      "content": "<label class=\"check\"><input type=\"checkbox\" checked> Published</label>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.8 Checkbox · Switch · Radio",
+      "site": "https://www.amaca.design/#checkbox",
+      "usage": {
+        "use_it_when": [
+          "Many of many; the value applies on submit.",
+          "A single opt-in, such as accepting terms."
+        ],
+        "use_something_else_when": [
+          "The change applies immediately → Switch.",
+          "Only one option can be chosen → Radio."
+        ]
+      },
+      "variants": [],
+      "parts": [
+        {
+          "name": "Box",
+          "tokens": [
+            "--surface-field",
+            "--bw-1",
+            "--border-input",
+            "--r-xs",
+            "--s-4"
+          ],
+          "value": "",
+          "states": "checked --primary-500"
+        },
+        {
+          "name": "Mark",
+          "tokens": [
+            "--bw-2",
+            "--obsidian-950"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": "disabled --obsidian-400"
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Checkbox and radio are told apart by shape — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.",
+        "The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.",
+        "The whole &lt;label&gt; is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.",
+        "The focus ring lives on the input, not the label, so the halo traces the control.",
+        "A radio group has exactly one checked member at all times. A group with none is a defect, not a state.",
+        "State matrix: § 3.0.1. Motion: § 06.4."
+      ],
+      "classes": [
+        "check"
+      ]
+    }
+  }
+}

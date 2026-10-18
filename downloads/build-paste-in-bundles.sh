@@ -27,7 +27,7 @@ build() {
 CHAT_README='# Amaca — ChatGPT · Gemini · AI chat (paste-in)
 **For** ChatGPT, Gemini, Microsoft Copilot, and any chat AI with no filesystem.
 **Use** Paste AI-INSTRUCTIONS.md into the system prompt / custom-instructions / knowledge box. It is self-contained — token values are inlined.
-**Verify** Ask for a component: var(--token) + exact brand hex, ≤5% magenta.
+**Verify** Ask for a component: var(--token) + exact brand hex, 85/10/5 respected.
 **In this bundle** AI-INSTRUCTIONS.md.
 **Shared source** Same paste-in as the App builder bundle (amaca-appbuilder.zip) — both baked from AI-INSTRUCTIONS.md via build-paste-in-bundles.sh. Edit the source once; rebuild both.
 

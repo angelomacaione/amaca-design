@@ -1,0 +1,106 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "type": "registry:item",
+  "title": "Switch",
+  "description": "One of two, applied immediately: a setting, not a form value.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/switch.css",
+      "type": "registry:file",
+      "target": "styles/amaca/switch.css",
+      "content": ".switch{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  cursor:pointer;\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n}\n.switch input{\n  appearance:none;\n  width:var(--s-8);\n  height:calc(var(--s-4) + var(--s-0-5));\n  background:var(--obsidian-700);\n  border-radius:var(--r-full);\n  position:relative;\n  transition:background var(--d-quick) var(--ease-standard);\n}\n.switch input::after{\n  content:\"\";\n  position:absolute;\n  top:var(--s-0-5);\n  left:var(--s-0-5);\n  width:14px;\n  height:14px;\n  background:var(--obsidian-200);\n  border-radius:var(--r-full);\n  transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.switch input:checked{\n  background:var(--primary-500);\n}\n.switch input:checked::after{\n  left:var(--s-4);\n  background:var(--obsidian-950);\n}\n.switch input:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.switch input:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.switch:has(input:disabled){\n  color:var(--obsidian-400);\n  cursor:not-allowed;\n}\n"
+    },
+    {
+      "path": "amaca/switch.html",
+      "type": "registry:file",
+      "target": "components/amaca/switch.html",
+      "content": "<label class=\"switch\"><input type=\"checkbox\" role=\"switch\" checked> Show dates</label>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.8 Checkbox · Switch · Radio",
+      "site": "https://www.amaca.design/#switch",
+      "usage": {
+        "use_it_when": [
+          "One of two, applied immediately: a setting, not a form value.",
+          "Turning a preference on or off with instant save."
+        ],
+        "use_something_else_when": [
+          "The change needs a Save button → Checkbox.",
+          "More than two options → Radio or Select."
+        ]
+      },
+      "variants": [],
+      "parts": [
+        {
+          "name": "Track",
+          "tokens": [
+            "--obsidian-700",
+            "--r-full",
+            "--s-8",
+            "--s-4",
+            "--s-0-5"
+          ],
+          "value": "",
+          "states": "on --primary-500"
+        },
+        {
+          "name": "Knob",
+          "tokens": [
+            "--obsidian-200",
+            "--r-full"
+          ],
+          "value": "",
+          "states": "on --obsidian-950"
+        },
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-base",
+            "--ease-standard",
+            "--d-quick"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Checkbox and radio are told apart by shape — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.",
+        "The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.",
+        "The whole &lt;label&gt; is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.",
+        "The focus ring lives on the input, not the label, so the halo traces the control.",
+        "A radio group has exactly one checked member at all times. A group with none is a defect, not a state.",
+        "State matrix: § 3.0.1. Motion: § 06.4."
+      ],
+      "classes": [
+        "switch"
+      ]
+    }
+  }
+}

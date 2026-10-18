@@ -1,0 +1,101 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs",
+  "type": "registry:item",
+  "title": "Tabs",
+  "description": "Related views of one page, read one at a time.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/tabs.css",
+      "type": "registry:file",
+      "target": "styles/amaca/tabs.css",
+      "content": ".tab:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.tabs{\n  position:relative;\n  display:flex;\n  border-bottom:var(--bw-1) solid var(--obsidian-800);\n  padding:0 var(--s-4);\n}\n.tab{\n  background:none;\n  border:0;\n  cursor:pointer;\n  padding:var(--s-3) var(--s-4);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-weight:500;\n  color:var(--obsidian-300);\n  transition:color var(--d-quick) var(--ease-standard);\n  position:relative;\n  z-index:1;\n}\n.tab:hover{\n  color:var(--obsidian-100);\n}\n.tab:active{\n  color:var(--obsidian-300);\n}\n.tab.active{\n  color:var(--obsidian-100);\n  font-weight:600;\n}\n.tab-indicator{\n  position:absolute;\n  left:0;\n  bottom:calc(-1 * var(--s-px));\n  height:2px;\n  width:0;\n  background:var(--primary-500);\n  transition:transform var(--d-base) var(--ease-decel), width var(--d-base) var(--ease-decel);\n  pointer-events:none;\n  will-change:transform,width;\n}\n.tab-panels{\n  position:relative;\n}\n.tab-panel{\n  display:none;\n  padding:var(--s-6);\n  color:var(--obsidian-300);\n  font-size:var(--t-small);\n  line-height:1.7;\n  opacity:0;\n  transform:translateY(6px);\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);\n}\n.tab-panel.active{\n  display:block;\n}\n@media (prefers-reduced-motion: reduce){\n  .tab-indicator{\n    transition:none;\n  }\n  .tab-panel{\n    transition:none;\n    opacity:1;\n    transform:none;\n  }\n}\n@media (max-width: 900px){\n  .tabs{\n    overflow-x:auto;\n    scrollbar-width:none;\n  }\n  .tabs::-webkit-scrollbar{\n    display:none;\n  }\n  .tab{\n    white-space:nowrap;\n  }\n}\n.tabs){\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
+    },
+    {
+      "path": "amaca/tabs.html",
+      "type": "registry:file",
+      "target": "components/amaca/tabs.html",
+      "content": "<div class=\"tabs\" role=\"tablist\" aria-label=\"Case study\"><button class=\"tab active\" type=\"button\" role=\"tab\" aria-selected=\"true\">Overview</button><button class=\"tab\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Process</button><button class=\"tab\" type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Outcome</button><span class=\"tab-indicator\" aria-hidden=\"true\"></span></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.27 Tabs",
+      "site": "https://www.amaca.design/#tabs",
+      "usage": {
+        "use_it_when": [
+          "Related views of one page, read one at a time."
+        ],
+        "use_something_else_when": [
+          "Moving between pages → Navigation.",
+          "A linear process → Stepper.",
+          "The reader needs several sections open at once → Accordion."
+        ]
+      },
+      "variants": [],
+      "parts": [
+        {
+          "name": "Rail",
+          "tokens": [
+            "--bw-1",
+            "--obsidian-800",
+            "--s-4"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Tab",
+          "tokens": [
+            "--obsidian-300",
+            "--font-sans",
+            "--t-small",
+            "--s-3",
+            "--s-4"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100 · selected --obsidian-100"
+        },
+        {
+          "name": "Indicator",
+          "tokens": [
+            "--primary-500",
+            "--d-base",
+            "--ease-decel"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Panel swap is fade only: never crossfade, never slide both. The leaving panel is removed (display:none) before the new one fades in.",
+        "Keyboard: Tab reaches each trigger; Enter/Space activates.",
+        "One indicator. One .tab-indicator per tablist, 2px of --primary-500, moved with transform and width; never an underline per tab.",
+        "Views of one page. Tabs switch what one page shows; going to another page is Navigation."
+      ],
+      "classes": [
+        "active",
+        "tab",
+        "tab-indicator",
+        "tab-panel",
+        "tab-panels",
+        "tabs"
+      ]
+    }
+  }
+}

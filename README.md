@@ -10,7 +10,7 @@ The personal design system of [Angelo Macaione](https://amaca.design). Motion-fi
 
 Amaca is not a UI kit for download. It is the source of truth for how I design, write, and ship — documented in public so the work can be seen, audited, and learned from.
 
-Two things make it specific. Motion is a foundation, not a finish — five durations, four easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
+Two things make it specific. Motion is a foundation, not a finish — six durations, five easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
 
 ## Use it with AI — two formats
 
@@ -27,10 +27,12 @@ Per-runtime install instructions, model capability tiers, and a 30-second compli
 Tailwind v4 `@theme` is first-class. One line wires the full token scale into a project:
 
 ```css
-@import "amaca-design/styles/theme.css";
+@import "amaca-design/theme.css";
 ```
 
-`theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-magenta-500`, `rounded-md`) against the same chain the CSS surface uses.
+(`npm install amaca-design`; `theme.css` brings `tokens.css` with it.)
+
+`theme.css` is a `@theme` projection of `tokens.css` — `var()` aliases, no duplicated literals. Every token resolves to a utility (`bg-primary-500`, `rounded-md`) against the same chain the CSS surface uses.
 
 ## What's inside
 
@@ -59,7 +61,7 @@ Deliberately minimal. No framework, no build step, no dependencies to audit.
 * [Satoshi](https://www.fontshare.com/fonts/satoshi) typeface, served from `/fonts`
 * [Motion One](https://motion.dev) for orchestrated animations
 * [Lottie](https://lottiefiles.com) for the brand mark
-* Mermaid + ELK for token-themed diagrams (§ 18)
+* Mermaid + ELK for token-themed diagrams (§ 46)
 * Hosted on [Vercel](https://vercel.com), DNS via Cloudflare
 
 ## Repository structure
@@ -122,7 +124,7 @@ Motion: [Motion One](https://motion.dev) by Matt Perry.
 
 * Website — [angelomacaione.com](https://angelomacaione.com)
 * Design System — [amaca.design](https://amaca.design)
-* Email — [angelo.macaione@gmail.com](mailto:angelo.macaione@gmail.com)
+* Email — [a@amaca.design](mailto:a@amaca.design)
 
 ---
 

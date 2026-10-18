@@ -4,7 +4,7 @@ description: "Apply and audit the Amaca Design System (amaca.design) inside Figm
 license: MIT
 metadata:
   author: angelomacaione
-  version: "1.5"
+  version: "1.6"
   canonical: https://amaca.design
 ---
 
@@ -39,7 +39,7 @@ Also note the **runtime**: Figma Design (canvas output) or Figma Make (code outp
 Map the user's intent onto tokens and components that exist in the fetched spec. Then build:
 
 - **Full token layer FIRST.** Before binding anything, materialize the COMPLETE Amaca token set for the runtime — every tier in the spec table: colors, spacing, type scale, radii, durations, easings, layout constants (gutter, content-max), shadows. In Figma Design that means the Variables collections; in Make that means the `:root` token block in the theme CSS. A partial layer (colors only) forces every downstream non-color value to be a literal by construction — that is a generate failure, not a style choice.
-- **Variables first.** Create or reuse Figma Variables named exactly like Amaca tokens (the naming convention for the Figma surface is in the spec's Multi-deploy section: `magenta-500`, `obsidian-800`, `s-4`, `r-lg`, ...). Bind fills, strokes, spacing, and radii to Variables — never leave raw hex or raw px where a token exists.
+- **Variables first.** Create or reuse Figma Variables named exactly like Amaca tokens (the naming convention for the Figma surface is in the spec's Multi-deploy section: `primary-500`, `obsidian-800`, `s-4`, `r-lg`, ...). Bind fills, strokes, spacing, and radii to Variables — never leave raw hex or raw px where a token exists.
 - **Components from the registry.** Reuse the component specs named in the spec's Components section (Button, Card, Input, Checkbox, Select, Tabs, Chat, Loader, Diagrams, ...). A new component name that is not in the registry is a gap candidate, not a creative liberty.
 - **Layout and type from scale.** Spacing steps, radii, and the type ramp come only from the token table. No intermediate values.
 - **Color law 85/10/5.** Surfaces overwhelmingly obsidian neutrals; magenta is the scarce accent. One primary button per screen. Display headlines MAY carry one accent span — part of the headline in the brand magenta, a site-canonical pattern — and it counts inside the 10% budget.
@@ -57,7 +57,7 @@ Run automatically after every generate pass; also the standalone entry point on 
 2. **Token existence** — every referenced Variable name exists in the fetched token table, VERBATIM. Invented names or invented namespaces (e.g. an amaca- prefix the spec does not declare) = finding.
 3. **85/10/5 budget** — count magenta-family fills across the audited surface; magenta must read as accent, not theme. More than one primary-styled element visible in the SAME viewport = finding — a sticky nav CTA counts in every viewport it overlays.
 4. **Contrast** — text-on-surface pairs against the spec's accessibility floor (WCAG AA pairs listed in the spec). Honor the one ratified exception: light-on-magenta is expected ONLY on the primary button and the solid badge.
-5. **Component registry (closed inventory — spec § 3.0)** — every component or frame name resolves to a row in the spec's registry, and the row's state decides what is allowed: `canonical` = build from the spec; `css-only` = reproduce as-is, **never** add a Variant or a variant property the spec doesn't declare; `off-system` = **critical finding, stop** — it must not be published to the library; `site-only` = documentation chrome, never published. A name with no row is `off-system`, not a naming suggestion. Visual similarity to an existing component is not coverage.
+5. **Component registry (closed inventory — spec § 3.0)** — every component or frame name resolves to a row in the spec's registry, and the row's state decides what is allowed: `canonical` = build from the spec; `css-only` = reproduce as-is, **never** add a Variant or a variant property the spec doesn't declare; the component's **Variants.** block in the spec lists its axes and their values, default marked, and a Figma variant property comes only from there; `off-system` = **critical finding, stop** — it must not be published to the library; `site-only` = documentation chrome, never published. A name with no row is `off-system`, not a naming suggestion. Visual similarity to an existing component is not coverage.
 5b. **State coverage (spec § 3.0.1)** — Variant property values come from the closed state vocabulary (`default` `hover` `focus-visible` `active` `disabled` `error` `readonly` `loading`). A **missing `focus-visible` Variant on a focusable component**, or a **missing `error` Variant on a form control**, is a critical finding, not a warning.
 6. **Type and spacing scale** — off-scale font sizes or spacing steps = finding.
 
@@ -109,6 +109,7 @@ Keep it terse. Findings reference the node name/id so the user can jump to them.
 
 ## Version history
 
+- **v1.6 — 2026-10-18**: spec sync (DESIGN.md v5.0.0). Check 5 reads the **Variants.** block every component section now carries: Figma variant properties and their values come only from it. No workflow changes.
 - **v1.5 — 2026-08-05**: spec sync (component registry + state grammar, DESIGN.md v3.4.0). Check 5 rewritten against the **closed** registry — the four states now decide what the audit permits, and an off-system name is a critical finding that blocks publication rather than a naming suggestion. New check 5b: Variant property values come from the closed state vocabulary, and a focusable component with no `focus-visible` Variant (or a form control with no `error` Variant) is critical. Severity table updated. No workflow changes.
 - **v1.4 — 2026-07-15**: spec sync (motion grammar): check 8 gains the Spatial/Effects RIGID — spring/overshoot easing on effect properties (color, background, opacity, shadow) is a finding — and audits generated pairs against the spec's per-component motion index (§ Motion). No workflow changes.
 

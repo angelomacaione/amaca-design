@@ -1,0 +1,89 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon",
+  "type": "registry:item",
+  "title": "Icon",
+  "description": "Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/icon.css",
+      "type": "registry:file",
+      "target": "styles/amaca/icon.css",
+      "content": ".icon{\n  width:var(--icon-sm);\n  height:var(--icon-sm);\n  flex:none;\n  fill:none;\n  stroke:currentColor;\n  stroke-width:1.5;\n  stroke-linecap:round;\n  stroke-linejoin:round;\n  vertical-align:middle;\n}\n.icon-xs{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n}\n.icon-md{\n  width:var(--icon-md);\n  height:var(--icon-md);\n}\n.icon-lg{\n  width:var(--icon-lg);\n  height:var(--icon-lg);\n}\n.icon-muted{\n  color:var(--obsidian-300);\n}\n.icon-fill{\n  fill:currentColor;\n  stroke-width:var(--bw-1);\n}\n"
+    },
+    {
+      "path": "amaca/icon.html",
+      "type": "registry:file",
+      "target": "components/amaca/icon.html",
+      "content": "<svg class=\"icon icon-lg\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><circle cx=\"7\" cy=\"7\" r=\"4.75\"/><path d=\"M13.5 13.5l-3.1-3.1\"/></svg>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.1 Icon",
+      "site": "https://www.amaca.design/#icon",
+      "usage": {
+        "use_it_when": [
+          "Naming an action in an icon-only button, or reinforcing a label beside it: add, close, search, replay.",
+          "Telling a state apart from its neighbours without colour alone: the warning triangle in an alert, the check in a done step."
+        ],
+        "use_something_else_when": [
+          "The picture is the content: a photo, a logo, a map → an image, never an icon.",
+          "The meaning cannot be guessed from the drawing and there is room → a text label, with or without the icon.",
+          "A status standing alone → Badge, § 3.14."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "size",
+          "values": [
+            ".icon-xs",
+            "sm",
+            ".icon-md",
+            ".icon-lg"
+          ],
+          "default": "sm",
+          "role": "size"
+        },
+        {
+          "axis": "tone",
+          "values": [
+            "default",
+            ".icon-muted",
+            ".icon-fill"
+          ],
+          "default": "default"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Size",
+          "tokens": [
+            "--icon-sm"
+          ],
+          "value": "",
+          "states": "large --icon-lg"
+        },
+        {
+          "name": "Stroke",
+          "tokens": [],
+          "value": "currentColor",
+          "states": ""
+        }
+      ],
+      "rules": [],
+      "classes": [
+        "icon",
+        "icon-fill",
+        "icon-lg",
+        "icon-md",
+        "icon-muted",
+        "icon-xs"
+      ]
+    }
+  }
+}

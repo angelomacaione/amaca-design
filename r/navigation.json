@@ -1,0 +1,218 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navigation",
+  "type": "registry:item",
+  "title": "Navigation",
+  "description": "The sidebar for documentation; the top bar for marketing.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/button.json",
+    "https://www.amaca.design/r/icon.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/navigation.css",
+      "type": "registry:file",
+      "target": "styles/amaca/navigation.css",
+      "content": ".sidebar{\n  position:sticky;\n  top:0;\n  height:100vh;\n  border-right:var(--bw-1) solid var(--obsidian-700);\n  background:var(--surface-bar);\n  backdrop-filter:blur(var(--blur-bar));\n  padding:var(--s-6) var(--s-5);\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-8);\n  overflow-y:auto;\n  z-index:var(--z-sticky);\n}\n.nav-group{\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-1);\n  position:relative;\n}\n.nav-indicator{\n  position:absolute;\n  left:calc(-1 * var(--s-5));\n  top:0;\n  width:var(--bw-2);\n  height:var(--s-4);\n  background:var(--primary-500);\n  border-radius:var(--r-xs);\n  box-shadow:0 0 var(--s-3) var(--primary-500);\n  transform:translateY(0);\n  transition:transform var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard);\n  opacity:0;\n  pointer-events:none;\n  z-index:2;\n}\n.nav-group.has-active .nav-indicator{\n  opacity:1;\n}\n@media (prefers-reduced-motion: reduce){\n  .nav-indicator{\n    transition:none;\n  }\n}\n.nav-label{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-400);\n  padding:0 var(--s-3);\n  margin-bottom:var(--s-2);\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n}\n.nav-label::before{\n  content:\"\";\n  width:4px;\n  height:4px;\n  background:var(--primary-500);\n  border-radius:1px;\n}\n.nav-item{\n  outline-offset:var(--s-0-5);\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  padding:var(--s-2) var(--s-3);\n  border-radius:var(--r-md);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n  cursor:pointer;\n  transition:all var(--d-quick) var(--ease-standard);\n  position:relative;\n  user-select:none;\n}\n.nav-item .num{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  color:var(--obsidian-400);\n  letter-spacing:var(--tr-mono);\n  min-width:calc(var(--s-4) + var(--s-0-5));\n}\n.nav-item:hover{\n  color:var(--obsidian-050);\n}\n.nav-item:active{\n  color:var(--obsidian-300);\n}\n.nav-item.active{\n  background:linear-gradient(180deg, color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent), color-mix(in srgb, var(--secondary-500) calc(var(--tint-faint) * 100%), transparent));\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid color-mix(in srgb, var(--primary-500) calc(var(--tint-glow) * 100%), transparent);\n  padding:var(--s-2) var(--s-3);\n}\n.nav-item.active .num{\n  color:var(--primary-400);\n}\n.nav-item.active::after{\n  display:none;\n}\n.sidebar-footer{\n  margin-top:auto;\n  padding-top:var(--s-5);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-400);\n  text-transform:uppercase;\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-1);\n}\n.nav-item:focus-visible, .menu-toggle:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.menu-toggle{\n  display:none;\n  width:40px;\n  height:40px;\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-md);\n  background:var(--obsidian-850);\n  padding:0;\n  align-items:center;\n  justify-content:center;\n  color:var(--obsidian-100);\n  cursor:pointer;\n  transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n  flex:0 0 auto;\n}\n.menu-toggle:hover{\n  border-color:var(--primary-500);\n}\n.menu-toggle-bars{\n  display:inline-flex;\n  flex-direction:column;\n  gap:var(--s-1);\n  width:18px;\n}\n.menu-toggle-bars span{\n  display:block;\n  height:2px;\n  background:currentColor;\n  border-radius:1px;\n  transition:transform var(--d-quick) var(--ease-standard), opacity var(--d-quick) var(--ease-standard);\n  transform-origin:center;\n}\n.menu-toggle[aria-expanded=\"true\"] .menu-toggle-bars span:nth-child(1){\n  transform:translateY(6px) rotate(45deg);\n}\n.menu-toggle[aria-expanded=\"true\"] .menu-toggle-bars span:nth-child(2){\n  opacity:0;\n}\n.menu-toggle[aria-expanded=\"true\"] .menu-toggle-bars span:nth-child(3){\n  transform:translateY(-6px) rotate(-45deg);\n}\n.sidebar-scrim{\n  display:none;\n  position:fixed;\n  inset:0;\n  background:var(--scrim);\n  backdrop-filter:blur(var(--blur-veil));\n  z-index:var(--z-scrim);\n  opacity:0;\n  transition:opacity var(--d-quick) var(--ease-standard);\n}\n@media (max-width: 900px){\n  .menu-toggle{\n    display:inline-flex;\n  }\n  .sidebar{\n    position:fixed;\n    top:0;\n    left:0;\n    width:min(86vw, 320px);\n    height:100vh;\n    transform:translateX(-100%);\n    transition:transform var(--d-base) var(--ease-decel);\n    z-index:var(--z-menu);\n    border-right:var(--bw-1) solid var(--obsidian-800);\n    box-shadow:8px 0 32px color-mix(in srgb, var(--obsidian-950) calc(var(--tint-edge-deep) * 100%), transparent);\n  }\n  .nav-item.active::after{\n    display:none;\n  }\n}\n.navbar{\n  container-type:inline-size;\n  position:sticky;\n  top:0;\n  z-index:var(--z-sticky);\n  display:flex;\n  align-items:stretch;\n  gap:var(--s-8);\n  min-block-size:var(--s-12);\n  padding-inline:0;\n  background:transparent;\n  border-radius:0;\n  color:var(--obsidian-100);\n}\n.navbar::before{\n  content:\"\";\n  position:absolute;\n  inset:0 0 calc(-1 * var(--s-6));\n  z-index:-1;\n  pointer-events:none;\n  background:linear-gradient(var(--surface-bar), transparent);\n  backdrop-filter:blur(var(--blur-bar));\n  -webkit-backdrop-filter:blur(var(--blur-bar));\n  -webkit-mask-image:linear-gradient(black 55%, transparent);\n  mask-image:linear-gradient(black 55%, transparent);\n}\n.navbar-brand{\n  padding-inline-start:var(--s-6);\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  flex:none;\n  color:var(--obsidian-100);\n  font-size:var(--t-body);\n  font-weight:700;\n  letter-spacing:var(--tr-snug);\n  text-decoration:none;\n}\n.navbar-nav{\n  display:flex;\n  align-items:stretch;\n}\n.navbar-list{\n  display:flex;\n  align-items:stretch;\n  margin:0;\n  padding:0;\n  list-style:none;\n}\n.navbar-list > li{\n  display:flex;\n}\n.navbar-item{\n  display:inline-flex;\n  flex-direction:column;\n  justify-content:center;\n  align-items:center;\n  padding-inline:var(--s-4);\n  color:var(--obsidian-200);\n  font-size:var(--t-small);\n  font-weight:500;\n  text-decoration:none;\n  white-space:nowrap;\n  cursor:pointer;\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.navbar-item::after{\n  content:attr(data-label);\n  height:0;\n  overflow:hidden;\n  visibility:hidden;\n  font-weight:600;\n  pointer-events:none;\n}\n.navbar-item:hover{\n  color:var(--obsidian-050);\n}\n.navbar-item:active{\n  color:var(--obsidian-300);\n}\n.navbar-item[aria-current=\"page\"]{\n  color:var(--primary-400);\n  font-weight:600;\n}\n.navbar-item[aria-current=\"page\"]:hover{\n  color:var(--primary-400);\n}\n.navbar-item:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--focus-width));\n  box-shadow:var(--ring-halo);\n}\n.navbar-end{\n  padding-inline-end:var(--s-6);\n  display:flex;\n  align-items:center;\n  gap:var(--s-3);\n  margin-left:auto;\n  flex:none;\n}\n.navbar-toggle{\n  display:none;\n}\n.navbar-end > .navbar-toggle{\n  margin-inline-end:calc((var(--icon-sm) - var(--s-10)) / 2);\n}\n@media (pointer:coarse){\n  .navbar-end > .navbar-toggle{\n    margin-inline-end:calc((var(--icon-sm) - var(--target-touch)) / 2);\n  }\n}\n@container (max-width: 720px){\n  .navbar-nav{\n    display:none;\n  }\n  .navbar-toggle{\n    display:inline-flex;\n  }\n}\n.navbar-floating{\n  container-type:normal;\n  top:var(--s-4);\n  margin:var(--s-4) auto 0;\n  width:max-content;\n  max-width:calc(100% - var(--s-8));\n  gap:var(--s-4);\n  background:var(--surface-bar);\n  backdrop-filter:blur(var(--blur-bar));\n  -webkit-backdrop-filter:blur(var(--blur-bar));\n  border:var(--bw-1) solid var(--border-subtle);\n  border-radius:var(--r-full);\n  box-shadow:var(--sh-3);\n}\n.navbar-floating::before{\n  content:none;\n}\n.navbar-floating .navbar-brand{\n  padding-inline-start:var(--s-2);\n}\n.navbar-floating .navbar-end{\n  padding-inline-end:var(--s-2);\n}\n.navbar-floating .navbar-item{\n  padding-inline:var(--s-3);\n}\n@media (max-width: 720px){\n  .navbar-floating{\n    position:relative;\n    top:auto;\n    margin:0;\n    width:auto;\n    max-width:none;\n    background:transparent;\n    backdrop-filter:none;\n    -webkit-backdrop-filter:none;\n    border:0;\n    border-radius:0;\n    box-shadow:none;\n  }\n  .navbar-floating .navbar-brand{\n    padding-inline-start:var(--s-4);\n  }\n  .navbar-floating .navbar-end{\n    padding-inline-end:var(--s-4);\n  }\n  .navbar-floating .navbar-nav{\n    position:fixed;\n    z-index:var(--z-sticky);\n    left:0;\n    right:0;\n    bottom:var(--s-4);\n    margin:0 auto env(safe-area-inset-bottom);\n    width:max-content;\n    max-width:calc(100% - var(--s-8));\n    min-block-size:var(--s-12);\n    padding-inline:var(--s-2);\n    background:var(--surface-bar);\n    backdrop-filter:blur(var(--blur-bar));\n    -webkit-backdrop-filter:blur(var(--blur-bar));\n    border:var(--bw-1) solid var(--border-subtle);\n    border-radius:var(--r-full);\n    box-shadow:var(--sh-3);\n  }\n}\n"
+    },
+    {
+      "path": "amaca/navigation.html",
+      "type": "registry:file",
+      "target": "components/amaca/navigation.html",
+      "content": "<aside class=\"sidebar\" aria-label=\"Components\"><div class=\"nav-group has-active\"><span class=\"nav-indicator\" aria-hidden=\"true\"></span><div class=\"nav-label\">Inputs</div><a class=\"nav-item\" href=\"#\"><span class=\"num\">11</span> Checkbox</a><a class=\"nav-item active\" href=\"#\" aria-current=\"page\"><span class=\"num\">12</span> Radio</a><a class=\"nav-item\" href=\"#\"><span class=\"num\">13</span> Switch</a><a class=\"nav-item\" href=\"#\"><span class=\"num\">14</span> Slider</a></div></aside>\n<header class=\"navbar\"><a class=\"navbar-brand\" href=\"#\">Studio</a><nav class=\"navbar-nav\" aria-label=\"Main\"><ul class=\"navbar-list\"><li><a class=\"navbar-item\" href=\"#\" aria-current=\"page\" data-label=\"Work\">Work</a></li><li><a class=\"navbar-item\" href=\"#\" data-label=\"About\">About</a></li><li><a class=\"navbar-item\" href=\"#\" data-label=\"Journal\">Journal</a></li></ul></nav><div class=\"navbar-end\"><a class=\"btn btn-primary btn-sm\" href=\"#\">Contact</a><button class=\"btn btn-ghost btn-icon navbar-toggle\" type=\"button\" aria-label=\"Menu\" aria-expanded=\"false\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M2 4h12M2 8h12M2 12h12\"/></svg></button></div></header>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.26 Navigation",
+      "site": "https://www.amaca.design/#navigation",
+      "usage": {
+        "use_it_when": [
+          "The sidebar for documentation; the top bar for marketing.",
+          "The sidebar when there are more than five destinations."
+        ],
+        "use_something_else_when": [
+          "A linear journey with an order → Stepper.",
+          "**Sidebar nav** for documentation. Items use `.nav-item`. The sidebar wears the Bar material, so an item never fills: hover lightens the label to `--obsidian-050`, pressed dims it to `--obsidian-300`, as on the top bar. Active state: text `--obsidian-100` + magenta indicator bar (single shared `.nav-indicator` per group, animated via `transform: translateY()`). When the active item moves to another group, the new group's bar starts where the old one stands and the old one hides at once: one bar travels from the last position.",
+          "**A sidebar label fits on one line (RIGID).** At most two nouns joined by `&`, at most 16 characters — the length of *Chat & Messaging*, the longest label that fit when the rule was written. A section that needs a third noun either names its family (the group *Feedback* names badges, chips, alerts and toasts as one family) or becomes two sections. A label that wraps turns the nav into a list of paragraphs and breaks the one-row rhythm the indicator bar rides.",
+          "**Top nav** for marketing only."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "top bar",
+            ".navbar-floating",
+            "sidebar"
+          ],
+          "default": "top bar",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Bar",
+          "tokens": [
+            "--surface-bar",
+            "--blur-bar"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Group label",
+          "tokens": [
+            "--obsidian-400",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Group mark",
+          "tokens": [
+            "--primary-500"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Item",
+          "tokens": [
+            "--obsidian-200",
+            "--t-small",
+            "--r-md",
+            "--s-2",
+            "--s-3"
+          ],
+          "value": "",
+          "states": "hover --obsidian-050 · pressed --obsidian-300 · current --obsidian-100 --primary-500 --tint-fill --secondary-500 --tint-faint --bw-1 --tint-glow"
+        },
+        {
+          "name": "Indicator",
+          "tokens": [
+            "--primary-500",
+            "--r-xs",
+            "--bw-2",
+            "--s-4",
+            "--d-quick",
+            "--ease-standard"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--focus-offset",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Bar",
+          "tokens": [
+            "--s-8"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Veil",
+          "tokens": [
+            "--surface-bar",
+            "--blur-bar"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Brand",
+          "tokens": [
+            "--obsidian-100",
+            "--t-body",
+            "--tr-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Item",
+          "tokens": [
+            "--obsidian-200",
+            "--t-small"
+          ],
+          "value": "",
+          "states": "hover --obsidian-050 · pressed --obsidian-300 · current --primary-400"
+        },
+        {
+          "name": "Actions",
+          "tokens": [
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Focus",
+          "tokens": [
+            "--focus-width",
+            "--obsidian-100",
+            "--ring-halo"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Flush, and translucent. No radius, no shadow on scroll. The bar wears the Bar material with a fading edge: the page scrolls under it blurred, and the bar ends in a mist rather than a line.",
+        "The item is the target. Each item takes the full height of the bar, so the target is 48px wide-open (§ 6 floor #7).",
+        "States. On a translucent bar a fill would read as a block over the blur, so the item never fills: hover lightens the label to --obsidian-050, pressed dims it to --obsidian-300 while it is held. The current page is --primary-400 at weight 600, with no underline and no fill: the weight is the second cue, since the magenta against --obsidian-200 is 1.44:1 (WCAG 1.4.1). data-label repeats the label so its bold width is reserved and selecting an item never moves its neighbours.",
+        "Focus inside. The ring is drawn inside the item, as on the List's row, so the bar clips nothing.",
+        "It reads its own width. The bar is a size container: at 720px of its own width or less (--bp-md) the destinations and the action leave and the toggle appears. The same markup works in a page, a frame or a panel.",
+        "The menu opens on the toggle's side. The toggle opens the Drawer menu (.drawer.drawer-nav, § 3.24) with showModal(); a toggle at the end opens it at the end, one at the start uses .drawer-start. The action moves into the drawer's foot.",
+        "The glyph sits on the inset. The toggle is pulled out by the space around its 16px glyph, so the icon lines up with the brand's edge on the other side.",
+        "States: § 3.0.1. default · hover · active · current · focus-visible on the item; the action and the toggle are Buttons and carry the Button's rows: disabled · loading included (§ 3.6).",
+        "Motion. Colour on --d-quick · --ease-standard; reduced motion: instant (§ 06.4).",
+        "The Bar material, its line all round, lifted. --surface-bar under --blur-bar, a 1px --border-subtle line on every edge, --sh-3, --r-full. No fading edge: the pill has an edge of its own.",
+        "Wide: one pill at the top. As wide as its content, centred, sticky --s-4 from the top, at most the page width less --s-8. Brand, destinations and the action sit in it.",
+        "The brand mark loses its tile in both forms: the logo and its glow, no fill and no edge (§ 3.5). A square tile in a pill reads as a stranger.",
+        "At --bp-md or less: a row and a pill. The bar becomes a plain row that scrolls away with the page, holding the brand and the action; the destinations float in a pill fixed --s-4 above the bottom edge and above the safe area (env(safe-area-inset-bottom), Safari's bottom toolbar), centred. The page keeps the pill's room at its foot (--s-12 + --s-8), so its last line is never under the pill. It reads the viewport, not its own width: the pill belongs to the screen the thumb holds.",
+        "One markup. The nav stays where it is in the document, after the brand and before the action; the CSS moves it. Reading and tab order do not change between the two forms, and nothing animates between them: a device sees one.",
+        "At most five destinations, and no toggle. Each keeps its label. A site with more destinations uses the flush bar and its Drawer menu.",
+        "Always on screen. The pill does not hide on scroll: on a phone the browser's own toolbar already comes and goes.",
+        "States. The item's, as on the flush bar: hover lightens the label, pressed dims it, the current page is --primary-400 at 600, the ring is drawn inside the item."
+      ],
+      "classes": [
+        "active",
+        "has-active",
+        "menu-toggle",
+        "menu-toggle-bars",
+        "nav-group",
+        "nav-indicator",
+        "nav-item",
+        "nav-label",
+        "navbar",
+        "navbar-brand",
+        "navbar-end",
+        "navbar-floating",
+        "navbar-item",
+        "navbar-list",
+        "navbar-nav",
+        "navbar-toggle",
+        "num",
+        "sidebar",
+        "sidebar-footer",
+        "sidebar-scrim"
+      ]
+    }
+  }
+}

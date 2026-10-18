@@ -11,7 +11,7 @@
 
    Usage (React / Tailwind v4 project):
      @import "tailwindcss";
-     @import "amaca-design/styles/theme.css";
+     @import "amaca-design/theme.css";   (npm install amaca-design)
 
    Tokens with no Tailwind namespace (gradients --grad-*,
    loader sizes --loader-*, layout --sidebar-w / --content-max /
@@ -35,15 +35,30 @@
   --color-obsidian-100: var(--obsidian-100);
   --color-obsidian-050: var(--obsidian-050);
 
-  /* — COLOR · brand (magenta) — */
-  --color-magenta-100: var(--magenta-100);
-  --color-magenta-200: var(--magenta-200);
-  --color-magenta-300: var(--magenta-300);
-  --color-magenta-400: var(--magenta-400);
-  --color-magenta-500: var(--magenta-500);
-  --color-magenta-600: var(--magenta-600);
-  --color-magenta-700: var(--magenta-700);
-  --color-magenta-800: var(--magenta-800);
+  /* — COLOR · semantic (v5.0.0) — */
+  --color-surface: var(--surface);
+  --color-surface-sunken: var(--surface-sunken);
+  --color-surface-field: var(--surface-field);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border-subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-border-input: var(--border-input);
+
+  /* — BREAKPOINT (v5.0.0) — */
+  --breakpoint-sm: var(--bp-sm);
+  --breakpoint-md: var(--bp-md);
+  --breakpoint-lg: var(--bp-lg);
+
+  /* — COLOR · brand (primary) — */
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
 
   /* — COLOR · secondary (electric cyan) — */
   --color-secondary-100: var(--secondary-100);

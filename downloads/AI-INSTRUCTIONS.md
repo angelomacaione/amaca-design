@@ -8,7 +8,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Neutrals (Obsidian):** `--obsidian-950 #07090B` page · `-900 #0B0E12` surface · `-850 #10141A` elevated · `-800 #161B22` card · `-700 #1E242D` border-strong · `-600 #2A313B` border · `-500 #3A4451` muted · `-400 #5B6573` disabled text · `-300 #8A94A3` secondary text · `-200 #B8C0CB` tertiary text · `-100 #E3E7EC` primary text on dark · `-050 #F4F6F8` bone.
 
-**Brand (Magenta):** `--magenta-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A`.
+**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A` · `-950 #1D0519` data canvas.
 
 **Supporting (rare):** `--secondary-400 #00FFF2` cyan (data-viz only) · `--tertiary-500 #0C6078` petrol · `--success #3AFFC7` · `--warning #F6C65B` · `--danger #FF5B5B` · `--info #5CC8FF`. Semantic colors are feedback-only.
 
@@ -18,14 +18,14 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Radius:** `--r-sm 4` · **`--r-md 8` default** · `--r-lg 12` cards · `--r-xl 16` modal · `--r-full 999px`. Working range 8–12.
 
-**Motion (6 durations, 4 easings):** `--d-instant 100 / -quick 200 / -base 350 / -slow 600 / -scene 900 / -draw 1200`. `--ease-standard cubic-bezier(0.22,1,0.36,1)` UI · `--ease-accel (0.7,0,0.84,0)` exits · `--ease-decel (0.16,1,0.3,1)` entrances (signature) · `--ease-spring (0.34,1.56,0.64,1)` — **spatial properties only** (transform/size), never color/opacity/shadow. User-triggered states ride `--d-quick`+`--ease-standard`; system-triggered reveals `--d-base`+`--ease-decel`. Always add a `@media (prefers-reduced-motion: reduce)` fallback.
+**Motion (6 durations, 5 easings):** `--d-instant 100 / -quick 200 / -base 350 / -slow 600 / -scene 900 / -draw 1200`. `--ease-standard cubic-bezier(0.45,0,0.55,1)` state changes (in-out) · `--ease-accel (0.7,0,0.84,0)` exits · `--ease-decel (0.16,1,0.3,1)` entrances (signature) · `--ease-linear` neutral (opacity, loops) · `--ease-spring (0.34,1.56,0.64,1)` — **spatial properties only** (transform/size), never color/opacity/shadow. User-triggered states ride `--d-quick`+`--ease-standard`; system-triggered reveals `--d-base`+`--ease-decel`. Always add a `@media (prefers-reduced-motion: reduce)` fallback.
 
 ## Laws
-- **85 / 10 / 5:** ~85% obsidian, ~10% supporting, **≤5% magenta** (one CTA per viewport). Magenta on >1 element per viewport = decorating.
+- **85 / 10 / 5:** ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic. One primary action per screen (a landing may carry one per section); primary on anything else = decorating.
 - **Five principles:** clarity before cleverness · evidence over opinion · precision is a feeling (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · quiet then loud · motion is a material (feedback, never decoration).
 
 ## Components — reuse, don't reinvent
-`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · `.field` + `.label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · `.badge` · `.check` / `.switch` / `.radio` (square+tick / track+knob / circle+dot — shape before colour) · `.table` (no zebra) · `.alert` (never on a timer, fill never tinted) · `.toast` · `.tooltip` (opens on hover **and** focus) · date picker · tabs · accordion · loader · chat. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
+`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.link` · `.check` / `.radio` / `.switch` (square+tick / circle+dot / track+knob — shape before colour) · `.slider` · `.field` + `.label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · time input · date picker · `.badge` · `.chip` · `.alert` (never on a timer, fill never tinted) · `.toast` · `.progress` · loader · skeleton · `.modal` · `.popover` · `.drawer` · `.tooltip` (opens on hover **and** focus) · navigation (sidebar, top bar) · tabs · `.segmented` · breadcrumb · pagination · stepper · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · accordion · divider · chat · swatch · `.avatar` · `.list` · `.table` (no zebra). Each component's section in the spec carries a **Variants.** block: build only the variants it declares. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
 
 ```html
 <button class="btn btn-primary">Save</button>
@@ -38,31 +38,31 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
   letter-spacing:var(--tr-snug); line-height:1;
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
-  border:1px solid transparent; white-space:nowrap; }
-.btn:disabled{ opacity:0.4; cursor:not-allowed; }
-.btn:focus-visible{ outline:2px solid var(--obsidian-100); outline-offset:3px;
+  border:var(--bw-1) solid transparent; white-space:nowrap; }
+.btn:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
+.btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
   box-shadow:var(--ring-halo); }
-.btn-primary{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-2); }
-.btn-primary:hover{ background:var(--magenta-500); color:var(--obsidian-050);
-  border-color:var(--magenta-500); box-shadow:var(--sh-glow), var(--sh-3); }
+.btn-primary{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-2); }
+.btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
+  border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
 .label{ font-family:var(--font-mono); font-size:var(--t-micro);
   letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
-.input{ background:var(--obsidian-850); border:1px solid var(--obsidian-700);
+.input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
   border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;
   transition:all var(--d-quick) var(--ease-standard); width:100%; }
-.input:focus{ border-color:var(--magenta-500); box-shadow:var(--ring-field); }
-.input:disabled{ opacity:0.4; cursor:not-allowed; }
+.input:focus{ border-color:var(--primary-500); box-shadow:var(--ring-field); }
+.input:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
 ```
 
 ## Accessibility floor (non-negotiable)
-Color never alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order, dual-ring on pressables · no auto-advancing content · touch 44×44 (32×32 dense). On `--magenta-500` use a dark label (`--obsidian-950`, AA); the one exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
+Color never alone (+ shape + label) · no text < 12px, no body < 14px · persistent field labels (placeholder ≠ label) · `alt` on every image · focus follows reading order, dual-ring on pressables · no auto-advancing content · touch 44×44 (32×32 dense). On `--primary-500` use a dark label (`--obsidian-950`, AA); the one exception is `.btn-primary`, `.badge-solid` and `.card-feature-tab` (light label, scoped to those three).
 
 ## Conventions & voice
 Semantic HTML first — `<button>`/`<a>`, never `<div onclick>`; close every tag, double-quote attributes; `kebab-case` files. Imperative, terse copy; **no AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Never ship: gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
 
 ## Self-check before returning code
-Every value is a `var(--token)` — no raw hex/px/`cubic-bezier`; ≤5% magenta (one CTA); a11y floor holds (labels, contrast, 44×44); every transition has a `prefers-reduced-motion` fallback.
+Every value is a `var(--token)` — no raw hex/px/`cubic-bezier`; 85/10/5 holds (one primary action per screen); a11y floor holds (labels, contrast, 44×44); every transition has a `prefers-reduced-motion` fallback.
 
 — Amaca · MIT · [amaca.design](https://amaca.design)

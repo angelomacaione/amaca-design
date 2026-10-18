@@ -1,0 +1,171 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker",
+  "type": "registry:item",
+  "title": "Date picker",
+  "description": "A single date or a range, typed or picked from the calendar.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json",
+    "https://www.amaca.design/r/icon.json",
+    "https://www.amaca.design/r/input.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/date-picker.css",
+      "type": "registry:file",
+      "target": "styles/amaca/date-picker.css",
+      "content": ".dp-wrap{\n  position:relative;\n}\n.dp-popover{\n  position:absolute;\n  top:calc(100% + var(--s-1));\n  left:0;\n  width:280px;\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-3);\n  padding:var(--s-3);\n  z-index:var(--z-popover);\n  font-family:var(--font-sans);\n  opacity:0;\n  transform:translateY(-4px);\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);\n}\n.dp-popover[hidden]{\n  display:none;\n}\n.dp-header{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  padding:var(--s-1) var(--s-1) var(--s-2);\n}\n.dp-title{\n  flex:1;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  gap:var(--s-1);\n  background:transparent;\n  border:0;\n  cursor:pointer;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-weight:600;\n  color:var(--obsidian-100);\n  letter-spacing:var(--tr-snug);\n  padding:var(--s-1) var(--s-2);\n  border-radius:var(--r-sm);\n  transition:background var(--d-quick) var(--ease-standard);\n}\n.dp-title:hover{\n  background:var(--obsidian-800);\n}\n.dp-title:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n}\n.dp-title svg{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n  color:var(--obsidian-400);\n  transition:transform var(--d-quick) var(--ease-standard);\n}\n.dp-popover[data-mode=\"years\"] .dp-title svg{\n  transform:rotate(180deg);\n}\n.dp-nav{\n  display:grid;\n  place-items:center;\n  width:28px;\n  height:28px;\n  border:0;\n  background:transparent;\n  cursor:pointer;\n  color:var(--obsidian-300);\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.dp-nav:hover:not(:disabled){\n  color:var(--obsidian-100);\n  background:var(--obsidian-800);\n}\n.dp-nav:disabled{\n  color:var(--obsidian-500);\n  cursor:not-allowed;\n}\n.dp-nav:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n}\n.dp-nav svg{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n}\n.dp-dow{\n  display:grid;\n  grid-template-columns:repeat(7,1fr);\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-500);\n  text-align:center;\n  padding:var(--s-1) 0;\n  margin-bottom:var(--s-0-5);\n}\n.dp-dow span{\n  padding:var(--s-1) 0;\n}\n.dp-grid{\n  display:grid;\n  grid-template-columns:repeat(7,1fr);\n  gap:var(--s-0-5);\n}\n.dp-day{\n  display:grid;\n  place-items:center;\n  height:var(--s-8);\n  border:0;\n  background:transparent;\n  cursor:pointer;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-variant-numeric:tabular-nums;\n  color:var(--obsidian-100);\n  border-radius:var(--r-sm);\n  transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);\n}\n.dp-day:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--s-0-5));\n  box-shadow:var(--ring-halo);\n}\n.dp-day:disabled{\n  color:var(--obsidian-600);\n  cursor:not-allowed;\n  background:transparent;\n}\n.dp-popover.dp-range{\n  width:580px;\n}\n.dp-range .dp-months{\n  display:grid;\n  grid-template-columns:1fr 1fr;\n  gap:var(--s-5);\n}\n.dp-range .dp-month-title{\n  text-align:center;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  font-weight:600;\n  color:var(--obsidian-100);\n  padding:var(--s-1) 0 var(--s-2);\n}\n.dp-range .dp-presets{\n  display:grid;\n  grid-template-columns:repeat(4,1fr);\n  gap:var(--s-1);\n  padding:var(--s-2) 0 var(--s-1);\n  margin-top:var(--s-2);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n}\n.dp-preset{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n  background:transparent;\n  border:0;\n  cursor:pointer;\n  padding:var(--s-2) var(--s-1);\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.dp-preset:hover{\n  color:var(--obsidian-100);\n  background:var(--obsidian-800);\n}\n.dp-preset:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n}\n@media (max-width:480px){\n  .dp-popover.dp-range{\n    width:280px;\n  }\n  .dp-range .dp-months{\n    grid-template-columns:1fr;\n    gap:var(--s-2);\n  }\n  .dp-range .dp-presets{\n    grid-template-columns:repeat(2,1fr);\n  }\n}\n.dp-year-grid{\n  display:grid;\n  grid-template-columns:repeat(3,1fr);\n  gap:var(--s-1);\n  padding:var(--s-1) var(--s-0-5);\n}\n.dp-year{\n  height:36px;\n  display:grid;\n  place-items:center;\n  border:0;\n  background:transparent;\n  cursor:pointer;\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n  border-radius:var(--r-sm);\n  transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);\n}\n.dp-year:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:calc(-1 * var(--s-0-5));\n  box-shadow:var(--ring-halo);\n}\n.dp-year:disabled{\n  color:var(--obsidian-600);\n  cursor:not-allowed;\n}\n.dp-footer{\n  display:flex;\n  justify-content:flex-end;\n  margin-top:var(--s-1);\n  padding:var(--s-1) 0 var(--s-0-5);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n}\n.dp-today-btn{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n  background:transparent;\n  border:0;\n  cursor:pointer;\n  padding:var(--s-1) var(--s-2);\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.dp-today-btn:hover{\n  color:var(--obsidian-100);\n  background:var(--obsidian-800);\n}\n.dp-today-btn:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-px);\n  box-shadow:var(--ring-halo);\n}\n@media (prefers-reduced-motion: reduce){\n  .dp-popover, .dp-day, .dp-year, .dp-nav, .dp-title, .dp-today-btn{\n    transition:none;\n  }\n}\n.dp-popover)[hidden]{\n  display:block;\n}\n.dp-popover){\n  position:static;\n  margin-top:var(--s-6);\n  max-height:none;\n  opacity:1;\n  transform:none;\n  pointer-events:auto;\n}\n"
+    },
+    {
+      "path": "amaca/date-picker.html",
+      "type": "registry:file",
+      "target": "components/amaca/date-picker.html",
+      "content": "<div class=\"field\"><label class=\"label\" for=\"kit-date\">Date</label><div class=\"dp-wrap\"><div class=\"input-wrap\"><input class=\"input\" id=\"kit-date\" type=\"text\" value=\"18/08/2026\"><button type=\"button\" class=\"input-action\" aria-label=\"Open calendar\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"2\" y=\"3\" width=\"12\" height=\"11\" rx=\"1.75\"/><path d=\"M2 6.5h12M5 1.75v2.75M11 1.75v2.75\"/></svg></button></div><div class=\"dp-popover\" role=\"dialog\" aria-label=\"August 2026\" hidden><div class=\"dp-header\"><button class=\"dp-nav\" type=\"button\" aria-label=\"Previous month\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M10 3L5 8l5 5\"/></svg></button><button class=\"dp-title\" type=\"button\">August 2026</button><button class=\"dp-nav\" type=\"button\" aria-label=\"Next month\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M6 3l5 5-5 5\"/></svg></button></div><div class=\"dp-dow\"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div class=\"dp-grid\"><button class=\"dp-day\" type=\"button\">1</button><button class=\"dp-day\" type=\"button\">2</button><button class=\"dp-day\" type=\"button\">3</button><button class=\"dp-day\" type=\"button\">4</button><button class=\"dp-day\" type=\"button\">5</button><button class=\"dp-day\" type=\"button\">6</button><button class=\"dp-day\" type=\"button\">7</button><button class=\"dp-day\" type=\"button\">8</button><button class=\"dp-day\" type=\"button\">9</button><button class=\"dp-day\" type=\"button\">10</button><button class=\"dp-day\" type=\"button\">11</button><button class=\"dp-day is-today\" type=\"button\">12</button><button class=\"dp-day\" type=\"button\">13</button><button class=\"dp-day\" type=\"button\">14</button><button class=\"dp-day\" type=\"button\">15</button><button class=\"dp-day\" type=\"button\">16</button><button class=\"dp-day\" type=\"button\">17</button><button class=\"dp-day\" type=\"button\" aria-selected=\"true\">18</button><button class=\"dp-day\" type=\"button\">19</button><button class=\"dp-day\" type=\"button\">20</button><button class=\"dp-day\" type=\"button\">21</button><button class=\"dp-day\" type=\"button\">22</button><button class=\"dp-day\" type=\"button\">23</button><button class=\"dp-day\" type=\"button\">24</button><button class=\"dp-day\" type=\"button\">25</button><button class=\"dp-day\" type=\"button\">26</button><button class=\"dp-day\" type=\"button\">27</button><button class=\"dp-day\" type=\"button\">28</button></div></div></div></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.13 Date picker",
+      "site": "https://www.amaca.design/#date-picker",
+      "usage": {
+        "use_it_when": [
+          "A single date or a range, typed or picked from the calendar.",
+          "Dates near today, where the relation to other days matters."
+        ],
+        "use_something_else_when": [
+          "A date the reader already knows, such as a birth date → typed Text inputs, no calendar."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "type",
+          "values": [
+            "single",
+            ".dp-range"
+          ],
+          "default": "single",
+          "role": "type"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Field",
+          "tokens": [
+            "--surface-field",
+            "--bw-1",
+            "--border-input",
+            "--r-md",
+            "--s-10"
+          ],
+          "value": "",
+          "states": "focus --primary-500 · error --danger"
+        },
+        {
+          "name": "Calendar button",
+          "tokens": [
+            "--obsidian-300",
+            "--r-sm",
+            "--s-8"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100"
+        },
+        {
+          "name": "Popover",
+          "tokens": [
+            "--obsidian-900",
+            "--bw-1",
+            "--obsidian-700",
+            "--r-lg",
+            "--sh-3",
+            "--s-3"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Month",
+          "tokens": [
+            "--obsidian-100",
+            "--font-sans",
+            "--t-small",
+            "--tr-snug"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Arrows",
+          "tokens": [
+            "--obsidian-300",
+            "--r-sm"
+          ],
+          "value": "",
+          "states": "hover --obsidian-100 --obsidian-800"
+        },
+        {
+          "name": "Weekdays",
+          "tokens": [
+            "--obsidian-500",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Day",
+          "tokens": [
+            "--obsidian-100",
+            "--font-sans",
+            "--t-small",
+            "--r-sm",
+            "--s-8"
+          ],
+          "value": "",
+          "states": "disabled --obsidian-600"
+        }
+      ],
+      "rules": [
+        "The trigger is a real &lt;input&gt; plus a labelled &lt;button&gt; — never a bare div. The popover is role=\"dialog\" with an accessible name.",
+        ".is-today and .is-selected are visually distinct on purpose: today is a ring, selection is a fill. When a range end lands on today, the ring is dropped (the fill already says it).",
+        "Range corners are geometric, not decorative: square in the middle, rounded at the ends, fully rounded when start and end are the same day.",
+        "Disabled days are &lt;button disabled&gt;, not styled-out divs — keyboard users must be able to tell.",
+        "State matrix: § 3.0.1. Motion: § 06.4."
+      ],
+      "classes": [
+        "dp-day",
+        "dp-dow",
+        "dp-footer",
+        "dp-grid",
+        "dp-header",
+        "dp-month-title",
+        "dp-months",
+        "dp-nav",
+        "dp-popover",
+        "dp-preset",
+        "dp-presets",
+        "dp-range",
+        "dp-title",
+        "dp-today-btn",
+        "dp-wrap",
+        "dp-year",
+        "dp-year-grid",
+        "is-today"
+      ]
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "type": "registry:item",
+  "title": "Progress",
+  "description": "A wait with a known end, longer than about three seconds.",
+  "registryDependencies": [
+    "https://www.amaca.design/r/amaca-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "amaca/progress.css",
+      "type": "registry:file",
+      "target": "styles/amaca/progress.css",
+      "content": ".progress{\n  display:flex;\n  align-items:center;\n  gap:var(--s-4);\n}\n.progress-label{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.progress-track{\n  flex:1;\n  height:var(--s-2);\n  border-radius:var(--r-full);\n  background:var(--obsidian-700);\n}\n.progress-sm .progress-track{\n  height:var(--s-1);\n}\n.progress-fill{\n  height:100%;\n  width:var(--value, 0%);\n  border-radius:inherit;\n  background:var(--grad-progress);\n  box-shadow:var(--sh-glow-soft);\n  transform-origin:left;\n  transition:width var(--d-scene) var(--ease-decel);\n}\n.progress-value{\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n  font-variant-numeric:tabular-nums;\n}\n.progress[data-reveal] .progress-fill{\n  transform:scaleX(0);\n}\n@media (prefers-reduced-motion: reduce){\n  .progress-fill{\n    transition:none;\n  }\n  .progress[data-reveal] .progress-fill{\n    transform:none;\n    transition:none;\n  }\n}\n.progress{\n  width:min(100%, calc(var(--s-32) * 2));\n}\n"
+    },
+    {
+      "path": "amaca/progress.html",
+      "type": "registry:file",
+      "target": "components/amaca/progress.html",
+      "content": "<div class=\"progress\"><span class=\"progress-label\" id=\"kit-progress\">Upload</span><div class=\"progress-track\" role=\"progressbar\" aria-labelledby=\"kit-progress\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\"><div class=\"progress-fill\" style=\"--value:60%\"></div></div><span class=\"progress-value\">60%</span></div>\n"
+    }
+  ],
+  "meta": {
+    "amaca": {
+      "version": "5.0.0",
+      "source": "DESIGN.md § 3.18 Progress",
+      "site": "https://www.amaca.design/#progress",
+      "usage": {
+        "use_it_when": [
+          "A wait with a known end, longer than about three seconds."
+        ],
+        "use_something_else_when": [
+          "A short or unknown wait → Loader.",
+          "Content arriving into a known layout → Skeleton.",
+          "Steps the reader takes → Stepper."
+        ]
+      },
+      "variants": [
+        {
+          "axis": "size",
+          "values": [
+            "md",
+            ".progress-sm"
+          ],
+          "default": "md",
+          "role": "size"
+        }
+      ],
+      "parts": [
+        {
+          "name": "Label",
+          "tokens": [
+            "--obsidian-300",
+            "--font-mono",
+            "--t-micro",
+            "--tr-mono"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Value",
+          "tokens": [
+            "--obsidian-100",
+            "--t-small"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Track",
+          "tokens": [
+            "--obsidian-700",
+            "--r-full",
+            "--s-2"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Fill",
+          "tokens": [
+            "--grad-progress",
+            "--sh-glow-soft"
+          ],
+          "value": "",
+          "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [
+            "--d-scene",
+            "--ease-decel"
+          ],
+          "value": "",
+          "states": ""
+        }
+      ],
+      "rules": [
+        "Two heights. 8px by default; .progress-sm, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.",
+        "Named and valued. The track carries role=\"progressbar\", aria-valuenow, aria-valuemin, aria-valuemax and a name; the value is also written as text.",
+        "Known end only. An unknown wait is a Loader; a bar that moves without a value is not a Progress.",
+        "Motion. On view the fill draws from zero on --d-scene · --ease-decel from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value."
+      ],
+      "classes": [
+        "progress",
+        "progress-fill",
+        "progress-label",
+        "progress-sm",
+        "progress-track",
+        "progress-value"
+      ]
+    }
+  }
+}
