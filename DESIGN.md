@@ -3896,6 +3896,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 | `::-webkit-scrollbar-track` | `transparent` — the page shows through |
 | `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `2px solid --obsidian-950` border (the border is what makes it read as inset) |
 | `::-webkit-scrollbar-thumb:hover` | `--obsidian-600` |
+| `::-webkit-scrollbar-corner` | `transparent` — where the two bars meet, the page shows through as on the track |
 | `::selection` | `--primary-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 01.2) |
 | `caret-color` | `--primary-500` on `input` and `textarea` — the browser's default blue is off-system |
 
