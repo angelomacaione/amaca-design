@@ -279,13 +279,14 @@ def c06():
     return sorted(set(fails))
 
 
-@check("07", "No raw ms durations outside the ratified loops",
+@check("07", "No raw ms durations outside the ratified loops, and no raw curve",
        "The loop exception is a closed list (§ 09.4). Anything else with a "
-       "literal duration is drift.")
+       "literal duration is drift. v5.0.0: the law card rose on 520ms and a curve of its own, "
+       "kept green only because 520ms sat in the loop list; a curve is a token too.")
 def c07():
     # Closed list: the ratified continuous loops (§ 09.4) plus the stepper
     # choreography, which § Code conventions documents as a literal by design.
-    LOOPS = {"1400ms", "2400ms", "1600ms", "1s", "520ms"}
+    LOOPS = {"1400ms", "2400ms", "1600ms", "1s"}
     fails = []
     for m in re.finditer(r"transition:\s*([^;{}]+)", read(COMPONENTS)):
         for part in m.group(1).split(","):
@@ -294,6 +295,11 @@ def c07():
             times = re.findall(r"(\d+m?s)\b", part)
             if times and times[0] not in LOOPS:
                 fails.append(f"components.css: transition:{part.strip()}")
+    # v5.0.0: the law card rode cubic-bezier(0.22, 1, 0.36, 1), a curve no token holds; a curve is
+    # vocabulary, so it is always a --ease-* token. Delays stay literal: they are composition.
+    css = re.sub(r"/\*.*?\*/", "", read(COMPONENTS), flags=re.S)
+    for m in re.finditer(r"cubic-bezier\([^)]*\)", css):
+        fails.append(f"components.css: {m.group(0)} - name the --ease-* token")
     return sorted(set(fails))
 
 
