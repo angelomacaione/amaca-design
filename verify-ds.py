@@ -1308,13 +1308,18 @@ def c35():
        "existing Do / Don't renumbered from 13.6 to 13.9 by hand. Nothing "
        "checked that the sequence stayed whole or that the section kept the "
        "number the nav gives it. A gap or a duplicate is invisible in review "
-       "and obvious to a reader following a citation.")
+       "and obvious to a reader following a citation. v5.0.0: Skeleton, Popover "
+       "and Drawer were written with &sect; and &middot;, numbered 50, 51 and 52 "
+       "while the nav said 25, 27 and 28. The regex looked for a literal §, so "
+       "the three pages were never read. The body is now unescaped first.")
 def c36():
     html = read(INDEX)
     nav = {m.group(1): int(m.group(2)) for m in re.finditer(
         r'<a class="nav-item[^"]*" href="#[^"]+" data-target="([^"]+)"><span class="num">(\d+)</span>', html)}
     fails = []
+    import html as _html
     for sid, body in _site_sections():
+        body = _html.unescape(body)
         n = nav.get(sid)
         eb = re.search(r'page-eyebrow">§ (\d+)', body)
         if n is not None and eb and int(eb.group(1)) != n:

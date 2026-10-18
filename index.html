@@ -2584,13 +2584,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
 
       <section class="section" id="skeleton">
         <div class="page-header">
-          <div class="page-eyebrow">&sect; 50 &middot; Feedback / Skeleton</div>
+          <div class="page-eyebrow">§ 25 · Feedback / Skeleton</div>
           <h1 class="page-title">The shape of the page, <span class="accent">before the page.</span></h1>
           <p class="page-lede">A grey placeholder with the size of the content that is coming. When the data lands nothing moves, because the room was already there.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The shape of the content is known and the wait is past 800 ms: a list, a card, a profile.</li><li>The content replaces it in the same place and at the same size.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>The shape is unknown &rarr; Loader.</li><li>A wait under 800 ms &rarr; show the result, no skeleton.</li><li>Progress is known &rarr; Progress.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Shapes</h2><span class="subsection-num">&sect; 50.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Shapes</h2><span class="subsection-num">§ 25.1</span></div>
           <p class="subsection-desc">A line for text, a circle for a person, a block for an image. The fill is <code>--obsidian-700</code>, so it stays visible inside a card; the shimmer is a quiet magenta tint and stops under reduced motion.</p>
           <div class="grid grid-3" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Text</div><div class="skeleton-stack" aria-hidden="true"><div class="skeleton-line" style="width:90%"></div><div class="skeleton-line" style="width:78%"></div><div class="skeleton-line" style="width:84%"></div><div class="skeleton-line" style="width:56%"></div></div></div>
@@ -2599,7 +2599,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Loading, then loaded</h2><span class="subsection-num">&sect; 50.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Loading, then loaded</h2><span class="subsection-num">§ 25.2</span></div>
           <p class="subsection-desc">The region is <code>aria-busy</code> while the shapes are there, the shapes are <code>aria-hidden</code>, and a live region says when the content arrives. The two states have the same height.</p>
           <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5);max-width:360px" data-skeleton-demo>
             <div role="group" aria-label="Profile" aria-busy="true" data-skeleton-region>
@@ -2611,7 +2611,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 50.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 25.3</span></div>
           <p class="subsection-desc">A skeleton promises a shape; keep the promise.</p>
           <div class="do-dont">
             <div class="do">
@@ -2716,13 +2716,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
 
       <section class="section" id="popover">
         <div class="page-header">
-          <div class="page-eyebrow">&sect; 51 &middot; Overlays / Popover</div>
+          <div class="page-eyebrow">§ 27 · Overlays / Popover</div>
           <h1 class="page-title">More than a hint, <span class="accent">less than a window.</span></h1>
           <p class="page-lede">A panel anchored to the button that opened it. It holds a link, a short form or a few actions, and the page stays where it was.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Details about one element that carry a link or a button, and do not need to leave the view.</li><li>A short form or a choice tied to one control: a rename, a share link.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Short text with nothing to click &rarr; Tooltip.</li><li>The content is wider than 360 px, or the person must answer before going on &rarr; Modal.</li><li>A list of actions &rarr; a menu.</li><li>A menu or text that needs the full height of the screen &rarr; Drawer.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">&sect; 51.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Forms</h2><span class="subsection-num">§ 27.1</span></div>
           <p class="subsection-desc">A read-only popover is auto: a click outside or Escape closes it. One with a form is manual: it closes only on its own buttons and on Escape, so a stray click does not lose the field. The trigger is a button with <code>popovertarget</code>.</p>
           <div class="grid grid-3" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Text and a link</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-why" style="align-self:flex-start">Why 800 ms?</button></div>
@@ -2734,7 +2734,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <div class="popover" id="pop-rename" popover="manual" role="dialog" aria-labelledby="pop-rename-t"><div class="popover-head"><h3 class="popover-title" id="pop-rename-t">Rename</h3></div><div class="popover-body"><label class="label" for="pop-name">Name</label><input class="input" id="pop-name" value="Arc HMI"></div><div class="popover-foot"><button class="btn btn-ghost btn-sm" type="button" popovertarget="pop-rename" popovertargetaction="hide">Cancel</button><button class="btn btn-primary btn-sm" type="button" popovertarget="pop-rename" popovertargetaction="hide">Save</button></div></div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Placement</h2><span class="subsection-num">&sect; 51.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Placement</h2><span class="subsection-num">§ 27.2</span></div>
           <p class="subsection-desc">Below the trigger, aligned to its start, 4px away. <code>.popover-top</code> and <code>.popover-end</code> change the side; whatever the side, it flips when there is no room. There is no arrow.</p>
           <div class="grid grid-3" style="gap:var(--s-5)">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-5)"><div class="label" style="color:var(--obsidian-400)">Above</div><button class="btn btn-secondary btn-sm" type="button" popovertarget="pop-top" style="align-self:flex-start">Above</button></div>
@@ -2744,7 +2744,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <div class="popover popover-end" id="pop-end" popover aria-label="At the end"><div class="popover-body"><p style="margin:0">At the end side, for a control in a column.</p></div></div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 51.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 27.3</span></div>
           <p class="subsection-desc">A popover is a click away, not a hover away.</p>
           <div class="do-dont">
             <div class="do">
@@ -2761,13 +2761,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
 
       <section class="section" id="drawer">
         <div class="page-header">
-          <div class="page-eyebrow">&sect; 52 &middot; Overlays / Drawer</div>
+          <div class="page-eyebrow">§ 28 · Overlays / Drawer</div>
           <h1 class="page-title">From the edge, <span class="accent">with the page still there.</span></h1>
           <p class="page-lede">A modal anchored to a side: a menu or a piece of text, flush with the edge, the page dimmed behind it. No corners, no frame of its own.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A menu or a few groups of links that open from the edge: the main navigation on a small screen.</li><li>Text or details of one item that need the full height: release notes, the facts of a row.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A decision to answer before going on, or a short form &rarr; Modal.</li><li>A long form, or work that deserves its own address &rarr; a page.</li><li>A panel that stays beside the page &rarr; a layout, not a Drawer.</li><li>Short text tied to one button &rarr; Popover.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">&sect; 52.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 28.1</span></div>
           <p class="subsection-desc">The modal&rsquo;s surface and scrim, flush with the edge: no radius, and a shadow one step below the modal&rsquo;s, so no edge either. The menu is narrower and larger; its rows are the List&rsquo;s. Both frames are live: close the drawer and the button behind the scrim opens it again. Component spec: § 3.24 in the contract.</p>
           <div class="grid grid-2" style="gap:var(--s-5)">
             <div class="drawer-demo" data-drawer-demo><div class="drawer-demo-page"><div class="label" style="color:var(--obsidian-400)">Arc &middot; Automotive HMI</div><div class="drawer-demo-row"><span>Overview</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Research</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Flows</span><span class="ty-small">2025</span></div><div class="drawer-demo-row"><span>Delivery</span><span class="ty-small">2025</span></div></div><div class="drawer-demo-open"><button class="btn btn-secondary" type="button" data-drawer-demo-open>Open drawer</button></div><dialog class="drawer drawer-nav drawer-start" open aria-labelledby="drawer-demo-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-demo-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-drawer-demo-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close aria-current="page"><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-drawer-demo-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog></div>
@@ -2775,7 +2775,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Try it</h2><span class="subsection-num">&sect; 52.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Try it</h2><span class="subsection-num">§ 28.2</span></div>
           <p class="subsection-desc">A real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>, like the modal: focus is trapped, the page behind is inert, Esc or a click on the scrim closes it, and focus returns to the button. A link of the menu closes it too.</p>
           <div style="display:flex;flex-wrap:wrap;gap:var(--s-3)">
             <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-menu">Open menu</button>
@@ -2785,7 +2785,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <dialog class="drawer" id="drawer-live-notes" aria-labelledby="drawer-live-notes-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-notes-t">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div></dialog>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">&sect; 52.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 28.3</span></div>
           <p class="subsection-desc">The drawer is for reading and for choosing where to go.</p>
           <div class="do-dont">
             <div class="do">
