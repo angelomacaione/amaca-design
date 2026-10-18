@@ -592,7 +592,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link | — |
 | `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
 | `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at `--tint-fill-deep` under `--blur-light` · hovers as a `.card` | — |
-| `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-950` | `--sh-glow` | not interactive · label 6.5 : 1 | — |
+| `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-050` | `--sh-glow` | not interactive | § 6.3 · light label on primary, 2.83 : 1 |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus | — |
 | `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget | — |
 | `.badge-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | shipped | — |
@@ -2688,7 +2688,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 </a>
 ```
 
-- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-950` (6.5 : 1; a light label on primary is only for the ratified pair, L9), mono `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
+- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-050` (2.83 : 1, the ratified light label on primary, L9), mono `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
 
 ```html
 <article class="card card-feature">
@@ -4038,11 +4038,13 @@ Two patterns ship:
 
 ### Ratified exceptions
 
-The floor admits one documented exception pair, on two selectors. The state index names it in its **Exception** column, on each row that draws it; a light label on primary anywhere else is off-system (L9).
+The floor admits one documented exception pair, on three selectors. The state index names it in its **Exception** column, on each row that draws it; a light label on primary anywhere else is off-system (L9).
 
 **`.btn-primary` — `--obsidian-050` on `--primary-500` (≈ 2.8 : 1, measured 2.83).** Below the 4.5 : 1 normal-text AA bar, by design. Rationale: gestalt figure-ground — on a high-chroma magenta a near-white label separates more cleanly for most viewers than the higher-contrast dark label (`--obsidian-950`, 6.5 : 1), which reads heavy. Bounds: applies only to the single primary CTA per screen (§ 3.6); the CTA is never the sole affordance (a labeled `<button>` with shape and the § 6.2 dual-ring focus — meaning is not carried by contrast alone), and rest and hover are bounded to `--primary-500` (no lighten); pressed darkens to `--primary-600`. Light-on-magenta is licensed only here and on `.badge-solid` (below): body text, links, and every other surface hold the floor. Precedent in the system: `::selection` already paints near-white on `--primary-500`.
 
 **`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.14), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
+
+**`.card-feature-tab` — the same pair, the same grounds (ratified v5.0.0).** The tab of the feature card names what the card is ("Latest project"): a label, not an action, read with the card's title beside it. Bounds: one feature card per page, so one tab; mono `--t-micro` 700 uppercase, the weight the solid badge's bounds ask for; the fill bounded to `--primary-500`.
 
 **APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--primary-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.6). Medium 500 is the ratified weight.
 
@@ -4252,6 +4254,7 @@ One page per component, every value on a scale, and a system an agent can instal
 - **The case study template follows the portfolio that runs it:** one reading column, real figures under a caption, outcome stat cards, a closing note, More cases as linked Cards; the animated mark stays as the hero's placeholder.
 - **How to install** recommends the plugin for Claude Code and the editors, and `AI-INSTRUCTIONS.md` for chats and app builders; the Tailwind install is `npm install amaca-design` with `@import "amaca-design/theme.css"`.
 - **amaca-frontend 1.3.0** and **amaca-figma 1.6** read the Rules and Variants blocks.
+- **The feature card's tab takes the light label** (`--obsidian-050` on `--primary-500`), the third selector of the ratified pair; Color shows the tint scale.
 
 **Fixed**
 - **Control outlines reach 3:1** on `--border-input` (fields, checkbox, radio were 1.18:1 and 1.41:1).

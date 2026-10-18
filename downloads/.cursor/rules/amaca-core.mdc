@@ -17,7 +17,7 @@ This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand ac
 
 **Components:** Every component section in `DESIGN.md` carries a **Rules.** block and a **Variants.** block (one axis per line, values in order, the default marked): build only the variants it declares.
 
-**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--primary-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
+**A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--primary-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary`, `.badge-solid` and `.card-feature-tab` (light label, scoped to those three).
 
 **Voice:** imperative and terse in specs/code; no AI tells ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".
 

@@ -293,7 +293,7 @@
 .card-feature-tab{
   position:absolute;left:0;top:0;z-index:1;
   padding:var(--s-1) var(--s-4);border-radius:0 0 var(--r-xl) 0;
-  background:var(--primary-500);color:var(--obsidian-950);box-shadow:var(--sh-glow);
+  background:var(--primary-500);color:var(--obsidian-050);box-shadow:var(--sh-glow);
   font-family:var(--font-mono);font-size:var(--t-micro);font-weight:700;letter-spacing:var(--tr-mono);text-transform:uppercase;
 }
 @media (max-width: 720px){

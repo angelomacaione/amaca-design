@@ -2640,6 +2640,14 @@ def c65():
     for m in re.finditer(r'<(?:span|div) class="(swatch|swatch-tile)"([^>]*)>', html):
         style = re.search(r'style="([^"]*)"', m.group(2))
         tok = re.fullmatch(r"\s*--sw\s*:\s*var\(--([a-z0-9-]+)\)\s*;?\s*", style.group(1)) if style else None
+        # v5.0.0: a tint tile is a token colour times a tint token, the form every alpha in the stylesheet takes
+        mix = re.fullmatch(r"\s*--sw\s*:\s*color-mix\(in srgb, var\(--([a-z0-9-]+)\) calc\(var\(--((?:tint-[a-z-]+)|opacity-disabled)\) \* 100%\), transparent\)\s*;?\s*",
+                           style.group(1)) if style and not tok else None
+        if mix:
+            for t in mix.groups():
+                if t not in vals:
+                    fails.append(f"index.html: tint tile names --{t}, which tokens.css does not declare")
+            continue
         if not tok:
             fails.append(f"index.html: .{m.group(1)} without --sw:var(--token): {m.group(0)[:90]}")
             continue
