@@ -3276,7 +3276,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 
 **Variants.**
-- `plot` — bars (default) · columns · line · area · donut
+- `plot` — bars (default) · columns · donut · area · line
 - `series` — one (default) · several, with a legend
 **Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
 
