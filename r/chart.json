@@ -12,13 +12,13 @@
       "path": "amaca/chart.css",
       "type": "registry:file",
       "target": "styles/amaca/chart.css",
-      "content": ".chart-plot{\n  position:relative;\n}\n.chart-plot > svg{\n  display:block;\n  width:100%;\n  height:auto;\n}\n.chart-label{\n  position:absolute;\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  line-height:1;\n  white-space:nowrap;\n  translate:0 -50%;\n  pointer-events:none;\n}\n.chart-label-axis{\n  color:var(--obsidian-200);\n}\n.chart-label-value{\n  color:var(--obsidian-100);\n}\n.chart-label-center{\n  translate:-50% -50%;\n}\n.chart-label-end{\n  translate:-100% -50%;\n}\n.chart-plot-sm{\n  display:none;\n}\n@media (max-width: 720px){\n  .chart-plot-lg{\n    display:none;\n  }\n  .chart-plot-sm{\n    display:block;\n  }\n}\n.chart-card{\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  padding:var(--s-6);\n}\n.chart-head{\n  display:flex;\n  align-items:baseline;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-5);\n}\n.chart-head > :first-child{\n  min-width:0;\n}\n.chart-head .t{\n  font-size:var(--t-body);\n  font-weight:600;\n}\n.chart-head .s{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-400);\n  text-transform:uppercase;\n}\n.chart-big{\n  font-size:var(--t-h2);\n  font-weight:700;\n  letter-spacing:var(--tr-tight);\n  margin:var(--s-2) 0;\n}\n.chart-big.accent{\n  background:var(--grad-signal);\n  -webkit-background-clip:text;\n  background-clip:text;\n  color:transparent;\n}\n.chart-delta{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--success);\n}\n.chart-delta.neg{\n  color:var(--danger);\n}\n.chart-legend{\n  list-style:none;\n  margin:var(--s-3) 0 0;\n  padding:0;\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-4);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.chart-legend li{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  white-space:nowrap;\n}\n"
+      "content": ".chart-plot{\n  position:relative;\n}\n.chart-plot > svg{\n  display:block;\n  width:100%;\n  height:auto;\n}\n.chart-label{\n  position:absolute;\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  line-height:1;\n  white-space:nowrap;\n  translate:0 -50%;\n  pointer-events:none;\n}\n.chart-label-axis{\n  color:var(--obsidian-200);\n}\n.chart-label-value{\n  color:var(--obsidian-100);\n}\n.chart-label-center{\n  translate:-50% -50%;\n}\n.chart-label-end{\n  translate:-100% -50%;\n}\n.chart-plot-sm{\n  display:none;\n}\n@media (max-width: 720px){\n  .chart-plot-lg{\n    display:none;\n  }\n  .chart-plot-sm{\n    display:block;\n  }\n}\n.chart-card{\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  padding:var(--s-6);\n}\n.chart-head{\n  display:flex;\n  align-items:baseline;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-5);\n}\n.chart-head > :first-child{\n  min-width:0;\n}\n.chart-head .t{\n  font-size:var(--t-body);\n  font-weight:600;\n}\n.chart-head .s{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--obsidian-400);\n  text-transform:uppercase;\n}\n.chart-big{\n  font-size:var(--t-h2);\n  font-weight:700;\n  letter-spacing:var(--tr-tight);\n  margin:var(--s-2) 0;\n}\n.chart-delta{\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  color:var(--success);\n}\n.chart-legend{\n  list-style:none;\n  margin:var(--s-3) 0 0;\n  padding:0;\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-4);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.chart-legend li{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  white-space:nowrap;\n}\n"
     },
     {
       "path": "amaca/chart.html",
       "type": "registry:file",
       "target": "components/amaca/chart.html",
-      "content": "<div class=\"chart-card\"><div class=\"chart-head\"><span class=\"t\">Retention · D30</span><span class=\"s\">CS-017</span></div><div class=\"chart-big accent\">84%</div><div class=\"chart-delta\">+2.4 vs Q2</div></div>\n"
+      "content": "<div class=\"chart-card\" style=\"width:min(100%, calc(var(--s-32) * 3))\"><div class=\"chart-head\"><span class=\"t\">Adoption by region</span><span class=\"s\">Orion · beta</span></div><div class=\"chart-plot\"><svg viewBox=\"0 12 384 148\" role=\"img\" aria-label=\"Adoption by region: EMEA 91%, AMER 71%, APAC 58%, LATAM 29%\"><g><rect x=\"60\" y=\"18\" width=\"310\" height=\"14\" rx=\"2\" style=\"fill:var(--obsidian-800)\"/><rect x=\"60\" y=\"18\" width=\"282\" height=\"14\" rx=\"2\" style=\"fill:var(--primary-300)\"/><rect x=\"60\" y=\"58\" width=\"310\" height=\"14\" rx=\"2\" style=\"fill:var(--obsidian-800)\"/><rect x=\"60\" y=\"58\" width=\"220\" height=\"14\" rx=\"2\" style=\"fill:var(--primary-500)\"/><rect x=\"60\" y=\"98\" width=\"310\" height=\"14\" rx=\"2\" style=\"fill:var(--obsidian-800)\"/><rect x=\"60\" y=\"98\" width=\"180\" height=\"14\" rx=\"2\" style=\"fill:var(--primary-600)\"/><rect x=\"60\" y=\"138\" width=\"310\" height=\"14\" rx=\"2\" style=\"fill:var(--obsidian-800)\"/><rect x=\"60\" y=\"138\" width=\"90\" height=\"14\" rx=\"2\" style=\"fill:var(--primary-700)\"/></g></svg><span class=\"chart-label chart-label-axis\" style=\"left:0%;top:8.784%\">EMEA</span><span class=\"chart-label chart-label-value\" style=\"left:90.104%;top:8.784%\">91%</span><span class=\"chart-label chart-label-axis\" style=\"left:0%;top:35.811%\">AMER</span><span class=\"chart-label chart-label-value\" style=\"left:73.958%;top:35.811%\">71%</span><span class=\"chart-label chart-label-axis\" style=\"left:0%;top:62.838%\">APAC</span><span class=\"chart-label chart-label-value\" style=\"left:63.542%;top:62.838%\">58%</span><span class=\"chart-label chart-label-axis\" style=\"left:0%;top:89.865%\">LATAM</span><span class=\"chart-label chart-label-value\" style=\"left:40.104%;top:89.865%\">29%</span></div></div>\n"
     }
   ],
   "meta": {
@@ -41,30 +41,21 @@
         {
           "axis": "plot",
           "values": [
-            "stat",
-            "line",
-            "area",
             "bars",
             "columns",
+            "line",
+            "area",
             "donut"
           ],
-          "default": "stat"
+          "default": "bars"
         },
         {
-          "axis": "value",
+          "axis": "series",
           "values": [
-            "neutral",
-            "accent"
+            "one",
+            "several, with a legend"
           ],
-          "default": "neutral"
-        },
-        {
-          "axis": "delta",
-          "values": [
-            "up",
-            "down"
-          ],
-          "default": "up"
+          "default": "one"
         }
       ],
       "parts": [
@@ -100,32 +91,31 @@
           "states": ""
         },
         {
-          "name": "Value",
+          "name": "Bars",
           "tokens": [
-            "--t-h2",
-            "--tr-tight"
+            "--primary-300",
+            "--primary-500",
+            "--primary-600",
+            "--primary-700"
+          ],
+          "value": "",
+          "states": "the sequential palette, low to high · track --obsidian-800"
+        },
+        {
+          "name": "Axis label",
+          "tokens": [
+            "--obsidian-200"
           ],
           "value": "",
           "states": ""
         },
         {
-          "name": "Accent",
+          "name": "Value label",
           "tokens": [
-            "--grad-signal"
+            "--obsidian-100"
           ],
           "value": "",
           "states": ""
-        },
-        {
-          "name": "Delta",
-          "tokens": [
-            "--success",
-            "--font-mono",
-            "--t-caption",
-            "--tr-mono"
-          ],
-          "value": "",
-          "states": "down --danger"
         }
       ],
       "rules": [
@@ -136,7 +126,6 @@
         "Choreography E (the line and area plot). Each part starts when the one before it reads, not when it ends: the baseline at --d-base, the line --d-slow later, area and points --d-slow after the line starts, the points --d-quick apart. Under reduced motion every part lands drawn."
       ],
       "classes": [
-        "accent",
         "chart-big",
         "chart-card",
         "chart-delta",
@@ -151,7 +140,6 @@
         "chart-plot",
         "chart-plot-lg",
         "chart-plot-sm",
-        "neg",
         "s",
         "t"
       ]
