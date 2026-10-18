@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 4.3.2
-updated: 2026-09-26
+version: 5.0.0
+updated: 2026-10-18
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-09-26
+last_synced: 2026-10-18
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 4.3.2 — 2026.09.26
+> **Version** 5.0.0 — 2026.10.18
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -3276,9 +3276,8 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 
 **Variants.**
-- `plot` — stat (default) · line · area · bars · columns · donut
-- `value` — neutral (default) · accent
-- `delta` — up (default) · down
+- `plot` — bars (default) · columns · line · area · donut
+- `series` — one (default) · several, with a legend
 **Do / Don't.** Do write every label of a plot as HTML over the drawing, sized by a token, with the same margin on all four sides of the canvas. Don't put a `<text>` inside the svg, or let a label touch the edge of the canvas.
 
 **Do / Don't.** Do give a plot that does not hold on a phone a second drawing, and keep the bars in two columns down to 720px. Don't let a phone shrink the desktop drawing until its points and labels cannot be read.
@@ -4210,6 +4209,36 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.0.0 — 2026.10.18 (MAJOR)
+
+One page per component, every value on a scale, and a system an agent can install: the contract, the site and the packages now say the same thing in the same order.
+
+**Breaking**
+- **`--magenta-*` is renamed `--primary-*`, no alias.** The Tailwind utilities follow (`bg-magenta-500` → `bg-primary-500`). A computed-style diff against v4.3.2 on 10,165 elements found no paint change.
+- **The case study template changes its markup.** Hero title and lede, section title and body, figure, stat cards, note and More cases carry their own classes (`.cs-hero-title`, `.cs-section-body`, `.cs-figure`, `.cs-stat*`, `.cs-note*`, `.cs-card*`); the 16:9 placeholder figure and `.cs-img-caption` are gone.
+- **Section numbers changed.** The site reads in menu order, one section per component, § 3 after it; a "§ N.M" reference written against v4.3.2 points to the same content under its new number.
+
+**Added**
+- **Components:** Link, Modal, Avatar, Icon (an album of 50, outline and solid), List, Pagination, Slider and range, Divider, Skeleton, Popover, Drawer, the top bar and the floating bar, Menu and Slider in Select, Swatch, Stepper and Progress as HTML, Segmented control, row and feature Cards, sortable Table headers, a pressed state on every Button.
+- **A page per component, in one order:** Usage, the Anatomy and code card (written by `release/kit.py`), Rules copied from the contract (`release/rules.py`), the variants by axis, Do and don't. Every component section carries a **Rules.** block and a **Variants.** block.
+- **Install paths:** the npm package `amaca-design` (also on jsDelivr), published on the release tag; a shadcn registry with one item per component, its contract in `meta.amaca`; MCP through the shadcn MCP server with the `@amaca` namespace.
+- **AI-readable:** `llms.txt` and `llms-full.txt` open with "Which file for which tool", and a model asks for the tool before recommending a file.
+- **Tokens:** `--s-px` and `--s-0-5`, border widths, focus, icon and target sizes, fluid headings, surface and border roles, three breakpoints, three materials, `--primary-950`, `--ease-linear`; a size index and a state index with an Exception column.
+- **Guidelines:** Usage per component, ranked principles, the law and conventions registries; Browser chrome on the Layout page, the scrollbars included.
+- **Checks 47-105.** Among them: every value a token (51), breakpoints (53), the kit card (99), the Rules (100), the shadcn registry (101), every declared variant shown (102), the npm package (103), the tool guide (104), the Overview counts (105).
+
+**Changed**
+- **`--ease-standard` is an ease in-out** (`0.45, 0, 0.55, 1`) for state changes; it was an ease-out.
+- **Charts:** data palettes on tokens, labels in HTML over the drawing, a second drawing for small screens, choreography on tokens; Chart card and Diagrams get their Anatomy card.
+- **The case study template follows the portfolio that runs it:** one reading column, real figures under a caption, outcome stat cards, a closing note, More cases as linked Cards; the animated mark stays as the hero's placeholder.
+- **How to install** recommends the plugin for Claude Code and the editors, and `AI-INSTRUCTIONS.md` for chats and app builders; the Tailwind install is `npm install amaca-design` with `@import "amaca-design/theme.css"`.
+- **amaca-frontend 1.3.0** and **amaca-figma 1.6** read the Rules and Variants blocks.
+
+**Fixed**
+- **Control outlines reach 3:1** on `--border-input` (fields, checkbox, radio were 1.18:1 and 1.41:1).
+- **The law card and the sidebar indicator move on tokens only**; a raw `cubic-bezier` in `components.css` now fails check 07.
+- **No page scrolls sideways**; the sidebar indicator travels from the last position across groups; the typing dots are written once; the motion index carries every row word for word.
 
 ### v4.3.2 — 2026.09.26 (PATCH)
 

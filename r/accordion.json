@@ -24,7 +24,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "4.3.2",
+      "version": "5.0.0",
       "source": "DESIGN.md § 3.33 Accordion",
       "site": "https://www.amaca.design/#accordion",
       "usage": {
