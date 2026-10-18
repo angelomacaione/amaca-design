@@ -278,7 +278,7 @@ code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
 /* scrollbar */
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:var(--r-sm);border:2px solid var(--obsidian-950)}
+::-webkit-scrollbar-thumb{background:var(--obsidian-700);border-radius:var(--r-sm);border:var(--bw-2) solid var(--obsidian-950)}
 ::-webkit-scrollbar-thumb:hover{background:var(--obsidian-600)}
 ::-webkit-scrollbar-corner{background:transparent}
 }

@@ -47,7 +47,7 @@ ROWS = [
      "downloads/zips/amaca-chat.zip"),
     ("An app builder: v0, Lovable, Base44",
      [("AI-INSTRUCTIONS.md", "downloads/AI-INSTRUCTIONS.md", None)],
-     "add it to the project's knowledge or system prompt",
+     "add it to the project's knowledge or system prompt; where the builder takes files, add theme.css as the Tailwind foundation",
      "downloads/zips/amaca-appbuilder.zip"),
     ("Figma, with the Figma agent",
      [("amaca-figma.md", "downloads/amaca-figma.md", None)],
@@ -89,6 +89,22 @@ ROWS = [
 
 # the namespace the MCP row and the Documentation row both give, word for word
 MCP_REGISTRY = '"@amaca": "https://www.amaca.design/r/{name}.json"'
+
+
+# § 03.1 How to install: what each step must name, so the site and llms.txt recommend the same file
+STEPS = {
+    "01": ["amaca-frontend.skill", "/plugin install amaca-design@amaca"],
+    "02": ["amaca-figma.md"],
+    "03": ["DESIGN.md"],
+    "04": ["amaca-plugin.zip", "amaca-ide.zip"],
+    "05": ["AI-INSTRUCTIONS.md"],
+    "06": ["AI-INSTRUCTIONS.md"],
+    "07": ["AI-INSTRUCTIONS.md"],
+    "08": ["AI-INSTRUCTIONS.md", "theme.css"],
+    "09": ["npm install amaca-design"],
+    "10": ["npx shadcn add"],
+    "11": ["@amaca"],
+}
 
 
 def url(path):

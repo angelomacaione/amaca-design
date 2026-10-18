@@ -51,3 +51,5 @@ Reference snippets (token-only, reuse verbatim):
 .input:focus{ border-color:var(--primary-500); box-shadow:var(--ring-field); }
 .input:disabled{ opacity:0.4; cursor:not-allowed; }
 ```
+
+Variants: build only the axes and values the component's **Variants.** block in `DESIGN.md` declares.

@@ -4022,11 +4022,13 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 |---|---|
 | `::-webkit-scrollbar` | `10px` track on both axes |
 | `::-webkit-scrollbar-track` | `transparent` — the page shows through |
-| `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `2px solid --obsidian-950` border (the border is what makes it read as inset) |
+| `::-webkit-scrollbar-thumb` | `--obsidian-700`, `--r-sm`, `--bw-2 solid --obsidian-950` border (the border is what makes it read as inset) |
 | `::-webkit-scrollbar-thumb:hover` | `--obsidian-600` |
 | `::-webkit-scrollbar-corner` | `transparent` — where the two bars meet, the page shows through as on the track |
 | `::selection` | `--primary-500` background, `--obsidian-050` text — near-white, `#FFF` is banned (§ 01.2) |
 | `caret-color` | `--primary-500` on `input` and `textarea` — the browser's default blue is off-system |
+
+Firefox reads no `::-webkit-scrollbar` rule: it draws its own bar, dark because the page declares `color-scheme: dark`. The site shows all four on the Layout page (§ 08.4).
 
 **Closure clause.** Browser chrome not listed here is native and is not styled — focus rings on non-components, resize handles, autofill backgrounds, spell-check underlines, `overscroll-behavior`. Overriding one is a system decision, not a component decision.
 
@@ -4058,7 +4060,7 @@ The surfaces the browser paints that are not components. **Four are styled. Ever
 
 ### Anatomy and code card
 
-Every component page carries one card, written by `release/kit.py` from `components.css` and checked by the harness (check 99): the live example on a 16px grid on the left, and a panel with a Segmented control on the right. Anatomy names the visible parts and the tokens that draw each, the states on a second line; Code gives the HTML and the rules of `components.css` that draw it, to copy or download. The card is site chrome (`.kit*`), and six rules shape it:
+Every component page carries one card (a Foundations page, Icon included, carries none: its album is the reference), written by `release/kit.py` from `components.css` and checked by the harness (check 99): the live example on a 16px grid on the left, and a panel with a Segmented control on the right. Anatomy names the visible parts and the tokens that draw each, the states on a second line; Code gives the HTML and the rules of `components.css` that draw it, to copy or download. The card is site chrome (`.kit*`), and six rules shape it:
 
 1. **In the middle.** The example sits in the centre of the grid. Only what lives on an edge (sidebar, drawer, top bar) leans on that edge, full height or width, with no margin and no corners.
 2. **One specimen.** One example per card: the first of its family, the brand colour when there is a choice. A call to action is the primary.

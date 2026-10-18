@@ -28,3 +28,5 @@ Applies on CSS/HTML/Vue/Svelte files. The token discipline, 85/10/5 law, a11y fl
 .btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
   border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
 ```
+
+Variants: build only the axes and values the component's **Variants.** block in `DESIGN.md` declares.

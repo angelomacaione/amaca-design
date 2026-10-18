@@ -219,7 +219,7 @@ KITS = {
     "table": {"page": "table", "classes": {"table"},
               "html": '<table class="table"><thead><tr><th scope="col">Token</th><th scope="col">Value</th></tr></thead><tbody><tr><td><code>--s-4</code></td><td>16</td></tr><tr><td><code>--s-6</code></td><td>24</td></tr><tr><td><code>--s-8</code></td><td>32</td></tr></tbody></table>',
               "parts": [("Header", ".table th", "TFEP", []), ("Cell", ".table td", "TEP", []), ("Code", ".table code", "TFS", [])]},
-    "icon": {"page": "icon", "classes": {"icon", "icon-lg"},
+    "icon": {"page": "icon", "card": False, "classes": {"icon", "icon-lg"},
              "html": svg("search", "icon icon-lg"),
              "parts": [("Size", ".icon", "Z", [("large", ".icon-lg")]), ("Stroke", ".icon", "KC", [])]},
 }

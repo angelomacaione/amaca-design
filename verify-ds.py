@@ -3813,6 +3813,20 @@ def c104():
                       ("index.html § 03.1", html)):
         if ns not in txt:
             fails.append(f"{name}: the MCP namespace is not {ns}")
+    a1 = html.find("§ 03.1")
+    b1 = html.find("§ 03.2", a1)
+    steps = {}
+    for li in re.findall(r'<li class="card doc-row".*?</li>', html[a1:b1], re.S):
+        m = re.search(r">(\d\d) ·", li)
+        if m:
+            steps[m.group(1)] = re.sub(r"<[^>]+>", "", li)
+    guide = tg.render()
+    for num, needs in tg.STEPS.items():
+        for need in needs:
+            if need not in steps.get(num, ""):
+                fails.append(f"index.html § 03.1 step {num} does not name {need}")
+            if need.endswith((".md", ".zip", ".skill", ".css")) and need not in guide:
+                fails.append(f"§ 03.1 step {num} recommends {need}; the tool guide never does")
     named = {Path(p).name for p in tg.paths()}
     for z in sorted(zips - named):
         fails.append(f"index.html § 03.0 offers {z}; the tool guide never recommends it")
@@ -3938,6 +3952,10 @@ def c99():
     found = {m.group(2): m.group(3) for m in kit.blocks(html)}
     fails = []
     for name in kit.KITS:
+        if not kit.KITS[name].get("card", True):
+            if name in found:
+                fails.append(f"index.html: {name} is a foundation and carries no card")
+            continue
         if name not in found:
             fails.append(f"index.html: no <!-- kit:{name} --> block")
         elif found[name] != kit.build(name):

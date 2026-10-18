@@ -15,6 +15,8 @@ This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand ac
 
 **Laws:** 85/10/5 (≥85% obsidian, ≤10% primary + cyan, ≤5% semantic; one primary action per screen) · off-scale values break precision (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · motion is feedback, not decoration.
 
+**Components:** Every component section in `DESIGN.md` carries a **Rules.** block and a **Variants.** block (one axis per line, values in order, the default marked): build only the variants it declares.
+
 **A11y floor:** color never alone (+ shape + label) · no text < 12px / body < 14px · persistent labels (placeholder ≠ label) · `alt` on images · focus follows reading order, dual-ring on pressables · no auto-advance · touch 44×44 (32×32 dense desktop). On `--primary-500` use a dark label (`--obsidian-950`, AA); the ratified exception is `.btn-primary` and `.badge-solid` (light label, scoped to those two).
 
 **Voice:** imperative and terse in specs/code; no AI tells ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".

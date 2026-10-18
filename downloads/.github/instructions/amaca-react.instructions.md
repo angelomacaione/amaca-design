@@ -24,3 +24,5 @@ Applies on JSX/TSX files. The token discipline, 85/10/5 law, a11y floor, and nev
   Save
 </button>
 ```
+
+Variants: build only the axes and values the component's **Variants.** block in `DESIGN.md` declares.

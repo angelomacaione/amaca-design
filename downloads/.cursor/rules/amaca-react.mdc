@@ -49,3 +49,5 @@ export function PrimaryButton({ children, ...props }: ButtonProps) {
   );
 }
 ```
+
+Variants: build only the axes and values the component's **Variants.** block in `DESIGN.md` declares.
