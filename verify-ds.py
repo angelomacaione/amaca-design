@@ -3942,6 +3942,49 @@ def c101():
     return [f"r/{n}: not what release/registry.py writes - run `python3 release/registry.py`" for n in bad]
 
 
+@check("107", "The MCP server at /mcp answers from the files the site ships: its tests pass, Vercel bundles what it reads, and the site and the plugin give its URL",
+       "v5.1.0: the shadcn MCP server runs on the user's machine, so a chat app that only takes a remote server by URL "
+       "(a Claude custom connector) could not reach Amaca at all. api/mcp.js serves the registry, the tokens, DESIGN.md and "
+       "the tool guide from the same deploy. A function that reads a file Vercel did not bundle fails only in production, "
+       "after the merge, where no local run sees it; and a server that answers from a different registry than r/ is two "
+       "sources of truth. tests/mcp.test.js holds both, and this check runs it.")
+def c107():
+    import json, shutil, subprocess
+    fails = []
+    for f in ("api/mcp.js", "api/_mcp/core.js", "tests/mcp.test.js", "vercel.json"):
+        if not (ROOT / f).exists():
+            fails.append(f"{f} is missing")
+    if fails:
+        return fails
+    node = shutil.which("node")
+    if not node:
+        return ["node is not installed: tests/mcp.test.js cannot run, so the MCP server is unverified"]
+    r = subprocess.run([node, "--test", str(ROOT / "tests" / "mcp.test.js")],
+                       capture_output=True, text=True, cwd=ROOT, timeout=120)
+    if r.returncode:
+        bad = [l[len("not ok "):].strip() for l in r.stdout.splitlines() if l.startswith("not ok ")]
+        fails += [f"tests/mcp.test.js: {b}" for b in bad] or [f"tests/mcp.test.js exits {r.returncode}: {r.stderr.strip()[-300:]}"]
+    v = json.loads(read(ROOT / "vercel.json"))
+    if "api/mcp.js" not in v.get("functions", {}):
+        fails.append("vercel.json: api/mcp.js has no functions entry, so its includeFiles are not applied")
+    if {"source": "/mcp", "destination": "/api/mcp"} not in v.get("rewrites", []):
+        fails.append("vercel.json: no rewrite from /mcp to /api/mcp, so the published URL answers 404")
+    url = "https://www.amaca.design/mcp"
+    for name in ("index.html", "llms.txt", "llms-full.txt"):
+        if url not in read(ROOT / name):
+            fails.append(f"{name}: does not give the MCP server's URL ({url})")
+    import zipfile
+    try:
+        with zipfile.ZipFile(PLUGIN_ZIP) as z:
+            man = json.loads(z.read("amaca-design/.claude-plugin/plugin.json"))
+        srv = man.get("mcpServers", {}).get("amaca", {})
+        if srv.get("type") != "http" or srv.get("url") != url:
+            fails.append(f"amaca-plugin.zip: the Claude Code manifest does not declare the MCP server ({url}, type http)")
+    except Exception as e:
+        fails.append(f"amaca-plugin.zip: Claude Code manifest unreadable ({e!r})")
+    return fails
+
+
 @check("102", "Every variant the contract declares is on its page, in a demo",
        "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
        "visual source of truth the owner validates against, so a declared class no demo shows is a variant "

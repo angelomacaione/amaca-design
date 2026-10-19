@@ -105,7 +105,7 @@ html{scroll-behavior:smooth}
       </g>
     </g>
     <text x="600" y="600" text-anchor="middle" fill="#E3E7EC" font-family="ui-sans-serif,system-ui,sans-serif" font-size="56" font-weight="700" letter-spacing="2">Amaca</text>
-    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V5.0.0</text>
+    <text x="600" y="648" text-anchor="middle" fill="#8A94A3" font-family="Satoshi, ui-sans-serif, sans-serif" font-size="22" letter-spacing="6">DESIGN SYSTEM · V5.1.0</text>
   </svg>
 </template>
 <a href="#main-content" class="skip-link">Skip to content</a>
@@ -117,7 +117,7 @@ html{scroll-behavior:smooth}
       <div class="brand-mark"><img src="assets/logo.svg" alt="Amaca"/></div>
       <div class="brand-text">
         <span class="name">Amaca</span>
-        <span class="meta">V5.0.0 · DESIGN SYSTEM</span>
+        <span class="meta">V5.1.0 · DESIGN SYSTEM</span>
       </div>
     </div>
 
@@ -261,11 +261,11 @@ html{scroll-behavior:smooth}
           </p>
           <p class="page-lede">Amaca is my personal design system. It started as a side project — a place to practice the kind of system I'd been wanting to build for years (full story <a href="https://angelomacaione.com/case-studies/the-system-i-couldnt-build-until-ai-let-me" target="_blank" rel="noopener">here</a>). It's grown into something more specific: a design system where motion is a foundation, not a finish, and where every rule is written so an AI agent can read and apply it as cleanly as a human can.</p>
           <div class="page-meta">
-            <div class="mk"><span class="k">Version</span><span class="v">5.0.0</span></div>
+            <div class="mk"><span class="k">Version</span><span class="v">5.1.0</span></div>
             <div class="mk"><span class="k">Theme</span><span class="v">Dark-first</span></div>
             <div class="mk"><span class="k">Typeface</span><span class="v">Satoshi</span></div>
             <div class="mk"><span class="k">Primary</span><span class="v">#F051D5 — Magenta</span></div>
-            <div class="mk"><span class="k">Updated</span><span class="v">Oct 18, 2026</span></div>
+            <div class="mk"><span class="k">Updated</span><span class="v">Oct 19, 2026</span></div>
           </div>
         </div>
         <div class="subsection">
@@ -519,6 +519,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <div>
                 <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Let the agent find and install components.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The shadcn MCP server reads any registry a project names. Turn it on with <code>npx shadcn@latest mcp init --client claude</code> (or <code>cursor</code>, <code>vscode</code>, <code>codex</code>), then add Amaca to <code>components.json</code>: <code>"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }</code>. Ask in plain words, "add the Amaca card", and the agent searches <code>@amaca</code>, reads the item with its contract and installs it.</p>
+              </div>
+            </li>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-1)">12 · MCP<br/><span style="color:var(--obsidian-400)">— CONNECT BY URL</span></div>
+              <div>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Connect any agent, by URL.</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Add <code>https://www.amaca.design/mcp</code> as a remote MCP server: a custom connector in Claude, <code>claude mcp add --transport http amaca https://www.amaca.design/mcp</code> in Claude Code, the same URL in Cursor or VS Code; the Claude Code plugin brings it with the skill. No key and nothing to install. The agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md, and which file to give for each tool.</p>
               </div>
             </li>
           </ol>
@@ -8650,9 +8657,31 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
           <p class="subsection-desc">Latest first. Each entry documents what was added, refined, or fixed — and where unchanged, says so. Click a row to expand.</p>
           <div class="accordion" data-accordion>
 
-            <!-- v5.0.0 -->
+            <!-- v5.1.0 -->
             <div class="acc-item is-open">
-              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-500">
+              <button type="button" class="acc-trigger" aria-expanded="true" aria-controls="cl-510">
+                <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
+                <span class="acc-label">v5.1.0 &mdash; Amaca as a remote MCP server</span>
+                <span class="acc-num">2026-10-19</span>
+              </button>
+              <div class="acc-panel" id="cl-510" role="region">
+                <div class="acc-panel-inner"><div class="acc-panel-body">
+                  <p>MINOR. Amaca as a remote MCP server: a chat app that takes a server only by URL can now read the system.</p>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">A remote MCP server at <code>https://www.amaca.design/mcp</code>.</strong> Streamable HTTP, stateless, read-only, no key. Five tools: <code>list_components</code>; <code>get_component</code>, the contract in <code>meta.amaca</code>, the CSS and one example; <code>get_tokens</code>, <code>tokens.css</code> or the DTCG file, whole or one family; <code>get_design_section</code>, one section of DESIGN.md by title or &sect; number; <code>get_install</code>, the tool guide. It answers from the files of the deploy that serves it, so it is always the published release. Add it as a custom connector in Claude, with <code>claude mcp add --transport http</code> in Claude Code, or by URL in Cursor and VS Code; the Claude Code plugin now declares it, so installing the plugin brings the skill and the server together. The shadcn MCP server stays the way to install components into a project.</li><li><strong style="color:var(--obsidian-100)">&sect; 03.1 step 12, &ldquo;Connect any agent, by URL&rdquo;,</strong> and its line in the tool guide of <code>llms.txt</code> and <code>llms-full.txt</code>.</li><li><strong style="color:var(--obsidian-100)">Check 107:</strong> the server&rsquo;s tests pass (<code>tests/mcp.test.js</code>, run with <code>node --test</code>), Vercel bundles every file it reads, and the site gives its URL.</li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li>No token, component or rule changes. The stylesheets are the v5.0.0 files.</li></ul>
+                  <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
+                    <span><span style="color:var(--obsidian-400)">RELEASED &middot; </span>2026-10-19</span>
+                    <span><span style="color:var(--obsidian-400)">LIVE &middot; </span><a href="https://amaca.design" target="_blank" rel="noopener">amaca.design</a></span>
+                    <span><span style="color:var(--obsidian-400)">SPEC &middot; </span><a href="https://amaca.design/DESIGN.md" target="_blank" rel="noopener">design.md</a></span>
+                    <span><span style="color:var(--obsidian-400)">COMPARE &middot; </span><a href="https://github.com/angelomacaione/amaca-design/compare/v5.0.0...v5.1.0" target="_blank" rel="noopener">v5.0.0&hellip;v5.1.0</a></span>
+                  </div>
+                </div></div>
+              </div>
+            </div>
+
+            <!-- v5.0.0 -->
+            <div class="acc-item">
+              <button type="button" class="acc-trigger" aria-expanded="false" aria-controls="cl-500">
                 <span class="acc-chevron" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M6 3l5 5-5 5"/></svg></span>
                 <span class="acc-label">v5.0.0 &mdash; One page per component, an install for every tool</span>
                 <span class="acc-num">2026-10-18</span>
