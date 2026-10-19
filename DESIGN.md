@@ -3289,7 +3289,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 |---|---|---|---|
 | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
-| plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| plot reveal | area opacity (effect) | `--d-slow` · `--ease-soft` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
 | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
 | plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
@@ -3798,7 +3798,7 @@ A principle guides a judgement; a law is measured and enforced. Laws are not wei
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and six easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
 #### L1 · The 85 / 10 / 5 law, in detail
@@ -3836,7 +3836,7 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 
 ## Motion
 
-**Six durations, six easings. No others.**
+**Six durations, five easings. No others.**
 
 | Duration | ms | Use |
 |---|---|---|
@@ -3854,11 +3854,10 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 | `--ease-standard` | `cubic-bezier(0.45, 0, 0.55, 1)` | Ease in-out, symmetric: user-triggered state changes — hover, press, focus, selected. Neither an entrance nor an exit (v5.0.0; was the ease-out `(0.22, 1, 0.36, 1)`) |
 | `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Emphasis and relevant interactions (pressing a primary), pop-in, overshoot — spatial properties only, see below |
 | `--ease-soft` | `cubic-bezier(0.12, 0.23, 0.5, 1)` | Reading entrances: a page's blocks as it opens, a card coming into view. A gentle out with no snap, on `--d-slow` over `--s-8` of rise, so content arrives without pulling the eye. Not for a component entering (a modal, a popover): that is `--ease-decel` (v5.2.0) |
-| `--ease-linear` | `linear` | Neutral: an opacity that should carry no character (a fade inside a choreography, a data area appearing), a continuous loop. The motion counterpart of a neutral colour (v5.0.0) |
 
 **Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`. Reading entrances, a page's blocks as it opens and cards coming into view, ride `--d-slow` · `--ease-soft` over `--s-8`: content the reader came for arrives gently, a component that answers an action keeps its `--ease-decel` snap.
 
-**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-soft`, `--ease-linear`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
+**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-soft`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
 
 **Component motion grammar.** Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs, no extra columns:
 
@@ -3893,7 +3892,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
-| Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-soft` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
 | Plot | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
 | Plot | plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | Plot | plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
@@ -4213,7 +4212,7 @@ Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
 
 When working without a rules file, prepend this to your request:
 
-> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and six easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
+> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and five easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
 
 ## Versioning
 
@@ -4245,7 +4244,7 @@ Pages that arrive gently, a search for the whole system, and an MCP server that 
 
 **Added**
 - **`check_compliance`, the sixth tool of the MCP server.** Give it HTML and CSS, or React with Tailwind: it flags colour literals, raw px, durations and easings, `--ease-spring` on an effect property, classes that look like Amaca and are not in the registry, a second primary and a missing reduced-motion override, each with the token or class that fixes it. The server's instructions ask a model to run it before handing code over.
-- **`--ease-soft` (`0.12, 0.23, 0.5, 1`), the curve for reading entrances.** L8 now reads six durations and six easings; § 06 gains its tile.
+- **`--ease-soft` (`0.12, 0.23, 0.5, 1`), the curve for reading entrances.** It takes the place of `--ease-linear`, which leaves the set (see Removed); § 06 swaps the Linear tile for Soft.
 - **The page entrance (§ Page shell).** An active section arrives in three blocks, header, usage and the rest, each rising `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` apart. It replaces the 8px fade of the whole section.
 - **Card rise (§ Card).** A card coming into view rises the same way; cards that show together go 80ms apart in reading order, and a stat counts from the frame its card starts.
 - **Charts › Stat · one number (§ 44.3).** The stat card lives with the charts, and Card § 36.4 points to it. Bars and what follows renumber to § 44.4–44.8.
@@ -4265,8 +4264,11 @@ Pages that arrive gently, a search for the whole system, and an MCP server that 
 - **The Anatomy and code card keeps one height**: the Anatomy view sets it and Code scrolls inside, so switching views no longer moves the page.
 - **The example in the Anatomy and code card is inert**: no hover, focus or click changes it, so it always matches the tokens named beside it.
 
+**Removed**
+- **`--ease-linear`.** One use in the whole system, the Plot's area fade, which now rides `--ease-soft`. A continuous loop (the Loader, the Skeleton shimmer) keeps the `linear` keyword, as it already did: a loop with no curve is not a choice of curve. An outside stylesheet that reads `var(--ease-linear)` falls back to the browser's default timing: write `--ease-soft` for a fade, `linear` for a loop.
+
 **Unchanged**
-- No token value changes.
+- No other token changes its value.
 
 ### v5.1.0 — 2026.10.19 (MINOR)
 

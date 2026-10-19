@@ -1702,16 +1702,6 @@
     "$type": "cubicBezier",
     "$description": "gentle out: reading entrances, a page's blocks and cards coming into view (v5.2.0)"
   },
-  "ease-linear": {
-    "$value": [
-      0.0,
-      0.0,
-      1.0,
-      1.0
-    ],
-    "$type": "cubicBezier",
-    "$description": "neutral: an opacity with no character, a continuous loop (v5.0.0)"
-  },
   "d-instant": {
     "$value": {
       "value": 100,

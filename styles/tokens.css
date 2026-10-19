@@ -214,7 +214,6 @@
   --ease-decel:    cubic-bezier(0.16, 1, 0.3, 1);      /* expo-out */
   --ease-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);  /* elastic overshoot */
   --ease-soft:     cubic-bezier(0.12, 0.23, 0.5, 1);   /* gentle out: reading entrances, a page's blocks and cards coming into view (v5.2.0) */
-  --ease-linear:   linear;                             /* neutral: an opacity with no character, a continuous loop (v5.0.0) */
   --d-instant: 100ms;
   --d-quick:   200ms;
   --d-base:    350ms;

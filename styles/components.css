@@ -393,7 +393,7 @@
 .swatch-tile-ball{position:absolute;left:0;bottom:0;width:var(--s-3);height:var(--s-3);margin-bottom:calc(var(--s-3) / -2);border-radius:var(--r-full);background:var(--primary-500)}
 .swatch-tile-time,.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation-duration:calc(var(--d, var(--d-base)) * 2.5);animation-iteration-count:3;animation-fill-mode:both}
 .swatch-tile-time{animation-name:swatch-time;animation-timing-function:linear}
-.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation-name:swatch-rise;animation-timing-function:var(--e, var(--ease-linear))}
+.swatch-tile-pos,.swatch-tile-level,.swatch-tile-rise{animation-name:swatch-rise;animation-timing-function:var(--e, var(--ease-standard))}
 @keyframes swatch-time{0%{transform:none}40%,100%{transform:translateX(100%)}}
 @keyframes swatch-rise{0%{transform:none}40%,100%{transform:translateY(-100%)}}
 @media (prefers-reduced-motion: reduce){
