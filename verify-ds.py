@@ -521,7 +521,8 @@ def c19():
         num = re.search(r'subsection-num">([^<]*)', sub)
         has_motion = any(k in sub for k in ("data-fade", "data-alert-fade", "is-in",
                                             "data-toast-demo", "data-fade-chart",
-                                            "data-ease", "stepper", "gantt", "swatch-tile-motion"))
+                                            "data-ease", "stepper", "gantt", "swatch-tile-motion",
+                                            'data-replay="cards-'))  # v5.2.0: the card rise, run by the page script
         if not has_motion and num:
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
@@ -3861,13 +3862,19 @@ def c104():
     a = html.find("<!-- 03.0 · Pick your tool")
     b = html.find("§ 03.1", a)
     zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
-    ns = tg.MCP_REGISTRY
-    if "https://www.amaca.design/r/{name}.json" not in ns or not (ROOT / "r" / "registry.json").exists():
-        fails.append("the MCP namespace does not point at the shadcn registry in r/")
-    for name, txt in (("release/toolguide.py", tg.render()), ("llms.txt", read(ROOT / "llms.txt")),
-                      ("index.html § 03.1", html)):
-        if ns not in txt:
-            fails.append(f"{name}: the MCP namespace is not {ns}")
+    # v5.2.0: the shadcn MCP route is no longer presented (one MCP, the remote one at /mcp,
+    # decision of 2026-10-19: "2 mcp confondono"). The guide must not bring it back, and its
+    # first row is the remote server. r/ stays, for `npx shadcn add`.
+    guide = tg.render()
+    d0 = html.find('<section class="section" id="documentation">')
+    doc = html[d0:html.find('<section class="section"', d0 + 1)] if d0 >= 0 else ""
+    for name, txt in (("release/toolguide.py", guide), ("llms.txt", read(ROOT / "llms.txt")),
+                      ("index.html Documentation", doc)):  # the changelogs keep their history
+        if "shadcn@latest mcp" in txt or "shadcn MCP server" in txt:
+            fails.append(f"{name}: presents the shadcn MCP server; the only MCP Amaca presents is {tg.MCP_SERVER}")
+    rows = [l for l in guide.splitlines() if l.startswith("- **")]
+    if not rows or tg.MCP_SERVER not in rows[0]:
+        fails.append("the tool guide's first row is not the remote MCP server")
     a1 = html.find("§ 03.1")
     b1 = html.find("§ 03.2", a1)
     steps = {}
@@ -3915,11 +3922,14 @@ def c103():
     wf = ROOT / ".github" / "workflows" / "publish-npm.yml"
     text = wf.read_text(encoding="utf-8") if wf.exists() else ""
     for need, what in (('tags: ["v*"]', "runs on a release tag"), ("release/npm.py", "builds with release/npm.py"),
-                       ('"v$v" != "$TAG"', "refuses a tag that is not the package version"), ("secrets.NPM_TOKEN", "publishes with NPM_TOKEN"),
+                       ('"v$v" != "$TAG"', "refuses a tag that is not the package version"), ("id-token: write", "lets npm Trusted Publishing exchange the OIDC token"),
                        ("npm publish ./build/npm", "publishes the folder (without ./ npm reads build/npm as a GitHub repository)"),
                        ("workflow_dispatch", "can publish a tag again by hand")):
         if need not in text:
             fails.append(f".github/workflows/publish-npm.yml: no step that {what}")
+    for stale in ("NPM_TOKEN", "NODE_AUTH_TOKEN"):  # v5.2.0: Trusted Publishing, no stored token
+        if stale in text:
+            fails.append(f".github/workflows/publish-npm.yml: still reads {stale}; npm publishes through Trusted Publishing (OIDC)")
     if "npm install amaca-design" not in read(INDEX) or "www.amaca.design/r/" not in read(INDEX):
         fails.append("index.html: Documentation does not say how to install from npm and from the registry")
     return fails
@@ -3982,6 +3992,60 @@ def c107():
             fails.append(f"amaca-plugin.zip: the Claude Code manifest does not declare the MCP server ({url}, type http)")
     except Exception as e:
         fails.append(f"amaca-plugin.zip: Claude Code manifest unreadable ({e!r})")
+    return fails
+
+
+@check("108", "No active text is drawn in --obsidian-400: neutral mono labels and placeholders are --obsidian-300",
+       "v5.2.0: --obsidian-400 reaches 3.38:1 at best and 2.93:1 on a card, under the 4.5:1 a 10px label needs "
+       "(WCAG 1.4.3). The Typography rule named it for neutral mono labels, so 29 label rules, the placeholders and "
+       "173 inline labels on the site drew text no one could pass, and a site built on the case study template "
+       "inherited it (Lighthouse flagged the dossier). --obsidian-400 stays for what WCAG exempts or measures at 3:1: "
+       "disabled text, a press that lasts as long as the press, and glyphs that clear 3:1 on their ground.")
+def c108():
+    css = read(COMPONENTS)
+    exempt_glyph = {".dp-title svg", ".acc-chevron", ".toast-dismiss", ".chat-tick", ".chat-composer-send"}
+    fails = []
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        sel = " ".join(re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S).split())
+        if not re.search(r"(?<![-\w])color\s*:\s*var\(--obsidian-400\)", m.group(2)):
+            continue
+        parts = [s.strip() for s in sel.split(",")]
+        if all(("disabled" in s) or s.endswith(":active") or s in exempt_glyph for s in parts):
+            continue
+        line = css.count("\n", 0, m.start()) + 1
+        fails.append(f"components.css:{line} {sel}: text in --obsidian-400; neutral labels and placeholders are --obsidian-300")
+    html = read(INDEX)
+    n = len(re.findall(r'<(?:span|div)\b[^>]*style="[^"]*(?<![-\w])color:\s*var\(--obsidian-400\)', html))
+    if n:
+        fails.append(f"index.html: {n} inline label(s) in --obsidian-400; the site's labels follow the same rule")
+    for sm in re.finditer(r"<style[^>]*>(.*?)</style>", html, re.S):  # the templates carry their own rules
+        for r in re.finditer(r"([^{}]+)\{([^{}]*)\}", sm.group(1)):
+            if re.search(r"(?<![-\w])color\s*:\s*var\(--obsidian-400\)", r.group(2)) and "disabled" not in r.group(1):
+                fails.append(f"index.html <style>: {' '.join(r.group(1).split())}: text in --obsidian-400")
+    d = read(DESIGN)
+    if "or `--obsidian-400` for neutral" in d:
+        fails.append("DESIGN.md § Typography still names --obsidian-400 for neutral mono labels")
+    return fails
+
+
+@check("109", "Demo content is invented: the author's name appears only where it credits the author",
+       "v5.2.0: the Chip demo removed a recipient called by the author's own name, and a Skeleton demo loaded his "
+       "profile; the contract's Chip example did the same. Demo content on a public system is invented, never the "
+       "author's own data. The name is read from DESIGN.md's frontmatter, so the check follows it; the credits it "
+       "allows are the frontmatter, the Author line and the site's build stamp.")
+def c109():
+    d = read(DESIGN)
+    m = re.search(r"^author:\s*(.+)$", d, re.M)
+    if not m:
+        return ["DESIGN.md: no author in the frontmatter"]
+    name = m.group(1).strip()
+    fails = []
+    for i, line in enumerate(d.splitlines(), 1):
+        if name in line and not (line.startswith("author:") or line.startswith("> **Author**")):
+            fails.append(f"DESIGN.md:{i}: the author's name in content: {line.strip()[:80]}")
+    for i, line in enumerate(read(INDEX).splitlines(), 1):
+        if name in line and not re.search(r"Build [0-9.]+ · " + re.escape(name), line):
+            fails.append(f"index.html:{i}: the author's name in demo content")
     return fails
 
 

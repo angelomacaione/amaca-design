@@ -23,6 +23,14 @@ INTRO = ("Recommend by the user's tool. If the user has not said which tool they
 
 # (situation, [(label, repo path or None, url)], how, bundle repo path or None)
 ROWS = [
+    ("Any MCP client that adds a server by URL: Claude (a custom connector), Claude Code, Cursor, VS Code",
+     [("Amaca MCP server", None, "https://www.amaca.design/mcp")],
+     "add `https://www.amaca.design/mcp` as a remote MCP server; in Claude Code, "
+     "`claude mcp add --transport http amaca https://www.amaca.design/mcp`, or install the Agent Plugin, which brings it "
+     "with the skill. No key and nothing to install: "
+     "the agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md and this guide, "
+     "and checks the code it wrote against the system (check_compliance)",
+     None),
     ("Claude Code",
      [("Agent Plugin", "downloads/zips/amaca-plugin.zip", None)],
      "run `/plugin marketplace add angelomacaione/amaca-design` then `/plugin install amaca-design@amaca`; "
@@ -70,19 +78,6 @@ ROWS = [
      [("shadcn registry", "r/registry.json", None)],
      "`npx shadcn add https://www.amaca.design/r/<name>.json`, one component at a time; the first one brings the tokens",
      None),
-    ("Any MCP client that adds a server by URL: Claude (a custom connector), Claude Code, Cursor, VS Code",
-     [("Amaca MCP server", None, "https://www.amaca.design/mcp")],
-     "add `https://www.amaca.design/mcp` as a remote MCP server; in Claude Code, "
-     "`claude mcp add --transport http amaca https://www.amaca.design/mcp`, or install the Agent Plugin, which brings it "
-     "with the skill. No key and nothing to install: "
-     "the agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md and this guide",
-     None),
-    ("An agent with MCP (Claude Code, Cursor, VS Code, Codex), components on request",
-     [("shadcn registry", "r/registry.json", None)],
-     "turn on the shadcn MCP server (`npx shadcn@latest mcp init --client claude`, or `cursor`, `vscode`, `codex`) and add "
-     "`\"registries\": { \"@amaca\": \"https://www.amaca.design/r/{name}.json\" }` to the project's components.json; "
-     "the agent then lists, reads and installs `@amaca/<name>` items, each with its contract",
-     None),
     ("A token pipeline: Style Dictionary, Tokens Studio",
      [("tokens.dtcg.json", "downloads/tokens.dtcg.json", None)],
      "feed the W3C DTCG file to the pipeline",
@@ -94,11 +89,10 @@ ROWS = [
 ]
 
 
-# the namespace the MCP row and the Documentation row both give, word for word
-MCP_REGISTRY = '"@amaca": "https://www.amaca.design/r/{name}.json"'
-
 # the remote MCP server (api/mcp.js, served at /mcp by a rewrite in vercel.json):
-# the guide row, § 03.1 step 12 and the Claude Code plugin manifest give this URL, word for word
+# the first guide row, the card that opens Documentation and the Claude Code plugin
+# manifest give this URL, word for word. v5.2.0: it is the only MCP Amaca presents;
+# the shadcn MCP route is gone from the site and the guide (r/ stays, for `npx shadcn add`).
 MCP_SERVER = "https://www.amaca.design/mcp"
 
 
@@ -114,8 +108,6 @@ STEPS = {
     "08": ["AI-INSTRUCTIONS.md", "theme.css"],
     "09": ["npm install amaca-design"],
     "10": ["npx shadcn add"],
-    "11": ["@amaca"],
-    "12": ["www.amaca.design/mcp"],
 }
 
 

@@ -1,6 +1,6 @@
 ---
 name: Amaca
-version: 5.1.0
+version: 5.2.0
 updated: 2026-10-19
 author: Angelo Macaione
 license: MIT
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.1.0 — 2026.10.19
+> **Version** 5.2.0 — 2026.10.19
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -131,8 +131,8 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--obsidian-700` | `#1E242D` | Border |
 | `--obsidian-600` | `#2A313B` | Border strong |
 | `--obsidian-500` | `#3A4451` | Muted edge |
-| `--obsidian-400` | `#5B6573` | Disabled text · control outline |
-| `--obsidian-300` | `#8A94A3` | Secondary text |
+| `--obsidian-400` | `#5B6573` | Disabled text · control outline · never active text (3.38 : 1 at best) |
+| `--obsidian-300` | `#8A94A3` | Secondary text · neutral mono labels · placeholders |
 | `--obsidian-200` | `#B8C0CB` | Tertiary text |
 | `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
@@ -242,7 +242,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **Rules:**
 - One H1 per page. Always.
-- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-400` for neutral.
+- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
 
 ## Layout
@@ -536,7 +536,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
-| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-stat` `.cs-stat-label` `.cs-stat-value` `.cs-stat-note` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
+| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
@@ -600,7 +600,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker | — |
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact | — |
 | `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured | § 6.3 · light label on primary, 2.83 : 1 |
-| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` | — |
+| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-300` | — |
 | `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field | — |
 | `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed | — |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` | — |
@@ -712,7 +712,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
 | `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
 | `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` | — |
-| `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip | — |
+| `.chip-dismiss` | default | transparent | none | `--obsidian-300` | — | its own target, inside a static chip | — |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
 | `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` | — |
@@ -755,7 +755,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index | — |
 | `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held | — |
 | `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it | — |
-| `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
+| `.table-sort` | default | transparent | none | `--obsidian-300` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
 | `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state | — |
 | `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell | — |
 | `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon | — |
@@ -980,14 +980,15 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
 - `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
 - `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 - `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
 - `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
 - Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 
 **Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
 
@@ -1314,7 +1315,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 ```
 
 **Rules.**
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — the neutral mono register (§ Typography); they took it first, for legibility over dark fields, and v5.2.0 gave it to every neutral label. Always persistent — placeholder is **not** a label.
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
@@ -1689,8 +1690,8 @@ A compact label for **one value that belongs to something else** — a tag on a 
 <button class="chip" aria-pressed="true">Motion</button>
 
 <span class="chip chip-info">
-  Angelo Macaione
-  <button class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button>
+  Lena Ortiz
+  <button class="chip-dismiss" aria-label="Remove Lena Ortiz">&times;</button>
 </span>
 ```
 
@@ -2671,8 +2672,9 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 **Rules.**
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
-- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
+- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
+- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
@@ -2710,6 +2712,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 
 
 **Variants.**
@@ -3197,7 +3200,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Part | Treatment |
 |---|---|
 | Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
-| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
+| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-300` on `--obsidian-850`, weight 500 |
 | Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
 | Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
@@ -3233,6 +3236,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - Bars for comparison, labelled at the value; the donut for composition.
 - Lines for trends over time and for several series.
 - Areas for cumulative totals.
+- One number that matters, with no plot: the stat.
 
 *Use something else when*
 - Several time series → lines, not bars.
@@ -3248,8 +3252,8 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 ```
 
 - The card ramp (§ 3.32): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
-- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
-- `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
+- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-300`.
+- `.chart-big` — `--t-h2`, 700, `--lh-tight`, `--tr-tight`, tabular figures so a count-up does not shift its width. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
 - `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.36) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
 - **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
@@ -3257,6 +3261,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
 **Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
@@ -3284,7 +3289,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 |---|---|---|---|
 | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
-| plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| plot reveal | area opacity (effect) | `--d-slow` · `--ease-soft` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
 | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
 | plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
@@ -3475,7 +3480,7 @@ flowchart TD
 **Required classes:**
 - `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
-- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
+- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-300`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
 
 **Theming — no hardcoded hex:**
@@ -3620,7 +3625,7 @@ The starting frame for a project told as a story. It composes the system's compo
   <p class="eyebrow">04 · Outcome</p>
   <h2 class="cs-section-title">Measured, shipped, maintained.</h2>
   <div class="cs-section-body"><ul class="cs-stats" data-count="3">
-    <li class="cs-stat"><span class="cs-stat-label">Task time</span><span class="cs-stat-value">−41%</span><span class="cs-stat-note">38s → 22s median</span></li>
+    <li class="chart-card"><div class="chart-head"><span class="t">Task time</span></div><div class="chart-big accent" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta">38s → 22s median</div></li>
   </ul></div>
 </section>
 <section class="cs-section">
@@ -3639,13 +3644,13 @@ The starting frame for a project told as a story. It composes the system's compo
 |---|---|---|
 | Back | `.btn.btn-floating` | § 3.6 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
 | Hero | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2` 500, lede `--t-h6` `--obsidian-200`. The animated mark on the right scales with the hero: a placeholder for the project's own object (a render, a 3D scene) |
-| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-300`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
 | Dossier | `.cs-dossier` | A `<dl>` of the project's facts in four columns (two under 900px): role, team, platform, outcome; a missing fact is left out |
 | Section | `.cs-section` `.cs-section-title` `.cs-section-body` | One centred column of 36em at the `--t-h6` body (about 65 characters a line) for eyebrow, title, text and figures. Numbered eyebrow with a magenta rule, title `--t-h3` 400, text `--t-h6` at `--lh-loose` in `--obsidian-100`; under 720px title `--t-h4`, text `--t-lead` |
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
 | Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in mono, centred |
 | Points | `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` | A dot on the title's line, title `--t-h6` 700, the text under it, a Divider (§ 3.34) between points |
-| Outcome | `.cs-stats` `.cs-stat*` | Stat cards before the text: label `--t-body` 600, number `--t-h2` on `--grad-signal` counting up on entry, note mono `--success`. Three share a row; two or four go two by two; one column under 480px |
+| Outcome | `.cs-stats` + Chart card stats | The stat of § Chart card, before the text: each `<li>` is a `.chart-card` with `.chart-head` `.t`, `.chart-big` counting up on entry and `.chart-delta`. One `.accent` at most, on the headline result; the rest stay `--obsidian-100`. Inside the reading column the card restates `--t-body` / `--lh-normal`, so it reads as it does in § 44. Three share a row; two or four go two by two; one column under 480px |
 | Note | `.cs-note` `.cs-note-label` | The closing note of the Reflection (confidentiality, a source): a `--obsidian-700` rule, a mono label, `--t-small` `--obsidian-300` |
 | More cases | `.cs-more` `.cs-more-grid` `.cs-card*` | `--s-16` above; three project Cards as wide as the hero, each one link: period, picture, title, lede, tags as Chips |
 
@@ -3793,7 +3798,7 @@ A principle guides a judgement; a law is measured and enforced. Laws are not wei
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
 #### L1 · The 85 / 10 / 5 law, in detail
@@ -3848,11 +3853,11 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 | `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
 | `--ease-standard` | `cubic-bezier(0.45, 0, 0.55, 1)` | Ease in-out, symmetric: user-triggered state changes — hover, press, focus, selected. Neither an entrance nor an exit (v5.0.0; was the ease-out `(0.22, 1, 0.36, 1)`) |
 | `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Emphasis and relevant interactions (pressing a primary), pop-in, overshoot — spatial properties only, see below |
-| `--ease-linear` | `linear` | Neutral: an opacity that should carry no character (a fade inside a choreography, a data area appearing), a continuous loop. The motion counterpart of a neutral colour (v5.0.0) |
+| `--ease-soft` | `cubic-bezier(0.12, 0.23, 0.5, 1)` | Reading entrances: a page's blocks as it opens, a card coming into view. A gentle out with no snap, on `--d-slow` over `--s-8` of rise, so content arrives without pulling the eye. Not for a component entering (a modal, a popover): that is `--ease-decel` (v5.2.0) |
 
-**Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`.
+**Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`. Reading entrances, a page's blocks as it opens and cards coming into view, ride `--d-slow` · `--ease-soft` over `--s-8`: content the reader came for arrives gently, a component that answers an action keeps its `--ease-decel` snap.
 
-**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-linear`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
+**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-soft`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
 
 **Component motion grammar.** Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs, no extra columns:
 
@@ -3880,13 +3885,14 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Component | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
-| Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| Page shell | section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 | Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
 | Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
+| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
-| Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-linear` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
+| Plot | plot reveal | area opacity (effect) | `--d-slow` · `--ease-soft` · delay `--d-base` + 2 × `--d-slow` | none — drawn |
 | Plot | plot reveal | point radius (spatial) | `--d-base` · `--ease-spring` · delay `--d-base` + 2 × `--d-slow` + `--d-quick` × i | none — drawn |
 | Plot | plot reveal | bar width (spatial) · value label count-up (effect · text) | `--d-scene` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
 | Plot | plot reveal | column height (spatial) | `--d-slow` · `--ease-decel` · delay 2 × `--d-base` + `--d-instant` × i | none — drawn |
@@ -3912,6 +3918,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
@@ -4060,6 +4067,7 @@ The floor admits one documented exception pair, on three selectors. The state in
 - **On the scale, always (ratified v4.3.1).** A value that falls between two steps of a closed scale snaps to the nearest token; at equal distance, to the smaller one. There is no raw-by-design list: a value kept off the scale is a value the contract cannot state.
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
+- **A host's unlayered reset outranks the base layer.** The element rules of `tokens.css`, the `body` colour, font and background among them, live in `@layer base` so that Tailwind utilities win (check 32). The same cascade lets any unlayered stylesheet the page runs inside win too: a host that wraps the page in its own reset (a sandboxed preview, a CMS theme, a documentation shell) sets `body{color}` outside any layer, and every element that inherits its colour takes the host's. Headings go first, because no component colours them: measured on a landing page published inside such a host, `h1`–`h3` rendered in the host's dark text on `--obsidian-950`. Inside a host, the page restates the `body` declarations of the base layer, unlayered and by token: `body{color:var(--obsidian-100);background:var(--obsidian-950);font-family:var(--font-sans);font-size:var(--t-body);line-height:var(--lh-normal)}`. `tokens.css` stays layered: unlayering it would erase the Tailwind utilities again.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
 - `!important`: forbidden except in `prefers-reduced-motion` overrides and the ratified exceptions below (v4.3.2). The list is closed and check 50 holds it; each entry names what it has to outrank.
   - `.card-media > *` — `margin` — outranks a media child's own margin, inline or from an element rule, so nothing offsets the child inside the clip (§ Card).
@@ -4117,10 +4125,11 @@ Every component page carries one card (a Foundations page, Icon included, carrie
 
 1. **In the middle.** The example sits in the centre of the grid. Only what lives on an edge (sidebar, drawer, top bar) leans on that edge, full height or width, with no margin and no corners.
 2. **One specimen.** One example per card: the first of its family, the brand colour when there is a choice. A call to action is the primary.
-3. **Default.** The default state, with no focus. A menu or a popover is laid open, apart from its field, so the two read as two parts.
+3. **Default, and it stays default.** The default state, with no focus. The example is `inert`: no hover, focus or click reaches it, so it always matches the tokens the Anatomy view names beside it. A menu or a popover is laid open, apart from its field, so the two read as two parts.
 4. **Nothing around it.** Only the component: no panel, button or text that is not part of it. A molecule shows its own parts; the atoms inside it have their own card.
 5. **As in the system.** Fills, indicators and the loader are the real ones, never a copy.
 6. **The grid.** 16px squares, `--obsidian-850` ground and `--obsidian-800` lines: enough to show a thin edge.
+7. **One height for both views.** The Anatomy view sets the card's height; Code scrolls inside it. Switching views never moves the page below the card.
 
 ## Multi-deploy compatibility
 
@@ -4228,6 +4237,38 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.2.0 — 2026.10.19 (MINOR)
+
+Pages that arrive gently, a search for the whole system, and an MCP server that checks what a model wrote.
+
+**Added**
+- **`check_compliance`, the sixth tool of the MCP server.** Give it HTML and CSS, or React with Tailwind: it flags colour literals, raw px, durations and easings, `--ease-spring` on an effect property, classes that look like Amaca and are not in the registry, a second primary and a missing reduced-motion override, each with the token or class that fixes it. The server's instructions ask a model to run it before handing code over.
+- **`--ease-soft` (`0.12, 0.23, 0.5, 1`), the curve for reading entrances.** It takes the place of `--ease-linear`, which leaves the set (see Removed); § 06 swaps the Linear tile for Soft.
+- **The page entrance (§ Page shell).** An active section arrives in three blocks, header, usage and the rest, each rising `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` apart. It replaces the 8px fade of the whole section.
+- **Card rise (§ Card).** A card coming into view rises the same way; cards that show together go 80ms apart in reading order, and a stat counts from the frame its card starts.
+- **Charts › Stat · one number (§ 44.3).** The stat card lives with the charts, and Card § 36.4 points to it. Bars and what follows renumber to § 44.4–44.8.
+- **⌘K / Ctrl+K search on the site.** Every section of the sidebar, ranked as you type, from a Search button in the top bar (an icon on phones). Site chrome, not a component: the package does not carry it.
+- **Code conventions › CSS: a host's unlayered reset outranks `@layer base`.** Inside a host, restate the body unlayered, by token. amaca-frontend 1.3.1 teaches it (HTML.md, check H11).
+- **Checks 108 and 109.** No active text on `--obsidian-400`; the author's name only as credit.
+
+**Changed**
+- **Neutral mono labels, placeholders and the chip's dismiss move to `--obsidian-300`** so they read as text, not as decoration; `--obsidian-400` stays for disabled states and glyphs.
+- **The case study Outcome uses the Chart card stat.** Each stat is a `.chart-card` with `.chart-big` and `.chart-delta`, one accent at most. `.cs-stat`, `.cs-stat-label`, `.cs-stat-value` and `.cs-stat-note` are removed and `.cs-stats` keeps the grid: a copied template replaces the four classes. `.chart-big` takes `--lh-tight` and tabular figures.
+- **Documentation leads with the MCP server.** A card at the top gives the name, the URL and the sign-in for a custom connector; the shadcn MCP server is no longer suggested. § 03.3 names model tiers, not models, and sends the check to `check_compliance`.
+- **npm publishes through Trusted Publishing.** GitHub Actions exchanges an OIDC token for each publish: no stored token. The actions run on v7 and Node 24.
+
+**Fixed**
+- **Demos use invented names;** the author's name appears only as credit.
+- **§ 03.4: the utilities line wraps on phones** instead of being clipped.
+- **The Anatomy and code card keeps one height**: the Anatomy view sets it and Code scrolls inside, so switching views no longer moves the page.
+- **The example in the Anatomy and code card is inert**: no hover, focus or click changes it, so it always matches the tokens named beside it.
+
+**Removed**
+- **`--ease-linear`.** One use in the whole system, the Plot's area fade, which now rides `--ease-soft`. A continuous loop (the Loader, the Skeleton shimmer) keeps the `linear` keyword, as it already did: a loop with no curve is not a choice of curve. An outside stylesheet that reads `var(--ease-linear)` falls back to the browser's default timing: write `--ease-soft` for a fade, `linear` for a loop.
+
+**Unchanged**
+- No other token changes its value.
 
 ### v5.1.0 — 2026.10.19 (MINOR)
 

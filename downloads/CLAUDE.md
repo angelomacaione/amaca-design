@@ -10,7 +10,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 - **Neutral:** `--obsidian-950` (page) → `--obsidian-050` (bone); text on dark = `--obsidian-100`.
 - **Supporting (rare):** `--secondary-400` cyan (data-viz), `--tertiary-500` petrol; semantic `--success / --warning / --danger / --info` — feedback only.
 - **Type:** Satoshi; `--t-micro 10 … --t-body 15 (default) … --t-h1 76 / --t-display 112`. One H1 per page.
-- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` / `--r-lg 12`. **Motion:** 6 durations, 5 easings (`--ease-decel` = signature, `--ease-standard` = in-out for state changes, `--ease-linear` = neutral) — no others; `--ease-spring` = spatial properties only.
+- **Spacing:** 4px grid `--s-1 4 … --s-32 128`. **Radius:** `--r-md 8` / `--r-lg 12`. **Motion:** 6 durations, 5 easings (`--ease-decel` = signature, `--ease-soft` = reading entrances, `--ease-standard` = in-out for state changes) — no others; `--ease-spring` = spatial properties only.
 
 ## The laws
 1. **85 / 10 / 5** — ≥85% obsidian, ≤10% primary + cyan together, ≤5% semantic (one primary action per screen; a landing may carry one per section).

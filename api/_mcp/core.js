@@ -16,6 +16,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const compliance = require('./compliance');
 
 // newest first; an unknown version from the client gets the newest one back
 const PROTOCOL_VERSIONS = ['2025-06-18', '2025-03-26', '2024-11-05'];
@@ -29,7 +30,8 @@ const INSTRUCTIONS =
   'get_component: its contract (usage, parts and their tokens, rules, variants) and its CSS. ' +
   'Reference every value by name, var(--token); never hardcode a hex, a px or an easing. ' +
   'Use get_design_section for a rule the contract only cites, get_tokens for the scales, and ' +
-  'get_install when the user asks how to use Amaca in their own tool. On conflict, DESIGN.md wins.';
+  'get_install when the user asks how to use Amaca in their own tool. Before handing code over, run ' +
+  'check_compliance on it and fix every error with the token it names. On conflict, DESIGN.md wins.';
 
 // ---------------------------------------------------------------- the files
 
@@ -251,6 +253,24 @@ const TOOLS = [
     },
     annotations: READ_ONLY,
     run: getDesignSection,
+  },
+  {
+    name: 'check_compliance',
+    title: 'Check code against Amaca',
+    description: 'The 30-second scan of the spec, run on code you wrote: HTML with <style> and style="", CSS, React with className and style={{}}, Tailwind arbitrary values. Returns, line by line, colour literals, px off the spacing / radius / type / border scales, raw durations and easings, spring on effect properties, Amaca-looking classes that are not in the registry, more than one .btn-primary, and motion without a reduced-motion override, each with the token that fixes it. Reports, never rewrites; a clean scan is not a design review.',
+    inputSchema: {
+      type: 'object',
+      properties: { code: { type: 'string', description: 'The code to check, as written. Up to 200,000 characters.' } },
+      required: ['code'],
+      additionalProperties: false,
+    },
+    annotations: READ_ONLY,
+    run: (repo, args) => {
+      const code = String((args && args.code) || '');
+      if (!code.trim()) throw new ToolError('code is required: the HTML, CSS or JSX to check');
+      if (code.length > 200000) throw new ToolError('code is longer than 200,000 characters: check one file or one component at a time');
+      return json(compliance.check(repo, code));
+    },
   },
   {
     name: 'get_install',
