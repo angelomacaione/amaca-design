@@ -319,6 +319,27 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <h1 class="page-title">Amaca, <span class="accent">packaged for every tool.</span></h1>
           <p class="page-lede">Pick your tool, grab the file — or the turnkey <code>.zip</code> — and drop it in. Every download is <strong style="color:var(--obsidian-100)">token-only</strong>: it makes any AI reference your tokens by name instead of inventing values. Same source on every surface — the spec is <code>DESIGN.md</code>, the tokens are <code>tokens.css</code> / <code>tokens.dtcg.json</code>. MIT.</p>
         </div>
+        <!-- MCP · Connect by URL -->
+        <div class="subsection">
+          <div class="card" style="padding:var(--s-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,22rem),1fr));gap:var(--s-8)">
+            <div style="display:flex;flex-direction:column;gap:var(--s-4)">
+              <div style="display:flex;gap:var(--s-2);align-items:center"><span class="badge badge-brand"><span class="dot"></span>New in 5.1</span><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">MCP · Remote · Read-only</span></div>
+              <h2 style="font-size:var(--t-h4);margin:0;letter-spacing:var(--tr-tight);line-height:var(--lh-snug)">Connect Amaca to your AI, by URL.</h2>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-body)">One address, nothing to install. Your AI reads the components with their rules, the tokens and the spec straight from amaca.design, always at the published version. The Claude Code plugin brings it with the skill.</p>
+              <ol style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-2);color:var(--obsidian-300);font-size:var(--t-small);line-height:var(--lh-loose)">
+<li>Open your AI app&rsquo;s connectors. In Claude: <span style="color:var(--obsidian-100)">Settings &rarr; Connectors &rarr; Add custom connector</span>.</li>
+<li>Fill in the three fields, Name, URL and Sign-in, and add.</li>
+<li>Ask in plain words: &ldquo;Use Amaca to build a pricing card.&rdquo;</li></ol>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--s-5)">
+              <div style="display:flex;flex-direction:column"><div style="display:grid;grid-template-columns:var(--s-24) minmax(0,1fr);gap:var(--s-3);align-items:baseline;padding:var(--s-2) 0;border-top:var(--bw-1) solid var(--obsidian-700)"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Name</span><span style="color:var(--obsidian-100)">Amaca</span></div><div style="display:grid;grid-template-columns:var(--s-24) minmax(0,1fr);gap:var(--s-3);align-items:baseline;padding:var(--s-2) 0;border-top:var(--bw-1) solid var(--obsidian-700)"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">URL</span><code style="color:var(--obsidian-100);overflow-wrap:anywhere;min-width:0">https://www.amaca.design/mcp</code></div><div style="display:grid;grid-template-columns:var(--s-24) minmax(0,1fr);gap:var(--s-3);align-items:baseline;padding:var(--s-2) 0;border-top:var(--bw-1) solid var(--obsidian-700)"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)">Sign-in</span><span style="color:var(--obsidian-100)">None</span></div></div>
+              <div><div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300);margin:0 0 var(--s-2)">For agents and config files</div>
+<pre style="margin:0;padding:var(--s-3) var(--s-4);background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-md);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-200);white-space:pre-wrap;overflow-wrap:anywhere">{ "mcpServers": { "amaca": { "type": "http", "url": "https://www.amaca.design/mcp" } } }</pre>
+<pre style="margin:0;padding:var(--s-3) var(--s-4);background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-md);font-family:var(--font-mono);font-size:var(--t-caption);line-height:var(--lh-loose);color:var(--obsidian-200);white-space:pre-wrap;overflow-wrap:anywhere;margin-top:var(--s-2)">claude mcp add --transport http amaca https://www.amaca.design/mcp</pre></div>
+            </div>
+          </div>
+        </div>
+
         <!-- 03.0 · Pick your tool (the downloads grid) -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Pick your tool</h2><span class="subsection-num">§ 03.0</span></div>
@@ -512,20 +533,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <div>
                 <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Add one component, with its tokens.</h3>
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)"><code>npx shadcn add https://www.amaca.design/r/button.json</code> writes the component's CSS and an example into your project, with the tokens and the components it uses. No React and no <code>components.json</code> needed. Every item carries its contract in <code>meta.amaca</code>: usage, parts and their tokens, rules, variants. The index is <code>/r/registry.json</code>.</p>
-              </div>
-            </li>
-            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-1)">11 · MCP<br/><span style="color:var(--obsidian-400)">— ASK FOR A COMPONENT</span></div>
-              <div>
-                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Let the agent find and install components.</h3>
-                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The shadcn MCP server reads any registry a project names. Turn it on with <code>npx shadcn@latest mcp init --client claude</code> (or <code>cursor</code>, <code>vscode</code>, <code>codex</code>), then add Amaca to <code>components.json</code>: <code>"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }</code>. Ask in plain words, "add the Amaca card", and the agent searches <code>@amaca</code>, reads the item with its contract and installs it.</p>
-              </div>
-            </li>
-            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
-              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-1)">12 · MCP<br/><span style="color:var(--obsidian-400)">— CONNECT BY URL</span></div>
-              <div>
-                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Connect any agent, by URL.</h3>
-                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Add <code>https://www.amaca.design/mcp</code> as a remote MCP server: a custom connector in Claude, <code>claude mcp add --transport http amaca https://www.amaca.design/mcp</code> in Claude Code, the same URL in Cursor or VS Code; the Claude Code plugin brings it with the skill. No key and nothing to install. The agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md, and which file to give for each tool.</p>
               </div>
             </li>
           </ol>

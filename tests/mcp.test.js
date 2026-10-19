@@ -49,10 +49,10 @@ test('a malformed message, an unknown method and an unknown tool are JSON-RPC er
   assert.equal(rpc('tools/call', { name: 'delete_everything' }).error.code, -32602);
 });
 
-test('tools/list offers the five tools, all read-only, each with an input schema', () => {
+test('tools/list offers the six tools, all read-only, each with an input schema', () => {
   const tools = rpc('tools/list').result.tools;
   assert.deepEqual(tools.map((t) => t.name).sort(),
-    ['get_component', 'get_design_section', 'get_install', 'get_tokens', 'list_components']);
+    ['check_compliance', 'get_component', 'get_design_section', 'get_install', 'get_tokens', 'list_components']);
   for (const t of tools) {
     assert.equal(t.inputSchema.type, 'object');
     assert.equal(t.annotations.readOnlyHint, true);
@@ -128,6 +128,81 @@ test('get_install is the tool guide of llms.txt, whole or for one tool', () => {
   assert.match(cursor, /amaca-plugin\.zip/);
   assert.doesNotMatch(cursor, /Google Stitch/);
   assert.match(all, /https:\/\/www\.amaca\.design\/mcp\b/, 'the guide names this server');
+});
+
+// ---------------------------------------------------------------- check_compliance
+
+const scan = (code) => JSON.parse(text(call('check_compliance', { code })));
+const find = (r, rule, found) => r.findings.find((f) => f.rule === rule && (found === undefined || f.found.includes(found)));
+
+const BAD = `<style>
+.hero{padding:13px 24px;color:#F051D5;background:rgba(0,0,0,.5);border-radius:10px;font-size:14px;
+transition: background 300ms var(--ease-spring), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);}
+</style>
+<a href="#add">x</a>
+<button class="btn btn-primary btn-big">A</button><button class="btn btn-primary">B</button>
+<div className="p-[13px] bg-[#07090B] rounded-[8px] duration-[250ms]"></div>
+<div style={{ paddingTop: 10, marginLeft: '6px' }}></div>`;
+
+test('check_compliance names the token that fixes each value', () => {
+  const r = scan(BAD);
+  assert.equal(r.version, VERSION);
+  assert.equal(find(r, 'colour-literal', '#F051D5').fix, 'var(--primary-500)');
+  assert.ok(find(r, 'colour-literal', 'rgba'));
+  assert.equal(find(r, 'raw-px', 'padding: 24px').fix, 'var(--s-6)');
+  assert.match(find(r, 'raw-px', 'padding: 13px').fix, /^var\(--s-3\) \(12px; it snaps/);
+  assert.match(find(r, 'raw-px', 'border-radius: 10px').fix, /^var\(--r-md\)/);
+  assert.match(find(r, 'raw-px', 'font-size: 14px').fix, /^var\(--t-small\)/);
+  assert.match(find(r, 'raw-duration', '300ms').fix, /^var\(--d-base\)/, 'nearest step: 350 is closer than 200');
+  assert.equal(find(r, 'raw-easing', 'cubic-bezier').fix, 'var(--ease-decel)');
+  assert.ok(find(r, 'spring-on-effect', 'background'));
+  assert.ok(find(r, 'reduced-motion'));
+});
+
+test('check_compliance reads Tailwind arbitrary values and React style objects', () => {
+  const r = scan(BAD);
+  assert.equal(find(r, 'colour-literal', 'bg-[#07090B]').fix, 'bg-obsidian-950');
+  assert.equal(find(r, 'raw-px', 'rounded-[8px]').fix, 'rounded-md');
+  assert.match(find(r, 'raw-px', 'p-[13px]').fix, /^p-3 /);
+  assert.match(find(r, 'raw-duration', 'duration-[250ms]').fix, /^duration-\(--d-quick\)/);
+  assert.match(find(r, 'raw-px', 'padding-top: 10px').fix, /^var\(--s-2\)/);
+  assert.match(find(r, 'raw-px', 'margin-left: 6px').fix, /^var\(--s-1\)/, 'at equal distance, the smaller step');
+  assert.equal(r.findings.filter((f) => f.found === '#07090B').length, 0, 'a Tailwind hex is reported once, as its class');
+});
+
+test('check_compliance warns on classes off the registry and on a second primary', () => {
+  const r = scan(BAD);
+  const w = find(r, 'class-off-registry', 'btn-big');
+  assert.equal(w.severity, 'warning');
+  assert.equal(find(r, 'one-primary').severity, 'warning');
+  assert.equal(r.findings.filter((f) => f.found.includes('#add')).length, 0, 'an href is not a colour');
+});
+
+test('check_compliance leaves alone what is not a value: comments, percentages, token definitions, project classes', () => {
+  const r = scan(`/* #FFF is banned */
+.x{top:50%;left:50%}
+:root{--brand: #F051D5;}
+<div class="list-reset nav-main is-open"></div>`);
+  assert.deepEqual(r.findings, []);
+  assert.match(r.note, /not a review/);
+});
+
+test('check_compliance finds no error in the registry\'s own code (the calibration)', () => {
+  for (const it of REGISTRY.items) {
+    const item = JSON.parse(fs.readFileSync(path.join(ROOT, 'r', `${it.name}.json`), 'utf8'));
+    for (const f of item.files) {
+      const errors = scan(f.content).findings.filter((x) => x.severity === 'error');
+      assert.deepEqual(errors, [], `${it.name} ${f.path}`);
+    }
+  }
+});
+
+test('check_compliance treats loops and delays as warnings, and wants code', () => {
+  const r = scan('.l{animation:spin 1400ms linear infinite}\n.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}\n@media (prefers-reduced-motion: reduce){.l{animation:none}}');
+  assert.equal(r.summary.errors, 0);
+  assert.ok(find(r, 'loop-clock'));
+  assert.ok(find(r, 'raw-delay', '80ms'));
+  assert.equal(call('check_compliance', { code: '  ' }).isError, true);
 });
 
 // ---------------------------------------------------------------- HTTP

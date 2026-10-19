@@ -3861,13 +3861,19 @@ def c104():
     a = html.find("<!-- 03.0 · Pick your tool")
     b = html.find("§ 03.1", a)
     zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
-    ns = tg.MCP_REGISTRY
-    if "https://www.amaca.design/r/{name}.json" not in ns or not (ROOT / "r" / "registry.json").exists():
-        fails.append("the MCP namespace does not point at the shadcn registry in r/")
-    for name, txt in (("release/toolguide.py", tg.render()), ("llms.txt", read(ROOT / "llms.txt")),
-                      ("index.html § 03.1", html)):
-        if ns not in txt:
-            fails.append(f"{name}: the MCP namespace is not {ns}")
+    # v5.2.0: the shadcn MCP route is no longer presented (one MCP, the remote one at /mcp,
+    # decision of 2026-10-19: "2 mcp confondono"). The guide must not bring it back, and its
+    # first row is the remote server. r/ stays, for `npx shadcn add`.
+    guide = tg.render()
+    d0 = html.find('<section class="section" id="documentation">')
+    doc = html[d0:html.find('<section class="section"', d0 + 1)] if d0 >= 0 else ""
+    for name, txt in (("release/toolguide.py", guide), ("llms.txt", read(ROOT / "llms.txt")),
+                      ("index.html Documentation", doc)):  # the changelogs keep their history
+        if "shadcn@latest mcp" in txt or "shadcn MCP server" in txt:
+            fails.append(f"{name}: presents the shadcn MCP server; the only MCP Amaca presents is {tg.MCP_SERVER}")
+    rows = [l for l in guide.splitlines() if l.startswith("- **")]
+    if not rows or tg.MCP_SERVER not in rows[0]:
+        fails.append("the tool guide's first row is not the remote MCP server")
     a1 = html.find("§ 03.1")
     b1 = html.find("§ 03.2", a1)
     steps = {}
