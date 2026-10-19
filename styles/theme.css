@@ -181,4 +181,5 @@
   --ease-accel: var(--ease-accel);
   --ease-decel: var(--ease-decel);
   --ease-spring: var(--ease-spring);
+  --ease-soft: var(--ease-soft);
 }

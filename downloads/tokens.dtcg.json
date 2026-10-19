@@ -1692,6 +1692,16 @@
     "$type": "cubicBezier",
     "$description": "elastic overshoot"
   },
+  "ease-soft": {
+    "$value": [
+      0.12,
+      0.23,
+      0.5,
+      1.0
+    ],
+    "$type": "cubicBezier",
+    "$description": "gentle out: reading entrances, a page's blocks and cards coming into view (v5.2.0)"
+  },
   "ease-linear": {
     "$value": [
       0.0,

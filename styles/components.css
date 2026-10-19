@@ -140,13 +140,19 @@
   margin-inline:auto;
 }
 
-/* section visibility */
-.section{display:none;animation:fade-up var(--d-base) var(--ease-standard) both}
+/* section visibility; the entrance (v5.2.0): three blocks rise in reading order,
+   one --d-quick apart: the page header, the usage block, then the rest of the page together */
+.section{display:none}
 .section.active{display:block}
+.section.active > *{animation:rise-in var(--d-slow) var(--ease-soft) both;animation-delay:calc(var(--d-quick) * 3)}
+.section.active > .page-header{animation-delay:var(--d-quick)}
+.section.active > .usage{animation-delay:calc(var(--d-quick) * 2)}
+/* no usage block: the rest comes one step after the header */
+.section.active > .page-header + :not(.usage),.section.active > .page-header + :not(.usage) ~ *{animation-delay:calc(var(--d-quick) * 2)}
 @media (prefers-reduced-motion: reduce){
-  .section{animation:none}
+  .section.active > *{animation:none}
 }
-@keyframes fade-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes rise-in{from{opacity:0;transform:translateY(32px)}} /* 32px = --s-8: a keyframe cannot read a var() */
 
 /* ─────────── PAGE HEADERS ─────────── */
 .page-header{margin-bottom:var(--s-16)}

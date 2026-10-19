@@ -158,7 +158,7 @@ function check(repo, source) {
       }
       for (const x of v.matchAll(/cubic-bezier\([^)]*\)/g)) {
         const name = T.ease[x[0].replace(/\s+/g, '')];
-        add(d.idx, 'error', 'raw-easing', x[0], name ? `var(${name})` : 'off the curve set: one of --ease-standard, --ease-decel, --ease-accel, --ease-spring, --ease-linear', 'Motion › Easing tokens');
+        add(d.idx, 'error', 'raw-easing', x[0], name ? `var(${name})` : 'off the curve set: one of --ease-standard, --ease-decel, --ease-soft, --ease-accel, --ease-spring, --ease-linear', 'Motion › Easing tokens');
       }
       for (const x of v.matchAll(/(^|[\s,:])(ease-in-out|ease-out|ease-in|ease|linear)(?=$|[\s,])/g)) {
         if (x[2] === 'linear' && isAnim) continue; // mechanical loops ride linear (§ 06.4)

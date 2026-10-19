@@ -11,8 +11,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <script>document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
-<link rel="stylesheet" href="styles/tokens.css?v=51fa23a4">
-<link rel="stylesheet" href="styles/components.css?v=c668f120">
+<link rel="stylesheet" href="styles/tokens.css?v=5f892bbd">
+<link rel="stylesheet" href="styles/components.css?v=25e0a706">
 
 <style id="__animations_inline">
 @media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.has-risen){opacity:0}}
@@ -909,11 +909,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="page-header">
           <div class="page-eyebrow">§ 06 · Foundations / Motion</div>
           <h1 class="page-title">Motion is <span class="accent">feedback, not decoration.</span></h1>
-          <p class="page-lede">Six durations, five easings. Decel for entrances, Accel for exits, Ease in-out for state changes, Spring for playful reveals, Linear for neutral fades, Draw for data reveals.</p>
+          <p class="page-lede">Six durations, six easings. Decel for entrances, Soft for reading entrances, Accel for exits, Ease in-out for state changes, Spring for playful reveals, Linear for neutral fades, Draw for data reveals.</p>
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Durations × easings</h2><span class="subsection-num">§ 06.1</span></div>
-          <p class="subsection-desc">The motion vocabulary at a glance: five easings and where each belongs, one Swatch motion tile each (§ 3.36). Time runs across, position up; the ball on the right rides the curve at the dot&rsquo;s height. Decel, accel, ease in-out and linear run on the same <code>--d-base</code> so the curves can be compared; spring rides <code>--d-slow</code>, the overshoot needs the room. Each tile plays three times and rests on the end. The pairing rules and the durations each job usually rides are in § 09.3.</p>
+          <p class="subsection-desc">The motion vocabulary at a glance: six easings and where each belongs, one Swatch motion tile each (§ 3.36). Time runs across, position up; the ball on the right rides the curve at the dot&rsquo;s height. Decel, accel, ease in-out and linear run on the same <code>--d-base</code> so the curves can be compared; spring rides <code>--d-slow</code>, the overshoot needs the room, and soft rides it too, as a page&rsquo;s entrance does. Each tile plays three times and rests on the end. The pairing rules and the durations each job usually rides are in § 09.3.</p>
           <div class="swatch-grid">
             <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-decel);--d:var(--d-base)">
               <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
@@ -946,6 +946,14 @@ the mark is an animated SVG, one vector file describing every rotation and every
                 <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
               </div></div>
               <div class="swatch-tile-meta"><span class="swatch-tile-name">Spring</span><span class="swatch-tile-hex">--ease-spring · 600 ms</span><span class="swatch-tile-hex">cubic-bezier(.34,1.56,.64,1)</span><span class="swatch-tile-role">Delight · reveal</span></div>
+            </div>
+            <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-soft);--d:var(--d-slow)">
+              <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><line class="swatch-tile-guide" x1="0" y1="0" x2="100" y2="0"/><line class="swatch-tile-guide" x1="100" y1="0" x2="100" y2="100"/><line class="swatch-tile-guide" x1="0" y1="100" x2="100" y2="0"/><path class="swatch-tile-curve" d="M0,100 C12,77 50,0 100,0"/><line class="swatch-tile-axis" x1="0" y1="100" x2="100" y2="100"/><line class="swatch-tile-axis" x1="0" y1="100" x2="0" y2="0"/></svg>
+                <span class="swatch-tile-tick swatch-tile-tick-x">x</span><span class="swatch-tile-tick swatch-tile-tick-1">1</span><span class="swatch-tile-tick swatch-tile-tick-0">0</span><span class="swatch-tile-tick swatch-tile-tick-d">600</span><span class="swatch-tile-tick swatch-tile-tick-t">t</span>
+                <div class="swatch-tile-level"></div><div class="swatch-tile-time"><div class="swatch-tile-pos"></div></div><div class="swatch-tile-rail"><div class="swatch-tile-rise"><div class="swatch-tile-ball"></div></div></div>
+              </div></div>
+              <div class="swatch-tile-meta"><span class="swatch-tile-name">Soft</span><span class="swatch-tile-hex">--ease-soft · 600 ms</span><span class="swatch-tile-hex">cubic-bezier(.12,.23,.5,1)</span><span class="swatch-tile-role">Reading entrances</span></div>
             </div>
             <div class="swatch-tile swatch-tile-motion" style="--e:var(--ease-linear);--d:var(--d-base)">
               <div class="swatch-tile-fill"><div class="swatch-tile-plot" aria-hidden="true">
@@ -985,6 +993,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td><code>--ease-accel</code></td><td><code>cubic-bezier(0.7, 0, 0.84, 0)</code></td><td class="muted">Exits, dismissals</td></tr>
               <tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(0.45, 0, 0.55, 1)</code></td><td class="muted">Ease in-out, symmetric: user-triggered state changes — hover, press, focus, selected</td></tr>
               <tr><td><code>--ease-spring</code></td><td><code>cubic-bezier(0.34, 1.56, 0.64, 1)</code></td><td class="muted">Pop-in, delight, overshoot — spatial properties only</td></tr>
+              <tr><td><code>--ease-soft</code></td><td><code>cubic-bezier(0.12, 0.23, 0.5, 1)</code></td><td class="muted">Reading entrances: a page&rsquo;s blocks as it opens, a card coming into view. A gentle out on <code>--d-slow</code> over <code>--s-8</code></td></tr>
               <tr><td><code>--ease-linear</code></td><td><code>linear</code></td><td class="muted">Neutral: an opacity with no character, a continuous loop</td></tr>
             </tbody>
           </table>
@@ -997,10 +1006,10 @@ the mark is an animated SVG, one vector file describing every rotation and every
             <thead><tr><th>Component</th><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
               <tr><td>Entrance reveal (<code>[data-fade]</code>)</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY 12px→0 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
-              <tr><td>Page shell</td><td>section activate</td><td class="muted">opacity (effect) · translateY 8px→0 (spatial)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">none</td></tr>
+              <tr><td>Page shell</td><td>section activate</td><td class="muted">the section's direct children, as three blocks: opacity (effect) · translateY <code>--s-8</code>→0 (spatial); <code>.page-header</code> after <code>--d-quick</code>, <code>.usage</code> one <code>--d-quick</code> later, the rest together one <code>--d-quick</code> after the block before it</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — the page is at rest</td></tr>
               <tr><td>Button</td><td>press</td><td class="muted">background · border · colour (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Button (primary)</td><td>press</td><td class="muted">scale 1 → .97 (spatial)</td><td><code>--d-quick</code> · <code>--ease-spring</code></td><td class="muted">none — no scale</td></tr>
-              <tr><td>Chart card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-3</code>→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — shown at rest</td></tr>
+              <tr><td>Chart card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Chart card</td><td>stat reveal</td><td class="muted">count-up (effect · text)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">none — jumps to the value</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">baseline clip width (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · delay <code>--d-base</code></td><td class="muted">none — drawn</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">line stroke-dashoffset (spatial)</td><td><code>--d-draw</code> · <code>--ease-decel</code> · delay <code>--d-base</code> + <code>--d-slow</code></td><td class="muted">none — drawn</td></tr>
@@ -1030,7 +1039,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Card</td><td>hover · focus-within</td><td class="muted">media child scale 1→1.05 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
               <tr><td>Card</td><td>hover ends · focus leaves</td><td class="muted">media child scale 1.05→1 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
-              <tr><td>Card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-3</code>→0 (spatial), 80ms apart in reading order</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — shown at rest</td></tr>
+              <tr><td>Card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), 80ms apart in reading order</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Lightbox</td><td>open</td><td class="muted">backdrop + content opacity (effect) — no scale-in</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Lightbox</td><td>close</td><td class="muted">backdrop + content opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
               <tr><td>Modal</td><td>open</td><td class="muted">panel opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
@@ -5895,7 +5904,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 36.2</span></div>
           <p class="subsection-desc">What the contract holds the card to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li><strong>Card rise</strong>: a card fades up as it comes into view: opacity 0→1 and <code>--s-3</code> of rise, <code>--d-slow</code> · <code>--ease-decel</code>. Cards that show together go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
+          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li><strong>Card rise</strong>: a card fades up as it comes into view: opacity 0→1 over <code>--s-8</code> of rise, <code>--d-slow</code> · <code>--ease-soft</code>, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
         </div>
 
         <div class="subsection">
@@ -8518,7 +8527,7 @@ flowchart TD
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 52.2</span></div>
           <p class="subsection-desc"><code>error</code> stops the output; <code>warn</code> is flagged in review. The check column names the harness check or the verifier that holds the rule.</p>
-          <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and five easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
+          <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and six easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-soft</code> for reading entrances (a page's blocks, cards coming into view), <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
         </div>
       </section>
 
@@ -10029,9 +10038,11 @@ if ('IntersectionObserver' in window) {
 
 <script>
 // --- card rise (v5.2.0): every card fades up as it comes into view ---
-// Cards that enter together go in reading order, 80ms apart. A stat card's number starts
-// counting on the same frame its card starts to rise. Nested cards ride with their parent.
-// Under reduced motion nothing moves and every number shows its final value.
+// When a page opens, its three blocks rise (components.css, .section.active > *): a card already
+// in view rides with its block and its number counts from that block's start. A card further down
+// rises on its own as it comes into view, --s-8 on --d-slow · --ease-soft; cards that show together
+// go in reading order, 80ms apart. Nested cards ride with their parent. Under reduced motion
+// nothing moves and every number shows its final value.
 (function(){
   const SEL = '.card,.chart-card,.cs-card';
   const root = document.documentElement;
@@ -10043,12 +10054,14 @@ if ('IntersectionObserver' in window) {
   const cards = [...document.querySelectorAll(SEL)].filter((c) => !c.parentElement.closest(SEL));
   const fmt = (el, v) => (el.dataset.prefix || '') + Math.abs(v).toFixed(parseInt(el.dataset.decimals || '0', 10)) + (el.dataset.suffix || '');
   const curve = (tok('--ease-decel').match(/[\d.]+/g) || [0.16, 1, 0.3, 1]).map(Number);
-  const ease = (t) => { // the --ease-decel cubic-bezier, solved for x by bisection
+  const ease = (t) => { // the count rides --ease-decel (Chart card, stat reveal), solved for x by bisection
     const [x1, y1, x2, y2] = curve, b = (a, c, m) => 3 * a * m * (1 - m) ** 2 + 3 * c * m * m * (1 - m) + m ** 3;
     let lo = 0, hi = 1; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; b(x1, x2, m) < t ? lo = m : hi = m; }
     return b(y1, y2, (lo + hi) / 2);
   };
-  function count(el, delay){
+  function count(card, delay){
+    const el = card.querySelector('.chart-big[data-count-to]');
+    if (!el) return;
     const to = parseFloat(el.dataset.countTo), dur = ms('--d-draw');
     el.textContent = fmt(el, 0);
     setTimeout(() => {
@@ -10060,20 +10073,39 @@ if ('IntersectionObserver' in window) {
   function rise(card, delay){
     card.getAnimations().forEach((a) => a.cancel());
     card.classList.add('has-risen');
-    card.animate([{ opacity: 0, transform: 'translateY(' + tok('--s-3') + ')' }, { opacity: 1, transform: 'none' }],
-      { duration: ms('--d-slow'), easing: tok('--ease-decel'), delay, fill: 'backwards' });
-    const n = card.querySelector('.chart-big[data-count-to]');
-    if (n) count(n, delay);
+    card.animate([{ opacity: 0, transform: 'translateY(' + tok('--s-8') + ')' }, { opacity: 1, transform: 'none' }],
+      { duration: ms('--d-slow'), easing: tok('--ease-soft'), delay, fill: 'backwards' });
+    count(card, delay);
   }
   const inOrder = (list) => list.sort((a, b) => { const r = a.getBoundingClientRect(), s = b.getBoundingClientRect(); return (r.top - s.top) || (r.left - s.left); });
+  // the delay of the page block a card sits in, as components.css sets it
+  const blockDelay = (card, section) => {
+    const block = [...section.children].find((c) => c.contains(card));
+    return block ? (parseFloat(getComputedStyle(block).animationDelay) || 0) * 1000 : 0;
+  };
   if (REDUCE || !('IntersectionObserver' in window) || !Element.prototype.animate) {
     document.querySelectorAll('.chart-big[data-count-to]').forEach((n) => { n.textContent = fmt(n, parseFloat(n.dataset.countTo)); });
     root.classList.remove('cards-rise');
   } else {
     const io = new IntersectionObserver((entries) => {
       inOrder(entries.filter((e) => e.isIntersecting).map((e) => e.target)).forEach((c, i) => { io.unobserve(c); rise(c, Math.min(i, MAX_STEPS) * STEP); });
-    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' }); // a card rises as soon as it shows, not once it is half in
-    cards.forEach((c) => io.observe(c));
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
+    // a page opens: the cards already in view ride with its blocks, the rest wait for the scroll
+    const open = (section) => {
+      cards.forEach((c) => {
+        if (!section.contains(c)) return;
+        io.unobserve(c);
+        c.getAnimations().forEach((a) => a.cancel());
+        const r = c.getBoundingClientRect();
+        if (r.height && r.top < innerHeight) { c.classList.add('has-risen'); count(c, blockDelay(c, section)); }
+        else { c.classList.remove('has-risen'); io.observe(c); }
+      });
+    };
+    const sections = [...document.querySelectorAll('.section')];
+    new MutationObserver((muts) => muts.forEach((m) => { if (m.target.classList.contains('active') && m.oldValue && !/\bactive\b/.test(m.oldValue)) open(m.target); }))
+      .observe(document.querySelector('.content') || document.body, { subtree: true, attributes: true, attributeFilter: ['class'], attributeOldValue: true });
+    sections.filter((s) => s.classList.contains('active')).forEach(open);
+    cards.filter((c) => !c.closest('.section')).forEach((c) => io.observe(c));
   }
   // Replay (Card and Charts pages): the cards of one subsection rise again, numbers with them
   document.addEventListener('click', (ev) => {

@@ -10,7 +10,7 @@ The personal design system of [Angelo Macaione](https://amaca.design). Motion-fi
 
 Amaca is not a UI kit for download. It is the source of truth for how I design, write, and ship — documented in public so the work can be seen, audited, and learned from.
 
-Two things make it specific. Motion is a foundation, not a finish — six durations, five easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
+Two things make it specific. Motion is a foundation, not a finish — six durations, six easings, one signature curve. And every rule is written so an AI agent can read and apply it as cleanly as a human can: the whole system ships as a machine-readable spec and an installable skill.
 
 ## Use it with AI — two formats
 

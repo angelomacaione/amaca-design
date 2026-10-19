@@ -983,11 +983,12 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 - `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
 - `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
 - Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 
 **Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
 
@@ -2673,7 +2674,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
-- **Card rise**: a card fades up as it comes into view: opacity 0→1 and `--s-3` of rise, `--d-slow` · `--ease-decel`. Cards that show together go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
+- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
@@ -2711,7 +2712,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-decel` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 
 
 **Variants.**
@@ -3260,7 +3261,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-decel` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
 **Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
@@ -3797,7 +3798,7 @@ A principle guides a judgement; a law is measured and enforced. Laws are not wei
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L8 | Motion grammar: six durations and six easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
 #### L1 · The 85 / 10 / 5 law, in detail
@@ -3835,7 +3836,7 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 
 ## Motion
 
-**Six durations, five easings. No others.**
+**Six durations, six easings. No others.**
 
 | Duration | ms | Use |
 |---|---|---|
@@ -3852,11 +3853,12 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 | `--ease-accel` | `cubic-bezier(0.7, 0, 0.84, 0)` | Exits, dismissals |
 | `--ease-standard` | `cubic-bezier(0.45, 0, 0.55, 1)` | Ease in-out, symmetric: user-triggered state changes — hover, press, focus, selected. Neither an entrance nor an exit (v5.0.0; was the ease-out `(0.22, 1, 0.36, 1)`) |
 | `--ease-spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Emphasis and relevant interactions (pressing a primary), pop-in, overshoot — spatial properties only, see below |
+| `--ease-soft` | `cubic-bezier(0.12, 0.23, 0.5, 1)` | Reading entrances: a page's blocks as it opens, a card coming into view. A gentle out with no snap, on `--d-slow` over `--s-8` of rise, so content arrives without pulling the eye. Not for a component entering (a modal, a popover): that is `--ease-decel` (v5.2.0) |
 | `--ease-linear` | `linear` | Neutral: an opacity that should carry no character (a fade inside a choreography, a data area appearing), a continuous loop. The motion counterpart of a neutral colour (v5.0.0) |
 
-**Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`.
+**Default pairing:** the trigger decides. User-triggered states (hover, press, focus) ride `transition: <prop> var(--d-quick) var(--ease-standard)`. System-triggered transitions (content entering, leaving, or moving without a direct pointer cause) ride `--d-base` · `--ease-decel`. Reading entrances, a page's blocks as it opens and cards coming into view, ride `--d-slow` · `--ease-soft` over `--s-8`: content the reader came for arrives gently, a component that answers an action keeps its `--ease-decel` snap.
 
-**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-linear`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
+**Spatial vs Effects (RIGID).** Every animated property has a type, and the type gates the easing. *Spatial* properties — `transform` (translate, rotate, scale), position, size, shape — may use any easing, including `--ease-spring`. *Effect* properties — `color`, `background`, `opacity`, `box-shadow`, `border-color` — use no-overshoot curves only (`--ease-standard`, `--ease-accel`, `--ease-decel`, `--ease-soft`, `--ease-linear`); `--ease-spring` on an effect property is off-system. Audit check: any `--ease-spring` applied to color/background/opacity/shadow is a violation, greppable per line.
 
 **Component motion grammar.** Every component that moves documents its motion in one fixed schema — same four columns everywhere, no prose specs, no extra columns:
 
@@ -3884,10 +3886,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Component | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|---|
 | Entrance reveal (`[data-fade]`) | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` | instant |
-| Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
+| Page shell | section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 | Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
 | Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
-| Chart card | enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-decel` | none — shown at rest |
+| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
@@ -3917,7 +3919,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| Card | enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-decel` | none — shown at rest |
+| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
@@ -4210,7 +4212,7 @@ Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
 
 When working without a rules file, prepend this to your request:
 
-> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and five easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
+> Use the Amaca Design System (DESIGN.md at repo root). All output must reference tokens by CSS variable name. Honor the 85/10/5 color law. Use only the six durations and six easings in § 2.8. Always include `prefers-reduced-motion` fallback. Voice: terse, imperative, no AI tells.
 
 ## Versioning
 
