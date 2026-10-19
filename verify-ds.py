@@ -4024,6 +4024,27 @@ def c108():
     return fails
 
 
+@check("109", "Demo content is invented: the author's name appears only where it credits the author",
+       "v5.2.0: the Chip demo removed a recipient called by the author's own name, and a Skeleton demo loaded his "
+       "profile; the contract's Chip example did the same. Demo content on a public system is invented, never the "
+       "author's own data. The name is read from DESIGN.md's frontmatter, so the check follows it; the credits it "
+       "allows are the frontmatter, the Author line and the site's build stamp.")
+def c109():
+    d = read(DESIGN)
+    m = re.search(r"^author:\s*(.+)$", d, re.M)
+    if not m:
+        return ["DESIGN.md: no author in the frontmatter"]
+    name = m.group(1).strip()
+    fails = []
+    for i, line in enumerate(d.splitlines(), 1):
+        if name in line and not (line.startswith("author:") or line.startswith("> **Author**")):
+            fails.append(f"DESIGN.md:{i}: the author's name in content: {line.strip()[:80]}")
+    for i, line in enumerate(read(INDEX).splitlines(), 1):
+        if name in line and not re.search(r"Build [0-9.]+ · " + re.escape(name), line):
+            fails.append(f"index.html:{i}: the author's name in demo content")
+    return fails
+
+
 @check("102", "Every variant the contract declares is on its page, in a demo",
        "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
        "visual source of truth the owner validates against, so a declared class no demo shows is a variant "

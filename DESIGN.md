@@ -1689,8 +1689,8 @@ A compact label for **one value that belongs to something else** — a tag on a 
 <button class="chip" aria-pressed="true">Motion</button>
 
 <span class="chip chip-info">
-  Angelo Macaione
-  <button class="chip-dismiss" aria-label="Remove Angelo Macaione">&times;</button>
+  Lena Ortiz
+  <button class="chip-dismiss" aria-label="Remove Lena Ortiz">&times;</button>
 </span>
 ```
 
