@@ -564,36 +564,25 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <!-- 03.4 · Model capability tier -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Model capability tier</h2><span class="subsection-num">§ 03.3 · what to expect</span></div>
-          <p class="subsection-desc">The skill encodes a 7-step workflow and 14 verification checks. Whether the runtime model executes them rigorously depends on its reasoning capacity, instruction-following fidelity, and how it grounds on uploaded files.</p>
+          <p class="subsection-desc">The skill encodes a 7-step workflow and 14 verification checks. How rigorously a model runs them depends on its reasoning, how faithfully it follows instructions and how it reads files, more than on its name: model families change every few months, so this page names tiers, not models. Judge the output, not the label.</p>
 
           <div class="grid grid-2" style="gap:var(--s-5);align-items:stretch">
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="display:flex;align-items:center;gap:var(--s-2)">
                 <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--primary-500);box-shadow:0 0 12px var(--primary-500)"></span>
-                <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400)">FRONTIER · RECOMMENDED</span>
+                <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400)">LARGEST MODELS · RECOMMENDED</span>
               </div>
               <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Production-grade enforcement.</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Opus 4.x, Claude Sonnet 4.x, GPT-5, Gemini 3 Pro. Explicit tool calls to read DESIGN.md, syntactic token registry checks, gap-surfacing protocol invoked correctly, voice register maintained.</p>
-              <p style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);line-height:var(--lh-loose);color:var(--obsidian-500);margin:0">Validated empirically: Gemini 3.1 Pro held strict Amaca compliance on a design-tool runtime.</p>
-              <div style="display:flex;gap:var(--s-6);padding-top:var(--s-3);border-top:var(--bw-1) solid var(--obsidian-800);margin-top:auto;flex-wrap:wrap;row-gap:var(--s-4)">
-                <div>
-                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300);margin-bottom:var(--s-1)">SCORE · N=4</div>
-                  <div style="font-size:var(--t-h4);font-weight:600;line-height:1;letter-spacing:var(--tr-snug)">8.5<span style="color:var(--obsidian-500);font-size:var(--t-small);font-weight:400">/10</span></div>
-                </div>
-                <div>
-                  <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300);margin-bottom:var(--s-1)">GAP HANDLING</div>
-                  <div style="font-size:var(--t-h4);font-weight:600;line-height:1;letter-spacing:var(--tr-snug)">9.5<span style="color:var(--obsidian-500);font-size:var(--t-small);font-weight:400">/10</span></div>
-                </div>
-              </div>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">A provider&rsquo;s most capable tier. Expect explicit tool calls to read DESIGN.md, syntactic token registry checks, gap-surfacing protocol invoked correctly, voice register maintained.</p>
             </div>
 
             <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-3)">
               <div style="display:flex;align-items:center;gap:var(--s-2)">
                 <span aria-hidden="true" style="width:8px;height:8px;border-radius:50%;background:var(--obsidian-500)"></span>
-                <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">LIGHTWEIGHT · BEST-EFFORT</span>
+                <span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">SMALL, FAST MODELS · BEST-EFFORT</span>
               </div>
               <h3 style="font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)">Usable output, partial compliance.</h3>
-              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Claude Haiku, GPT-5 mini, Gemini 3 Flash. Token references are mostly canonical, principles are cited, structure is sound. Expect two weaknesses:</p>
+              <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">A provider&rsquo;s small, fast tier. Token references are mostly canonical, principles are cited, structure is sound. Expect two weaknesses:</p>
               <ul style="list-style:none;padding:0;margin:0;display:grid;gap:var(--s-3);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-loose)">
                 <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-3);align-items:start"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-0-5)">01</span><span><strong style="color:var(--obsidian-100);font-weight:500">Class name proliferation.</strong> New classes where canonical components would compose.</span></li>
                 <li style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--s-3);align-items:start"><span style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-0-5)">02</span><span><strong style="color:var(--obsidian-100);font-weight:500">Micro-inconsistencies.</strong> Radius drift, occasional minor token substitution, edge cases on multi-component composition.</span></li>
@@ -602,8 +591,8 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
 
           <div class="alert" style="margin-top:var(--s-5);align-items:flex-start">
-            <span class="tag" style="white-space:nowrap;padding-top:var(--s-0-5)">30-SEC SCAN</span>
-            <span>After any generation, grep the code for hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px values (<code>16px</code> instead of <code>var(--s-4)</code>), raw duration literals (<code>600ms</code> instead of <code>var(--d-*)</code> — ratified continuous loops are the only exception), <code>--ease-spring</code> on effect properties (color, background, opacity, shadow — § 09.3 RIGID), new <code>.classname</code> introductions outside the canonical § 3 registry, and missing <code>@media (prefers-reduced-motion: reduce)</code> overrides. Catches most drift regardless of model tier.</span>
+            <span class="tag" style="white-space:nowrap;padding-top:var(--s-0-5)">CHECK THE OUTPUT</span>
+            <span>After any generation, ask the model to run <code>check_compliance</code> from the MCP server on what it wrote. It flags hex literals (<code>#XXXXXX</code> instead of <code>var(--color)</code>), raw px (<code>16px</code> instead of <code>var(--s-4)</code>), raw durations and easings (ratified continuous loops are the only exception), <code>--ease-spring</code> on effect properties (color, background, opacity, shadow — § 06.3 RIGID), classes outside the § 3 registry and a missing <code>@media (prefers-reduced-motion: reduce)</code> override, each with the token that fixes it. Without the MCP server, grep the code for the same things. Either way it catches most drift, whatever the model.</span>
           </div>
 
           <div class="alert" style="margin-top:var(--s-4);align-items:flex-start">
@@ -613,8 +602,8 @@ the mark is an animated SVG, one vector file describing every rotation and every
 
           <div class="card" style="padding:var(--s-6);margin-top:var(--s-4)">
             <div style="font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);color:var(--primary-400);margin-bottom:var(--s-3)">RUNTIME ARCHITECTURE CAVEAT</div>
-            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">Beyond model size, the runtime's file-grounding architecture matters. Anthropic-stack tools (Claude Code, Cowork, Cursor with Claude, Continue with Claude) read uploaded files via explicit tool calls — what you upload is what gets read. Consumer chat tools that abstract file uploads as context embeddings may produce <em>performative compliance</em>: the model announces reading DESIGN.md but the actual grounding is shallow.</p>
-            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">For non-Anthropic runtimes the most reliable deployment is the platform's custom-assistant wrapper — Gemini Gems, ChatGPT Custom GPT — where instructions and knowledge files load at session level, not per-message context.</p>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0 0 var(--s-3);font-size:var(--t-small)">Beyond model size, the runtime's file-grounding architecture matters. Agentic tools that read files through explicit tool calls (Claude Code, Cursor, Continue) read what you give them — what you upload is what gets read. Consumer chat tools that abstract file uploads as context embeddings may produce <em>performative compliance</em>: the model announces reading DESIGN.md but the actual grounding is shallow.</p>
+            <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Wherever the app supports it, the most reliable route is the MCP server, <code>https://www.amaca.design/mcp</code>: the model reads the components, the tokens and the spec by tool call, at the published version, and checks its own output. Without MCP, use the platform&rsquo;s custom-assistant wrapper — Gemini Gems, ChatGPT custom GPTs — where instructions and knowledge files load for the whole session, not per message.</p>
           </div>
         </div>
 
