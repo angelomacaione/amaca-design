@@ -70,6 +70,13 @@ ROWS = [
      [("shadcn registry", "r/registry.json", None)],
      "`npx shadcn add https://www.amaca.design/r/<name>.json`, one component at a time; the first one brings the tokens",
      None),
+    ("Any MCP client that adds a server by URL: Claude (a custom connector), Claude Code, Cursor, VS Code",
+     [("Amaca MCP server", None, "https://www.amaca.design/mcp")],
+     "add `https://www.amaca.design/mcp` as a remote MCP server; in Claude Code, "
+     "`claude mcp add --transport http amaca https://www.amaca.design/mcp`, or install the Agent Plugin, which brings it "
+     "with the skill. No key and nothing to install: "
+     "the agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md and this guide",
+     None),
     ("An agent with MCP (Claude Code, Cursor, VS Code, Codex), components on request",
      [("shadcn registry", "r/registry.json", None)],
      "turn on the shadcn MCP server (`npx shadcn@latest mcp init --client claude`, or `cursor`, `vscode`, `codex`) and add "
@@ -90,6 +97,10 @@ ROWS = [
 # the namespace the MCP row and the Documentation row both give, word for word
 MCP_REGISTRY = '"@amaca": "https://www.amaca.design/r/{name}.json"'
 
+# the remote MCP server (api/mcp.js, served at /mcp by a rewrite in vercel.json):
+# the guide row, § 03.1 step 12 and the Claude Code plugin manifest give this URL, word for word
+MCP_SERVER = "https://www.amaca.design/mcp"
+
 
 # § 03.1 How to install: what each step must name, so the site and llms.txt recommend the same file
 STEPS = {
@@ -104,6 +115,7 @@ STEPS = {
     "09": ["npm install amaca-design"],
     "10": ["npx shadcn add"],
     "11": ["@amaca"],
+    "12": ["www.amaca.design/mcp"],
 }
 
 
