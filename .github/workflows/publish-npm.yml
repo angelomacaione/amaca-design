@@ -1,6 +1,9 @@
 # Publishes the npm package amaca-design when a release tag is pushed (release/release.py tag).
 # The package is built from the repo by release/npm.py; nothing in it is written by hand.
-# Needs the repository secret NPM_TOKEN (an npm automation token).
+# Auth is npm Trusted Publishing (OIDC): npmjs.com trusts this repository and this file by name,
+# so there is no token to store, rotate or leak, and provenance is attached on its own.
+# Set up once on npmjs.com > amaca-design > Settings > Trusted publisher: GitHub Actions,
+# angelomacaione / amaca-design / publish-npm.yml. Renaming this file breaks that link.
 # Run workflow (Actions tab) publishes a tag again by hand, e.g. after a failed run: it builds from that tag.
 name: Publish to npm
 
@@ -10,12 +13,12 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "The release tag to publish, e.g. v5.0.0"
+        description: "The release tag to publish, e.g. v5.2.0"
         required: true
 
 permissions:
   contents: read
-  id-token: write
+  id-token: write # the OIDC token npm exchanges for a one-time publish credential
 
 jobs:
   publish:
@@ -23,16 +26,23 @@ jobs:
     env:
       TAG: ${{ inputs.tag || github.ref_name }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           ref: ${{ env.TAG }}
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "22"
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
+          package-manager-cache: false # never a cache in a release build
+      - name: npm can publish through OIDC (11.5.1 or later)
+        run: |
+          v=$(npm -v)
+          node -e "const [a,b,c]=process.argv[1].split('.').map(Number);process.exit(a>11||(a===11&&(b>5||(b===5&&c>=1)))?0:1)" "$v" \
+            || npm install -g npm@11
+          npm -v
       - name: Build the package from the repo
         run: python3 release/npm.py build/npm
       - name: The tag is the version DESIGN.md states
@@ -41,6 +51,4 @@ jobs:
           if [ "v$v" != "$TAG" ]; then echo "tag $TAG, DESIGN.md $v"; exit 1; fi
       - name: Publish
         # ./ matters: without it npm reads build/npm as the GitHub repository build/npm
-        run: npm publish ./build/npm --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish ./build/npm --access public
