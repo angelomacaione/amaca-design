@@ -13304,9 +13304,9 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
   .site-search{padding:0;min-width:var(--target-touch);min-height:var(--target-touch)}
   .site-search-label,.site-search-kbd{display:none}
 }
-.cmdk{background:var(--obsidian-850);padding:var(--s-3);margin-top:min(20vh,var(--s-32))}
+.cmdk{background:var(--obsidian-850);padding:var(--s-3)} /* centred by the Modal's margin:auto */
 .cmdk .input{min-height:var(--s-12);font-size:var(--t-body)}
-.cmdk-list{list-style:none;margin:var(--s-2) 0 0;padding:0;max-height:min(60vh,calc(var(--s-32) * 3));overflow:auto}
+.cmdk-list{list-style:none;margin:var(--s-2) 0 0;padding:0;height:min(60vh,calc(var(--s-32) * 3));overflow:auto} /* fixed, not max: a centred box that shrank as you type would jump */
 .cmdk-list .select-option[data-active]{background:var(--obsidian-800)}
 .cmdk-list .select-option[aria-selected="true"]{color:var(--obsidian-100)} /* the active row is a cursor, not a chosen value: only the match is brand */
 .cmdk-num,.cmdk-group{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
