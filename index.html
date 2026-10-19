@@ -521,6 +521,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
                 <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">The shadcn MCP server reads any registry a project names. Turn it on with <code>npx shadcn@latest mcp init --client claude</code> (or <code>cursor</code>, <code>vscode</code>, <code>codex</code>), then add Amaca to <code>components.json</code>: <code>"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }</code>. Ask in plain words, "add the Amaca card", and the agent searches <code>@amaca</code>, reads the item with its contract and installs it.</p>
               </div>
             </li>
+            <li class="card doc-row" style="display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:var(--s-6);padding:var(--s-5) var(--s-6);align-items:start">
+              <div style="font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--primary-400);padding-top:var(--s-1)">12 · MCP<br/><span style="color:var(--obsidian-400)">— CONNECT BY URL</span></div>
+              <div>
+                <h3 style="font-size:var(--t-lead);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug);line-height:1.3">Connect any agent, by URL.</h3>
+                <p style="color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)">Add <code>https://www.amaca.design/api/mcp</code> as a remote MCP server: a custom connector in Claude, <code>claude mcp add --transport http amaca https://www.amaca.design/api/mcp</code> in Claude Code, the same URL in Cursor or VS Code. No key and nothing to install. The agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md, and which file to give for each tool.</p>
+              </div>
+            </li>
           </ol>
         </div>
 

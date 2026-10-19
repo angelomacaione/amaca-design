@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "functions": {
+    "api/mcp.js": {
+      "includeFiles": "{DESIGN.md,llms.txt,r/*.json,styles/tokens.css,downloads/tokens.dtcg.json}",
+      "maxDuration": 10
+    }
+  }
+}
