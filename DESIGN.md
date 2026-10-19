@@ -1,6 +1,6 @@
 ---
 name: Amaca
-version: 5.1.0
+version: 5.2.0
 updated: 2026-10-19
 author: Angelo Macaione
 license: MIT
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.1.0 — 2026.10.19
+> **Version** 5.2.0 — 2026.10.19
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4237,6 +4237,33 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.2.0 — 2026.10.19 (MINOR)
+
+Pages that arrive gently, a search for the whole system, and an MCP server that checks what a model wrote.
+
+**Added**
+- **`check_compliance`, the sixth tool of the MCP server.** Give it HTML and CSS, or React with Tailwind: it flags colour literals, raw px, durations and easings, `--ease-spring` on an effect property, classes that look like Amaca and are not in the registry, a second primary and a missing reduced-motion override, each with the token or class that fixes it. The server's instructions ask a model to run it before handing code over.
+- **`--ease-soft` (`0.12, 0.23, 0.5, 1`), the curve for reading entrances.** L8 now reads six durations and six easings; § 06 gains its tile.
+- **The page entrance (§ Page shell).** An active section arrives in three blocks, header, usage and the rest, each rising `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` apart. It replaces the 8px fade of the whole section.
+- **Card rise (§ Card).** A card coming into view rises the same way; cards that show together go 80ms apart in reading order, and a stat counts from the frame its card starts.
+- **Charts › Stat · one number (§ 44.3).** The stat card lives with the charts, and Card § 36.4 points to it. Bars and what follows renumber to § 44.4–44.8.
+- **⌘K / Ctrl+K search on the site.** Every section of the sidebar, ranked as you type, from a Search button in the top bar (an icon on phones). Site chrome, not a component: the package does not carry it.
+- **Code conventions › CSS: a host's unlayered reset outranks `@layer base`.** Inside a host, restate the body unlayered, by token. amaca-frontend 1.3.1 teaches it (HTML.md, check H11).
+- **Checks 108 and 109.** No active text on `--obsidian-400`; the author's name only as credit.
+
+**Changed**
+- **Neutral mono labels, placeholders and the chip's dismiss move to `--obsidian-300`** so they read as text, not as decoration; `--obsidian-400` stays for disabled states and glyphs.
+- **The case study Outcome uses the Chart card stat.** Each stat is a `.chart-card` with `.chart-big` and `.chart-delta`, one accent at most. `.cs-stat`, `.cs-stat-label`, `.cs-stat-value` and `.cs-stat-note` are removed and `.cs-stats` keeps the grid: a copied template replaces the four classes. `.chart-big` takes `--lh-tight` and tabular figures.
+- **Documentation leads with the MCP server.** A card at the top gives the name, the URL and the sign-in for a custom connector; the shadcn MCP server is no longer suggested. § 03.3 names model tiers, not models, and sends the check to `check_compliance`.
+- **npm publishes through Trusted Publishing.** GitHub Actions exchanges an OIDC token for each publish: no stored token. The actions run on v7 and Node 24.
+
+**Fixed**
+- **Demos use invented names;** the author's name appears only as credit.
+- **§ 03.4: the utilities line wraps on phones** instead of being clipped.
+
+**Unchanged**
+- No token value changes.
 
 ### v5.1.0 — 2026.10.19 (MINOR)
 
