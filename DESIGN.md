@@ -4130,6 +4130,7 @@ Every component page carries one card (a Foundations page, Icon included, carrie
 4. **Nothing around it.** Only the component: no panel, button or text that is not part of it. A molecule shows its own parts; the atoms inside it have their own card.
 5. **As in the system.** Fills, indicators and the loader are the real ones, never a copy.
 6. **The grid.** 16px squares, `--obsidian-850` ground and `--obsidian-800` lines: enough to show a thin edge.
+7. **One height for both views.** The Anatomy view sets the card's height; Code scrolls inside it. Switching views never moves the page below the card.
 
 ## Multi-deploy compatibility
 
@@ -4261,6 +4262,7 @@ Pages that arrive gently, a search for the whole system, and an MCP server that 
 **Fixed**
 - **Demos use invented names;** the author's name appears only as credit.
 - **§ 03.4: the utilities line wraps on phones** instead of being clipped.
+- **The Anatomy and code card keeps one height**: the Anatomy view sets it and Code scrolls inside, so switching views no longer moves the page.
 
 **Unchanged**
 - No token value changes.

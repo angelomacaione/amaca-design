@@ -3843,6 +3843,12 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .kit-panel{display:flex;flex-direction:column;min-width:0;background:var(--surface-sunken);border-left:var(--bw-1) solid var(--border-subtle)}
 .kit-head{display:flex;align-items:center;padding:var(--s-4);border-bottom:var(--bw-1) solid var(--border-subtle)}
 .kit-body{padding:var(--s-4) var(--s-5);overflow:auto;max-height:calc(var(--s-32) * 3)}
+/* One height for both views (v5.2.0): the Anatomy view sets it, Code scrolls inside it. The two panels share
+   one grid cell; hidden, Anatomy keeps its place without showing, and Code adds no height of its own. */
+.kit-panel{display:grid;grid-template-rows:auto minmax(0,1fr)}
+.kit-panel > .kit-body{grid-row:2;grid-column:1}
+.kit-panel > .kit-body:nth-child(2)[hidden]{display:block;visibility:hidden}
+.kit-panel > .kit-body:nth-child(3){contain:size;max-height:none}
 .kit-group{display:block;font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
 .kit-part{display:grid;grid-template-columns:var(--s-6) var(--s-16) minmax(0,1fr);gap:var(--s-3);align-items:start;padding:var(--s-3) 0;border-bottom:var(--bw-1) solid var(--border-subtle);font-size:var(--t-small)}
 .kit-part:last-child{border-bottom:0}
