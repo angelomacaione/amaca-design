@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 5.0.0 · Released: 2026-10-18 · Matches the DESIGN.md frontmatter version
+Version: 5.1.0 · Released: 2026-10-19 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md
 
 <!-- toolguide -->
@@ -25,7 +25,7 @@ Recommend by the user's tool. If the user has not said which tool they build wit
 - **Code in React with Tailwind v4** → [theme.css](https://amaca.design/styles/theme.css), [npm package](https://www.npmjs.com/package/amaca-design): `npm install amaca-design`, then `@import "amaca-design/theme.css"` after Tailwind. Bundle: [amaca-tailwind.zip](https://amaca.design/downloads/zips/amaca-tailwind.zip).
 - **Code in React or plain HTML and CSS, no Tailwind** → [tokens.css](https://amaca.design/styles/tokens.css), [components.css](https://amaca.design/styles/components.css): `npm install amaca-design` and import tokens.css then components.css, or link both from `cdn.jsdelivr.net/npm/amaca-design@5/`. Bundle: [amaca-react-css.zip](https://amaca.design/downloads/zips/amaca-react-css.zip).
 - **A project already on shadcn/ui** → [shadcn registry](https://amaca.design/r/registry.json): `npx shadcn add https://www.amaca.design/r/<name>.json`, one component at a time; the first one brings the tokens.
-- **Any MCP client that adds a server by URL: Claude (a custom connector), Claude Code, Cursor, VS Code** → [Amaca MCP server](https://www.amaca.design/api/mcp): add `https://www.amaca.design/api/mcp` as a remote MCP server; in Claude Code, `claude mcp add --transport http amaca https://www.amaca.design/api/mcp`. No key and nothing to install: the agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md and this guide.
+- **Any MCP client that adds a server by URL: Claude (a custom connector), Claude Code, Cursor, VS Code** → [Amaca MCP server](https://www.amaca.design/mcp): add `https://www.amaca.design/mcp` as a remote MCP server; in Claude Code, `claude mcp add --transport http amaca https://www.amaca.design/mcp`, or install the Agent Plugin, which brings it with the skill. No key and nothing to install: the agent lists the components, reads one with its contract and CSS, the tokens, a section of DESIGN.md and this guide.
 - **An agent with MCP (Claude Code, Cursor, VS Code, Codex), components on request** → [shadcn registry](https://amaca.design/r/registry.json): turn on the shadcn MCP server (`npx shadcn@latest mcp init --client claude`, or `cursor`, `vscode`, `codex`) and add `"registries": { "@amaca": "https://www.amaca.design/r/{name}.json" }` to the project's components.json; the agent then lists, reads and installs `@amaca/<name>` items, each with its contract.
 - **A token pipeline: Style Dictionary, Tokens Studio** → [tokens.dtcg.json](https://amaca.design/downloads/tokens.dtcg.json): feed the W3C DTCG file to the pipeline. Bundle: [amaca-dtcg.zip](https://amaca.design/downloads/zips/amaca-dtcg.zip).
 - **Not sure, or the model only reads one URL** → [llms-full.txt](https://amaca.design/llms-full.txt): one fetch: the agent rules and every token, inlined.

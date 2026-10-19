@@ -127,7 +127,7 @@ test('get_install is the tool guide of llms.txt, whole or for one tool', () => {
   const cursor = text(call('get_install', { tool: 'Cursor' }));
   assert.match(cursor, /amaca-plugin\.zip/);
   assert.doesNotMatch(cursor, /Google Stitch/);
-  assert.match(all, /api\/mcp/, 'the guide names this server');
+  assert.match(all, /https:\/\/www\.amaca\.design\/mcp\b/, 'the guide names this server');
 });
 
 // ---------------------------------------------------------------- HTTP
@@ -197,6 +197,11 @@ test('HTTP: GET and DELETE are 405, OPTIONS is a CORS preflight', async () => {
 });
 
 // ---------------------------------------------------------------- deploy
+
+test('vercel.json serves the published URL /mcp from the function', () => {
+  const v = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+  assert.ok(v.rewrites.some((r) => r.source === '/mcp' && r.destination === '/api/mcp'));
+});
 
 test('vercel.json bundles every file the server reads', () => {
   const v = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));

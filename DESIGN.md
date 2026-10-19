@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 5.0.0
-updated: 2026-10-18
+version: 5.1.0
+updated: 2026-10-19
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-10-18
+last_synced: 2026-10-19
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.0.0 — 2026.10.18
+> **Version** 5.1.0 — 2026.10.19
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4228,6 +4228,18 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.1.0 — 2026.10.19 (MINOR)
+
+Amaca as a remote MCP server: a chat app that takes a server only by URL can now read the system.
+
+**Added**
+- **A remote MCP server at `https://www.amaca.design/mcp`.** Streamable HTTP, stateless, read-only, no key. Five tools: `list_components`; `get_component`, the contract in `meta.amaca`, the CSS and one example; `get_tokens`, `tokens.css` or the DTCG file, whole or one family; `get_design_section`, one section of this file by title or § number; `get_install`, the tool guide. It answers from the files of the deploy that serves it, so it is always the published release. Add it as a custom connector in Claude, with `claude mcp add --transport http` in Claude Code, or by URL in Cursor and VS Code; the Claude Code plugin now declares it, so installing the plugin brings the skill and the server together. The shadcn MCP server stays the way to install components into a project.
+- **§ 03.1 step 12, "Connect any agent, by URL"**, and its line in the tool guide of `llms.txt` and `llms-full.txt`.
+- **Check 107**: the server's tests pass (`tests/mcp.test.js`, run with `node --test`), Vercel bundles every file it reads, and the site gives its URL.
+
+**Unchanged**
+- No token, component or rule changes. The stylesheets are the v5.0.0 files.
 
 ### v5.0.0 — 2026.10.18 (MAJOR)
 

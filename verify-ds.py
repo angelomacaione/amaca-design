@@ -3942,7 +3942,7 @@ def c101():
     return [f"r/{n}: not what release/registry.py writes - run `python3 release/registry.py`" for n in bad]
 
 
-@check("107", "The MCP server at /api/mcp answers from the files the site ships: its tests pass, Vercel bundles what it reads, and the site gives its URL",
+@check("107", "The MCP server at /mcp answers from the files the site ships: its tests pass, Vercel bundles what it reads, and the site and the plugin give its URL",
        "v5.1.0: the shadcn MCP server runs on the user's machine, so a chat app that only takes a remote server by URL "
        "(a Claude custom connector) could not reach Amaca at all. api/mcp.js serves the registry, the tokens, DESIGN.md and "
        "the tool guide from the same deploy. A function that reads a file Vercel did not bundle fails only in production, "
@@ -3967,10 +3967,21 @@ def c107():
     v = json.loads(read(ROOT / "vercel.json"))
     if "api/mcp.js" not in v.get("functions", {}):
         fails.append("vercel.json: api/mcp.js has no functions entry, so its includeFiles are not applied")
-    url = "www.amaca.design/api/mcp"
+    if {"source": "/mcp", "destination": "/api/mcp"} not in v.get("rewrites", []):
+        fails.append("vercel.json: no rewrite from /mcp to /api/mcp, so the published URL answers 404")
+    url = "https://www.amaca.design/mcp"
     for name in ("index.html", "llms.txt", "llms-full.txt"):
         if url not in read(ROOT / name):
             fails.append(f"{name}: does not give the MCP server's URL ({url})")
+    import zipfile
+    try:
+        with zipfile.ZipFile(PLUGIN_ZIP) as z:
+            man = json.loads(z.read("amaca-design/.claude-plugin/plugin.json"))
+        srv = man.get("mcpServers", {}).get("amaca", {})
+        if srv.get("type") != "http" or srv.get("url") != url:
+            fails.append(f"amaca-plugin.zip: the Claude Code manifest does not declare the MCP server ({url}, type http)")
+    except Exception as e:
+        fails.append(f"amaca-plugin.zip: Claude Code manifest unreadable ({e!r})")
     return fails
 
 

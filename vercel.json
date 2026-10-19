@@ -5,5 +5,11 @@
       "includeFiles": "{DESIGN.md,llms.txt,r/*.json,styles/tokens.css,downloads/tokens.dtcg.json}",
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/mcp",
+      "destination": "/api/mcp"
+    }
+  ]
 }

@@ -1,6 +1,7 @@
 'use strict';
 /*
- * Amaca MCP server — the HTTP adapter, served at https://www.amaca.design/api/mcp.
+ * Amaca MCP server — the HTTP adapter, served at https://www.amaca.design/mcp
+ * (a rewrite in vercel.json; /api/mcp answers too).
  *
  * Streamable HTTP without sessions or streams: POST a JSON-RPC message (or a batch),
  * get JSON back. GET and DELETE answer 405, as the transport allows a server that

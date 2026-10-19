@@ -80,6 +80,9 @@ JSON
 
 # 3 — the Claude Code manifest. Schema is OPEN (unknown fields are warnings),
 # but a recognized field with the wrong type stops the plugin from loading.
+# v5.1.0: it declares the remote MCP server inline (`mcpServers`, type http), so
+# the plugin brings the skill and the server together. Only here: the Agent
+# Plugins 1.0 schema is closed and this script does not guess its MCP field.
 cat > "$root/.claude-plugin/plugin.json" <<JSON
 {
   "\$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
@@ -90,7 +93,10 @@ cat > "$root/.claude-plugin/plugin.json" <<JSON
   "homepage": "https://amaca.design",
   "repository": "https://github.com/angelomacaione/amaca-design",
   "license": "MIT",
-  "keywords": ["design-system", "design-tokens", "amaca", "tailwind", "figma"]
+  "keywords": ["design-system", "design-tokens", "amaca", "tailwind", "figma"],
+  "mcpServers": {
+    "amaca": { "type": "http", "url": "https://www.amaca.design/mcp" }
+  }
 }
 JSON
 
@@ -117,6 +123,13 @@ pointing at this package.
 **By hand, anywhere** — unpack `skills/amaca-frontend/` into the skills path your
 tool reads: `.agents/skills/` (vendor-neutral, read by Cursor 2.4+ and Codex),
 `.claude/skills/`, or `.cursor/skills/`.
+
+## The MCP server
+
+On Claude Code the plugin also declares the Amaca MCP server,
+`https://www.amaca.design/mcp`: remote, read-only, no key. The agent can list
+the components, read one with its contract and CSS, the tokens, a section of
+DESIGN.md and the tool guide. Elsewhere, add the same URL as a remote MCP server.
 
 ## Then
 
