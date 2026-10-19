@@ -2673,6 +2673,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
+- **Card rise**: a card fades up as it comes into view: opacity 0→1 and `--s-3` of rise, `--d-slow` · `--ease-decel`. Cards that show together go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
@@ -2710,6 +2711,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-decel` | none — shown at rest |
 
 
 **Variants.**
@@ -3258,6 +3260,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
+| enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-decel` | none — shown at rest |
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
 **Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
@@ -3884,6 +3887,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Page shell | section activate | opacity (effect) · translateY 8px→0 (spatial) | `--d-base` · `--ease-standard` | none |
 | Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
 | Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
+| Chart card | enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-decel` | none — shown at rest |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
@@ -3913,6 +3917,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
+| Card | enter viewport | opacity (effect) · translateY `--s-3`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-decel` | none — shown at rest |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |

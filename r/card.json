@@ -106,6 +106,7 @@
       "rules": [
         "Background: --obsidian-800. Border: 1px solid --obsidian-700. Radius: --r-lg.",
         "Every card carries a micro-header (.card-meta) with project code, date, or index. Mono, --t-micro, --obsidian-300.",
+        "Card rise: a card fades up as it comes into view: opacity 0→1 and --s-3 of rise, --d-slow · --ease-decel. Cards that show together go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.",
         "Hover: border shifts to --obsidian-600, shadow --sh-2.",
         "At most one action per card, on its own row at the end; it is .btn-primary only when the card is the screen's single primary act."
       ],

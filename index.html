@@ -10,10 +10,12 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
+<script>document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
 <link rel="stylesheet" href="styles/tokens.css?v=51fa23a4">
 <link rel="stylesheet" href="styles/components.css?v=c668f120">
 
 <style id="__animations_inline">
+@media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.has-risen){opacity:0}}
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 [data-fade].is-in{opacity:1;transform:translateY(0)}
 [data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity var(--d-scene) var(--ease-decel), transform var(--d-scene) var(--ease-decel)}
@@ -998,6 +1000,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Page shell</td><td>section activate</td><td class="muted">opacity (effect) · translateY 8px→0 (spatial)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">none</td></tr>
               <tr><td>Button</td><td>press</td><td class="muted">background · border · colour (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Button (primary)</td><td>press</td><td class="muted">scale 1 → .97 (spatial)</td><td><code>--d-quick</code> · <code>--ease-spring</code></td><td class="muted">none — no scale</td></tr>
+              <tr><td>Chart card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-3</code>→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Chart card</td><td>stat reveal</td><td class="muted">count-up (effect · text)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">none — jumps to the value</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">baseline clip width (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · delay <code>--d-base</code></td><td class="muted">none — drawn</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">line stroke-dashoffset (spatial)</td><td><code>--d-draw</code> · <code>--ease-decel</code> · delay <code>--d-base</code> + <code>--d-slow</code></td><td class="muted">none — drawn</td></tr>
@@ -1027,6 +1030,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Card</td><td>hover · focus-within</td><td class="muted">media child scale 1→1.05 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
               <tr><td>Card</td><td>hover ends · focus leaves</td><td class="muted">media child scale 1.05→1 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
+              <tr><td>Card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-3</code>→0 (spatial), 80ms apart in reading order</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Lightbox</td><td>open</td><td class="muted">backdrop + content opacity (effect) — no scale-in</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Lightbox</td><td>close</td><td class="muted">backdrop + content opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
               <tr><td>Modal</td><td>open</td><td class="muted">panel opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
@@ -5891,7 +5895,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 36.2</span></div>
           <p class="subsection-desc">What the contract holds the card to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
+          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li><strong>Card rise</strong>: a card fades up as it comes into view: opacity 0→1 and <code>--s-3</code> of rise, <code>--d-slow</code> · <code>--ease-decel</code>. Cards that show together go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
         </div>
 
         <div class="subsection">
@@ -5899,23 +5903,23 @@ button.chip:disabled{
           <p class="subsection-desc">The project card: micro-header, media, title, body, and at most one action. Surfaces ride the card ramp; the media scales on hover, the card itself never lifts.</p>
           <div class="grid grid-3">
             <div class="card">
-              <div class="card-meta" data-fade><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
+              <div class="card-meta"><span>CS-017 · 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, #66195A, #F051D5 70%, #FF85DF);position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(0,0,0,0.1) 8px, rgba(0,0,0,0.1) 9px)"></div></div></div>
-              <h4 data-fade style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
-              <div class="card-actions" data-fade><button type="button" class="btn btn-secondary">Open case file</button></div>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Arc · Automotive HMI</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+              <div class="card-actions"><button type="button" class="btn btn-secondary">Open case file</button></div>
             </div>
             <div class="card">
-              <div class="card-meta" data-fade><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
+              <div class="card-meta"><span>CS-019 · 2026</span><span class="badge badge-warn"><span class="dot"></span>Pending</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:var(--obsidian-850);display:grid;place-items:center;border:var(--bw-1) dashed var(--obsidian-700);color:var(--obsidian-500);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono)">CONFIDENTIAL</div></div>
-              <h4 data-fade style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Project Orion — IoT platform</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">Pending state card. This payload is merely illustrative.</p>
             </div>
             <div class="card">
-              <div class="card-meta" data-fade><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
+              <div class="card-meta"><span>CS-015 · 2024</span><span class="badge"><span class="dot"></span>Archive</span></div>
               <div class="card-media"><div style="height:140px;border-radius:var(--r-md);background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850));position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(200px 150px at 70% 30%, rgba(240,81,213,0.2), transparent)"></div></div></div>
-              <h4 data-fade style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Field · observability app</h4>
-              <p data-fade style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
+              <h4 style="font-size:var(--t-lead);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Field · observability app</h4>
+              <p style="color:var(--obsidian-300);font-size:var(--t-small);margin:0;line-height:var(--lh-loose)">On-call dashboards for a SaaS infra company.</p>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-projects" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
@@ -7197,24 +7201,24 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           <p class="subsection-desc">The stat: one number with no plot, on a quiet data surface on the card ramp. One number, one accent at most, and the delta keeps its sign — color never carries direction alone.</p>
           <div class="grid grid-4">
             <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Retention · D30</span><span class="s" data-fade>CS-017</span></div>
+              <div class="chart-head"><span class="t">Retention · D30</span><span class="s">CS-017</span></div>
               <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
-              <div class="chart-delta" data-fade>▲ 12pt vs. baseline</div>
+              <div class="chart-delta">▲ 12pt vs. baseline</div>
             </div>
             <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Task time</span><span class="s" data-fade>CS-017</span></div>
+              <div class="chart-head"><span class="t">Task time</span><span class="s">CS-017</span></div>
               <div class="chart-big" data-count-to="-41" data-suffix="%" data-prefix="−">0%</div>
-              <div class="chart-delta" data-fade>vs. legacy HMI</div>
+              <div class="chart-delta">vs. legacy HMI</div>
             </div>
             <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>NPS</span><span class="s" data-fade>CS-019</span></div>
+              <div class="chart-head"><span class="t">NPS</span><span class="s">CS-019</span></div>
               <div class="chart-big" data-count-to="62" data-prefix="+">0</div>
-              <div class="chart-delta" data-fade>▲ 8 from Q4</div>
+              <div class="chart-delta">▲ 8 from Q4</div>
             </div>
             <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Error rate</span><span class="s" data-fade>CS-015</span></div>
+              <div class="chart-head"><span class="t">Error rate</span><span class="s">CS-015</span></div>
               <div class="chart-big" data-count-to="0.3" data-suffix="%" data-decimals="1">0.0%</div>
-              <div class="chart-delta neg" data-fade>▲ from 0.1%</div>
+              <div class="chart-delta neg">▲ from 0.1%</div>
             </div>
           </div>
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
@@ -8348,7 +8352,7 @@ flowchart TD
           <p class="eyebrow">04 · Outcome</p>
           <h3 class="cs-section-title">Measured, shipped, maintained.</h3>
           <div class="cs-section-body">
-            <ul class="cs-stats" data-count="3"><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Task time</span></div><div class="chart-big accent" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta" data-fade>38s → 22s median</div></li><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Eyes-off-road</span></div><div class="chart-big" data-count-to="-64" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta" data-fade>Below the 12s rule</div></li><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Retention</span></div><div class="chart-big" data-count-to="12" data-prefix="+" data-suffix="pt">+0pt</div><div class="chart-delta" data-fade>D30, 72 → 84%</div></li></ul>
+            <ul class="cs-stats" data-count="3"><li class="chart-card"><div class="chart-head"><span class="t">Task time</span></div><div class="chart-big accent" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta">38s → 22s median</div></li><li class="chart-card"><div class="chart-head"><span class="t">Eyes-off-road</span></div><div class="chart-big" data-count-to="-64" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta">Below the 12s rule</div></li><li class="chart-card"><div class="chart-head"><span class="t">Retention</span></div><div class="chart-big" data-count-to="12" data-prefix="+" data-suffix="pt">+0pt</div><div class="chart-delta">D30, 72 → 84%</div></li></ul>
             <p>Shipped to 2 vehicle platforms in Q4 2024. The token system that emerged from this project became the foundation for Arc's whole product design language.</p>
           </div>
         </div>
@@ -10024,175 +10028,61 @@ if ('IntersectionObserver' in window) {
 </script>
 
 <script>
-// --- cards animations (§ 12.1 projects + § 12.2 stats), powered by Motion ---
+// --- card rise (v5.2.0): every card fades up as it comes into view ---
+// Cards that enter together go in reading order, 80ms apart. A stat card's number starts
+// counting on the same frame its card starts to rise. Nested cards ride with their parent.
+// Under reduced motion nothing moves and every number shows its final value.
 (function(){
-  const cardsSection = document.getElementById('card');
-  if (!cardsSection) return;
-
-  function waitForMotion(cb){
-    if (window.__motion) return cb(window.__motion);
-    const t = setInterval(() => {
-      if (window.__motion) { clearInterval(t); cb(window.__motion); }
-    }, 20);
-    setTimeout(() => clearInterval(t), 3000);
+  const SEL = '.card,.chart-card,.cs-card';
+  const root = document.documentElement;
+  const css = getComputedStyle(root);
+  const ms = (v) => parseFloat(css.getPropertyValue(v)) || 0;
+  const tok = (v) => css.getPropertyValue(v).trim();
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const STEP = 80, MAX_STEPS = 8;
+  const cards = [...document.querySelectorAll(SEL)].filter((c) => !c.parentElement.closest(SEL));
+  const fmt = (el, v) => (el.dataset.prefix || '') + Math.abs(v).toFixed(parseInt(el.dataset.decimals || '0', 10)) + (el.dataset.suffix || '');
+  const curve = (tok('--ease-decel').match(/[\d.]+/g) || [0.16, 1, 0.3, 1]).map(Number);
+  const ease = (t) => { // the --ease-decel cubic-bezier, solved for x by bisection
+    const [x1, y1, x2, y2] = curve, b = (a, c, m) => 3 * a * m * (1 - m) ** 2 + 3 * c * m * m * (1 - m) + m ** 3;
+    let lo = 0, hi = 1; for (let i = 0; i < 24; i++) { const m = (lo + hi) / 2; b(x1, x2, m) < t ? lo = m : hi = m; }
+    return b(y1, y2, (lo + hi) / 2);
+  };
+  function count(el, delay){
+    const to = parseFloat(el.dataset.countTo), dur = ms('--d-draw');
+    el.textContent = fmt(el, 0);
+    setTimeout(() => {
+      const t0 = performance.now();
+      const step = (now) => { const p = Math.min(1, (now - t0) / dur); el.textContent = fmt(el, p < 1 ? to * ease(p) : to); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, delay);
   }
-
-  // Find regions by § number
-  const subs = cardsSection.querySelectorAll('.subsection');
-  let projectsRegion = null, statsRegion = null;
-  for (const s of subs) {
-    // v5.0.0: found by title, not by § number — numbers move when sections are added
-    const n = s.querySelector('.subsection-title');
-    if (!n) continue;
-    const t = n.textContent.trim();
-    if (t === 'Project card') projectsRegion = s;
+  function rise(card, delay){
+    card.getAnimations().forEach((a) => a.cancel());
+    card.classList.add('has-risen');
+    card.animate([{ opacity: 0, transform: 'translateY(' + tok('--s-3') + ')' }, { opacity: 1, transform: 'none' }],
+      { duration: ms('--d-slow'), easing: tok('--ease-decel'), delay, fill: 'backwards' });
+    const n = card.querySelector('.chart-big[data-count-to]');
+    if (n) count(n, delay);
   }
-  // v5.2.0: the stat demo moved to Charts › Stat · one number
-  document.querySelectorAll('#charts .subsection').forEach((s) => {
-    const n = s.querySelector('.subsection-title');
-    if (n && n.textContent.trim() === 'Stat · one number') statsRegion = s;
+  const inOrder = (list) => list.sort((a, b) => { const r = a.getBoundingClientRect(), s = b.getBoundingClientRect(); return (r.top - s.top) || (r.left - s.left); });
+  if (REDUCE || !('IntersectionObserver' in window) || !Element.prototype.animate) {
+    document.querySelectorAll('.chart-big[data-count-to]').forEach((n) => { n.textContent = fmt(n, parseFloat(n.dataset.countTo)); });
+    root.classList.remove('cards-rise');
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      inOrder(entries.filter((e) => e.isIntersecting).map((e) => e.target)).forEach((c, i) => { io.unobserve(c); rise(c, Math.min(i, MAX_STEPS) * STEP); });
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' }); // a card rises as soon as it shows, not once it is half in
+    cards.forEach((c) => io.observe(c));
+  }
+  // Replay (Card and Charts pages): the cards of one subsection rise again, numbers with them
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-replay="cards-stats"],[data-replay="cards-projects"]');
+    if (!b || REDUCE) return;
+    const sub = b.closest('.subsection');
+    inOrder(cards.filter((c) => sub && sub.contains(c))).forEach((c, i) => rise(c, Math.min(i, MAX_STEPS) * STEP));
   });
-
-  // Case study Outcome region — same chart-card pattern as § 12.2
-  const casestudySection = document.getElementById('casestudy');
-  let csOutcomeRegion = null;
-  if (casestudySection) {
-    casestudySection.querySelectorAll('.cs-section').forEach(sec => {
-      const eb = sec.querySelector('.eyebrow');
-      if (eb && /Outcome/i.test(eb.textContent)) csOutcomeRegion = sec;
-    });
-  }
-
-  waitForMotion(M => {
-    const { animate } = M;
-    const T = M.tokens();        // motion tokens via :root — single source (§ 21 pattern)
-    const decel = T.easeDecel;
-    const spring = T.easeSpring;
-
-    // --- fade-in-up helper using Motion ---
-    // We keep the CSS [data-fade] default state (opacity:0 + translateY(12px))
-    // and animate via Motion directly on style properties, then add 'is-in'
-    // at the end so the final state matches CSS (in case anything reads it).
-    function fadeIn(el, delayMs){
-      el.classList.remove('is-in');
-      el.style.transition = 'none';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(12px)';
-      // tiny rAF to flush
-      requestAnimationFrame(() => {
-        animate(0, 1, {
-          duration: T.dSlow, ease: decel, delay: delayMs / 1000,
-          onUpdate: v => {
-            el.style.opacity = v;
-            el.style.transform = 'translateY(' + (12 * (1 - v)).toFixed(2) + 'px)';
-          },
-          onComplete: () => {
-            el.style.transition = '';
-            el.classList.add('is-in');
-          }
-        });
-      });
-    }
-
-    // --- counter animation using Motion ---
-    function countTo(el, delayMs){
-      const target = parseFloat(el.dataset.countTo);
-      const decimals = parseInt(el.dataset.decimals || '0', 10);
-      const prefix = el.dataset.prefix || '';
-      const suffix = el.dataset.suffix || '';
-      el.textContent = prefix + (0).toFixed(decimals) + suffix;
-      animate(0, target, {
-        duration: T.dDraw, ease: decel, delay: delayMs / 1000,
-        onUpdate: v => {
-          el.textContent = prefix + Math.abs(v).toFixed(decimals) + suffix;
-        },
-        onComplete: () => {
-          el.textContent = prefix + Math.abs(target).toFixed(decimals) + suffix;
-        }
-      });
-    }
-
-    // --- project cards (§ 16.1) ---
-    function runProjects(){
-      if (!projectsRegion) return;
-      const cards = projectsRegion.querySelectorAll('.card');
-      cards.forEach((card, ci) => {
-        const fades = card.querySelectorAll('[data-fade]');
-        const base = ci * 120;
-        fades.forEach((f, fi) => fadeIn(f, base + fi * 90));
-      });
-    }
-
-    // --- stat cards (§ 16.2) ---
-    function runStats(){
-      if (!statsRegion) return;
-      const cards = statsRegion.querySelectorAll('.chart-card');
-      cards.forEach((card, ci) => {
-        const fades = card.querySelectorAll('[data-fade]');
-        const counter = card.querySelector('[data-count-to]');
-        const base = ci * 80;
-        fades.forEach((f, fi) => fadeIn(f, base + fi * 90));
-        if (counter) countTo(counter, base + 150);
-      });
-    }
-
-    // --- case study outcome cards (§ 29) — same pattern as § 12.2 ---
-    function runCsOutcome(){
-      if (!csOutcomeRegion) return;
-      const cards = csOutcomeRegion.querySelectorAll('.chart-card');
-      cards.forEach((card, ci) => {
-        const fades = card.querySelectorAll('[data-fade]');
-        const counter = card.querySelector('[data-count-to]');
-        const base = ci * 80;
-        fades.forEach((f, fi) => fadeIn(f, base + fi * 90));
-        if (counter) countTo(counter, base + 150);
-      });
-    }
-
-    // --- triggers ---
-    function observeScroll(region, fn){
-      if (!region) return;
-      const io = new IntersectionObserver((entries, obs) => {
-        for (const e of entries) {
-          if (e.isIntersecting) { fn(); obs.disconnect(); }
-        }
-      }, {threshold: 0.3});
-      io.observe(region);
-    }
-    observeScroll(projectsRegion, runProjects);
-    observeScroll(statsRegion, runStats);
-    observeScroll(csOutcomeRegion, runCsOutcome);
-
-    // Tab activation → run both
-    new MutationObserver(muts => {
-      for (const m of muts) {
-        if (m.target.id === 'cards' && m.target.classList.contains('active')) {
-          setTimeout(runProjects, 80);
-        }
-      }
-    }).observe(cardsSection, {attributes:true, attributeFilter:['class']});
-    const chartsSection = statsRegion && statsRegion.closest('.section');
-    if (chartsSection) new MutationObserver(() => { if (chartsSection.classList.contains('active')) setTimeout(runStats, 80); })
-      .observe(chartsSection, {attributes:true, attributeFilter:['class']});
-
-    if (casestudySection) {
-      new MutationObserver(muts => {
-        for (const m of muts) {
-          if (m.target.id === 'casestudy' && m.target.classList.contains('active')) {
-            setTimeout(runCsOutcome, 80);
-          }
-        }
-      }).observe(casestudySection, {attributes:true, attributeFilter:['class']});
-    }
-
-    // Replay buttons (scoped per subsection)
-    document.addEventListener('click', (ev) => {
-      const p = ev.target.closest('[data-replay="cards-projects"]');
-      if (p) { runProjects(); return; }
-      const s = ev.target.closest('[data-replay="cards-stats"]');
-      if (s) { runStats(); return; }
-    });
-  });
+  window.__cardsRise = true;
 })();
 </script>
 

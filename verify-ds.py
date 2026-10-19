@@ -521,7 +521,8 @@ def c19():
         num = re.search(r'subsection-num">([^<]*)', sub)
         has_motion = any(k in sub for k in ("data-fade", "data-alert-fade", "is-in",
                                             "data-toast-demo", "data-fade-chart",
-                                            "data-ease", "stepper", "gantt", "swatch-tile-motion"))
+                                            "data-ease", "stepper", "gantt", "swatch-tile-motion",
+                                            'data-replay="cards-'))  # v5.2.0: the card rise, run by the page script
         if not has_motion and num:
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
