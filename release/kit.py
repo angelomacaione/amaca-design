@@ -446,7 +446,9 @@ def build(name):
     stage = "kit-stage" + (f' kit-stage-{kit["edge"]}' if kit.get("edge") else "") + (f' kit-stage-{kit["stack"]}' if kit.get("stack") else "")
     return (
         f'<div class="kit{" kit-wide" if kit.get("wide") else ""}" data-kit="{name}" data-kit-file="amaca-{name}.html">'
-        f'<div class="{stage}">{kit["html"]}</div>'
+        # inert (v5.2.0): the example holds still — no hover, focus or click — so it always shows
+        # the default state the Anatomy rows beside it name
+        f'<div class="{stage}" inert>{kit["html"]}</div>'
         f'<div class="kit-panel">'
         f'<div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented>'
         f'<button type="button" class="segmented-item" role="tab" id="{a}-tab" aria-selected="true" aria-controls="{a}">{svg("component")}Anatomy</button>'

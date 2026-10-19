@@ -4126,7 +4126,7 @@ Every component page carries one card (a Foundations page, Icon included, carrie
 
 1. **In the middle.** The example sits in the centre of the grid. Only what lives on an edge (sidebar, drawer, top bar) leans on that edge, full height or width, with no margin and no corners.
 2. **One specimen.** One example per card: the first of its family, the brand colour when there is a choice. A call to action is the primary.
-3. **Default.** The default state, with no focus. A menu or a popover is laid open, apart from its field, so the two read as two parts.
+3. **Default, and it stays default.** The default state, with no focus. The example is `inert`: no hover, focus or click reaches it, so it always matches the tokens the Anatomy view names beside it. A menu or a popover is laid open, apart from its field, so the two read as two parts.
 4. **Nothing around it.** Only the component: no panel, button or text that is not part of it. A molecule shows its own parts; the atoms inside it have their own card.
 5. **As in the system.** Fills, indicators and the loader are the real ones, never a copy.
 6. **The grid.** 16px squares, `--obsidian-850` ground and `--obsidian-800` lines: enough to show a thin edge.
@@ -4263,6 +4263,7 @@ Pages that arrive gently, a search for the whole system, and an MCP server that 
 - **Demos use invented names;** the author's name appears only as credit.
 - **§ 03.4: the utilities line wraps on phones** instead of being clipped.
 - **The Anatomy and code card keeps one height**: the Anatomy view sets it and Code scrolls inside, so switching views no longer moves the page.
+- **The example in the Anatomy and code card is inert**: no hover, focus or click changes it, so it always matches the tokens named beside it.
 
 **Unchanged**
 - No token value changes.
