@@ -3991,6 +3991,39 @@ def c107():
     return fails
 
 
+@check("108", "No active text is drawn in --obsidian-400: neutral mono labels and placeholders are --obsidian-300",
+       "v5.2.0: --obsidian-400 reaches 3.38:1 at best and 2.93:1 on a card, under the 4.5:1 a 10px label needs "
+       "(WCAG 1.4.3). The Typography rule named it for neutral mono labels, so 29 label rules, the placeholders and "
+       "173 inline labels on the site drew text no one could pass, and a site built on the case study template "
+       "inherited it (Lighthouse flagged the dossier). --obsidian-400 stays for what WCAG exempts or measures at 3:1: "
+       "disabled text, a press that lasts as long as the press, and glyphs that clear 3:1 on their ground.")
+def c108():
+    css = read(COMPONENTS)
+    exempt_glyph = {".dp-title svg", ".acc-chevron", ".toast-dismiss", ".chat-tick", ".chat-composer-send"}
+    fails = []
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        sel = " ".join(re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S).split())
+        if not re.search(r"(?<![-\w])color\s*:\s*var\(--obsidian-400\)", m.group(2)):
+            continue
+        parts = [s.strip() for s in sel.split(",")]
+        if all(("disabled" in s) or s.endswith(":active") or s in exempt_glyph for s in parts):
+            continue
+        line = css.count("\n", 0, m.start()) + 1
+        fails.append(f"components.css:{line} {sel}: text in --obsidian-400; neutral labels and placeholders are --obsidian-300")
+    html = read(INDEX)
+    n = len(re.findall(r'<(?:span|div)\b[^>]*style="[^"]*(?<![-\w])color:\s*var\(--obsidian-400\)', html))
+    if n:
+        fails.append(f"index.html: {n} inline label(s) in --obsidian-400; the site's labels follow the same rule")
+    for sm in re.finditer(r"<style[^>]*>(.*?)</style>", html, re.S):  # the templates carry their own rules
+        for r in re.finditer(r"([^{}]+)\{([^{}]*)\}", sm.group(1)):
+            if re.search(r"(?<![-\w])color\s*:\s*var\(--obsidian-400\)", r.group(2)) and "disabled" not in r.group(1):
+                fails.append(f"index.html <style>: {' '.join(r.group(1).split())}: text in --obsidian-400")
+    d = read(DESIGN)
+    if "or `--obsidian-400` for neutral" in d:
+        fails.append("DESIGN.md § Typography still names --obsidian-400 for neutral mono labels")
+    return fails
+
+
 @check("102", "Every variant the contract declares is on its page, in a demo",
        "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
        "visual source of truth the owner validates against, so a declared class no demo shows is a variant "

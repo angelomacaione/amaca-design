@@ -12,7 +12,7 @@
       "path": "amaca/diagram.css",
       "type": "registry:file",
       "target": "styles/amaca/diagram.css",
-      "content": ".diagram{\n  margin:0;\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-5);\n  padding:var(--s-6);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n}\n.diagram-canvas{\n  display:flex;\n  justify-content:center;\n  align-items:center;\n  min-height:140px;\n  padding:var(--s-4) var(--s-2);\n  overflow-x:auto;\n}\n.diagram-canvas svg{\n  max-width:100%;\n  height:auto;\n  display:block;\n}\n.diagram-canvas foreignObject{\n  overflow:visible;\n}\n.diagram-caption{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-400);\n}\n.diagram-caption .num{\n  color:var(--primary-400);\n}\n.diagram-legend{\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-3) var(--s-5);\n  padding-top:var(--s-4);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n}\n.diagram-legend-item{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.diagram-legend-swatch{\n  width:20px;\n  height:20px;\n  flex-shrink:0;\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-600);\n}\n.diagram-legend-meta{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-400);\n}\n@media (max-width: 720px){\n  .diagram{\n    padding:var(--s-5);\n  }\n  .diagram-canvas{\n    padding:var(--s-2) 0;\n  }\n}\n"
+      "content": ".diagram{\n  margin:0;\n  display:flex;\n  flex-direction:column;\n  gap:var(--s-5);\n  padding:var(--s-6);\n  background:var(--obsidian-900);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n}\n.diagram-canvas{\n  display:flex;\n  justify-content:center;\n  align-items:center;\n  min-height:140px;\n  padding:var(--s-4) var(--s-2);\n  overflow-x:auto;\n}\n.diagram-canvas svg{\n  max-width:100%;\n  height:auto;\n  display:block;\n}\n.diagram-canvas foreignObject{\n  overflow:visible;\n}\n.diagram-caption{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.diagram-caption .num{\n  color:var(--primary-400);\n}\n.diagram-legend{\n  display:flex;\n  flex-wrap:wrap;\n  gap:var(--s-3) var(--s-5);\n  padding-top:var(--s-4);\n  border-top:var(--bw-1) solid var(--obsidian-800);\n}\n.diagram-legend-item{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-size:var(--t-small);\n  color:var(--obsidian-200);\n}\n.diagram-legend-swatch{\n  width:20px;\n  height:20px;\n  flex-shrink:0;\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-600);\n}\n.diagram-legend-meta{\n  font-family:var(--font-mono);\n  font-size:var(--t-micro);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n@media (max-width: 720px){\n  .diagram{\n    padding:var(--s-5);\n  }\n  .diagram-canvas{\n    padding:var(--s-2) 0;\n  }\n}\n"
     },
     {
       "path": "amaca/diagram.html",
@@ -76,7 +76,7 @@
         {
           "name": "Caption",
           "tokens": [
-            "--obsidian-400",
+            "--obsidian-300",
             "--font-mono",
             "--t-micro",
             "--tr-mono"

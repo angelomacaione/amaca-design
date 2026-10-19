@@ -131,8 +131,8 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--obsidian-700` | `#1E242D` | Border |
 | `--obsidian-600` | `#2A313B` | Border strong |
 | `--obsidian-500` | `#3A4451` | Muted edge |
-| `--obsidian-400` | `#5B6573` | Disabled text · control outline |
-| `--obsidian-300` | `#8A94A3` | Secondary text |
+| `--obsidian-400` | `#5B6573` | Disabled text · control outline · never active text (3.38 : 1 at best) |
+| `--obsidian-300` | `#8A94A3` | Secondary text · neutral mono labels · placeholders |
 | `--obsidian-200` | `#B8C0CB` | Tertiary text |
 | `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
@@ -242,7 +242,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 **Rules:**
 - One H1 per page. Always.
-- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-400` for neutral.
+- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
 
 ## Layout
@@ -600,7 +600,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker | — |
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact | — |
 | `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured | § 6.3 · light label on primary, 2.83 : 1 |
-| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-400` | — |
+| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-300` | — |
 | `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field | — |
 | `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed | — |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` | — |
@@ -712,7 +712,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
 | `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
 | `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` | — |
-| `.chip-dismiss` | default | transparent | none | `--obsidian-400` | — | its own target, inside a static chip | — |
+| `.chip-dismiss` | default | transparent | none | `--obsidian-300` | — | its own target, inside a static chip | — |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
 | `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` | — |
@@ -755,7 +755,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index | — |
 | `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held | — |
 | `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it | — |
-| `.table-sort` | default | transparent | none | `--obsidian-400` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
+| `.table-sort` | default | transparent | none | `--obsidian-300` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
 | `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state | — |
 | `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell | — |
 | `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon | — |
@@ -980,7 +980,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 - `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
 - `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
 - `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-400`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 - `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
 - `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
 - Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
@@ -1314,7 +1314,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 ```
 
 **Rules.**
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — one step lighter than the `--obsidian-400` mono register (§ Typography), for legibility over dark fields. Always persistent — placeholder is **not** a label.
+- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — the neutral mono register (§ Typography); they took it first, for legibility over dark fields, and v5.2.0 gave it to every neutral label. Always persistent — placeholder is **not** a label.
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
@@ -2671,7 +2671,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 **Rules.**
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
-- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-400`.
+- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
@@ -3197,7 +3197,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Part | Treatment |
 |---|---|
 | Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
-| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-400` on `--obsidian-850`, weight 500 |
+| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-300` on `--obsidian-850`, weight 500 |
 | Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
 | Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
@@ -3248,7 +3248,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 ```
 
 - The card ramp (§ 3.32): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
-- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-400`.
+- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-300`.
 - `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
 - `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.36) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
@@ -3475,7 +3475,7 @@ flowchart TD
 **Required classes:**
 - `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
-- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-400`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
+- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-300`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
 
 **Theming — no hardcoded hex:**
@@ -3639,7 +3639,7 @@ The starting frame for a project told as a story. It composes the system's compo
 |---|---|---|
 | Back | `.btn.btn-floating` | § 3.6 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
 | Hero | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2` 500, lede `--t-h6` `--obsidian-200`. The animated mark on the right scales with the hero: a placeholder for the project's own object (a render, a 3D scene) |
-| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-400`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-300`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
 | Dossier | `.cs-dossier` | A `<dl>` of the project's facts in four columns (two under 900px): role, team, platform, outcome; a missing fact is left out |
 | Section | `.cs-section` `.cs-section-title` `.cs-section-body` | One centred column of 36em at the `--t-h6` body (about 65 characters a line) for eyebrow, title, text and figures. Numbered eyebrow with a magenta rule, title `--t-h3` 400, text `--t-h6` at `--lh-loose` in `--obsidian-100`; under 720px title `--t-h4`, text `--t-lead` |
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
