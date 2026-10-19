@@ -11,7 +11,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
 <link rel="stylesheet" href="styles/tokens.css?v=51fa23a4">
-<link rel="stylesheet" href="styles/components.css?v=27e8775c">
+<link rel="stylesheet" href="styles/components.css?v=c668f120">
 
 <style id="__animations_inline">
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
@@ -5923,30 +5923,7 @@ button.chip:disabled{
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Stat card</h2><span class="subsection-num">§ 36.4</span></div>
-          <p class="subsection-desc">The stat card: a quiet data surface on the same ramp as the project card. One number, one accent at most, and the delta keeps its sign — color never carries direction alone.</p>
-          <div class="grid grid-4">
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Retention · D30</span><span class="s" data-fade>CS-017</span></div>
-              <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
-              <div class="chart-delta" data-fade>▲ 12pt vs. baseline</div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Task time</span><span class="s" data-fade>CS-017</span></div>
-              <div class="chart-big" data-count-to="-41" data-suffix="%" data-prefix="−">0%</div>
-              <div class="chart-delta" data-fade>vs. legacy HMI</div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>NPS</span><span class="s" data-fade>CS-019</span></div>
-              <div class="chart-big" data-count-to="62" data-prefix="+">0</div>
-              <div class="chart-delta" data-fade>▲ 8 from Q4</div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Error rate</span><span class="s" data-fade>CS-015</span></div>
-              <div class="chart-big" data-count-to="0.3" data-suffix="%" data-decimals="1">0.0%</div>
-              <div class="chart-delta neg" data-fade>▲ from 0.1%</div>
-            </div>
-          </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
+          <p class="subsection-desc">The stat card is a chart with no plot, so it lives with the charts: <a class="link" href="#charts">Charts &rsaquo; Stat &middot; one number</a> (§ 44.3) holds the demo, the classes and the count-up. The surface is this page&rsquo;s card ramp.</p>
         </div>
 
         <div class="subsection">
@@ -7152,7 +7129,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           <h1 class="page-title">Charts that <span class="accent">respect the surface.</span></h1>
           <p class="page-lede">Dark canvas. One accent hue per chart. Grid lines at 8% opacity. Numbers in Satoshi, axis labels in mono.</p>
         </div>
-        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Bars for comparison, labelled at the value; the donut for composition.</li><li>Lines for trends over time and for several series.</li><li>Areas for cumulative totals.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several time series → lines, not bars.</li><li>Five points or fewer → bars, not a line.</li></ul></div></div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Bars for comparison, labelled at the value; the donut for composition.</li><li>Lines for trends over time and for several series.</li><li>Areas for cumulative totals.</li><li>One number that matters, with no plot: the stat.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Several time series → lines, not bars.</li><li>Five points or fewer → bars, not a line.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 44.1</span></div>
           <p class="subsection-desc">The chart card, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
@@ -7216,7 +7193,35 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 44.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Stat · one number</h2><span class="subsection-num">§ 44.3</span></div>
+          <p class="subsection-desc">The stat: one number with no plot, on a quiet data surface on the card ramp. One number, one accent at most, and the delta keeps its sign — color never carries direction alone.</p>
+          <div class="grid grid-4">
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Retention · D30</span><span class="s" data-fade>CS-017</span></div>
+              <div class="chart-big accent" data-count-to="84" data-suffix="%">0%</div>
+              <div class="chart-delta" data-fade>▲ 12pt vs. baseline</div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Task time</span><span class="s" data-fade>CS-017</span></div>
+              <div class="chart-big" data-count-to="-41" data-suffix="%" data-prefix="−">0%</div>
+              <div class="chart-delta" data-fade>vs. legacy HMI</div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>NPS</span><span class="s" data-fade>CS-019</span></div>
+              <div class="chart-big" data-count-to="62" data-prefix="+">0</div>
+              <div class="chart-delta" data-fade>▲ 8 from Q4</div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Error rate</span><span class="s" data-fade>CS-015</span></div>
+              <div class="chart-big" data-count-to="0.3" data-suffix="%" data-decimals="1">0.0%</div>
+              <div class="chart-delta neg" data-fade>▲ from 0.1%</div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="cards-stats" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Bars · comparison</h2><span class="subsection-num">§ 44.4</span></div>
           <p class="subsection-desc">Bars for comparison, labeled at the value. One accent series against neutrals — 85/10/5 applies to data too.</p>
           <div class="grid grid-2 chart-grid">
             <div class="chart-card">
@@ -7258,7 +7263,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 44.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 44.5</span></div>
           <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.41 in the contract.</p>
           <div class="grid grid-2">
             <div class="chart-card">
@@ -7308,7 +7313,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.6</span></div>
           <p class="subsection-desc">Line and area: one series lit, the rest recede. The draw-on traces once on reveal — data motion is information, not decoration.</p>
           <div class="chart-card">
             <div class="chart-head">
@@ -7411,7 +7416,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.7</span></div>
           <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series, in this order — and nothing outside them. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).</p>
           <div class="grid grid-2">
             <div class="chart-card">
@@ -7436,7 +7441,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.7</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.8</span></div>
           <p class="subsection-desc">Text over the drawing, timing from tokens, nothing to press.</p>
           <div class="do-dont">
             <div class="do">
@@ -8343,7 +8348,7 @@ flowchart TD
           <p class="eyebrow">04 · Outcome</p>
           <h3 class="cs-section-title">Measured, shipped, maintained.</h3>
           <div class="cs-section-body">
-            <ul class="cs-stats" data-count="3"><li class="cs-stat"><span class="cs-stat-label">Task time</span><span class="cs-stat-value" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</span><span class="cs-stat-note">38s → 22s median</span></li><li class="cs-stat"><span class="cs-stat-label">Eyes-off-road</span><span class="cs-stat-value" data-count-to="-64" data-prefix="−" data-suffix="%">−0%</span><span class="cs-stat-note">Below the 12s rule</span></li><li class="cs-stat"><span class="cs-stat-label">Retention</span><span class="cs-stat-value" data-count-to="12" data-prefix="+" data-suffix="pt">+0pt</span><span class="cs-stat-note">D30, 72 → 84%</span></li></ul>
+            <ul class="cs-stats" data-count="3"><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Task time</span></div><div class="chart-big accent" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta" data-fade>38s → 22s median</div></li><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Eyes-off-road</span></div><div class="chart-big" data-count-to="-64" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta" data-fade>Below the 12s rule</div></li><li class="chart-card"><div class="chart-head"><span class="t" data-fade>Retention</span></div><div class="chart-big" data-count-to="12" data-prefix="+" data-suffix="pt">+0pt</div><div class="chart-delta" data-fade>D30, 72 → 84%</div></li></ul>
             <p>Shipped to 2 vehicle platforms in Q4 2024. The token system that emerged from this project became the foundation for Arc's whole product design language.</p>
           </div>
         </div>
@@ -10041,8 +10046,12 @@ if ('IntersectionObserver' in window) {
     if (!n) continue;
     const t = n.textContent.trim();
     if (t === 'Project card') projectsRegion = s;
-    else if (t === 'Stat card') statsRegion = s;
   }
+  // v5.2.0: the stat demo moved to Charts › Stat · one number
+  document.querySelectorAll('#charts .subsection').forEach((s) => {
+    const n = s.querySelector('.subsection-title');
+    if (n && n.textContent.trim() === 'Stat · one number') statsRegion = s;
+  });
 
   // Case study Outcome region — same chart-card pattern as § 12.2
   const casestudySection = document.getElementById('casestudy');
@@ -10130,7 +10139,7 @@ if ('IntersectionObserver' in window) {
     // --- case study outcome cards (§ 29) — same pattern as § 12.2 ---
     function runCsOutcome(){
       if (!csOutcomeRegion) return;
-      const cards = csOutcomeRegion.querySelectorAll('.cs-stat');
+      const cards = csOutcomeRegion.querySelectorAll('.chart-card');
       cards.forEach((card, ci) => {
         const fades = card.querySelectorAll('[data-fade]');
         const counter = card.querySelector('[data-count-to]');
@@ -10158,10 +10167,13 @@ if ('IntersectionObserver' in window) {
     new MutationObserver(muts => {
       for (const m of muts) {
         if (m.target.id === 'cards' && m.target.classList.contains('active')) {
-          setTimeout(() => { runProjects(); runStats(); }, 80);
+          setTimeout(runProjects, 80);
         }
       }
     }).observe(cardsSection, {attributes:true, attributeFilter:['class']});
+    const chartsSection = statsRegion && statsRegion.closest('.section');
+    if (chartsSection) new MutationObserver(() => { if (chartsSection.classList.contains('active')) setTimeout(runStats, 80); })
+      .observe(chartsSection, {attributes:true, attributeFilter:['class']});
 
     if (casestudySection) {
       new MutationObserver(muts => {

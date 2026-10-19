@@ -536,7 +536,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
-| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-stat` `.cs-stat-label` `.cs-stat-value` `.cs-stat-note` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
+| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
@@ -3233,6 +3233,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - Bars for comparison, labelled at the value; the donut for composition.
 - Lines for trends over time and for several series.
 - Areas for cumulative totals.
+- One number that matters, with no plot: the stat.
 
 *Use something else when*
 - Several time series → lines, not bars.
@@ -3249,7 +3250,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 - The card ramp (§ 3.32): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
 - `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-300`.
-- `.chart-big` — `--t-h2`, 700, `--tr-tight`. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
+- `.chart-big` — `--t-h2`, 700, `--lh-tight`, `--tr-tight`, tabular figures so a count-up does not shift its width. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
 - `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
 - `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.36) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
 - **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
@@ -3620,7 +3621,7 @@ The starting frame for a project told as a story. It composes the system's compo
   <p class="eyebrow">04 · Outcome</p>
   <h2 class="cs-section-title">Measured, shipped, maintained.</h2>
   <div class="cs-section-body"><ul class="cs-stats" data-count="3">
-    <li class="cs-stat"><span class="cs-stat-label">Task time</span><span class="cs-stat-value">−41%</span><span class="cs-stat-note">38s → 22s median</span></li>
+    <li class="chart-card"><div class="chart-head"><span class="t">Task time</span></div><div class="chart-big accent" data-count-to="-41" data-prefix="−" data-suffix="%">−0%</div><div class="chart-delta">38s → 22s median</div></li>
   </ul></div>
 </section>
 <section class="cs-section">
@@ -3645,7 +3646,7 @@ The starting frame for a project told as a story. It composes the system's compo
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
 | Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in mono, centred |
 | Points | `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` | A dot on the title's line, title `--t-h6` 700, the text under it, a Divider (§ 3.34) between points |
-| Outcome | `.cs-stats` `.cs-stat*` | Stat cards before the text: label `--t-body` 600, number `--t-h2` on `--grad-signal` counting up on entry, note mono `--success`. Three share a row; two or four go two by two; one column under 480px |
+| Outcome | `.cs-stats` + Chart card stats | The stat of § Chart card, before the text: each `<li>` is a `.chart-card` with `.chart-head` `.t`, `.chart-big` counting up on entry and `.chart-delta`. One `.accent` at most, on the headline result; the rest stay `--obsidian-100`. Inside the reading column the card restates `--t-body` / `--lh-normal`, so it reads as it does in § 44. Three share a row; two or four go two by two; one column under 480px |
 | Note | `.cs-note` `.cs-note-label` | The closing note of the Reflection (confidentiality, a source): a `--obsidian-700` rule, a mono label, `--t-small` `--obsidian-300` |
 | More cases | `.cs-more` `.cs-more-grid` `.cs-card*` | `--s-16` above; three project Cards as wide as the hero, each one link: period, picture, title, lede, tags as Chips |
 

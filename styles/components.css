@@ -1015,7 +1015,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 .chart-head > :first-child{min-width:0}
 .chart-head .t{font-size:var(--t-body);font-weight:600}
 .chart-head .s{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300);text-transform:uppercase}
-.chart-big{font-size:var(--t-h2);font-weight:700;letter-spacing:var(--tr-tight);margin:var(--s-2) 0}
+.chart-big{font-size:var(--t-h2);font-weight:700;line-height:var(--lh-tight);letter-spacing:var(--tr-tight);font-variant-numeric:tabular-nums;margin:var(--s-2) 0}
 .chart-big.accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
 .chart-delta{font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--success)}
 .chart-delta.neg{color:var(--danger)}
@@ -1142,11 +1142,9 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 /* Outcome: the numbers as stat cards, before the text. Two or four go two by two, three share a row. */
 .cs-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin:0;padding:0;list-style:none}
 .cs-section-body .cs-stats{max-width:none}
+.cs-stats > .chart-card{display:flex;flex-direction:column;font-size:var(--t-body);line-height:var(--lh-normal)} /* the reading column runs larger; a stat reads the same everywhere */
+.cs-stats .chart-delta{margin-top:auto}
 .cs-stats[data-count="2"],.cs-stats[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}
-.cs-stat{display:flex;flex-direction:column;padding:var(--s-6);background:var(--obsidian-800);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg)}
-.cs-stat-label{font-size:var(--t-body);font-weight:600;line-height:var(--lh-snug);color:var(--obsidian-100)}
-.cs-stat-value{margin:var(--s-2) 0;font-size:var(--t-h2);font-weight:700;line-height:var(--lh-tight);letter-spacing:var(--tr-tight);font-variant-numeric:tabular-nums;background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
-.cs-stat-note{margin-top:auto;font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);line-height:var(--lh-normal);color:var(--success)}
 /* Closing note of the Reflection (confidentiality, a source): under a rule, a mono label, small type. */
 .cs-note{margin-top:var(--s-10);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-700);font-size:var(--t-small);line-height:var(--lh-normal);color:var(--obsidian-300)}
 .cs-section-body > .cs-note{margin-top:var(--s-10)}
