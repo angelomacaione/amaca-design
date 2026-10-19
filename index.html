@@ -13233,10 +13233,10 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
      Select's option rows, composed here. Its rules live in this page, not in components.css,
      so the package and the bundles do not carry them. v5.2.0. -->
 <style id="site-search-css">
-.site-search{gap:var(--s-2)}
+.site-search{gap:var(--s-2);margin-block:calc(var(--s-2) * -1)} /* the top bar keeps its height: the button reaches into its padding */
 .site-search-kbd{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);padding:var(--s-0-5) var(--s-1);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-sm);color:var(--obsidian-300);background:var(--obsidian-850)}
 @media (max-width: 900px){
-  .site-search{padding:0;min-width:var(--target-touch);min-height:var(--target-touch)}
+  .site-search{padding:0;min-width:var(--target-touch);min-height:var(--target-touch);margin-block:calc((var(--s-10) - var(--target-touch)) / 2)} /* as tall as the menu button beside it, in layout */
   .site-search-label,.site-search-kbd{display:none}
 }
 .cmdk{background:var(--obsidian-850);padding:var(--s-3)} /* centred by the Modal's margin:auto */
