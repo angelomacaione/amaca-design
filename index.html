@@ -247,6 +247,7 @@ html{scroll-behavior:smooth}
       </div>
       <div class="topbar-actions">
       </div>
+      <button type="button" class="btn btn-secondary btn-sm site-search" data-cmdk-open aria-haspopup="dialog" aria-controls="cmdk" aria-keyshortcuts="Meta+K Control+K" aria-label="Search the system"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><span class="site-search-label">Search</span><kbd class="site-search-kbd">&#8984;K</kbd></button>
     </div>
 
     <div class="content" id="main-content">
@@ -13291,6 +13292,93 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
       if(start) sort(start, start.getAttribute('aria-sort'));
     });
   })();
+</script>
+
+<!-- Site search (⌘K / Ctrl+K). Site chrome, not a component: a Modal, a search Input and the
+     Select's option rows, composed here. Its rules live in this page, not in components.css,
+     so the package and the bundles do not carry them. v5.2.0. -->
+<style id="site-search-css">
+.site-search{gap:var(--s-2)}
+.site-search-kbd{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);padding:var(--s-0-5) var(--s-1);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-sm);color:var(--obsidian-300);background:var(--obsidian-850)}
+@media (max-width: 900px){
+  .site-search{padding:0;min-width:var(--target-touch);min-height:var(--target-touch)}
+  .site-search-label,.site-search-kbd{display:none}
+}
+.cmdk{background:var(--obsidian-850);padding:var(--s-3);margin-top:min(20vh,var(--s-32))}
+.cmdk .input{min-height:var(--s-12);font-size:var(--t-body)}
+.cmdk-list{list-style:none;margin:var(--s-2) 0 0;padding:0;max-height:min(60vh,calc(var(--s-32) * 3));overflow:auto}
+.cmdk-list .select-option[data-active]{background:var(--obsidian-800)}
+.cmdk-list .select-option[aria-selected="true"]{color:var(--obsidian-100)} /* the active row is a cursor, not a chosen value: only the match is brand */
+.cmdk-num,.cmdk-group{font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.cmdk-num{width:var(--s-8);flex:none}
+.cmdk-hit{color:var(--primary-400)}
+.cmdk-empty{padding:var(--s-3) var(--s-2);color:var(--obsidian-300);font-size:var(--t-small)}
+.cmdk-foot{display:flex;gap:var(--s-4);align-items:center;padding-top:var(--s-3);margin-top:var(--s-2);border-top:var(--bw-1) solid var(--obsidian-700);font-family:var(--font-mono);font-size:var(--t-micro);letter-spacing:var(--tr-mono);text-transform:uppercase;color:var(--obsidian-300)}
+.cmdk-foot kbd{font-family:var(--font-mono);font-size:var(--t-micro);padding:var(--s-0-5) var(--s-1);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-sm);color:var(--obsidian-300);background:var(--obsidian-850);margin-right:var(--s-1)}
+@media (pointer: coarse){.cmdk-foot{display:none}}
+</style>
+<dialog class="modal cmdk" id="cmdk" aria-label="Search the system">
+  <div class="input-wrap"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="7" cy="7" r="4.75"/><path d="M13.5 13.5l-3.1-3.1"/></svg><input class="input" id="cmdk-input" type="search" role="combobox" aria-expanded="true" aria-controls="cmdk-list" aria-autocomplete="list" autocomplete="off" spellcheck="false" aria-label="Search components and foundations" placeholder="Search components and foundations&hellip;"></div>
+  <ul class="cmdk-list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+  <div class="cmdk-foot" aria-hidden="true"><span><kbd>&uarr;</kbd><kbd>&darr;</kbd>Move</span><span><kbd>&crarr;</kbd>Open</span><span><kbd>esc</kbd>Close</span></div>
+</dialog>
+<script>
+(() => {
+  const dlg = document.getElementById('cmdk');
+  const input = document.getElementById('cmdk-input');
+  const list = document.getElementById('cmdk-list');
+  if (!dlg || !input || !list) return;
+  // the index is the sidebar: one source, so a new section is searchable the day it is added
+  const items = [...document.querySelectorAll('.sidebar .nav-item[data-target]')].map((a) => {
+    const num = (a.querySelector('.num') || {}).textContent || '';
+    return { id: a.dataset.target, num: num.trim(), name: a.textContent.replace(num, '').trim(),
+             group: (((a.closest('.nav-group') || document).querySelector('.nav-label')) || {}).textContent || '', link: a };
+  });
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const mark = (name, q) => {
+    const i = q ? name.toLowerCase().indexOf(q) : -1;
+    return i < 0 ? esc(name) : esc(name.slice(0, i)) + '<span class="cmdk-hit">' + esc(name.slice(i, i + q.length)) + '</span>' + esc(name.slice(i + q.length));
+  };
+  let shown = [], active = 0;
+  const render = () => {
+    const q = input.value.trim().toLowerCase();
+    const score = (it) => {
+      const n = it.name.toLowerCase();
+      if (!q) return 1;
+      if (n.startsWith(q)) return 4;
+      if (n.split(/[\s-]+/).some((w) => w.startsWith(q))) return 3;
+      if (n.includes(q)) return 2;
+      return it.group.toLowerCase().split(/[\s&]+/).some((w) => w.startsWith(q)) ? 1 : 0; // a group counts by its words, so "ti" does not pull in all of Foundations
+    };
+    shown = items.map((it, i) => ({ it, s: score(it), i })).filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s || a.i - b.i).map((x) => x.it);
+    active = Math.min(active, Math.max(shown.length - 1, 0));
+    list.innerHTML = shown.length
+      ? shown.map((it, k) => '<li class="select-option" role="option" id="cmdk-o' + k + '" aria-selected="' + (k === active) + '"' + (k === active ? ' data-active' : '') + ' data-k="' + k + '">'
+          + '<span class="cmdk-num">' + esc(it.num) + '</span><span class="select-option-label">' + mark(it.name, q) + '</span><span class="cmdk-group">' + esc(it.group) + '</span></li>').join('')
+      : '<li class="cmdk-empty">No section matches &ldquo;' + esc(input.value.trim()) + '&rdquo;.</li>';
+    if (shown.length) { input.setAttribute('aria-activedescendant', 'cmdk-o' + active); list.querySelector('[data-active]').scrollIntoView({ block: 'nearest' }); }
+    else input.removeAttribute('aria-activedescendant');
+  };
+  const open = () => { if (dlg.open) return; input.value = ''; active = 0; render(); dlg.showModal(); input.focus(); };
+  const go = (k) => { const it = shown[k]; if (!it) return; dlg.close(); it.link.click(); };
+  input.addEventListener('input', () => { active = 0; render(); });
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!shown.length) return;
+      active = (active + (e.key === 'ArrowDown' ? 1 : -1) + shown.length) % shown.length; render();
+    } else if (e.key === 'Enter') { e.preventDefault(); go(active); }
+    else if (e.key === 'Escape') { e.preventDefault(); dlg.close(); } // a search field would spend the first Esc clearing itself
+  });
+  list.addEventListener('mousemove', (e) => { const li = e.target.closest('[data-k]'); if (li && +li.dataset.k !== active) { active = +li.dataset.k; render(); } });
+  list.addEventListener('click', (e) => { const li = e.target.closest('[data-k]'); if (li) go(+li.dataset.k); });
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); }); // a click on the scrim closes
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); }
+  });
+  document.querySelectorAll('[data-cmdk-open]').forEach((b) => b.addEventListener('click', open));
+})();
 </script>
 </body>
 </html>
