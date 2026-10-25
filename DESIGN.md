@@ -432,13 +432,19 @@ Dimensions that are part of a component's contract take a token; the widths of t
 
 The aggregate of every component's dimensions: its box, its padding, its type, its radius and its icon. A generator sizes a component from this table and never measures a screenshot. A dimension here is a token, or a sum of tokens; a box marked *content* takes the height of its padding and its line.
 
+**Inline symmetry.** A component's first mark sits as far from its left edge as its last mark sits from its right edge. A mark is a line of text, an icon's box (its 14 or 16 square, not its ink) or a box that paints at rest; a transparent button is not a mark, its glyph is.
+- **No optical compensation.** A leading icon takes the same padding as the trailing label: the padding is one value for both sides.
+- **A field keeps a slot.** The chevron of a Select and the icon or action of an Input sit in a slot inside the padding on their side, and the glyph stays as far from that edge as the value is from the other one.
+- **An icon-only button that ends a row** (the close of a Modal or a Drawer, the last action of a List row) sets `margin-inline-end` to half the difference between its icon and its target: the glyph lands on the padding edge and the target reaches into the padding. On a coarse pointer the target is `--target-touch` and the margin follows it.
+- **A button resets its padding.** A component drawn on a `<button>` sets its own padding, `0` when it holds only a glyph: the browser's default padding squeezes the glyph and moves it off the edge.
+
 | Component | Size | Box | Padding | Type | Radius | Icon |
 |---|---|---|---|---|---|---|
 | `.btn` | sm | min-height `--s-8` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
 | `.btn` | md | min-height `--s-10` | `0 --s-6` | `--t-body` 500 | `--r-full` | `--icon-xs` |
 | `.btn` | lg | min-height `--s-12` | `0 --s-8` | `--t-body` 500 | `--r-full` | `--icon-xs` |
 | `.btn-icon` | sm · md · lg | square `--s-8` · `--s-10` · `--s-12` | `0` | — | `--r-full` | `--icon-sm` |
-| `.btn-floating` | — | min-height `--s-10` | `0 --s-5 0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
+| `.btn-floating` | — | min-height `--s-10` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
 | `.input` `.textarea` `.select` | — | min-height `--s-10` | `--s-2 --s-3` | `--t-small` | `--r-md` | `--icon-sm` |
 | `.input-action` | — | square `--s-8` | — | — | `--r-sm` | `--icon-sm` |
 | `.select-option` | — | content | `--s-2` | `--t-small` | `--r-md` − `--r-xs` | `--icon-xs` |
@@ -2058,7 +2064,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 |---|---|---|
 | Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, `--w-modal` wide |
 | Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
-| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its glyph on the content edge, level with the title, and its 32px target reaching into the padding (§ Size › Inline symmetry). Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo): the one place the focus ring leaves the standard offset |
 | Body | `.modal-body` | `--t-body`, `--obsidian-200` |
 | Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
 
@@ -2210,7 +2216,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 | Menu | `.drawer-nav` | The side menu: padding `--s-4`, width 30ch plus the padding, text `--t-lead`; its rows are the List's |
 | Side | `.drawer-start` | On the start side; the default is the end |
 | Wide | `.drawer-wide` | 60ch plus the padding, for text with longer lines |
-| Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button |
+| Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button, its glyph on the content edge as in the Modal (§ Size › Inline symmetry) |
 | Body | `.drawer-body` `.drawer-label` | Scrolls on its own; the label names a group in mono, micro, uppercase |
 | Foot | `.drawer-foot` | Actions at the end over a hairline; absent in a menu |
 

@@ -466,8 +466,8 @@
 }
 /* Floating (§ 3.6): a button that stays on screen while its content scrolls, translucent so the content reads through.
    Sticky on --z-sticky at --float-top; the negative bottom margin gives its height back, so it floats over what follows
-   instead of pushing it down. Label --t-small, inline padding --s-4 before the icon, --s-5 after the label. */
-.btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-5) 0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(var(--blur-glass))}
+   instead of pushing it down. Label --t-small, inline padding --s-4 on both sides (§ Size › Inline symmetry). */
+.btn-floating{display:flex;width:max-content;position:sticky;top:var(--float-top, var(--s-4));z-index:var(--z-sticky);margin-bottom:calc(-1 * var(--s-10));padding:0 var(--s-4);font-size:var(--t-small);background:var(--surface-glass);border-color:var(--border);color:var(--obsidian-100);backdrop-filter:blur(var(--blur-glass))}
 .btn-floating:hover{border-color:var(--border-strong)}
 .btn:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .btn .icon{width:var(--icon-xs);height:var(--icon-xs)}
@@ -497,10 +497,16 @@
 .btn-icon{width:var(--s-10);padding:0}
 .btn-sm.btn-icon{width:var(--s-8)}
 .btn-lg.btn-icon{width:var(--s-12)}
+/* An icon-only button that ends a row (§ Size › Inline symmetry): its glyph, not its target, sits on the
+   padding edge, as far from the right as the row's first mark is from the left; the target reaches into the padding. */
+:is(.modal-head,.drawer-head,.list-end) > .btn-icon:last-child,.list-end > .select-wrap:last-child > .btn-icon{margin-inline-end:calc((var(--icon-sm) - var(--s-10)) / 2)}
+:is(.modal-head,.drawer-head,.list-end) > .btn-sm.btn-icon:last-child,.list-end > .select-wrap:last-child > .btn-sm.btn-icon{margin-inline-end:calc((var(--icon-sm) - var(--s-8)) / 2)}
+:is(.modal-head,.drawer-head,.list-end) > .btn-lg.btn-icon:last-child,.list-end > .select-wrap:last-child > .btn-lg.btn-icon{margin-inline-end:calc((var(--icon-sm) - var(--s-12)) / 2)}
 /* Touch: the § 6 floor asks 44x44 on coarse pointers; dense desktop keeps 32. */
 @media (pointer:coarse){
   .btn:not(.btn-lg){min-height:var(--target-touch)}
   .btn-icon:not(.btn-lg){min-width:var(--target-touch)}
+  :is(.modal-head,.drawer-head,.list-end) > .btn-icon:not(.btn-lg):last-child,.list-end > .select-wrap:last-child > .btn-icon:not(.btn-lg){margin-inline-end:calc((var(--icon-sm) - var(--target-touch)) / 2)}
 }
 
 /* ─────────── INPUTS ─────────── */
@@ -677,7 +683,7 @@
 .dp-popover[data-mode="years"] .dp-title svg{transform:rotate(180deg)}
 .dp-nav{
   display:grid;place-items:center;
-  width:28px;height:28px;border:0;background:transparent;cursor:pointer;
+  width:28px;height:28px;padding:0;border:0;background:transparent;cursor:pointer;
   color:var(--obsidian-300);border-radius:var(--r-sm);
   transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
@@ -699,7 +705,7 @@
 .dp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:var(--s-0-5)}
 .dp-day{
   display:grid;place-items:center;
-  height:var(--s-8);border:0;background:transparent;cursor:pointer;
+  height:var(--s-8);padding:0;border:0;background:transparent;cursor:pointer;
   font-family:var(--font-sans);font-size:var(--t-small);font-variant-numeric:tabular-nums;
   color:var(--obsidian-100);border-radius:var(--r-sm);
   transition:background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
@@ -1249,7 +1255,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 .lightbox.open .lightbox-content{transform:scale(1);transition:transform var(--d-base) var(--ease-decel)}
 .lightbox-close{
   position:absolute;top:var(--s-3);right:var(--s-3);
-  width:36px;height:36px;
+  width:36px;height:36px;padding:0;
   display:inline-flex;align-items:center;justify-content:center;
   border:var(--bw-1) solid var(--obsidian-700);
   border-radius:var(--r-md);
@@ -1584,7 +1590,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 .acc-trigger:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:calc(-1 * var(--focus-width));box-shadow:var(--ring-halo)}
 .acc-chevron{
   display:inline-flex;align-items:center;justify-content:center;
-  width:16px;height:16px;flex:0 0 16px;
+  width:var(--icon-xs);height:var(--icon-xs);flex:0 0 var(--icon-xs);
   color:var(--obsidian-400);
   transition:transform var(--d-base) var(--ease-standard), color var(--d-quick) var(--ease-standard);
 }
@@ -1615,7 +1621,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 }
 .acc-panel-inner{overflow:hidden;min-height:0}
 .acc-panel-body{
-  padding:0 var(--s-6) var(--s-6) calc(var(--s-4) + var(--s-4) + var(--s-6));
+  padding:0 var(--s-6) var(--s-6) calc(var(--s-6) + var(--icon-xs) + var(--s-4));  /* the body starts under the label: trigger padding, chevron, gap */
   color:var(--obsidian-300);line-height:1.7;font-size:var(--t-small);
   opacity:0;transition:opacity var(--d-quick) var(--ease-decel) 80ms;
 }
@@ -2401,6 +2407,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
   flex-shrink:0;
   border-radius:50%;
   display:flex; align-items:center; justify-content:center;
+  padding:0;
   border:var(--bw-1) solid transparent;
   background:transparent;
   color:var(--obsidian-300);
@@ -3472,7 +3479,8 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .toast-action:hover{color:var(--primary-300)}
 .toast-action:focus-visible{outline:var(--focus-width) solid var(--obsidian-100);outline-offset:var(--focus-offset);box-shadow:var(--ring-halo)}
 .toast-dismiss{
-  grid-column:3;grid-row:1;display:grid;place-items:center;width:20px;height:20px;
+  grid-column:3;grid-row:1;display:grid;place-items:center;width:var(--s-5);height:var(--s-5);padding:0;
+  margin-inline-end:calc((var(--icon-xs) - var(--s-5)) / 2);  /* padding:0 or the browser's button padding squeezes the glyph; the glyph, not the target, sits on the padding edge */
   color:var(--obsidian-400);border-radius:var(--r-sm);background:transparent;border:0;cursor:pointer;
   transition:color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);
 }
@@ -3582,8 +3590,8 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 @starting-style{.modal[open]::backdrop{background:transparent}}
 body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal() locks the page; the inline demo (static `open`) must not */
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
-.modal-head .btn-icon{flex:none}  /* the 32px target sits on the content edge: the glyph is then --s-2 in, as far from the right as it is from the top */
-.modal-head .btn-icon:focus-visible{outline-offset:calc(-1 * var(--focus-width));box-shadow:none}  /* the ring stays inside the content edge, so it lines up with the field below */
+.modal-head .btn-icon{flex:none}  /* the glyph sits on the content edge, level with the title; the 32px target reaches into the padding */
+.modal-head .btn-icon:focus-visible{outline-offset:calc(-1 * var(--focus-width));box-shadow:none}  /* the ring stays inside the button, without the halo: the one place the ring leaves the standard offset */
 .modal-title{margin:0;font-size:var(--t-h6);font-weight:700;line-height:var(--lh-snug)}
 .modal-body{margin:0;color:var(--obsidian-200);font-size:var(--t-body)}
 .modal-foot{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:var(--s-2);margin-top:var(--s-6)}

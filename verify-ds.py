@@ -4049,6 +4049,76 @@ def c109():
     return fails
 
 
+@check("110", "Inline padding is symmetric, an icon button that ends a row sits its glyph on the edge, and a button resets its padding",
+       "v5.3.0: the Toast's close sat 22px from the right edge while its text sat 16px from the left, and its glyph "
+       "rendered at 8px instead of 14: the button never reset the browser's 1px 6px padding. The Modal and Drawer "
+       "close sat 8px in, the List row's last action 8 or 12px in, the floating button padded 16 before its icon and 20 after "
+       "its label, and an Accordion demo carried 20 / 24 inline. None of it showed in a token. The rule (§ Size › Inline "
+       "symmetry): one padding for both sides, no optical compensation; a field's chevron or icon lives in a slot; an "
+       "icon-only button that ends a row pulls its glyph onto the padding edge. The rendered measure lives in the review "
+       "sheet; this check holds the stylesheet and the markup to the rule.")
+def c110():
+    fails = []
+    css = read(ROOT / "styles" / "components.css")
+    flat = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    # Slots and indents: one-sided inline padding that the rule allows, each with its reason.
+    SLOT = [
+        (r"^\.select$", "the Select's chevron slot"),
+        (r"^\.input-wrap:has\(> \.(icon|input-action)\) \.input$", "an Input's icon or action slot"),
+        (r"(^|\s)(ul|ol|li)$|^\.page-rules$|^\.ai-rules$", "a list's bullet indent"),
+        (r"^(\.navbar-floating )?\.navbar-(brand|end)$", "the bar's two ends, one each"),
+        (r"^\.avatar-group>\.avatar:not\(:last-child\)$", "the overlap of a group"),
+    ]
+    SHORTHAND_OK = {".swatch-tile-type .swatch-tile-fill": "the type specimen runs off the tile's right edge",
+                    ".acc-panel-body": "the body starts under the label, past the chevron"}
+    def vals(v):
+        return re.findall(r"calc\((?:[^()]|\([^()]*\))*\)|var\([^)]*\)|[^\s]+", v.strip())
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+        sels = [s.strip() for s in m.group(1).split(",")]
+        body = m.group(2)
+        for d in re.finditer(r"(?<![-\w])padding\s*:\s*([^;}]+)", body):
+            v = vals(d.group(1).replace("!important", ""))
+            if len(v) == 4 and v[1] != v[3] and not all(s in SHORTHAND_OK for s in sels):
+                fails.append(f"components.css: {', '.join(sels)[:70]} pads {v[3]} on the left and {v[1]} on the right")
+        sides = {k: re.search(rf"padding-(?:{k})\s*:\s*([^;}}]+)", body) for k in ("left|inline-start", "right|inline-end")}
+        l, r = sides["left|inline-start"], sides["right|inline-end"]
+        if (l and r and l.group(1).strip() != r.group(1).strip()) or (bool(l) ^ bool(r)):
+            for s in sels:
+                if not any(re.search(p, s) for p, _ in SLOT):
+                    fails.append(f"components.css: {s[:70]} pads one side only ({(l or r).group(0).strip()}) and is not a declared slot")
+    html = read(INDEX)
+    for m in re.finditer(r'style="([^"]*\bpadding\s*:[^"]*)"', html):
+        d = re.search(r"(?<![-\w])padding\s*:\s*([^;]+)", m.group(1))
+        v = vals(d.group(1)) if d else []
+        if len(v) == 4 and v[1] != v[3]:
+            line = html.count("\n", 0, m.start()) + 1
+            fails.append(f"index.html:{line}: an inline style pads {v[3]} on the left and {v[1]} on the right")
+    # The end-of-row rule, at every size and on a coarse pointer.
+    for size, target in (("", "--s-10"), (".btn-sm", "--s-8"), (".btn-lg", "--s-12")):
+        want = f":is(.modal-head,.drawer-head,.list-end) > {size}.btn-icon:last-child"
+        rule = re.search(re.escape(want) + r"[^{]*\{[^}]*margin-inline-end:calc\(\(var\(--icon-sm\) - var\(" + target + r"\)\) / 2\)", flat)
+        if not rule:
+            fails.append(f"components.css: no end-of-row rule for {size or 'the md'} icon button (margin from --icon-sm and {target})")
+    if not re.search(r"@media \(pointer:coarse\)\{[^@]*" + re.escape(":is(.modal-head,.drawer-head,.list-end) > .btn-icon:not(.btn-lg):last-child") + r"[^{]*\{margin-inline-end:calc\(\(var\(--icon-sm\) - var\(--target-touch\)\) / 2\)", flat):
+        fails.append("components.css: the end-of-row rule does not follow --target-touch on a coarse pointer")
+    # A component drawn on a <button> sets its own padding.
+    padded = set()
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+        if re.search(r"(?<![-\w])padding(-inline|-left|-right)?\s*:|(?<![-\w])all\s*:\s*unset", m.group(2)):
+            for c in re.findall(r"\.([a-z][\w-]*)", m.group(1)):
+                padded.add(c)
+    seen = set()
+    for m in re.finditer(r"<button\b[^>]*\bclass=\"([^\"]+)\"", html):
+        classes = m.group(1).split()
+        key = classes[0]
+        if key in seen or key.startswith(("kit", "doc", "nav-demo", "demo")):
+            continue
+        seen.add(key)
+        if not any(c in padded for c in classes):
+            line = html.count("\n", 0, m.start()) + 1
+            fails.append(f"index.html:{line}: <button class=\"{m.group(1)[:50]}\"> sets no padding: the browser's default squeezes it")
+    return fails
+
 @check("102", "Every variant the contract declares is on its page, in a demo",
        "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
        "visual source of truth the owner validates against, so a declared class no demo shows is a variant "
