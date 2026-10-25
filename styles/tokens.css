@@ -91,6 +91,7 @@
   --tint-glow:   0.2;    /* a glow or a hairline in the hue */
   --tint-strong: 0.6;    /* a veil of the hue: a fade's edge, the pulse ring */
   --opacity-disabled: 0.4;   /* every disabled control (v5.0.0) */
+  --card-strip: var(--primary-500);   /* component token: the row card's strip; --primary-500 or a semantic colour (v5.3.0) */
   --slider-fill: 0%;         /* component token: how far a single slider is filled; the script sets it on the input (v5.3.0) */
 
   /* — GRADIENTS — */

@@ -642,6 +642,11 @@
     "$type": "number",
     "$description": "every disabled control"
   },
+  "card-strip": {
+    "$value": "{primary-500}",
+    "$type": "color",
+    "$description": "component token: the row card's strip; --primary-500 or a semantic colour"
+  },
   "slider-fill": {
     "$value": {
       "value": 0,

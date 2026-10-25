@@ -274,6 +274,9 @@
 .card-row .card-media > *{width:100%;height:100%;object-fit:cover}
 .card-row .card-meta{margin:0 0 var(--s-1)}
 .card-row h3{margin:0;font-size:var(--t-body);font-weight:600;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)}
+/* The strip (v5.3.0): the row card's left edge, --bw-2 in --card-strip, as Alert and Toast mark theirs. It is the
+   declared exception to inline symmetry (§ Size). The hover keeps the strip: the card's border-color leaves this edge. */
+.card-strip,.card.card-strip:hover{border-left:var(--bw-2) solid var(--card-strip)}
 .card-row p{margin:var(--s-1) 0 0;font-size:var(--t-small);color:var(--obsidian-300);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* Card · feature (v5.0.0): the one highlighted item of a page, with its light */
 .card-feature{
@@ -1022,6 +1025,15 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .chart-label-value{color:var(--obsidian-100)}
 .chart-label-center{translate:-50% -50%}
 .chart-label-end{translate:-100% -50%}
+/* Horizontal bars: the labels take the column their longest needs, the drawing takes what is left, and the last
+   column holds the widest value, so a full bar's label still fits. A gutter made of viewBox units shrank with the
+   card while the text stayed at its token, and the two met under 330px of plot. */
+.chart-bars{display:grid;grid-template-columns:max-content minmax(0,1fr) max-content}
+.chart-bars-axis{display:grid;grid-auto-rows:minmax(0,1fr);margin-inline-end:var(--s-3)}
+.chart-bars > .chart-bars-reserve,.chart-bars-axis > .chart-label{position:static;translate:none;align-self:center}
+.chart-bars > .chart-bars-reserve{visibility:hidden}
+/* From --bp-lg the bars' labels read one step up, --t-small: the column grows with them, the drawing gives way. */
+@media (min-width: 900px){.chart-bars .chart-label{font-size:var(--t-small)}}
 /* Labels centre with the translate property: [data-fade] owns transform, the two compose.
    Timeline (§ 3.42): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
 .timeline-scroll{overflow-x:auto;overscroll-behavior-x:contain}

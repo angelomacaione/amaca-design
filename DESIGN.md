@@ -434,6 +434,7 @@ The aggregate of every component's dimensions: its box, its padding, its type, i
 
 **Inline symmetry.** A component's first mark sits as far from its left edge as its last mark sits from its right edge. A mark is a line of text, an icon's box (its 14 or 16 square, not its ink) or a box that paints at rest; a transparent button is not a mark, its glyph is.
 - **No optical compensation.** A leading icon takes the same padding as the trailing label: the padding is one value for both sides.
+- **One declared exception: the strip.** The row card's `.card-strip` draws its left edge `--bw-2` in a colour; the padding stays one value, measured from the inside of each edge (v5.3.0).
 - **A field keeps a slot.** The chevron of a Select and the icon or action of an Input sit in a slot inside the padding on their side, and the glyph stays as far from that edge as the value is from the other one.
 - **An icon-only button that ends a row** (the close of a Modal or a Drawer, the last action of a List row) sets `margin-inline-end` to half the difference between its icon and its target: the glyph lands on the padding edge and the target reaches into the padding. On a coarse pointer the target is `--target-touch` and the margin follows it.
 - **A button resets its padding.** A component drawn on a `<button>` sets its own padding, `0` when it holds only a glyph: the browser's default padding squeezes the glyph and moves it off the edge.
@@ -528,7 +529,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.29 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.30 |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.31 — an ordered list; the current step carries `aria-current="step"` |
-| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.32 |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` `.card-strip` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.32 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.33 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.34 |
 | Chat · Messaging | `.chat-*` | canonical | § 3.35 |
@@ -536,7 +537,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.38 |
 | Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.39 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.40 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` · `.chart-bars` `.chart-bars-axis` `.chart-bars-reserve` | canonical | § 3.40 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.41 |
 | Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
@@ -2697,6 +2698,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 - **Row — `.card-row`.** One line of a list: a square media of `--s-16`, then the micro-header, the title (`h3`, `--t-body`) and one line of text clipped with an ellipsis, then a chevron (`.icon-muted`). Padding `--s-3`, gap `--s-4`. The whole card is the link — an `<a>` — so it holds no action and no other focusable; it takes the focus ring of a pressable (`--ring-halo`, outline `--focus-width` `--obsidian-100`). Rows stack with `--s-3` between them.
+- **Strip — `.card-strip` (v5.3.0).** A row card can mark itself among the others with a left edge of `--bw-2` in `--card-strip`, the edge Alert and Toast draw. `--card-strip` is a component token, `--primary-500` by default; set it to a semantic colour (`--success`, `--warning`, `--danger`, `--info`) and to nothing else. The hover keeps the strip. It is the declared exception to inline symmetry (§ Size).
 
 ```html
 <a class="card card-row" href="/work/orion">
@@ -2734,6 +2736,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 **Variants.**
 - `type` — project (default) · stat · `.card-row` · `.card-feature`
 - `media` — none (default) · `.card-media`
+- `edge` — none (default) · `.card-strip`
 **Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
 
 **Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
@@ -3298,6 +3301,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
 - **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
+- **Horizontal bars keep their labels at every width (v5.3.0).** `.chart-bars` is a grid of three columns: the axis labels (`.chart-bars-axis`, as wide as the longest, `--s-3` before the bars), the drawing, and the room for the widest value (`.chart-bars-reserve`, a hidden `100%`), so a full bar's value still fits. The labels are never a share of the viewBox: the text does not scale, so its room must not either; a gutter of 60 of 384 units met the labels under 330px of plot. From `--bp-lg` the bars' labels read at `--t-small`.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
 - **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points `--d-quick` apart. Under reduced motion every part lands drawn.
 
