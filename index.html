@@ -22,7 +22,7 @@
 [data-fade-chart].is-in{opacity:1;transform:translateY(0) scale(1)}
 .cs-section > .eyebrow,.cs-section > .cs-section-title,.cs-section > .cs-section-body,.cs-pull{opacity:0;transform:translateY(var(--s-6));transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 .cs-section.is-in > .eyebrow,.cs-section.is-in > .cs-section-title,.cs-section.is-in > .cs-section-body,.cs-pull.is-in{opacity:1;transform:translateY(0)}
-.cs-section.is-in > .eyebrow{transition-delay:0ms}
+.cs-section.is-in > .eyebrow{transition-delay:0s}
 .cs-section.is-in > .cs-section-title{transition-delay:var(--d-instant)}
 .cs-section.is-in > .cs-section-body{transition-delay:calc(2 * var(--d-instant))}
 html{scroll-behavior:smooth}
@@ -1035,7 +1035,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
-              <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">none — the dots hold still at full opacity</td></tr>
+              <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 200 / 400ms (0, 2 and 4 × <code>--d-instant</code>)</td><td class="muted">none — the dots hold still at full opacity</td></tr>
               <tr><td>Chat</td><td>send idle → ready</td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Loader</td><td>success</td><td class="muted">check scale-in (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Loader</td><td>success</td><td class="muted"><code>.loader-anim</code> opacity → 0 (effect) · scale → 0.7 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
@@ -1055,7 +1055,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Stepper</td><td>reveal</td><td class="muted">text rise 8px (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 500ms + <code>--d-instant</code> per step</td><td class="muted">instant</td></tr>
               <tr><td>Stepper</td><td>reveal</td><td class="muted">connector draw, done or dashed (spatial) · appear (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 600ms + <code>--d-instant</code> per step; appears on <code>--d-quick</code></td><td class="muted">instant</td></tr>
               <tr><td>Stepper</td><td>current (loop)</td><td class="muted">ring scale 1→1.33 (spatial) · fade (effect)</td><td>2400ms · <code>--ease-standard</code> · infinite</td><td class="muted">still ring</td></tr>
-              <tr><td>Progress</td><td>reveal · value change</td><td class="muted">fill draw (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · 700ms on reveal</td><td class="muted">instant — at its value</td></tr>
+              <tr><td>Progress</td><td>reveal · value change</td><td class="muted">fill draw (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · 700ms (7 × <code>--d-instant</code>) on reveal</td><td class="muted">instant — at its value</td></tr>
               <tr><td>Navigation · top bar</td><td>item hover / press</td><td class="muted">color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Navigation · sidebar</td><td>item hover / press</td><td class="muted">color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Breadcrumb</td><td>crumb hover / press</td><td class="muted">color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -1081,7 +1081,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Chip</td><td>select</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>deselect</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>dismiss</td><td class="muted">opacity (effect) · scale 1→0.92 (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still removes</td></tr>
-              <tr><td>Case study</td><td>enter</td><td class="muted">section eyebrow, title, text: a 24px rise (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code>, 0 / 80 / 160ms</td><td class="muted">instant</td></tr>
+              <tr><td>Case study</td><td>enter</td><td class="muted">section eyebrow, title, text: a 24px rise (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code>, 0 / 100 / 200ms (0, 1 and 2 × <code>--d-instant</code>)</td><td class="muted">instant</td></tr>
               <tr><td>Case study</td><td>enter</td><td class="muted">outcome number count-up (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">the final number, no count</td></tr>
               <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure border and shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure hint (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -3795,7 +3795,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 23.2</span></div>
           <p class="subsection-desc">What the contract holds the progress bar to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:progress --><ul class="page-rules"><li><strong>Two heights.</strong> 8px by default; <code>.progress-sm</code>, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.</li><li><strong>Named and valued.</strong> The track carries <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code> and a name; the value is also written as text.</li><li><strong>Known end only.</strong> An unknown wait is a Loader; a bar that moves without a value is not a Progress.</li><li><strong>Motion.</strong> On view the fill draws from zero on <code>--d-scene</code> · <code>--ease-decel</code> from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.</li></ul><!-- /rules:progress -->
+          <!-- rules:progress --><ul class="page-rules"><li><strong>Two heights.</strong> 8px by default; <code>.progress-sm</code>, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.</li><li><strong>Named and valued.</strong> The track carries <code>role="progressbar"</code>, <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code> and a name; the value is also written as text.</li><li><strong>Known end only.</strong> An unknown wait is a Loader; a bar that moves without a value is not a Progress.</li><li><strong>Motion.</strong> On view the fill draws from zero on <code>--d-scene</code> · <code>--ease-decel</code> from 700ms (7 × <code>--d-instant</code>) and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.</li></ul><!-- /rules:progress -->
         </div>
 
         <div class="subsection">
@@ -6502,7 +6502,7 @@ button.chip:disabled{
               <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
-              <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">none — the dots hold still at full opacity</td></tr>
+              <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 200 / 400ms (0, 2 and 4 × <code>--d-instant</code>)</td><td class="muted">none — the dots hold still at full opacity</td></tr>
               <tr><td>send idle → ready <code>.chat-composer-send</code></td><td class="muted">background + color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
             </tbody>
           </table>
@@ -8036,28 +8036,28 @@ flowchart TD
       .deck-dot:focus-visible{outline:2px solid var(--obsidian-100);outline-offset:3px}
       /* piece entrance — Amaca staggered reveal (ease-decel), fires on .is-in */
       #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-index{opacity:0;transform:translateY(20px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
-      #presentations .slide.is-in .slide-eyebrow{opacity:1;transform:none;transition-delay:0ms}
-      #presentations .slide.is-in .slide-index{opacity:1;transform:none;transition-delay:60ms}
-      #presentations .slide.is-in .slide-title,#presentations .slide.is-in .slide-dtitle{opacity:1;transform:none;transition-delay:90ms}
-      #presentations .slide.is-in .slide-lead,#presentations .slide.is-in .slide-stat,#presentations .slide.is-in .slide-copy{opacity:1;transform:none;transition-delay:170ms}
-      #presentations .slide.is-in .slide-copy + .slide-copy{transition-delay:250ms}
-      #presentations .slide.is-in .slide-stat-label{opacity:1;transform:none;transition-delay:230ms}
-      #presentations .slide.is-in .slide-stat-ctx{opacity:1;transform:none;transition-delay:300ms}
+      #presentations .slide.is-in .slide-eyebrow{opacity:1;transform:none;transition-delay:0s}
+      #presentations .slide.is-in .slide-index{opacity:1;transform:none;transition-delay:var(--d-instant)}
+      #presentations .slide.is-in .slide-title,#presentations .slide.is-in .slide-dtitle{opacity:1;transform:none;transition-delay:var(--d-instant)}
+      #presentations .slide.is-in .slide-lead,#presentations .slide.is-in .slide-stat,#presentations .slide.is-in .slide-copy{opacity:1;transform:none;transition-delay:calc(2 * var(--d-instant))}
+      #presentations .slide.is-in .slide-copy + .slide-copy{transition-delay:calc(3 * var(--d-instant))}
+      #presentations .slide.is-in .slide-stat-label{opacity:1;transform:none;transition-delay:calc(2 * var(--d-instant))}
+      #presentations .slide.is-in .slide-stat-ctx{opacity:1;transform:none;transition-delay:calc(3 * var(--d-instant))}
       /* listed items enter ONE AT A TIME (not as a block) */
       #presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc{opacity:0;transform:translateY(14px);transition:opacity var(--d-base) var(--ease-decel),transform var(--d-base) var(--ease-decel)}
       #presentations .slide.is-in .bar-row,#presentations .slide.is-in .split-item,#presentations .slide.is-in .slide-contacts .cc{opacity:1;transform:none}
-      #presentations .slide.is-in .bar-row:nth-child(1),#presentations .slide.is-in .split-item:nth-child(1),#presentations .slide.is-in .slide-contacts .cc:nth-child(1){transition-delay:260ms}
-      #presentations .slide.is-in .bar-row:nth-child(2),#presentations .slide.is-in .split-item:nth-child(2),#presentations .slide.is-in .slide-contacts .cc:nth-child(2){transition-delay:340ms}
-      #presentations .slide.is-in .bar-row:nth-child(3),#presentations .slide.is-in .split-item:nth-child(3),#presentations .slide.is-in .slide-contacts .cc:nth-child(3){transition-delay:420ms}
-      #presentations .slide.is-in .bar-row:nth-child(4),#presentations .slide.is-in .split-item:nth-child(4),#presentations .slide.is-in .slide-contacts .cc:nth-child(4){transition-delay:500ms}
-      #presentations .slide.is-in .bar-row:nth-child(n+5),#presentations .slide.is-in .split-item:nth-child(n+5){transition-delay:560ms}
+      #presentations .slide.is-in .bar-row:nth-child(1),#presentations .slide.is-in .split-item:nth-child(1),#presentations .slide.is-in .slide-contacts .cc:nth-child(1){transition-delay:calc(3 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(2),#presentations .slide.is-in .split-item:nth-child(2),#presentations .slide.is-in .slide-contacts .cc:nth-child(2){transition-delay:calc(4 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(3),#presentations .slide.is-in .split-item:nth-child(3),#presentations .slide.is-in .slide-contacts .cc:nth-child(3){transition-delay:calc(5 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(4),#presentations .slide.is-in .split-item:nth-child(4),#presentations .slide.is-in .slide-contacts .cc:nth-child(4){transition-delay:calc(6 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(n+5),#presentations .slide.is-in .split-item:nth-child(n+5){transition-delay:calc(7 * var(--d-instant))}
       /* each data bar wipes in just after its row lands (the "data draw-on") */
       #presentations .slide .bar-fill{transform:scaleX(0);transform-origin:left center;transition:transform var(--d-slow) var(--ease-decel)}
       #presentations .slide.is-in .bar-fill{transform:scaleX(1)}
-      #presentations .slide.is-in .bar-row:nth-child(1) .bar-fill{transition-delay:360ms}
-      #presentations .slide.is-in .bar-row:nth-child(2) .bar-fill{transition-delay:440ms}
-      #presentations .slide.is-in .bar-row:nth-child(3) .bar-fill{transition-delay:520ms}
-      #presentations .slide.is-in .bar-row:nth-child(4) .bar-fill{transition-delay:600ms}
+      #presentations .slide.is-in .bar-row:nth-child(1) .bar-fill{transition-delay:calc(4 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(2) .bar-fill{transition-delay:calc(5 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(3) .bar-fill{transition-delay:calc(6 * var(--d-instant))}
+      #presentations .slide.is-in .bar-row:nth-child(4) .bar-fill{transition-delay:calc(7 * var(--d-instant))}
       @media (prefers-reduced-motion:reduce){
         .deck-stage .slide{transition:none}
         #presentations .slide-eyebrow,#presentations .slide-title,#presentations .slide-dtitle,#presentations .slide-lead,#presentations .slide-copy,#presentations .slide-stat,#presentations .slide-stat-label,#presentations .slide-stat-ctx,#presentations .slide-bars,#presentations .split-list,#presentations .slide-contacts,#presentations .slide-index,#presentations .bar-row,#presentations .split-item,#presentations .slide-contacts .cc,#presentations .slide .bar-fill{opacity:1;transform:none;transition:none}

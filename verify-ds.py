@@ -3672,7 +3672,7 @@ def c94():
 def c95():
     fails = []
     d = read(DESIGN)
-    want = "translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity"
+    want = "translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity"
     chat = d[d.index("\n### Chat"):d.index("\n### ", d.index("\n### Chat") + 5)]
     if chat.count("| typing dots (loop) | " + want + " |") != 1:
         fails.append("DESIGN.md § Chat: the typing dots row is not the canonical one, or it appears twice")
@@ -4117,6 +4117,40 @@ def c110():
         if not any(c in padded for c in classes):
             line = html.count("\n", 0, m.start()) + 1
             fails.append(f"index.html:{line}: <button class=\"{m.group(1)[:50]}\"> sets no padding: the browser's default squeezes it")
+    return fails
+
+@check("111", "Every delay is on the scale: 0 or a multiple of --d-instant, never a time written by hand",
+       "v5.3.0: check_compliance warned on the Card's own rule, '80ms apart', because 80ms is no token: it was the old "
+       "value of --d-instant, left behind in the Card, the Accordion, the Chat, the Case study and the Stepper when the "
+       "token moved to 100ms. Around them sat about twenty more delays typed by hand (60, 90, 170, 1080, 160ms…) that no "
+       "check read, since the duration checks look at durations and not at delays. A delay now says how many steps of "
+       "--d-instant it waits, so the next change of the token moves every ladder with it.")
+def c111():
+    fails = []
+    TIME = re.compile(r"(?<![\w.-])(\d+(?:\.\d+)?)(ms|s)\b")
+    sources = [("components.css", read(ROOT / "styles" / "components.css"))]
+    html = read(INDEX)
+    sources += [("index.html <style>", m.group(1)) for m in re.finditer(r"<style[^>]*>(.*?)</style>", html, re.S)]
+    for name, text in sources:
+        flat = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+            sel = m.group(1).strip().split("\n")[-1][-60:]
+            for d in re.finditer(r"(?<![-\w])(transition-delay|animation-delay|transition|animation)\s*:\s*([^;}]+)", m.group(2)):
+                prop, val = d.group(1), d.group(2)
+                lits = [t for t in TIME.findall(val) if float(t[0]) != 0]
+                if not lits:
+                    continue
+                if prop in ("transition", "animation"):
+                    # a shorthand: the second time is the delay; the first (the duration) is held by the duration checks
+                    for part in val.split(","):
+                        times = TIME.findall(part)
+                        if len(times) >= 2 and float(times[1][0]) != 0:
+                            fails.append(f"{name}: {sel} delays {''.join(times[1])} by hand ({prop})")
+                else:
+                    fails.append(f"{name}: {sel} {prop} {', '.join(''.join(t) for t in lits)} by hand")
+    # the Card's stagger is read from the token, not typed
+    if not re.search(r"const STEP = ms\('--d-instant'\)", html):
+        fails.append("index.html: the card-rise stagger is not read from --d-instant")
     return fails
 
 @check("102", "Every variant the contract declares is on its page, in a demo",

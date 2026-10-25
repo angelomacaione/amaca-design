@@ -1872,7 +1872,7 @@ How far a task with a known end has come: a track, a fill and the value written 
 - **Two heights.** 8px by default; `.progress-sm`, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.
 - **Named and valued.** The track carries `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name; the value is also written as text.
 - **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
-- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
+- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms (7 × `--d-instant`) and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
 
 
 **Variants.**
@@ -2903,7 +2903,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
 
 **Composer:**
@@ -3662,7 +3662,7 @@ The starting frame for a project told as a story. It composes the system's compo
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 100 / 200ms (0, 1 and 2 × `--d-instant`) | instant |
 | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3940,7 +3940,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |
 | Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Loader | success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
 | Loader | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
@@ -3960,7 +3960,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 500ms + `--d-instant` per step | instant |
 | Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 600ms + `--d-instant` per step; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
-| Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
+| Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms (7 × `--d-instant`) on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Navigation · sidebar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Breadcrumb | crumb hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3986,7 +3986,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
-| Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 100 / 200ms (0, 1 and 2 × `--d-instant`) | instant |
 | Case study | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | Case study | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Case study | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
