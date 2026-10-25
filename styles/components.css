@@ -1032,8 +1032,10 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .chart-bars-axis{display:grid;grid-auto-rows:minmax(0,1fr);margin-inline-end:var(--s-3)}
 .chart-bars > .chart-bars-reserve,.chart-bars-axis > .chart-label{position:static;translate:none;align-self:center}
 .chart-bars > .chart-bars-reserve{visibility:hidden}
-/* From --bp-lg the bars' labels read one step up, --t-small: the column grows with them, the drawing gives way. */
-@media (min-width: 900px){.chart-bars .chart-label{font-size:var(--t-small)}}
+/* A bar chart with room reads its labels one step up, --t-small: from --bp-sm of the card's own width, not the
+   screen's, so a narrow card on a desktop (the Anatomy sample) keeps --t-caption and its rows their air. */
+.chart-card:has(> .chart-bars){container-type:inline-size}
+@container (min-width: 480px){.chart-bars .chart-label{font-size:var(--t-small)}}
 /* Labels centre with the translate property: [data-fade] owns transform, the two compose.
    Timeline (§ 3.42): the gantt is a plot; under the width its lanes need it scrolls sideways, its labels at their tokens. */
 .timeline-scroll{overflow-x:auto;overscroll-behavior-x:contain}
