@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-<script>document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
+<script>window.dInstant=function(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--d-instant'))||100};document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
 <link rel="stylesheet" href="styles/tokens.css?v=cb901e17">
 <link rel="stylesheet" href="styles/components.css?v=4a1bae93">
 
@@ -1040,8 +1040,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Loader</td><td>success</td><td class="muted">check scale-in (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Loader</td><td>success</td><td class="muted"><code>.loader-anim</code> opacity → 0 (effect) · scale → 0.7 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Loader</td><td>skeleton handoff</td><td class="muted">full-page loader → <code>.skeleton-stack</code> swap</td><td>after a <code>--d-scene</code> wait</td><td class="muted">instant swap, shimmer disabled</td></tr>
-              <tr><td>Diagrams</td><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
-              <tr><td>Diagrams</td><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>Diagrams</td><td>enter viewport · Replay</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · in the direction of the arrows: a node, the edges leaving it with their labels, the nodes they reach, one <code>--d-instant</code> per step; a cluster arrives with its first node</td><td class="muted">instant — straight to resolved</td></tr>
               <tr><td>Stat / KPI</td><td>enter viewport</td><td class="muted">text content count-up 0→target (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">instant — jump to final value</td></tr>
               <tr><td>Loader</td><td>wait (loop)</td><td class="muted">brand mark SVG (spatial)</td><td>media clock (SVG SMIL, 4.5 s loop) · infinite</td><td class="muted">hidden — fallback ring shown</td></tr>
               <tr><td>Loader</td><td>wait (loop)</td><td class="muted">fallback ring rotate (spatial)</td><td>1400ms · linear · infinite</td><td class="muted">ratified exception — keeps spinning</td></tr>
@@ -1074,7 +1073,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Toast</td><td>enter</td><td class="muted">opacity (effect) · translateX 24px→0 (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Toast</td><td>dismiss (<code>.is-out</code>)</td><td class="muted">opacity (effect) · translateX 0→24px (spatial) — retraces the entry</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Toast</td><td>dismiss (<code>.is-collapsing</code>)</td><td class="muted">max-height · padding · border · margin collapse (spatial) — repositions the stack</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant — still hides</td></tr>
-              <tr><td>Alert</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY 12px→0 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · stagger 90ms</td><td class="muted">instant</td></tr>
+              <tr><td>Alert</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY 12px→0 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · stagger <code>--d-instant</code> (100ms)</td><td class="muted">instant</td></tr>
               <tr><td>Tooltip</td><td>open on hover / focus</td><td class="muted">opacity (effect) · translateY 2px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Tooltip</td><td>close (another opens · Escape · scroll)</td><td class="muted">opacity (effect) · translateY 0→2px (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>hover (pressable)</td><td class="muted">border-color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -7782,6 +7781,7 @@ flowchart TD
             </div>
             <figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token-resolution path</figcaption>
           </figure>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="diagrams" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
         <!-- § 21.2 System architecture -->
@@ -7816,6 +7816,7 @@ flowchart LR
             </div>
             <figcaption class="diagram-caption"><span class="num">FIG-02</span> · Multi-deploy · one token, three surfaces</figcaption>
           </figure>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="diagrams" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
         <!-- § 18.3 Semantic states -->
@@ -7844,6 +7845,7 @@ flowchart TD
             </div>
             <figcaption class="diagram-caption"><span class="num">FIG-03</span> · Release gate · color + shape + label</figcaption>
           </figure>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="diagrams" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
 
         <!-- § 18.4 Anatomy -->
@@ -7880,12 +7882,11 @@ flowchart TD
         <!-- § 18.5 Motion spec -->
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 47.7</span></div>
-          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 09.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); nodes cascade in, then edges and clusters. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
+          <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 09.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); the figure composes in the direction of its arrows, and Replay runs it again. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
           <table class="table">
             <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
-              <tr><td>enter viewport · nodes</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · stagger ~70ms</td><td class="muted">instant — straight to resolved</td></tr>
-              <tr><td>enter viewport · edges + clusters</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · after nodes, +40ms each</td><td class="muted">instant — straight to resolved</td></tr>
+              <tr><td>enter viewport · Replay</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code> · in the direction of the arrows: a node, the edges leaving it with their labels, the nodes they reach, one <code>--d-instant</code> per step; a cluster arrives with its first node</td><td class="muted">instant — straight to resolved</td></tr>
             </tbody>
           </table>
         </div>
@@ -10330,7 +10331,7 @@ if ('IntersectionObserver' in window) {
 
     const fades = root.querySelectorAll('[data-fade]');
     fades.forEach((f, i) => {
-      setTimeout(() => f.classList.add('is-in'), i * 35);
+      setTimeout(() => f.classList.add('is-in'), i * dInstant());
     });
 
     // Stepper and Progress: replay pattern (§ Code conventions) — reset above, flush, then .is-in after 50ms
@@ -10341,7 +10342,7 @@ if ('IntersectionObserver' in window) {
     }
 
     const charts = root.querySelectorAll('[data-fade-chart]');
-    charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), 120 + i * 150));
+    charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), (i + 1) * dInstant()));
 
     // The plot (§ 3.39), choreography E: each part waits for the one before it to read, never for it to end.
     // Baseline from --d-base; the line --d-slow after it; area and points --d-slow after the line starts;
@@ -10455,7 +10456,7 @@ if ('IntersectionObserver' in window) {
       new MutationObserver(muts => {
         for (const m of muts) {
           if (m.target === viz && viz.classList.contains('active')) {
-            setTimeout(() => run(M, viz), 80);
+            setTimeout(() => run(M, viz), dInstant());
           }
         }
       }).observe(viz, {attributes:true, attributeFilter:['class']});
@@ -12060,7 +12061,7 @@ if ('IntersectionObserver' in window) {
     const nodes = Array.from(scroll.querySelectorAll('.chat-msg'));
     if (!nodes.length) { done && done(); return; }
     nodes.forEach((n, i) => {
-      schedule(() => n.classList.add('is-out'), i * 80);
+      schedule(() => n.classList.add('is-out'), i * dInstant());
     });
     // After the last collapse settles, clear DOM and call done
     schedule(() => {
@@ -12069,7 +12070,7 @@ if ('IntersectionObserver' in window) {
       lastOwnHot = null;
       typingBubbleRef = null;
       done && done();
-    }, nodes.length * 80 + 480);
+    }, (nodes.length + 5) * dInstant());
   }
 
   function schedule(fn, ms){
@@ -12633,7 +12634,64 @@ try {
     });
   }
 
-  // Reveal cascade: nodes first (stagger 70ms), then clusters + edges + labels.
+  // The order of the flow: a node, then the edges leaving it with their labels, then the
+  // nodes they reach, one --d-instant per step. Sources (no edge in) start together; a
+  // cluster arrives with its first node. Read once per figure from the rendered SVG:
+  // a node is g.node "…-flowchart-<id>-<n>", an edge carries data-id "L_<from>_<to>_<n>".
+  function flowSteps(g){
+    const step = new Map();
+    const idOf = el => { const m = /flowchart-(.+)-\d+$/.exec(el.id || ''); return m ? m[1] : null; };
+    const nodes = new Map(); g.nodes.forEach(n => { const id = idOf(n); if (id != null) nodes.set(id, n); });
+    const ids = [...nodes.keys()].sort((a, b) => b.length - a.length);
+    const edges = g.edges.map(e => {
+      const d = e.getAttribute('data-id') || '';
+      for (const a of ids) for (const b of ids){
+        if (d.startsWith('L_' + a + '_' + b + '_')) return { el: e, d, from: a, to: b };
+      }
+      return { el: e, d, from: null, to: null };
+    });
+    const T = new Map();
+    const hasIn = new Set(edges.filter(e => e.to != null).map(e => e.to));
+    let queue = ids.filter(id => !hasIn.has(id));
+    if (!queue.length && ids.length) queue = [ids[ids.length - 1]];
+    queue.forEach(id => T.set(id, 0));
+    const run = () => {
+      while (queue.length){
+        const u = queue.shift();
+        edges.filter(e => e.from === u).forEach(e => {
+          const t = T.get(u) + 1;
+          if (!step.has(e.el)) step.set(e.el, t);
+          if (!T.has(e.to)){ T.set(e.to, t + 1); queue.push(e.to); }
+        });
+      }
+    };
+    run();
+    // anything a loop left unreached starts after the rest, in source order
+    g.nodes.forEach(n => { const id = idOf(n); if (id != null && !T.has(id)){ T.set(id, Math.max(0, ...T.values()) + 1); queue.push(id); run(); } });
+    nodes.forEach((el, id) => step.set(el, T.get(id)));
+    const last = Math.max(0, ...step.values());
+    edges.forEach(e => { if (!step.has(e.el)) step.set(e.el, last + 1); });
+    // an edge label rides its edge
+    const edgeStep = new Map(edges.map(e => [e.d, step.get(e.el)]));
+    g.elabels.forEach(l => {
+      const host = l.closest('g.edgeLabel') || l;
+      const tag = host.querySelector('[data-id]');
+      const t = tag && edgeStep.get(tag.getAttribute('data-id'));
+      step.set(l, t != null ? t : last + 1);
+    });
+    // a cluster arrives with the first node inside it
+    g.clusters.forEach(c => {
+      const r = c.getBBox(); let t = Infinity;
+      nodes.forEach((el, id) => {
+        const b = el.getBBox(), m = el.transform.baseVal.consolidate();
+        const x = (m ? m.matrix.e : 0) + b.x + b.width / 2, y = (m ? m.matrix.f : 0) + b.y + b.height / 2;
+        if (x >= r.x && x <= r.x + r.width && y >= r.y && y <= r.y + r.height) t = Math.min(t, T.get(id));
+      });
+      step.set(c, t === Infinity ? 0 : t);
+    });
+    return step;
+  }
+
   function reveal(fig){
     if (fig._revealed) return;
     const g = fig._g;
@@ -12641,16 +12699,30 @@ try {
     fig._revealed = true;
     fig.setAttribute('data-anim', 'in');
     if (reduce) return;
-    g.nodes.forEach((el, i) => {
-      el.style.transitionDelay = (i * 70) + 'ms';
-      el.style.opacity = '1';
-    });
-    const base = g.nodes.length * 70 + 120;
-    [...g.clusters, ...g.edges, ...g.elabels].forEach((el, i) => {
-      el.style.transitionDelay = (base + i * 40) + 'ms';
+    const step = fig._steps || (fig._steps = flowSteps(g));
+    [...g.nodes, ...g.clusters, ...g.edges, ...g.elabels].forEach(el => {
+      el.style.transitionDelay = ((step.get(el) || 0) * dInstant()) + 'ms';
       el.style.opacity = '1';
     });
   }
+
+  // Replay (§ Code conventions): back to hidden with no transition, flush, then the flow again.
+  function replayFig(fig){
+    const g = fig._g;
+    if (!g || reduce) return;
+    const all = [...g.nodes, ...g.clusters, ...g.edges, ...g.elabels];
+    all.forEach(el => { el.style.transition = 'none'; el.style.transitionDelay = '0ms'; el.style.opacity = '0'; });
+    if (all[0]) getComputedStyle(all[0]).opacity;   // flush
+    all.forEach(el => { el.style.transition = 'opacity var(--d-base) var(--ease-decel)'; });
+    fig._revealed = false;
+    setTimeout(() => reveal(fig), 50);
+  }
+  document.addEventListener('click', ev => {
+    const btn = ev.target.closest('[data-replay="diagrams"]');
+    if (!btn) return;
+    const scope = btn.closest('.subsection') || btn.closest('.section');
+    scope.querySelectorAll('.diagram').forEach(replayFig);
+  }, true);
 
   // ── Triggers ──
   // 1) IntersectionObserver — fires once when the figure scrolls into view.
@@ -12766,7 +12838,7 @@ try {
     nameEl.textContent = tpl[i].dataset.name || '';
     dots.forEach((d, k) => { d.classList.toggle('on', k === i); d.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
     if (reduce){ paint(); }
-    else { stage.classList.add('swapping'); setTimeout(paint, 160); }
+    else { stage.classList.add('swapping'); setTimeout(paint, parseFloat(getComputedStyle(stage).getPropertyValue('--d-quick'))); }   // the slide fades out on --d-quick, then the next one paints
   }
 
   prev.addEventListener('click', () => render(i - 1));
@@ -12985,12 +13057,12 @@ try {
   // ---- Alerts: entrance on scroll, staggered ----
   const alertHost = document.querySelector('[data-alert-demo]');
   const alerts = alertHost ? Array.from(alertHost.querySelectorAll('[data-alert-fade]')) : [];
-  function runAlerts(){ reduce ? alerts.forEach(a => a.classList.add('is-in')) : replay(alerts, 'is-in', 90); }
+  function runAlerts(){ reduce ? alerts.forEach(a => a.classList.add('is-in')) : replay(alerts, 'is-in', dInstant()); }
 
   // ---- Toasts: entrance on scroll, exit on dismiss, replay ----
   const toastHost = document.querySelector('[data-toast-demo]');
   const toasts = toastHost ? Array.from(toastHost.querySelectorAll('.toast')) : [];
-  function runToasts(){ reduce ? toasts.forEach(t => t.classList.add('is-in')) : replay(toasts, 'is-in', 120); }
+  function runToasts(){ reduce ? toasts.forEach(t => t.classList.add('is-in')) : replay(toasts, 'is-in', dInstant()); }
 
   if (toastHost){
     toastHost.addEventListener('click', ev => {
@@ -13047,7 +13119,7 @@ try {
     if (!sec || typeof MutationObserver === 'undefined') return;
     new MutationObserver(muts => {
       muts.forEach(m => {
-        if (m.target === sec && sec.classList.contains('active')) setTimeout(play, 80);
+        if (m.target === sec && sec.classList.contains('active')) setTimeout(play, dInstant());
       });
     }).observe(sec, {attributes:true, attributeFilter:['class']});
   });

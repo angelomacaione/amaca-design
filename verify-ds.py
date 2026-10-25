@@ -522,7 +522,8 @@ def c19():
         has_motion = any(k in sub for k in ("data-fade", "data-alert-fade", "is-in",
                                             "data-toast-demo", "data-fade-chart",
                                             "data-ease", "stepper", "gantt", "swatch-tile-motion",
-                                            'data-replay="cards-'))  # v5.2.0: the card rise, run by the page script
+                                            'data-replay="cards-',  # v5.2.0: the card rise, run by the page script
+                                            'class="diagram" data-anim="pending"'))  # v5.3.0: a diagram composes along its arrows
         if not has_motion and num:
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
@@ -4148,6 +4149,19 @@ def c111():
                             fails.append(f"{name}: {sel} delays {''.join(times[1])} by hand ({prop})")
                 else:
                     fails.append(f"{name}: {sel} {prop} {', '.join(''.join(t) for t in lits)} by hand")
+    # The page's scripts: a stagger or a wait before a motion is a step of --d-instant (or the token it waits for),
+    # never a number. 50ms is the replay flush of § Code conventions, not a delay of the motion.
+    js = "\n".join(m.group(1) for m in re.finditer(r"<script[^>]*>(.*?)</script>", html, re.S))
+    for m in re.finditer(r"\bi\s*\*\s*(\d+)\b", js):
+        line = js[js.rfind("\n", 0, m.start()) + 1: js.find("\n", m.end())].strip()
+        if re.search(r"setTimeout|transitionDelay|schedule\(|delay", line):
+            fails.append(f"index.html <script>: a stagger of {m.group(1)}ms by hand: {line[:90]}")
+    for m in re.finditer(r"\breplay\([^()]*,\s*(\d+)\s*\)", js):
+        fails.append(f"index.html <script>: replay staggers {m.group(1)}ms by hand")
+    for m in re.finditer(r"setTimeout\(\s*(\(\)\s*=>[^;]*?|\w+)\s*,\s*(\d+)\s*\)", js):
+        cb, n = m.group(1), int(m.group(2))
+        if n not in (0, 50) and re.search(r"is-in|is-out|\brun\b|\bplay\b|\breveal\b|\bpaint\b", cb):
+            fails.append(f"index.html <script>: waits {n}ms by hand before {cb.strip()[:50]}")
     # the Card's stagger is read from the token, not typed
     if not re.search(r"const STEP = ms\('--d-instant'\)", html):
         fails.append("index.html: the card-rise stagger is not read from --d-instant")
