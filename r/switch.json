@@ -12,7 +12,7 @@
       "path": "amaca/switch.css",
       "type": "registry:file",
       "target": "styles/amaca/switch.css",
-      "content": ".switch{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  cursor:pointer;\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n}\n.switch input{\n  appearance:none;\n  width:var(--s-8);\n  height:calc(var(--s-4) + var(--s-0-5));\n  background:var(--obsidian-700);\n  border-radius:var(--r-full);\n  position:relative;\n  transition:background var(--d-quick) var(--ease-standard);\n}\n.switch input::after{\n  content:\"\";\n  position:absolute;\n  top:var(--s-0-5);\n  left:var(--s-0-5);\n  width:14px;\n  height:14px;\n  background:var(--obsidian-200);\n  border-radius:var(--r-full);\n  transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard);\n}\n.switch input:checked{\n  background:var(--primary-500);\n}\n.switch input:checked::after{\n  left:var(--s-4);\n  background:var(--obsidian-950);\n}\n.switch input:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.switch input:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.switch:has(input:disabled){\n  color:var(--obsidian-400);\n  cursor:not-allowed;\n}\n"
+      "content": ".switch{\n  display:inline-flex;\n  align-items:center;\n  gap:var(--s-2);\n  cursor:pointer;\n  font-size:var(--t-small);\n  color:var(--obsidian-100);\n}\n.switch input{\n  appearance:none;\n  width:var(--s-8);\n  height:calc(var(--s-4) + var(--s-0-5));\n  background:var(--obsidian-700);\n  border-radius:var(--r-full);\n  position:relative;\n  transition:background var(--d-quick) var(--ease-standard);\n}\n.switch input::after{\n  content:\"\";\n  position:absolute;\n  top:var(--s-0-5);\n  left:var(--s-0-5);\n  width:14px;\n  height:14px;\n  background:var(--obsidian-200);\n  border-radius:var(--r-full);\n  transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard), width var(--d-quick) var(--ease-spring), height var(--d-quick) var(--ease-spring), top var(--d-quick) var(--ease-spring);\n}\n.switch input:checked{\n  background:var(--primary-500);\n}\n.switch input:checked::after{\n  left:var(--s-4);\n  background:var(--obsidian-950);\n}\n@media (hover: hover){\n  .switch:hover input:not(:disabled)::after{\n    width:var(--s-4);\n    height:var(--s-4);\n    top:calc(var(--s-0-5) - var(--s-px));\n    left:calc(var(--s-0-5) - var(--s-px));\n  }\n  .switch:hover input:not(:disabled):checked::after{\n    left:calc(var(--s-4) - var(--s-px));\n  }\n}\n@media (prefers-reduced-motion: reduce){\n  .switch input::after{\n    transition:none;\n  }\n}\n.switch input:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--focus-offset);\n  box-shadow:var(--ring-halo);\n}\n.switch input:disabled{\n  opacity:var(--opacity-disabled);\n  cursor:not-allowed;\n}\n.switch:has(input:disabled){\n  color:var(--obsidian-400);\n  cursor:not-allowed;\n}\n"
     },
     {
       "path": "amaca/switch.html",
@@ -73,7 +73,8 @@
           "tokens": [
             "--d-base",
             "--ease-standard",
-            "--d-quick"
+            "--d-quick",
+            "--ease-spring"
           ],
           "value": "",
           "states": ""
@@ -96,6 +97,8 @@
         "The whole &lt;label&gt; is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.",
         "The focus ring lives on the input, not the label, so the halo traces the control.",
         "A radio group has exactly one checked member at all times. A group with none is a defect, not a state.",
+        "A group is a fieldset.choice-group (v5.3.0). Its legend names it in the label register (--t-micro mono uppercase, --obsidian-300); the options stack --s-3 apart. Radios always come in one; checkboxes and switches when there are two or more.",
+        "Hover grows the switch's knob one step (v5.3.0), 14px to --s-4 about its centre, on the button's spring; never a colour, which on the --primary-500 track would vanish. A fine pointer only; a disabled switch does not answer.",
         "State matrix: § 3.0.1. Motion: § 06.4."
       ],
       "classes": [

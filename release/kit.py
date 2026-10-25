@@ -82,7 +82,7 @@ KITS = {
                          ("Knob", ".switch input::after", "FSZH", [("on", ".switch input:checked::after")]), ("Label", ".switch", "T", []),
                          ("Motion", ".switch input::after", "M", []), ("Focus", ".switch input:focus-visible", "X", [])]},
     "slider": {"page": "slider", "classes": {"label", "slider", "slider-head", "slider-value", "slider-scale", "slider-input"},
-               "html": '<div class="slider"><div class="slider-head"><label class="label" for="kit-slider">Volume</label><output class="slider-value" for="kit-slider">40</output></div><input class="slider-input" id="kit-slider" type="range" min="0" max="100" value="40" style="--p:40%"><div class="slider-scale"><span>0</span><span>100</span></div></div>',
+               "html": '<div class="slider"><div class="slider-head"><label class="label" for="kit-slider">Volume</label><output class="slider-value" for="kit-slider">40</output></div><input class="slider-input" id="kit-slider" type="range" min="0" max="100" value="40" style="--slider-fill:40%"><div class="slider-scale"><span>0</span><span>100</span></div></div>',
                "parts": [("Label", ".label", "T", []), ("Value", ".slider-value", "T", []),
                          ("Track", ".slider-input::-webkit-slider-runnable-track", "FSZ", []),
                          ("Thumb", ".slider-input::-webkit-slider-thumb", "FESZH", [("hover", ".slider-input:hover::-webkit-slider-thumb")]),

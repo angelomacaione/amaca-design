@@ -642,6 +642,14 @@
     "$type": "number",
     "$description": "every disabled control"
   },
+  "slider-fill": {
+    "$value": {
+      "value": 0,
+      "unit": "%"
+    },
+    "$type": "dimension",
+    "$description": "component token: how far a single slider is filled; the script sets it on the input"
+  },
   "grad-cube": {
     "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
     "$type": "other",

@@ -504,7 +504,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.5 |
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.6 |
 | Link | `.link` `.link-quiet` | canonical | § 3.7 |
-| Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.8 |
+| Checkbox · Switch · Radio | `.check` `.switch` `.radio` · `.choice-group` | canonical | § 3.8 |
 | Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.9 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.10 |
 | Dropdown · Select · Menu | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` `.select-option-label` `.select-check` `.select-kbd` `.select-group` `.select-divider` `.select-option-danger` · menu: `.select-menu-actions` · slider: `.select-menu-slider` | canonical | § 3.11 — three variants share the panel: listbox, Slider (dialog), Menu |
@@ -544,7 +544,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
 | Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
 | Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.states-row` `.state` `.state-cap` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -625,7 +625,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
 | `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
 | `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` | — |
-| `.slider-input` | hover | — | — | — | `--ring-field` | on the thumb | — |
+| `.slider-input` | hover | — | — | — | — | the thumb grows `--s-5` → `--s-6`; a fine pointer only | — |
 | `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb | — |
 | `.slider-input` | active | — | — | — | — | `cursor: grabbing` | — |
 | `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
@@ -689,6 +689,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below | — |
 | `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | | — |
 | `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` | — |
+| `.switch` | hover | — | — | — | — | knob grows 14px → `--s-4` about its centre; a fine pointer only | — |
 | `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick | — |
 | `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index | — |
 | `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label | — |
@@ -717,7 +718,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
 | `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
-| `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.chip` (pressable) | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` · attenuated once: the opacity, not a second ink | — |
 | `.chip-dismiss` | default | transparent | none | `--obsidian-300` | — | its own target, inside a static chip | — |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
@@ -790,6 +791,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Do / Don't comes in pairs.** The Don't is where the knowledge is: anyone can guess the Do.
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
 - An explanation that fits none of these seven is `off-system`. Add a surface deliberately, or use one of these.
+
+**States rows (v5.3.0).** A control's States subsection is one row, like the button variants: one control per state, each captioned in the label register, a caption of two words on two lines. The row holds default, focus, the value (checked, selected, on, pressed), disabled, and disabled with its value; never hover, which the reader gets by pointing at the demo and whose rule stays in the state index and the motion index. Focus and press are forced with `data-force`, which the page turns into the stylesheet's own `:focus-visible` and `:active` rules. The Demo before it is the component as it ships, a named group with no captions. A disabled control is attenuated once (its opacity, or a faint ink where the browser already greys the native control) and keeps `cursor: not-allowed`: never `pointer-events: none`, which hides the cursor; a disabled link's click is blocked by the page.
 
 **Page order (v5.0.0).** A component page reads in one order: Usage (*Use it when* / *Use something else when*), the Anatomy card, Rules, the variants grouped by axis (type, size, state, orientation, placement, composition, the live demo), Do and don't. The axes are declared once, in the section's **Variants.** block: one line per axis, its values in order, the default marked; the states stay in the State index. The demos on the site show every declared value (check 102). The order follows the component schema the contract is read into: description, parts and tokens, rules, variant axes.
 
@@ -1180,6 +1183,11 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 <label class="check"><input type="checkbox" checked> Published</label>
 <label class="switch"><input type="checkbox" checked> Show dates</label>
 <label class="radio"><input type="radio" name="scope" checked> Everyone</label>
+
+<fieldset class="choice-group"><legend>Visibility</legend>
+  <label class="radio"><input type="radio" name="vis" checked> Everyone</label>
+  <label class="radio"><input type="radio" name="vis"> People with the link</label>
+</fieldset>
 ```
 
 | Control | Shape | Checked treatment | Use |
@@ -1194,6 +1202,8 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
+- **A group is a `fieldset.choice-group` (v5.3.0).** Its `legend` names it in the label register (`--t-micro` mono uppercase, `--obsidian-300`); the options stack `--s-3` apart. Radios always come in one; checkboxes and switches when there are two or more.
+- **Hover grows the switch's knob one step (v5.3.0)**, 14px to `--s-4` about its centre, on the button's spring; never a colour, which on the `--primary-500` track would vanish. A fine pointer only; a disabled switch does not answer.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
 
@@ -1227,7 +1237,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
     <label class="label" for="volume">VOLUME</label>
     <output class="slider-value" for="volume">40</output>
   </div>
-  <input class="slider-input" id="volume" type="range" min="0" max="100" step="5" value="40" style="--p:40%">
+  <input class="slider-input" id="volume" type="range" min="0" max="100" step="5" value="40" style="--slider-fill:40%">
   <div class="slider-scale"><span>0</span><span>100</span></div>
 </div>
 
@@ -1259,7 +1269,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Native underneath.** Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's `name`.
 - **A range starts on a selection, not on the whole scale.** Each thumb is its own input with its own `aria-label` ("Minimum price", "Maximum price"), and the pair is a `role="group"` named by the visible label. The lower thumb cannot pass the upper one; they can meet.
 - **The value is always shown.** In `.slider-value`, beside the label; the minimum and the maximum sit in `.slider-scale`. A slider with no visible value is a guess.
-- **The fill is the script's.** `--p` on the input (single), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
+- **The fill is the script's.** `--slider-fill` on the input (single, a component token declared in `tokens.css` at `0%`, v5.3.0), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
 - **No error state.** The value is always inside the scale. A slider that cannot be changed is `disabled`.
 - **Targets (WCAG 2.5.8).** The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.
 - **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
@@ -3933,7 +3943,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
-| Slider | hover · focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Slider | hover (thumb) | width · height (spatial) | `--d-quick` · `--ease-spring` | instant |
+| Slider | focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
 | Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
@@ -3973,6 +3984,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Time input | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
+| Switch | hover (knob) | width · height (spatial) | `--d-quick` · `--ease-spring` | instant |
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Toast | enter | opacity (effect) · translateX 24px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |

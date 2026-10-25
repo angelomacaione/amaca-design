@@ -1251,6 +1251,42 @@ def c112():
         fails.append("tokens.css: :where(body > *) must come before the element rules, so they keep the last word")
     return fails
 
+@check("113", "A States row shows what the keyboard and the value give, never hover; a disabled control keeps its cursor",
+       "v5.3.0: the States of Checkbox, Radio and Switch were a column of labelled examples that mixed demo and state, "
+       "the Link's skipped focus and press, and two disabled rules set pointer-events:none, which hides the not-allowed "
+       "cursor the state index promises. A States subsection is now one row: default, focus, the value, disabled and "
+       "disabled with its value, focus and press forced with data-force onto the stylesheet's own rules. Hover is read by "
+       "pointing at the demo. The slider's fill is a component token, --slider-fill, declared where the gate can resolve it.")
+def c113():
+    html, fails = read(INDEX), []
+    for sec in re.finditer(r'<section class="section" id="([^"]+)">(.*?)</section>', html, re.S):
+        for sub in re.split(r'(?=<div class="subsection">)', sec.group(2))[1:]:
+            t = re.search(r'subsection-title">([^<]*)', sub)
+            if not t or t.group(1) != "States":
+                continue
+            if 'class="card states-row"' not in sub:
+                fails.append(f"§ {sec.group(1)} States: not a .states-row")
+            caps = re.findall(r'class="state-cap">([^<]*)<', sub)
+            if len(caps) < 3:
+                fails.append(f"§ {sec.group(1)} States: {len(caps)} captioned states, a row holds at least three")
+            if any("hover" in c.lower() for c in caps) or re.search(r'data-force="[^"]*hover', sub):
+                fails.append(f"§ {sec.group(1)} States: hover in the row — it is read by pointing at the demo")
+            for f in re.findall(r'data-force="([^"]*)"', sub):
+                if not set(f.split()) <= {"focus-visible", "active"}:
+                    fails.append(f"§ {sec.group(1)} States: data-force=\"{f}\" is not focus-visible or active")
+    if 'data-force' in html and "[data-force~=" not in html:
+        fails.append("index.html: data-force is used but the page script that mirrors :focus-visible and :active is missing")
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        sel = " ".join(m.group(1).split())
+        if re.search(r":disabled|aria-disabled", sel) and re.search(r"pointer-events\s*:\s*none", m.group(2)):
+            fails.append(f"components.css: {sel[:70]} sets pointer-events:none — it hides cursor: not-allowed")
+    if re.search(r"var\(--p[,)]", css) or "'--p'" in html or 'style="--p:' in html:
+        fails.append("the slider's fill is --slider-fill, not --p")
+    if not re.search(r"--slider-fill\s*:", read(TOKENS)):
+        fails.append("tokens.css: --slider-fill is not declared")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "

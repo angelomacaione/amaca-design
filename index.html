@@ -1029,7 +1029,8 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Avatar</td><td>hover · press (interactive)</td><td class="muted">border-color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>List</td><td>hover (interactive row)</td><td class="muted">background (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Pagination</td><td>hover · focus (link)</td><td class="muted">background · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Slider</td><td>hover · focus (thumb)</td><td class="muted">box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Slider</td><td>hover (thumb)</td><td class="muted">width · height (spatial)</td><td><code>--d-quick</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
+              <tr><td>Slider</td><td>focus (thumb)</td><td class="muted">box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container (<code>.chat-bubble</code>, <code>.chat-status</code>, <code>.chat-avatar</code>, <code>.chat-meta</code>)</td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
@@ -1069,6 +1070,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Time input</td><td>close</td><td class="muted">popover opacity (effect) · translateY 0→−4px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
               <tr><td>Checkbox · Radio</td><td>check / uncheck</td><td class="muted">border-color · background (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Switch</td><td>toggle</td><td class="muted">knob <code>left</code> 2px↔16px (spatial)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Switch</td><td>hover (knob)</td><td class="muted">width · height (spatial)</td><td><code>--d-quick</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Switch</td><td>toggle</td><td class="muted">track background · knob background (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Toast</td><td>enter</td><td class="muted">opacity (effect) · translateX 24px→0 (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Toast</td><td>dismiss (<code>.is-out</code>)</td><td class="muted">opacity (effect) · translateX 0→24px (spatial) — retraces the entry</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
@@ -1532,10 +1534,12 @@ the mark is an animated SVG, one vector file describing every rotation and every
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 10.5</span></div>
-          <p class="subsection-desc">Default, hover, focus-visible, active and disabled. There is no visited state: in an application the colour of a link carries no history.</p>
-          <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:var(--s-8);align-items:center">
-            <a class="link" href="#link">Default</a>
-            <a class="link" aria-disabled="true">Disabled</a>
+          <p class="subsection-desc">One link per state, in a row like the button variants: default, focus, pressed and disabled. Hover is read by pointing at a link, and its rule stays in the state index. There is no visited state: in an application the colour of a link carries no history.</p>
+          <div class="card states-row">
+            <div class="state"><a class="link" href="#link">Link</a><span class="state-cap">Default</span></div>
+            <div class="state"><a class="link" href="#link" data-force="focus-visible">Link</a><span class="state-cap">Focus</span></div>
+            <div class="state"><a class="link" href="#link" data-force="active">Link</a><span class="state-cap">Pressed</span></div>
+            <div class="state"><a class="link" aria-disabled="true">Link</a><span class="state-cap">Disabled</span></div>
           </div>
         </div>
 
@@ -1615,22 +1619,34 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 11.2</span></div>
           <p class="subsection-desc">What the contract holds the checkbox to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:checkbox --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:checkbox -->
+          <!-- rules:checkbox --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li><strong>A group is a <code>fieldset.choice-group</code> (v5.3.0).</strong> Its <code>legend</code> names it in the label register (<code>--t-micro</code> mono uppercase, <code>--obsidian-300</code>); the options stack <code>--s-3</code> apart. Radios always come in one; checkboxes and switches when there are two or more.</li><li><strong>Hover grows the switch's knob one step (v5.3.0)</strong>, 14px to <code>--s-4</code> about its centre, on the button's spring; never a colour, which on the <code>--primary-500</code> track would vanish. A fine pointer only; a disabled switch does not answer.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:checkbox -->
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 11.3</span></div>
-          <p class="subsection-desc">A square with a tick: many of many. The value applies when the form is submitted. Shape carries the meaning before colour does. What separates the three choice controls is <strong style="color:var(--obsidian-100)">when they commit</strong>.</p>
-          <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="margin-bottom:var(--s-4)">Checkbox — many of many</div>
-              <div style="display:flex;flex-direction:column;gap:var(--s-4)">
-                <label class="check"><input type="checkbox" checked> Published</label>
-                <label class="check"><input type="checkbox"> Show in archive</label>
-                <label class="check"><input type="checkbox" checked disabled> Indexed (locked)</label>
-              </div></div>
+          <div class="subsection-head"><h2 class="subsection-title">Demo</h2><span class="subsection-num">§ 11.3</span></div>
+          <p class="subsection-desc">A named group, each option its own label. Tick any of them: nothing applies until the form is sent.</p>
+          <div class="card" style="padding:var(--s-8)">
+            <fieldset class="choice-group"><legend>Publishing</legend>
+              <label class="check"><input type="checkbox" checked> Published</label>
+              <label class="check"><input type="checkbox"> Show in archive</label>
+              <label class="check"><input type="checkbox" checked disabled> Indexed (locked)</label>
+            </fieldset>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 11.4</span></div>
+          <p class="subsection-desc">One checkbox per state, in a row like the button variants: default, checked, focus, disabled, and disabled with its tick. Hover is read by pointing at the demo, and its rule stays in the state index.</p>
+          <div class="card states-row">
+            <label class="state"><span class="check"><input type="checkbox"></span><span class="state-cap">Default</span></label>
+            <label class="state"><span class="check"><input type="checkbox" checked></span><span class="state-cap">Checked</span></label>
+            <label class="state"><span class="check"><input type="checkbox" data-force="focus-visible"></span><span class="state-cap">Focus</span></label>
+            <label class="state"><span class="check"><input type="checkbox" disabled></span><span class="state-cap">Disabled</span></label>
+            <label class="state"><span class="check"><input type="checkbox" checked disabled></span><span class="state-cap">Disabled checked</span></label>
+          </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 11.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 11.5</span></div>
           <p class="subsection-desc">Shape first: a square with a tick.</p>
           <div class="do-dont">
             <div class="do">
@@ -1702,22 +1718,34 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 12.2</span></div>
           <p class="subsection-desc">What the contract holds the radio to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:radio --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:radio -->
+          <!-- rules:radio --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li><strong>A group is a <code>fieldset.choice-group</code> (v5.3.0).</strong> Its <code>legend</code> names it in the label register (<code>--t-micro</code> mono uppercase, <code>--obsidian-300</code>); the options stack <code>--s-3</code> apart. Radios always come in one; checkboxes and switches when there are two or more.</li><li><strong>Hover grows the switch's knob one step (v5.3.0)</strong>, 14px to <code>--s-4</code> about its centre, on the button's spring; never a colour, which on the <code>--primary-500</code> track would vanish. A fine pointer only; a disabled switch does not answer.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:radio -->
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 12.3</span></div>
-          <p class="subsection-desc">A circle with a dot: one of many, always in a named group with a default. Like the checkbox, it applies on submit.</p>
-          <div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="margin-bottom:var(--s-4)">Radio — one of many</div>
-              <div role="radiogroup" aria-label="Visibility" style="display:flex;flex-direction:column;gap:var(--s-4)">
-                <label class="radio"><input type="radio" name="vis-demo" checked> Everyone</label>
-                <label class="radio"><input type="radio" name="vis-demo"> People with the link</label>
-                <label class="radio"><input type="radio" name="vis-demo" disabled> Only me (locked)</label>
-              </div></div>
+          <div class="subsection-head"><h2 class="subsection-title">Demo</h2><span class="subsection-num">§ 12.3</span></div>
+          <p class="subsection-desc">A named group with a default, one option always chosen. Pick another: the first lets go.</p>
+          <div class="card" style="padding:var(--s-8)">
+            <fieldset class="choice-group"><legend>Visibility</legend>
+              <label class="radio"><input type="radio" name="vis-demo" checked> Everyone</label>
+              <label class="radio"><input type="radio" name="vis-demo"> People with the link</label>
+              <label class="radio"><input type="radio" name="vis-demo" disabled> Only me (locked)</label>
+            </fieldset>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 12.4</span></div>
+          <p class="subsection-desc">One radio per state, in a row like the button variants: default, selected, focus, disabled, and disabled with its dot. Hover is read by pointing at the demo, and its rule stays in the state index.</p>
+          <div class="card states-row">
+            <label class="state"><span class="radio"><input type="radio" name="st-radio-1"></span><span class="state-cap">Default</span></label>
+            <label class="state"><span class="radio"><input type="radio" name="st-radio-2" checked></span><span class="state-cap">Selected</span></label>
+            <label class="state"><span class="radio"><input type="radio" name="st-radio-3" data-force="focus-visible"></span><span class="state-cap">Focus</span></label>
+            <label class="state"><span class="radio"><input type="radio" name="st-radio-4" disabled></span><span class="state-cap">Disabled</span></label>
+            <label class="state"><span class="radio"><input type="radio" name="st-radio-5" checked disabled></span><span class="state-cap">Disabled selected</span></label>
+          </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 12.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 12.5</span></div>
           <p class="subsection-desc">One of many, and always one checked.</p>
           <div class="do-dont">
             <div class="do">
@@ -1742,7 +1770,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 13.1</span></div>
           <p class="subsection-desc">The switch, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:switch --><div class="kit" data-kit="switch" data-kit-file="amaca-switch.html"><div class="kit-stage" inert><label class="switch"><input type="checkbox" role="switch" checked> Show dates</label></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-switch-anatomy-tab" aria-selected="true" aria-controls="kit-switch-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-switch-code-tab" aria-selected="false" aria-controls="kit-switch-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-switch-anatomy" aria-labelledby="kit-switch-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Track</span><span class="kit-main">--obsidian-700 --r-full --s-8 --s-4 --s-0-5<span class="kit-sub">on --primary-500</span></span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Knob</span><span class="kit-main">--obsidian-200 --r-full<span class="kit-sub">on --obsidian-950</span></span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Label</span><span class="kit-main">--obsidian-100 --t-small</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-standard --d-quick</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Focus</span><span class="kit-main">--focus-width --obsidian-100 --focus-offset --ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-switch-code" aria-labelledby="kit-switch-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;label class=&quot;switch&quot;&gt;&lt;input type=&quot;checkbox&quot; role=&quot;switch&quot; checked&gt; Show dates&lt;/label&gt;</pre><pre class="kit-code" data-kit-part="css">.switch{
+          <!-- kit:switch --><div class="kit" data-kit="switch" data-kit-file="amaca-switch.html"><div class="kit-stage" inert><label class="switch"><input type="checkbox" role="switch" checked> Show dates</label></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-switch-anatomy-tab" aria-selected="true" aria-controls="kit-switch-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-switch-code-tab" aria-selected="false" aria-controls="kit-switch-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-switch-anatomy" aria-labelledby="kit-switch-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Track</span><span class="kit-main">--obsidian-700 --r-full --s-8 --s-4 --s-0-5<span class="kit-sub">on --primary-500</span></span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Knob</span><span class="kit-main">--obsidian-200 --r-full<span class="kit-sub">on --obsidian-950</span></span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Label</span><span class="kit-main">--obsidian-100 --t-small</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-standard --d-quick --ease-spring</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Focus</span><span class="kit-main">--focus-width --obsidian-100 --focus-offset --ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-switch-code" aria-labelledby="kit-switch-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;label class=&quot;switch&quot;&gt;&lt;input type=&quot;checkbox&quot; role=&quot;switch&quot; checked&gt; Show dates&lt;/label&gt;</pre><pre class="kit-code" data-kit-part="css">.switch{
   display:inline-flex;
   align-items:center;
   gap:var(<b>--s-2</b>);
@@ -1768,7 +1796,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
   height:14px;
   background:var(<b>--obsidian-200</b>);
   border-radius:var(<b>--r-full</b>);
-  transition:left var(<b>--d-base</b>) var(<b>--ease-standard</b>), background var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
+  transition:left var(<b>--d-base</b>) var(<b>--ease-standard</b>), background var(<b>--d-quick</b>) var(<b>--ease-standard</b>), width var(<b>--d-quick</b>) var(<b>--ease-spring</b>), height var(<b>--d-quick</b>) var(<b>--ease-spring</b>), top var(<b>--d-quick</b>) var(<b>--ease-spring</b>);
 }
 .switch input:checked{
   background:var(<b>--primary-500</b>);
@@ -1776,6 +1804,22 @@ the mark is an animated SVG, one vector file describing every rotation and every
 .switch input:checked::after{
   left:var(<b>--s-4</b>);
   background:var(<b>--obsidian-950</b>);
+}
+@media (hover: hover){
+  .switch:hover input:not(:disabled)::after{
+    width:var(<b>--s-4</b>);
+    height:var(<b>--s-4</b>);
+    top:calc(var(<b>--s-0-5</b>) - var(<b>--s-px</b>));
+    left:calc(var(<b>--s-0-5</b>) - var(<b>--s-px</b>));
+  }
+  .switch:hover input:not(:disabled):checked::after{
+    left:calc(var(<b>--s-4</b>) - var(<b>--s-px</b>));
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  .switch input::after{
+    transition:none;
+  }
 }
 .switch input:focus-visible{
   outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
@@ -1795,26 +1839,37 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 13.2</span></div>
           <p class="subsection-desc">What the contract holds the switch to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:switch --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:switch -->
+          <!-- rules:switch --><ul class="page-rules"><li>Checkbox and radio are told apart by <strong>shape</strong> — square with a tick, circle with a dot. Never a tick in a circle, never a dot in a square.</li><li>The switch is the only one of the three that commits on change. If the change needs a Save button, it is a checkbox.</li><li>The whole <code>&lt;label&gt;</code> is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.</li><li>The focus ring lives on the <code>input</code>, not the label, so the halo traces the control.</li><li>A radio group has exactly one checked member at all times. A group with none is a defect, not a state.</li><li><strong>A group is a <code>fieldset.choice-group</code> (v5.3.0).</strong> Its <code>legend</code> names it in the label register (<code>--t-micro</code> mono uppercase, <code>--obsidian-300</code>); the options stack <code>--s-3</code> apart. Radios always come in one; checkboxes and switches when there are two or more.</li><li><strong>Hover grows the switch's knob one step (v5.3.0)</strong>, 14px to <code>--s-4</code> about its centre, on the button's spring; never a colour, which on the <code>--primary-500</code> track would vanish. A fine pointer only; a disabled switch does not answer.</li><li>State matrix: § 3.0.1. Motion: § 06.4.</li></ul><!-- /rules:switch -->
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 13.3</span></div>
-          <p class="subsection-desc">A track with a knob: the only choice control that applies immediately, on change.</p>
-          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="label" style="margin-bottom:var(--s-4)">Switch — applies immediately</div>
-                <div style="display:flex;flex-direction:column;gap:var(--s-4)">
-                  <label class="switch"><input type="checkbox" checked> Show dates</label>
-                  <label class="switch"><input type="checkbox"> Reduced motion override</label>
-                  <label class="switch"><input type="checkbox" disabled> Beta features (unavailable)</label>
-                </div></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="alert alert-info" role="status">
+          <div class="subsection-head"><h2 class="subsection-title">Demo</h2><span class="subsection-num">§ 13.3</span></div>
+          <p class="subsection-desc">Two settings that apply the moment they change: one on, one that cannot be changed here. Flip the first.</p>
+          <div class="grid grid-2" style="gap:var(--s-5)"><div class="card" style="padding:var(--s-8)">
+            <fieldset class="choice-group"><legend>Preferences</legend>
+              <label class="switch"><input type="checkbox" role="switch" checked> Show dates</label>
+              <label class="switch"><input type="checkbox" role="switch" disabled> Beta features (unavailable)</label>
+            </fieldset></div><div class="card" style="padding:var(--s-6);display:flex;flex-direction:column;gap:var(--s-4)"><div class="alert alert-info" role="status">
                 <svg class="icon alert-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.25"/><path d="M8 7.25v4M8 4.75v.5"/></svg>
                 <div class="alert-title">Switch or checkbox?</div>
                   <div class="alert-body">If the change needs a Save button, it is a checkbox. The switch is the only one of the three that commits on change.</div>
-              </div></div></div>
+              </div></div>
+          </div>
+        </div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">States</h2><span class="subsection-num">§ 13.4</span></div>
+          <p class="subsection-desc">One switch per state, in a row like the button variants: off, on, focus, disabled off and disabled on. Hover is read by pointing at the demo, and its rule stays in the state index.</p>
+          <div class="card states-row">
+            <label class="state"><span class="switch"><input type="checkbox" role="switch"></span><span class="state-cap">Off</span></label>
+            <label class="state"><span class="switch"><input type="checkbox" role="switch" checked></span><span class="state-cap">On</span></label>
+            <label class="state"><span class="switch"><input type="checkbox" role="switch" data-force="focus-visible"></span><span class="state-cap">Focus</span></label>
+            <label class="state"><span class="switch"><input type="checkbox" role="switch" disabled></span><span class="state-cap">Disabled off</span></label>
+            <label class="state"><span class="switch"><input type="checkbox" role="switch" checked disabled></span><span class="state-cap">Disabled on</span></label>
+          </div>
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 13.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 13.5</span></div>
           <p class="subsection-desc">The fill carries the state, never a stroke.</p>
           <div class="do-dont">
                 <div class="do">
@@ -1839,7 +1894,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 14.1</span></div>
           <p class="subsection-desc">The slider, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:slider --><div class="kit" data-kit="slider" data-kit-file="amaca-slider.html"><div class="kit-stage" inert><div class="slider"><div class="slider-head"><label class="label" for="kit-slider">Volume</label><output class="slider-value" for="kit-slider">40</output></div><input class="slider-input" id="kit-slider" type="range" min="0" max="100" value="40" style="--p:40%"><div class="slider-scale"><span>0</span><span>100</span></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-slider-anatomy-tab" aria-selected="true" aria-controls="kit-slider-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-slider-code-tab" aria-selected="false" aria-controls="kit-slider-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-slider-anatomy" aria-labelledby="kit-slider-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Label</span><span class="kit-main">--obsidian-300 --font-mono --t-micro --tr-mono</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Value</span><span class="kit-main">--obsidian-100 --t-small</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Track</span><span class="kit-main">--primary-500 --obsidian-600 --r-full --s-1</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Thumb</span><span class="kit-main">--obsidian-100 --bw-2 --obsidian-950 --r-full --s-5 --sh-1<span class="kit-sub">hover --ring-field</span></span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Scale</span><span class="kit-main">--obsidian-300 --t-caption</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Focus</span><span class="kit-main">--ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-slider-code" aria-labelledby="kit-slider-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;slider&quot;&gt;&lt;div class=&quot;slider-head&quot;&gt;&lt;label class=&quot;label&quot; for=&quot;kit-slider&quot;&gt;Volume&lt;/label&gt;&lt;output class=&quot;slider-value&quot; for=&quot;kit-slider&quot;&gt;40&lt;/output&gt;&lt;/div&gt;&lt;input class=&quot;slider-input&quot; id=&quot;kit-slider&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;40&quot; style=&quot;--p:40%&quot;&gt;&lt;div class=&quot;slider-scale&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;span&gt;100&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.label{
+          <!-- kit:slider --><div class="kit" data-kit="slider" data-kit-file="amaca-slider.html"><div class="kit-stage" inert><div class="slider"><div class="slider-head"><label class="label" for="kit-slider">Volume</label><output class="slider-value" for="kit-slider">40</output></div><input class="slider-input" id="kit-slider" type="range" min="0" max="100" value="40" style="--slider-fill:40%"><div class="slider-scale"><span>0</span><span>100</span></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-slider-anatomy-tab" aria-selected="true" aria-controls="kit-slider-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-slider-code-tab" aria-selected="false" aria-controls="kit-slider-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-slider-anatomy" aria-labelledby="kit-slider-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Label</span><span class="kit-main">--obsidian-300 --font-mono --t-micro --tr-mono</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Value</span><span class="kit-main">--obsidian-100 --t-small</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Track</span><span class="kit-main">--primary-500 --slider-fill --obsidian-600 --r-full --s-1</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Thumb</span><span class="kit-main">--obsidian-100 --bw-2 --obsidian-950 --r-full --s-5 --sh-1</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Scale</span><span class="kit-main">--obsidian-300 --t-caption</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Focus</span><span class="kit-main">--ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-slider-code" aria-labelledby="kit-slider-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;slider&quot;&gt;&lt;div class=&quot;slider-head&quot;&gt;&lt;label class=&quot;label&quot; for=&quot;kit-slider&quot;&gt;Volume&lt;/label&gt;&lt;output class=&quot;slider-value&quot; for=&quot;kit-slider&quot;&gt;40&lt;/output&gt;&lt;/div&gt;&lt;input class=&quot;slider-input&quot; id=&quot;kit-slider&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;40&quot; style=&quot;--slider-fill:40%&quot;&gt;&lt;div class=&quot;slider-scale&quot;&gt;&lt;span&gt;0&lt;/span&gt;&lt;span&gt;100&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.label{
   font-family:var(<b>--font-mono</b>);
   font-size:var(<b>--t-micro</b>);
   letter-spacing:var(<b>--tr-mono</b>);
@@ -1884,12 +1939,12 @@ the mark is an animated SVG, one vector file describing every rotation and every
 .slider-input::-webkit-slider-runnable-track{
   height:var(<b>--s-1</b>);
   border-radius:var(<b>--r-full</b>);
-  background:linear-gradient(to right,var(<b>--primary-500</b>) var(--p,0%),var(<b>--obsidian-600</b>) var(--p,0%));
+  background:linear-gradient(to right,var(<b>--primary-500</b>) var(<b>--slider-fill</b>),var(<b>--obsidian-600</b>) var(<b>--slider-fill</b>));
 }
 .slider-input::-moz-range-track{
   height:var(<b>--s-1</b>);
   border-radius:var(<b>--r-full</b>);
-  background:linear-gradient(to right,var(<b>--primary-500</b>) var(--p,0%),var(<b>--obsidian-600</b>) var(--p,0%));
+  background:linear-gradient(to right,var(<b>--primary-500</b>) var(<b>--slider-fill</b>),var(<b>--obsidian-600</b>) var(<b>--slider-fill</b>));
 }
 .slider-input::-webkit-slider-thumb{
   -webkit-appearance:none;
@@ -1902,7 +1957,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
   border-radius:var(<b>--r-full</b>);
   background:var(<b>--obsidian-100</b>);
   box-shadow:var(<b>--sh-1</b>);
-  transition:box-shadow var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
+  transition:box-shadow var(<b>--d-quick</b>) var(<b>--ease-standard</b>), width var(<b>--d-quick</b>) var(<b>--ease-spring</b>), height var(<b>--d-quick</b>) var(<b>--ease-spring</b>), margin-top var(<b>--d-quick</b>) var(<b>--ease-spring</b>);
 }
 .slider-input::-moz-range-thumb{
   box-sizing:border-box;
@@ -1912,13 +1967,18 @@ the mark is an animated SVG, one vector file describing every rotation and every
   border-radius:var(<b>--r-full</b>);
   background:var(<b>--obsidian-100</b>);
   box-shadow:var(<b>--sh-1</b>);
-  transition:box-shadow var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
+  transition:box-shadow var(<b>--d-quick</b>) var(<b>--ease-standard</b>), width var(<b>--d-quick</b>) var(<b>--ease-spring</b>), height var(<b>--d-quick</b>) var(<b>--ease-spring</b>);
 }
-.slider-input:hover::-webkit-slider-thumb{
-  box-shadow:var(<b>--ring-field</b>);
-}
-.slider-input:hover::-moz-range-thumb{
-  box-shadow:var(<b>--ring-field</b>);
+@media (hover: hover){
+  .slider-input:not(:disabled):hover::-webkit-slider-thumb{
+    width:var(<b>--s-6</b>);
+    height:var(<b>--s-6</b>);
+    margin-top:calc((var(<b>--s-1</b>) - var(<b>--s-6</b>)) / 2);
+  }
+  .slider-input:not(:disabled):hover::-moz-range-thumb{
+    width:var(<b>--s-6</b>);
+    height:var(<b>--s-6</b>);
+  }
 }
 .slider-input:focus-visible::-webkit-slider-thumb{
   box-shadow:var(<b>--ring-halo</b>);
@@ -1946,7 +2006,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 14.2</span></div>
           <p class="subsection-desc">What the contract holds the slider to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:slider --><ul class="page-rules"><li><strong>Count the steps, not the values.</strong> The unit is the step: (max − min) ÷ step is the number of positions. Fewer than about ten → Radio or Select. More than a few hundred, or a value the reader has to hit exactly → a number typed in a Text input. 0 to 100 in steps of 5 is 20 positions.</li><li><strong>Native underneath.</strong> Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's <code>name</code>.</li><li><strong>A range starts on a selection, not on the whole scale.</strong> Each thumb is its own input with its own <code>aria-label</code> ("Minimum price", "Maximum price"), and the pair is a <code>role="group"</code> named by the visible label. The lower thumb cannot pass the upper one; they can meet.</li><li><strong>The value is always shown.</strong> In <code>.slider-value</code>, beside the label; the minimum and the maximum sit in <code>.slider-scale</code>. A slider with no visible value is a guess.</li><li><strong>The fill is the script's.</strong> <code>--p</code> on the input (single), <code>--lo</code> and <code>--hi</code> on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.</li><li><strong>No error state.</strong> The value is always inside the scale. A slider that cannot be changed is <code>disabled</code>.</li><li><strong>Targets (WCAG 2.5.8).</strong> The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.</li><li><strong>Motion.</strong> The ring on the thumb changes on <code>--d-quick</code> · <code>--ease-standard</code>, none under reduced motion (§ 06.4).</li></ul><!-- /rules:slider -->
+          <!-- rules:slider --><ul class="page-rules"><li><strong>Count the steps, not the values.</strong> The unit is the step: (max − min) ÷ step is the number of positions. Fewer than about ten → Radio or Select. More than a few hundred, or a value the reader has to hit exactly → a number typed in a Text input. 0 to 100 in steps of 5 is 20 positions.</li><li><strong>Native underneath.</strong> Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's <code>name</code>.</li><li><strong>A range starts on a selection, not on the whole scale.</strong> Each thumb is its own input with its own <code>aria-label</code> ("Minimum price", "Maximum price"), and the pair is a <code>role="group"</code> named by the visible label. The lower thumb cannot pass the upper one; they can meet.</li><li><strong>The value is always shown.</strong> In <code>.slider-value</code>, beside the label; the minimum and the maximum sit in <code>.slider-scale</code>. A slider with no visible value is a guess.</li><li><strong>The fill is the script's.</strong> <code>--slider-fill</code> on the input (single, a component token declared in <code>tokens.css</code> at <code>0%</code>, v5.3.0), <code>--lo</code> and <code>--hi</code> on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.</li><li><strong>No error state.</strong> The value is always inside the scale. A slider that cannot be changed is <code>disabled</code>.</li><li><strong>Targets (WCAG 2.5.8).</strong> The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.</li><li><strong>Motion.</strong> The ring on the thumb changes on <code>--d-quick</code> · <code>--ease-standard</code>, none under reduced motion (§ 06.4).</li></ul><!-- /rules:slider -->
         </div>
 
         <div class="subsection">
@@ -3355,7 +3415,6 @@ button.chip[aria-pressed=&quot;true&quot;]{
 button.chip:disabled{
   opacity:var(<b>--opacity-disabled</b>);
   cursor:not-allowed;
-  color:var(<b>--obsidian-400</b>);
 }
 @media (prefers-reduced-motion: reduce){
   .chip{
@@ -5501,7 +5560,6 @@ button.chip:disabled{
 .pagination-link[aria-disabled=&quot;true&quot;]{
   opacity:var(<b>--opacity-disabled</b>);
   cursor:not-allowed;
-  pointer-events:none;
 }
 .pagination-gap{
   display:inline-flex;
@@ -6953,7 +7011,6 @@ a.list-item:focus-visible, button.list-item:focus-visible{
 .list-item[aria-disabled=&quot;true&quot;]{
   opacity:var(<b>--opacity-disabled</b>);
   cursor:not-allowed;
-  pointer-events:none;
 }
 @media (prefers-reduced-motion:reduce){
   a.list-item, button.list-item{
@@ -10654,7 +10711,7 @@ if ('IntersectionObserver' in window) {
         pair.style.setProperty('--hi', (ins[1].value - min) / span * 100 + '%');
         value.textContent = unit + ins[0].value + ' – ' + unit + ins[1].value;
       } else {
-        ins[0].style.setProperty('--p', (ins[0].value - min) / span * 100 + '%');
+        ins[0].style.setProperty('--slider-fill', (ins[0].value - min) / span * 100 + '%');
         value.textContent = prefix + unit + ins[0].value;
       }
     }
@@ -13186,7 +13243,7 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
       pair.style.setProperty('--hi', pct(hi) + '%');
       if(out) out.textContent = u + lo.value + ' \u2013 ' + u + hi.value;
     } else {
-      ins[0].style.setProperty('--p', pct(ins[0]) + '%');
+      ins[0].style.setProperty('--slider-fill', pct(ins[0]) + '%');
       if(out) out.textContent = u + ins[0].value;
     }
   }
@@ -13420,6 +13477,30 @@ document.querySelectorAll('[data-slider]').forEach(function(w){
     if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === 'k') { e.preventDefault(); dlg.open ? dlg.close() : open(); }
   });
   document.querySelectorAll('[data-cmdk-open]').forEach((b) => b.addEventListener('click', open));
+})();
+</script>
+<script>
+// § 3.0.3 States rows (v5.3.0). A state that only a keyboard or a press gives, :focus-visible or :active, is forced
+// on a demo with data-force="focus-visible" or "active". Each stylesheet rule that names the pseudo-class is read
+// once and repeated with [data-force~=...] in its place, so a forced state draws the real rule, never a copy.
+(function(){
+  const P = /:(focus-visible|active)\b/g;
+  function walk(list, owner){
+    for (let i = 0; i < list.length; i++){
+      const r = list[i];
+      if (r.cssRules && !r.selectorText){ walk(r.cssRules, r); continue; }
+      if (!r.selectorText || !/:(focus-visible|active)\b/.test(r.selectorText)) continue;
+      const sel = r.selectorText.split(',').filter(s => /:(focus-visible|active)\b/.test(s))
+        .map(s => s.replace(P, '[data-force~="$1"]')).join(',');
+      try { owner.insertRule(sel + '{' + r.style.cssText + '}', i + 1); i++; } catch (e) {}
+    }
+  }
+  for (const sheet of document.styleSheets){ let list; try { list = sheet.cssRules; } catch (e) { continue; } walk(list, sheet); }
+  // A disabled link or row keeps its cursor (no pointer-events:none, which hides not-allowed); the page blocks the click.
+  document.addEventListener('click', ev => {
+    const d = ev.target.closest('a[aria-disabled="true"], [role][aria-disabled="true"], .list-item[aria-disabled="true"]');
+    if (d){ ev.preventDefault(); ev.stopImmediatePropagation(); }
+  }, true);
 })();
 </script>
 </body>
