@@ -2114,7 +2114,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 ### Lightbox
 
-**Site:** none, the figures of § 49 Case study.
+**Site:** none, the figures of § 50 Case study.
 
 - Backdrop: the Bar material, `--surface-bar` under `--blur-bar`.
 - Close button: top-right, `Esc` closes.
@@ -3347,7 +3347,16 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Pie
 
-**Site:** § 44 Charts.
+**Site:** § 45 Pie.
+
+**Usage**
+
+*Use it when*
+- Parts of one whole, five or fewer, where the share matters more than the exact value.
+
+*Use something else when*
+- More than five parts, or values to compare closely → Bars, in Charts.
+- Change over time → Line, in Charts.
 
 ```html
 <div class="pie-wrap">
@@ -3372,7 +3381,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Timeline
 
-**Site:** § 45 Timeline.
+**Site:** § 46 Timeline.
 
 A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.40) whose plot is lanes instead of series.
 
@@ -3425,7 +3434,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 ### Map
 
-**Site:** § 46 Maps.
+**Site:** § 47 Maps.
 
 Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.40) whose plot is the land.
 
@@ -3487,7 +3496,7 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 
 ### Diagrams
 
-**Site:** § 47 Diagrams.
+**Site:** § 48 Diagrams.
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
 
@@ -3574,7 +3583,7 @@ flowchart TD
 
 ### Presentations
 
-**Site:** § 48 Presentations.
+**Site:** § 49 Presentations.
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
 
@@ -3604,13 +3613,13 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
 - Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
-- Worked example on the site: **§ 48 · Presentations** (demo deck + the eight layouts + anatomy + rules).
+- Worked example on the site: **§ 49 · Presentations** (demo deck + the eight layouts + anatomy + rules).
 
 **Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
 
 ### Case study
 
-**Site:** § 49 Case study.
+**Site:** § 50 Case study.
 
 The starting frame for a project told as a story. It composes the system's components in a fixed order: hero, dossier, numbered sections, more cases.
 

@@ -203,24 +203,25 @@ html{scroll-behavior:smooth}
       <a class="nav-item" href="#list" data-target="list"><span class="num">42</span> List</a>
       <a class="nav-item" href="#table" data-target="table"><span class="num">43</span> Table</a>
       <a class="nav-item" href="#charts" data-target="charts"><span class="num">44</span> Charts</a>
-      <a class="nav-item" href="#timeline" data-target="timeline"><span class="num">45</span> Timeline</a>
-      <a class="nav-item" href="#maps" data-target="maps"><span class="num">46</span> Maps</a>
-      <a class="nav-item" href="#diagrams" data-target="diagrams"><span class="num">47</span> Diagrams</a>
+      <a class="nav-item" href="#pie" data-target="pie"><span class="num">45</span> Pie</a>
+      <a class="nav-item" href="#timeline" data-target="timeline"><span class="num">46</span> Timeline</a>
+      <a class="nav-item" href="#maps" data-target="maps"><span class="num">47</span> Maps</a>
+      <a class="nav-item" href="#diagrams" data-target="diagrams"><span class="num">48</span> Diagrams</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Applied</div>
-      <a class="nav-item" href="#presentations" data-target="presentations"><span class="num">48</span> Presentations</a>
-      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">49</span> Case study</a>
+      <a class="nav-item" href="#presentations" data-target="presentations"><span class="num">49</span> Presentations</a>
+      <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">50</span> Case study</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
       <div class="nav-label">Guidelines</div>
-      <a class="nav-item" href="#principles" data-target="principles"><span class="num">50</span> Principles</a>
-      <a class="nav-item" href="#conventions" data-target="conventions"><span class="num">51</span> Conventions</a>
-      <a class="nav-item" href="#law" data-target="law"><span class="num">52</span> Law</a>
-      <a class="nav-item" href="#voice" data-target="voice"><span class="num">53</span> Voice</a>
-      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">54</span> Accessibility</a>
+      <a class="nav-item" href="#principles" data-target="principles"><span class="num">51</span> Principles</a>
+      <a class="nav-item" href="#conventions" data-target="conventions"><span class="num">52</span> Conventions</a>
+      <a class="nav-item" href="#law" data-target="law"><span class="num">53</span> Law</a>
+      <a class="nav-item" href="#voice" data-target="voice"><span class="num">54</span> Voice</a>
+      <a class="nav-item" href="#accessibility" data-target="accessibility"><span class="num">55</span> Accessibility</a>
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
@@ -283,7 +284,7 @@ html{scroll-behavior:smooth}
               <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The tokens everything else is built from. Color, type, spacing, motion, and the rules that hold them together.</p>
             </div>
             <div class="card">
-              <div class="card-meta"><span>02 · Components</span><span>39</span></div>
+              <div class="card-meta"><span>02 · Components</span><span>40</span></div>
               <h3 style="font-size:var(--t-h6);margin:0 0 var(--s-2);letter-spacing:var(--tr-snug)">Build blocks</h3>
               <p style="color:var(--obsidian-300);margin:0;font-size:var(--t-body);line-height:var(--lh-loose)">The primitives I reach for when designing a product surface. Buttons, forms, cards, and the patterns that emerge from them.</p>
             </div>
@@ -7390,57 +7391,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 44.5</span></div>
-          <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.41 in the contract.</p>
-          <div class="grid grid-2">
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
-              <div class="pie-wrap">
-                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">
-                  <g transform="translate(110 110)">
-                    <!-- track -->
-                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
-                    <!-- slices: ring segments with 2px rounded corners, ~3px circumference gap -->
-                    <path data-pie-slice data-pie-pct="48" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-500)"/>
-                    <path data-pie-slice data-pie-pct="27" data-pie-start="48" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-300)"/>
-                    <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--info)"/>
-                    <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--tertiary-500)"/>
-                  </g>
-                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="12.4" data-decimals="1">0.0</span><span class="pie-caption">VISITS · K</span></span></div>
-                <ul class="pie-legend">
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-300)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--info)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--tertiary-500)" aria-hidden="true"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
-                </ul>
-              </div>
-            </div>
-            <div class="chart-card">
-              <div class="chart-head"><span class="t" data-fade>Adoption · Q1–Q4</span><span class="s" data-fade>Tokens shipped</span></div>
-              <div class="pie-wrap">
-                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Adoption donut chart">
-                  <g transform="translate(110 110)">
-                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
-                    <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-500)"/>
-                    <path data-pie-slice data-pie-pct="32" data-pie-start="38" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-600)"/>
-                    <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-700)"/>
-                    <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-800)"/>
-                  </g>
-                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="274">0</span><span class="pie-caption">TOKENS</span></span></div>
-                <ul class="pie-legend">
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-600)" aria-hidden="true"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
-                  <li data-fade><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Line · area</h2><span class="subsection-num">§ 44.5</span></div>
           <p class="subsection-desc">Line and area: one series lit, the rest recede. The draw-on traces once on reveal — data motion is information, not decoration.</p>
           <div class="chart-card">
             <div class="chart-head">
@@ -7543,7 +7494,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.7</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Palette ramps</h2><span class="subsection-num">§ 44.6</span></div>
           <p class="subsection-desc">The two data palettes: a sequential magenta ramp for density, a closed categorical set for series, in this order — and nothing outside them. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).</p>
           <div class="grid grid-2">
             <div class="chart-card">
@@ -7568,7 +7519,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.8</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 44.7</span></div>
           <p class="subsection-desc">Text over the drawing, timing from tokens, nothing to press.</p>
           <div class="do-dont">
             <div class="do">
@@ -7612,16 +7563,89 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           </div>
         </div>
 </section>
+      <section class="section" id="pie">
+        <div class="page-header">
+          <div class="page-eyebrow">§ 45 · Data display / Pie</div>
+          <h1 class="page-title">Parts of a whole, <span class="accent">in a ring.</span></h1>
+          <p class="page-lede">A donut and its legend: the share of each part, written as well as drawn.</p>
+        </div>
+        <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Parts of one whole, five or fewer, where the share matters more than the exact value.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>More than five parts, or values to compare closely → Bars, in Charts.</li><li>Change over time → Line, in Charts.</li></ul></div></div>
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Pie · composition</h2><span class="subsection-num">§ 45.1</span></div>
+          <p class="subsection-desc">Composition as a donut: slices from the magenta ramp, the legend as the labelling surface, percentages counting in lockstep with the slices. Component spec: § 3.41 in the contract.</p>
+          <div class="grid grid-2">
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Traffic sources</span><span class="s" data-fade>Last 30d · %</span></div>
+              <div class="pie-wrap">
+                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Traffic sources donut chart">
+                  <g transform="translate(110 110)">
+                    <!-- track -->
+                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
+                    <!-- slices: ring segments with 2px rounded corners, ~3px circumference gap -->
+                    <path data-pie-slice data-pie-pct="48" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-500)"/>
+                    <path data-pie-slice data-pie-pct="27" data-pie-start="48" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-300)"/>
+                    <path data-pie-slice data-pie-pct="15" data-pie-start="75" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--info)"/>
+                    <path data-pie-slice data-pie-pct="10" data-pie-start="90" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--tertiary-500)"/>
+                  </g>
+                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="12.4" data-decimals="1">0.0</span><span class="pie-caption">VISITS · K</span></span></div>
+                <ul class="pie-legend">
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Direct</span><span class="pct" data-pct-count="48">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-300)" aria-hidden="true"></span><span class="lbl">Organic</span><span class="pct" data-pct-count="27">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--info)" aria-hidden="true"></span><span class="lbl">Referral</span><span class="pct" data-pct-count="15">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--tertiary-500)" aria-hidden="true"></span><span class="lbl">Social</span><span class="pct" data-pct-count="10">0%</span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-head"><span class="t" data-fade>Adoption · Q1–Q4</span><span class="s" data-fade>Tokens shipped</span></div>
+              <div class="pie-wrap">
+                <div class="pie-plot" data-fade-chart><svg class="pie" viewBox="0 0 220 220" role="img" aria-label="Adoption donut chart">
+                  <g transform="translate(110 110)">
+                    <circle r="80" fill="none" style="stroke:var(--obsidian-800)" stroke-width="26"/>
+                    <path data-pie-slice data-pie-pct="38" data-pie-start="0" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-500)"/>
+                    <path data-pie-slice data-pie-pct="32" data-pie-start="38" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-600)"/>
+                    <path data-pie-slice data-pie-pct="18" data-pie-start="70" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-700)"/>
+                    <path data-pie-slice data-pie-pct="12" data-pie-start="88" data-pie-gap="3" data-pie-corner="2" data-pie-radius="80" data-pie-sw="26" style="fill:var(--primary-800)"/>
+                  </g>
+                </svg><span class="pie-center"><span class="pie-total" data-pie-total data-count-to="274">0</span><span class="pie-caption">TOKENS</span></span></div>
+                <ul class="pie-legend">
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="lbl">Color</span><span class="pct" data-pct-count="38">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-600)" aria-hidden="true"></span><span class="lbl">Spacing</span><span class="pct" data-pct-count="32">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-700)" aria-hidden="true"></span><span class="lbl">Typography</span><span class="pct" data-pct-count="18">0%</span></li>
+                  <li data-fade><span class="swatch" style="--sw:var(--primary-800)" aria-hidden="true"></span><span class="lbl">Motion</span><span class="pct" data-pct-count="12">0%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 45.2</span></div>
+          <p class="subsection-desc">The legend labels; the colour only groups.</p>
+          <div class="do-dont">
+            <div class="do">
+              <div class="hd"><span>&check;</span>Do</div>
+              <p>Give every slice its legend row, with its percentage written.</p>
+            </div>
+            <div class="dont">
+              <div class="hd"><span>&cross;</span>Don&rsquo;t</div>
+              <p>Let colour carry a slice alone, or paste a hex where a palette token exists.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <section class="section" id="timeline">
         <div class="page-header">
-          <div class="page-eyebrow">§ 45 · Data display / Timeline</div>
+          <div class="page-eyebrow">§ 46 · Data display / Timeline</div>
           <h1 class="page-title">Time, <span class="accent">laid end to end.</span></h1>
           <p class="page-lede">Tasks on one shared time axis, so overlap and sequence read at a glance.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Tasks on one shared time axis, so overlap and sequence read at a glance.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Dates with no duration and no overlap → List or Table.</li><li>Steps done in order, one at a time → Stepper.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 45.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Timeline · gantt</h2><span class="subsection-num">§ 46.1</span></div>
           <p class="subsection-desc">The gantt: workstreams across weeks. Time reads left to right on the neutral grid; state reads from the fill. Under the width a lane needs, the plot scrolls sideways and its labels keep their size.</p>
           <div class="chart-card">
             <div class="chart-head">
@@ -7699,7 +7723,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           <p class="ty-small" style="margin-top:var(--s-4)">Click <button type="button" class="replay-btn" data-replay="dataviz" aria-label="Replay animation"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 8a6 6 0 1 0 6-6 6.5 6.5 0 0 0-4.5 1.83L2 5.33"/><path d="M2 2v3.33h3.33"/></svg> Replay</button> to re-trigger animations.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 45.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 46.2</span></div>
           <p class="subsection-desc">It scrolls; it never shrinks.</p>
           <div class="do-dont">
             <div class="do">
@@ -7716,13 +7740,13 @@ a.list-item:focus-visible, button.list-item:focus-visible{
 
       <section class="section" id="maps">
         <div class="page-header">
-          <div class="page-eyebrow">§ 46 · Data display / Maps</div>
+          <div class="page-eyebrow">§ 47 · Data display / Maps</div>
           <h1 class="page-title">Places, <span class="accent">on a hex grid.</span></h1>
           <p class="page-lede">Places on a grid of hexes: the land is grey, and a cluster takes the colour of its state.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The pattern in the data is geographic.</li><li>A few places carry a state; the rest of the land is context.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Data for only a few areas → a bar chart.</li><li>Geographic data with no geographic pattern → another chart.</li><li>Exact values to compare place by place → Table.</li></ul></div></div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 46.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Geographic · hex map</h2><span class="subsection-num">§ 47.1</span></div>
           <p class="subsection-desc">The land is Natural Earth 1:110m (public domain), baked into the page as a grid of hexes: no request at run time. A coastal cell draws smaller, by how much of it is land. A cluster of cells is one place with nodes: it takes the colour of its worst state, and the rest of the land stays grey. Hover, focus or a click act on the whole cluster, never on one hex: it glows in its colour, and grey land lights its country. The sea never takes a colour. On a wide screen a click opens the cluster's Popover inside the map, beside the cluster, and the rest of the land dims; under 720px a tap opens its Drawer.</p>
           <div class="chart-card">
             <div class="chart-head">
@@ -7757,7 +7781,7 @@ a.list-item:focus-visible, button.list-item:focus-visible{
           <dialog class="drawer" id="hm-id-drawer" aria-labelledby="hm-id-dt"><div class="drawer-head"><h2 class="drawer-title" id="hm-id-dt">Indonesia</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span> High load · 3 nodes</p><ul class="list"><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-611</span><span class="list-meta">6.2°S 106.8°E · p95 141 ms · 99.37%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--warning)" aria-hidden="true"></span><span class="list-meta">High load</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-612</span><span class="list-meta">7.3°S 112.7°E · p95 58 ms · 99.90%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li><li><div class="list-item"><span class="list-body"><span class="list-title">EDGE-613</span><span class="list-meta">5.1°S 119.4°E · p95 61 ms · 99.89%</span></span><span class="list-end"><span class="swatch swatch-hex" style="--sw:var(--primary-500)" aria-hidden="true"></span><span class="list-meta">Primary hub</span></span></div></li></ul></div></dialog>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 46.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 47.2</span></div>
           <p class="subsection-desc">The cluster is the unit; the sea is never coloured.</p>
           <div class="do-dont">
             <div class="do">
@@ -7794,14 +7818,14 @@ a.list-item:focus-visible, button.list-item:focus-visible{
 
       <section class="section" id="diagrams">
         <div class="page-header">
-          <div class="page-eyebrow">§ 47 · Data display / Diagrams</div>
+          <div class="page-eyebrow">§ 48 · Data display / Diagrams</div>
           <h1 class="page-title">Structure, <span class="accent">drawn on the same grid.</span></h1>
           <p class="page-lede">Flowcharts and system maps from a textual source — auto-laid-out, then themed entirely from tokens. The library only ever sees values read off <code>:root</code> at runtime, so there is no hardcoded hex anywhere: the single source of truth stays <code>tokens.css</code>. Everything is neutral obsidian; exactly one magenta node marks the narrative entry. On scroll, nodes cascade in, then the edges that connect them.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Flowcharts and system architecture, box and line with grouping.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Sequence, tree or ER diagrams → out of scope.</li></ul></div></div>
         <!-- § 21.1 Flowchart -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 47.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 48.1</span></div>
           <p class="subsection-desc">The diagram, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
           <!-- kit:diagram --><div class="kit" data-kit="diagram" data-kit-file="amaca-diagram.html"><div class="kit-stage" inert><figure class="diagram" data-anim="pending" style="width:min(100%, calc(var(--s-32) * 4))"><div class="diagram-canvas" role="img" aria-label="Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner."><template class="diagram-src">
 flowchart LR
@@ -7860,13 +7884,13 @@ flowchart LR
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 47.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 48.2</span></div>
           <p class="subsection-desc">What the contract holds the diagram to, word for word from its section of DESIGN.md.</p>
           <!-- rules:diagrams --><ul class="page-rules"><li>One diagram per figure; the source lives in <code>&lt;template class="diagram-src"&gt;</code> and never renders as raw text.</li><li>Theme only from tokens read at runtime. A hex literal in <code>themeVariables</code> is a regression (§ 9).</li><li>Exactly one magenta focus node per diagram (<code>:::focus</code>). More than one = decorating (§ 1.4).</li><li>Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).</li><li>Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG <code>&lt;g&gt;</code> (§ 7.3).</li></ul><!-- /rules:diagrams -->
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 47.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Flowchart · node-edge</h2><span class="subsection-num">§ 48.3</span></div>
           <p class="subsection-desc">Decisions and paths. Rectangles are steps, diamonds are gates, dashed edges are loops. One magenta node — the entry — anchors where to start reading. Everything else recedes to obsidian.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7889,7 +7913,7 @@ flowchart TD
 
         <!-- § 21.2 System architecture -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">System architecture · grouped</h2><span class="subsection-num">§ 47.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">System architecture · grouped</h2><span class="subsection-num">§ 48.4</span></div>
           <p class="subsection-desc">Box-and-line with grouping. Subgraphs become clusters — <code>--obsidian-850</code> fill, <code>--obsidian-700</code> border — so related boxes read as one zone. The one magenta node is the source of truth every surface derives from.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7924,7 +7948,7 @@ flowchart LR
 
         <!-- § 18.3 Semantic states -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Semantic states · legend</h2><span class="subsection-num">§ 47.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Semantic states · legend</h2><span class="subsection-num">§ 48.5</span></div>
           <p class="subsection-desc">The one case for color beyond magenta. When a node encodes a real state, it carries the semantic hue — but never alone: every state node also changes <em>shape</em> and spells the state in its <em>label</em> (§ 6 floor #1). A legend maps each pairing.</p>
 
           <figure class="diagram" data-anim="pending">
@@ -7953,7 +7977,7 @@ flowchart TD
 
         <!-- § 18.4 Anatomy -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Token map</h2><span class="subsection-num">§ 47.6</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Token map</h2><span class="subsection-num">§ 48.6</span></div>
           <p class="subsection-desc">A <code>&lt;figure class="diagram"&gt;</code> wraps a <code>.diagram-canvas[role="img"]</code> (holding the rendered SVG) and a <code>.diagram-caption</code>. Surface, border, and radius are coherent with <code>.card</code>. Semantic-state diagrams add a <code>.diagram-legend</code>.</p>
           <table class="table">
             <thead><tr><th style="width:26%">Class</th><th>Role</th></tr></thead>
@@ -7984,7 +8008,7 @@ flowchart TD
 
         <!-- § 18.5 Motion spec -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 47.7</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Motion spec</h2><span class="subsection-num">§ 48.7</span></div>
           <p class="subsection-desc">Entrance reuses the system's established reveal patterns — nothing new, in the canonical § 09.4 grammar. An <code>IntersectionObserver</code> fires once (threshold 0.15, rootMargin <code>0px 0px -8% 0px</code>, unobserve after fire); the figure composes in the direction of its arrows, and Replay runs it again. <strong>Opacity only</strong>: transforms on the generated SVG <code>&lt;g&gt;</code> groups compose with the cascade and break the auto-layout positioning. The hook runs after the async render resolves, not on first paint.</p>
           <table class="table">
             <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
@@ -7996,7 +8020,7 @@ flowchart TD
 
         <!-- § 18.6 Do / Don't -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 47.8</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 48.8</span></div>
           <p class="subsection-desc">A diagram is structure, not decoration. Most of these are 85/10/5 violations or auto-layout breakers.</p>
 
           <div class="do-dont">
@@ -8171,14 +8195,14 @@ flowchart TD
 
       <section class="section" id="presentations">
         <div class="page-header">
-          <div class="page-eyebrow">§ 48 · Applied / Presentations</div>
+          <div class="page-eyebrow">§ 49 · Applied / Presentations</div>
           <h1 class="page-title">Slides that <span class="accent">hold the system.</span></h1>
           <p class="page-lede">Eight canonical layouts on a fixed 1920×1080 canvas. Same tokens, same 85/10/5 restraint as every other surface — the deck just happens to be 16:9. One magenta moment per slide; everything else stays obsidian.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>Slide decks on the system, advanced by hand.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Auto-advance → never (accessibility floor #6).</li></ul></div></div>
         <!-- § 30.1 — demo deck -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 48.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The deck</h2><span class="subsection-num">§ 49.1</span></div>
           <p class="subsection-desc">A worked 8-slide deck — the Arc HMI case study, told on-system. Navigate with the controls, the dots, or the ← / → arrow keys. No auto-advance (a11y floor #6); position is remembered across reloads.</p>
           <div class="deck">
             <div class="slide-frame deck-stage" id="pres-deck-stage" role="group" aria-roledescription="slide" aria-label="Presentation template deck"></div>
@@ -8195,7 +8219,7 @@ flowchart TD
 
         <!-- § 30.2 — layout gallery -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Layouts</h2><span class="subsection-num">§ 48.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Layouts</h2><span class="subsection-num">§ 49.2</span></div>
           <p class="subsection-desc">The eight templates, authored at full 1920×1080 and scaled to fit. Each is a single <code>.slide</code> with a layout modifier; the chrome (brand, footer, page number) is shared across all of them.</p>
           <div class="slide-grid" id="pres-grid">
 
@@ -8358,7 +8382,7 @@ flowchart TD
 
         <!-- § 23.3 — anatomy -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 48.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Anatomy</h2><span class="subsection-num">§ 49.3</span></div>
           <p class="subsection-desc">Every slide is authored in a 1920×1080 coordinate space, then scaled to whatever container holds it. The chrome and safe margins are constant so a deck reads as one object.</p>
           <table class="table">
             <thead><tr><th style="width:30%">Part</th><th>Spec</th></tr></thead>
@@ -8368,7 +8392,7 @@ flowchart TD
               <tr><td><code>.slide-brand</code></td><td class="muted">Top-left lockup — logo mark + “Amaca” wordmark. Present on every slide.</td></tr>
               <tr><td><code>.slide-foot</code></td><td class="muted">Footer rail — project · date (left), page <code>NN / total</code> (right). Mono, <code>--obsidian-300</code>; the live page index tints <code>--primary-400</code>.</td></tr>
               <tr><td>Type</td><td class="muted">Its own optical scale — the UI scale (§ 05) is tuned for an 1180px column, not a 1920px canvas. Titles 64–150px, body 30px, mono chrome 20–24px.</td></tr>
-              <tr><td>Accent</td><td class="muted">One primary moment per slide — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (85/10/5, § 52).</td></tr>
+              <tr><td>Accent</td><td class="muted">One primary moment per slide — one keyword, one numeral, or the eyebrow rule. The rest is obsidian (85/10/5, § 53).</td></tr>
             </tbody>
           </table>
           <p class="subsection-desc" style="margin-top:var(--s-6)">Layout modifiers — each is a single class on <code>.slide</code>:</p>
@@ -8389,7 +8413,7 @@ flowchart TD
 
         <!-- § 23.4 — rules -->
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 48.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 49.4</span></div>
           <p class="subsection-desc">The presentation rules: one magenta moment per slide, neutrals for everything else, evidence over adjectives.</p>
           <div class="do-dont">
             <div class="do">
@@ -8414,7 +8438,7 @@ flowchart TD
 
       <section class="section" id="casestudy">
         <div class="page-header">
-          <div class="page-eyebrow">§ 49 · Applied / Case study</div>
+          <div class="page-eyebrow">§ 50 · Applied / Case study</div>
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>
@@ -8497,7 +8521,7 @@ flowchart TD
           <ul class="cs-more-grid"><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-018 · 2025</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></span></span><h4 class="cs-card-title">Orion · Fleet console</h4><p class="cs-card-text">A control room for 40k connected vans.</p><ul class="cs-card-tags"><li class="chip">SaaS</li><li class="chip">Data display</li><li class="chip">B2B</li></ul></a></li><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-019 · 2025</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--obsidian-800), var(--obsidian-600))"></span></span><h4 class="cs-card-title">Nova · Onboarding</h4><p class="cs-card-text">Three screens instead of eleven.</p><ul class="cs-card-tags"><li class="chip">Mobile</li><li class="chip">Research</li></ul></a></li><li><a class="cs-card" href="#casestudy"><span class="cs-card-meta">CS-020 · 2026</span><span class="cs-card-media"><span style="background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></span></span><h4 class="cs-card-title">Atlas · Token pipeline</h4><p class="cs-card-text">One source, four platforms.</p><ul class="cs-card-tags"><li class="chip">Design systems</li><li class="chip">Tooling</li></ul></a></li></ul>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 49.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 50.1</span></div>
           <p class="subsection-desc">A story in a fixed order, closed by more cases.</p>
           <div class="do-dont">
             <div class="do">
@@ -8514,7 +8538,7 @@ flowchart TD
 
       <section class="section" id="principles">
         <div class="page-header">
-          <div class="page-eyebrow">§ 50 · Guidelines / Principles</div>
+          <div class="page-eyebrow">§ 51 · Guidelines / Principles</div>
           <h1 class="page-title">Five rules. <span class="accent">Exceptions earn their keep.</span></h1>
           <p class="page-lede">These are the principles I keep returning to. They're not absolute — design systems live in tension between rules and exceptions — but they're the questions I ask first when something feels off. They are ranked: when two pull in opposite directions, the higher number wins. Laws are not weighed against them.</p>
         </div>
@@ -8579,12 +8603,12 @@ flowchart TD
 
       <section class="section" id="conventions">
         <div class="page-header">
-          <div class="page-eyebrow">§ 51 · Guidelines / Conventions</div>
+          <div class="page-eyebrow">§ 52 · Guidelines / Conventions</div>
           <h1 class="page-title">Written one way, <span class="accent">read by anyone.</span></h1>
           <p class="page-lede">How the system is written: naming, structure, units, files. The same shape for a generator and a person: one set of rules.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 51.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 52.1</span></div>
           <p class="subsection-desc">Each convention carries a severity and the kind of check that can hold it, from a closed catalogue of check kinds. The full code rules live in DESIGN.md § Code conventions.</p>
           <table class="table table-registry"><thead><tr><th>Id</th><th>Convention</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>C1</code></td><td>Token names: <code>--{family}-{step}</code> for primitives, <code>--{role}-{variant}</code> for semantics; a closed vocabulary of modifiers; no value inside a role name<div class="muted">§ Colors · semantic</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C2</code></td><td>Classes BEM-ish and pragmatic: <code>.card</code>, <code>.card-meta</code>; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise <code>.is-*</code><div class="muted">§ Code conventions · CSS</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C3</code></td><td><code>data-*</code> for state hooks (<code>data-fade</code>, <code>data-reveal</code>, <code>data-replay</code>)<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C4</code></td><td>Canonical, semantic HTML: every tag closed, every attribute double-quoted, <code>&lt;button&gt;</code> for actions, <code>&lt;a&gt;</code> for navigation, never <code>&lt;div onclick&gt;</code>; ARIA only when HTML can't say it<div class="muted">§ Code conventions · HTML</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C5</code></td><td>Files: <code>tokens.css</code> → <code>components.css</code>, a third file only past 150 lines; kebab-case, named after the role (<code>card.css</code>, not <code>box.css</code>)<div class="muted">§ Code conventions · CSS, File naming</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C6</code></td><td>Media queries mobile-first, scoped inside the component block, only at the <code>--bp-*</code> widths<div class="muted">§ Code conventions · CSS · check 53</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>lint</code></td></tr><tr><td class="num"><code>C7</code></td><td><code>!important</code> only on the closed list<div class="muted">§ Code conventions · CSS · check 50</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C8</code></td><td>Browser chrome: four surfaces styled, everything else native<div class="muted">§ Code conventions · Browser chrome</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted"><code>count</code></td></tr><tr><td class="num"><code>C9</code></td><td>Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero<div class="muted">§ Code conventions · JavaScript</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>none</code></td></tr><tr><td class="num"><code>C10</code></td><td>One number: a site section and its DESIGN.md § 3 entry share it<div class="muted">§ Components</div></td><td><span class="badge"><span class="dot"></span>info</span></td><td class="muted"><code>parity</code></td></tr></tbody></table>
         </div>
@@ -8592,12 +8616,12 @@ flowchart TD
 
       <section class="section" id="law">
         <div class="page-header">
-          <div class="page-eyebrow">§ 52 · Guidelines / Law</div>
+          <div class="page-eyebrow">§ 53 · Guidelines / Law</div>
           <h1 class="page-title">Nine rules, <span class="accent">measured.</span></h1>
           <p class="page-lede">A principle guides a judgement; a law is measured and enforced. Each rule has an id, a severity, the principle it serves and what holds it. The first is the proportion every surface resolves to.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 52.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The 85/10/5 law</h2><span class="subsection-num">§ 53.1</span></div>
           <p class="subsection-desc">The proportion rule for every screen, slide, and case study. Obsidian is the ground; brand and signal are accents.</p>
 
           <div class="law-card">
@@ -8641,7 +8665,7 @@ flowchart TD
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 52.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The registry</h2><span class="subsection-num">§ 53.2</span></div>
           <p class="subsection-desc"><code>error</code> stops the output; <code>warn</code> is flagged in review. The check column names the harness check or the verifier that holds the rule.</p>
           <table class="table table-registry"><thead><tr><th>Id</th><th>Rule</th><th>Severity</th><th>Check</th></tr></thead><tbody><tr><td class="num"><code>L1</code></td><td>85 / 10 / 5: ≥ 85% of any surface is <code>--obsidian-*</code>; ≤ 10% is <code>--primary-*</code> and <code>--secondary-*</code> (cyan) together; ≤ 5% is semantic<div class="muted">Quiet, then loud · § Colors · § Principles</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier (budget)</td></tr><tr><td class="num"><code>L2</code></td><td>The accessibility floor, all seven items: a component that can't meet all seven doesn't ship<div class="muted">Clarity before cleverness · § Accessibility</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">amaca-frontend verifier · review</td></tr><tr><td class="num"><code>L3</code></td><td>One primary action per screen; a landing may carry one per section<div class="muted">Quiet, then loud · § Principles · Quiet, then loud</div></td><td><span class="badge badge-warn"><span class="dot"></span>warn</span></td><td class="muted">amaca-frontend verifier</td></tr><tr><td class="num"><code>L4</code></td><td>Tokens only, on the scale: no hex, px, <code>cubic-bezier</code> or duration literal in component code<div class="muted">Precision is a feeling · § For the AI agent #1–2 · § Code conventions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 01, 02, 03, 07, 51</td></tr><tr><td class="num"><code>L5</code></td><td>A composite value is reproduced verbatim: every stop, layer and family<div class="muted">Precision is a feeling · § For the AI agent #9</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 38</td></tr><tr><td class="num"><code>L6</code></td><td>No emoji in the interface<div class="muted">Clarity before cleverness · § Iconography · § Voice &amp; tone</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 16</td></tr><tr><td class="num"><code>L7</code></td><td><code>prefers-reduced-motion: reduce</code> is honoured by every transition<div class="muted">Motion is a material · § For the AI agent #7 · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">check 49</td></tr><tr><td class="num"><code>L8</code></td><td>Motion grammar: six durations and five easings, no others. <code>--ease-decel</code> for entrances, <code>--ease-soft</code> for reading entrances (a page's blocks, cards coming into view), <code>--ease-accel</code> for exits, <code>--ease-standard</code> for state transitions, <code>--ease-spring</code> for emphasis and relevant interactions such as pressing a primary, on spatial properties only<div class="muted">Motion is a material · § Motion</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">checks 05, 06, 07, 08</td></tr><tr><td class="num"><code>L9</code></td><td>Light text on primary only on the closed list of ratified exceptions<div class="muted">Clarity before cleverness · § Accessibility · Ratified exceptions</div></td><td><span class="badge badge-danger"><span class="dot"></span>error</span></td><td class="muted">review</td></tr></tbody></table>
         </div>
@@ -8649,14 +8673,14 @@ flowchart TD
 
       <section class="section" id="voice">
         <div class="page-header">
-          <div class="page-eyebrow">§ 53 · Guidelines / Voice</div>
+          <div class="page-eyebrow">§ 54 · Guidelines / Voice</div>
           <h1 class="page-title">How this system <span class="accent">writes.</span></h1>
           <p class="page-lede">Amaca speaks in two registers. The live site is editorial, written for a designer reading on a Tuesday afternoon — paragraphed, contextual, first-person. The DESIGN.md on GitHub is the same system expressed differently — declarative, machine-readable, one rule per line. Both serve the design. Neither imitates the other.
 
 This section sets the rules for the editorial register. The DESIGN.md handles its own.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 53.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Voice attributes</h2><span class="subsection-num">§ 54.1</span></div>
           <p class="subsection-desc">The voice attributes, each with the grammar that enforces it — active voice, subject before verb, claims tied to evidence.</p>
           <div class="grid grid-4">
             <div class="card"><div class="ty-mono" style="color:var(--primary-400);margin-bottom:var(--s-2)">01</div><h4 style="font-size:var(--t-h6);margin:0 0 var(--s-1);letter-spacing:var(--tr-snug)">Direct</h4><p class="ty-small" style="margin:0">Active voice. Subject before verb. Say what happened, not what was happening.</p></div>
@@ -8667,7 +8691,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 53.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do / Don't</h2><span class="subsection-num">§ 54.2</span></div>
           <p class="subsection-desc">Voice by example: the same message said in-system and off-system, side by side.</p>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do</div><p>"This pattern didn't work in early testing. Users read 'send' as destructive, so we changed the label to 'queue for review."</p></div>
@@ -8680,7 +8704,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 53.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Vocabulary</h2><span class="subsection-num">§ 54.3</span></div>
           <p class="subsection-desc">The lexicon: the word to use, the words it replaces, and why. Concrete beats inflated everywhere copy ships.</p>
           <table class="table">
             <thead><tr><th>Use</th><th>Instead of</th><th>Because</th></tr></thead>
@@ -8696,7 +8720,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 53.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">For AI agents</h2><span class="subsection-num">§ 54.4</span></div>
           <p class="subsection-desc">If you're a language model generating copy for surfaces that use this system, four hard constraints:</p>
           <div class="do-dont">
             <div class="do"><div class="hd"><span>✓</span>Do · 01</div><p>When in doubt, prefer the shorter sentence and the lower register. Restraint is the system's voice. Quiet, then loud.</p></div>
@@ -8709,12 +8733,12 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
 
       <section class="section" id="accessibility">
         <div class="page-header">
-          <div class="page-eyebrow">§ 54 · Guidelines / Accessibility</div>
+          <div class="page-eyebrow">§ 55 · Guidelines / Accessibility</div>
           <h1 class="page-title">Contrast <span class="accent">by intent, not accident.</span></h1>
           <p class="page-lede">Every text/surface pair in the system is verified against WCAG 2.2. The system is dark-first, not dark-only — every token has a light-mode equivalent resolved at build time. Motion, focus, and touch targets follow the same rule: specified, not assumed.</p>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 54.1</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Contrast · pairs</h2><span class="subsection-num">§ 55.1</span></div>
           <p class="subsection-desc">Ratios measured against the actual text/surface pair each token forms in production. Body text clears AAA; brand and signal colors clear AA normal or better. One pair sits below AA by ratified exception — the primary button label and the solid badge, documented below and in the v2.6.0 release.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Pair</th><th>Ratio</th><th>Level</th><th>Use</th></tr></thead>
@@ -8738,7 +8762,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 54.2</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Focus · keyboard</h2><span class="subsection-num">§ 55.2</span></div>
           <p class="subsection-desc">Every interactive element has a visible focus state. The system ships two patterns: a dual-ring for pressable elements (outline + brand halo), and an inline glow for text inputs. Verified against <code>components.css</code>.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:26%">Selector</th><th>Treatment</th><th>Contrast on obsidian-950</th></tr></thead>
@@ -8757,7 +8781,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 54.3</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Motion · safety</h2><span class="subsection-num">§ 55.3</span></div>
           <p class="subsection-desc">Under <code>prefers-reduced-motion: reduce</code>, the system ships a global kill-switch plus per-component overrides for hover-transforms that would otherwise feel jumpy. No parallax, no auto-advance, anywhere in the system.</p>
           <table class="table table-contrast">
             <thead><tr><th style="width:38%">Rule</th><th>Scope</th><th>Effect</th></tr></thead>
@@ -8774,7 +8798,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 54.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">The floor</h2><span class="subsection-num">§ 55.4</span></div>
           <p class="subsection-desc">Non-negotiable rules. Any component that can't meet all seven doesn't ship.</p>
           <div class="a11y-floor">
             <div class="a11y-rule"><span class="n">01</span><p>Color never carries meaning alone. Every status uses color + shape + label.</p></div>
@@ -10259,7 +10283,7 @@ if ('IntersectionObserver' in window) {
 // --- data viz animations, powered by Motion (motion.dev) ---
 (function(){
   // v5.0.0: the v4 Data Viz page is now six component sections; each runs the same animations
-  const VIZ = ['charts','timeline','maps','stepper','progress','table'].map(id => document.getElementById(id)).filter(Boolean);
+  const VIZ = ['charts','pie','timeline','maps','stepper','progress','table'].map(id => document.getElementById(id)).filter(Boolean);
   if (!VIZ.length) return;
 
   function waitForMotion(cb){
@@ -13025,7 +13049,7 @@ try {
 })();
 </script>
 <script>
-// --- Map § 45.1: the baked hex land, six clusters. A cluster lights, opens and takes focus as one. ---
+// --- Map § 46.1: the baked hex land, six clusters. A cluster lights, opens and takes focus as one. ---
 (function(){
   const root = document.querySelector('[data-hexmap]');
   if (!root) return;
