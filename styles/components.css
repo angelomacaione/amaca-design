@@ -1623,7 +1623,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 .acc-panel-body{
   padding:0 var(--s-6) var(--s-6) calc(var(--s-6) + var(--icon-xs) + var(--s-4));  /* the body starts under the label: trigger padding, chevron, gap */
   color:var(--obsidian-300);line-height:1.7;font-size:var(--t-small);
-  opacity:0;transition:opacity var(--d-quick) var(--ease-decel) 80ms;
+  opacity:0;transition:opacity var(--d-quick) var(--ease-decel) var(--d-instant);
 }
 .acc-item.is-open .acc-panel-body{opacity:1}
 .acc-panel-body p{margin:0 0 var(--s-3)}
@@ -2333,7 +2333,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 /* ─── Bubble entry choreography ───
    Two-stage: container scales+fades in with a subtle spring overshoot
    (--d-base / --ease-spring), then the inner content fades up after
-   80ms (--d-quick / --ease-standard). Exit: opacity + slight rise,
+   --d-instant (--d-quick / --ease-standard). Exit: opacity + slight rise,
    --d-quick / --ease-accel.
 */
 .chat-msg .chat-bubble,
@@ -2358,7 +2358,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
   transform:none;
 }
 
-/* Stage 2: content inside the bubble (text, media, voice) fades with +80ms delay */
+/* Stage 2: content inside the bubble (text, media, voice) fades --d-instant behind */
 .chat-bubble-content{
   opacity:0;
   transform:translateY(3px);
@@ -2368,7 +2368,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed;color:va
 .chat-msg.is-in .chat-bubble-content{
   opacity:1;
   transform:none;
-  transition-delay:80ms;
+  transition-delay:var(--d-instant);
 }
 
 /* Re-cool the hot bubble: keep the hot-cold transition (color only) intact */
@@ -3738,11 +3738,11 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .stepper[data-reveal] .stepper-step::after{opacity:0;transform:translateY(-50%) scaleX(0);transform-origin:left}
 .stepper[data-reveal] .stepper-dot{opacity:0;transform:scale(0)}
 .stepper[data-reveal] .stepper-text{opacity:0;transform:translateY(var(--s-2))}
-/* one ladder, whatever the state: dot i scales in from 520ms + 80ms·i, connector i draws to the next dot from 580ms + 80ms·i, both on --d-slow.
+/* one ladder, whatever the state: dot i scales in from 500ms + --d-instant·i (--d-slow less one step), connector i draws to the next dot from 600ms + --d-instant·i (--d-slow), both on --d-slow.
    Done or dashed only changes the paint, so adding or removing steps keeps the choreography. */
-.stepper[data-reveal].is-in .stepper-step::after{opacity:1;transform:translateY(-50%) scaleX(1);transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(580ms + var(--i, 0) * 80ms)}
-.stepper[data-reveal].is-in .stepper-dot{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-spring);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
-.stepper[data-reveal].is-in .stepper-text{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(520ms + var(--i, 0) * 80ms)}
+.stepper[data-reveal].is-in .stepper-step::after{opacity:1;transform:translateY(-50%) scaleX(1);transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(var(--d-slow) + var(--i, 0) * var(--d-instant))}
+.stepper[data-reveal].is-in .stepper-dot{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-spring);transition-delay:calc(var(--d-slow) + (var(--i, 0) - 1) * var(--d-instant))}
+.stepper[data-reveal].is-in .stepper-text{opacity:1;transform:none;transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-decel);transition-delay:calc(var(--d-slow) + (var(--i, 0) - 1) * var(--d-instant))}
 /* vertical: below 480px of its own width, or forced */
 .stepper-vertical .stepper-list{flex-direction:column;gap:var(--s-8)}
 .stepper-vertical .stepper-step{flex-direction:row;align-items:center;text-align:left;gap:var(--s-3)}

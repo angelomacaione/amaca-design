@@ -23,8 +23,8 @@
 .cs-section > .eyebrow,.cs-section > .cs-section-title,.cs-section > .cs-section-body,.cs-pull{opacity:0;transform:translateY(var(--s-6));transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 .cs-section.is-in > .eyebrow,.cs-section.is-in > .cs-section-title,.cs-section.is-in > .cs-section-body,.cs-pull.is-in{opacity:1;transform:translateY(0)}
 .cs-section.is-in > .eyebrow{transition-delay:0ms}
-.cs-section.is-in > .cs-section-title{transition-delay:80ms}
-.cs-section.is-in > .cs-section-body{transition-delay:160ms}
+.cs-section.is-in > .cs-section-title{transition-delay:var(--d-instant)}
+.cs-section.is-in > .cs-section-body{transition-delay:calc(2 * var(--d-instant))}
 html{scroll-behavior:smooth}
 .section[id]{scroll-margin-top:var(--s-24)}
 @media (prefers-reduced-motion: reduce){
@@ -989,7 +989,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Page shell</td><td>section activate</td><td class="muted">the section's direct children, as three blocks: opacity (effect) · translateY <code>--s-8</code>→0 (spatial); <code>.page-header</code> after <code>--d-quick</code>, <code>.usage</code> one <code>--d-quick</code> later, the rest together one <code>--d-quick</code> after the block before it</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — the page is at rest</td></tr>
               <tr><td>Button</td><td>press</td><td class="muted">background · border · colour (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Button (primary)</td><td>press</td><td class="muted">scale 1 → .97 (spatial)</td><td><code>--d-quick</code> · <code>--ease-spring</code></td><td class="muted">none — no scale</td></tr>
-              <tr><td>Chart card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
+              <tr><td>Chart card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), <code>--d-instant</code> apart in reading order; a stat starts its count-up on the same frame</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Chart card</td><td>stat reveal</td><td class="muted">count-up (effect · text)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">none — jumps to the value</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">baseline clip width (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · delay <code>--d-base</code></td><td class="muted">none — drawn</td></tr>
               <tr><td>Plot</td><td>plot reveal</td><td class="muted">line stroke-dashoffset (spatial)</td><td><code>--d-draw</code> · <code>--ease-decel</code> · delay <code>--d-base</code> + <code>--d-slow</code></td><td class="muted">none — drawn</td></tr>
@@ -1009,7 +1009,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Accordion</td><td>close</td><td class="muted">panel grid-rows (spatial)</td><td>duration by distance · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Accordion</td><td>open</td><td class="muted">chevron rotate 90° (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Accordion</td><td>close</td><td class="muted">chevron rotate 0° (spatial)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Accordion</td><td>open</td><td class="muted">panel body opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>Accordion</td><td>open</td><td class="muted">panel body opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>Accordion</td><td>hover / open state</td><td class="muted">trigger + chevron color (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Tabs</td><td>select</td><td class="muted">indicator transform + width (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Tabs</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 6px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -1019,7 +1019,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Card</td><td>hover · focus-within</td><td class="muted">media child scale 1→1.05 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
               <tr><td>Card</td><td>hover ends · focus leaves</td><td class="muted">media child scale 1.05→1 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
-              <tr><td>Card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), 80ms apart in reading order</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
+              <tr><td>Card</td><td>enter viewport</td><td class="muted">opacity (effect) · translateY <code>--s-8</code>→0 (spatial), <code>--d-instant</code> apart in reading order</td><td><code>--d-slow</code> · <code>--ease-soft</code></td><td class="muted">none — shown at rest</td></tr>
               <tr><td>Lightbox</td><td>open</td><td class="muted">backdrop + content opacity (effect) — no scale-in</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Lightbox</td><td>close</td><td class="muted">backdrop + content opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
               <tr><td>Modal</td><td>open</td><td class="muted">panel opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
@@ -1032,7 +1032,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Slider</td><td>hover · focus (thumb)</td><td class="muted">box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container (<code>.chat-bubble</code>, <code>.chat-status</code>, <code>.chat-avatar</code>, <code>.chat-meta</code>)</td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">none — the dots hold still at full opacity</td></tr>
@@ -1051,9 +1051,9 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Popover</td><td>close</td><td class="muted">opacity (effect) · translateY 0→−4px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
               <tr><td>Drawer</td><td>open</td><td class="muted">slide in from its edge (spatial) · scrim fade (effect)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Drawer</td><td>close</td><td class="muted">slide out to its edge (spatial) · scrim fade (effect)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant</td></tr>
-              <tr><td>Stepper</td><td>reveal</td><td class="muted">dot scale 0→1 (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-spring</code> for scale, <code>--ease-decel</code> for opacity · 520ms + 80ms per step</td><td class="muted">instant</td></tr>
-              <tr><td>Stepper</td><td>reveal</td><td class="muted">text rise 8px (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 520ms + 80ms per step</td><td class="muted">instant</td></tr>
-              <tr><td>Stepper</td><td>reveal</td><td class="muted">connector draw, done or dashed (spatial) · appear (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 580ms + 80ms per step; appears on <code>--d-quick</code></td><td class="muted">instant</td></tr>
+              <tr><td>Stepper</td><td>reveal</td><td class="muted">dot scale 0→1 (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-spring</code> for scale, <code>--ease-decel</code> for opacity · 500ms + <code>--d-instant</code> per step</td><td class="muted">instant</td></tr>
+              <tr><td>Stepper</td><td>reveal</td><td class="muted">text rise 8px (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 500ms + <code>--d-instant</code> per step</td><td class="muted">instant</td></tr>
+              <tr><td>Stepper</td><td>reveal</td><td class="muted">connector draw, done or dashed (spatial) · appear (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code> · 600ms + <code>--d-instant</code> per step; appears on <code>--d-quick</code></td><td class="muted">instant</td></tr>
               <tr><td>Stepper</td><td>current (loop)</td><td class="muted">ring scale 1→1.33 (spatial) · fade (effect)</td><td>2400ms · <code>--ease-standard</code> · infinite</td><td class="muted">still ring</td></tr>
               <tr><td>Progress</td><td>reveal · value change</td><td class="muted">fill draw (spatial)</td><td><code>--d-scene</code> · <code>--ease-decel</code> · 700ms on reveal</td><td class="muted">instant — at its value</td></tr>
               <tr><td>Navigation · top bar</td><td>item hover / press</td><td class="muted">color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -5800,7 +5800,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 35.2</span></div>
           <p class="subsection-desc">What the contract holds the stepper to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:stepper --><ul class="page-rules"><li><strong>Horizontal while the labels fit.</strong> Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); <code>.stepper-vertical</code> forces the column for long labels or more steps.</li><li><strong>One current step.</strong> Exactly one <code>aria-current="step"</code>; done steps before it, upcoming steps after.</li><li><strong>Done is drawn, upcoming is dashed.</strong> The connector after a done step is <code>--grad-progress</code> at <code>--bw-2</code>; the one after the current and upcoming steps is a dashed <code>--obsidian-300</code> line, 4px dashes and 4px gaps (<code>--s-1</code>) (5.6 : 1 on a card).</li><li><strong>Contrast.</strong> Upcoming labels and every meta line are <code>--obsidian-300</code> (5.6 : 1 on <code>--obsidian-800</code>); the number and the check on a filled dot are <code>--obsidian-950</code> (6.5 : 1 on <code>--primary-500</code>).</li><li><strong>Not a control.</strong> The steps are not links: going back is the flow's own Back button.</li><li><strong>Motion.</strong> On view, every dot scales in on <code>--d-slow</code> · <code>--ease-spring</code> (opacity on <code>--ease-decel</code>) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on <code>--d-slow</code> · <code>--ease-decel</code> from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.</li></ul><!-- /rules:stepper -->
+          <!-- rules:stepper --><ul class="page-rules"><li><strong>Horizontal while the labels fit.</strong> Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); <code>.stepper-vertical</code> forces the column for long labels or more steps.</li><li><strong>One current step.</strong> Exactly one <code>aria-current="step"</code>; done steps before it, upcoming steps after.</li><li><strong>Done is drawn, upcoming is dashed.</strong> The connector after a done step is <code>--grad-progress</code> at <code>--bw-2</code>; the one after the current and upcoming steps is a dashed <code>--obsidian-300</code> line, 4px dashes and 4px gaps (<code>--s-1</code>) (5.6 : 1 on a card).</li><li><strong>Contrast.</strong> Upcoming labels and every meta line are <code>--obsidian-300</code> (5.6 : 1 on <code>--obsidian-800</code>); the number and the check on a filled dot are <code>--obsidian-950</code> (6.5 : 1 on <code>--primary-500</code>).</li><li><strong>Not a control.</strong> The steps are not links: going back is the flow's own Back button.</li><li><strong>Motion.</strong> On view, every dot scales in on <code>--d-slow</code> · <code>--ease-spring</code> (opacity on <code>--ease-decel</code>) and its text rises 8px, from 500ms plus <code>--d-instant</code> per step; each connector draws to the next dot on <code>--d-slow</code> · <code>--ease-decel</code> from 600ms plus <code>--d-instant</code> per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.</li></ul><!-- /rules:stepper -->
         </div>
 
         <div class="subsection">
@@ -5855,7 +5855,7 @@ button.chip:disabled{
           <div class="do-dont">
             <div class="do">
               <div class="hd"><span>✓</span>Do</div>
-              <p>Reveal it on one ladder: dot <em>n</em> scales in from 520ms + 80ms&middot;<em>n</em>, the connector that leaves it draws from 580ms + 80ms&middot;<em>n</em>, both on <code>--d-slow</code>. Done or upcoming only changes the paint, so one more step is one more rung.</p>
+              <p>Reveal it on one ladder: dot <em>n</em> scales in from 500ms + <code>--d-instant</code>&middot;<em>n</em>, the connector that leaves it draws from 600ms + <code>--d-instant</code>&middot;<em>n</em>, both on <code>--d-slow</code>. Done or upcoming only changes the paint, so one more step is one more rung.</p>
             </div>
             <div class="dont">
               <div class="hd"><span>✕</span>Don&rsquo;t</div>
@@ -5916,7 +5916,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 36.2</span></div>
           <p class="subsection-desc">What the contract holds the card to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li><strong>Card rise</strong>: a card fades up as it comes into view: opacity 0→1 over <code>--s-8</code> of rise, <code>--d-slow</code> · <code>--ease-soft</code>, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
+          <!-- rules:card --><ul class="page-rules"><li>Background: <code>--obsidian-800</code>. Border: <code>1px solid --obsidian-700</code>. Radius: <code>--r-lg</code>.</li><li>Every card carries a micro-header (<code>.card-meta</code>) with project code, date, or index. Mono, <code>--t-micro</code>, <code>--obsidian-300</code>.</li><li><strong>Card rise</strong>: a card fades up as it comes into view: opacity 0→1 over <code>--s-8</code> of rise, <code>--d-slow</code> · <code>--ease-soft</code>, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, <code>--d-instant</code> apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.</li><li>Hover: border shifts to <code>--obsidian-600</code>, shadow <code>--sh-2</code>.</li><li><strong>At most one action per card</strong>, on its own row at the end; it is <code>.btn-primary</code> only when the card is the screen's single primary act.</li></ul><!-- /rules:card -->
         </div>
 
         <div class="subsection">
@@ -6137,7 +6137,7 @@ button.chip:disabled{
   line-height:1.7;
   font-size:var(<b>--t-small</b>);
   opacity:0;
-  transition:opacity var(<b>--d-quick</b>) var(<b>--ease-decel</b>) 80ms;
+  transition:opacity var(<b>--d-quick</b>) var(<b>--ease-decel</b>) var(<b>--d-instant</b>);
 }
 .acc-item.is-open .acc-panel-body{
   opacity:1;
@@ -6170,7 +6170,7 @@ button.chip:disabled{
               <tr><td><code>.acc-trigger</code></td><td class="muted">Full-row hit target — minimum 56px tall. Entire row is a single button; never put a separate toggle inside.</td></tr>
               <tr><td><code>.acc-chevron</code></td><td class="muted">Rotates from 0° (closed) to 90° (open) over 320ms on the standard ease. Color shifts to primary-400 on open. No swap-icon.</td></tr>
               <tr><td><code>.acc-num</code></td><td class="muted">Optional. Mono index in the form <code>NN / NN</code>. Use when the set has a fixed, ordered count; omit on FAQ-style lists.</td></tr>
-              <tr><td><code>.acc-panel</code></td><td class="muted">Animates via <code>grid-template-rows</code> 0fr → 1fr — no JS height measurement. Body fades in 80ms after the row starts opening.</td></tr>
+              <tr><td><code>.acc-panel</code></td><td class="muted">Animates via <code>grid-template-rows</code> 0fr → 1fr — no JS height measurement. Body fades in <code>--d-instant</code> after the row starts opening.</td></tr>
               <tr><td><code>aria-expanded</code></td><td class="muted">Required on every trigger. Toggled in JS in lockstep with <code>.is-open</code>. The panel carries <code>role="region"</code> and an <code>id</code> referenced by <code>aria-controls</code>.</td></tr>
               <tr><td>Reduced motion</td><td class="muted">Under <code>prefers-reduced-motion: reduce</code>, the row swaps instantly — no rotation, no fade, no grid transition.</td></tr>
             </tbody>
@@ -6472,7 +6472,7 @@ button.chip:disabled{
 .chat-msg.is-in .chat-bubble-content{
   opacity:1;
   transform:none;
-  transition-delay:80ms;
+  transition-delay:var(<b>--d-instant</b>);
 }
 @media (prefers-reduced-motion: reduce){
   .chat-msg .chat-bubble, .chat-msg .chat-avatar, .chat-msg .chat-meta, .chat-msg .chat-bubble-content{
@@ -6493,13 +6493,13 @@ button.chip:disabled{
           <p class="subsection-desc">What the contract holds the chat to, word for word from its section of DESIGN.md.</p>
           <!-- rules:chat --><ul class="page-rules"><li>Own bubbles fill with <code>--primary-700</code> — the deep brand accent.</li><li>The brighter <code>--primary-500</code> is <strong>not</strong> used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.</li><li>A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.</li><li>One avatar per streak. The rest of the streak uses <code>.chat-avatar-spacer</code> for column alignment, never repeats the avatar.</li><li>Bot reply replaces the typing bubble <strong>in place</strong> (mutate the existing <code>.chat-stack</code>, swap <code>.chat-bubble</code> content) so layout doesn't shift.</li><li>After ~3 exchanges, roll older messages off the top so the surface never overcrowds — under reduced motion <code>.is-out</code> still hides (instantly), per the motion table.</li></ul><!-- /rules:chat -->
           <h3 class="page-rules-head">Motion spec</h3>
-          <p class="subsection-desc">Every transition resolves to a token, in the canonical § 09.4 grammar. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot (spatial only — the opacity rides <code>--ease-standard</code>), then the inner content fades up 80ms behind.</p>
+          <p class="subsection-desc">Every transition resolves to a token, in the canonical § 09.4 grammar. Two-stage bubble entry: the container scales from 0.92 with an <code>--ease-spring</code> overshoot (spatial only — the opacity rides <code>--ease-standard</code>), then the inner content fades up <code>--d-instant</code> behind.</p>
           <table class="table">
             <thead><tr><th>Trigger</th><th>Property (type)</th><th>Motion</th><th>Reduced motion</th></tr></thead>
             <tbody>
               <tr><td>message enter · container <code>.chat-bubble</code></td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay 80ms</td><td class="muted">instant</td></tr>
+              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0/160/320ms</td><td class="muted">none — the dots hold still at full opacity</td></tr>
@@ -10074,7 +10074,7 @@ if ('IntersectionObserver' in window) {
 // When a page opens, its three blocks rise (components.css, .section.active > *): a card already
 // in view rides with its block and its number counts from that block's start. A card further down
 // rises on its own as it comes into view, --s-8 on --d-slow · --ease-soft; cards that show together
-// go in reading order, 80ms apart. Nested cards ride with their parent. Under reduced motion
+// go in reading order, --d-instant apart. Nested cards ride with their parent. Under reduced motion
 // nothing moves and every number shows its final value.
 (function(){
   const SEL = '.card,.chart-card,.cs-card';
@@ -10083,7 +10083,7 @@ if ('IntersectionObserver' in window) {
   const ms = (v) => parseFloat(css.getPropertyValue(v)) || 0;
   const tok = (v) => css.getPropertyValue(v).trim();
   const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const STEP = 80, MAX_STEPS = 8;
+  const STEP = ms('--d-instant'), MAX_STEPS = 8;
   const cards = [...document.querySelectorAll(SEL)].filter((c) => !c.parentElement.closest(SEL));
   const fmt = (el, v) => (el.dataset.prefix || '') + Math.abs(v).toFixed(parseInt(el.dataset.decimals || '0', 10)) + (el.dataset.suffix || '');
   const curve = (tok('--ease-decel').match(/[\d.]+/g) || [0.16, 1, 0.3, 1]).map(Number);

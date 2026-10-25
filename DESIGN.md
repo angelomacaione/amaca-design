@@ -2640,14 +2640,14 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
 - **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
-- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 500ms plus `--d-instant` per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 600ms plus `--d-instant` per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
 
 
 **Variants.**
 - `orientation` — horizontal (default) · `.stepper-vertical`
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
-**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
+**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 500ms + `--d-instant`·*n*, the connector that leaves it draws from 600ms + `--d-instant`·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
 
 ### Card
 
@@ -2680,7 +2680,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
-- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
+- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, `--d-instant` apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
@@ -2718,7 +2718,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 
 
 **Variants.**
@@ -2772,7 +2772,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
-| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay `--d-instant` | instant |
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
 
@@ -2874,7 +2874,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
 - `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
 - `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
-- `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
+- `.chat-bubble-content` — the inner span that fades up `--d-instant` behind the container. Required for the two-stage entry.
 - `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
 - `.chat-meta` — sender + time row, only on the first bubble of a streak.
 - `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
@@ -2885,13 +2885,13 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - The brighter `--primary-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
 - A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
 
-**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
+**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content `--d-instant` behind:
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3267,7 +3267,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
 **Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
@@ -3894,7 +3894,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Page shell | section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 | Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
 | Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
-| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
+| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
@@ -3914,7 +3914,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | Accordion | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | Accordion | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
-| Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay `--d-instant` | instant |
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
@@ -3924,7 +3924,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
+| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
 | Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
@@ -3937,7 +3937,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Slider | hover · focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
@@ -3956,9 +3956,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
-| Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 520ms + 80ms per step | instant |
-| Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 520ms + 80ms per step | instant |
-| Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 580ms + 80ms per step; appears on `--d-quick` | instant |
+| Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 500ms + `--d-instant` per step | instant |
+| Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 500ms + `--d-instant` per step | instant |
+| Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 600ms + `--d-instant` per step; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
 | Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -4117,7 +4117,7 @@ Firefox reads no `::-webkit-scrollbar` rule: it draws its own bar, dark because 
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
 - **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.31):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Stepper choreography (§ 3.31):** dots scale in on the spring (500ms, + `--d-instant` per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 600ms (+ `--d-instant` per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming
