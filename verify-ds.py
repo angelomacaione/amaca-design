@@ -1219,6 +1219,38 @@ def c32():
             fails.append(f"tokens.css: `{sel}` is outside any @layer — it will override Tailwind utilities")
     return fails
 
+@check("112", "No text the system draws takes its colour or font from the host's body",
+       "v5.3.0: the second time a host's dark text landed on --obsidian-950. A landing page in v5.2.0, then the whole "
+       "site, rendered inside a host whose unlayered body{color:#000;font:14px serif} beats the base layer: 6,786 texts "
+       "took the host's colour or font. The base layer now says the body's text again on the body's children; this "
+       "check holds that restatement to the body, declaration by declaration, so a value changed on one and not the "
+       "other cannot drift. The rendered half is in the review sheet: every section inside the hostile host.")
+def c112():
+    tok = re.sub(r"/\*.*?\*/", "", read(TOKENS), flags=re.S)
+    fails = []
+    base = re.search(r"@layer base\s*\{(.*)\}\s*$", tok, re.S)
+    if not base:
+        return ["tokens.css: no @layer base block"]
+    rules = {" ".join(m.group(1).split()): m.group(2) for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", base.group(1))}
+    decl = lambda b: {k.strip(): " ".join(v.split()) for k, v in re.findall(r"([-\w]+)\s*:\s*([^;]+)", b)}
+    body = decl(rules.get("body", ""))
+    kids = rules.get(":where(body > *)")
+    if kids is None:
+        return ["tokens.css: the base layer does not say the body's text again on :where(body > *)"]
+    kids = decl(kids)
+    INHERITED = {"color", "font-family", "font-size", "line-height", "font-weight", "font-style", "letter-spacing",
+                 "-webkit-font-smoothing", "text-rendering", "font-feature-settings", "font-variant", "word-spacing"}
+    for prop, val in body.items():
+        if prop in INHERITED and kids.get(prop) != val:
+            fails.append(f"tokens.css: body sets {prop}: {val}, :where(body > *) says {kids.get(prop, 'nothing')}")
+    for prop in kids:
+        if prop not in INHERITED:
+            fails.append(f"tokens.css: :where(body > *) sets {prop}, which the body's children do not inherit — it would paint the host")
+    order = list(rules)
+    if order.index(":where(body > *)") > min(order.index(k) for k in order if k.startswith(("button", "a", "code"))):
+        fails.append("tokens.css: :where(body > *) must come before the element rules, so they keep the last word")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "

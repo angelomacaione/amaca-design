@@ -74,6 +74,63 @@ def touched_sections(base):
     return [sid for sid in order if sid in hit]
 
 
+# The hostile host (v5.3.0, point 9). A host page runs its own reset outside any layer; the base layer loses
+# body{color;font} to it, and anything that inherits takes the host's text. Two hosts: one on body, one on the
+# Anatomy stage around every component sample (a container in the host's own markup). Each section renders as
+# the site and inside each host. On body, any visible text whose colour, font, size or line height moves is a leak,
+# and a button also compares its padding, border and fill (the browser's defaults showing through). In the
+# container, the colour: a component that paints its surface says the colour of its text (the font it may inherit).
+HOSTS = (("body", "body{color:#000;font:14px serif}", "*"),
+         ("container", ".kit-stage{color:#000;font:14px serif}", ".kit-stage *"))
+SNAP = """(scope) => {
+  const out = []; const sec = document.querySelector('section.section.active'); if (!sec) return out;
+  sec.querySelectorAll(scope).forEach((el, i) => {
+    const own = [...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim());
+    const btn = el.tagName === 'BUTTON';
+    if (!own && !btn) return;
+    const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const cs = getComputedStyle(el); if (cs.visibility === 'hidden') return;
+    out.push([i, el.tagName.toLowerCase() + (typeof el.className === 'string' && el.className.trim() ? '.' + el.className.trim().split(/\\s+/).join('.') : ''),
+              cs.color, cs.fontFamily.split(',')[0], cs.fontSize, cs.lineHeight,
+              btn ? cs.padding + ' ' + cs.borderTopStyle + ' ' + cs.backgroundColor : '', (el.textContent || '').trim().slice(0, 40)]);
+  });
+  return out; }"""
+
+
+def host_pass(b, ids):
+    """[(host, section, element, what moved)] for every section, inside each hostile host."""
+    url = "file://" + os.path.join(ROOT, "index.html")
+    def page(css):
+        pg = b.new_page(viewport={"width": 1440, "height": 1000}, reduced_motion="reduce")
+        if css:
+            pg.add_init_script("document.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('style');"
+                               "s.textContent=%r;document.head.appendChild(s)})" % css)
+        pg.goto(url); pg.wait_for_timeout(1200)
+        return pg
+    def snap(pg, sid, scope):
+        pg.evaluate(f"document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));"
+                    f"document.getElementById('{sid}').classList.add('active')")
+        pg.wait_for_timeout(300)
+        return pg.evaluate(SNAP, scope)
+    leaks = []
+    site = page(None)
+    for name, css, scope in HOSTS:
+        host = page(css)
+        for sid in ids:
+            a, h = snap(site, sid, scope), {x[0]: x for x in snap(host, sid, scope)}
+            for x in a:
+                y = h.get(x[0])
+                if not y:
+                    continue
+                moved = [f"{k} {x[j]} → {y[j]}" for j, k in ((2, "colour"), (3, "font"), (4, "size"), (5, "line height"), (6, "button"))
+                         if x[j] != y[j] and (name == "body" or k == "colour")]
+                if moved:
+                    leaks.append((name, sid, f"{x[1][:48]} «{x[7]}»", "; ".join(moved)))
+        host.close()
+    site.close()
+    return leaks
+
+
 def main():
     base = arg("--base", "origin/main")
     out = os.path.join(ROOT, arg("--out", ".release/review-sheet.html"))
@@ -89,12 +146,13 @@ def main():
     verdict = [l.strip() for l in harness.stdout.splitlines() if "checks pass" in l]
     sections = touched_sections(base)
 
-    shots, note = [], ""
+    shots, note, leaks, host_note = [], "", None, ""
     try:
         from playwright.sync_api import sync_playwright
         exe = "/opt/pw-browsers/chromium" if os.path.exists("/opt/pw-browsers/chromium") else None
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
+            leaks = host_pass(b, [sid for sid, _, _ in section_ranges(open(os.path.join(ROOT, "index.html"), encoding="utf-8").read())])
             for label, vp in (("desktop 1440", (1440, 1000)), ("phone 390", (390, 844))):
                 pg = b.new_page(viewport={"width": vp[0], "height": vp[1]}, device_scale_factor=1)
                 errs = []
@@ -120,6 +178,13 @@ def main():
         note += (f"<p class=err>No render ({html.escape(type(e).__name__)}). Open these sections by hand: "
                  f"{', '.join('#' + s for s in sections) or '(none)'}</p>")
 
+    if leaks is None:
+        host_note = "<p class=err>Not rendered: open the site inside a host with <code>body{color:#000;font:14px serif}</code> by hand.</p>"
+    elif not leaks:
+        host_note = "<p>No leak: every text keeps its colour, font, size and line height inside both hosts.</p>"
+    else:
+        host_note = (f"<p class=err>{len(leaks)} leaks.</p><pre>" + html.escape("\n".join(
+            f"{h:9} #{s:14} {e} — {w}" for h, s, e, w in leaks[:200])) + "</pre>")
     imgs = "".join(
         f"<figure><figcaption>#{html.escape(s)} · {l}</figcaption><img src='data:image/png;base64,{d}'></figure>"
         for s, l, d in shots)
@@ -132,6 +197,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
 <p>REVIEW CODE <span class=code>{tree[:7]}</span> — the tree shown here. <code>release.py tag</code> refuses any other.</p>
 <p>Harness: <b>{html.escape(verdict[-1] if verdict else 'NOT GREEN')}</b></p>
 <h2>Sections touched, rendered</h2><p>{', '.join('#' + s for s in sections) or '(none)'}</p>{note}
+<h2>Hostile host</h2>{host_note}
 <h2>Changelog entry</h2><pre>{html.escape(entry)}</pre>
 <h2>Commits since {html.escape(base)}</h2><pre>{html.escape(commits) or '(none)'}</pre>
 <h2>Files</h2><pre>{html.escape(files)}</pre>
@@ -140,6 +206,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
 </body></html>"""
     with open(out, "w", encoding="utf-8") as f:
         f.write(page)
+    print(f"hostile host: {'not rendered' if leaks is None else len(leaks)} leaks")
     print(f"review sheet: {out}\nsections: {', '.join(sections) or '(none)'}\nREVIEW CODE {tree[:7]}")
 
 

@@ -271,6 +271,21 @@ body{
   text-rendering:optimizeLegibility;
   font-feature-settings:"ss01","ss02","cv11";
 }
+/* The body's text, said again on its children (v5.3.0). A host that runs this page inside its own unlayered
+   reset (a preview sandbox, a CMS theme, a docs shell) wins on body{color;font}, and everything that inherits
+   took the host's dark serif text onto the --obsidian-950 ground (the headings of a landing page in v5.2.0, the
+   whole site in the v5.3.0 render). A declaration on the children beats what they would inherit, from any layer, so the
+   host keeps its body and loses nothing it styled itself. :where() keeps the rule at zero specificity: every
+   element rule below and every component wins over it, and outside a host it says what the body says. */
+:where(body > *){
+  color:var(--obsidian-100);
+  font-family:var(--font-sans);
+  font-size:var(--t-body);
+  line-height:var(--lh-normal);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  font-feature-settings:"ss01","ss02","cv11";
+}
 img,svg{display:block;max-width:100%}
 button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:var(--primary-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
