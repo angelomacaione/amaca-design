@@ -189,7 +189,7 @@ html{scroll-behavior:smooth}
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
-      <div class="nav-label">Containers</div>
+      <div class="nav-label">Content</div>
       <a class="nav-item" href="#card" data-target="card"><span class="num">36</span> Card</a>
       <a class="nav-item" href="#accordion" data-target="accordion"><span class="num">37</span> Accordion</a>
       <a class="nav-item" href="#divider" data-target="divider"><span class="num">38</span> Divider</a>
@@ -209,7 +209,7 @@ html{scroll-behavior:smooth}
     </div>
     <div class="nav-group">
       <span class="nav-indicator" aria-hidden="true"></span>
-      <div class="nav-label">Layout &amp; templates</div>
+      <div class="nav-label">Applied</div>
       <a class="nav-item" href="#presentations" data-target="presentations"><span class="num">48</span> Presentations</a>
       <a class="nav-item" href="#casestudy" data-target="casestudy"><span class="num">49</span> Case study</a>
     </div>
@@ -1143,7 +1143,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
         </div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">The grid</h2><span class="subsection-num">§ 08.1</span></div>
-          <p class="subsection-desc">The page grid — twelve columns compressing to eight, then four. Columns are page anatomy; the component grid presets in § 15.3 handle everything inside a section.</p>
+          <p class="subsection-desc">The page grid — twelve columns compressing to eight, then four. Columns are page anatomy; the grid presets, a layout rule (§ 08.4), handle everything inside a section.</p>
           <div class="card grid-demo-card" style="padding:0">
             <div class="tabs" role="tablist" data-tabs aria-label="Breakpoint">
               <button type="button" class="tab active" role="tab" aria-selected="true" data-panel="grid-bp-desktop">Desktop · 12</button>
@@ -1275,7 +1275,21 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Browser chrome</h2><span class="subsection-num">§ 08.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Containers — layout rules</h2><span class="subsection-num">§ 08.4</span></div>
+          <p class="subsection-desc">A container arranges components and draws nothing: no surface, no border, no state. So it is a rule of layout, not a component: it has no page and no Anatomy card, and the registry lists it once, with the state <code>rule</code>. The panels it holds bring their own surface.</p>
+          <div class="table-scroll"><table class="table">
+            <thead><tr><th>Rule</th><th>Classes</th><th>What it arranges</th></tr></thead>
+            <tbody>
+              <tr><td>Grid</td><td><code>.grid</code> <code>.grid-2</code> <code>.grid-3</code> <code>.grid-4</code> <code>.grid-6</code></td><td class="muted">Panels in equal columns, gap <code>--s-4</code></td></tr>
+              <tr><td>Page shell</td><td><code>.app</code> <code>.main</code> <code>.content</code> <code>.section</code></td><td class="muted">The page: the rail, the fluid column, the one width-constrained wrapper, the sections</td></tr>
+              <tr><td>A stack of one component</td><td><code>.skeleton-stack</code> <code>.toast-region</code> <code>.avatar-group</code> <code>.swatch-list</code> <code>.swatch-grid</code> <code>.swatch-grid-4</code> <code>.chart-grid</code></td><td class="muted">Copies of the same component, in the order and the gap its section gives</td></tr>
+              <tr><td>A scroll frame</td><td><code>.table-scroll</code> <code>.timeline-scroll</code></td><td class="muted">A child wider than the page scrolls inside the frame, never the page</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Browser chrome</h2><span class="subsection-num">§ 08.5</span></div>
           <p class="subsection-desc">Four surfaces the browser paints are styled: the scrollbars, the selection, the caret. They are not components, and everything else the browser paints stays native. Scroll the box both ways and select its text.</p>
           <div class="grid grid-2" style="align-items:start">
             <div class="card" style="padding:var(--s-6);display:grid;gap:var(--s-4)">
@@ -1286,7 +1300,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
           </div>
         </div>
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 08.5</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Do and don&rsquo;t</h2><span class="subsection-num">§ 08.6</span></div>
           <p class="subsection-desc">One shell, one active section; the grid lays out and does nothing else.</p>
           <div class="do-dont">
             <div class="do">
@@ -5924,8 +5938,8 @@ button.chip:disabled{
 
       <section class="section" id="card">
         <div class="page-header">
-          <div class="page-eyebrow">§ 36 · Containers / Card</div>
-          <h1 class="page-title">Containers with <span class="accent">metadata bones.</span></h1>
+          <div class="page-eyebrow">§ 36 · Content / Card</div>
+          <h1 class="page-title">Cards with <span class="accent">metadata bones.</span></h1>
           <p class="page-lede">Every card carries a micro-header with context — project code, date, index. The case-file influence sits here, quietly.</p>
         </div>
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>One project or one stat: micro-header, title, body, at most one action.</li><li>A concept the reader scans and acts on as one unit.</li><li>A list of items, each opening its own page → the row card.</li><li>The one item a page leads with → the feature card, once per page.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>Secondary information shown on demand → Popover or Modal.</li><li>A gradient background → never; the surface stays on the obsidian ramp. The light of the feature card is a glow behind the content, not a fill.</li></ul></div></div>
@@ -6086,7 +6100,7 @@ button.chip:disabled{
 
       <section class="section" id="accordion">
         <div class="page-header">
-          <div class="page-eyebrow">§ 37 · Containers / Accordion</div>
+          <div class="page-eyebrow">§ 37 · Content / Accordion</div>
           <h1 class="page-title">Disclosure, <span class="accent">on demand.</span></h1>
           <p class="page-lede">For dense reference content where users scan headers first and read selectively. Single-open by default; chevron rotates 90° on expand. Keyboard-operable, prefers-reduced-motion safe.</p>
         </div>
@@ -6350,7 +6364,7 @@ button.chip:disabled{
 
       <section class="section" id="divider">
         <div class="page-header">
-          <div class="page-eyebrow">§ 38 · Containers / Divider</div>
+          <div class="page-eyebrow">§ 38 · Content / Divider</div>
           <h1 class="page-title">One line, <span class="accent">where the topic changes.</span></h1>
           <p class="page-lede">A hairline between two blocks of one container. It carries no space of its own: the container sets the gap on both sides.</p>
         </div>
@@ -6415,7 +6429,7 @@ button.chip:disabled{
 
       <section class="section" id="chat">
         <div class="page-header">
-          <div class="page-eyebrow">§ 39 · Containers / Chat</div>
+          <div class="page-eyebrow">§ 39 · Content / Chat</div>
           <h1 class="page-title">Conversations that <span class="accent">earn their bubbles.</span></h1>
           <p class="page-lede">A chatbot interface lives or dies on cadence. Bubbles land with a small spring overshoot, typing indicators promise a reply, and the conversation never overcrowds the surface — older messages roll off after three exchanges. Own bubbles use <code>--primary-700</code> (deep brand), so <code>--primary-500</code> stays reserved for CTAs and focus.</p>
         </div>
@@ -8157,7 +8171,7 @@ flowchart TD
 
       <section class="section" id="presentations">
         <div class="page-header">
-          <div class="page-eyebrow">§ 48 · Layout &amp; templates / Presentations</div>
+          <div class="page-eyebrow">§ 48 · Applied / Presentations</div>
           <h1 class="page-title">Slides that <span class="accent">hold the system.</span></h1>
           <p class="page-lede">Eight canonical layouts on a fixed 1920×1080 canvas. Same tokens, same 85/10/5 restraint as every other surface — the deck just happens to be 16:9. One magenta moment per slide; everything else stays obsidian.</p>
         </div>
@@ -8400,7 +8414,7 @@ flowchart TD
 
       <section class="section" id="casestudy">
         <div class="page-header">
-          <div class="page-eyebrow">§ 49 · Layout &amp; templates / Case study</div>
+          <div class="page-eyebrow">§ 49 · Applied / Case study</div>
           <h1 class="page-title">The whole system, <span class="accent">in practice.</span></h1>
           <p class="page-lede">Every primitive — type, color, spacing, component — applied to one narrative. Use this as the starting frame for every case study.</p>
         </div>

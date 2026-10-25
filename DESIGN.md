@@ -285,6 +285,61 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 12-col grid. Sidebar is fixed; content breathes.
 
+### Containers — layout rules (v5.3.0)
+
+A container arranges components and draws nothing: no surface, no border, no state. It is a rule of layout, not a component, so it has no page, no Anatomy card and no States; the registry lists the containers once, state `rule` (§ 3.0). The panels a container holds bring their own surface and padding.
+
+| Rule | Classes | What it arranges |
+|---|---|---|
+| Grid | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | Panels in equal columns, gap `--s-4` |
+| Page shell | `.app` `.main` `.content` `.section` | The page: the rail, the fluid column, the one width-constrained wrapper, the sections |
+| A stack of one component | `.skeleton-stack` `.toast-region` `.avatar-group` `.swatch-list` `.swatch-grid` `.swatch-grid-4` `.chart-grid` | Copies of the same component, in the order and the gap its section gives |
+| A scroll frame | `.table-scroll` `.timeline-scroll` | A child wider than the page scrolls inside the frame, never the page |
+
+**Grid.**
+
+```html
+<div class="grid grid-3">…</div>
+```
+
+- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
+- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
+- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
+- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
+
+**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
+
+**Page shell.**
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Design system navigation">…</aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">…</div>
+      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
+    </div>
+    <div class="content" id="main-content">
+      <section class="section active">…</section>
+    </div>
+  </main>
+</div>
+```
+
+- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
+- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
+- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
+- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
+- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
+
+**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
+
 ### Stacking
 
 **Seven layers. No others.** Every floating component takes its `z-index` from this scale. The values name the system as built — this scale did not renumber anything.
@@ -493,14 +548,16 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | `css-only` | Shipped in `components.css`, spec not yet written | Use the class as-is. Never extend it, never add variants. Transitional — every row carries a milestone |
 | `off-system` | Does not exist in the system | **Stop and ask the owner.** Do not invent it |
 | `site-only` | Documentation-site chrome living in `components.css` | Not part of the contract. Treat as `off-system` |
+| `rule` | A container: it arranges components and draws nothing, no surface and no state (v5.3.0) | Apply the rule from Layout › Containers. Never document it as a component: it has no page, no Anatomy card and no states |
+
+**Component, organism, template, rule (v5.3.0).** A component shows and has states. An organism is a component made of components, with parts and states of its own, that recurs as one recognisable piece: the Navigation with its top bar, the Chat, the Date picker. A template is a composed page, an order of parts with no state of its own: Presentations and Case study, under *Applied*. A rule arranges and draws nothing; the containers are rules, listed once below with the state `rule` and specified in Layout › Containers. The test for a class: it shows and has states, it is a component or a part of one; it only arranges, it is a rule.
 
 **Closure clause.** A component not listed below is `off-system`. A CSS class not listed below is not a component — it is either a part of a listed component or `site-only`.
 
 | Component | Classes | State | Spec |
 |---|---|---|---|
 | Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.1 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
-| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.2 |
-| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | canonical | § 3.3 |
+| Containers — layout rules | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` · `.app` `.main` `.content` `.section` · `.skeleton-stack` `.toast-region` `.avatar-group` `.swatch-list` `.swatch-grid` `.swatch-grid-4` `.chart-grid` · `.table-scroll` `.timeline-scroll` | rule | Layout › Containers — § 3.2 (Grid system) and § 3.3 (Page shell) are kept as pointers |
 | Skip link | `.skip-link` | canonical | § 3.4 — behaviour in § 6.2 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.5 |
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.6 |
@@ -514,16 +571,16 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.14 |
 | Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.15 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.16 |
-| Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
+| Toast | `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.18 — `role="progressbar"` with a name, a value, a min and a max |
 | Loader | `.loader-*` | canonical | § 3.19 |
-| Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.20 |
+| Skeleton | `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.20 |
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.21 — a `<dialog>`; images use the Lightbox |
 | Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.22 — image only |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.23 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.24 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` `.tooltip-end` | canonical | § 3.25 |
-| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` · page top bar: `.topbar` `.topbar-actions` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
 | Segmented control | `.segmented` `.segmented-item` `.segmented-thumb` `.segmented-panel` · `.segmented-fill` | canonical | § 3.28 — two or three views of one thing; a tablist on a pill, one thumb that travels |
 | Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.29 |
@@ -533,17 +590,17 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.33 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.34 |
 | Chat · Messaging | `.chat-*` | canonical | § 3.35 |
-| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.36 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
-| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
+| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.36 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.38 |
-| Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.39 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` · `.chart-bars` `.chart-bars-axis` `.chart-bars-reserve` | canonical | § 3.40 |
+| Table | `.table` `.table-sort` `.table-row-link` | canonical | § 3.39 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` · `.chart-bars` `.chart-bars-axis` `.chart-bars-reserve` | canonical | § 3.40 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.41 |
-| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
+| Timeline | `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
-| Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
-| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
+| Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 — a template (Applied) |
+| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card — a template (Applied) |
 | Empty state · File upload | — | off-system | Stop and ask |
 | *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.states-row` `.state` `.state-cap` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
@@ -954,53 +1011,11 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 ### Grid system
 
-**Site:** § 08 Layout.
-
-```html
-<div class="grid grid-3">…</div>
-```
-
-- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
-- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
-- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
-- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
-
-**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
+**A layout rule since v5.3.0.** The grid arranges and draws nothing, so it is not a component: its spec is in Layout › Containers — layout rules. This heading keeps § 3.2 for the references that cite it.
 
 ### Page shell
 
-**Site:** none, the frame of every page.
-
-```html
-<a href="#main-content" class="skip-link">Skip to content</a>
-<div class="app">
-  <aside class="sidebar" aria-label="Design system navigation">…</aside>
-  <main class="main">
-    <div class="topbar">
-      <div class="breadcrumb">…</div>
-      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
-    </div>
-    <div class="content" id="main-content">
-      <section class="section active">…</section>
-    </div>
-  </main>
-</div>
-```
-
-- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
-- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
-- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
-- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
-- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
-- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
-- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
-
-**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
+**A layout rule since v5.3.0.** The shell arranges the page and draws only its ground, so it is not a component: its spec is in Layout › Containers — layout rules. The top bar it holds is part of the Navigation (§ 3.26). This heading keeps § 3.3 for the references that cite it.
 
 ### Skip link
 
@@ -2392,6 +2407,10 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 
 **Do / Don't.** Do keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill. Don't move the `nav` in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.29.
+
+**Page top bar (v5.3.0, from the Page shell).** An organism of the Navigation: it paints, so it is not a rule.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 
 ### Tabs
 

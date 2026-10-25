@@ -1287,6 +1287,41 @@ def c113():
         fails.append("tokens.css: --slider-fill is not declared")
     return fails
 
+@check("114", "A container is a rule: it draws nothing, has no state, and is never shown as a component",
+       "v5.3.0: Grid system and Page shell had a § 3 number each, as if they were components, and the stacks and scroll "
+       "frames of Skeleton, Toast, Avatar, Swatch, Chart and Table sat in their rows as parts. A class that only arranges "
+       "is a rule of layout: the registry lists it once, state rule, and Layout › Containers holds it. This check keeps a "
+       "rule from growing a surface, a state, a page or an Anatomy card, which would make it a component again.")
+def c114():
+    d, fails = read(DESIGN), []
+    if not re.search(r"(?m)^\| `rule` \|", d):
+        fails.append("DESIGN.md § 3.0: the state rule is not in the registry's vocabulary")
+    row = re.search(r"(?m)^\| Containers — layout rules \| ([^|]*) \| rule \|", d)
+    if not row:
+        return fails + ["DESIGN.md registry: no Containers — layout rules row with the state rule"]
+    if "### Containers — layout rules" not in d:
+        fails.append("DESIGN.md: no Layout › Containers — layout rules section")
+    classes = re.findall(r"`\.([\w-]+)`", row.group(1))
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    html = read(INDEX)
+    PAINT = re.compile(r"(?<![-\w])(background(-color|-image)?|border(-[a-z-]+)?|box-shadow|outline|backdrop-filter)\s*:\s*(?!0\b|none\b|transparent\b)")
+    for c in classes:
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+            for sel in m.group(1).split(","):
+                last = re.split(r"[\s>+~]+", sel.strip())[-1]
+                if not re.match(r"\." + re.escape(c) + r"(?![\w-])", last):
+                    continue
+                if re.search(r":(hover|focus|active|checked|disabled)", last):
+                    fails.append(f"components.css: .{c} has a state ({last}) — a rule has none")
+                body = m.group(2)
+                if c == "app":   # the page's ground is not a surface (Layout › Containers › Page shell)
+                    body = re.sub(r"(?<![-\w])background\s*:[^;]*;?", "", body)
+                if PAINT.search(body):
+                    fails.append(f"components.css: .{c} paints ({PAINT.search(body).group(0).strip()}) — a rule draws nothing")
+        if re.search(r'data-target="' + re.escape(c) + r'"', html) or f'data-kit="{c}"' in html:
+            fails.append(f"index.html: .{c} has a page or an Anatomy card — a rule is shown in Layout, not as a component")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
@@ -2301,7 +2336,7 @@ def c55():
     html = read(INDEX)
     nav = html[html.index('<aside'):html.index('</aside>')]
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     comp_ids = [i for g, body in groups if unescape(g) in comp_groups for i in re.findall(r'data-target="([a-z-]+)"', body)]
     site = _usage_site(html)
     for sid in comp_ids:
@@ -3340,7 +3375,8 @@ def c81():
         fails.append("components.css: .timeline-plot has no min-width")
     used = set(re.findall(r"\.(timeline-[a-z-]+)", css))
     row = re.search(r"(?m)^\| Timeline \|([^\n]*)", d)
-    reg = set(re.findall(r"`\.(timeline-[a-z-]+)`", row.group(1))) if row else set()
+    rule = re.search(r"(?m)^\| Containers — layout rules \|([^\n]*)", d)   # v5.3.0: the scroll frame is a layout rule
+    reg = set(re.findall(r"`\.(timeline-[a-z-]+)`", (row.group(1) if row else "") + (rule.group(1) if rule else "")))
     for c in sorted(used ^ reg):
         fails.append(f"Timeline registry and components.css disagree on .{c}")
     for sel in ("chart-label", "chart-label-center", "chart-label-end", "timeline-lane", "timeline-meta", "timeline-bar-label", "timeline-today"):
@@ -3421,14 +3457,14 @@ def c86():
     comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
     for s in re.split(r"\n### ", comp)[1:]:
         name = s.split("\n")[0].strip()
-        if name.startswith("§"):
+        if name.startswith("§") or "**A layout rule since" in s:
             continue
         if "**Do / Don't.**" not in s:
             fails.append(f"DESIGN.md § 3 {name}: no Do / Don't line")
     html = read(INDEX)
     nav = html[html.index('<aside'):html.index('</aside>')]
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     for g, body in groups:
         if _html.unescape(g) not in comp_groups:
             continue
@@ -3462,13 +3498,17 @@ def c87():
     reg = d[d.index("| Component | Classes | State | Spec |"):]
     reg = reg[:reg.index("\n\n")]
     specs = [int(x) for x in re.findall(r"\| § 3\.(\d+)\b", reg)]
-    if specs != list(range(1, len(specs) + 1)):
-        fails.append(f"DESIGN.md registry: § 3 numbers {specs} are not 1..{len(specs)} in table order")
+    # v5.3.0: the numbers of the components that became layout rules are kept, as pointers, and skipped here
+    rrow = re.search(r"(?m)^\| Containers — layout rules \|.*$", reg)
+    kept = {int(x) for x in re.findall(r"§ 3\.(\d+) \(", rrow.group(0))} if rrow else set()
+    want = [i for i in range(1, len(specs) + len(kept) + 1) if i not in kept]
+    if specs != want:
+        fails.append(f"DESIGN.md registry: § 3 numbers {specs} are not {want} in table order")
     comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
     last, cited = 0, set()
     for s in re.split(r"\n### ", comp)[1:]:
         name = s.split("\n")[0].strip()
-        if name.startswith("§"):
+        if name.startswith("§") or "**A layout rule since" in s:
             continue
         m = re.search(r"(?m)^\*\*Site:\*\* (.+)$", s)
         if not m:
@@ -3485,7 +3525,7 @@ def c87():
                 fails.append(f"DESIGN.md § 3 {name}: § {first:02d} comes after § {last:02d}; § 3 follows the site")
             last = first
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', html[html.index('<aside'):html.index('</aside>')], re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     for g, body in groups:
         if _html.unescape(g) in comp_groups:
             for n in re.findall(r'<span class="num">(\d+)</span>', body):
@@ -3893,7 +3933,7 @@ def c105():
         groups.append((unescape(lab.group(1)) if lab else "", part.count('class="nav-item')))
     names = [g for g, _ in groups]
     try:
-        f = names.index("Foundations"); t = names.index("Layout & templates"); m = names.index("Meta")
+        f = names.index("Foundations"); t = names.index("Applied"); m = names.index("Meta")
     except ValueError as e:
         return [f"sidebar: a group is missing ({e})"]
     want = {"01 · Foundations": groups[f][1],
