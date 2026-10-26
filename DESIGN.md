@@ -3995,8 +3995,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |
-| Popover | open | opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
-| Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
+| Popover | open | opacity (effect) · scale 0.96→1 from the corner that touches the trigger (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Popover | close | opacity (effect) · scale 1→0.96 into that corner (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
 | Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 500ms + `--d-instant` per step | instant |
@@ -4024,8 +4024,8 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |
 | Toast | dismiss (`.is-collapsing`) | max-height · padding · border · margin collapse (spatial) — repositions the stack | `--d-base` · `--ease-decel` | instant — still hides |
 | Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger `--d-instant` (100ms) | instant |
-| Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
-| Tooltip | close (another opens · Escape · scroll) | opacity (effect) · translateY 0→2px (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Tooltip | open on hover / focus | opacity (effect), where it stands | `--d-quick` · `--ease-standard` | instant |
+| Tooltip | close (another opens · Escape · scroll) | opacity (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | hover (pressable) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -4311,6 +4311,8 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **Every delay is 0 or a multiple of `--d-instant` (100ms)**, in the CSS and in the scripts: the Card's rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.
 - **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), a scale about the centre on `--ease-standard`: the spring overshot a 2px growth and flickered under the pointer. The Slider's glow ring on hover is gone.
 - **The Modal grows into place.** It opens from 0.96 about its centre instead of rising `--s-2`, and leaves the same way, faster: the Lightbox's entrance, which the Lightbox rows now state (they said *no scale-in* while its CSS scaled). The Lightbox's content leaves on `--d-quick`, the backdrop's clock.
+- **The Popover grows out of its trigger; the Tooltip only fades.** A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.
+- **Two kits on one page keep a gap.** The Navigation page's Sidebar and Top bar kits sat edge to edge; consecutive kits are now `--s-6` apart.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.

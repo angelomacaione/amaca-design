@@ -2875,21 +2875,17 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
   border-radius:var(--r-lg);
   box-shadow:var(--sh-3);
   font-family:var(--font-sans); font-size:var(--t-small); line-height:var(--lh-snug);
-  opacity:0; transform:translateY(calc(-1 * var(--s-1)));
+  /* it grows from 0.96 out of the corner that touches its trigger, and shrinks back into it (v5.3.0) */
+  opacity:0; transform:scale(0.96); transform-origin:top left;
   transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete, display var(--d-quick) var(--ease-accel) allow-discrete;
 }
 .popover:popover-open{opacity:1; transform:none; transition-timing-function:var(--ease-decel)}
-@starting-style{ .popover:popover-open{opacity:0; transform:translateY(calc(-1 * var(--s-1)))} }
-.popover-top{position-area:top span-right; transform:translateY(var(--s-1))}
-.popover-end{position-area:right span-bottom; margin-block:0; margin-inline:var(--s-1); transform:translateX(calc(-1 * var(--s-1)))}
-@starting-style{
-  .popover-top:popover-open{transform:translateY(var(--s-1))}
-  .popover-end:popover-open{transform:translateX(calc(-1 * var(--s-1)))}
-}
+@starting-style{ .popover:popover-open{opacity:0; transform:scale(0.96)} }
+.popover-top{position-area:top span-right; transform-origin:bottom left}
+.popover-end{position-area:right span-bottom; margin-block:0; margin-inline:var(--s-1)}
 /* a narrow screen has no room at the side: it opens below, like the default */
 @media (max-width:480px){
-  .popover-end{position-area:bottom span-right; margin-block:var(--s-1); margin-inline:0; transform:translateY(calc(-1 * var(--s-1)))}
-  @starting-style{ .popover-end:popover-open{transform:translateY(calc(-1 * var(--s-1)))} }
+  .popover-end{position-area:bottom span-right; margin-block:var(--s-1); margin-inline:0}
 }
 .popover-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-3)}
 .popover-head .btn-icon{flex:none}
@@ -3543,7 +3539,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .tooltip-wrap{position:relative;display:inline-flex}
 .tooltip{
   position:absolute;bottom:calc(100% + var(--s-1));left:50%;
-  transform:translate(-50%, 2px);
+  transform:translateX(-50%);
   z-index:var(--z-popover);
   max-width:var(--w-tooltip);width:max-content;
   padding:var(--s-1) var(--s-2);
@@ -3554,19 +3550,15 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   font-family:var(--font-sans);font-size:var(--t-caption);line-height:var(--lh-snug);
   color:var(--obsidian-100);
   opacity:0;pointer-events:none;
-  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);
+  transition:opacity var(--d-quick) var(--ease-standard);  /* a fade where it stands, no travel (v5.3.0) */
 }
 /* Open state is a class, never :hover — the RIGID single-open rule
    (§ 3.25) cannot be expressed in CSS alone. The controller opens on
    pointerenter and focusin and closes every other tooltip first. */
-.tooltip.is-open{opacity:1;transform:translate(-50%, 0)}
-.tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1));transform:translate(-50%, -2px)}
-.tooltip-bottom.is-open{transform:translate(-50%, 0)}
+.tooltip.is-open{opacity:1}
+.tooltip-bottom{bottom:auto;top:calc(100% + var(--s-1))}
 /* near the end edge the bubble aligns its end to the anchor's end, instead of centring past the screen */
-.tooltip-end{left:auto;right:0;transform:translate(0, 2px)}
-.tooltip-end.is-open{transform:translate(0, 0)}
-.tooltip-bottom.tooltip-end{transform:translate(0, -2px)}
-.tooltip-bottom.tooltip-end.is-open{transform:translate(0, 0)}
+.tooltip-end{left:auto;right:0;transform:none}
 
 /* § 24.1 — a swatch (§ 3.36) beside each token name in the contrast pairs (v5.0.0): the pair reads at a glance.
    Swatch and name are one unit that never breaks across lines. */
@@ -3856,6 +3848,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
   border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-lg);
   background:var(--surface-raised);overflow:hidden;
 }
+.kit + .kit{margin-top:var(--s-6)}  /* two kits on one page (Navigation: Sidebar, Top bar) keep a gap, never one slab */
 .kit-stage{
   position:relative;min-width:0;min-height:calc(var(--s-32) * 2.5);
   display:flex;align-items:center;justify-content:center;padding:var(--s-10);
