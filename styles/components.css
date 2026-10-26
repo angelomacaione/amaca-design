@@ -3619,7 +3619,10 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
    same scale, faster: the Lightbox's entrance, so the two centred overlays arrive alike (v5.3.0). */
 .modal{
   width:calc(100% - var(--s-8));max-width:var(--w-modal);max-height:calc(100vh - var(--s-8));overflow:auto;
-  margin:auto;padding:var(--s-6);
+  /* centred on the viewport's own middle, 50vw · 50vh, which a classic scrollbar does not move: the scroll lock hides
+     the scrollbar while the modal is open and it comes back as the panel fades, so a panel centred in the narrower
+     box slid 5px on close (v5.3.0). The scale of the motion stays on transform; the centring is on translate. */
+  inset:auto;left:50vw;top:50vh;translate:-50% -50%;margin:0;padding:var(--s-6);
   background:var(--obsidian-800);color:var(--obsidian-100);
   border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);box-shadow:var(--sh-4);
   font-family:var(--font-sans);
@@ -3641,7 +3644,6 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .modal[open]::backdrop{background:var(--scrim);backdrop-filter:blur(var(--blur-veil));transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete}
 @starting-style{.modal[open]::backdrop{background:transparent}}
 body:has(.modal:modal){overflow:hidden}  /* only a modal opened with showModal() locks the page; the inline demo (static `open`) must not */
-:root:has(.modal:modal){scrollbar-gutter:stable}  /* the lock hides a classic scrollbar: its gutter stays, so the page and the closing modal do not shift sideways when it comes back (v5.3.0) */
 .modal-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-4)}
 .modal-head .btn-icon{flex:none}  /* the glyph sits on the content edge, level with the title; the 32px target reaches into the padding */
 .modal-head .btn-icon:focus-visible{outline-offset:calc(-1 * var(--focus-width));box-shadow:none}  /* the ring stays inside the button, without the halo: the one place the ring leaves the standard offset */
@@ -3763,10 +3765,17 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 
 /* site-only: a modal drawn open inside a frame, so the page can show it without taking over the screen */
 .modal-demo{position:relative;display:flex;align-items:center;justify-content:center;min-height:var(--s-24);padding:var(--s-8);overflow:hidden;background:var(--obsidian-950);border:var(--bw-1) solid var(--obsidian-800);border-radius:var(--r-lg)}
-.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);backdrop-filter:blur(var(--blur-veil));z-index:1}
-.modal-demo .modal{position:relative;inset:auto;margin:0;opacity:1;transform:none;transition:none;z-index:2}
-.modal-demo.is-closed::before{display:none}
+.modal-demo::before{content:"";position:absolute;inset:0;background:var(--scrim);backdrop-filter:blur(var(--blur-veil));z-index:1;transition:opacity var(--d-quick) var(--ease-decel)}
+/* The anatomy frame moves as the real Modal does (v5.3.0): in, the panel grows from 0.96 and fades in over the scrim;
+   out, the same on --d-quick · --ease-accel. It plays once when the frame comes into view, and on Open / Close. */
+.modal-demo .modal{position:relative;inset:auto;translate:none;margin:0;z-index:2;
+  transition:opacity var(--d-quick) var(--ease-accel),transform var(--d-quick) var(--ease-accel),visibility var(--d-quick) var(--ease-accel)}
+.modal-demo .modal[open]{opacity:1;transform:none;
+  transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-base) var(--ease-decel),visibility var(--d-quick) var(--ease-decel)}
+.modal-demo.is-closed::before{opacity:0;transition-timing-function:var(--ease-accel)}
 .modal-demo .modal:not([open]){display:block;visibility:hidden}
+.modal-demo.is-snap::before,.modal-demo.is-snap .modal{transition:none}
+@media (prefers-reduced-motion:reduce){.modal-demo::before,.modal-demo .modal{transition:none}}
 .modal-demo > .drawer-demo-open{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center}
 
 
@@ -3899,7 +3908,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 /* What a component keeps closed, hidden or fixed, laid open in place: the menu apart from its field */
 .kit-stage :is(.select-menu,.tp-popover,.dp-popover)[hidden]{display:block}
 .kit-stage :is(.select-menu,.tp-popover,.dp-popover){position:static;margin-top:var(--s-6);max-height:none;opacity:1;transform:none;pointer-events:auto}
-.kit-stage > :is(.modal,.popover){display:block;position:static;inset:auto;margin:0;opacity:1;transform:none}
+.kit-stage > :is(.modal,.popover){display:block;position:static;inset:auto;translate:none;margin:0;opacity:1;transform:none}
 .kit-stage > .tooltip{position:static;transform:none}
 .kit-stage-right > .drawer{display:flex;position:static;width:65%;height:auto;transform:none}
 .kit-stage-left > .sidebar{position:static;width:60%;height:auto;transform:none;box-shadow:none;z-index:auto}
