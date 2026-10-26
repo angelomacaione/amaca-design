@@ -436,7 +436,8 @@
       "registryDependencies": [
         "https://www.amaca.design/r/amaca-tokens.json",
         "https://www.amaca.design/r/button.json",
-        "https://www.amaca.design/r/icon.json"
+        "https://www.amaca.design/r/icon.json",
+        "https://www.amaca.design/r/list.json"
       ],
       "files": [
         {

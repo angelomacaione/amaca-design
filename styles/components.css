@@ -3910,7 +3910,7 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .kit-stage :is(.select-menu,.tp-popover,.dp-popover){position:static;margin-top:var(--s-6);max-height:none;opacity:1;transform:none;pointer-events:auto}
 .kit-stage > :is(.modal,.popover){display:block;position:static;inset:auto;translate:none;margin:0;opacity:1;transform:none}
 .kit-stage > .tooltip{position:static;transform:none}
-.kit-stage-right > .drawer{display:flex;position:static;width:65%;height:auto;transform:none}
+:is(.kit-stage-left,.kit-stage-right) > .drawer{display:flex;position:static;width:65%;height:auto;transform:none}
 .kit-stage-left > .sidebar{position:static;width:60%;height:auto;transform:none;box-shadow:none;z-index:auto}
 .kit-stage-top > .navbar{position:static;width:100%}
 .kit-wide{grid-template-columns:1fr}
