@@ -13,6 +13,8 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
   B5  a link inside a demo never moves the page (Pagination's Next jumped to the top of its section)
   B6  an elbow never falls on a box's line (an edge ran along a group's border)
   B7  a field's value sits in its middle (the native select's value sat 2px high)
+  B8  the Floating bar's strips and pages read like the Top navigation's: same height at every tab, the bar alone in
+      its strip (the strip showed the page's cards under a pill, at another height)
 
 The page is opened from disk with every network request refused, as the owner opens it, and with a classic
 scrollbar where a scrollbar can matter. Run it alone (exit 1 on a failure) or through review-sheet.py.
@@ -232,12 +234,31 @@ def b7_centred(b, fails):
     ctx.close()
 
 
+def b8_bar_strips(b, fails):
+    ctx, pg, _ = open_at(b, 1440, 1000, "navigation")
+    for k, tab in (("desktop", "Desktop"), ("tablet", "Tablet"), ("mobile", "Mobile")):
+        pg.evaluate("""(t) => document.querySelectorAll('#navigation :is([data-navbar-demo-scope],[data-navbar-floating-scope]) .tab').forEach(b => { if (b.textContent.startsWith(t)) b.click(); })""", tab)
+        pg.wait_for_timeout(1500)
+        r = pg.evaluate("""() => { const h = (s, q) => { const e = document.querySelector('#navigation ' + s + ' ' + q); return e ? Math.round(e.getBoundingClientRect().height) : -1; };
+          const strip = s => h(s, '.tab-panel.active .device-preview'), page = s => h(s, '.navbar-demo-stage .device-preview');
+          const f = document.querySelector('#navigation [data-navbar-floating-scope] .tab-panel.active iframe');
+          const extra = f && f.contentDocument ? f.contentDocument.querySelectorAll('body > :not(header):not(style):not(script)').length : 0;
+          return { ts: strip('[data-navbar-demo-scope]'), fs: strip('[data-navbar-floating-scope]'), tp: page('[data-navbar-demo-scope]'), fp: page('[data-navbar-floating-scope]'), extra }; }""")
+        if k != "mobile" and abs(r["ts"] - r["fs"]) > 1:
+            fails.append(f"B8 {k}: the floating bar's strip is {r['fs']}px, the top bar's {r['ts']}px")
+        if abs(r["tp"] - r["fp"]) > 1:
+            fails.append(f"B8 {k}: the floating bar's page is {r['fp']}px, the top bar's {r['tp']}px")
+        if r["extra"]:
+            fails.append(f"B8 {k}: the floating bar's strip shows page content under the bar")
+    ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips)):
             if not only or name in only:
                 fn(b, fails)
         b.close()
