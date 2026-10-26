@@ -7,8 +7,7 @@
   "registryDependencies": [
     "https://www.amaca.design/r/amaca-tokens.json",
     "https://www.amaca.design/r/button.json",
-    "https://www.amaca.design/r/icon.json",
-    "https://www.amaca.design/r/list.json"
+    "https://www.amaca.design/r/icon.json"
   ],
   "files": [
     {
@@ -21,7 +20,7 @@
       "path": "amaca/drawer.html",
       "type": "registry:file",
       "target": "components/amaca/drawer.html",
-      "content": "<dialog class=\"drawer drawer-nav drawer-start\" aria-labelledby=\"kit-drawer-title\"><div class=\"drawer-head\"><h2 class=\"drawer-title\" id=\"kit-drawer-title\">Menu</h2><button class=\"btn btn-ghost btn-sm btn-icon\" type=\"button\" aria-label=\"Close\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3.5 3.5l9 9M12.5 3.5l-9 9\"/></svg></button></div><nav class=\"drawer-body\" aria-label=\"Main\"><p class=\"drawer-label\">Work</p><ul class=\"list\"><li><a class=\"list-item\" href=\"#\" aria-current=\"page\"><span class=\"list-body\"><span class=\"list-title\">Case studies</span></span></a></li><li><a class=\"list-item\" href=\"#\"><span class=\"list-body\"><span class=\"list-title\">Playground</span></span></a></li></ul><p class=\"drawer-label\">About</p><ul class=\"list\"><li><a class=\"list-item\" href=\"#\"><span class=\"list-body\"><span class=\"list-title\">Profile</span></span></a></li></ul></nav></dialog>\n"
+      "content": "<dialog class=\"drawer\" aria-labelledby=\"kit-drawer-title\"><div class=\"drawer-head\"><h2 class=\"drawer-title\" id=\"kit-drawer-title\">Release notes</h2><button class=\"btn btn-ghost btn-sm btn-icon\" type=\"button\" aria-label=\"Close\"><svg class=\"icon\" viewBox=\"0 0 16 16\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M3.5 3.5l9 9M12.5 3.5l-9 9\"/></svg></button></div><div class=\"drawer-body\"><p>Two new tokens, one renamed. The full list is below.</p></div><div class=\"drawer-foot\"><button class=\"btn btn-secondary btn-sm\" type=\"button\">Close</button></div></dialog>\n"
     }
   ],
   "meta": {
@@ -101,19 +100,22 @@
         {
           "name": "Body",
           "tokens": [
+            "--obsidian-200",
+            "--t-body",
             "--pad",
-            "--s-2"
+            "--s-4"
           ],
           "value": "",
           "states": ""
         },
         {
-          "name": "Group label",
+          "name": "Foot",
           "tokens": [
-            "--obsidian-300",
-            "--font-mono",
-            "--t-micro",
-            "--tr-mono"
+            "--bw-1",
+            "--obsidian-700",
+            "--s-4",
+            "--pad",
+            "--s-2"
           ],
           "value": "",
           "states": ""

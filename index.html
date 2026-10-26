@@ -4686,8 +4686,8 @@ button.chip:disabled{
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>A menu or a few groups of links that open from the edge: the main navigation on a small screen.</li><li>Text or details of one item that need the full height: release notes, the facts of a row.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A decision to answer before going on, or a short form &rarr; Modal.</li><li>A long form, or work that deserves its own address &rarr; a page.</li><li>A panel that stays beside the page &rarr; a layout, not a Drawer.</li><li>Short text tied to one button &rarr; Popover.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 28.1</span></div>
-          <p class="subsection-desc">The menu drawer, leaning on the left edge as it does on a small screen, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:drawer --><div class="kit" data-kit="drawer" data-kit-file="amaca-drawer.html"><div class="kit-stage kit-stage-left" inert><dialog class="drawer drawer-nav drawer-start" aria-labelledby="kit-drawer-title"><div class="drawer-head"><h2 class="drawer-title" id="kit-drawer-title">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" aria-current="page"><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#"><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#"><span class="list-body"><span class="list-title">Profile</span></span></a></li></ul></nav></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-drawer-anatomy-tab" aria-selected="true" aria-controls="kit-drawer-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-drawer-code-tab" aria-selected="false" aria-controls="kit-drawer-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-drawer-anatomy" aria-labelledby="kit-drawer-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --sh-3 --pad</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--pad --s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--pad --s-2</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Group label</span><span class="kit-main">--obsidian-300 --font-mono --t-micro --tr-mono</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-accel</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-drawer-code" aria-labelledby="kit-drawer-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;drawer drawer-nav drawer-start&quot; aria-labelledby=&quot;kit-drawer-title&quot;&gt;&lt;div class=&quot;drawer-head&quot;&gt;&lt;h2 class=&quot;drawer-title&quot; id=&quot;kit-drawer-title&quot;&gt;Menu&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;nav class=&quot;drawer-body&quot; aria-label=&quot;Main&quot;&gt;&lt;p class=&quot;drawer-label&quot;&gt;Work&lt;/p&gt;&lt;ul class=&quot;list&quot;&gt;&lt;li&gt;&lt;a class=&quot;list-item&quot; href=&quot;#&quot; aria-current=&quot;page&quot;&gt;&lt;span class=&quot;list-body&quot;&gt;&lt;span class=&quot;list-title&quot;&gt;Case studies&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class=&quot;list-item&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;list-body&quot;&gt;&lt;span class=&quot;list-title&quot;&gt;Playground&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p class=&quot;drawer-label&quot;&gt;About&lt;/p&gt;&lt;ul class=&quot;list&quot;&gt;&lt;li&gt;&lt;a class=&quot;list-item&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;list-body&quot;&gt;&lt;span class=&quot;list-title&quot;&gt;Profile&lt;/span&gt;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">.drawer-head{
+          <p class="subsection-desc">The drawer, leaning on the right edge as it does on the page, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <!-- kit:drawer --><div class="kit" data-kit="drawer" data-kit-file="amaca-drawer.html"><div class="kit-stage kit-stage-right" inert><dialog class="drawer" aria-labelledby="kit-drawer-title"><div class="drawer-head"><h2 class="drawer-title" id="kit-drawer-title">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>Two new tokens, one renamed. The full list is below.</p></div><div class="drawer-foot"><button class="btn btn-secondary btn-sm" type="button">Close</button></div></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-drawer-anatomy-tab" aria-selected="true" aria-controls="kit-drawer-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-drawer-code-tab" aria-selected="false" aria-controls="kit-drawer-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-drawer-anatomy" aria-labelledby="kit-drawer-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --sh-3 --pad</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--pad --s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-body --pad --s-4</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Foot</span><span class="kit-main">--bw-1 --obsidian-700 --s-4 --pad --s-2</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-accel</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-drawer-code" aria-labelledby="kit-drawer-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;drawer&quot; aria-labelledby=&quot;kit-drawer-title&quot;&gt;&lt;div class=&quot;drawer-head&quot;&gt;&lt;h2 class=&quot;drawer-title&quot; id=&quot;kit-drawer-title&quot;&gt;Release notes&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;drawer-body&quot;&gt;&lt;p&gt;Two new tokens, one renamed. The full list is below.&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;drawer-foot&quot;&gt;&lt;button class=&quot;btn btn-secondary btn-sm&quot; type=&quot;button&quot;&gt;Close&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">.drawer-head{
   margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-10</b>)) / 2);
 }
 .drawer-head{
@@ -4728,15 +4728,6 @@ button.chip:disabled{
   transform:none;
   transition-timing-function:var(<b>--ease-decel</b>);
 }
-.drawer-start{
-  inset:0 auto 0 0;
-  transform:translateX(-100%);
-}
-.drawer-nav{
-  --pad:var(<b>--s-4</b>);
-  width:min(100%, calc(30ch + 2 * var(<b>--pad</b>)));
-  font-size:var(<b>--t-lead</b>);
-}
 .drawer::backdrop{
   background:transparent;
   transition:background var(<b>--d-base</b>) var(<b>--ease-accel</b>), overlay var(<b>--d-base</b>) var(<b>--ease-accel</b>) allow-discrete, display var(<b>--d-base</b>) var(<b>--ease-accel</b>) allow-discrete;
@@ -4774,19 +4765,14 @@ button.chip:disabled{
 .drawer-body &gt; p{
   margin:0;
 }
-.drawer-nav .drawer-body{
+.drawer-foot{
+  flex:none;
+  display:flex;
+  justify-content:flex-end;
+  flex-wrap:wrap;
   gap:var(<b>--s-2</b>);
-}
-.drawer-label{
-  margin:var(<b>--s-4</b>) 0 0;
-  font-family:var(<b>--font-mono</b>);
-  font-size:var(<b>--t-micro</b>);
-  letter-spacing:var(<b>--tr-mono</b>);
-  text-transform:uppercase;
-  color:var(<b>--obsidian-300</b>);
-}
-.drawer-label:first-child{
-  margin-top:0;
+  padding:var(<b>--s-4</b>) var(<b>--pad</b>);
+  border-top:var(<b>--bw-1</b>) solid var(<b>--obsidian-700</b>);
 }
 @media (max-width:480px){
   .drawer{
@@ -4794,7 +4780,7 @@ button.chip:disabled{
   }
 }
 @media (prefers-reduced-motion:reduce){
-  .drawer, .drawer[open], .drawer-start, .drawer-start[open]{
+  .drawer, .drawer[open]{
     transition:none;
     transform:none;
   }
@@ -4812,11 +4798,13 @@ button.chip:disabled{
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Try it</h2><span class="subsection-num">§ 28.3</span></div>
-          <p class="subsection-desc">A real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>, like the modal: focus is trapped, the page behind is inert, Esc or a click on the scrim closes it, and focus returns to the button. The menu drawer is tried on the Navigation page.</p>
+          <p class="subsection-desc">A real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>, like the modal: focus is trapped, the page behind is inert, Esc or a click on the scrim closes it, and focus returns to the button. A link of the menu closes it too; Navigation &rsaquo; Menu on a small screen shows the same menu where it belongs.</p>
           <div style="display:flex;flex-wrap:wrap;gap:var(--s-3)">
+            <button class="btn btn-secondary" type="button" data-modal-open="drawer-try-menu">Open menu</button>
             <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-notes">Open notes</button>
             <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-wide">Open wide notes</button>
           </div>
+          <dialog class="drawer drawer-nav drawer-start" id="drawer-try-menu" aria-labelledby="drawer-try-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-try-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" aria-current="page" data-modal-close><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog>
           <dialog class="drawer" id="drawer-live-notes" aria-labelledby="drawer-live-notes-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-notes-t">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>v5.0.0 re-architects the components one at a time: each one is approved on a render before anything is written to the repo.</p><p>Slider, Divider, Skeleton, Popover and Drawer are new. Text input gains an icon and an action.</p><p class="drawer-label">Breaking</p><p>The date and time pickers lose <code>.dp-icon-btn</code> in favour of <code>.input-action</code>.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div></dialog>
           <dialog class="drawer drawer-wide" id="drawer-live-wide" aria-labelledby="drawer-live-wide-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-wide-t">Migration guide</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>The wide drawer holds text with longer lines: a guide, a diff, a table of renamed classes. It keeps the same edge, the same scrim and the same motion; only the width grows, to 60ch plus the padding.</p><p>Read it top to bottom, then close it and the page is where you left it.</p></div><div class="drawer-foot"><button class="btn btn-secondary" type="button" data-modal-close>Close</button></div></dialog>
         </div>
@@ -4925,7 +4913,126 @@ button.chip:disabled{
         <div class="usage"><div class="usage-col"><div class="hd">Use it when</div><ul><li>The sidebar for documentation; the top bar for marketing.</li><li>The sidebar when there are more than five destinations.</li></ul></div><div class="usage-col"><div class="hd">Use something else when</div><ul><li>A linear journey with an order → Stepper.</li></ul></div></div>
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 30.1</span></div>
-          <p class="subsection-desc">The sidebar and the top bar, each leaning on its edge, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <p class="subsection-desc">The top bar and the sidebar, each leaning on its edge, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
+          <!-- kit:navbar --><div class="kit kit-wide" data-kit="navbar" data-kit-file="amaca-navbar.html"><div class="kit-stage kit-stage-top" inert><header class="navbar"><a class="navbar-brand" href="#">Studio</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li></ul></nav><div class="navbar-end"><a class="btn btn-primary btn-sm" href="#">Contact</a><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu" aria-expanded="false"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-navbar-anatomy-tab" aria-selected="true" aria-controls="kit-navbar-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-navbar-code-tab" aria-selected="false" aria-controls="kit-navbar-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-navbar-anatomy" aria-labelledby="kit-navbar-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Bar</span><span class="kit-main">--s-8</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Veil</span><span class="kit-main">--surface-bar --blur-bar</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Brand</span><span class="kit-main">--obsidian-100 --t-body --tr-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Item</span><span class="kit-main">--obsidian-200 --t-small<span class="kit-sub">hover --obsidian-050 · pressed --obsidian-300 · current --primary-400</span></span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Actions</span><span class="kit-main">--s-3</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Focus</span><span class="kit-main">--focus-width --obsidian-100 --ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-navbar-code" aria-labelledby="kit-navbar-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;header class=&quot;navbar&quot;&gt;&lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Studio&lt;/a&gt;&lt;nav class=&quot;navbar-nav&quot; aria-label=&quot;Main&quot;&gt;&lt;ul class=&quot;navbar-list&quot;&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; aria-current=&quot;page&quot; data-label=&quot;Work&quot;&gt;Work&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; data-label=&quot;About&quot;&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; data-label=&quot;Journal&quot;&gt;Journal&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;div class=&quot;navbar-end&quot;&gt;&lt;a class=&quot;btn btn-primary btn-sm&quot; href=&quot;#&quot;&gt;Contact&lt;/a&gt;&lt;button class=&quot;btn btn-ghost btn-icon navbar-toggle&quot; type=&quot;button&quot; aria-label=&quot;Menu&quot; aria-expanded=&quot;false&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M2 4h12M2 8h12M2 12h12&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;</pre><pre class="kit-code" data-kit-part="css">.navbar{
+  container-type:inline-size;
+  position:sticky;
+  top:0;
+  z-index:var(<b>--z-sticky</b>);
+  display:flex;
+  align-items:stretch;
+  gap:var(<b>--s-8</b>);
+  min-block-size:var(<b>--s-12</b>);
+  padding-inline:0;
+  background:transparent;
+  border-radius:0;
+  color:var(<b>--obsidian-100</b>);
+}
+.navbar::before{
+  content:&quot;&quot;;
+  position:absolute;
+  inset:0 0 calc(-1 * var(<b>--s-6</b>));
+  z-index:-1;
+  pointer-events:none;
+  background:linear-gradient(var(<b>--surface-bar</b>), transparent);
+  backdrop-filter:blur(var(<b>--blur-bar</b>));
+  -webkit-backdrop-filter:blur(var(<b>--blur-bar</b>));
+  -webkit-mask-image:linear-gradient(black 55%, transparent);
+  mask-image:linear-gradient(black 55%, transparent);
+}
+.navbar-brand{
+  padding-inline-start:var(<b>--s-6</b>);
+  display:flex;
+  align-items:center;
+  gap:var(<b>--s-3</b>);
+  flex:none;
+  color:var(<b>--obsidian-100</b>);
+  font-size:var(<b>--t-body</b>);
+  font-weight:700;
+  letter-spacing:var(<b>--tr-snug</b>);
+  text-decoration:none;
+}
+.navbar-nav{
+  display:flex;
+  align-items:stretch;
+}
+.navbar-list{
+  display:flex;
+  align-items:stretch;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.navbar-list &gt; li{
+  display:flex;
+}
+.navbar-item{
+  display:inline-flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding-inline:var(<b>--s-4</b>);
+  color:var(<b>--obsidian-200</b>);
+  font-size:var(<b>--t-small</b>);
+  font-weight:500;
+  text-decoration:none;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:color var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
+}
+.navbar-item::after{
+  content:attr(data-label);
+  height:0;
+  overflow:hidden;
+  visibility:hidden;
+  font-weight:600;
+  pointer-events:none;
+}
+.navbar-item:hover{
+  color:var(<b>--obsidian-050</b>);
+}
+.navbar-item:active{
+  color:var(<b>--obsidian-300</b>);
+}
+.navbar-item[aria-current=&quot;page&quot;]{
+  color:var(<b>--primary-400</b>);
+  font-weight:600;
+}
+.navbar-item[aria-current=&quot;page&quot;]:hover{
+  color:var(<b>--primary-400</b>);
+}
+.navbar-item:focus-visible{
+  outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
+  outline-offset:calc(-1 * var(<b>--focus-width</b>));
+  box-shadow:var(<b>--ring-halo</b>);
+}
+.navbar-end{
+  padding-inline-end:var(<b>--s-6</b>);
+  display:flex;
+  align-items:center;
+  gap:var(<b>--s-3</b>);
+  margin-left:auto;
+  flex:none;
+}
+.navbar-toggle{
+  display:none;
+}
+.navbar-end &gt; .navbar-toggle{
+  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-10</b>)) / 2);
+}
+@media (pointer:coarse){
+  .navbar-end &gt; .navbar-toggle{
+    margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--target-touch</b>)) / 2);
+  }
+}
+@container (max-width: 720px){
+  .navbar-nav{
+    display:none;
+  }
+  .navbar-toggle{
+    display:inline-flex;
+  }
+}</pre></div></div></div><!-- /kit:navbar -->
           <!-- kit:sidebar --><div class="kit" data-kit="sidebar" data-kit-file="amaca-sidebar.html"><div class="kit-stage kit-stage-left" inert><aside class="sidebar" aria-label="Components"><div class="nav-group has-active"><span class="nav-indicator" aria-hidden="true"></span><div class="nav-label">Inputs</div><a class="nav-item" href="#"><span class="num">11</span> Checkbox</a><a class="nav-item active" href="#" aria-current="page"><span class="num">12</span> Radio</a><a class="nav-item" href="#"><span class="num">13</span> Switch</a><a class="nav-item" href="#"><span class="num">14</span> Slider</a></div></aside></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-sidebar-anatomy-tab" aria-selected="true" aria-controls="kit-sidebar-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-sidebar-code-tab" aria-selected="false" aria-controls="kit-sidebar-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-sidebar-anatomy" aria-labelledby="kit-sidebar-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Bar</span><span class="kit-main">--surface-bar --blur-bar</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Group label</span><span class="kit-main">--obsidian-300 --font-mono --t-micro --tr-mono</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Group mark</span><span class="kit-main">--primary-500</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Item</span><span class="kit-main">--obsidian-200 --t-small --r-md --s-2 --s-3<span class="kit-sub">hover --obsidian-050 · pressed --obsidian-300 · current --obsidian-100 --primary-500 --tint-fill --secondary-500 --tint-faint --bw-1 --tint-glow</span></span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Indicator</span><span class="kit-main">--primary-500 --r-xs --bw-2 --s-4 --d-quick --ease-standard</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Focus</span><span class="kit-main">--focus-width --obsidian-100 --focus-offset --ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-sidebar-code" aria-labelledby="kit-sidebar-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;aside class=&quot;sidebar&quot; aria-label=&quot;Components&quot;&gt;&lt;div class=&quot;nav-group has-active&quot;&gt;&lt;span class=&quot;nav-indicator&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;div class=&quot;nav-label&quot;&gt;Inputs&lt;/div&gt;&lt;a class=&quot;nav-item&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;num&quot;&gt;11&lt;/span&gt; Checkbox&lt;/a&gt;&lt;a class=&quot;nav-item active&quot; href=&quot;#&quot; aria-current=&quot;page&quot;&gt;&lt;span class=&quot;num&quot;&gt;12&lt;/span&gt; Radio&lt;/a&gt;&lt;a class=&quot;nav-item&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;num&quot;&gt;13&lt;/span&gt; Switch&lt;/a&gt;&lt;a class=&quot;nav-item&quot; href=&quot;#&quot;&gt;&lt;span class=&quot;num&quot;&gt;14&lt;/span&gt; Slider&lt;/a&gt;&lt;/div&gt;&lt;/aside&gt;</pre><pre class="kit-code" data-kit-part="css">.sidebar{
   position:sticky;
   top:0;
@@ -5049,125 +5156,6 @@ button.chip:disabled{
     display:none;
   }
 }</pre></div></div></div><!-- /kit:sidebar -->
-          <!-- kit:navbar --><div class="kit kit-wide" data-kit="navbar" data-kit-file="amaca-navbar.html"><div class="kit-stage kit-stage-top" inert><header class="navbar"><a class="navbar-brand" href="#">Studio</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li></ul></nav><div class="navbar-end"><a class="btn btn-primary btn-sm" href="#">Contact</a><button class="btn btn-ghost btn-icon navbar-toggle" type="button" aria-label="Menu" aria-expanded="false"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button></div></header></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-navbar-anatomy-tab" aria-selected="true" aria-controls="kit-navbar-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-navbar-code-tab" aria-selected="false" aria-controls="kit-navbar-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-navbar-anatomy" aria-labelledby="kit-navbar-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Bar</span><span class="kit-main">--s-8</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Veil</span><span class="kit-main">--surface-bar --blur-bar</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Brand</span><span class="kit-main">--obsidian-100 --t-body --tr-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Item</span><span class="kit-main">--obsidian-200 --t-small<span class="kit-sub">hover --obsidian-050 · pressed --obsidian-300 · current --primary-400</span></span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Actions</span><span class="kit-main">--s-3</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Focus</span><span class="kit-main">--focus-width --obsidian-100 --ring-halo</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-navbar-code" aria-labelledby="kit-navbar-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;header class=&quot;navbar&quot;&gt;&lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Studio&lt;/a&gt;&lt;nav class=&quot;navbar-nav&quot; aria-label=&quot;Main&quot;&gt;&lt;ul class=&quot;navbar-list&quot;&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; aria-current=&quot;page&quot; data-label=&quot;Work&quot;&gt;Work&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; data-label=&quot;About&quot;&gt;About&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a class=&quot;navbar-item&quot; href=&quot;#&quot; data-label=&quot;Journal&quot;&gt;Journal&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/nav&gt;&lt;div class=&quot;navbar-end&quot;&gt;&lt;a class=&quot;btn btn-primary btn-sm&quot; href=&quot;#&quot;&gt;Contact&lt;/a&gt;&lt;button class=&quot;btn btn-ghost btn-icon navbar-toggle&quot; type=&quot;button&quot; aria-label=&quot;Menu&quot; aria-expanded=&quot;false&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M2 4h12M2 8h12M2 12h12&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;</pre><pre class="kit-code" data-kit-part="css">.navbar{
-  container-type:inline-size;
-  position:sticky;
-  top:0;
-  z-index:var(<b>--z-sticky</b>);
-  display:flex;
-  align-items:stretch;
-  gap:var(<b>--s-8</b>);
-  min-block-size:var(<b>--s-12</b>);
-  padding-inline:0;
-  background:transparent;
-  border-radius:0;
-  color:var(<b>--obsidian-100</b>);
-}
-.navbar::before{
-  content:&quot;&quot;;
-  position:absolute;
-  inset:0 0 calc(-1 * var(<b>--s-6</b>));
-  z-index:-1;
-  pointer-events:none;
-  background:linear-gradient(var(<b>--surface-bar</b>), transparent);
-  backdrop-filter:blur(var(<b>--blur-bar</b>));
-  -webkit-backdrop-filter:blur(var(<b>--blur-bar</b>));
-  -webkit-mask-image:linear-gradient(black 55%, transparent);
-  mask-image:linear-gradient(black 55%, transparent);
-}
-.navbar-brand{
-  padding-inline-start:var(<b>--s-6</b>);
-  display:flex;
-  align-items:center;
-  gap:var(<b>--s-3</b>);
-  flex:none;
-  color:var(<b>--obsidian-100</b>);
-  font-size:var(<b>--t-body</b>);
-  font-weight:700;
-  letter-spacing:var(<b>--tr-snug</b>);
-  text-decoration:none;
-}
-.navbar-nav{
-  display:flex;
-  align-items:stretch;
-}
-.navbar-list{
-  display:flex;
-  align-items:stretch;
-  margin:0;
-  padding:0;
-  list-style:none;
-}
-.navbar-list &gt; li{
-  display:flex;
-}
-.navbar-item{
-  display:inline-flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  padding-inline:var(<b>--s-4</b>);
-  color:var(<b>--obsidian-200</b>);
-  font-size:var(<b>--t-small</b>);
-  font-weight:500;
-  text-decoration:none;
-  white-space:nowrap;
-  cursor:pointer;
-  transition:color var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
-}
-.navbar-item::after{
-  content:attr(data-label);
-  height:0;
-  overflow:hidden;
-  visibility:hidden;
-  font-weight:600;
-  pointer-events:none;
-}
-.navbar-item:hover{
-  color:var(<b>--obsidian-050</b>);
-}
-.navbar-item:active{
-  color:var(<b>--obsidian-300</b>);
-}
-.navbar-item[aria-current=&quot;page&quot;]{
-  color:var(<b>--primary-400</b>);
-  font-weight:600;
-}
-.navbar-item[aria-current=&quot;page&quot;]:hover{
-  color:var(<b>--primary-400</b>);
-}
-.navbar-item:focus-visible{
-  outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
-  outline-offset:calc(-1 * var(<b>--focus-width</b>));
-  box-shadow:var(<b>--ring-halo</b>);
-}
-.navbar-end{
-  padding-inline-end:var(<b>--s-6</b>);
-  display:flex;
-  align-items:center;
-  gap:var(<b>--s-3</b>);
-  margin-left:auto;
-  flex:none;
-}
-.navbar-toggle{
-  display:none;
-}
-.navbar-end &gt; .navbar-toggle{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-10</b>)) / 2);
-}
-@media (pointer:coarse){
-  .navbar-end &gt; .navbar-toggle{
-    margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--target-touch</b>)) / 2);
-  }
-}
-@container (max-width: 720px){
-  .navbar-nav{
-    display:none;
-  }
-  .navbar-toggle{
-    display:inline-flex;
-  }
-}</pre></div></div></div><!-- /kit:navbar -->
         </div>
 
         <div class="subsection">
@@ -5198,22 +5186,22 @@ button.chip:disabled{
         </div>
 
         <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Floating bar</h2><span class="subsection-num">§ 30.4</span></div>
+          <div class="subsection-head"><h2 class="subsection-title">Menu on a small screen</h2><span class="subsection-num">§ 30.4</span></div>
+          <p class="subsection-desc">Where the sidebar has no room, the same destinations open in a Drawer from the start edge: a real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>. Focus is trapped, Esc or a click on the scrim closes it, and a link of the menu closes it too.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--s-3)">
+            <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-menu">Open menu</button>
+          </div>
+          <dialog class="drawer drawer-nav drawer-start" id="drawer-live-menu" aria-labelledby="drawer-live-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" aria-current="page" data-modal-close><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog>
+        </div>
+
+        <div class="subsection">
+          <div class="subsection-head"><h2 class="subsection-title">Floating bar</h2><span class="subsection-num">§ 30.5</span></div>
           <p class="subsection-desc">The same bar lifted off the page. Wide, one pill at the top with the brand, the destinations and the action; on a phone, the brand and the action stay at the top of the page and the destinations float in a pill at the bottom, where the thumb is. Two real pages at two widths: scroll each one. Component spec: § 3.26 in the contract.</p>
           <template id="navbar-floating-page"><header class="navbar navbar-floating"><a class="navbar-brand" href="#"><span class="brand-mark"><img src="assets/avatar-mark.png" alt=""></span>studio</a><nav class="navbar-nav" aria-label="Main"><ul class="navbar-list"><li><a class="navbar-item" href="#" aria-current="page" data-label="Work">Work</a></li><li><a class="navbar-item" href="#" data-label="About">About</a></li><li><a class="navbar-item" href="#" data-label="Journal">Journal</a></li><li><a class="navbar-item" href="#" data-label="Contact">Contact</a></li></ul></nav><div class="navbar-end"><a class="btn btn-primary btn-sm" href="#">Book a call</a></div></header><main style="padding:var(--s-6) var(--s-4);display:grid;grid-template-columns:repeat(auto-fill, minmax(calc(var(--s-24) * 2), 1fr));gap:var(--s-4)"><div class="card"><div class="card-meta"><span>CS-020 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Orion &middot; Fleet console</h3></div><div class="card"><div class="card-meta"><span>CS-021 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Nova &middot; Onboarding</h3></div><div class="card"><div class="card-meta"><span>CS-022 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Atlas &middot; Token pipeline</h3></div><div class="card"><div class="card-meta"><span>CS-023 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Field &middot; Observability</h3></div><div class="card"><div class="card-meta"><span>CS-024 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Arc &middot; Automotive HMI</h3></div><div class="card"><div class="card-meta"><span>CS-025 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-950), var(--primary-700))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Vega &middot; Checkout</h3></div><div class="card"><div class="card-meta"><span>CS-026 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--obsidian-700), var(--obsidian-850))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Lyra &middot; Search</h3></div><div class="card"><div class="card-meta"><span>CS-027 &middot; 2026</span></div><div class="card-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg, var(--primary-800), var(--primary-500) 70%, var(--primary-300))"></div></div><h3 style="margin:0;font-size:var(--t-body)">Kite &middot; Settings</h3></div></main></template>
           <div class="navbar-demo-frames">
             <iframe class="navbar-demo-frame" data-navbar-floating-frame title="Floating bar on a wide screen" loading="lazy"></iframe>
             <iframe class="navbar-demo-frame navbar-demo-frame-phone" data-navbar-floating-frame title="Floating bar on a phone" loading="lazy"></iframe>
           </div>
-        </div>
-
-        <div class="subsection">
-          <div class="subsection-head"><h2 class="subsection-title">Menu on a small screen</h2><span class="subsection-num">§ 30.5</span></div>
-          <p class="subsection-desc">Where the sidebar has no room, the same destinations open in a Drawer from the start edge: a real <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>. Focus is trapped, Esc or a click on the scrim closes it, and a link of the menu closes it too.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:var(--s-3)">
-            <button class="btn btn-secondary" type="button" data-modal-open="drawer-live-menu">Open menu</button>
-          </div>
-          <dialog class="drawer drawer-nav drawer-start" id="drawer-live-menu" aria-labelledby="drawer-live-menu-t"><div class="drawer-head"><h2 class="drawer-title" id="drawer-live-menu-t">Menu</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close" data-modal-close><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><nav class="drawer-body" aria-label="Main"><p class="drawer-label">Work</p><ul class="list"><li><a class="list-item" href="#" aria-current="page" data-modal-close><span class="list-body"><span class="list-title">Case studies</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Design system</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Playground</span></span></a></li></ul><p class="drawer-label">About</p><ul class="list"><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Profile</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Writing</span></span></a></li><li><a class="list-item" href="#" data-modal-close><span class="list-body"><span class="list-title">Contact</span></span></a></li></ul></nav></dialog>
         </div>
 
         <div class="subsection">
@@ -8885,7 +8873,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. Containers become rules, every delay sits on the scale, and the system&rsquo;s text holds inside any host.</p>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Layout › Containers — layout rules, and the registry&rsquo;s fifth state, <code>rule</code>.</strong> A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site&rsquo;s § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.</li><li><strong style="color:var(--obsidian-100)">Component, organism, template, rule (§ 3.0).</strong> An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under <em>Applied</em>).</li><li><strong style="color:var(--obsidian-100)">Pie has its own page (§ 45).</strong> A rail item opens one component, never a family page; the pages after it move up one number.</li><li><strong style="color:var(--obsidian-100)">Choice groups and States rows.</strong> <code>fieldset.choice-group</code> names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.</li><li><strong style="color:var(--obsidian-100)"><code>.card-strip</code>, the row card&rsquo;s coloured edge.</strong> A <code>--bw-2</code> left edge in <code>--card-strip</code>, <code>--primary-500</code> or a semantic colour: the declared exception to inline symmetry.</li><li><strong style="color:var(--obsidian-100)"><code>.chart-bars</code>.</strong> Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from <code>--bp-sm</code> reads them at <code>--t-small</code>.</li><li><strong style="color:var(--obsidian-100)"><code>--slider-fill</code> and <code>--card-strip</code>, component tokens</strong> in <code>tokens.css</code> and the DTCG file.</li><li><strong style="color:var(--obsidian-100)">Diagrams compose along their arrows,</strong> a node, its edges, the nodes they reach, one <code>--d-instant</code> per step, with a Replay under each figure.</li><li><strong style="color:var(--obsidian-100)">The review sheet renders a hostile host and measures inline symmetry</strong> before every release.</li><li><strong style="color:var(--obsidian-100)">Every <code>check_compliance</code> finding names its law</strong> (<code>law</code>: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. <code>get_design_section</code> opens a path, a list of alternatives and a <code>(§ …)</code> suffix.</li><li><strong style="color:var(--obsidian-100)">Checks 110 to 114:</strong> inline symmetry, every delay on the scale, the body&rsquo;s text restated, the States rows and the disabled cursor, the containers as rules.</li></ul>
-                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">Removable chips leave, close up and count.</strong> A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the <code>+N</code> steps into sight as the count drops; a click on the <code>+N</code> shows them all. A round <code>.chip-add</code> at the end adds from a Menu: a new value joins the end, behind the <code>+N</code> when there is one (<code>+3</code> becomes <code>+4</code>), and a value taken out goes back to the Menu. The dismiss draws the close glyph at <code>--icon-xs</code> instead of a text &times;: its box ends on the padding edge, as the symmetry rule measures.</li><li><strong style="color:var(--obsidian-100)">The Modal no longer twitches on close.</strong> With a classic scrollbar the scroll lock hid it, and on close it came back while the panel was still fading: the viewport narrowed and the panel slid 5px left. The panel is now centred on 50vw · 50vh, which the scrollbar does not move, and the page behind it stays where it is.</li><li><strong style="color:var(--obsidian-100)">The Modal&rsquo;s anatomy frames move.</strong> They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.</li><li><strong style="color:var(--obsidian-100)">The menu drawer lives with Navigation.</strong> The Drawer&rsquo;s anatomy is now the menu drawer, on the start edge, in place of Release notes; the live menu moves to Navigation &rsaquo; Menu on a small screen (§ 30.5).</li><li><strong style="color:var(--obsidian-100)">The Pagination demos move in place.</strong> A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">Removable chips leave, close up and count.</strong> A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the <code>+N</code> steps into sight as the count drops; a click on the <code>+N</code> shows them all. A round <code>.chip-add</code> at the end adds from a Menu: a new value joins the end, behind the <code>+N</code> when there is one (<code>+3</code> becomes <code>+4</code>), and a value taken out goes back to the Menu. The dismiss draws the close glyph at <code>--icon-xs</code> instead of a text &times;: its box ends on the padding edge, as the symmetry rule measures.</li><li><strong style="color:var(--obsidian-100)">The Modal no longer twitches on close.</strong> With a classic scrollbar the scroll lock hid it, and on close it came back while the panel was still fading: the viewport narrowed and the panel slid 5px left. The panel is now centred on 50vw · 50vh, which the scrollbar does not move, and the page behind it stays where it is.</li><li><strong style="color:var(--obsidian-100)">The Modal&rsquo;s anatomy frames move.</strong> They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.</li><li><strong style="color:var(--obsidian-100)">The menu drawer lives with Navigation.</strong> Navigation gains Menu on a small screen (§ 30.4): the same live menu, where the sidebar has no room.</li><li><strong style="color:var(--obsidian-100)">The Pagination demos move in place.</strong> A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Dark text inside a host.</strong> A host&rsquo;s unlayered <code>body{color;font}</code> beat the base layer, and every text that inherits took the host&rsquo;s: 6,786 of them in a render of the site. The base layer says the body&rsquo;s text again on the body&rsquo;s children, <code>:where(body &gt; *)</code>, at zero specificity; the 5.2.0 restatement stays as a second defence.</li><li><strong style="color:var(--obsidian-100)"><code>check_compliance</code> flagged what the system prescribes:</strong> the reduced-motion kill-switch&rsquo;s <code>0.01ms</code> and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill&rsquo;s <code>verify-output.py</code> reads the same way.</li><li><strong style="color:var(--obsidian-100)">Cites that opened nothing</strong> ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.</li><li><strong style="color:var(--obsidian-100)">The bars&rsquo; labels met the bars</strong> under 330px of plot.</li><li><strong style="color:var(--obsidian-100)">The Toast&rsquo;s dismiss</strong> was squeezed by the browser&rsquo;s button padding.</li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li>No token changes its value.</li></ul>
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
