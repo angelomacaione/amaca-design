@@ -4334,6 +4334,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The menu drawer lives with Navigation.** Navigation gains Menu on a small screen (§ 30.5): the same live menu, where the sidebar has no room.
 - **The Pagination demos move in place.** A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.
 - **The Floating bar reads like the Top navigation.** Three device widths in tabs, then a page below that follows the tab, as tall as the top bar's; the Drawer page points to the menu where it lives, and the demo brand is invented. Both pages behind the bars are a grid of cards, which the bars read against.
+- **Charts draw when you reach them; an anatomy never moves.** Motion ships with the site (`assets/vendor`, MIT) instead of loading from a CDN, so a blocked CDN or a page opened from disk no longer leaves the line, its area and the bars undrawn. Each chart plays when a third of its subsection is in view, not when its section opens. Inside an Anatomy card nothing animates: no card rise, no chart draw, no diagram composition.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.

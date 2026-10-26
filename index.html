@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="styles/components.css?v=4b7ca247">
 
 <style id="__animations_inline">
-@media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.has-risen){opacity:0}}
+@media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.kit-stage *):not(.has-risen){opacity:0}}
 [data-fade]{opacity:0;transform:translateY(12px);transition:opacity var(--d-slow) var(--ease-decel), transform var(--d-slow) var(--ease-decel)}
 [data-fade].is-in{opacity:1;transform:translateY(0)}
 [data-fade-chart]{opacity:0;transform:translateY(16px) scale(0.98);transform-origin:center bottom;transition:opacity var(--d-scene) var(--ease-decel), transform var(--d-scene) var(--ease-decel)}
@@ -39,8 +39,13 @@ html{scroll-behavior:smooth}
   .law-rule{padding:var(--s-5) var(--s-5) var(--s-5) var(--s-6) !important;gap:var(--s-3) !important}
 }
 </style>
-<script type="module">
-  import { animate, stagger, inView } from "https://cdn.jsdelivr.net/npm/motion@11.15.0/+esm";
+<script src="assets/vendor/motion-11.15.0.js"></script>
+<script>
+// Motion 11.15.0 ships with the site (assets/vendor, MIT): a classic script, so neither a blocked CDN nor a page
+// opened from disk leaves the charts undrawn (v5.3.0).
+(function(){
+  if (!window.Motion) return;
+  const { animate, stagger, inView } = window.Motion;
 
   // Amaca motion tokens, read off :root at runtime — same pattern as § 21
   // diagrams. Single source: tokens.css. Parses --ease-* cubic-bezier()
@@ -85,6 +90,7 @@ html{scroll-behavior:smooth}
   };
 
   window.__motion = { animate: animateGated, stagger, inView, tokens, reduce: REDUCE };
+})();
 </script>
 </head>
 <body>
@@ -8884,7 +8890,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. Containers become rules, every delay sits on the scale, and the system&rsquo;s text holds inside any host.</p>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Layout › Containers — layout rules, and the registry&rsquo;s fifth state, <code>rule</code>.</strong> A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site&rsquo;s § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.</li><li><strong style="color:var(--obsidian-100)">Component, organism, template, rule (§ 3.0).</strong> An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under <em>Applied</em>).</li><li><strong style="color:var(--obsidian-100)">Pie has its own page (§ 45).</strong> A rail item opens one component, never a family page; the pages after it move up one number.</li><li><strong style="color:var(--obsidian-100)">Choice groups and States rows.</strong> <code>fieldset.choice-group</code> names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.</li><li><strong style="color:var(--obsidian-100)"><code>.card-strip</code>, the row card&rsquo;s coloured edge.</strong> A <code>--bw-2</code> left edge in <code>--card-strip</code>, <code>--primary-500</code> or a semantic colour: the declared exception to inline symmetry.</li><li><strong style="color:var(--obsidian-100)"><code>.chart-bars</code>.</strong> Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from <code>--bp-sm</code> reads them at <code>--t-small</code>.</li><li><strong style="color:var(--obsidian-100)"><code>--slider-fill</code> and <code>--card-strip</code>, component tokens</strong> in <code>tokens.css</code> and the DTCG file.</li><li><strong style="color:var(--obsidian-100)">Diagrams compose along their arrows,</strong> a node, its edges, the nodes they reach, one <code>--d-instant</code> per step, with a Replay under each figure.</li><li><strong style="color:var(--obsidian-100)">The review sheet renders a hostile host and measures inline symmetry</strong> before every release.</li><li><strong style="color:var(--obsidian-100)">Every <code>check_compliance</code> finding names its law</strong> (<code>law</code>: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. <code>get_design_section</code> opens a path, a list of alternatives and a <code>(§ …)</code> suffix.</li><li><strong style="color:var(--obsidian-100)">Checks 110 to 114:</strong> inline symmetry, every delay on the scale, the body&rsquo;s text restated, the States rows and the disabled cursor, the containers as rules.</li></ul>
-                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">Removable chips leave, close up and count.</strong> A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the <code>+N</code> steps into sight as the count drops; a click on the <code>+N</code> shows them all. A round <code>.chip-add</code> at the end adds from a Menu: a new value joins the end, behind the <code>+N</code> when there is one (<code>+3</code> becomes <code>+4</code>), and a value taken out goes back to the Menu. The dismiss draws the close glyph at <code>--icon-xs</code> instead of a text &times;: its box ends on the padding edge, as the symmetry rule measures.</li><li><strong style="color:var(--obsidian-100)">The Modal no longer twitches on close.</strong> With a classic scrollbar the scroll lock hid it, and on close it came back while the panel was still fading: the viewport narrowed and the panel slid 5px left. The panel is now centred on 50vw · 50vh, which the scrollbar does not move, and the page behind it stays where it is.</li><li><strong style="color:var(--obsidian-100)">The Modal&rsquo;s anatomy frames move.</strong> They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.</li><li><strong style="color:var(--obsidian-100)">The menu drawer lives with Navigation.</strong> Navigation gains Menu on a small screen (§ 30.5): the same live menu, where the sidebar has no room.</li><li><strong style="color:var(--obsidian-100)">The Pagination demos move in place.</strong> A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.</li><li><strong style="color:var(--obsidian-100)">The Floating bar reads like the Top navigation.</strong> Three device widths in tabs, then a page below that follows the tab, as tall as the top bar&rsquo;s; the Drawer page points to the menu where it lives, and the demo brand is invented. Both pages behind the bars are a grid of cards, which the bars read against.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">Removable chips leave, close up and count.</strong> A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the <code>+N</code> steps into sight as the count drops; a click on the <code>+N</code> shows them all. A round <code>.chip-add</code> at the end adds from a Menu: a new value joins the end, behind the <code>+N</code> when there is one (<code>+3</code> becomes <code>+4</code>), and a value taken out goes back to the Menu. The dismiss draws the close glyph at <code>--icon-xs</code> instead of a text &times;: its box ends on the padding edge, as the symmetry rule measures.</li><li><strong style="color:var(--obsidian-100)">The Modal no longer twitches on close.</strong> With a classic scrollbar the scroll lock hid it, and on close it came back while the panel was still fading: the viewport narrowed and the panel slid 5px left. The panel is now centred on 50vw · 50vh, which the scrollbar does not move, and the page behind it stays where it is.</li><li><strong style="color:var(--obsidian-100)">The Modal&rsquo;s anatomy frames move.</strong> They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.</li><li><strong style="color:var(--obsidian-100)">The menu drawer lives with Navigation.</strong> Navigation gains Menu on a small screen (§ 30.5): the same live menu, where the sidebar has no room.</li><li><strong style="color:var(--obsidian-100)">The Pagination demos move in place.</strong> A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.</li><li><strong style="color:var(--obsidian-100)">The Floating bar reads like the Top navigation.</strong> Three device widths in tabs, then a page below that follows the tab, as tall as the top bar&rsquo;s; the Drawer page points to the menu where it lives, and the demo brand is invented. Both pages behind the bars are a grid of cards, which the bars read against.</li><li><strong style="color:var(--obsidian-100)">Charts draw when you reach them; an anatomy never moves.</strong> Motion ships with the site (<code>assets/vendor</code>, MIT) instead of loading from a CDN, so a blocked CDN or a page opened from disk no longer leaves the line, its area and the bars undrawn. Each chart plays when a third of its subsection is in view, not when its section opens. Inside an Anatomy card nothing animates: no card rise, no chart draw, no diagram composition.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Dark text inside a host.</strong> A host&rsquo;s unlayered <code>body{color;font}</code> beat the base layer, and every text that inherits took the host&rsquo;s: 6,786 of them in a render of the site. The base layer says the body&rsquo;s text again on the body&rsquo;s children, <code>:where(body &gt; *)</code>, at zero specificity; the 5.2.0 restatement stays as a second defence.</li><li><strong style="color:var(--obsidian-100)"><code>check_compliance</code> flagged what the system prescribes:</strong> the reduced-motion kill-switch&rsquo;s <code>0.01ms</code> and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill&rsquo;s <code>verify-output.py</code> reads the same way.</li><li><strong style="color:var(--obsidian-100)">Cites that opened nothing</strong> ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.</li><li><strong style="color:var(--obsidian-100)">The bars&rsquo; labels met the bars</strong> under 330px of plot.</li><li><strong style="color:var(--obsidian-100)">The Toast&rsquo;s dismiss</strong> was squeezed by the browser&rsquo;s button padding.</li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li>No token changes its value.</li></ul>
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
@@ -10286,7 +10292,7 @@ if ('IntersectionObserver' in window) {
   const tok = (v) => css.getPropertyValue(v).trim();
   const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const STEP = ms('--d-instant'), MAX_STEPS = 8;
-  const cards = [...document.querySelectorAll(SEL)].filter((c) => !c.parentElement.closest(SEL));
+  const cards = [...document.querySelectorAll(SEL)].filter((c) => !c.parentElement.closest(SEL) && !c.closest('.kit-stage'));   // an anatomy never moves
   const fmt = (el, v) => (el.dataset.prefix || '') + Math.abs(v).toFixed(parseInt(el.dataset.decimals || '0', 10)) + (el.dataset.suffix || '');
   const curve = (tok('--ease-decel').match(/[\d.]+/g) || [0.16, 1, 0.3, 1]).map(Number);
   const ease = (t) => { // the count rides --ease-decel (Chart card, stat reveal), solved for x by bisection
@@ -10432,7 +10438,7 @@ if ('IntersectionObserver' in window) {
   }
 
   function setupPathLens(root){
-    root.querySelectorAll('[data-line-draw]').forEach(p => {
+    q(root, '[data-line-draw]').forEach(p => {
       if (!p._len){
         const len = p.getTotalLength();
         p._len = len;
@@ -10450,7 +10456,7 @@ if ('IntersectionObserver' in window) {
   }
 
   function captureBarGeom(root){
-    root.querySelectorAll('[data-bar-h]').forEach(r => {
+    q(root, '[data-bar-h]').forEach(r => {
       if (r._w == null){
         r._w = +r.getAttribute('width');
         r._x = +r.getAttribute('x');
@@ -10466,13 +10472,13 @@ if ('IntersectionObserver' in window) {
         }
       }
     });
-    root.querySelectorAll('[data-bar-v]').forEach(r => {
+    q(root, '[data-bar-v]').forEach(r => {
       if (r._h == null){
         r._h = +r.getAttribute('height');
         r._y = +r.getAttribute('y');
       }
     });
-    root.querySelectorAll('[data-pie-slice]').forEach(c => {
+    q(root, '[data-pie-slice]').forEach(c => {
       if (c._init == null){
         c._init = true;
         c._pct = +c.getAttribute('data-pie-pct') || 0;
@@ -10495,20 +10501,23 @@ if ('IntersectionObserver' in window) {
     els.forEach(el => io.observe(el));
   }
 
+  // An anatomy is a specimen, pinned: nothing inside a .kit-stage moves (v5.3.0).
+  function q(root, sel){ return Array.from(root.querySelectorAll(sel)).filter(el => !el.closest('.kit-stage')); }
+
   function reset(root){
-    root.querySelectorAll('[data-fade]').forEach(f => f.classList.remove('is-in'));
-    root.querySelectorAll('[data-fade-chart]').forEach(c => c.classList.remove('is-in'));
+    q(root, '[data-fade]').forEach(f => f.classList.remove('is-in'));
+    q(root, '[data-fade-chart]').forEach(c => c.classList.remove('is-in'));
     // Stepper and Progress (§ 3.30, § 3.18): the reveal is CSS; the replay drops .is-in here and run() adds it back
-    root.querySelectorAll('[data-reveal]').forEach(el => el.classList.remove('is-in'));
-    root.querySelectorAll('[data-line-draw]').forEach(p => {
+    q(root, '[data-reveal]').forEach(el => el.classList.remove('is-in'));
+    q(root, '[data-line-draw]').forEach(p => {
       // the dash comes back too: the last reveal cleared it, and a replay with no dash showed the line already drawn
       p.style.strokeDasharray = p._len;
       p.style.strokeDashoffset = p._len;
     });
-    root.querySelectorAll('[data-baseline-clip]').forEach(r => r.setAttribute('width', 0));
-    root.querySelectorAll('[data-area-fade]').forEach(a => { a.style.opacity = '0'; });
-    root.querySelectorAll('[data-line-dots] [data-dot]').forEach(c => c.setAttribute('r', 0));
-    root.querySelectorAll('[data-bar-h]').forEach(r => {
+    q(root, '[data-baseline-clip]').forEach(r => r.setAttribute('width', 0));
+    q(root, '[data-area-fade]').forEach(a => { a.style.opacity = '0'; });
+    q(root, '[data-line-dots] [data-dot]').forEach(c => c.setAttribute('r', 0));
+    q(root, '[data-bar-h]').forEach(r => {
       r.setAttribute('width', '0');
       if(r._label){
         // park the label just past the bar's origin (x + 4 padding)
@@ -10517,14 +10526,14 @@ if ('IntersectionObserver' in window) {
         r._label.style.opacity = '0';
       }
     });
-    root.querySelectorAll('[data-bar-v]').forEach(r => {
+    q(root, '[data-bar-v]').forEach(r => {
       r.setAttribute('height', '0');
       r.setAttribute('y', r._y + r._h);
     });
-    root.querySelectorAll('[data-pie-slice]').forEach(c => {
+    q(root, '[data-pie-slice]').forEach(c => {
       c.setAttribute('d', '');
     });
-    root.querySelectorAll('[data-pct-count]').forEach(el => {
+    q(root, '[data-pct-count]').forEach(el => {
       el.textContent = '0%';
     });
     void root.offsetWidth;
@@ -10540,33 +10549,33 @@ if ('IntersectionObserver' in window) {
     const decel = T.easeDecel;
     const spring = T.easeSpring;
 
-    const fades = root.querySelectorAll('[data-fade]');
+    const fades = q(root, '[data-fade]');
     fades.forEach((f, i) => {
       setTimeout(() => f.classList.add('is-in'), i * dInstant());
     });
 
     // Stepper and Progress: replay pattern (§ Code conventions) — reset above, flush, then .is-in after 50ms
-    const reveals = root.querySelectorAll('[data-reveal]');
+    const reveals = q(root, '[data-reveal]');
     if (reveals.length){
       reveals.forEach(el => getComputedStyle(el).opacity);
       setTimeout(() => revealInView(Array.from(reveals)), 50);
     }
 
-    const charts = root.querySelectorAll('[data-fade-chart]');
+    const charts = q(root, '[data-fade-chart]');
     charts.forEach((c, i) => setTimeout(() => c.classList.add('is-in'), (i + 1) * dInstant()));
 
     // The plot (§ 3.39), choreography E: each part waits for the one before it to read, never for it to end.
     // Baseline from --d-base; the line --d-slow after it; area and points --d-slow after the line starts;
     // points 220ms apart. Every duration and curve is a token; the 220ms step is composition.
     const tBase = T.dBase, tLine = T.dBase + T.dSlow, tFill = tLine + T.dSlow;
-    root.querySelectorAll('[data-baseline-clip]').forEach(r => {
+    q(root, '[data-baseline-clip]').forEach(r => {
       animate(0, +r.getAttribute('data-clip-w') || 650, {
         duration: T.dScene, ease: decel, delay: tBase,
         onUpdate: v => r.setAttribute('width', v.toFixed(1))
       });
     });
 
-    root.querySelectorAll('[data-line-draw]').forEach(p => {
+    q(root, '[data-line-draw]').forEach(p => {
       animate(p._len, 0, {
         duration: T.dDraw, ease: decel, delay: tLine,
         onUpdate: v => { p.style.strokeDashoffset = v; },
@@ -10574,14 +10583,14 @@ if ('IntersectionObserver' in window) {
       });
     });
 
-    root.querySelectorAll('[data-area-fade]').forEach(a => {
+    q(root, '[data-area-fade]').forEach(a => {
       animate(0, 1, {
         duration: T.dSlow, ease: T.easeSoft, delay: tFill,
         onUpdate: v => { a.style.opacity = v; }
       });
     });
 
-    root.querySelectorAll('[data-line-dots] [data-dot]').forEach((c, i) => {
+    q(root, '[data-line-dots] [data-dot]').forEach((c, i) => {
       const rTarget = +c.getAttribute('data-r');
       animate(0, rTarget, {
         duration: T.dBase, ease: spring, delay: tFill + i * T.dQuick,
@@ -10589,7 +10598,7 @@ if ('IntersectionObserver' in window) {
       });
     });
 
-    root.querySelectorAll('[data-bar-h]').forEach((r, i) => {
+    q(root, '[data-bar-h]').forEach((r, i) => {
       animate(0, 1, {
         duration: T.dScene, ease: decel, delay: 2 * T.dBase + i * T.dInstant,
         onUpdate: t => {
@@ -10605,7 +10614,7 @@ if ('IntersectionObserver' in window) {
       });
     });
 
-    root.querySelectorAll('[data-bar-v]').forEach((r, i) => {
+    q(root, '[data-bar-v]').forEach((r, i) => {
       animate(0, 1, {
         duration: T.dSlow, ease: decel, delay: 2 * T.dBase + i * T.dInstant,
         onUpdate: t => {
@@ -10619,7 +10628,7 @@ if ('IntersectionObserver' in window) {
     // pie / donut slices: draw around the ring with per-slice stagger.
     // Each slice is a rounded ring-segment <path>; we animate by sweeping the
     // end angle from the slice start to its target, rebuilding `d` each frame.
-    const pieSvgs = root.querySelectorAll('.pie');
+    const pieSvgs = q(root, '.pie');
     pieSvgs.forEach(svg => {
       const slices = svg.querySelectorAll('[data-pie-slice]');
       slices.forEach((c, i) => {
@@ -10647,7 +10656,7 @@ if ('IntersectionObserver' in window) {
     });
 
     // animate center totals with data-count-to if present
-    root.querySelectorAll('[data-pie-total][data-count-to]').forEach(t => {
+    q(root, '[data-pie-total][data-count-to]').forEach(t => {
       const target = +t.getAttribute('data-count-to');
       const decimals = +(t.getAttribute('data-decimals') || 0);
       animate(0, target, {
@@ -10660,16 +10669,21 @@ if ('IntersectionObserver' in window) {
 
 
   waitForMotion(M => {
-    // Initial auto-play: all subsections at once when scrolled into view
+    // Each part (a subsection, or the section when it has none) plays when a third of it is in view, not when its
+    // section opens: a chart below the fold would otherwise draw out of sight and arrive finished (v5.3.0). Opening
+    // the section sets every part to its start and arms it again.
+    const parts = viz => { const s = Array.from(viz.querySelectorAll('.subsection')); return s.length ? s : [viz]; };
+    function arm(viz){
+      parts(viz).forEach(p => {
+        if (p._stop) p._stop();
+        setupPathLens(p); captureBarGeom(p); reset(p);
+        p._stop = M.inView(p, () => { if (p._stop){ p._stop(); p._stop = null; } run(M, p); }, { amount: 0.3 });
+      });
+    }
     VIZ.forEach(viz => {
-      M.inView(viz, () => { run(M, viz); }, { amount: 0.15 });
-      // Tab activation → run whole section
+      if (viz.classList.contains('active')) arm(viz);
       new MutationObserver(muts => {
-        for (const m of muts) {
-          if (m.target === viz && viz.classList.contains('active')) {
-            setTimeout(() => run(M, viz), dInstant());
-          }
-        }
+        if (muts.some(m => m.target === viz) && viz.classList.contains('active')) arm(viz);
       }).observe(viz, {attributes:true, attributeFilter:['class']});
     });
 
@@ -10690,7 +10704,7 @@ if ('IntersectionObserver' in window) {
   setTimeout(() => {
     if (window.__motion) return;
     const play = root => {
-      const els = root.querySelectorAll('[data-reveal],[data-fade],[data-fade-chart]');
+      const els = q(root, '[data-reveal],[data-fade],[data-fade-chart]');
       els.forEach(e => e.classList.remove('is-in'));
       void root.offsetWidth;
       setTimeout(() => {
@@ -12952,7 +12966,7 @@ try {
   function prep(fig){
     const g = fig._g = groups(fig);
     if (!g) return;
-    if (reduce){ fig.setAttribute('data-anim', 'in'); return; }   // straight to rest
+    if (reduce || fig.closest('.kit-stage')){ fig.setAttribute('data-anim', 'in'); return; }   // straight to rest; an anatomy never moves
     const all = [...g.nodes, ...g.clusters, ...g.edges, ...g.elabels];
     all.forEach(el => {
       el.style.opacity = '0';
