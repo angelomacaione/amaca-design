@@ -570,6 +570,7 @@
   font-family:var(--font-sans);font-size:var(--t-small);color:var(--obsidian-100);
   cursor:pointer;transition:background var(--d-quick) var(--ease-standard);
 }
+.select-option[hidden]{display:none}   /* an option on offer later (the add chip's Menu) */
 .select-option:hover,.select-option:focus-visible{background:var(--obsidian-800);outline:none}
 .select-option[aria-selected="true"]{color:var(--primary-400)}
 /* Select · Menu (v5.0.0, § 3.11). One panel and one row for three uses: a value
@@ -1006,11 +1007,19 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 /* dismissible = the chip is static and the button is the only target */
 .chip-dismiss{
   all:unset;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
-  width:var(--s-4);height:var(--s-4);border-radius:var(--r-full);
+  width:var(--icon-xs);height:var(--icon-xs);border-radius:var(--r-full);
   color:var(--obsidian-300);line-height:var(--lh-tight);
   transition:color var(--d-quick) var(--ease-standard);
 }
 .chip-dismiss{position:relative}
+/* The dismiss is the close glyph at --icon-xs, its box the glyph's own square (v5.3.0): the mark ends on the padding
+   edge, as the label starts on the other one (§ Size › Inline symmetry). The text × it replaces was narrower than its
+   16px box and sat 4px in. */
+.chip-dismiss .icon{width:var(--icon-xs);height:var(--icon-xs)}
+.chip[hidden]{display:none}   /* a chip behind the +N */
+/* The add chip: a round + at the end of a removable collection, the trigger of a Menu of suggestions (v5.3.0). */
+.chip-add{justify-content:center;aspect-ratio:1;padding:var(--s-1);color:var(--obsidian-200);cursor:pointer}
+.chip-add .icon{width:var(--icon-xs);height:var(--icon-xs)}
 .chip-dismiss::before{content:"";position:absolute;top:50%;left:50%;width:var(--target-touch);height:var(--target-touch);transform:translate(-50%,-50%)}
 .chip-dismiss:hover{color:var(--obsidian-100)}
 .chip-dismiss:focus-visible{
@@ -1366,6 +1375,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .nav-item:focus-visible,
 .menu-toggle:focus-visible,
 .chip:focus-visible,
+.chip-add:focus-visible,
 .tab:focus-visible,
 .segmented-item:focus-visible,
 .select-trigger:focus-visible,

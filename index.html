@@ -12,7 +12,7 @@
 
 <script>window.dInstant=function(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--d-instant'))||100};document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
 <link rel="stylesheet" href="styles/tokens.css?v=573ac328">
-<link rel="stylesheet" href="styles/components.css?v=45312fb5">
+<link rel="stylesheet" href="styles/components.css?v=563b3edf">
 
 <style id="__animations_inline">
 @media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.has-risen){opacity:0}}
@@ -1087,6 +1087,10 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Chip</td><td>select</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>deselect</td><td class="muted">border-color · color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chip</td><td>dismiss</td><td class="muted">opacity (effect) · scale 1→0.92 (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still removes</td></tr>
+              <tr><td>Chip</td><td>dismiss · then</td><td class="muted">the chips after it close the gap: translate (spatial)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chip</td><td>dismiss · then</td><td class="muted">the first chip behind the <code>+N</code> steps into sight: opacity (effect) · scale 0.92→1 (spatial)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chip</td><td><code>+N</code> · show all</td><td class="muted">the chips behind it enter, <code>--d-instant</code> apart: opacity (effect) · scale 0.92→1 (spatial)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chip</td><td>add</td><td class="muted">the new chip, or a new <code>+1</code>, enters: opacity (effect) · scale 0.92→1 (spatial)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Case study</td><td>enter</td><td class="muted">section eyebrow, title, text: a 24px rise (spatial) · fade (effect)</td><td><code>--d-slow</code> · <code>--ease-decel</code>, 0 / 100 / 200ms (0, 1 and 2 × <code>--d-instant</code>)</td><td class="muted">instant</td></tr>
               <tr><td>Case study</td><td>enter</td><td class="muted">outcome number count-up (effect)</td><td><code>--d-draw</code> · <code>--ease-decel</code></td><td class="muted">the final number, no count</td></tr>
               <tr><td>Case study</td><td>hover · focus</td><td class="muted">figure border and shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
@@ -2308,6 +2312,9 @@ the mark is an animated SVG, one vector file describing every rotation and every
   cursor:pointer;
   transition:background var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
 }
+.select-option[hidden]{
+  display:none;
+}
 .select-option:hover, .select-option:focus-visible{
   background:var(<b>--obsidian-800</b>);
   outline:none;
@@ -3335,13 +3342,13 @@ the mark is an animated SVG, one vector file describing every rotation and every
           <div class="subsection-head"><h2 class="subsection-title">Status variants</h2><span class="subsection-num">§ 19.3</span></div>
           <p class="subsection-desc">The badge variants: semantic color plus the dot. Shape and label carry the state; the tint reinforces it.</p>
           <div class="card" style="padding:var(--s-8);display:flex;flex-wrap:wrap;gap:var(--s-2)">
+            <span class="badge badge-solid">Featured</span>
             <span class="badge"><span class="dot"></span>Default</span>
             <span class="badge badge-brand"><span class="dot"></span>Live</span>
             <span class="badge badge-success"><span class="dot"></span>Shipped</span>
             <span class="badge badge-warn"><span class="dot"></span>Pending</span>
             <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
             <span class="badge"><span class="dot"></span>Archive</span>
-            <span class="badge badge-solid">Featured</span>
             <span class="badge badge-info"><span class="dot"></span>Info</span>
           </div>
         </div>
@@ -3442,6 +3449,9 @@ button.chip:disabled{
   opacity:var(<b>--opacity-disabled</b>);
   cursor:not-allowed;
 }
+.chip[hidden]{
+  display:none;
+}
 @media (prefers-reduced-motion: reduce){
   .chip{
     transition:none;
@@ -3457,7 +3467,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 20.2</span></div>
           <p class="subsection-desc">What the contract holds the chip to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:chip --><ul class="page-rules"><li><strong>The variant is a tint, at the Badge's two strengths.</strong> Background at <code>--tint-fill</code> (0.08), border at <code>--tint-edge</code> (0.3) — tokens since v4.3.0 — text on the full token — the same pair § 3.14 already uses, so the two small labelled objects of the system read as one family. The neutral chip is the exception and the majority case: <code>--obsidian-800</code> on <code>--obsidian-700</code>, the card surfaces. A <em>filled</em> chip — solid magenta behind white — is off-system: one filled accent per viewport is the whole 85 / 10 / 5 budget, and a filter row would spend it six times over.</li><li><strong>A chip may be static.</strong> A chip that is neither pressable nor dismissible is legal and is the common case — a tag, a category, a value shown but not editable here. What makes it a chip rather than a § 3.14 Badge is <strong>who owns the value</strong>: a chip carries something a person entered or chose, a badge reports state the system computed. The affordance follows from the context, not from the definition.</li><li><strong><code>--r-full</code>, always.</strong> A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.</li><li><strong>The label rides <code>--t-small</code>.</strong> <code>--t-micro</code> is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.</li><li><strong>A chip carries at most one affordance, never two (RIGID).</strong> Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a <code>&lt;button&gt;</code> and the whole object is the target; a tag that leads to the list of its tag is an <code>&lt;a&gt;</code>, pressable the same way, with no <code>aria-pressed</code> and no disabled state; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: <em>"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks"</em>. It is a decision, not a law — Calcite and Fluent ship the combination deliberately.</li><li><strong>The touch target grows, the chip does not.</strong> At <code>--t-small</code> the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.</li><li><strong>A filter chip declares <code>aria-pressed</code>,</strong> and a group of them is a <code>role="group"</code> with an accessible name. Selection lands on the border and the text (<code>--primary-500</code> · <code>--primary-400</code>), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.</li><li><strong>The dismiss names its value.</strong> <code>aria-label="Remove Motion"</code>, never a bare <code>×</code> and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).</li><li><strong>Never colour alone</strong> (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.</li><li><strong>Chips wrap, they never scroll and never truncate.</strong> A collection long enough to need either collapses behind a trailing <code>+N</code> chip, which is itself a <code>.chip</code> and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.</li></ul><!-- /rules:chip -->
+          <!-- rules:chip --><ul class="page-rules"><li><strong>The variant is a tint, at the Badge's two strengths.</strong> Background at <code>--tint-fill</code> (0.08), border at <code>--tint-edge</code> (0.3) — tokens since v4.3.0 — text on the full token — the same pair § 3.14 already uses, so the two small labelled objects of the system read as one family. The neutral chip is the exception and the majority case: <code>--obsidian-800</code> on <code>--obsidian-700</code>, the card surfaces. A <em>filled</em> chip — solid magenta behind white — is off-system: one filled accent per viewport is the whole 85 / 10 / 5 budget, and a filter row would spend it six times over.</li><li><strong>A chip may be static.</strong> A chip that is neither pressable nor dismissible is legal and is the common case — a tag, a category, a value shown but not editable here. What makes it a chip rather than a § 3.14 Badge is <strong>who owns the value</strong>: a chip carries something a person entered or chose, a badge reports state the system computed. The affordance follows from the context, not from the definition.</li><li><strong><code>--r-full</code>, always.</strong> A chip with a rectangular radius is a badge wearing a chip's label. The radius is how the two are told apart at a glance, so it is not a variant.</li><li><strong>The label rides <code>--t-small</code>.</strong> <code>--t-micro</code> is the dense step, legal inside a table cell or a toolbar and nowhere else. No other step is on-scale for a chip.</li><li><strong>A chip carries at most one affordance, never two (RIGID).</strong> Pressable or dismissible, not both. Both roles want the 44×44 target and two of them do not fit inside one 28px object without one swallowing the other. A filter chip is a <code>&lt;button&gt;</code> and the whole object is the target; a tag that leads to the list of its tag is an <code>&lt;a&gt;</code>, pressable the same way, with no <code>aria-pressed</code> and no disabled state; a dismissible chip is static and the dismiss button is the only target. A chip that is both is off-system — that pattern is a list row, not a chip. Carbon reaches the same rule from the other side: <em>"avoid using tags with multiple functions to prevent confusion and reduce accidental clicks"</em>. It is a decision, not a law — Calcite and Fluent ship the combination deliberately.</li><li><strong>The touch target grows, the chip does not.</strong> At <code>--t-small</code> the rendered box is shorter than the 44×44 floor (§ 6), so the hit area is extended with a transparent inset pseudo-element. Growing the chip to reach 44px instead makes the densest component in the system the tallest one.</li><li><strong>A filter chip declares <code>aria-pressed</code>,</strong> and a group of them is a <code>role="group"</code> with an accessible name. Selection lands on the border and the text (<code>--primary-500</code> · <code>--primary-400</code>), never on a magenta fill: a filter row is exactly the place where one filled accent becomes six.</li><li><strong>The dismiss names its value.</strong> <code>aria-label="Remove Motion"</code>, never a bare <code>×</code> and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).</li><li><strong>Never colour alone</strong> (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.</li><li><strong>Chips wrap, they never scroll and never truncate.</strong> A collection long enough to need either collapses behind a trailing <code>+N</code> chip, which is itself a <code>.chip</code> and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.</li><li><strong>Removing, in three beats (v5.3.0).</strong> The chip leaves where it stands, the chips after it close the gap, then the first chip behind the <code>+N</code> steps into sight and the count drops; the <code>+N</code> leaves with the last one. A click on the <code>+N</code> brings every chip into sight. Focus stays in the collection.</li><li><strong>Adding (v5.3.0).</strong> A collection that can grow ends with <code>.chip-add</code>, a round <code>+</code> button with a name (<code>aria-label="Add a recipient"</code>) that opens a Menu of suggestions (§ Dropdown, variant D). A new value joins the end: behind the <code>+N</code> when there is one, which counts it (<code>+3</code> becomes <code>+4</code>), in sight otherwise; once the reader has opened the <code>+N</code> the collection stays open. A value taken out goes back to the Menu; with nothing left to offer the add chip leaves, and it comes back with the first value removed.</li><li><strong>The dismiss is the close glyph.</strong> An SVG at <code>--icon-xs</code> in a box of its own size, never a text <code>×</code>: the text glyph is narrower than its box and sits 4px off the padding edge, which breaks Inline symmetry (§ Size). The add chip's <code>+</code> is a glyph the same way.</li></ul><!-- /rules:chip -->
         </div>
 
         <div class="subsection">
@@ -3490,15 +3500,19 @@ button.chip:disabled{
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Removable chips</h2><span class="subsection-num">§ 20.5</span></div>
-          <p class="subsection-desc">Values entered into a field. The chip itself stays static; the dismiss is the only target and its label names the value it removes. The field announces the removal in its own live region, and a long collection collapses behind a trailing count.</p>
+          <p class="subsection-desc">Values entered into a field. The chip itself stays static; the dismiss is the only target and its label names the value it removes. The field announces the change in its own live region, and a long collection collapses behind a trailing count that a click opens. The round + at the end adds from a Menu of suggestions; a value taken out goes back to it.</p>
           <div class="card" style="padding:var(--s-8)">
             <div class="field" style="max-width:520px">
               <span class="label" id="chip-recipients-label">Recipients</span>
-              <div role="group" aria-labelledby="chip-recipients-label" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)" data-chip-removable>
-                <span class="chip">Lena Ortiz <button type="button" class="chip-dismiss" aria-label="Remove Lena Ortiz">&times;</button></span>
-                <span class="chip">Design team <button type="button" class="chip-dismiss" aria-label="Remove Design team">&times;</button></span>
-                <span class="chip chip-info">Reviewers <button type="button" class="chip-dismiss" aria-label="Remove Reviewers">&times;</button></span>
-                <button type="button" class="chip" aria-label="Show 3 more recipients">+3</button>
+              <div role="group" aria-labelledby="chip-recipients-label" style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)" data-chip-removable data-chip-limit="3" data-chip-noun="recipients">
+                <span class="chip" data-chip>Lena Ortiz <button type="button" class="chip-dismiss" aria-label="Remove Lena Ortiz"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <span class="chip" data-chip>Design team <button type="button" class="chip-dismiss" aria-label="Remove Design team"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <span class="chip chip-info" data-chip>Reviewers <button type="button" class="chip-dismiss" aria-label="Remove Reviewers"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <span class="chip" data-chip hidden>Marco Bellini <button type="button" class="chip-dismiss" aria-label="Remove Marco Bellini"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <span class="chip" data-chip hidden>QA <button type="button" class="chip-dismiss" aria-label="Remove QA"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <span class="chip chip-warn" data-chip hidden>Legal <button type="button" class="chip-dismiss" aria-label="Remove Legal"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></span>
+                <button type="button" class="chip" data-chip-more aria-label="Show 3 more recipients">+3</button>
+                <div class="select-wrap" data-menu data-chip-adder style="width:auto"><button type="button" class="chip chip-add" id="chip-add-recipients" aria-haspopup="menu" aria-expanded="false" aria-label="Add a recipient"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 2.5v11M2.5 8h11"/></svg></button><ul class="select-menu select-menu-actions" role="menu" aria-labelledby="chip-add-recipients" hidden><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">Lena Ortiz</span></li><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">Design team</span></li><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">Reviewers</span></li><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">Marco Bellini</span></li><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">QA</span></li><li class="select-option" role="menuitem" hidden aria-disabled="true"><span class="select-option-label">Legal</span></li><li class="select-option" role="menuitem"><span class="select-option-label">Product</span></li><li class="select-option" role="menuitem"><span class="select-option-label">Support</span></li><li class="select-option" role="menuitem"><span class="select-option-label">Finance</span></li></ul></div>
               </div>
               <span class="help" data-chip-live aria-live="polite"></span>
             </div>
@@ -8845,7 +8859,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. Containers become rules, every delay sits on the scale, and the system&rsquo;s text holds inside any host.</p>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Layout › Containers — layout rules, and the registry&rsquo;s fifth state, <code>rule</code>.</strong> A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site&rsquo;s § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.</li><li><strong style="color:var(--obsidian-100)">Component, organism, template, rule (§ 3.0).</strong> An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under <em>Applied</em>).</li><li><strong style="color:var(--obsidian-100)">Pie has its own page (§ 45).</strong> A rail item opens one component, never a family page; the pages after it move up one number.</li><li><strong style="color:var(--obsidian-100)">Choice groups and States rows.</strong> <code>fieldset.choice-group</code> names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.</li><li><strong style="color:var(--obsidian-100)"><code>.card-strip</code>, the row card&rsquo;s coloured edge.</strong> A <code>--bw-2</code> left edge in <code>--card-strip</code>, <code>--primary-500</code> or a semantic colour: the declared exception to inline symmetry.</li><li><strong style="color:var(--obsidian-100)"><code>.chart-bars</code>.</strong> Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from <code>--bp-sm</code> reads them at <code>--t-small</code>.</li><li><strong style="color:var(--obsidian-100)"><code>--slider-fill</code> and <code>--card-strip</code>, component tokens</strong> in <code>tokens.css</code> and the DTCG file.</li><li><strong style="color:var(--obsidian-100)">Diagrams compose along their arrows,</strong> a node, its edges, the nodes they reach, one <code>--d-instant</code> per step, with a Replay under each figure.</li><li><strong style="color:var(--obsidian-100)">The review sheet renders a hostile host and measures inline symmetry</strong> before every release.</li><li><strong style="color:var(--obsidian-100)">Every <code>check_compliance</code> finding names its law</strong> (<code>law</code>: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. <code>get_design_section</code> opens a path, a list of alternatives and a <code>(§ …)</code> suffix.</li><li><strong style="color:var(--obsidian-100)">Checks 110 to 114:</strong> inline symmetry, every delay on the scale, the body&rsquo;s text restated, the States rows and the disabled cursor, the containers as rules.</li></ul>
-                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">Removable chips leave, close up and count.</strong> A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the <code>+N</code> steps into sight as the count drops; a click on the <code>+N</code> shows them all. A round <code>.chip-add</code> at the end adds from a Menu: a new value joins the end, behind the <code>+N</code> when there is one (<code>+3</code> becomes <code>+4</code>), and a value taken out goes back to the Menu. The dismiss draws the close glyph at <code>--icon-xs</code> instead of a text &times;: its box ends on the padding edge, as the symmetry rule measures.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Dark text inside a host.</strong> A host&rsquo;s unlayered <code>body{color;font}</code> beat the base layer, and every text that inherits took the host&rsquo;s: 6,786 of them in a render of the site. The base layer says the body&rsquo;s text again on the body&rsquo;s children, <code>:where(body &gt; *)</code>, at zero specificity; the 5.2.0 restatement stays as a second defence.</li><li><strong style="color:var(--obsidian-100)"><code>check_compliance</code> flagged what the system prescribes:</strong> the reduced-motion kill-switch&rsquo;s <code>0.01ms</code> and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill&rsquo;s <code>verify-output.py</code> reads the same way.</li><li><strong style="color:var(--obsidian-100)">Cites that opened nothing</strong> ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.</li><li><strong style="color:var(--obsidian-100)">The bars&rsquo; labels met the bars</strong> under 330px of plot.</li><li><strong style="color:var(--obsidian-100)">The Toast&rsquo;s dismiss</strong> was squeezed by the browser&rsquo;s button padding.</li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li>No token changes its value.</li></ul>
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
@@ -10634,6 +10648,29 @@ if ('IntersectionObserver' in window) {
       run(M, scope);
     }, true);
   });
+
+  // The CSS reveals (Progress, Stepper, [data-fade]) need no Motion. When Motion has not arrived in 3 s (offline,
+  // a blocked CDN, a page opened from disk in a strict browser) they run on their own: on view, on the section's
+  // activation and on Replay, with the same replay pattern; only the Motion-drawn charts wait for it (v5.3.0).
+  setTimeout(() => {
+    if (window.__motion) return;
+    const play = root => {
+      const els = root.querySelectorAll('[data-reveal],[data-fade],[data-fade-chart]');
+      els.forEach(e => e.classList.remove('is-in'));
+      void root.offsetWidth;
+      setTimeout(() => els.forEach(e => e.classList.add('is-in')), 50);
+    };
+    VIZ.forEach(viz => {
+      if (typeof IntersectionObserver === 'undefined') play(viz);
+      else new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting){ play(viz); o.unobserve(viz); } }), { threshold: 0.15 }).observe(viz);
+      new MutationObserver(() => { if (viz.classList.contains('active')) setTimeout(() => play(viz), dInstant()); })
+        .observe(viz, { attributes: true, attributeFilter: ['class'] });
+    });
+    document.addEventListener('click', ev => {
+      const btn = ev.target.closest('[data-replay="dataviz"]');
+      if (btn) play(btn.closest('.subsection') || btn.closest('.section'));
+    }, true);
+  }, 3000);
 })();
 </script>
 <script>
@@ -10643,10 +10680,16 @@ if ('IntersectionObserver' in window) {
 // card, overflow or transformed ancestor can cover it or cut it. place() puts it on its side of the anchor (below;
 // above when asked), flips it when it does not fit and the other side has more room, and keeps --s-2 from the
 // viewport edge; follow() keeps it on its anchor while the page scrolls or the panel changes size. Gap and edge are
-// read off :root (runtime-token anti-drift). Without the Popover API lift() returns false and the panel stays
-// absolute in its wrap.
+// read off :root (runtime-token anti-drift). Where the browser has CSS anchor positioning, place() hands the panel to
+// it (anchor-name, position-anchor, position-area, flip fallbacks), as the Popover does: the browser moves the panel
+// with its anchor in the same frame as the scroll, where a script one frame late makes it judder. The measured
+// placement is the fallback. Without the Popover API lift() returns false and the panel stays absolute in its wrap.
 window.amacaFloat = (function(){
   const ok = typeof HTMLElement !== 'undefined' && Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'popover');
+  const anchored = typeof CSS !== 'undefined' && CSS.supports('anchor-name: --a') && CSS.supports('position-area: bottom');
+  let n = 0;
+  const AREA = { below: { start: 'bottom span-right', center: 'bottom center', end: 'bottom span-left' },
+                 above: { start: 'top span-right',    center: 'top center',    end: 'top span-left' } };
   function tok(name){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0; }
   function lift(panel){
     if(!ok) return false;
@@ -10659,12 +10702,22 @@ window.amacaFloat = (function(){
     if(ok && panel.hasAttribute('popover') && panel.matches(':popover-open')) panel.hidePopover();
     panel.classList.remove('is-floating');
     panel.style.top = ''; panel.style.left = '';
+    ['positionAnchor', 'positionArea', 'positionTryFallbacks', 'marginBlock'].forEach(function(k){ panel.style[k] = ''; });
     delete panel.dataset.placement;
   }
   // o.side: 'below' (default) | 'above' · o.align: 'start' (default) | 'center' | 'end'
   function place(anchor, panel, o){
     o = o || {};
     if(!panel.classList.contains('is-floating')) return;
+    if(anchored){
+      if(!anchor.style.anchorName) anchor.style.anchorName = '--float-' + (++n);
+      panel.style.positionAnchor = anchor.style.anchorName;
+      panel.style.positionArea = AREA[o.side === 'above' ? 'above' : 'below'][o.align || 'start'];
+      panel.style.positionTryFallbacks = 'flip-block, flip-inline';
+      panel.style.marginBlock = 'var(--s-1)';
+      panel.dataset.placement = 'anchored';
+      return;
+    }
     const gap = tok('--s-1'), edge = tok('--s-2');
     const r = anchor.getBoundingClientRect();
     const vw = document.documentElement.clientWidth, vh = window.innerHeight;
@@ -10680,6 +10733,7 @@ window.amacaFloat = (function(){
     panel.dataset.placement = side;
   }
   function follow(anchor, panel, o){
+    if(anchored) return function(){};   // the browser keeps it on its anchor
     let raf = 0;
     const again = function(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(function(){ place(anchor, panel, o); }); };
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(again) : null;
@@ -13396,15 +13450,113 @@ try {
   document.querySelectorAll('[data-chip-filter] button.chip').forEach(function(b){
     b.addEventListener('click',function(){ if(b.disabled) return; b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true' ? 'false' : 'true'); });
   });
+  // § 20.5 removable chips (v5.3.0). Removing, in three beats: the chip leaves where it stands (--d-quick ·
+  // --ease-accel); the chips after it close the gap (--d-base · --ease-standard); the first chip behind the +N steps
+  // into sight (--d-quick · --ease-decel) and the count drops, the +N leaving with the last one. A click on the +N
+  // brings them all into sight, one --d-instant apart. Adding: a choice in the add chip's Menu joins the end of the
+  // collection, behind the +N when there is one (+3 becomes +4), in sight otherwise. A value taken out goes back to
+  // the Menu; the add chip leaves when the Menu has nothing left and comes back with the first value removed.
+  // Durations and curves are read off :root; reduced motion changes the collection at once.
   document.querySelectorAll('[data-chip-removable]').forEach(function(group){
     var live = group.parentElement.querySelector('[data-chip-live]');
-    group.addEventListener('click',function(e){
-      var btn = e.target.closest('.chip-dismiss'); if(!btn) return;
-      var chip = btn.closest('.chip'); var name = btn.getAttribute('aria-label').replace(/^Remove /,'');
-      var next = chip.nextElementSibling && chip.nextElementSibling.querySelector ? (chip.nextElementSibling.querySelector('.chip-dismiss') || chip.nextElementSibling) : null;
-      chip.remove(); if(live) live.textContent = name + ' removed';
-      if(next && next.focus) next.focus();
+    var limit = +group.dataset.chipLimit || Infinity;
+    var noun = group.dataset.chipNoun || 'items';
+    var adder = group.querySelector('[data-chip-adder]');
+    var html = document.documentElement;
+    function tok(n){ return getComputedStyle(html).getPropertyValue(n).trim(); }
+    function ms(n){ return parseFloat(tok(n)) || 0; }
+    var still = typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function kids(){ return Array.prototype.slice.call(group.children); }
+    function chips(){ return kids().filter(function(c){ return c.hasAttribute('data-chip'); }); }
+    function shown(){ return chips().filter(function(c){ return !c.hidden; }); }
+    function behind(){ return chips().filter(function(c){ return c.hidden; }); }
+    function more(){ return group.querySelector('[data-chip-more]'); }
+    function label(c){ return c.querySelector('.chip-dismiss').getAttribute('aria-label').replace(/^Remove /, ''); }
+    function rects(){ var m = new Map(); kids().forEach(function(e){ if(!e.hidden) m.set(e, e.getBoundingClientRect()); }); return m; }
+    function flip(before){
+      if(still) return;
+      kids().forEach(function(e){
+        var a = before.get(e); if(!a || e.hidden) return;
+        var b = e.getBoundingClientRect(), dx = a.left - b.left, dy = a.top - b.top;
+        if(dx || dy) e.animate([{ transform: 'translate(' + dx + 'px,' + dy + 'px)' }, { transform: 'none' }], { duration: ms('--d-base'), easing: tok('--ease-standard') });
+      });
+    }
+    function enter(e, delay){ if(!still) e.animate([{ opacity: 0, transform: 'scale(.92)' }, { opacity: 1, transform: 'none' }], { duration: ms('--d-quick'), easing: tok('--ease-decel'), delay: delay || 0, fill: 'backwards' }); }
+    function leave(e){ return still ? Promise.resolve() : e.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.92)' }], { duration: ms('--d-quick'), easing: tok('--ease-accel'), fill: 'forwards' }).finished; }
+    function count(){ var m = more(), n = behind().length; if(!m) return; m.textContent = '+' + n; m.setAttribute('aria-label', 'Show ' + n + ' more ' + noun); }
+    function make(name){
+      var c = document.createElement('span'); c.className = 'chip'; c.setAttribute('data-chip', ''); c.append(name + ' ');
+      var x = document.createElement('button'); x.type = 'button'; x.className = 'chip-dismiss'; x.setAttribute('aria-label', 'Remove ' + name); x.innerHTML = '<svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>';
+      c.append(x); return c;
+    }
+    // the add chip's Menu: a value is on offer while it is not in the collection
+    function offer(name, on){
+      if(!adder) return;
+      Array.prototype.forEach.call(adder.querySelectorAll('.select-option'), function(o){
+        if(o.textContent.trim() !== name) return;
+        o.hidden = !on;
+        if(on) o.removeAttribute('aria-disabled'); else o.setAttribute('aria-disabled', 'true');
+      });
+    }
+    function anyOffer(){ return !!(adder && adder.querySelector('.select-option:not([hidden])')); }
+    function settle(at){   // focus stays in the collection: the chip now at that place, else the last one, else the +N
+      var s = shown(), c = s[Math.min(at, s.length - 1)];
+      var f = (c && c.querySelector('.chip-dismiss')) || more() || (adder && !adder.hidden && adder.firstElementChild);
+      if(f) f.focus();
+    }
+    function remove(chip){
+      var name = label(chip), m = more(), last = !!m && behind().length === 1, at = shown().indexOf(chip);
+      Promise.all([leave(chip), last ? leave(m) : null]).then(function(){                   // beat 1
+        var before = rects(), back = adder && adder.hidden;
+        chip.remove();
+        var next = behind()[0];
+        if(next) next.hidden = false;
+        if(last) m.remove(); else count();
+        offer(name, true);
+        if(back) adder.hidden = false;
+        flip(before);                                                                        // beat 2
+        if(next) enter(next, ms('--d-base'));                                                // beat 3
+        if(back) enter(adder, ms('--d-base'));
+        if(live) live.textContent = name + ' removed';
+        settle(at);
+      });
+    }
+    var opened = false;   // once the reader opens the +N the collection stays open: new values join it in sight
+    function showAll(){
+      var m = more(); if(!m) return;
+      opened = true;
+      var before = rects(), b = behind();
+      b.forEach(function(c){ c.hidden = false; });
+      m.remove();
+      flip(before);
+      b.forEach(function(c, i){ enter(c, ms('--d-base') + i * window.dInstant()); });
+      if(b[0]) b[0].querySelector('.chip-dismiss').focus();
+    }
+    function add(name){
+      var before = rects(), m = more(), c = make(name);
+      group.insertBefore(c, m || adder);
+      offer(name, false);
+      if(m){ c.hidden = true; count(); }                                  // it joins the end, behind the +N
+      else if(!opened && shown().length > limit){                                    // the collection is full: a +1 starts counting
+        c.hidden = true;
+        m = document.createElement('button'); m.type = 'button'; m.className = 'chip'; m.setAttribute('data-chip-more', '');
+        group.insertBefore(m, adder); count(); enter(m, ms('--d-base'));
+      }
+      flip(before);
+      if(!c.hidden) enter(c, ms('--d-base'));
+      if(live) live.textContent = name + ' added';
+      if(!anyOffer()) leave(adder).then(function(){ adder.hidden = true; settle(Infinity); });
+    }
+    group.addEventListener('click', function(e){
+      var x = e.target.closest('.chip-dismiss'); if(x){ remove(x.closest('.chip')); return; }
+      if(e.target.closest('[data-chip-more]')) showAll();
     });
+    if(adder){
+      // the Menu (§ Dropdown, variant D) commits and closes; the choice is read here first, in the capture phase
+      var take = function(o){ if(o && o.getAttribute('aria-disabled') !== 'true') setTimeout(function(){ add(o.textContent.trim()); }, 0); };
+      adder.addEventListener('click', function(e){ take(e.target.closest('.select-option')); }, true);
+      adder.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' ') take(document.activeElement.closest && document.activeElement.closest('.select-option')); }, true);
+    }
   });
 })();
 

@@ -512,7 +512,7 @@ The aggregate of every component's dimensions: its box, its padding, its type, i
 | `.slider-input` | — | row `--s-8` · track `--s-1` · thumb `--s-5` | `0` | — | `--r-full` | — |
 | `.chip` | default | content · pressable target `--target-touch` | `--s-1 --s-3` | `--t-small` 500 | `--r-full` | — |
 | `.chip` | dense | content | `--s-1 --s-2` | `--t-micro` | `--r-full` | — |
-| `.chip-dismiss` | — | square `--s-4` · target `--target-touch` | — | — | `--r-full` | — |
+| `.chip-dismiss` | — | square `--icon-xs` · target `--target-touch` | — | — | `--r-full` | `--icon-xs` |
 | `.badge` | — | content | `--s-2 --s-4` | `--t-small` 500 | `--r-md` | — |
 | `.avatar` | sm · md · lg · xl | square `--s-6` · `--s-8` · `--s-10` · `--s-12` | `0` | `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` 700 | `--r-full` | — |
 | `.loader` | xs · sm · md · lg | square `--loader-xs` · `--loader-sm` · `--loader-md` · `--loader-lg` | — | — | — | — |
@@ -571,7 +571,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.12 |
 | Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.13 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.14 |
-| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.15 |
+| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` `.chip-add` | canonical | § 3.15 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.16 |
 | Toast | `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.18 — `role="progressbar"` with a name, a value, a min and a max |
@@ -1665,13 +1665,13 @@ Status the system computed — live, shipped, pending, blocker — shown next to
 
 
 ```html
+<span class="badge badge-solid">Featured</span>
 <span class="badge"><span class="dot"></span>Default</span>
 <span class="badge badge-brand"><span class="dot"></span>Live</span>
 <span class="badge badge-success"><span class="dot"></span>Shipped</span>
 <span class="badge badge-warn"><span class="dot"></span>Pending</span>
 <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
 <span class="badge"><span class="dot"></span>Archive</span>
-<span class="badge badge-solid">Featured</span>
 <span class="badge badge-info"><span class="dot"></span>Info</span>
 ```
 
@@ -1725,7 +1725,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 
 <span class="chip chip-info">
   Lena Ortiz
-  <button class="chip-dismiss" aria-label="Remove Lena Ortiz">&times;</button>
+  <button class="chip-dismiss" aria-label="Remove Lena Ortiz"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
 </span>
 ```
 
@@ -1733,7 +1733,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 |---|---|---|
 | Object | `.chip` | `--r-full`, label at `--t-small`, padding `--s-1` `--s-3`, `inline-flex` with `--s-1` between parts |
 | Leading dot | `.chip-dot` | Optional. The same part as the Badge dot, in the variant's colour |
-| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes |
+| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes; the close glyph at `--icon-xs` |
 
 | Variant | Surface | Use |
 |---|---|---|
@@ -1755,6 +1755,9 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).
 - **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
+- **Removing, in three beats (v5.3.0).** The chip leaves where it stands, the chips after it close the gap, then the first chip behind the `+N` steps into sight and the count drops; the `+N` leaves with the last one. A click on the `+N` brings every chip into sight. Focus stays in the collection.
+- **Adding (v5.3.0).** A collection that can grow ends with `.chip-add`, a round `+` button with a name (`aria-label="Add a recipient"`) that opens a Menu of suggestions (§ Dropdown, variant D). A new value joins the end: behind the `+N` when there is one, which counts it (`+3` becomes `+4`), in sight otherwise; once the reader has opened the `+N` the collection stays open. A value taken out goes back to the Menu; with nothing left to offer the add chip leaves, and it comes back with the first value removed.
+- **The dismiss is the close glyph.** An SVG at `--icon-xs` in a box of its own size, never a text `×`: the text glyph is narrower than its box and sits 4px off the padding edge, which breaks Inline symmetry (§ Size). The add chip's `+` is a glyph the same way.
 
 
 **Variants.**
@@ -4035,6 +4038,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
+| Chip | dismiss · then | the chips after it close the gap: translate (spatial) | `--d-base` · `--ease-standard` | instant |
+| Chip | dismiss · then | the first chip behind the `+N` steps into sight: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Chip | `+N` · show all | the chips behind it enter, `--d-instant` apart: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Chip | add | the new chip, or a new `+1`, enters: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
 | Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 100 / 200ms (0, 1 and 2 × `--d-instant`) | instant |
 | Case study | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | Case study | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -4321,6 +4328,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The grid changes layout in three beats.** On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).
 - **The native Select centres its value.** Where the browser draws the customisable select (`appearance: base-select`) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.
 - **Every floating panel rides the top layer.** The Select's menu, Date picker, Date range, Time input and Tooltip are lifted into the browser's top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep `--s-2` from the viewport edge and follow their anchor while open. A rule in Stacking (*The floating layer*), guarded by check 115.
+- **Removable chips leave, close up and count.** A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the `+N` steps into sight as the count drops; a click on the `+N` shows them all. A round `.chip-add` at the end adds from a Menu: a new value joins the end, behind the `+N` when there is one (`+3` becomes `+4`), and a value taken out goes back to the Menu. The dismiss draws the close glyph at `--icon-xs` instead of a text ×: its box ends on the padding edge, as the symmetry rule measures.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
