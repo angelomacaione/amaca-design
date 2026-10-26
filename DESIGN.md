@@ -1,11 +1,11 @@
 ---
 name: Amaca
 version: 5.3.0
-updated: 2026-10-26
+updated: 2026-10-27
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-10-26
+last_synced: 2026-10-27
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.3.0 — 2026.10.26
+> **Version** 5.3.0 — 2026.10.27
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4317,7 +4317,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ## Changelog
 
-### v5.3.0 — 2026.10.26 (MINOR)
+### v5.3.0 — 2026.10.27 (MINOR)
 
 Containers become rules, every delay sits on the scale, and the system's text holds inside any host.
 
