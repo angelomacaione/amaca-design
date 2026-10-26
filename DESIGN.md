@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 5.2.0
-updated: 2026-10-19
+version: 5.3.0
+updated: 2026-10-26
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-10-19
+last_synced: 2026-10-26
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.2.0 — 2026.10.19
+> **Version** 5.3.0 — 2026.10.26
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4286,6 +4286,42 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.3.0 — 2026.10.26 (MINOR)
+
+Containers become rules, every delay sits on the scale, and the system's text holds inside any host.
+
+**Added**
+- **Layout › Containers — layout rules, and the registry's fifth state, `rule`.** A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site's § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.
+- **Component, organism, template, rule (§ 3.0).** An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under *Applied*).
+- **Pie has its own page (§ 45).** A rail item opens one component, never a family page; the pages after it move up one number.
+- **Choice groups and States rows.** `fieldset.choice-group` names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.
+- **`.card-strip`, the row card's coloured edge.** A `--bw-2` left edge in `--card-strip`, `--primary-500` or a semantic colour: the declared exception to inline symmetry.
+- **`.chart-bars`.** Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from `--bp-sm` reads them at `--t-small`.
+- **`--slider-fill` and `--card-strip`, component tokens** in `tokens.css` and the DTCG file.
+- **Diagrams compose along their arrows,** a node, its edges, the nodes they reach, one `--d-instant` per step, with a Replay under each figure.
+- **The review sheet renders a hostile host and measures inline symmetry** before every release.
+- **Every `check_compliance` finding names its law** (`law`: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. `get_design_section` opens a path, a list of alternatives and a `(§ …)` suffix.
+- **Checks 110 to 114:** inline symmetry, every delay on the scale, the body's text restated, the States rows and the disabled cursor, the containers as rules.
+
+**Changed**
+- **Inline symmetry, strict.** The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast's dismiss, the List's kebab. The floating button takes `0 --s-4`.
+- **Every delay is 0 or a multiple of `--d-instant` (100ms)**, in the CSS and in the scripts: the Card's rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.
+- **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), on the button's spring. The Slider's glow ring on hover is gone.
+- **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
+- **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
+- **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
+- **Card, Table and Chart card declare the colour of their text.**
+
+**Fixed**
+- **Dark text inside a host.** A host's unlayered `body{color;font}` beat the base layer, and every text that inherits took the host's: 6,786 of them in a render of the site. The base layer says the body's text again on the body's children, `:where(body > *)`, at zero specificity; the 5.2.0 restatement stays as a second defence.
+- **`check_compliance` flagged what the system prescribes:** the reduced-motion kill-switch's `0.01ms` and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill's `verify-output.py` reads the same way.
+- **Cites that opened nothing** ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.
+- **The bars' labels met the bars** under 330px of plot.
+- **The Toast's dismiss** was squeezed by the browser's button padding.
+
+**Unchanged**
+- No token changes its value.
 
 ### v5.2.0 — 2026.10.19 (MINOR)
 

@@ -131,6 +131,60 @@ def host_pass(b, ids):
     return leaks
 
 
+# Inline symmetry (v5.3.0, point 10; Size › Inline symmetry). Check 110 holds the CSS; this measures the render: the
+# distance from the left edge (inside the border) to the first mark, against the last mark to the right edge. A mark
+# is a text box, an svg's box (its grid square, not the ink), a field, or a box that paints at rest; a transparent
+# button is not a mark, its glyph is. Tolerance 0.5px. The row card's strip is its border, outside the measure.
+SYM_CASES = [("toast",".toast"),("drawer",".drawer-head"),("modal",".modal-head"),("accordion",".acc-trigger"),("select",".select-trigger"),("select","select.select"),("button",".btn"),("button",".btn-floating"),("list",".list-item"),("chip",".chip"),("tabs",".tab"),("navigation",".navbar-item"),("date-picker",".dp-wrap"),("time-input",".tp-wrap"),("input",".input-wrap"),("pagination",".pagination-link"),("badge",".badge")] + [("card", ".card-row")]
+SYM_JS = r"""([sel])=>{
+ const vis=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&c.display!=='none'&&+c.opacity>0};
+ const paints=c=>(c.backgroundColor!=='rgba(0, 0, 0, 0)'&&c.backgroundColor!=='transparent')||(parseFloat(c.borderLeftWidth)>0&&c.borderLeftColor!=='rgba(0, 0, 0, 0)')||c.backgroundImage!=='none';
+ const out=[];
+ for(const el of [...document.querySelectorAll('.section.active '+sel)].filter(e=>vis(e)&&!e.closest('.kit-stage')).slice(0,3)){
+  const cs=getComputedStyle(el),b=el.getBoundingClientRect(),L0=b.left+parseFloat(cs.borderLeftWidth),R0=b.right-parseFloat(cs.borderRightWidth);
+  let L=1e9,R=-1e9;const take=(l,r)=>{L=Math.min(L,l);R=Math.max(R,r)};
+  for(const d of el.querySelectorAll('*')){ if(!vis(d))continue; if(d.closest('svg')&&d.tagName!=='svg')continue;
+    if(d.tagName==='svg'){const r=d.getBoundingClientRect();take(r.left,r.right);continue}
+    if(['INPUT','SELECT','TEXTAREA'].includes(d.tagName)){const r=d.getBoundingClientRect();take(r.left,r.right);continue}
+    if(paints(getComputedStyle(d))){const r=d.getBoundingClientRect();take(r.left,r.right)} }
+  const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;
+  while(n=w.nextNode()){if(!n.textContent.trim()||!vis(n.parentElement))continue;const rg=document.createRange();rg.selectNodeContents(n);for(const r of rg.getClientRects())if(r.width)take(r.left,r.right)}
+  const m=(cs.backgroundPositionX||'').match(/calc\(100% - ([\d.]+)px\)/); if(m&&cs.backgroundImage.includes('url')){const Rr=R0-parseFloat(m[1]);take(Rr-parseFloat(cs.backgroundSize),Rr)}
+  if(['INPUT','SELECT'].includes(el.tagName)){take(L0+parseFloat(cs.paddingLeft),L0+parseFloat(cs.paddingLeft))}
+  if(L>1e8)continue;
+  out.push({t:(el.textContent||'').trim().replace(/\s+/g,' ').slice(0,28),l:+(L-L0).toFixed(2),r:+(R0-R).toFixed(2),wide:(R0-L0)-(R-L)});
+ } return out;}"""
+
+
+def symmetry_pass(b):
+    """[(section, selector, text, left, right)] for every measured instance, at 1440."""
+    pg = b.new_page(viewport={"width": 1440, "height": 1000})
+    pg.goto("file://" + os.path.join(ROOT, "index.html")); pg.wait_for_timeout(1000)
+    rows = []
+    for sec, sel in SYM_CASES:
+        pg.evaluate("id=>{document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));"
+                    "document.getElementById(id).classList.add('active');document.activeElement&&document.activeElement.blur()}", sec)
+        pg.wait_for_timeout(1300)
+        if sec == "modal":
+            pg.evaluate("()=>{const d=document.querySelector('#modal dialog');if(d&&!d.open){d.showModal()};document.activeElement&&document.activeElement.blur()}")
+            pg.wait_for_timeout(500)
+        for r in pg.evaluate(SYM_JS, [sel]):
+            rows.append((sec, sel, r["t"], r["l"], r["r"]))
+        if sec == "modal":
+            pg.evaluate("()=>{const d=document.querySelector('#modal dialog');if(d&&d.open)d.close()}")
+    pg.close()
+    return rows
+
+
+def sym_html(sym):
+    if sym is None:
+        return "<p class=err>Not rendered: measure the components with a trailing affordance by hand.</p>"
+    off = [r for r in sym if abs(r[3] - r[4]) > 0.5]
+    head = f"<p class=err>{len(off)} asymmetric.</p>" if off else f"<p>Symmetric: {len(sym)} instances, every one within 0.5px.</p>"
+    lines = [f"{'ASYM' if abs(l - r) > 0.5 else 'ok  '} {l - r:+6.2f}  left {l:6.2f}  right {r:6.2f}  #{s}  {sel}  {t}" for s, sel, t, l, r in sym]
+    return head + "<pre>" + html.escape("\n".join(lines)) + "</pre>"
+
+
 def main():
     base = arg("--base", "origin/main")
     out = os.path.join(ROOT, arg("--out", ".release/review-sheet.html"))
@@ -146,12 +200,13 @@ def main():
     verdict = [l.strip() for l in harness.stdout.splitlines() if "checks pass" in l]
     sections = touched_sections(base)
 
-    shots, note, leaks, host_note = [], "", None, ""
+    shots, note, leaks, host_note, sym = [], "", None, "", None
     try:
         from playwright.sync_api import sync_playwright
         exe = "/opt/pw-browsers/chromium" if os.path.exists("/opt/pw-browsers/chromium") else None
         with sync_playwright() as p:
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
+            sym = symmetry_pass(b)
             leaks = host_pass(b, [sid for sid, _, _ in section_ranges(open(os.path.join(ROOT, "index.html"), encoding="utf-8").read())])
             for label, vp in (("desktop 1440", (1440, 1000)), ("phone 390", (390, 844))):
                 pg = b.new_page(viewport={"width": vp[0], "height": vp[1]}, device_scale_factor=1)
@@ -198,6 +253,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
 <p>Harness: <b>{html.escape(verdict[-1] if verdict else 'NOT GREEN')}</b></p>
 <h2>Sections touched, rendered</h2><p>{', '.join('#' + s for s in sections) or '(none)'}</p>{note}
 <h2>Hostile host</h2>{host_note}
+<h2>Inline symmetry</h2>{sym_html(sym)}
 <h2>Changelog entry</h2><pre>{html.escape(entry)}</pre>
 <h2>Commits since {html.escape(base)}</h2><pre>{html.escape(commits) or '(none)'}</pre>
 <h2>Files</h2><pre>{html.escape(files)}</pre>
@@ -206,6 +262,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
 </body></html>"""
     with open(out, "w", encoding="utf-8") as f:
         f.write(page)
+    print(f"inline symmetry: {'not rendered' if sym is None else sum(abs(r[3] - r[4]) > 0.5 for r in sym)} asymmetric of {0 if sym is None else len(sym)}")
     print(f"hostile host: {'not rendered' if leaks is None else len(leaks)} leaks")
     print(f"review sheet: {out}\nsections: {', '.join(sections) or '(none)'}\nREVIEW CODE {tree[:7]}")
 
