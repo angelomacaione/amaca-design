@@ -121,6 +121,17 @@ test('get_design_section finds a section by title, by its § number and by a com
   assert.equal(call('get_design_section', { query: 'zzz-not-a-section' }).isError, true);
 });
 
+test('get_design_section opens a path, alternatives, a § suffix and the cites of earlier releases', () => {
+  assert.match(text(call('get_design_section', { query: 'Motion › Six durations, five easings' })), /\*\*Six durations, five easings/);
+  assert.match(text(call('get_design_section', { query: 'Shapes › Radius' })), /^### Radius/);
+  assert.match(text(call('get_design_section', { query: 'Motion › Spatial vs Effects; Accessibility' })), /^## Motion[\s\S]*Spatial vs Effects/);
+  // the cites of 5.2.0, opened without rewriting them: the deepest part that exists wins
+  for (const q of ['Motion › Easing tokens', 'Motion › Duration tokens', 'Motion › Spatial vs effects (§ 06.3)',
+    'Color › Tints · alpha (§ 01.6)', 'Motion › CSS kill-switch; Accessibility floor', 'Button rules', 'Color; Code conventions']) {
+    assert.equal(call('get_design_section', { query: q }).isError, false, q);
+  }
+});
+
 test('get_install is the tool guide of llms.txt, whole or for one tool', () => {
   const all = text(call('get_install', {}));
   assert.match(all, /Which file for which tool/);
@@ -220,6 +231,65 @@ test('check_compliance treats loops and delays as warnings, and wants code', () 
   assert.ok(find(r, 'loop-clock'));
   assert.ok(find(r, 'raw-delay', '80ms'));
   assert.equal(call('check_compliance', { code: '  ' }).isError, true);
+});
+
+// ---------------------------------------------------------------- the law behind every finding (v5.3.0)
+
+const LAWS = (() => {
+  const rows = {};
+  for (const l of DESIGN.split('\n')) {
+    const c = l.split('|').map((x) => x.trim());
+    if (/^[LC]\d+$/.test(c[1] || '')) rows[c[1]] = l;
+  }
+  return rows;
+})();
+
+test('every finding cites a section that opens and a law whose Check column names it back', () => {
+  const FX = path.join(ROOT, 'tests/fixtures/compliance/mutants');
+  const all = [BAD, '.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}', ...fs.readdirSync(FX).map((f) => fs.readFileSync(path.join(FX, f), 'utf8'))];
+  const seen = new Map();
+  for (const src of all) for (const f of scan(src).findings) seen.set(`${f.rule}|${f.cite}|${f.law}`, f);
+  const rules = new Set([...seen.values()].map((f) => f.rule));
+  for (const r of ['colour-literal', 'raw-px', 'raw-duration', 'raw-easing', 'spring-on-effect', 'loop-clock', 'raw-delay', 'one-primary', 'reduced-motion', 'class-off-registry']) {
+    assert.ok(rules.has(r), `no sample produces ${r}`);
+  }
+  for (const f of seen.values()) {
+    assert.equal(call('get_design_section', { query: f.cite }).isError, false, `${f.rule}: the cite "${f.cite}" does not open`);
+    assert.ok(LAWS[f.law], `${f.rule}: law ${f.law} is not in the Law or Conventions table`);
+    assert.ok(LAWS[f.law].includes('`' + f.rule + '`'), `${f.rule}: the Check column of ${f.law} does not name it`);
+  }
+});
+
+// ---------------------------------------------------------------- Part D: real agent outputs (v5.3.0)
+// The clean fixtures are outputs of the 2026-10 benchmark that the system holds correct; a mutant carries one known
+// deviation and names it in its first line. The guards on the exemptions (skip link, kill-switch) are the
+// 'accepts what the system prescribes' test above. A fixture that starts failing means the rule is wrong or the
+// fixture is updated with a line in the changelog: never in silence.
+
+test('Part D: the clean outputs of the benchmark get no finding at all', () => {
+  const dir = path.join(ROOT, 'tests/fixtures/compliance/clean');
+  const files = fs.readdirSync(dir);
+  assert.ok(files.length >= 5);
+  for (const f of files) {
+    const r = scan(fs.readFileSync(path.join(dir, f), 'utf8'));
+    assert.deepEqual(r.findings.map((x) => `${x.line} ${x.severity} ${x.rule} ${x.found}`), [], f);
+  }
+});
+
+test('Part D: every mutant gets exactly the rule it expects, and no other error', () => {
+  const dir = path.join(ROOT, 'tests/fixtures/compliance/mutants');
+  const files = fs.readdirSync(dir);
+  assert.ok(files.length >= 10);
+  for (const f of files) {
+    const src = fs.readFileSync(path.join(dir, f), 'utf8');
+    const m = src.match(/^\/\*\s*expect:\s*(error|warning)\s+([a-z-]+)\s*\*\//);
+    assert.ok(m, `${f}: no expect line`);
+    const [, severity, rule] = m;
+    const r = scan(src);
+    assert.ok(r.findings.some((x) => x.rule === rule && x.severity === severity), `${f}: no ${severity} ${rule}`);
+    const other = r.findings.filter((x) => x.rule !== rule && (x.severity === 'error' || x.rule === 'class-off-registry'));
+    assert.deepEqual(other.map((x) => `${x.line} ${x.rule} ${x.found}`), [], f);
+  }
 });
 
 // ---------------------------------------------------------------- HTTP

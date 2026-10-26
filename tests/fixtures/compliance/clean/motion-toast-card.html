@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toast entrance and card hover</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&amp;display=swap">
+  <style>
+    /* Token subset, mirror of tokens.css (Amaca DS v5.2.0). Values live here and nowhere else. */
+    :root {
+      --obsidian-950: #07090B;
+      --obsidian-850: #10141A;
+      --obsidian-800: #161B22;
+      --obsidian-700: #1E242D;
+      --obsidian-600: #2A313B;
+      --obsidian-300: #8A94A3;
+      --obsidian-200: #B8C0CB;
+      --obsidian-100: #E3E7EC;
+      --obsidian-050: #F4F6F8;
+      --primary-400: #F868D8;
+      --primary-500: #F051D5;
+      --success: #3AFFC7;
+      --tint-fill: 0.08;
+      --tint-edge: 0.3;
+      --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --font-mono: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --t-micro: 10px;
+      --t-small: 13px;
+      --t-body: 15px;
+      --t-h4: 30px;
+      --t-h6: 20px;
+      --lh-snug: 1.2;
+      --lh-normal: 1.45;
+      --lh-loose: 1.65;
+      --tr-snug: -0.02em;
+      --tr-mono: 0.06em;
+      --s-px: 1px;
+      --s-1: 4px;
+      --s-2: 8px;
+      --s-3: 12px;
+      --s-4: 16px;
+      --s-6: 24px;
+      --s-8: 32px;
+      --s-10: 40px;
+      --s-12: 48px;
+      --r-md: 8px;
+      --r-lg: 12px;
+      --r-full: 999px;
+      --bw-1: 1px;
+      --bw-2: 2px;
+      --focus-width: 2px;
+      --focus-offset: 3px;
+      --icon-sm: 16px;
+      --w-toast: 360px;
+      --content-max: 1180px;
+      --sh-2: 0 1px 0 0 rgba(255,255,255,0.04) inset, 0 4px 12px rgba(0,0,0,0.5);
+      --sh-3: 0 1px 0 0 rgba(255,255,255,0.05) inset, 0 12px 32px rgba(0,0,0,0.55);
+      --ring-halo: 0 0 0 4px rgba(240,81,213,0.35);
+      --ease-standard: cubic-bezier(0.45, 0, 0.55, 1);
+      --ease-accel: cubic-bezier(0.7, 0, 0.84, 0);
+      --ease-decel: cubic-bezier(0.16, 1, 0.3, 1);
+      --d-quick: 200ms;
+      --d-base: 350ms;
+      --z-toast: 200;
+    }
+
+    /* Body restated by token. */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { color-scheme: dark; }
+    body {
+      font-family: var(--font-sans);
+      font-size: var(--t-body);
+      line-height: var(--lh-normal);
+      color: var(--obsidian-100);
+      background: var(--obsidian-950);
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+    h1, h3 { margin: 0; }
+    p { margin: 0; }
+    svg { display: block; }
+
+    /* Page shell: Components > Page shell (.content, .section) */
+    .content { max-width: var(--content-max); margin: 0 auto; padding: var(--s-12) var(--s-6); }
+    .section { display: flex; flex-direction: column; gap: var(--s-6); }
+    .section > h1 { font-size: var(--t-h4); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: 700; }
+
+    /* Grid: Components > Grid system */
+    .grid { display: grid; gap: var(--s-6); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: minmax(0, 1fr); } }
+
+    /* Button: Components > Button (secondary only; no .btn-primary on this screen) */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+      min-height: var(--s-10); padding: 0 var(--s-6);
+      font-size: var(--t-body); font-weight: 500;
+      border: var(--bw-1) solid transparent; border-radius: var(--r-full);
+      transition: background var(--d-quick) var(--ease-standard), border-color var(--d-quick) var(--ease-standard);
+    }
+    .btn-secondary { background: var(--obsidian-800); border-color: var(--obsidian-700); color: var(--obsidian-100); }
+    .btn-secondary:hover { background: var(--obsidian-700); border-color: var(--obsidian-600); }
+    .btn:focus-visible {
+      outline: var(--focus-width) solid var(--obsidian-100);
+      outline-offset: var(--focus-offset);
+      box-shadow: var(--ring-halo);
+    }
+
+    /* Badge: Components > Badge (brand variant, the screen's one accent chip) */
+    .badge {
+      display: inline-flex; align-items: center; gap: var(--s-1);
+      padding: var(--s-2) var(--s-4); border-radius: var(--r-md);
+      font-size: var(--t-small); font-weight: 500; letter-spacing: var(--tr-snug);
+      white-space: nowrap; flex: none;
+    }
+    .badge .dot { width: var(--s-1); height: var(--s-1); border-radius: var(--r-full); background: currentColor; }
+    .badge-brand {
+      color: var(--primary-400);
+      background: color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent);
+      border: var(--bw-1) solid color-mix(in srgb, var(--primary-500) calc(var(--tint-edge) * 100%), transparent);
+    }
+
+    /* Card: Components > Card. Hover: border --obsidian-600, shadow --sh-2, --d-quick + --ease-standard (effect properties, no overshoot). */
+    .card {
+      display: flex; flex-direction: column; gap: var(--s-4);
+      padding: var(--s-6);
+      background: var(--obsidian-800);
+      border: var(--bw-1) solid var(--obsidian-700);
+      border-radius: var(--r-lg);
+      transition: border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-quick) var(--ease-standard);
+    }
+    .card:hover { border-color: var(--obsidian-600); box-shadow: var(--sh-2); }
+    .card h3 { font-size: var(--t-h6); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: 700; }
+    .card p { color: var(--obsidian-200); line-height: var(--lh-loose); }
+    .card-meta {
+      display: flex; justify-content: space-between; align-items: center; gap: var(--s-3);
+      font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase;
+      letter-spacing: var(--tr-mono); color: var(--obsidian-300);
+    }
+    .card-actions { display: flex; gap: var(--s-3); margin-top: var(--s-2); }
+
+    /* Toast: Components > Toast. Region fixed bottom-right; toast enters from the right edge. */
+    .toast-region {
+      position: fixed; right: var(--s-6); bottom: var(--s-6);
+      z-index: var(--z-toast);
+      display: flex; flex-direction: column; gap: var(--s-3);
+      width: var(--w-toast); max-width: calc(100vw - var(--s-8));
+      pointer-events: none;
+    }
+    @media (max-width: 480px) {
+      .toast-region { left: var(--s-4); right: var(--s-4); width: auto; max-width: none; }
+    }
+    .toast {
+      pointer-events: auto;
+      display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: var(--s-3); row-gap: var(--s-1);
+      align-items: center;
+      padding: var(--s-4);
+      background: var(--obsidian-850);
+      border: var(--bw-1) solid var(--obsidian-700);
+      border-left: var(--bw-2) solid var(--success);
+      border-radius: var(--r-md);
+      box-shadow: var(--sh-3);
+      color: var(--obsidian-200);
+      font-size: var(--t-small);
+      /* Entrance start: --s-6 off the right edge, transparent. System-triggered: --d-base + --ease-decel. */
+      opacity: 0;
+      transform: translateX(var(--s-6));
+      transition: opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel);
+    }
+    .toast.is-in { opacity: 1; transform: translateX(0); }
+    /* Exit retraces the entry: same axis, same distance, opposite direction. --d-quick + --ease-accel. */
+    .toast.is-out {
+      opacity: 0; transform: translateX(var(--s-6));
+      transition: opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
+    }
+    .toast-icon { width: var(--icon-sm); height: var(--icon-sm); color: var(--success); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .toast-title { color: var(--obsidian-100); font-weight: 500; }
+    .toast-dismiss {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: var(--s-8); height: var(--s-8); margin: calc(var(--s-2) * -1);
+      border-radius: var(--r-md); color: var(--obsidian-300);
+      transition: background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
+    }
+    .toast-dismiss:hover { background: var(--obsidian-800); color: var(--obsidian-100); }
+    .toast-dismiss svg { width: var(--icon-sm); height: var(--icon-sm); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .toast-body { grid-column: 1 / -1; line-height: var(--lh-normal); }
+    .toast-action {
+      font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase;
+      letter-spacing: var(--tr-mono); color: var(--primary-400); font-weight: 500;
+      padding: 0 var(--s-1); margin-left: var(--s-1); border-radius: var(--r-md);
+    }
+    .toast-action:focus-visible, .toast-dismiss:focus-visible {
+      outline: var(--focus-width) solid var(--obsidian-100);
+      outline-offset: var(--s-px);
+      box-shadow: var(--ring-halo);
+    }
+
+    /* Reduced motion: no transitions; the toast is simply there, the card changes instantly. */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; animation: none !important; }
+      .toast { opacity: 1; transform: none; }
+      .toast.is-out { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="content">
+    <section class="section">
+      <h1>Case files</h1>
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="card-meta"><span>CS-017 &middot; 2025</span><span class="badge badge-brand"><span class="dot"></span>Live</span></div>
+          <h3>Arc &middot; Automotive HMI</h3>
+          <p>Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+          <div class="card-actions"><button type="button" class="btn btn-secondary" data-show-toast>Show toast</button></div>
+        </div>
+        <div class="card">
+          <div class="card-meta"><span>CS-018 &middot; 2025</span></div>
+          <h3>Orion &middot; Fleet console</h3>
+          <p>A control room for 40k connected vans.</p>
+          <div class="card-actions"><button type="button" class="btn btn-secondary" data-show-toast>Show toast</button></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast-region" role="region" aria-live="polite" aria-label="Notifications" id="toasts">
+    <div class="toast toast-success" role="status" id="toast-demo">
+      <svg class="toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
+      <div class="toast-title">Draft published</div>
+      <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+      <div class="toast-body">Live at amaca.design/blog. <button class="toast-action" type="button">Undo</button></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var toast = document.getElementById('toast-demo');
+      var region = document.getElementById('toasts');
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Replay pattern: remove, force reflow, re-add.
+      function enter() {
+        toast.classList.remove('is-out');
+        if (!region.contains(toast)) { region.appendChild(toast); }
+        toast.classList.remove('is-in');
+        void getComputedStyle(toast).opacity;
+        setTimeout(function () { toast.classList.add('is-in'); }, 50);
+      }
+
+      // Exit rides is-out; the node leaves after the transition resolves, at once under reduced motion.
+      function leave() {
+        toast.classList.remove('is-in');
+        toast.classList.add('is-out');
+        if (reduce) { toast.remove(); return; }
+        toast.addEventListener('transitionend', function done(e) {
+          if (e.propertyName !== 'opacity') { return; }
+          toast.removeEventListener('transitionend', done);
+          toast.remove();
+        });
+      }
+
+      document.querySelectorAll('[data-show-toast]').forEach(function (b) {
+        b.addEventListener('click', enter);
+      });
+      toast.querySelector('.toast-dismiss').addEventListener('click', leave);
+      toast.querySelector('.toast-action').addEventListener('click', leave);
+
+      // Entrance on load.
+      requestAnimationFrame(enter);
+    })();
+  </script>
+</body>
+</html>

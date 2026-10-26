@@ -3822,7 +3822,7 @@ How the system is written: naming, structure, units, files. Each convention carr
 | Id | Convention | Severity | Check | Source |
 | --- | --- | --- | --- | --- |
 | C1 | Token names: `--{family}-{step}` for primitives, `--{role}-{variant}` for semantics; a closed vocabulary of modifiers; no value inside a role name | `error` | `none` | § Colors · semantic |
-| C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `none` | § Code conventions · CSS |
+| C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `lint` (check_compliance `class-off-registry`) | § Code conventions · CSS |
 | C3 | `data-*` for state hooks (`data-fade`, `data-reveal`, `data-replay`) | `warn` | `none` | § Code conventions · HTML |
 | C4 | Canonical, semantic HTML: every tag closed, every attribute double-quoted, `<button>` for actions, `<a>` for navigation, never `<div onclick>`; ARIA only when HTML can't say it | `error` | `lint` | § Code conventions · HTML |
 | C5 | Files: `tokens.css` → `components.css`, a third file only past 150 lines; kebab-case, named after the role (`card.css`, not `box.css`) | `warn` | `none` | § Code conventions · CSS, File naming |
@@ -3834,18 +3834,18 @@ How the system is written: naming, structure, units, files. Each convention carr
 
 ### Law
 
-A principle guides a judgement; a law is measured and enforced. Laws are not weighed against principles. Each law has an id, a severity (`error` stops the output, `warn` is flagged in review), the principle it serves and what holds it.
+A principle guides a judgement; a law is measured and enforced. Where `check_compliance` holds a law, the Check column names its finding, and the finding carries the law's id back in its `law` field (v5.3.0). Laws are not weighed against principles. Each law has an id, a severity (`error` stops the output, `warn` is flagged in review), the principle it serves and what holds it.
 
 | Id | Rule | Severity | Principle | Check | Source |
 | --- | --- | --- | --- | --- | --- |
 | L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
 | L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
-| L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier | § Principles · Quiet, then loud |
-| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 | § For the AI agent #1–2 · § Code conventions |
+| L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier · check_compliance `one-primary` | § Principles · Quiet, then loud |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` | § For the AI agent #1–2 · § Code conventions |
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
-| L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 · check_compliance `reduced-motion` | § For the AI agent #7 · § Motion |
+| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 · check_compliance `raw-duration` `raw-easing` `spring-on-effect` `loop-clock` `raw-delay` | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
 #### L1 · The 85 / 10 / 5 law, in detail

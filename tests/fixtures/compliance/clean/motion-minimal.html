@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toast entrance and card hover</title>
+<style>
+/* Stand-in for styles/tokens.css (not read for this task). Replace with the real link.
+   Values marked "assumed" are not stated in DESIGN.md and must come from tokens.css. */
+:root {
+  color-scheme: dark;
+  --obsidian-950: #07090B; --obsidian-850: #10141A; --obsidian-800: #161B22;
+  --obsidian-700: #1E242D; --obsidian-600: #2A313B; --obsidian-300: #8A94A3;
+  --obsidian-200: #B8C0CB; --obsidian-100: #E3E7EC;
+  --primary-400: #F868D8; --primary-500: #F051D5; --success: #3AFFC7;
+  --surface: var(--obsidian-950); --surface-raised: var(--obsidian-800);
+  --border: var(--obsidian-700); --border-strong: var(--obsidian-600);
+  --s-px: 1px; --s-0-5: 2px; --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-6: 24px; --s-8: 32px;
+  --r-md: 8px; --r-lg: 12px; --bw-1: 1px; --bw-2: 2px;
+  --t-micro: 10px; --t-small: 13px; --t-body: 15px; --t-h6: 20px;
+  --lh-normal: 1.45; --tr-mono: 0.06em;
+  --font-sans: Satoshi, ui-sans-serif, system-ui, sans-serif;
+  --w-toast: 360px; --z-toast: 200; --icon-sm: 16px;
+  --d-quick: 200ms; --d-base: 360ms; /* d-base assumed */
+  --ease-standard: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-decel: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-accel: cubic-bezier(0.7, 0, 0.84, 0); /* assumed */
+  --sh-1: 0 1px 2px #07090B99; --sh-2: 0 4px 12px #07090B99; --sh-3: 0 12px 32px #07090BB3; /* assumed */
+}
+
+body {
+  margin: 0; min-height: 100vh;
+  color: var(--obsidian-100); background: var(--surface);
+  font-family: var(--font-sans); font-size: var(--t-body); line-height: var(--lh-normal);
+}
+main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
+
+/* Card (§ 3.32) */
+.card {
+  background: var(--surface-raised);
+  border: var(--bw-1) solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--s-6);
+  box-shadow: none;
+  /* hover is a user-triggered state change: --d-quick · --ease-standard */
+  transition: border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-quick) var(--ease-standard);
+}
+.card:hover { border-color: var(--border-strong); box-shadow: var(--sh-2); }
+.card-meta {
+  font-size: var(--t-micro); text-transform: uppercase; letter-spacing: var(--tr-mono);
+  color: var(--obsidian-300); margin-bottom: var(--s-2);
+}
+.card h3 { margin: 0 0 var(--s-2); font-size: var(--t-h6); font-weight: 500; }
+.card p { margin: 0; color: var(--obsidian-200); }
+
+/* Toast (§ 3.17) */
+.toast-region {
+  position: fixed; right: var(--s-6); bottom: var(--s-6);
+  width: var(--w-toast); max-width: calc(100vw - var(--s-8));
+  z-index: var(--z-toast); pointer-events: none;
+}
+.toast {
+  pointer-events: auto;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; column-gap: var(--s-3); row-gap: var(--s-1);
+  padding: var(--s-4);
+  background: var(--obsidian-850);
+  border: var(--bw-1) solid var(--border);
+  border-left: var(--bw-2) solid var(--success);
+  border-radius: var(--r-md);
+  box-shadow: var(--sh-3);
+  color: var(--obsidian-200); font-size: var(--t-small);
+  /* entrance: from the side it lives on, 24px from the right, with opacity */
+  opacity: 0; transform: translateX(var(--s-6));
+}
+.toast.is-in {
+  opacity: 1; transform: translateX(0);
+  transition: opacity var(--d-base) var(--ease-decel), transform var(--d-base) var(--ease-decel);
+}
+.toast.is-out {
+  opacity: 0; transform: translateX(var(--s-6));
+  transition: opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
+}
+.toast-icon { grid-column: 1; width: var(--icon-sm); height: var(--icon-sm); color: var(--success); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; align-self: center; }
+.toast-title { grid-column: 2; color: var(--obsidian-100); font-weight: 600; }
+.toast-dismiss {
+  grid-column: 3; display: inline-grid; place-items: center; width: var(--s-6); height: var(--s-6);
+  background: transparent; border: 0; border-radius: var(--r-md); color: var(--obsidian-300); cursor: pointer;
+  transition: color var(--d-quick) var(--ease-standard);
+}
+.toast-dismiss:hover { color: var(--obsidian-100); }
+.toast-dismiss:focus-visible { outline: var(--bw-2) solid var(--obsidian-100); outline-offset: var(--s-0-5); }
+.toast-dismiss svg { width: var(--icon-sm); height: var(--icon-sm); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+.toast-body { grid-column: 1 / -1; }
+
+/* every transition and animation has a reduced-motion fallback */
+@media (prefers-reduced-motion: reduce) {
+  .card, .toast, .toast.is-in, .toast.is-out, .toast-dismiss { transition: none; }
+  .toast { opacity: 1; transform: none; }
+  .toast.is-out { opacity: 0; }
+}
+</style>
+</head>
+<body>
+<main>
+  <article class="card">
+    <div class="card-meta"><span>CS-017 · 2025</span></div>
+    <h3>Arc · Automotive HMI</h3>
+    <p>Rethinking the center stack for a next-gen EV. 18 months, 4 platforms.</p>
+  </article>
+</main>
+
+<div class="toast-region" role="region" aria-live="polite" aria-label="Notifications">
+  <div class="toast toast-success" role="status" id="toast">
+    <svg class="toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg>
+    <div class="toast-title">Draft published</div>
+    <button class="toast-dismiss" type="button" aria-label="Dismiss"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
+    <div class="toast-body">Live at amaca.design/blog.</div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var toast = document.getElementById('toast');
+  // Double rAF so the hidden start state is painted before .is-in (§ Code conventions, replay).
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { toast.classList.add('is-in'); });
+  });
+  toast.querySelector('.toast-dismiss').addEventListener('click', function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    toast.classList.remove('is-in');
+    toast.classList.add('is-out');
+    if (reduced) { toast.remove(); return; }
+    toast.addEventListener('transitionend', function () { toast.remove(); }, { once: true });
+  });
+})();
+</script>
+</body>
+</html>

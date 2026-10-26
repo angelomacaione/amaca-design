@@ -158,6 +158,29 @@ function section(design, hs, h) {
   return lines.slice(h.line, next ? next.line : lines.length).join('\n');
 }
 
+// a cite may be a path ("Motion › Six durations, five easings"), alternatives ("Motion; Accessibility") or carry a
+// "(§ 06.3)" suffix (v5.3.0). The first alternative that resolves wins; in a path the deepest part that is a heading
+// wins, and a last part that is a paragraph of its parent (**Run-in title.**) opens the parent at that paragraph.
+function resolvePath(repo, hs, q, find) {
+  for (const alt of q.split(';').map((s) => s.trim()).filter(Boolean)) {
+    const parts = alt.replace(/\s*\(§[^)]*\)\s*$/, '').split('›').map((s) => s.trim()).filter(Boolean);
+    if (parts.length < 2) continue;
+    let scope = null;
+    for (const p of parts) {
+      const h = find(p, scope);
+      if (h) { scope = h; continue; }
+      if (scope) {
+        const text = section(repo.design, hs, scope);
+        const at = text.toLowerCase().indexOf('**' + p.toLowerCase());
+        if (at >= 0) return { h: scope, from: at };
+      }
+      scope = null; break;
+    }
+    if (scope) return { h: scope, from: 0 };
+  }
+  return null;
+}
+
 function getDesignSection(repo, args) {
   const q = String((args && args.query) || '').trim();
   const hs = headings(repo.design);
@@ -178,9 +201,28 @@ function getDesignSection(repo, args) {
       if (name) h = hs.find((o) => norm(o.title) === norm(name));
     }
   }
-  h = h || hs.find((o) => norm(o.title) === nq) || hs.find((o) => norm(o.title).startsWith(nq)) || hs.find((o) => norm(o.title).includes(nq));
+  const find = (t, scope) => {
+    const nt = norm(t);
+    const pool = scope ? hs.filter((o) => o.line > scope.line && section(repo.design, hs, scope).includes(o.title) && o.level > scope.level) : hs;
+    return pool.find((o) => norm(o.title) === nt) || pool.find((o) => norm(o.title).startsWith(nt)) || pool.find((o) => norm(o.title).includes(nt));
+  };
+  let from = 0;
+  if (!h && /[›;]|\(§/.test(q)) {
+    const r = resolvePath(repo, hs, q, find);
+    if (r) { h = r.h; from = r.from; }
+    else {
+      const first = q.split(/[;›]/)[0].replace(/\s*\(§[^)]*\)\s*$/, '').trim();
+      h = find(first, null);
+    }
+  }
+  h = h || find(q, null);
+  if (!h) {
+    const words = q.replace(/\s*\(§[^)]*\)\s*$/, '').split(/\s+/);
+    for (let n = words.length - 1; n >= 1 && !h; n--) h = find(words.slice(0, n).join(' '), null);
+  }
   if (!h) throw new ToolError(`No section matches "${q}". Call get_design_section with no query for the list.`);
-  const text = section(repo.design, hs, h);
+  const whole = section(repo.design, hs, h);
+  const text = from ? whole.split('\n')[0] + '\n\n[…]\n\n' + whole.slice(from) : whole;
   const subs = hs.filter((o) => o.line > h.line && o.level === h.level + 1 && section(repo.design, hs, h).includes(o.title)).map((o) => o.title);
   return cap(text, subs.length ? 'Ask for a subsection: ' + subs.join(' · ') : 'Ask for a narrower section.');
 }

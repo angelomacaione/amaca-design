@@ -1,0 +1,3 @@
+/* expect: warning loop-clock */
+.a{animation: pulse 1200ms var(--ease-standard) infinite}
+@media (prefers-reduced-motion: reduce){.a{transition:none;animation:none}}

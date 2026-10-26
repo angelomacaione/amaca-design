@@ -20,6 +20,10 @@ const MOTION = /^(transition|transition-(duration|delay|timing-function)|animati
 const EFFECT = new Set(['color', 'background', 'background-color', 'opacity', 'box-shadow', 'border-color', 'outline-color', 'fill', 'stroke', 'all']);
 const KEYWORD_EASE = { 'ease': '--ease-standard', 'ease-in-out': '--ease-standard', 'ease-out': '--ease-decel', 'ease-in': '--ease-accel', 'linear': '--ease-soft' };
 // roots that only Amaca uses as a class prefix; generic words (list, link, input, table, nav...) are left out on purpose
+// the law (or convention) each finding enforces: the Law and Conventions tables of DESIGN.md name the rule back in
+// their Check column, so the link reads from both ends (v5.3.0)
+const LAW = { 'colour-literal': 'L4', 'raw-px': 'L4', 'raw-duration': 'L8', 'raw-easing': 'L8', 'spring-on-effect': 'L8',
+  'loop-clock': 'L8', 'raw-delay': 'L8', 'one-primary': 'L3', 'reduced-motion': 'L7', 'class-off-registry': 'C2' };
 const ROOTS = ['btn', 'card', 'chip', 'badge', 'acc', 'accordion', 'alert', 'avatar', 'breadcrumb', 'chart', 'chat', 'diagram', 'divider', 'dp', 'drawer', 'loader', 'modal', 'navbar', 'pagination', 'popover', 'progress', 'radio', 'segmented', 'select', 'skeleton', 'slider', 'stepper', 'swatch', 'switch', 'toast', 'tooltip', 'tp'];
 
 function tokens(css) {
@@ -59,6 +63,10 @@ function snapFix(scale, v, unit) {
 // canonical markup even when no rule styles it)
 function canonicalClasses(repo) {
   const set = new Set();
+  // the layout rules (state rule, v5.3.0) are canonical classes with no registry item of their own
+  for (const row of String(repo.design || '').split('\n')) {
+    if (/^\|[^|]+\|[^|]+\|\s*rule\s*\|/.test(row)) for (const m of row.split('|')[2].matchAll(/`\.([\w-]+)`/g)) set.add(m[1]);
+  }
   for (const it of Object.values(repo.items)) {
     for (const c of (it.meta && it.meta.amaca && it.meta.amaca.classes) || []) set.add(c);
     for (const f of it.files || []) {
@@ -118,7 +126,7 @@ function check(repo, source) {
     const key = `${line}|${rule}|${found}`;
     if (seen.has(key)) return;
     seen.add(key);
-    out.push({ line, severity, rule, found, fix, cite });
+    out.push({ line, severity, rule, found, fix, cite, law: LAW[rule] || null });
   };
 
   // 1 — colour literals, anywhere a value can sit (not an href or an id)
@@ -129,11 +137,11 @@ function check(repo, source) {
     if (/(href|xlink:href|id|for|aria-[a-z]+)=["']?$/.test(before)) continue;
     const hex = m[2].toUpperCase();
     const names = T.color[hex];
-    add(idx, 'error', 'colour-literal', m[2], names ? `var(${names[0]})` : 'no token has this value: pick one from get_tokens (primary, obsidian, secondary, tertiary, the semantic four)', 'Color; Code conventions');
+    add(idx, 'error', 'colour-literal', m[2], names ? `var(${names[0]})` : 'no token has this value: pick one from get_tokens (primary, obsidian, secondary, tertiary, the semantic four)', 'Colors › Color · brand (Magenta primary)');
   }
   for (const m of code.matchAll(/\b(rgba?|hsla?)\(/g)) {
     if (isTokenDefinition(code, m.index)) continue;
-    add(m.index, 'error', 'colour-literal', m[0] + '…)', 'a token, or a token times a tint: color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)', 'Color › Tints · alpha (§ 01.6)');
+    add(m.index, 'error', 'colour-literal', m[0] + '…)', 'a token, or a token times a tint: color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent)', 'Shapes › Tints and opacity');
   }
 
   // 2 — declarations: CSS (kebab, in a file, <style> or style="") and JSX style objects (camelCase)
@@ -157,10 +165,10 @@ function check(repo, source) {
     if (fam && !parked) {
       for (const n of pxs) {
         if (n === 0) continue;
-        if (fam === 'radius' && n >= 999) { add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, 'var(--r-full)', 'Radius'); continue; }
+        if (fam === 'radius' && n >= 999) { add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, 'var(--r-full)', 'Shapes › Radius'); continue; }
         if (fam === 'border width' && n > 2) continue; // a 3px+ border is not on the border-width scale; leave it to review
-        if (fam === 'radius' && n < 2) { add(d.idx, 'warning', 'raw-px', `${d.prop}: ${n}px`, 'a sub-2px radius is legal only on the closed hairline list (Shapes); otherwise var(--r-xs)', 'Radius'); continue; }
-        add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, snapFix(unitScale, n, 'px'), fam === 'type' ? 'Typography' : fam === 'radius' ? 'Radius' : fam === 'spacing' ? 'Spacing' : 'Border width');
+        if (fam === 'radius' && n < 2) { add(d.idx, 'warning', 'raw-px', `${d.prop}: ${n}px`, 'a sub-2px radius is legal only on the closed hairline list (Shapes); otherwise var(--r-xs)', 'Shapes › Radius'); continue; }
+        add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, snapFix(unitScale, n, 'px'), fam === 'type' ? 'Typography' : fam === 'radius' ? 'Shapes › Radius' : fam === 'spacing' ? 'Layout › Spacing' : 'Shapes › Border width');
       }
     }
     if (MOTION.test(d.prop) && !/^\s*none\s*$/.test(v)) {
@@ -175,24 +183,24 @@ function check(repo, source) {
           const ms = x[2] === 's' ? Math.round(parseFloat(x[1]) * 1000) : +x[1];
           const delay = /delay$/.test(d.prop) || (i === 1 && /^(transition|animation)$/.test(d.prop));
           if (ms < 1 && inCalm(d.idx)) return; // the kill-switch's 0.01ms (or 0s)
-          if (loop) add(d.idx, 'warning', 'loop-clock', `${d.prop}: ${x[0]} … infinite`, 'a continuous loop runs on its own clock, legal only with its row in the motion index (§ 06.4); otherwise an --d-* token', 'Motion › Motion per component');
-          else if (delay) add(d.idx, 'warning', 'raw-delay', `${d.prop}: ${x[0]} (delay)`, 'a delay literal is legal only where the motion index ratifies it; otherwise compose it from tokens, e.g. calc(var(--d-quick) * 2)', 'Motion › Motion per component');
-          else add(d.idx, 'error', 'raw-duration', `${d.prop}: ${x[0]}`, snapFix(T.d, ms, 'ms'), 'Motion › Duration tokens');
+          if (loop) add(d.idx, 'warning', 'loop-clock', `${d.prop}: ${x[0]} … infinite`, 'a continuous loop runs on its own clock, legal only with its row in the motion index (§ 06.4); otherwise an --d-* token', 'Motion › Continuous loops');
+          else if (delay) add(d.idx, 'warning', 'raw-delay', `${d.prop}: ${x[0]} (delay)`, 'a delay literal is legal only where the motion index ratifies it; otherwise compose it from tokens, e.g. calc(var(--d-instant) * 2)', 'Motion › Motion index');
+          else add(d.idx, 'error', 'raw-duration', `${d.prop}: ${x[0]}`, snapFix(T.d, ms, 'ms'), 'Motion › Six durations, five easings');
         });
       }
       for (const x of v.matchAll(/cubic-bezier\([^)]*\)/g)) {
         const name = T.ease[x[0].replace(/\s+/g, '')];
-        add(d.idx, 'error', 'raw-easing', x[0], name ? `var(${name})` : 'off the curve set: one of --ease-standard, --ease-decel, --ease-soft, --ease-accel, --ease-spring', 'Motion › Easing tokens');
+        add(d.idx, 'error', 'raw-easing', x[0], name ? `var(${name})` : 'off the curve set: one of --ease-standard, --ease-decel, --ease-soft, --ease-accel, --ease-spring', 'Motion › Six durations, five easings');
       }
       for (const x of v.matchAll(/(^|[\s,:])(ease-in-out|ease-out|ease-in|ease|linear)(?=$|[\s,])/g)) {
         if (x[2] === 'linear' && isAnim) continue; // mechanical loops ride linear (§ 06.4)
-        add(d.idx, 'error', 'raw-easing', x[2], `var(${KEYWORD_EASE[x[2]]})`, 'Motion › Easing tokens');
+        add(d.idx, 'error', 'raw-easing', x[2], `var(${KEYWORD_EASE[x[2]]})`, 'Motion › Six durations, five easings');
       }
       if (/^(transition|animation)$/.test(d.prop)) {
         for (const item of v.split(',')) {
           const prop = item.trim().split(/\s+/)[0];
           if (/--ease-spring/.test(item) && EFFECT.has(prop)) {
-            add(d.idx, 'error', 'spring-on-effect', item.trim(), 'a no-overshoot curve on effect properties: --ease-standard (user-triggered) or --ease-decel (system-triggered); --ease-spring only on transform, position, size', 'Motion › Spatial vs effects (§ 06.3)');
+            add(d.idx, 'error', 'spring-on-effect', item.trim(), 'a no-overshoot curve on effect properties: --ease-standard (user-triggered) or --ease-decel (system-triggered); --ease-spring only on transform, position, size', 'Motion › Spatial vs Effects');
           }
         }
       }
@@ -214,7 +222,7 @@ function check(repo, source) {
         const hex = val.match(/^#[0-9a-fA-F]{3,8}$/);
         const px = val.match(/^(\d+(?:\.\d+)?)px$/);
         const ms = val.match(/^(\d+)ms$/);
-        if (hex) { const n = T.color[val.toUpperCase()]; add(base, 'error', 'colour-literal', raw, n ? `${util}-${n[0].slice(2)}` : 'no token has this value', 'Color; React (Tailwind v4 @theme)'); }
+        if (hex) { const n = T.color[val.toUpperCase()]; add(base, 'error', 'colour-literal', raw, n ? `${util}-${n[0].slice(2)}` : 'no token has this value', 'React · Tailwind v4 @theme'); }
         else if (px) {
           const n = +px[1];
           const isR = /^rounded/.test(util), isT = util === 'text', isB = /^border/.test(util);
@@ -222,29 +230,29 @@ function check(repo, source) {
           if (tok) {
             const step = tok.name.replace(/^--[a-z]+-/, '');
             const utilFix = isB ? (tok.v === 1 ? 'border' : 'border-2') : `${util}-${step}`;
-            add(base, 'error', 'raw-px', raw, utilFix + (tok.v === n ? '' : ` (${tok.v}px; it snaps from ${n}px, a visible change: check it)`), 'React (Tailwind v4 @theme): tokens become utilities');
+            add(base, 'error', 'raw-px', raw, utilFix + (tok.v === n ? '' : ` (${tok.v}px; it snaps from ${n}px, a visible change: check it)`), 'React · Tailwind v4 @theme');
           }
         } else if (ms) {
           const tok = nearest(T.d, +ms[1]);
-          add(base, 'error', 'raw-duration', raw, `${util}-(${tok.name})` + (tok.v === +ms[1] ? '' : ` (${tok.v}ms; it snaps from ${ms[1]}ms, a visible change: check it)`), 'Motion › Duration tokens');
+          add(base, 'error', 'raw-duration', raw, `${util}-(${tok.name})` + (tok.v === +ms[1] ? '' : ` (${tok.v}ms; it snaps from ${ms[1]}ms, a visible change: check it)`), 'Motion › Six durations, five easings');
         }
-        else if (/cubic-bezier/.test(val)) add(base, 'error', 'raw-easing', raw, 'an --ease-* token', 'Motion › Easing tokens');
+        else if (/cubic-bezier/.test(val)) add(base, 'error', 'raw-easing', raw, 'an --ease-* token', 'Motion › Six durations, five easings');
         continue;
       }
       if (/^(is|has)-/.test(cls) || classes.has(cls)) continue;
       const root = cls.split('-')[0];
       if (ROOTS.includes(root) && cls.includes('-')) {
-        add(base, 'warning', 'class-off-registry', cls, `not an Amaca class: compose the canonical ones (get_component ${root === 'btn' ? 'button' : root}); if it is your project's own class, ignore this`, 'Component registry (§ 3.0)');
+        add(base, 'warning', 'class-off-registry', cls, `not an Amaca class: compose the canonical ones (get_component ${root === 'btn' ? 'button' : root}); if it is your project's own class, ignore this`, '§ 3.0 Component registry');
       }
     }
   }
-  if (primaries > 1) add(firstPrimary, 'warning', 'one-primary', `.btn-primary × ${primaries}`, 'one .btn-primary per screen; the rest recede (secondary, ghost, outline)', 'Button rules');
+  if (primaries > 1) add(firstPrimary, 'warning', 'one-primary', `.btn-primary × ${primaries}`, 'one .btn-primary per screen; the rest recede (secondary, ghost, outline)', 'Button');
 
   // 4 — motion without its reduced-motion override
   const anyMotion = motion ? motion.idx : twMotion;
   const killSwitch = /prefers-reduced-motion|motion-reduce:|motion-safe:/.test(code);
   if (anyMotion !== null && anyMotion !== undefined && !killSwitch) {
-    add(anyMotion, 'warning', 'reduced-motion', 'transition or animation with no prefers-reduced-motion override', 'components.css carries the global kill-switch (durations to 0.01ms); a component with a transform, a fade-in or an orchestrated animation also sets its own transitions to none inside @media (prefers-reduced-motion: reduce), or motion-reduce: in Tailwind', 'Motion › CSS kill-switch; Accessibility floor');
+    add(anyMotion, 'warning', 'reduced-motion', 'transition or animation with no prefers-reduced-motion override', 'components.css carries the global kill-switch (durations to 0.01ms); a component with a transform, a fade-in or an orchestrated animation also sets its own transitions to none inside @media (prefers-reduced-motion: reduce), or motion-reduce: in Tailwind', 'Motion › Spatial vs Effects; Accessibility');
   }
 
   out.sort((a, b) => a.line - b.line);

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Settings</title>
+  <!-- Amaca tokens: every value below resolves through tokens.css -->
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* ---------- Page layout (semantic elements, no new classes) ---------- */
+    body{ margin:0; min-height:100vh; display:grid;
+      grid-template-columns:calc(var(--s-32) * 2) 1fr;
+      background:var(--obsidian-950); color:var(--obsidian-100);
+      font-family:var(--font-sans); font-size:var(--t-body); }
+
+    /* ---------- Navigation: sidebar ---------- */
+    .sidebar{ background:var(--obsidian-900); border-right:var(--bw-1) solid var(--obsidian-700);
+      padding:var(--s-6) var(--s-4); display:flex; flex-direction:column; gap:var(--s-6); }
+    .sidebar nav ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:var(--s-1); }
+    .sidebar a{ display:flex; align-items:center; min-height:var(--s-10); padding:0 var(--s-3);
+      border-radius:var(--r-md); color:var(--obsidian-300); text-decoration:none; font-size:var(--t-small);
+      transition:background-color var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard); }
+    .sidebar a:hover{ background:var(--obsidian-850); color:var(--obsidian-100); }
+    .sidebar a[aria-current="page"]{ background:var(--obsidian-800); color:var(--obsidian-100);
+      box-shadow:inset var(--bw-1) 0 0 var(--obsidian-100); }
+    .sidebar a:focus-visible{ outline:var(--focus-width) solid var(--primary-500); outline-offset:var(--focus-offset); }
+
+    /* ---------- Main ---------- */
+    main{ padding:var(--s-12) var(--s-10); }
+    main > header{ max-width:calc(var(--s-32) * 5); margin-bottom:var(--s-8); }
+    h1{ margin:0 0 var(--s-2); font-size:var(--t-h4); font-weight:500; letter-spacing:var(--tr-snug); }
+    main > header p{ margin:0; color:var(--obsidian-300); font-size:var(--t-body); }
+
+    /* ---------- Card ---------- */
+    .card{ background:var(--obsidian-800); border:var(--bw-1) solid var(--obsidian-700);
+      border-radius:var(--r-lg); padding:var(--s-8); max-width:calc(var(--s-32) * 5);
+      display:flex; flex-direction:column; gap:var(--s-6); }
+
+    /* ---------- Field / label / input ---------- */
+    .field{ display:flex; flex-direction:column; gap:var(--s-2); }
+    .label{ font-family:var(--font-mono); font-size:var(--t-micro);
+      letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+    .input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
+      border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
+      font-family:var(--font-sans); font-size:var(--t-small); outline:none;
+      transition:all var(--d-quick) var(--ease-standard); width:100%; box-sizing:border-box; }
+    .input:focus{ border-color:var(--primary-500); box-shadow:var(--ring-field); }
+    .input:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
+    /* Error state: border + icon + message, never colour alone */
+    .input[aria-invalid="true"]{ border-color:var(--danger); }
+    .input[aria-invalid="true"]:focus{ border-color:var(--danger); box-shadow:var(--ring-field); }
+    .field p{ display:flex; align-items:center; gap:var(--s-2); margin:0;
+      color:var(--danger); font-size:var(--t-caption); }
+    .field p svg{ width:var(--s-4); height:var(--s-4); flex:none; }
+    .field small{ color:var(--obsidian-300); font-size:var(--t-caption); }
+
+    /* ---------- Switch: track + knob ---------- */
+    .switch{ display:flex; align-items:center; justify-content:space-between; gap:var(--s-4);
+      min-height:var(--s-12); cursor:pointer; }
+    .switch > span{ display:flex; flex-direction:column; gap:var(--s-1); }
+    .switch strong{ font-weight:500; font-size:var(--t-body); color:var(--obsidian-100); }
+    .switch small{ font-size:var(--t-caption); color:var(--obsidian-300); }
+    .switch input{ appearance:none; -webkit-appearance:none; position:relative; flex:none; margin:0;
+      width:var(--s-10); height:var(--s-6); border-radius:var(--r-full);
+      background:var(--obsidian-700); border:var(--bw-1) solid var(--obsidian-500); cursor:pointer;
+      transition:background-color var(--d-quick) var(--ease-standard), border-color var(--d-quick) var(--ease-standard); }
+    .switch input::before{ content:""; position:absolute; top:50%; left:var(--s-1);
+      width:var(--s-4); height:var(--s-4); border-radius:var(--r-full); background:var(--obsidian-200);
+      transform:translate(0, -50%);
+      transition:transform var(--d-quick) var(--ease-standard), background-color var(--d-quick) var(--ease-standard); }
+    .switch input:checked{ background:var(--primary-500); border-color:var(--primary-500); }
+    .switch input:checked::before{ background:var(--obsidian-950); transform:translate(var(--s-4), -50%); }
+    .switch input:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100);
+      outline-offset:var(--focus-offset); box-shadow:var(--ring-halo); }
+    .switch input:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
+    .switch input[aria-invalid="true"]{ border-color:var(--danger); }
+
+    /* ---------- Buttons ---------- */
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
+      font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+      letter-spacing:var(--tr-snug); line-height:1;
+      min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
+      transition:all var(--d-quick) var(--ease-standard);
+      border:var(--bw-1) solid transparent; white-space:nowrap; cursor:pointer; }
+    .btn:disabled{ opacity:var(--opacity-disabled); cursor:not-allowed; }
+    .btn:focus-visible{ outline:var(--focus-width) solid var(--obsidian-100); outline-offset:var(--focus-offset);
+      box-shadow:var(--ring-halo); }
+    .btn-primary{ background:var(--primary-500); color:var(--obsidian-050);
+      border-color:var(--primary-500); box-shadow:var(--sh-2); }
+    .btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
+      border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
+    .btn-primary:active{ background:var(--primary-600); border-color:var(--primary-600); }
+    .btn-secondary{ background:transparent; color:var(--obsidian-100); border-color:var(--obsidian-600); }
+    .btn-secondary:hover{ background:var(--obsidian-850); border-color:var(--obsidian-500); }
+    .btn-secondary:active{ background:var(--obsidian-900); }
+
+    form footer{ display:flex; justify-content:flex-end; gap:var(--s-3);
+      padding-top:var(--s-6); border-top:var(--bw-1) solid var(--obsidian-700); }
+
+    /* ---------- Reduced motion ---------- */
+    @media (prefers-reduced-motion: reduce){
+      .sidebar a, .input, .switch input, .switch input::before, .btn{ transition:none; }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar" aria-label="Primary">
+    <span class="label">Workspace</span>
+    <nav aria-label="Settings sections">
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#profile" aria-current="page">Profile</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#billing">Billing</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main id="profile">
+    <header>
+      <h1>Settings</h1>
+      <p>Update your profile and notification preferences.</p>
+    </header>
+
+    <form class="card" novalidate>
+      <label class="field">
+        <span class="label">Name</span>
+        <input class="input" type="text" name="name" autocomplete="name" value="Angelo Macaione">
+      </label>
+
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <input class="input" id="email" type="email" name="email" autocomplete="email"
+          value="angelo@" aria-invalid="true" aria-describedby="email-error">
+        <p id="email-error">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"></circle>
+            <line x1="12" y1="7.5" x2="12" y2="13"></line>
+            <line x1="12" y1="16.5" x2="12" y2="16.5"></line>
+          </svg>
+          Enter a full email address, such as name@example.com.
+        </p>
+      </div>
+
+      <label class="switch">
+        <span>
+          <strong>Email notifications</strong>
+          <small>Get a summary of account activity once a week.</small>
+        </span>
+        <input type="checkbox" role="switch" name="notifications" checked>
+      </label>
+
+      <footer>
+        <button class="btn btn-secondary" type="button">Cancel</button>
+        <button class="btn btn-primary" type="submit">Save</button>
+      </footer>
+    </form>
+  </main>
+</body>
+</html>
