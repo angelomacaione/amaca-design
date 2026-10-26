@@ -1,0 +1,2 @@
+/* expect: error raw-px */
+.sr-only{position:absolute;width:var(--s-px);height:var(--s-px);margin:-1px;overflow:hidden}

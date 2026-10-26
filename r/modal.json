@@ -14,7 +14,7 @@
       "path": "amaca/modal.css",
       "type": "registry:file",
       "target": "styles/amaca/modal.css",
-      "content": ".modal{\n  width:calc(100% - var(--s-8));\n  max-width:var(--w-modal);\n  max-height:calc(100vh - var(--s-8));\n  overflow:auto;\n  margin:auto;\n  padding:var(--s-6);\n  background:var(--obsidian-800);\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-4);\n  font-family:var(--font-sans);\n  opacity:0;\n  transform:translateY(var(--s-2));\n  transition:opacity var(--d-quick) var(--ease-accel),transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.modal-wide{\n  max-width:720px;\n}\n.modal[open]{\n  opacity:1;\n  transform:none;\n  transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-base) var(--ease-decel), overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;\n}\n.modal::backdrop{\n  background:transparent;\n  transition:background var(--d-quick) var(--ease-accel),overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.modal[open]::backdrop{\n  background:var(--scrim);\n  backdrop-filter:blur(var(--blur-veil));\n  transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;\n}\n.modal-head{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-4);\n}\n.modal-title{\n  margin:0;\n  font-size:var(--t-h6);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.modal-body{\n  margin:0;\n  color:var(--obsidian-200);\n  font-size:var(--t-body);\n}\n.modal-foot{\n  display:flex;\n  justify-content:flex-end;\n  flex-wrap:wrap;\n  gap:var(--s-2);\n  margin-top:var(--s-6);\n}\n@media (prefers-reduced-motion:reduce){\n  .modal, .modal[open]{\n    transition:none;\n    transform:none;\n  }\n  .modal::backdrop, .modal[open]::backdrop{\n    transition:none;\n  }\n}\n.modal{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
+      "content": ":is(.modal-head{\n  margin-inline-end:calc((var(--icon-sm) - var(--s-10)) / 2);\n}\n:is(.modal-head{\n  margin-inline-end:calc((var(--icon-sm) - var(--s-8)) / 2);\n}\n:is(.modal-head{\n  margin-inline-end:calc((var(--icon-sm) - var(--s-12)) / 2);\n}\n@media (pointer:coarse){\n  :is(.modal-head{\n    margin-inline-end:calc((var(--icon-sm) - var(--target-touch)) / 2);\n  }\n}\n.modal{\n  width:calc(100% - var(--s-8));\n  max-width:var(--w-modal);\n  max-height:calc(100vh - var(--s-8));\n  overflow:auto;\n  inset:auto;\n  left:50vw;\n  top:50vh;\n  translate:-50% -50%;\n  margin:0;\n  padding:var(--s-6);\n  background:var(--obsidian-800);\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-4);\n  font-family:var(--font-sans);\n  opacity:0;\n  transform:scale(0.96);\n  transition:opacity var(--d-quick) var(--ease-accel),transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.modal-wide{\n  max-width:720px;\n}\n.modal[open]{\n  opacity:1;\n  transform:none;\n  transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-base) var(--ease-decel), overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;\n}\n.modal::backdrop{\n  background:transparent;\n  transition:background var(--d-quick) var(--ease-accel),overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.modal[open]::backdrop{\n  background:var(--scrim);\n  backdrop-filter:blur(var(--blur-veil));\n  transition:background var(--d-quick) var(--ease-decel),overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;\n}\n.modal-head{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-4);\n}\n.modal-title{\n  margin:0;\n  font-size:var(--t-h6);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.modal-body{\n  margin:0;\n  color:var(--obsidian-200);\n  font-size:var(--t-body);\n}\n.modal-foot{\n  display:flex;\n  justify-content:flex-end;\n  flex-wrap:wrap;\n  gap:var(--s-2);\n  margin-top:var(--s-6);\n}\n@media (prefers-reduced-motion:reduce){\n  .modal, .modal[open]{\n    transition:none;\n    transform:none;\n  }\n  .modal::backdrop, .modal[open]::backdrop{\n    transition:none;\n  }\n}\n.modal{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n"
     },
     {
       "path": "amaca/modal.html",
@@ -25,7 +25,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.21 Modal",
       "site": "https://www.amaca.design/#modal",
       "usage": {
@@ -113,8 +113,7 @@
           "name": "Motion",
           "tokens": [
             "--d-quick",
-            "--ease-accel",
-            "--s-2"
+            "--ease-accel"
           ],
           "value": "",
           "states": "open --ease-decel --d-base"
@@ -130,7 +129,7 @@
         "Actions: one primary, at the end. A destructive action is .btn-danger and is never the default focus. A modal has at most two actions and no third \"learn more\" link; that goes in the body.",
         "Never stack. A modal opened from a modal is a flow that wants a page.",
         "Small screens: at ≤480px the panel keeps --s-4 of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.",
-        "Motion. In: the panel fades in and rises --s-2; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.",
+        "Motion. In: the panel fades in and grows from 0.96 about its centre, the Lightbox's entrance; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.",
         "No state matrix beyond default. The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states."
       ],
       "classes": [

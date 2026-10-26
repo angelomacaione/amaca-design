@@ -21,6 +21,8 @@ This project uses **Amaca**: dark-first, single typeface (Satoshi), one brand ac
 
 **Voice:** imperative and terse in specs/code; no AI tells ("delve", "leverage", "robust", "seamless", "effortlessly"). Say "surface" not "background", "token" not "variable", "ship" not "launch".
 
+**Conduct (v5.3.0):** libraries the page needs ship beside it, never from a CDN alone · floating panels ride the top layer (`popover` + `showPopover()`, CSS anchor positioning) · motion starts when its element is in view · a modal centres on `50vw · 50vh` · demo links act in place · breakpoints are `--bp-*` · demo content is invented.
+
 **Never ship:** gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (icons: stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
 
 **Verify before shipping:** zero hardcoded hex/px/`cubic-bezier` in component code (grep or a token-aware stylelint) · 85/10/5 holds · a11y floor passes · every transition has a `prefers-reduced-motion` fallback. (Add your project's own build/test/lint alongside.)

@@ -18,12 +18,12 @@
       "path": "amaca/diagram.html",
       "type": "registry:file",
       "target": "components/amaca/diagram.html",
-      "content": "<figure class=\"diagram\" data-anim=\"pending\" style=\"width:min(100%, calc(var(--s-32) * 4))\"><div class=\"diagram-canvas\" role=\"img\" aria-label=\"Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner.\"><template class=\"diagram-src\">\nflowchart LR\n  P[\"Request\"]:::focus --> R{\"Token covers it?\"}\n  R -->|yes| S[\"Reference and ship\"]\n  R -->|no| A[\"Ask the owner\"]\n</template></div><figcaption class=\"diagram-caption\"><span class=\"num\">FIG-01</span> · Token gate</figcaption></figure>\n"
+      "content": "<figure class=\"diagram\" data-anim=\"pending\" style=\"width:min(100%, calc(var(--s-32) * 4))\"><div class=\"diagram-canvas\" role=\"img\" aria-label=\"Flowchart: a token feeds a component.\"><template class=\"diagram-src\">\nflowchart LR\n  T[\"Token\"]:::focus --> C[\"Component\"]\n</template></div><figcaption class=\"diagram-caption\"><span class=\"num\">FIG-01</span> · Token to component</figcaption></figure>\n"
     }
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.44 Diagrams",
       "site": "https://www.amaca.design/#diagrams",
       "usage": {
@@ -98,7 +98,8 @@
         "Theme only from tokens read at runtime. A hex literal in themeVariables is a regression (§ 9).",
         "Exactly one magenta focus node per diagram (:::focus). More than one = decorating (§ 1.4).",
         "Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).",
-        "Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG &lt;g&gt; (§ 7.3)."
+        "Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG &lt;g&gt; (§ 7.3).",
+        "An elbow never falls on a box's line (v5.3.0). A segment of an edge keeps --s-4 of air from the border of every node and every group; the page's router moves a segment that runs along a border to --s-4 outside it."
       ],
       "classes": [
         "diagram",

@@ -12,7 +12,7 @@
       "path": "amaca/tooltip.css",
       "type": "registry:file",
       "target": "styles/amaca/tooltip.css",
-      "content": ".tooltip-wrap{\n  position:relative;\n  display:inline-flex;\n}\n.tooltip{\n  position:absolute;\n  bottom:calc(100% + var(--s-1));\n  left:50%;\n  transform:translate(-50%, 2px);\n  z-index:var(--z-popover);\n  max-width:var(--w-tooltip);\n  width:max-content;\n  padding:var(--s-1) var(--s-2);\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-sm);\n  box-shadow:var(--sh-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  line-height:var(--lh-snug);\n  color:var(--obsidian-100);\n  opacity:0;\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard);\n}\n.tooltip.is-open{\n  opacity:1;\n  transform:translate(-50%, 0);\n}\n.tooltip-bottom{\n  bottom:auto;\n  top:calc(100% + var(--s-1));\n  transform:translate(-50%, -2px);\n}\n.tooltip-bottom.is-open{\n  transform:translate(-50%, 0);\n}\n.tooltip-end{\n  left:auto;\n  right:0;\n  transform:translate(0, 2px);\n}\n.tooltip-end.is-open{\n  transform:translate(0, 0);\n}\n.tooltip-bottom.tooltip-end{\n  transform:translate(0, -2px);\n}\n.tooltip-bottom.tooltip-end.is-open{\n  transform:translate(0, 0);\n}\n"
+      "content": ".tooltip-wrap{\n  position:relative;\n  display:inline-flex;\n}\n.tooltip{\n  position:absolute;\n  bottom:calc(100% + var(--s-1));\n  left:50%;\n  transform:translateX(-50%);\n  z-index:var(--z-popover);\n  max-width:var(--w-tooltip);\n  width:max-content;\n  padding:var(--s-1) var(--s-2);\n  background:var(--obsidian-800);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-sm);\n  box-shadow:var(--sh-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  line-height:var(--lh-snug);\n  color:var(--obsidian-100);\n  opacity:0;\n  pointer-events:none;\n  transition:opacity var(--d-quick) var(--ease-standard);\n}\n.tooltip.is-open{\n  opacity:1;\n}\n.tooltip-bottom{\n  bottom:auto;\n  top:calc(100% + var(--s-1));\n}\n.tooltip-end{\n  left:auto;\n  right:0;\n  transform:none;\n}\n"
     },
     {
       "path": "amaca/tooltip.html",
@@ -23,7 +23,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.25 Tooltip",
       "site": "https://www.amaca.design/#tooltip",
       "usage": {

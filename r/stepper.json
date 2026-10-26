@@ -24,7 +24,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.31 Stepper",
       "site": "https://www.amaca.design/#stepper",
       "usage": {
@@ -117,7 +117,7 @@
         "Done is drawn, upcoming is dashed. The connector after a done step is --grad-progress at --bw-2; the one after the current and upcoming steps is a dashed --obsidian-300 line, 4px dashes and 4px gaps (--s-1) (5.6 : 1 on a card).",
         "Contrast. Upcoming labels and every meta line are --obsidian-300 (5.6 : 1 on --obsidian-800); the number and the check on a filled dot are --obsidian-950 (6.5 : 1 on --primary-500).",
         "Not a control. The steps are not links: going back is the flow's own Back button.",
-        "Motion. On view, every dot scales in on --d-slow · --ease-spring (opacity on --ease-decel) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on --d-slow · --ease-decel from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still."
+        "Motion. On view, every dot scales in on --d-slow · --ease-spring (opacity on --ease-decel) and its text rises 8px, from 500ms plus --d-instant per step; each connector draws to the next dot on --d-slow · --ease-decel from 600ms plus --d-instant per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still."
       ],
       "classes": [
         "is-done",

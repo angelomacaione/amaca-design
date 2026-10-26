@@ -23,7 +23,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.8 Checkbox · Switch · Radio",
       "site": "https://www.amaca.design/#radio",
       "usage": {
@@ -94,6 +94,8 @@
         "The whole &lt;label&gt; is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.",
         "The focus ring lives on the input, not the label, so the halo traces the control.",
         "A radio group has exactly one checked member at all times. A group with none is a defect, not a state.",
+        "A group is a fieldset.choice-group (v5.3.0). Its legend names it in the label register (--t-micro mono uppercase, --obsidian-300); the options stack --s-3 apart. Radios always come in one; checkboxes and switches when there are two or more.",
+        "Hover grows the switch's knob one step (v5.3.0), 14px to --s-4, a scale about its centre on --d-quick · --ease-standard (a 2px growth has no room for a spring's overshoot, which under the pointer reads as a flicker); never a colour, which on the --primary-500 track would vanish. A fine pointer only; a disabled switch does not answer.",
         "State matrix: § 3.0.1. Motion: § 06.4."
       ],
       "classes": [

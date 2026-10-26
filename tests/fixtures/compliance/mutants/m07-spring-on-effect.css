@@ -1,0 +1,3 @@
+/* expect: error spring-on-effect */
+.a{transition: background var(--d-quick) var(--ease-spring)}
+@media (prefers-reduced-motion: reduce){.a{transition:none;animation:none}}

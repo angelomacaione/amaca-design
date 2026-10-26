@@ -522,7 +522,8 @@ def c19():
         has_motion = any(k in sub for k in ("data-fade", "data-alert-fade", "is-in",
                                             "data-toast-demo", "data-fade-chart",
                                             "data-ease", "stepper", "gantt", "swatch-tile-motion",
-                                            'data-replay="cards-'))  # v5.2.0: the card rise, run by the page script
+                                            'data-replay="cards-',  # v5.2.0: the card rise, run by the page script
+                                            'class="diagram" data-anim="pending"'))  # v5.3.0: a diagram composes along its arrows
         if not has_motion and num:
             fails.append(f"{num.group(1).strip()}: replay button with no choreography")
     return fails
@@ -1216,6 +1217,201 @@ def c32():
         sel = " ".join(m.group(1).split())
         if sel != ":root":
             fails.append(f"tokens.css: `{sel}` is outside any @layer — it will override Tailwind utilities")
+    return fails
+
+@check("112", "No text the system draws takes its colour or font from the host's body",
+       "v5.3.0: the second time a host's dark text landed on --obsidian-950. A landing page in v5.2.0, then the whole "
+       "site, rendered inside a host whose unlayered body{color:#000;font:14px serif} beats the base layer: 6,786 texts "
+       "took the host's colour or font. The base layer now says the body's text again on the body's children; this "
+       "check holds that restatement to the body, declaration by declaration, so a value changed on one and not the "
+       "other cannot drift. The rendered half is in the review sheet: every section inside the hostile host.")
+def c112():
+    tok = re.sub(r"/\*.*?\*/", "", read(TOKENS), flags=re.S)
+    fails = []
+    base = re.search(r"@layer base\s*\{(.*)\}\s*$", tok, re.S)
+    if not base:
+        return ["tokens.css: no @layer base block"]
+    rules = {" ".join(m.group(1).split()): m.group(2) for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", base.group(1))}
+    decl = lambda b: {k.strip(): " ".join(v.split()) for k, v in re.findall(r"([-\w]+)\s*:\s*([^;]+)", b)}
+    body = decl(rules.get("body", ""))
+    kids = rules.get(":where(body > *)")
+    if kids is None:
+        return ["tokens.css: the base layer does not say the body's text again on :where(body > *)"]
+    kids = decl(kids)
+    INHERITED = {"color", "font-family", "font-size", "line-height", "font-weight", "font-style", "letter-spacing",
+                 "-webkit-font-smoothing", "text-rendering", "font-feature-settings", "font-variant", "word-spacing"}
+    for prop, val in body.items():
+        if prop in INHERITED and kids.get(prop) != val:
+            fails.append(f"tokens.css: body sets {prop}: {val}, :where(body > *) says {kids.get(prop, 'nothing')}")
+    for prop in kids:
+        if prop not in INHERITED:
+            fails.append(f"tokens.css: :where(body > *) sets {prop}, which the body's children do not inherit — it would paint the host")
+    order = list(rules)
+    if order.index(":where(body > *)") > min(order.index(k) for k in order if k.startswith(("button", "a", "code"))):
+        fails.append("tokens.css: :where(body > *) must come before the element rules, so they keep the last word")
+    return fails
+
+@check("113", "A States row shows what the keyboard and the value give, never hover; a disabled control keeps its cursor",
+       "v5.3.0: the States of Checkbox, Radio and Switch were a column of labelled examples that mixed demo and state, "
+       "the Link's skipped focus and press, and two disabled rules set pointer-events:none, which hides the not-allowed "
+       "cursor the state index promises. A States subsection is now one row: default, focus, the value, disabled and "
+       "disabled with its value, focus and press forced with data-force onto the stylesheet's own rules. Hover is read by "
+       "pointing at the demo. The slider's fill is a component token, --slider-fill, declared where the gate can resolve it.")
+def c113():
+    html, fails = read(INDEX), []
+    for sec in re.finditer(r'<section class="section" id="([^"]+)">(.*?)</section>', html, re.S):
+        for sub in re.split(r'(?=<div class="subsection">)', sec.group(2))[1:]:
+            t = re.search(r'subsection-title">([^<]*)', sub)
+            if not t or t.group(1) != "States":
+                continue
+            if 'class="card states-row"' not in sub:
+                fails.append(f"§ {sec.group(1)} States: not a .states-row")
+            caps = re.findall(r'class="state-cap">([^<]*)<', sub)
+            if len(caps) < 3:
+                fails.append(f"§ {sec.group(1)} States: {len(caps)} captioned states, a row holds at least three")
+            if any("hover" in c.lower() for c in caps) or re.search(r'data-force="[^"]*hover', sub):
+                fails.append(f"§ {sec.group(1)} States: hover in the row — it is read by pointing at the demo")
+            for f in re.findall(r'data-force="([^"]*)"', sub):
+                if not set(f.split()) <= {"focus-visible", "active"}:
+                    fails.append(f"§ {sec.group(1)} States: data-force=\"{f}\" is not focus-visible or active")
+    if 'data-force' in html and "[data-force~=" not in html:
+        fails.append("index.html: data-force is used but the page script that mirrors :focus-visible and :active is missing")
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+        sel = " ".join(m.group(1).split())
+        if re.search(r":disabled|aria-disabled", sel) and re.search(r"pointer-events\s*:\s*none", m.group(2)):
+            fails.append(f"components.css: {sel[:70]} sets pointer-events:none — it hides cursor: not-allowed")
+    if re.search(r"var\(--p[,)]", css) or "'--p'" in html or 'style="--p:' in html:
+        fails.append("the slider's fill is --slider-fill, not --p")
+    if not re.search(r"--slider-fill\s*:", read(TOKENS)):
+        fails.append("tokens.css: --slider-fill is not declared")
+    return fails
+
+@check("114", "A container is a rule: it draws nothing, has no state, and is never shown as a component",
+       "v5.3.0: Grid system and Page shell had a § 3 number each, as if they were components, and the stacks and scroll "
+       "frames of Skeleton, Toast, Avatar, Swatch, Chart and Table sat in their rows as parts. A class that only arranges "
+       "is a rule of layout: the registry lists it once, state rule, and Layout › Containers holds it. This check keeps a "
+       "rule from growing a surface, a state, a page or an Anatomy card, which would make it a component again.")
+def c114():
+    d, fails = read(DESIGN), []
+    if not re.search(r"(?m)^\| `rule` \|", d):
+        fails.append("DESIGN.md § 3.0: the state rule is not in the registry's vocabulary")
+    row = re.search(r"(?m)^\| Containers — layout rules \| ([^|]*) \| rule \|", d)
+    if not row:
+        return fails + ["DESIGN.md registry: no Containers — layout rules row with the state rule"]
+    if "### Containers — layout rules" not in d:
+        fails.append("DESIGN.md: no Layout › Containers — layout rules section")
+    classes = re.findall(r"`\.([\w-]+)`", row.group(1))
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    html = read(INDEX)
+    PAINT = re.compile(r"(?<![-\w])(background(-color|-image)?|border(-[a-z-]+)?|box-shadow|outline|backdrop-filter)\s*:\s*(?!0\b|none\b|transparent\b)")
+    for c in classes:
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", css):
+            for sel in m.group(1).split(","):
+                last = re.split(r"[\s>+~]+", sel.strip())[-1]
+                if not re.match(r"\." + re.escape(c) + r"(?![\w-])", last):
+                    continue
+                if re.search(r":(hover|focus|active|checked|disabled)", last):
+                    fails.append(f"components.css: .{c} has a state ({last}) — a rule has none")
+                body = m.group(2)
+                if c == "app":   # the page's ground is not a surface (Layout › Containers › Page shell)
+                    body = re.sub(r"(?<![-\w])background\s*:[^;]*;?", "", body)
+                if PAINT.search(body):
+                    fails.append(f"components.css: .{c} paints ({PAINT.search(body).group(0).strip()}) — a rule draws nothing")
+        if re.search(r'data-target="' + re.escape(c) + r'"', html) or f'data-kit="{c}"' in html:
+            fails.append(f"index.html: .{c} has a page or an Anatomy card — a rule is shown in Layout, not as a component")
+    return fails
+
+@check("115", "Every panel that floats over the page rides the top layer",
+       "v5.3.0: the Select's listbox opened under the next section's heading, and the Time input's wheel was cut by "
+       "its card: an absolute panel with a z-index is trapped by any ancestor that makes a stacking context or clips "
+       "(the cards' entrance transform, a card's overflow). The Popover rode the top layer from the start. Now every "
+       "floating panel does, through the page's float helper; this check keeps a new or rewritten panel from going "
+       "back to an absolute box.")
+def c115():
+    html, fails = read(INDEX), []
+    if not re.search(r"window\.amacaFloat\s*=", html) or "showPopover()" not in html:
+        fails.append("index.html: the float helper (window.amacaFloat with showPopover) is missing")
+    for head, var in [("custom select dropdowns", "menu"), ("time input (HH:MM", "pop"),
+                      ("date input (DD/MM/YYYY) — digit", "pop"), ("date range picker (DD/MM", "pop"),
+                      ("Tooltip: RIGID single-open", "tip")]:
+        i = html.find(head)
+        j = html.find("</script>", i)
+        if i < 0:
+            fails.append(f"index.html: no script for {head}")
+        elif f"amacaFloat.lift({var})" not in html[i:j]:
+            fails.append(f"index.html: the {head} script does not lift its panel into the top layer")
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    if not re.search(r":is\([^)]*\)\.is-floating\s*\{[^}]*position\s*:\s*fixed", css):
+        fails.append("components.css: no .is-floating rule that drops the UA popover box")
+    if "**The floating layer (RIGID" not in read(DESIGN):
+        fails.append("DESIGN.md Stacking: the floating-layer rule is missing")
+    return fails
+
+@check("116", "A section closes where it opens",
+       "v5.3.0: a card grid that replaced a list of rows kept one </div> too many; it closed the Navigation section "
+       "early, and three subsections rendered outside the content column with no padding. No other check counts tags.")
+def c116():
+    html, fails = read(INDEX), []
+    if html.count("<section") != html.count("</section>"):
+        fails.append(f"index.html: {html.count('<section')} <section> open, {html.count('</section>')} close")
+    for m in re.finditer(r'<section class="section" id="([^"]+)">(.*?)</section>', html, re.S):
+        b = re.sub(r"<template\b.*?</template>|<script\b.*?</script>|<pre\b.*?</pre>|<!--.*?-->", "", m.group(2), flags=re.S)
+        o, c = len(re.findall(r"<div\b", b)), len(re.findall(r"</div>", b))
+        if o != c:
+            fails.append(f"§ {m.group(1)}: {o} <div> open, {c} close — what follows leaves the section")
+    return fails
+
+@check("117", "The site runs nothing from a CDN",
+       "v5.3.0: Motion and Mermaid loaded from cdn.jsdelivr.net. On the owner's machine the CDN never answered: the line "
+       "chart stood still with no area, the bars and the pie never drew, the progress bars stayed empty and every diagram "
+       "was a blank frame, while every check was green. A library the page needs to draw ships in assets/vendor.")
+def c117():
+    html, fails = read(INDEX), []
+    ALLOW = ("@vercel/analytics",)   # the page works without it
+    urls = re.findall(r'<script\b[^>]*\bsrc="([^"]+)"', html)
+    urls += re.findall(r'\bimport\b[^;"\']*?["\'](https?://[^"\']+)["\']', html)
+    urls += re.findall(r'\bimport\(\s*["\'](https?://[^"\']+)["\']', html)
+    for u in urls:
+        if u.startswith(("http:", "https:", "//")) and not any(a in u for a in ALLOW):
+            fails.append(f"index.html: runs {u[:90]} from the network — ship it in assets/vendor")
+        elif not u.startswith(("http:", "https:", "//")) and not (ROOT / u.split("?")[0]).exists():
+            fails.append(f"index.html: {u} does not exist")
+    return fails
+
+@check("118", "The owner's name is never demo content",
+       "v5.3.0: the Top navigation demo used the owner's name as its brand. Demo content is invented (DESIGN.md, the "
+       "site's own conduct); the name appears only where the site credits or installs itself.")
+def c118():
+    html, fails = read(INDEX), []
+    for m in re.finditer(r">([^<]*?(?:angelomacaione|Angelo Macaione)[^<]*)<", html):
+        t = m.group(1).strip()
+        if "angelomacaione/amaca-design" in t or t.startswith("Build "):
+            continue
+        sec = html.rfind('<section class="section" id="', 0, m.start())
+        sid = html[sec + 29:html.find('"', sec + 29)] if sec > 0 else "page chrome"
+        fails.append(f"§ {sid}: \"{t[:60]}\" — a demo uses the owner's name")
+    return fails
+
+@check("119", "A breakpoint label reads the tokens",
+       "v5.3.0: the grid and navigation demos said ≥ 1024px and 720 – 1023px while --bp-lg is 900px: a label wrote its own "
+       "number. A label in a demo's meta line quotes --bp-sm, --bp-md or --bp-lg.")
+def c119():
+    html, fails = read(INDEX), []
+    bp = {int(v) for v in re.findall(r"--bp-\w+:\s*(\d+)px", read(TOKENS))}
+    for m in re.finditer(r'<div class="grid-demo-meta">\s*<span>([^<]*)</span>', html):
+        t = m.group(1).replace("&lt;", "<").replace("&ge;", "≥")
+        nums = [int(n) for n in re.findall(r"\d+", t)]
+        if "≥" in t or "<" in t:
+            ok = nums and nums[0] in bp
+        elif len(nums) == 2:
+            ok = nums[0] in bp and nums[1] + 1 in bp
+        else:
+            continue
+        if not ok:
+            fails.append(f"index.html: \"{m.group(1)}\" is not a breakpoint of tokens.css ({', '.join(str(b) for b in sorted(bp))})")
+    if not re.search(r"### The site's own conduct", read(DESIGN)):
+        fails.append("DESIGN.md: Code conventions › The site's own conduct is missing")
     return fails
 
 @check("33", "Every canonical component has a demo on the site",
@@ -2232,7 +2428,7 @@ def c55():
     html = read(INDEX)
     nav = html[html.index('<aside'):html.index('</aside>')]
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     comp_ids = [i for g, body in groups if unescape(g) in comp_groups for i in re.findall(r'data-target="([a-z-]+)"', body)]
     site = _usage_site(html)
     for sid in comp_ids:
@@ -3271,7 +3467,8 @@ def c81():
         fails.append("components.css: .timeline-plot has no min-width")
     used = set(re.findall(r"\.(timeline-[a-z-]+)", css))
     row = re.search(r"(?m)^\| Timeline \|([^\n]*)", d)
-    reg = set(re.findall(r"`\.(timeline-[a-z-]+)`", row.group(1))) if row else set()
+    rule = re.search(r"(?m)^\| Containers — layout rules \|([^\n]*)", d)   # v5.3.0: the scroll frame is a layout rule
+    reg = set(re.findall(r"`\.(timeline-[a-z-]+)`", (row.group(1) if row else "") + (rule.group(1) if rule else "")))
     for c in sorted(used ^ reg):
         fails.append(f"Timeline registry and components.css disagree on .{c}")
     for sel in ("chart-label", "chart-label-center", "chart-label-end", "timeline-lane", "timeline-meta", "timeline-bar-label", "timeline-today"):
@@ -3352,14 +3549,14 @@ def c86():
     comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
     for s in re.split(r"\n### ", comp)[1:]:
         name = s.split("\n")[0].strip()
-        if name.startswith("§"):
+        if name.startswith("§") or "**A layout rule since" in s:
             continue
         if "**Do / Don't.**" not in s:
             fails.append(f"DESIGN.md § 3 {name}: no Do / Don't line")
     html = read(INDEX)
     nav = html[html.index('<aside'):html.index('</aside>')]
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', nav, re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     for g, body in groups:
         if _html.unescape(g) not in comp_groups:
             continue
@@ -3393,13 +3590,17 @@ def c87():
     reg = d[d.index("| Component | Classes | State | Spec |"):]
     reg = reg[:reg.index("\n\n")]
     specs = [int(x) for x in re.findall(r"\| § 3\.(\d+)\b", reg)]
-    if specs != list(range(1, len(specs) + 1)):
-        fails.append(f"DESIGN.md registry: § 3 numbers {specs} are not 1..{len(specs)} in table order")
+    # v5.3.0: the numbers of the components that became layout rules are kept, as pointers, and skipped here
+    rrow = re.search(r"(?m)^\| Containers — layout rules \|.*$", reg)
+    kept = {int(x) for x in re.findall(r"§ 3\.(\d+) \(", rrow.group(0))} if rrow else set()
+    want = [i for i in range(1, len(specs) + len(kept) + 1) if i not in kept]
+    if specs != want:
+        fails.append(f"DESIGN.md registry: § 3 numbers {specs} are not {want} in table order")
     comp = d[d.index("\n## Components"):d.index("\n## Do's and Don'ts")]
     last, cited = 0, set()
     for s in re.split(r"\n### ", comp)[1:]:
         name = s.split("\n")[0].strip()
-        if name.startswith("§"):
+        if name.startswith("§") or "**A layout rule since" in s:
             continue
         m = re.search(r"(?m)^\*\*Site:\*\* (.+)$", s)
         if not m:
@@ -3416,7 +3617,7 @@ def c87():
                 fails.append(f"DESIGN.md § 3 {name}: § {first:02d} comes after § {last:02d}; § 3 follows the site")
             last = first
     groups = re.findall(r'<div class="nav-label">([^<]+)</div>(.*?)</div>', html[html.index('<aside'):html.index('</aside>')], re.S)
-    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Containers", "Data display", "Layout & templates"}
+    comp_groups = {"Actions", "Inputs", "Feedback", "Overlays", "Navigation", "Content", "Data display", "Applied"}
     for g, body in groups:
         if _html.unescape(g) in comp_groups:
             for n in re.findall(r'<span class="num">(\d+)</span>', body):
@@ -3526,8 +3727,9 @@ def c91():
     if not stack or not gap or stack.group(1).strip() != gap.group(1).strip():
         fails.append("components.css: .do-dont + .do-dont must keep the pair's own gap as margin-top")
     html = read(INDEX)
-    if not re.search(r"closest\('a\[href=\"#\"\]'\)[^\n]*\n\s*if\(a\) e\.preventDefault\(\)", html):
-        fails.append("index.html: no handler keeps a demo link (href=\"#\") in place")
+    # v5.3.0: the handler also holds a link that points at its own section (href="#link" inside #link); B5 renders it
+    if not re.search(r"closest\('a\[href\^=\"#\"\]'\).*?h === '#' \|\| \(sec && h === '#' \+ sec\.id\)\) e\.preventDefault\(\)", html, re.S):
+        fails.append("index.html: no handler keeps a demo link (href=\"#\" or its own section) in place")
     ids = set(re.findall(r'<section class="section[^"]*" id="([a-z-]+)"', html))
     for m in re.finditer(r'<a class="card[^"]*" href="#([a-z-]+)"', html):
         if m.group(1) in ids:
@@ -3672,7 +3874,7 @@ def c94():
 def c95():
     fails = []
     d = read(DESIGN)
-    want = "translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity"
+    want = "translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity"
     chat = d[d.index("\n### Chat"):d.index("\n### ", d.index("\n### Chat") + 5)]
     if chat.count("| typing dots (loop) | " + want + " |") != 1:
         fails.append("DESIGN.md § Chat: the typing dots row is not the canonical one, or it appears twice")
@@ -3824,7 +4026,7 @@ def c105():
         groups.append((unescape(lab.group(1)) if lab else "", part.count('class="nav-item')))
     names = [g for g, _ in groups]
     try:
-        f = names.index("Foundations"); t = names.index("Layout & templates"); m = names.index("Meta")
+        f = names.index("Foundations"); t = names.index("Applied"); m = names.index("Meta")
     except ValueError as e:
         return [f"sidebar: a group is missing ({e})"]
     want = {"01 · Foundations": groups[f][1],
@@ -4049,6 +4251,123 @@ def c109():
     return fails
 
 
+@check("110", "Inline padding is symmetric, an icon button that ends a row sits its glyph on the edge, and a button resets its padding",
+       "v5.3.0: the Toast's close sat 22px from the right edge while its text sat 16px from the left, and its glyph "
+       "rendered at 8px instead of 14: the button never reset the browser's 1px 6px padding. The Modal and Drawer "
+       "close sat 8px in, the List row's last action 8 or 12px in, the floating button padded 16 before its icon and 20 after "
+       "its label, and an Accordion demo carried 20 / 24 inline. None of it showed in a token. The rule (§ Size › Inline "
+       "symmetry): one padding for both sides, no optical compensation; a field's chevron or icon lives in a slot; an "
+       "icon-only button that ends a row pulls its glyph onto the padding edge. The rendered measure lives in the review "
+       "sheet; this check holds the stylesheet and the markup to the rule.")
+def c110():
+    fails = []
+    css = read(ROOT / "styles" / "components.css")
+    flat = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    # Slots and indents: one-sided inline padding that the rule allows, each with its reason.
+    SLOT = [
+        (r"^\.select$", "the Select's chevron slot"),
+        (r"^\.input-wrap:has\(> \.(icon|input-action)\) \.input$", "an Input's icon or action slot"),
+        (r"(^|\s)(ul|ol|li)$|^\.page-rules$|^\.ai-rules$", "a list's bullet indent"),
+        (r"^(\.navbar-floating )?\.navbar-(brand|end)$", "the bar's two ends, one each"),
+        (r"^\.avatar-group>\.avatar:not\(:last-child\)$", "the overlap of a group"),
+    ]
+    SHORTHAND_OK = {".swatch-tile-type .swatch-tile-fill": "the type specimen runs off the tile's right edge",
+                    ".acc-panel-body": "the body starts under the label, past the chevron"}
+    def vals(v):
+        return re.findall(r"calc\((?:[^()]|\([^()]*\))*\)|var\([^)]*\)|[^\s]+", v.strip())
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+        sels = [s.strip() for s in m.group(1).split(",")]
+        body = m.group(2)
+        for d in re.finditer(r"(?<![-\w])padding\s*:\s*([^;}]+)", body):
+            v = vals(d.group(1).replace("!important", ""))
+            if len(v) == 4 and v[1] != v[3] and not all(s in SHORTHAND_OK for s in sels):
+                fails.append(f"components.css: {', '.join(sels)[:70]} pads {v[3]} on the left and {v[1]} on the right")
+        sides = {k: re.search(rf"padding-(?:{k})\s*:\s*([^;}}]+)", body) for k in ("left|inline-start", "right|inline-end")}
+        l, r = sides["left|inline-start"], sides["right|inline-end"]
+        if (l and r and l.group(1).strip() != r.group(1).strip()) or (bool(l) ^ bool(r)):
+            for s in sels:
+                if not any(re.search(p, s) for p, _ in SLOT):
+                    fails.append(f"components.css: {s[:70]} pads one side only ({(l or r).group(0).strip()}) and is not a declared slot")
+    html = read(INDEX)
+    for m in re.finditer(r'style="([^"]*\bpadding\s*:[^"]*)"', html):
+        d = re.search(r"(?<![-\w])padding\s*:\s*([^;]+)", m.group(1))
+        v = vals(d.group(1)) if d else []
+        if len(v) == 4 and v[1] != v[3]:
+            line = html.count("\n", 0, m.start()) + 1
+            fails.append(f"index.html:{line}: an inline style pads {v[3]} on the left and {v[1]} on the right")
+    # The end-of-row rule, at every size and on a coarse pointer.
+    for size, target in (("", "--s-10"), (".btn-sm", "--s-8"), (".btn-lg", "--s-12")):
+        want = f":is(.modal-head,.drawer-head,.list-end) > {size}.btn-icon:last-child"
+        rule = re.search(re.escape(want) + r"[^{]*\{[^}]*margin-inline-end:calc\(\(var\(--icon-sm\) - var\(" + target + r"\)\) / 2\)", flat)
+        if not rule:
+            fails.append(f"components.css: no end-of-row rule for {size or 'the md'} icon button (margin from --icon-sm and {target})")
+    if not re.search(r"@media \(pointer:coarse\)\{[^@]*" + re.escape(":is(.modal-head,.drawer-head,.list-end) > .btn-icon:not(.btn-lg):last-child") + r"[^{]*\{margin-inline-end:calc\(\(var\(--icon-sm\) - var\(--target-touch\)\) / 2\)", flat):
+        fails.append("components.css: the end-of-row rule does not follow --target-touch on a coarse pointer")
+    # A component drawn on a <button> sets its own padding.
+    padded = set()
+    for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+        if re.search(r"(?<![-\w])padding(-inline|-left|-right)?\s*:|(?<![-\w])all\s*:\s*unset", m.group(2)):
+            for c in re.findall(r"\.([a-z][\w-]*)", m.group(1)):
+                padded.add(c)
+    seen = set()
+    for m in re.finditer(r"<button\b[^>]*\bclass=\"([^\"]+)\"", html):
+        classes = m.group(1).split()
+        key = classes[0]
+        if key in seen or key.startswith(("kit", "doc", "nav-demo", "demo")):
+            continue
+        seen.add(key)
+        if not any(c in padded for c in classes):
+            line = html.count("\n", 0, m.start()) + 1
+            fails.append(f"index.html:{line}: <button class=\"{m.group(1)[:50]}\"> sets no padding: the browser's default squeezes it")
+    return fails
+
+@check("111", "Every delay is on the scale: 0 or a multiple of --d-instant, never a time written by hand",
+       "v5.3.0: check_compliance warned on the Card's own rule, '80ms apart', because 80ms is no token: it was the old "
+       "value of --d-instant, left behind in the Card, the Accordion, the Chat, the Case study and the Stepper when the "
+       "token moved to 100ms. Around them sat about twenty more delays typed by hand (60, 90, 170, 1080, 160ms…) that no "
+       "check read, since the duration checks look at durations and not at delays. A delay now says how many steps of "
+       "--d-instant it waits, so the next change of the token moves every ladder with it.")
+def c111():
+    fails = []
+    TIME = re.compile(r"(?<![\w.-])(\d+(?:\.\d+)?)(ms|s)\b")
+    sources = [("components.css", read(ROOT / "styles" / "components.css"))]
+    html = read(INDEX)
+    sources += [("index.html <style>", m.group(1)) for m in re.finditer(r"<style[^>]*>(.*?)</style>", html, re.S)]
+    for name, text in sources:
+        flat = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        for m in re.finditer(r"([^{}]+)\{([^{}]*)\}", flat):
+            sel = m.group(1).strip().split("\n")[-1][-60:]
+            for d in re.finditer(r"(?<![-\w])(transition-delay|animation-delay|transition|animation)\s*:\s*([^;}]+)", m.group(2)):
+                prop, val = d.group(1), d.group(2)
+                lits = [t for t in TIME.findall(val) if float(t[0]) != 0]
+                if not lits:
+                    continue
+                if prop in ("transition", "animation"):
+                    # a shorthand: the second time is the delay; the first (the duration) is held by the duration checks
+                    for part in val.split(","):
+                        times = TIME.findall(part)
+                        if len(times) >= 2 and float(times[1][0]) != 0:
+                            fails.append(f"{name}: {sel} delays {''.join(times[1])} by hand ({prop})")
+                else:
+                    fails.append(f"{name}: {sel} {prop} {', '.join(''.join(t) for t in lits)} by hand")
+    # The page's scripts: a stagger or a wait before a motion is a step of --d-instant (or the token it waits for),
+    # never a number. 50ms is the replay flush of § Code conventions, not a delay of the motion.
+    js = "\n".join(m.group(1) for m in re.finditer(r"<script[^>]*>(.*?)</script>", html, re.S))
+    for m in re.finditer(r"\bi\s*\*\s*(\d+)\b", js):
+        line = js[js.rfind("\n", 0, m.start()) + 1: js.find("\n", m.end())].strip()
+        if re.search(r"setTimeout|transitionDelay|schedule\(|delay", line):
+            fails.append(f"index.html <script>: a stagger of {m.group(1)}ms by hand: {line[:90]}")
+    for m in re.finditer(r"\breplay\([^()]*,\s*(\d+)\s*\)", js):
+        fails.append(f"index.html <script>: replay staggers {m.group(1)}ms by hand")
+    for m in re.finditer(r"setTimeout\(\s*(\(\)\s*=>[^;]*?|\w+)\s*,\s*(\d+)\s*\)", js):
+        cb, n = m.group(1), int(m.group(2))
+        if n not in (0, 50) and re.search(r"is-in|is-out|\brun\b|\bplay\b|\breveal\b|\bpaint\b", cb):
+            fails.append(f"index.html <script>: waits {n}ms by hand before {cb.strip()[:50]}")
+    # the Card's stagger is read from the token, not typed
+    if not re.search(r"const STEP = ms\('--d-instant'\)", html):
+        fails.append("index.html: the card-rise stagger is not read from --d-instant")
+    return fails
+
 @check("102", "Every variant the contract declares is on its page, in a demo",
        "v5.0.0: a component's axes are declared once, in the Variants block of its section. The demos are the "
        "visual source of truth the owner validates against, so a declared class no demo shows is a variant "
@@ -4066,6 +4385,11 @@ def c102():
         pid = page or name
         m = re.search(r'<section class="section" id="' + pid + r'">(.*?)(?=<section class="section"|$)', html, re.S)
         used = {c for g in re.findall(r'class="([^"]+)"', m.group(1) if m else "") for c in g.split()}
+        # a variant whose demo lives on another page counts when a subsection here links there in its text (Drawer -> Navigation's menu)
+        for other in set(re.findall(r'<p class="subsection-desc">[^\n]*?<a class="link" href="#([\w-]+)"', m.group(1) if m else "")) - {pid}:
+            o = re.search(r'<section class="section" id="' + re.escape(other) + r'">(.*?)(?=<section class="section"|$)', html, re.S)
+            if o:
+                used |= {c for g in re.findall(r'class="([^"]+)"', o.group(1)) for c in g.split()}
         used |= scripted
         for ax in reg.variants(reg.DESIGN_TITLE.get(name, row)):
             for val in ax["values"]:

@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 5.2.0
-updated: 2026-10-19
+version: 5.3.0
+updated: 2026-10-27
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-10-19
+last_synced: 2026-10-27
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.2.0 — 2026.10.19
+> **Version** 5.3.0 — 2026.10.27
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -285,6 +285,61 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 
 12-col grid. Sidebar is fixed; content breathes.
 
+### Containers — layout rules (v5.3.0)
+
+A container arranges components and draws nothing: no surface, no border, no state. It is a rule of layout, not a component, so it has no page, no Anatomy card and no States; the registry lists the containers once, state `rule` (§ 3.0). The panels a container holds bring their own surface and padding.
+
+| Rule | Classes | What it arranges |
+|---|---|---|
+| Grid | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | Panels in equal columns, gap `--s-4` |
+| Page shell | `.app` `.main` `.content` `.section` | The page: the rail, the fluid column, the one width-constrained wrapper, the sections |
+| A stack of one component | `.skeleton-stack` `.toast-region` `.avatar-group` `.swatch-list` `.swatch-grid` `.swatch-grid-4` `.chart-grid` | Copies of the same component, in the order and the gap its section gives |
+| A scroll frame | `.table-scroll` `.timeline-scroll` | A child wider than the page scrolls inside the frame, never the page |
+
+**Grid.**
+
+```html
+<div class="grid grid-3">…</div>
+```
+
+- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
+- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
+- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
+- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
+
+**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
+
+**Page shell.**
+
+```html
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="app">
+  <aside class="sidebar" aria-label="Design system navigation">…</aside>
+  <main class="main">
+    <div class="topbar">
+      <div class="breadcrumb">…</div>
+      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
+    </div>
+    <div class="content" id="main-content">
+      <section class="section active">…</section>
+    </div>
+  </main>
+</div>
+```
+
+- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
+- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
+- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
+- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
+- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
+- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
+
+| Trigger | Property (type) | Motion | Reduced motion |
+|---|---|---|---|
+| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
+
+**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
+
 ### Stacking
 
 **Seven layers. No others.** Every floating component takes its `z-index` from this scale. The values name the system as built — this scale did not renumber anything.
@@ -300,6 +355,8 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--z-max` | `1000` | Skip link, and nothing else |
 
 **Rule:** in-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same vocabulary-vs-composition split § Code conventions draws for runtime token values. A raw `z-index` of 10 or more is a violation, greppable per line.
+
+**The floating layer (RIGID, v5.3.0).** Every panel that floats over the page — Popover, the Select's menu (listbox, slider, actions), Date picker, Date range, Time input, Tooltip — rides the browser's top layer: the Popover natively, the others lifted by the page's float helper (`popover="manual"` and `showPopover()`). Nothing on the page can cover it or cut it: no card, no `overflow`, no transformed ancestor. It opens on its side (below; the Tooltip above), flips when it does not fit and the other side has more room, keeps `--s-2` from the viewport edge, and follows its anchor while open. `--z-menu` and `--z-popover` remain for a browser without the Popover API, where the panel stays absolute in its wrap.
 
 **Grids.** The layout grid and its column presets are components, not conventions — spec in § 3.2.
 
@@ -432,13 +489,20 @@ Dimensions that are part of a component's contract take a token; the widths of t
 
 The aggregate of every component's dimensions: its box, its padding, its type, its radius and its icon. A generator sizes a component from this table and never measures a screenshot. A dimension here is a token, or a sum of tokens; a box marked *content* takes the height of its padding and its line.
 
+**Inline symmetry.** A component's first mark sits as far from its left edge as its last mark sits from its right edge. A mark is a line of text, an icon's box (its 14 or 16 square, not its ink) or a box that paints at rest; a transparent button is not a mark, its glyph is.
+- **No optical compensation.** A leading icon takes the same padding as the trailing label: the padding is one value for both sides.
+- **One declared exception: the strip.** The row card's `.card-strip` draws its left edge `--bw-2` in a colour; the padding stays one value, measured from the inside of each edge (v5.3.0).
+- **A field keeps a slot.** The chevron of a Select and the icon or action of an Input sit in a slot inside the padding on their side, and the glyph stays as far from that edge as the value is from the other one.
+- **An icon-only button that ends a row** (the close of a Modal or a Drawer, the last action of a List row) sets `margin-inline-end` to half the difference between its icon and its target: the glyph lands on the padding edge and the target reaches into the padding. On a coarse pointer the target is `--target-touch` and the margin follows it.
+- **A button resets its padding.** A component drawn on a `<button>` sets its own padding, `0` when it holds only a glyph: the browser's default padding squeezes the glyph and moves it off the edge.
+
 | Component | Size | Box | Padding | Type | Radius | Icon |
 |---|---|---|---|---|---|---|
 | `.btn` | sm | min-height `--s-8` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
 | `.btn` | md | min-height `--s-10` | `0 --s-6` | `--t-body` 500 | `--r-full` | `--icon-xs` |
 | `.btn` | lg | min-height `--s-12` | `0 --s-8` | `--t-body` 500 | `--r-full` | `--icon-xs` |
 | `.btn-icon` | sm · md · lg | square `--s-8` · `--s-10` · `--s-12` | `0` | — | `--r-full` | `--icon-sm` |
-| `.btn-floating` | — | min-height `--s-10` | `0 --s-5 0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
+| `.btn-floating` | — | min-height `--s-10` | `0 --s-4` | `--t-small` 500 | `--r-full` | `--icon-xs` |
 | `.input` `.textarea` `.select` | — | min-height `--s-10` | `--s-2 --s-3` | `--t-small` | `--r-md` | `--icon-sm` |
 | `.input-action` | — | square `--s-8` | — | — | `--r-sm` | `--icon-sm` |
 | `.select-option` | — | content | `--s-2` | `--t-small` | `--r-md` − `--r-xs` | `--icon-xs` |
@@ -448,7 +512,7 @@ The aggregate of every component's dimensions: its box, its padding, its type, i
 | `.slider-input` | — | row `--s-8` · track `--s-1` · thumb `--s-5` | `0` | — | `--r-full` | — |
 | `.chip` | default | content · pressable target `--target-touch` | `--s-1 --s-3` | `--t-small` 500 | `--r-full` | — |
 | `.chip` | dense | content | `--s-1 --s-2` | `--t-micro` | `--r-full` | — |
-| `.chip-dismiss` | — | square `--s-4` · target `--target-touch` | — | — | `--r-full` | — |
+| `.chip-dismiss` | — | square `--icon-xs` · target `--target-touch` | — | — | `--r-full` | `--icon-xs` |
 | `.badge` | — | content | `--s-2 --s-4` | `--t-small` 500 | `--r-md` | — |
 | `.avatar` | sm · md · lg · xl | square `--s-6` · `--s-8` · `--s-10` · `--s-12` | `0` | `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` 700 | `--r-full` | — |
 | `.loader` | xs · sm · md · lg | square `--loader-xs` · `--loader-sm` · `--loader-md` · `--loader-lg` | — | — | — | — |
@@ -486,59 +550,61 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | `css-only` | Shipped in `components.css`, spec not yet written | Use the class as-is. Never extend it, never add variants. Transitional — every row carries a milestone |
 | `off-system` | Does not exist in the system | **Stop and ask the owner.** Do not invent it |
 | `site-only` | Documentation-site chrome living in `components.css` | Not part of the contract. Treat as `off-system` |
+| `rule` | A container: it arranges components and draws nothing, no surface and no state (v5.3.0) | Apply the rule from Layout › Containers. Never document it as a component: it has no page, no Anatomy card and no states |
+
+**Component, organism, template, rule (v5.3.0).** A component shows and has states. An organism is a component made of components, with parts and states of its own, that recurs as one recognisable piece: the Navigation with its top bar, the Chat, the Date picker. A template is a composed page, an order of parts with no state of its own: Presentations and Case study, under *Applied*. A rule arranges and draws nothing; the containers are rules, listed once below with the state `rule` and specified in Layout › Containers. The test for a class: it shows and has states, it is a component or a part of one; it only arranges, it is a rule.
 
 **Closure clause.** A component not listed below is `off-system`. A CSS class not listed below is not a component — it is either a part of a listed component or `site-only`.
 
 | Component | Classes | State | Spec |
 |---|---|---|---|
 | Icon | `.icon` `.icon-xs` `.icon-md` `.icon-lg` `.icon-muted` `.icon-fill` | canonical | § 3.1 — the album is the registry; `.alert-icon` and `.toast-icon` stay with their components |
-| Grid system | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` | canonical | § 3.2 |
-| Page shell | `.app` `.main` `.content` `.section` `.topbar` `.topbar-actions` | canonical | § 3.3 |
+| Containers — layout rules | `.grid` `.grid-2` `.grid-3` `.grid-4` `.grid-6` · `.app` `.main` `.content` `.section` · `.skeleton-stack` `.toast-region` `.avatar-group` `.swatch-list` `.swatch-grid` `.swatch-grid-4` `.chart-grid` · `.table-scroll` `.timeline-scroll` | rule | Layout › Containers — § 3.2 (Grid system) and § 3.3 (Page shell) are kept as pointers |
 | Skip link | `.skip-link` | canonical | § 3.4 — behaviour in § 6.2 |
 | Brand mark | `.brand` `.brand-mark` `.brand-text` | canonical | § 3.5 |
 | Button | `.btn` · `.btn-primary` `.btn-secondary` `.btn-ghost` `.btn-outline` `.btn-danger` · `.btn-floating` · `.btn-sm` `.btn-lg` · `.btn-icon` | canonical | § 3.6 |
 | Link | `.link` `.link-quiet` | canonical | § 3.7 |
-| Checkbox · Switch · Radio | `.check` `.switch` `.radio` | canonical | § 3.8 |
+| Checkbox · Switch · Radio | `.check` `.switch` `.radio` · `.choice-group` | canonical | § 3.8 |
 | Slider | `.slider` `.slider-head` `.slider-value` `.slider-scale` `.slider-input` `.slider-pair` | canonical | § 3.9 |
 | Input · textarea | `.field` `.label` `.input` `.textarea` `.input-wrap` `.input-action` `.help` | canonical | § 3.10 |
 | Dropdown · Select · Menu | `.select` · `.select-wrap` `.select-trigger` `.select-value` `.select-menu` `.select-option` `.select-option-label` `.select-check` `.select-kbd` `.select-group` `.select-divider` `.select-option-danger` · menu: `.select-menu-actions` · slider: `.select-menu-slider` | canonical | § 3.11 — three variants share the panel: listbox, Slider (dialog), Menu |
 | Time input | `.tp-wrap` `.tp-popover` `.tp-wheels` `.tp-wheel` `.tp-wheel-list` `.tp-wheel-item` `.tp-sep` | canonical | § 3.12 |
 | Date picker | `.dp-wrap` `.dp-popover` `.dp-header` `.dp-nav` `.dp-title` `.dp-dow` `.dp-grid` `.dp-day` `.dp-range` `.dp-months` `.dp-month-title` `.dp-presets` `.dp-preset` `.dp-year-grid` `.dp-year` `.dp-footer` `.dp-today-btn` | canonical | § 3.13 |
 | Badge | `.badge` `.badge-brand` `.badge-solid` `.badge-success` `.badge-warn` `.badge-danger` `.badge-info` | canonical | § 3.14 |
-| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` | canonical | § 3.15 |
+| Chip | `.chip` · `.chip-brand` `.chip-success` `.chip-warn` `.chip-danger` `.chip-info` · `.chip-dot` `.chip-dismiss` `.chip-add` | canonical | § 3.15 |
 | Alert | `.alert` `.alert-icon` `.alert-title` `.alert-body` `.alert-success` `.alert-warn` `.alert-danger` `.alert-info` | canonical | § 3.16 |
-| Toast | `.toast-region` `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
+| Toast | `.toast` `.toast-icon` `.toast-body` `.toast-title` `.toast-action` `.toast-dismiss` `.toast-success` `.toast-warn` `.toast-danger` | canonical | § 3.17 |
 | Progress | `.progress` `.progress-sm` `.progress-label` `.progress-track` `.progress-fill` `.progress-value` | canonical | § 3.18 — `role="progressbar"` with a name, a value, a min and a max |
 | Loader | `.loader-*` | canonical | § 3.19 |
-| Skeleton | `.skeleton-stack` `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.20 |
+| Skeleton | `.skeleton-line` `.skeleton-circle` `.skeleton-block` | canonical | § 3.20 |
 | Modal | `.modal` `.modal-wide` `.modal-head` `.modal-title` `.modal-body` `.modal-foot` | canonical | § 3.21 — a `<dialog>`; images use the Lightbox |
 | Lightbox | `.lightbox` `.lightbox-content` `.lightbox-close` | canonical | § 3.22 — image only |
 | Popover | `.popover` `.popover-top` `.popover-end` `.popover-head` `.popover-title` `.popover-body` `.popover-foot` | canonical | § 3.23 |
 | Drawer | `.drawer` `.drawer-nav` `.drawer-start` `.drawer-wide` `.drawer-head` `.drawer-title` `.drawer-body` `.drawer-label` `.drawer-foot` | canonical | § 3.24 — a `<dialog>`; the side menu is `.drawer-nav` |
 | Tooltip | `.tooltip-wrap` `.tooltip` `.tooltip-bottom` `.tooltip-end` | canonical | § 3.25 |
-| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` | canonical | § 3.26 |
+| Navigation | `.nav-group` `.nav-item` `.nav-label` `.nav-indicator` `.menu-toggle` `.menu-toggle-bars` `.sidebar` `.sidebar-footer` `.sidebar-scrim` · top bar: `.navbar` `.navbar-brand` `.navbar-nav` `.navbar-list` `.navbar-item` `.navbar-end` `.navbar-toggle` `.navbar-floating` · page top bar: `.topbar` `.topbar-actions` | canonical | § 3.26 |
 | Tabs | `.tabs` `.tab` `.tab-indicator` `.tab-panels` `.tab-panel` | canonical | § 3.27 |
 | Segmented control | `.segmented` `.segmented-item` `.segmented-thumb` `.segmented-panel` · `.segmented-fill` | canonical | § 3.28 — two or three views of one thing; a tablist on a pill, one thumb that travels |
 | Breadcrumb | `.breadcrumb` (its crumbs are `a`, its current page `.active`) | canonical | § 3.29 |
 | Pagination | `.pagination` `.pagination-list` `.pagination-link` `.pagination-gap` `.pagination-status` | canonical | § 3.30 |
 | Stepper | `.stepper` `.stepper-vertical` `.stepper-list` `.stepper-step` `.stepper-dot` `.stepper-text` `.stepper-label` `.stepper-meta` `.stepper-sr-only` | canonical | § 3.31 — an ordered list; the current step carries `aria-current="step"` |
-| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.32 |
+| Card | `.card` `.card-meta` `.card-media` `.card-actions` · `.card-row` `.card-strip` · `.card-feature` `.card-feature-side` `.card-feature-tags` `.card-feature-body` `.card-feature-foot` `.card-feature-time` `.card-feature-tab` | canonical | § 3.32 |
 | Accordion | `.accordion` `.acc-item` `.acc-trigger` `.acc-label` `.acc-num` `.acc-chevron` `.acc-panel` `.acc-panel-inner` `.acc-panel-body` | canonical | § 3.33 |
 | Divider | `.divider` `.divider-vertical` `.divider-label` | canonical | § 3.34 |
 | Chat · Messaging | `.chat-*` | canonical | § 3.35 |
-| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · `.swatch-list` `.swatch-grid` `.swatch-grid-4` · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.36 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
-| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-group` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
+| Swatch | `.swatch` `.swatch-hex` · `.swatch-tile` `.swatch-tile-fill` `.swatch-tile-meta` `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` · · `.swatch-tile-type` `.swatch-type-sample` · `.swatch-tile-space` `.swatch-space-bar` · `.swatch-tile-radius` `.swatch-tile-shape` · `.swatch-tile-shadow` `.swatch-tile-surface` · `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` · `.swatch-tile-motion` `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` `.swatch-tile-level` `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | canonical | § 3.36 — colour forms static, the motion tile plays three times; the Diagrams legend keeps its shape key |
+| Avatar | `.avatar` `.avatar-sm` `.avatar-lg` `.avatar-xl` `.avatar-2xl` `.avatar-img` `.avatar-mark` `.avatar-hue-1` `.avatar-hue-2` `.avatar-hue-3` `.avatar-hue-4` `.avatar-hue-5` `.avatar-dot` `.avatar-more` | canonical | § 3.37 — always a circle; the chat's `.chat-avatar` (§ 3.35) keeps its own look until the chat is re-audited |
 | List | `.list` `.list-item` `.list-body` `.list-title` `.list-meta` `.list-end` `.list-summary` `.list-key` `.list-value` `.list-actions` | canonical | § 3.38 |
-| Table | `.table` `.table-sort` `.table-row-link` `.table-scroll` | canonical | § 3.39 |
-| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` `.chart-grid` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` | canonical | § 3.40 |
+| Table | `.table` `.table-sort` `.table-row-link` | canonical | § 3.39 |
+| Chart card | `.chart-card` `.chart-head` `.chart-big` `.chart-delta` `.chart-legend` · `.chart-plot` `.chart-plot-lg` `.chart-plot-sm` · `.chart-label` `.chart-label-axis` `.chart-label-value` `.chart-label-center` `.chart-label-end` · `.chart-bars` `.chart-bars-axis` `.chart-bars-reserve` | canonical | § 3.40 |
 | Pie | `.pie-wrap` `.pie-plot` `.pie` `.pie-center` `.pie-total` `.pie-caption` `.pie-legend` | canonical | § 3.41 |
-| Timeline | `.timeline-scroll` `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
+| Timeline | `.timeline-plot` · `.timeline-lane` `.timeline-meta` · `.timeline-bar-label` `.timeline-bar-label-dark` · `.timeline-today` | canonical | § 3.42 — a Chart card whose plot is lanes |
 | Map | `.hexmap` `.hexmap-svg` `.hexmap-area` | canonical | § 3.43 — a cluster opens a Popover (§ 3.23) or, under 720px, a Drawer (§ 3.24) |
 | Diagrams | `.diagram` `.diagram-canvas` `.diagram-caption` `.diagram-legend*` | canonical | § 3.44 |
-| Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 |
-| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card |
+| Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 — a template (Applied) |
+| Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card — a template (Applied) |
 | Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.states-row` `.state` `.state-cap` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -619,7 +685,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
 | `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
 | `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` | — |
-| `.slider-input` | hover | — | — | — | `--ring-field` | on the thumb | — |
+| `.slider-input` | hover | — | — | — | — | the thumb grows `--s-5` → `--s-6`; a fine pointer only | — |
 | `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb | — |
 | `.slider-input` | active | — | — | — | — | `cursor: grabbing` | — |
 | `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
@@ -683,6 +749,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below | — |
 | `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | | — |
 | `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` | — |
+| `.switch` | hover | — | — | — | — | knob grows 14px → `--s-4` about its centre; a fine pointer only | — |
 | `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick | — |
 | `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index | — |
 | `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label | — |
@@ -711,7 +778,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
 | `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
-| `.chip` (pressable) | disabled | — | — | `--obsidian-400` | none | `opacity 0.4` · `cursor: not-allowed` | — |
+| `.chip` (pressable) | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` · attenuated once: the opacity, not a second ink | — |
 | `.chip-dismiss` | default | transparent | none | `--obsidian-300` | — | its own target, inside a static chip | — |
 | `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
@@ -784,6 +851,8 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 - **Do / Don't comes in pairs.** The Don't is where the knowledge is: anyone can guess the Do.
 - **The replay button follows the motion, not the section.** A subsection with no entrance choreography does not get one — a replay button on a static demo teaches that a choreography exists.
 - An explanation that fits none of these seven is `off-system`. Add a surface deliberately, or use one of these.
+
+**States rows (v5.3.0).** A control's States subsection is one row, like the button variants: one control per state, each captioned in the label register, a caption of two words on two lines. The row holds default, focus, the value (checked, selected, on, pressed), disabled, and disabled with its value; never hover, which the reader gets by pointing at the demo and whose rule stays in the state index and the motion index. Focus and press are forced with `data-force`, which the page turns into the stylesheet's own `:focus-visible` and `:active` rules. The Demo before it is the component as it ships, a named group with no captions. A disabled control is attenuated once (its opacity, or a faint ink where the browser already greys the native control) and keeps `cursor: not-allowed`: never `pointer-events: none`, which hides the cursor; a disabled link's click is blocked by the page.
 
 **Page order (v5.0.0).** A component page reads in one order: Usage (*Use it when* / *Use something else when*), the Anatomy card, Rules, the variants grouped by axis (type, size, state, orientation, placement, composition, the live demo), Do and don't. The axes are declared once, in the section's **Variants.** block: one line per axis, its values in order, the default marked; the states stay in the State index. The demos on the site show every declared value (check 102). The order follows the component schema the contract is read into: description, parts and tokens, rules, variant axes.
 
@@ -944,53 +1013,11 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 ### Grid system
 
-**Site:** § 08 Layout.
-
-```html
-<div class="grid grid-3">…</div>
-```
-
-- `.grid` is layout and nothing else: `display: grid`, gap `--s-4`. No surface, no padding — the panels it holds (`.card`, `.chart-card`) bring their own.
-- Presets `.grid-2` `.grid-3` `.grid-4` `.grid-6`: equal columns of `minmax(0, 1fr)`. The zero floor is the point — content shrinks inside the track instead of blowing it open.
-- Responsive: at ≤900px, `-3` `-4` `-6` fall to two columns; at ≤860px every preset falls to one.
-- The gap is not a knob. A grid that needs a rhythm other than `--s-4` is off-system: stop and ask (§ 3.0).
-
-**Do / Don't.** Do lay panels out on the presets, with the `--s-4` gap. Don't give the grid a surface or a padding, or change its gap: stop and ask.
+**A layout rule since v5.3.0.** The grid arranges and draws nothing, so it is not a component: its spec is in Layout › Containers — layout rules. This heading keeps § 3.2 for the references that cite it.
 
 ### Page shell
 
-**Site:** none, the frame of every page.
-
-```html
-<a href="#main-content" class="skip-link">Skip to content</a>
-<div class="app">
-  <aside class="sidebar" aria-label="Design system navigation">…</aside>
-  <main class="main">
-    <div class="topbar">
-      <div class="breadcrumb">…</div>
-      <div class="topbar-actions">…<span class="kbd">⌘K</span></div>
-    </div>
-    <div class="content" id="main-content">
-      <section class="section active">…</section>
-    </div>
-  </main>
-</div>
-```
-
-- `.app` — the page grid: a `--sidebar-w` rail plus one fluid column, `min-height: 100vh`, ground `--grad-fog` over `--obsidian-950`. One per document.
-- `.main` — the fluid column. `min-width: 0` is load-bearing: without it any wide child blows the grid track open instead of scrolling inside it.
-- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
-- `.content` — the only width-constrained wrapper: `--content-max`, centered, padding `--s-12 --s-10 --s-24`. It owns `id="main-content"`, the skip-link target — on the content, not on `<main>`, so the jump clears the sticky topbar (§ 3.4; uniqueness is check 27).
-- `.section` — hidden until `.active`. Exactly one section is active at a time, and the class is controller-owned: markup never hand-toggles it.
-- **Page entrance**: when a section becomes active, it arrives in three blocks, in reading order: the page header, the usage block, then the rest of the page as one. Each rises `--s-8` on `--d-slow` · `--ease-soft`, one `--d-quick` after the previous, the first after one `--d-quick`. A page with no usage block brings the rest one step after its header. Whole blocks, never line by line: a page that keeps arriving while it is read pulls the eye off the text. Further down, only cards move (§ Card, card rise). The keyframe carries 32px, `--s-8`, written out: a keyframe cannot read a `var()`.
-- Under 860px the rail leaves the grid and overlays as a drawer behind `.sidebar-scrim` (`--z-scrim`), toggled by `.menu-toggle` carrying `aria-expanded`.
-
-| Trigger | Property (type) | Motion | Reduced motion |
-|---|---|---|---|
-| section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
-
-**Do / Don't.** Do keep one `.app` per document and one active section, switched by the controller. Don't toggle `.active` by hand in the markup, or drop `min-width: 0` from `.main`.
+**A layout rule since v5.3.0.** The shell arranges the page and draws only its ground, so it is not a component: its spec is in Layout › Containers — layout rules. The top bar it holds is part of the Navigation (§ 3.26). This heading keeps § 3.3 for the references that cite it.
 
 ### Skip link
 
@@ -1174,6 +1201,11 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 <label class="check"><input type="checkbox" checked> Published</label>
 <label class="switch"><input type="checkbox" checked> Show dates</label>
 <label class="radio"><input type="radio" name="scope" checked> Everyone</label>
+
+<fieldset class="choice-group"><legend>Visibility</legend>
+  <label class="radio"><input type="radio" name="vis" checked> Everyone</label>
+  <label class="radio"><input type="radio" name="vis"> People with the link</label>
+</fieldset>
 ```
 
 | Control | Shape | Checked treatment | Use |
@@ -1188,6 +1220,8 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
+- **A group is a `fieldset.choice-group` (v5.3.0).** Its `legend` names it in the label register (`--t-micro` mono uppercase, `--obsidian-300`); the options stack `--s-3` apart. Radios always come in one; checkboxes and switches when there are two or more.
+- **Hover grows the switch's knob one step (v5.3.0)**, 14px to `--s-4`, a scale about its centre on `--d-quick` · `--ease-standard` (a 2px growth has no room for a spring's overshoot, which under the pointer reads as a flicker); never a colour, which on the `--primary-500` track would vanish. A fine pointer only; a disabled switch does not answer.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
 
@@ -1221,7 +1255,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
     <label class="label" for="volume">VOLUME</label>
     <output class="slider-value" for="volume">40</output>
   </div>
-  <input class="slider-input" id="volume" type="range" min="0" max="100" step="5" value="40" style="--p:40%">
+  <input class="slider-input" id="volume" type="range" min="0" max="100" step="5" value="40" style="--slider-fill:40%">
   <div class="slider-scale"><span>0</span><span>100</span></div>
 </div>
 
@@ -1253,7 +1287,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 - **Native underneath.** Arrow keys move one step, Page Up and Page Down a larger one, Home and End go to the ends. The value goes with the form under the input's `name`.
 - **A range starts on a selection, not on the whole scale.** Each thumb is its own input with its own `aria-label` ("Minimum price", "Maximum price"), and the pair is a `role="group"` named by the visible label. The lower thumb cannot pass the upper one; they can meet.
 - **The value is always shown.** In `.slider-value`, beside the label; the minimum and the maximum sit in `.slider-scale`. A slider with no visible value is a guess.
-- **The fill is the script's.** `--p` on the input (single), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
+- **The fill is the script's.** `--slider-fill` on the input (single, a component token declared in `tokens.css` at `0%`, v5.3.0), `--lo` and `--hi` on the pair (range), as percentages of the scale. Without the script the control still works and the fill is absent.
 - **No error state.** The value is always inside the scale. A slider that cannot be changed is `disabled`.
 - **Targets (WCAG 2.5.8).** The thumb is 20px and the whole 32px row takes the pointer, so a click on the track moves the nearest thumb.
 - **Motion.** The ring on the thumb changes on `--d-quick` · `--ease-standard`, none under reduced motion (§ 06.4).
@@ -1631,13 +1665,13 @@ Status the system computed — live, shipped, pending, blocker — shown next to
 
 
 ```html
+<span class="badge badge-solid">Featured</span>
 <span class="badge"><span class="dot"></span>Default</span>
 <span class="badge badge-brand"><span class="dot"></span>Live</span>
 <span class="badge badge-success"><span class="dot"></span>Shipped</span>
 <span class="badge badge-warn"><span class="dot"></span>Pending</span>
 <span class="badge badge-danger"><span class="dot"></span>Blocker</span>
 <span class="badge"><span class="dot"></span>Archive</span>
-<span class="badge badge-solid">Featured</span>
 <span class="badge badge-info"><span class="dot"></span>Info</span>
 ```
 
@@ -1691,7 +1725,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 
 <span class="chip chip-info">
   Lena Ortiz
-  <button class="chip-dismiss" aria-label="Remove Lena Ortiz">&times;</button>
+  <button class="chip-dismiss" aria-label="Remove Lena Ortiz"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button>
 </span>
 ```
 
@@ -1699,7 +1733,7 @@ A compact label for **one value that belongs to something else** — a tag on a 
 |---|---|---|
 | Object | `.chip` | `--r-full`, label at `--t-small`, padding `--s-1` `--s-3`, `inline-flex` with `--s-1` between parts |
 | Leading dot | `.chip-dot` | Optional. The same part as the Badge dot, in the variant's colour |
-| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes |
+| Dismiss | `.chip-dismiss` | Optional. A real `<button>` with an `aria-label` that names the value it removes; the close glyph at `--icon-xs` |
 
 | Variant | Surface | Use |
 |---|---|---|
@@ -1721,6 +1755,9 @@ A compact label for **one value that belongs to something else** — a tag on a 
 - **The dismiss names its value.** `aria-label="Remove Motion"`, never a bare `×` and never "Remove". Removing a chip changes a collection the reader can't otherwise see change, so the field's own live region announces it — not a toast (§ 3.17 is for things that happened somewhere else).
 - **Never colour alone** (§ 6 floor #1). The label carries the meaning; the variant is emphasis on top of it. There is no icon-only chip — a chip without a label is a dot.
 - **Chips wrap, they never scroll and never truncate.** A collection long enough to need either collapses behind a trailing `+N` chip, which is itself a `.chip` and a button. A horizontally scrolling chip row hides values from a keyboard and from a screen reader alike.
+- **Removing, in three beats (v5.3.0).** The chip leaves where it stands, the chips after it close the gap, then the first chip behind the `+N` steps into sight and the count drops; the `+N` leaves with the last one. A click on the `+N` brings every chip into sight. Focus stays in the collection.
+- **Adding (v5.3.0).** A collection that can grow ends with `.chip-add`, a round `+` button with a name (`aria-label="Add a recipient"`) that opens a Menu of suggestions (§ Dropdown, variant D). A new value joins the end: behind the `+N` when there is one, which counts it (`+3` becomes `+4`), in sight otherwise; once the reader has opened the `+N` the collection stays open. A value taken out goes back to the Menu; with nothing left to offer the add chip leaves, and it comes back with the first value removed.
+- **The dismiss is the close glyph.** An SVG at `--icon-xs` in a box of its own size, never a text `×`: the text glyph is narrower than its box and sits 4px off the padding edge, which breaks Inline symmetry (§ Size). The add chip's `+` is a glyph the same way.
 
 
 **Variants.**
@@ -1866,7 +1903,7 @@ How far a task with a known end has come: a track, a fill and the value written 
 - **Two heights.** 8px by default; `.progress-sm`, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.
 - **Named and valued.** The track carries `role="progressbar"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name; the value is also written as text.
 - **Known end only.** An unknown wait is a Loader; a bar that moves without a value is not a Progress.
-- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
+- **Motion.** On view the fill draws from zero on `--d-scene` · `--ease-decel` from 700ms (7 × `--d-instant`) and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value.
 
 
 **Variants.**
@@ -2058,7 +2095,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 |---|---|---|
 | Panel | `.modal` | `--obsidian-800` on `--obsidian-700`, `--r-lg` — the card's surface and radius — padding `--s-6`, `--sh-4`, `--w-modal` wide |
 | Wide panel | `.modal-wide` | 720px, for a form of several fields or a table. The only other width |
-| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its 32px target on the content edge so the glyph sits `--s-2` in — as far from the right as from the top. Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo) so it lines up with the field below: the one place the focus ring leaves the standard offset |
+| Head | `.modal-head` `.modal-title` | Title at `--t-h6`, weight 700; the close is a small ghost icon button, § 3.6, its glyph on the content edge, level with the title, and its 32px target reaching into the padding (§ Size › Inline symmetry). Its focus ring is drawn inside the button (`outline-offset: -2px`, no halo): the one place the focus ring leaves the standard offset |
 | Body | `.modal-body` | `--t-body`, `--obsidian-200` |
 | Foot | `.modal-foot` | Actions at the end, `--s-2` apart; the primary action last |
 
@@ -2072,7 +2109,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 - **Actions: one primary, at the end.** A destructive action is `.btn-danger` and is never the default focus. A modal has at most two actions and no third "learn more" link; that goes in the body.
 - **Never stack.** A modal opened from a modal is a flow that wants a page.
 - **Small screens:** at ≤480px the panel keeps `--s-4` of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.
-- **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
+- **Motion.** In: the panel fades in and grows from 0.96 about its centre, the Lightbox's entrance; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
 - **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
 
 
@@ -2082,15 +2119,16 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 ### Lightbox
 
-**Site:** none, the figures of § 49 Case study.
+**Site:** none, the figures of § 50 Case study.
 
 - Backdrop: the Bar material, `--surface-bar` under `--blur-bar`.
 - Close button: top-right, `Esc` closes.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
-| close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| open | content scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
+| close | backdrop + content opacity (effect) · content scale 1→0.96 (spatial) | `--d-quick` · `--ease-accel` | instant |
 
 **Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
 
@@ -2210,7 +2248,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 | Menu | `.drawer-nav` | The side menu: padding `--s-4`, width 30ch plus the padding, text `--t-lead`; its rows are the List's |
 | Side | `.drawer-start` | On the start side; the default is the end |
 | Wide | `.drawer-wide` | 60ch plus the padding, for text with longer lines |
-| Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button |
+| Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button, its glyph on the content edge as in the Modal (§ Size › Inline symmetry) |
 | Body | `.drawer-body` `.drawer-label` | Scrolls on its own; the label names a group in mono, micro, uppercase |
 | Foot | `.drawer-foot` | Actions at the end over a hairline; absent in a menu |
 
@@ -2375,6 +2413,10 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 
 **Do / Don't.** Do keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill. Don't move the `nav` in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.
 - **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.29.
+
+**Page top bar (v5.3.0, from the Page shell).** An organism of the Navigation: it paints, so it is not a rule.
+- `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
+- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 
 ### Tabs
 
@@ -2634,14 +2676,14 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
 - **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
-- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 520ms plus 80ms per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 580ms plus 80ms per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
+- **Motion.** On view, every dot scales in on `--d-slow` · `--ease-spring` (opacity on `--ease-decel`) and its text rises 8px, from 500ms plus `--d-instant` per step; each connector draws to the next dot on `--d-slow` · `--ease-decel` from 600ms plus `--d-instant` per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.
 
 
 **Variants.**
 - `orientation` — horizontal (default) · `.stepper-vertical`
 **Do / Don't.** Do use the horizontal stepper for three to five steps with short labels, from 480px of width up; let it turn vertical below, or force the vertical one for long labels or more steps. Don't squeeze a horizontal stepper until its labels wrap, hide the labels to make it fit, or show more than one current step.
 
-**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 520ms + 80ms·*n*, the connector that leaves it draws from 580ms + 80ms·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
+**Do / Don't.** Do reveal it on one ladder: dot *n* scales in from 500ms + `--d-instant`·*n*, the connector that leaves it draws from 600ms + `--d-instant`·*n*, both on `--d-slow`; done or upcoming only changes the paint, so one more step is one more rung. Don't time the done and the upcoming steps as two phases, hold one back until the other ends, or start the ladder from the current step: the reveal would change every time the person moves on.
 
 ### Card
 
@@ -2674,13 +2716,14 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
-- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, 80ms apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
+- **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, `--d-instant` apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
 - Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
 - **Row — `.card-row`.** One line of a list: a square media of `--s-16`, then the micro-header, the title (`h3`, `--t-body`) and one line of text clipped with an ellipsis, then a chevron (`.icon-muted`). Padding `--s-3`, gap `--s-4`. The whole card is the link — an `<a>` — so it holds no action and no other focusable; it takes the focus ring of a pressable (`--ring-halo`, outline `--focus-width` `--obsidian-100`). Rows stack with `--s-3` between them.
+- **Strip — `.card-strip` (v5.3.0).** A row card can mark itself among the others with a left edge of `--bw-2` in `--card-strip`, the edge Alert and Toast draw. `--card-strip` is a component token, `--primary-500` by default; set it to a semantic colour (`--success`, `--warning`, `--danger`, `--info`) and to nothing else. The hover keeps the strip. It is the declared exception to inline symmetry (§ Size).
 
 ```html
 <a class="card card-row" href="/work/orion">
@@ -2712,12 +2755,13 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
 
 
 **Variants.**
 - `type` — project (default) · stat · `.card-row` · `.card-feature`
 - `media` — none (default) · `.card-media`
+- `edge` — none (default) · `.card-strip`
 **Do / Don't.** Do give every card a micro-header and at most one action, last on its own row. Don't put a gradient on a card, or a `.btn-primary` unless the card is the screen's single primary act.
 
 **Do / Don't.** Do let the media zoom inside its clip, on hover and on focus-within. Don't grow the card itself, or invent a spacing the anatomy does not have: stop and ask.
@@ -2766,7 +2810,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
-| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay `--d-instant` | instant |
 | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 
 
@@ -2868,7 +2912,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - `.chat-stage` — conversation surface, fixed height (`480px` desktop, `420px` mobile), `flex-direction: column` with `justify-content: flex-end` so bubbles push up.
 - `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
 - `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
-- `.chat-bubble-content` — the inner span that fades up 80ms behind the container. Required for the two-stage entry.
+- `.chat-bubble-content` — the inner span that fades up `--d-instant` behind the container. Required for the two-stage entry.
 - `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
 - `.chat-meta` — sender + time row, only on the first bubble of a streak.
 - `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
@@ -2879,13 +2923,13 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - The brighter `--primary-500` is **not** used here. It stays reserved for CTAs and focus rings, so the 85/10/5 budget holds in long conversations.
 - A previous "hot last" rule (paint only the latest own bubble primary-500) was tried and discarded — the bright last bubble started reading as a CTA, stealing weight from the actual primary action on the page.
 
-**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content 80ms behind:
+**Two-stage entry choreography.** The wrapper toggles `.is-in` on next frame to start both stages; container first, inner content `--d-instant` behind:
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -2897,7 +2941,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
 
 **Composer:**
@@ -3201,7 +3245,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 |---|---|
 | Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
 | Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-300` on `--obsidian-850`, weight 500 |
-| Cell (`td`) | 13px, left-aligned, padding `--s-3 --s-4` |
+| Cell (`td`) | 13px, `--obsidian-100` (the table says it, the page around it does not), left-aligned, padding `--s-3 --s-4` |
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
 | Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
 | Secondary cell | `.muted` — `--obsidian-300` |
@@ -3261,7 +3305,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
+| enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 
 **Plot.** The drawing a chart card holds: one inline `<svg data-fade-chart>`, its parts named by `data-*` hooks that the reveal script reads. A part with no hook does not move; a hook not listed here is not part of the system.
@@ -3282,6 +3326,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
 - **Two drawings, one shown.** A plot whose proportions or points do not hold on a phone carries a second drawing, `.chart-plot-sm`, with its own viewBox (344 wide against 700), the same data and points at `data-r` 8; under `--bp-md` it replaces `.chart-plot-lg`, labels included. The small one is `aria-hidden`: the chart has one accessible name. The baseline clip reads its width from `data-clip-w`.
 - **Bars keep two columns down to `--bp-md`** (`.chart-grid`): one column at 900 made each bar chart twice its size.
+- **Horizontal bars keep their labels at every width (v5.3.0).** `.chart-bars` is a grid of three columns: the axis labels (`.chart-bars-axis`, as wide as the longest, `--s-3` before the bars), the drawing, and the room for the widest value (`.chart-bars-reserve`, a hidden `100%`), so a full bar's value still fits. The labels are never a share of the viewBox: the text does not scale, so its room must not either; a gutter of 60 of 384 units met the labels under 330px of plot. A bar chart whose card is at least `--bp-sm` wide reads its labels at `--t-small` (a container query on the card, not the screen); a narrower one keeps `--t-caption`, the floor for readable text.
 - **The plot is not interactive.** No hover, no focus, no state but `default` (state index). A value the reader needs is written as text: the bar label, the legend percentage, the stat.
 - **Choreography E (the line and area plot).** Each part starts when the one before it reads, not when it ends: the baseline at `--d-base`, the line `--d-slow` later, area and points `--d-slow` after the line starts, the points `--d-quick` apart. Under reduced motion every part lands drawn.
 
@@ -3308,7 +3353,16 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Pie
 
-**Site:** § 44 Charts.
+**Site:** § 45 Pie.
+
+**Usage**
+
+*Use it when*
+- Parts of one whole, five or fewer, where the share matters more than the exact value.
+
+*Use something else when*
+- More than five parts, or values to compare closely → Bars, in Charts.
+- Change over time → Line, in Charts.
 
 ```html
 <div class="pie-wrap">
@@ -3333,7 +3387,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 
 ### Timeline
 
-**Site:** § 45 Timeline.
+**Site:** § 46 Timeline.
 
 A gantt: workstreams on one shared time axis, so overlap and sequence read at a glance. It is a Chart card (§ 3.40) whose plot is lanes instead of series.
 
@@ -3386,7 +3440,7 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 
 ### Map
 
-**Site:** § 46 Maps.
+**Site:** § 47 Maps.
 
 Places on a grid of hexes: the land is grey, and a cluster of cells (one place with nodes) takes the colour of its state. It is a Chart card (§ 3.40) whose plot is the land.
 
@@ -3448,7 +3502,7 @@ Places on a grid of hexes: the land is grey, and a cluster of cells (one place w
 
 ### Diagrams
 
-**Site:** § 47 Diagrams.
+**Site:** § 48 Diagrams.
 
 Flowcharts / node-edge graphs and system architecture (box-and-line with grouping). A textual source is laid out automatically (Mermaid, theme `base`; ELK engine for orthogonal routing, dagre fallback) and themed entirely from tokens. Sequence / tree / ER are out of scope at v1. Static render with an on-scroll entrance; no runtime input (no pan/zoom, no click-to-expand).
 
@@ -3512,8 +3566,7 @@ flowchart TD
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
-| enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
+| enter viewport · Replay | opacity (effect) | `--d-base` · `--ease-decel` · in the direction of the arrows: a node, the edges leaving it with their labels, the nodes they reach, one `--d-instant` per step; a cluster arrives with its first node | instant — straight to resolved |
 
 **Responsive:**
 - `.diagram-canvas` is `width:100%`; the rendered `<svg>` is `max-width:100%; height:auto` — it scales to fit. Below ~720px the canvas switches to `overflow-x:auto` with an intrinsic `min-width`, so wide architecture maps scroll instead of shrinking illegibly. Caption and legend wrap.
@@ -3527,6 +3580,7 @@ flowchart TD
 - Exactly one magenta focus node per diagram (`:::focus`). More than one = decorating (§ 1.4).
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
+- **An elbow never falls on a box's line (v5.3.0).** A segment of an edge keeps `--s-4` of air from the border of every node and every group; the page's router moves a segment that runs along a border to `--s-4` outside it.
 
 
 **Variants.**
@@ -3536,7 +3590,7 @@ flowchart TD
 
 ### Presentations
 
-**Site:** § 48 Presentations.
+**Site:** § 49 Presentations.
 
 Slide decks on the system. A fixed **1920×1080** canvas authored at full size and scaled to fit its `.slide-frame` via `--slide-scale`, so every deck is 16:9 and pixel-consistent. Same tokens, same 85/10/5 as every other surface — one magenta moment per slide, everything else obsidian.
 
@@ -3566,13 +3620,13 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - The one magenta moment per slide is the single `.accent` (title word / marker / page number). Never two.
 - Author at full 1920×1080; never hardcode the on-screen size — let `--slide-scale` fit it to the frame.
 - Token-only (§ 2): colors, spacing, radius. The slide's oversized type is its own scale but token-driven.
-- Worked example on the site: **§ 48 · Presentations** (demo deck + the eight layouts + anatomy + rules).
+- Worked example on the site: **§ 49 · Presentations** (demo deck + the eight layouts + anatomy + rules).
 
 **Do / Don't.** Do spend one magenta moment per slide — a keyword, a numeral, or the eyebrow rule. Everything else stays obsidian (85/10/5). Don't flood a slide background with a magenta gradient or tint more than one element. That reads as decoration, not signal.
 
 ### Case study
 
-**Site:** § 49 Case study.
+**Site:** § 50 Case study.
 
 The starting frame for a project told as a story. It composes the system's components in a fixed order: hero, dossier, numbered sections, more cases.
 
@@ -3656,7 +3710,7 @@ The starting frame for a project told as a story. It composes the system's compo
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 100 / 200ms (0, 1 and 2 × `--d-instant`) | instant |
 | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3775,7 +3829,7 @@ How the system is written: naming, structure, units, files. Each convention carr
 | Id | Convention | Severity | Check | Source |
 | --- | --- | --- | --- | --- |
 | C1 | Token names: `--{family}-{step}` for primitives, `--{role}-{variant}` for semantics; a closed vocabulary of modifiers; no value inside a role name | `error` | `none` | § Colors · semantic |
-| C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `none` | § Code conventions · CSS |
+| C2 | Classes BEM-ish and pragmatic: `.card`, `.card-meta`; no deep nesting; state on ARIA or a pseudo-class when one exists, otherwise `.is-*` | `warn` | `lint` (check_compliance `class-off-registry`) | § Code conventions · CSS |
 | C3 | `data-*` for state hooks (`data-fade`, `data-reveal`, `data-replay`) | `warn` | `none` | § Code conventions · HTML |
 | C4 | Canonical, semantic HTML: every tag closed, every attribute double-quoted, `<button>` for actions, `<a>` for navigation, never `<div onclick>`; ARIA only when HTML can't say it | `error` | `lint` | § Code conventions · HTML |
 | C5 | Files: `tokens.css` → `components.css`, a third file only past 150 lines; kebab-case, named after the role (`card.css`, not `box.css`) | `warn` | `none` | § Code conventions · CSS, File naming |
@@ -3787,18 +3841,18 @@ How the system is written: naming, structure, units, files. Each convention carr
 
 ### Law
 
-A principle guides a judgement; a law is measured and enforced. Laws are not weighed against principles. Each law has an id, a severity (`error` stops the output, `warn` is flagged in review), the principle it serves and what holds it.
+A principle guides a judgement; a law is measured and enforced. Where `check_compliance` holds a law, the Check column names its finding, and the finding carries the law's id back in its `law` field (v5.3.0). Laws are not weighed against principles. Each law has an id, a severity (`error` stops the output, `warn` is flagged in review), the principle it serves and what holds it.
 
 | Id | Rule | Severity | Principle | Check | Source |
 | --- | --- | --- | --- | --- | --- |
 | L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
 | L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
-| L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier | § Principles · Quiet, then loud |
-| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 | § For the AI agent #1–2 · § Code conventions |
+| L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier · check_compliance `one-primary` | § Principles · Quiet, then loud |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` | § For the AI agent #1–2 · § Code conventions |
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
-| L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 | § Motion |
+| L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 · check_compliance `reduced-motion` | § For the AI agent #7 · § Motion |
+| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 · check_compliance `raw-duration` `raw-easing` `spring-on-effect` `loop-clock` `raw-delay` | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
 
 #### L1 · The 85 / 10 / 5 law, in detail
@@ -3888,7 +3942,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Page shell | section activate | the section's direct children, as three blocks: opacity (effect) · translateY `--s-8`→0 (spatial); `.page-header` after `--d-quick`, `.usage` one `--d-quick` later, the rest together one `--d-quick` after the block before it | `--d-slow` · `--ease-soft` | none — the page is at rest |
 | Button | press | background · border · colour (effect) | `--d-quick` · `--ease-standard` | instant |
 | Button (primary) | press | scale 1 → .97 (spatial) | `--d-quick` · `--ease-spring` | none — no scale |
-| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
+| Chart card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order; a stat starts its count-up on the same frame | `--d-slow` · `--ease-soft` | none — shown at rest |
 | Chart card | stat reveal | count-up (effect · text) | `--d-draw` · `--ease-decel` | none — jumps to the value |
 | Plot | plot reveal | baseline clip width (spatial) | `--d-scene` · `--ease-decel` · delay `--d-base` | none — drawn |
 | Plot | plot reveal | line stroke-dashoffset (spatial) | `--d-draw` · `--ease-decel` · delay `--d-base` + `--d-slow` | none — drawn |
@@ -3908,7 +3962,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Accordion | close | panel grid-rows (spatial) | duration by distance · `--ease-standard` | instant |
 | Accordion | open | chevron rotate 90° (spatial) | `--d-base` · `--ease-decel` | instant |
 | Accordion | close | chevron rotate 0° (spatial) | `--d-base` · `--ease-standard` | instant |
-| Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay 80ms | instant |
+| Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay `--d-instant` | instant |
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
@@ -3918,43 +3972,47 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
-| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), 80ms apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
-| Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
-| Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+| Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
+| Lightbox | open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| Lightbox | open | content scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Lightbox | close | backdrop + content opacity (effect) · content scale 1→0.96 (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
-| Modal | open | panel translateY `--s-2`→0 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Modal | open | panel scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Modal | open | scrim background (effect) | `--d-quick` · `--ease-decel` | instant |
-| Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
+| Modal | close | panel opacity + scale 1→0.96 (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
-| Slider | hover · focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
+| Slider | hover (thumb) | transform scale (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Slider | focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay 80ms | instant |
+| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
-| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0/160/320ms | none — the dots hold still at full opacity |
+| Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |
 | Chat | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Loader | success | check scale-in (spatial) | `--d-base` · `--ease-spring` | instant |
 | Loader | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Loader | skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
-| Diagrams | enter viewport · nodes | opacity (effect) | `--d-base` · `--ease-decel` · stagger ~70ms | instant — straight to resolved |
-| Diagrams | enter viewport · edges + clusters | opacity (effect) | `--d-base` · `--ease-decel` · after nodes, +40ms each | instant — straight to resolved |
+| Diagrams | enter viewport · Replay | opacity (effect) | `--d-base` · `--ease-decel` · in the direction of the arrows: a node, the edges leaving it with their labels, the nodes they reach, one `--d-instant` per step; a cluster arrives with its first node | instant — straight to resolved |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 1 | the columns that leave: opacity (effect), where they stand | `--d-quick` · `--ease-accel` | instant |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 2 | the columns that stay: translateX · scaleX to the new track (spatial) | `--d-base` · `--ease-standard` | instant |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 3 | the columns that arrive: opacity (effect), up to `--d-instant` apart, within one `--d-quick` | `--d-quick` · `--ease-decel` | instant |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
 | Loader | wait (loop) | brand mark SVG (spatial) | media clock (SVG SMIL, 4.5 s loop) · infinite | hidden — fallback ring shown |
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
 | Loader | label cycle (loop) | label opacity crossfade (effect) | 2400ms cycle · 200ms crossfade | instant swap |
 | Skeleton | wait (loop) | shimmer sweep (effect) | 1600ms · linear · infinite | disabled — static fill |
-| Popover | open | opacity (effect) · translateY −4px→0 (spatial) | `--d-quick` · `--ease-decel` | instant |
-| Popover | close | opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
+| Popover | open | opacity (effect) · scale 0.96→1 from the corner that touches the trigger (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Popover | close | opacity (effect) · scale 1→0.96 into that corner (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Drawer | open | slide in from its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-decel` | instant |
 | Drawer | close | slide out to its edge (spatial) · scrim fade (effect) | `--d-base` · `--ease-accel` | instant |
-| Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 520ms + 80ms per step | instant |
-| Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 520ms + 80ms per step | instant |
-| Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 580ms + 80ms per step; appears on `--d-quick` | instant |
+| Stepper | reveal | dot scale 0→1 (spatial) · fade (effect) | `--d-slow` · `--ease-spring` for scale, `--ease-decel` for opacity · 500ms + `--d-instant` per step | instant |
+| Stepper | reveal | text rise 8px (spatial) · fade (effect) | `--d-slow` · `--ease-decel` · 500ms + `--d-instant` per step | instant |
+| Stepper | reveal | connector draw, done or dashed (spatial) · appear (effect) | `--d-slow` · `--ease-decel` · 600ms + `--d-instant` per step; appears on `--d-quick` | instant |
 | Stepper | current (loop) | ring scale 1→1.33 (spatial) · fade (effect) | 2400ms · `--ease-standard` · infinite | still ring |
-| Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms on reveal | instant — at its value |
+| Progress | reveal · value change | fill draw (spatial) | `--d-scene` · `--ease-decel` · 700ms (7 × `--d-instant`) on reveal | instant — at its value |
 | Navigation · top bar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Navigation · sidebar | item hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Breadcrumb | crumb hover / press | color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3969,18 +4027,23 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Time input | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
+| Switch | hover (knob) | transform scale (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Toast | enter | opacity (effect) · translateX 24px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |
 | Toast | dismiss (`.is-collapsing`) | max-height · padding · border · margin collapse (spatial) — repositions the stack | `--d-base` · `--ease-decel` | instant — still hides |
-| Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger 90ms | instant |
-| Tooltip | open on hover / focus | opacity (effect) · translateY 2px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
-| Tooltip | close (another opens · Escape · scroll) | opacity (effect) · translateY 0→2px (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Alert | enter viewport | opacity (effect) · translateY 12px→0 (spatial) | `--d-slow` · `--ease-decel` · stagger `--d-instant` (100ms) | instant |
+| Tooltip | open on hover / focus | opacity (effect), where it stands | `--d-quick` · `--ease-standard` | instant |
+| Tooltip | close (another opens · Escape · scroll) | opacity (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | hover (pressable) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | select | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | deselect | border-color · color (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chip | dismiss | opacity (effect) · scale 1→0.92 (spatial) | `--d-quick` · `--ease-accel` | instant — still removes |
-| Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 80 / 160ms | instant |
+| Chip | dismiss · then | the chips after it close the gap: translate (spatial) | `--d-base` · `--ease-standard` | instant |
+| Chip | dismiss · then | the first chip behind the `+N` steps into sight: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Chip | `+N` · show all | the chips behind it enter, `--d-instant` apart: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Chip | add | the new chip, or a new `+1`, enters: opacity (effect) · scale 0.92→1 (spatial) | `--d-quick` · `--ease-decel` | instant |
+| Case study | enter | section eyebrow, title, text: a 24px rise (spatial) · fade (effect) | `--d-slow` · `--ease-decel`, 0 / 100 / 200ms (0, 1 and 2 × `--d-instant`) | instant |
 | Case study | enter | outcome number count-up (effect) | `--d-draw` · `--ease-decel` | the final number, no count |
 | Case study | hover · focus | figure border and shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Case study | hover · focus | figure hint (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -4061,13 +4124,29 @@ The floor admits one documented exception pair, on three selectors. The state in
 
 ## Code conventions
 
+### The site's own conduct (v5.3.0)
+
+Each rule below answers a bug that shipped in the 5.3.0 cycle; the check named after it keeps it from coming back.
+
+- **The site runs nothing from a CDN (check 117).** A library the page needs to draw (Motion, Mermaid) ships in `assets/vendor`, pinned, as a classic script: a blocked CDN or a page opened from disk must not leave a chart or a diagram empty. Analytics is the one exception, because the page works without it.
+- **A section closes where it opens (check 116).** One stray `</div>` moved half a page out of its column; the divs of every section balance.
+- **The owner's name is never demo content (check 118).** A demo brand, person or project is invented; the name appears only where the site credits or installs itself.
+- **A breakpoint label reads the tokens (check 119).** A demo that says where a layout changes quotes `--bp-sm`, `--bp-md`, `--bp-lg`, never a number of its own.
+- **Motion plays when it can be seen (behaviour B1).** A chart, a progress bar, a stepper or a diagram starts when its part comes into view, at every width, and an Anatomy card never moves (B2).
+- **A floating panel opens on top (B3), a dialog moves nothing behind it (B4), a demo link never moves the page (B5).** The page under a modal or a drawer keeps its scroll and its width as the panel opens and closes; a link inside a demo acts in place.
+- **An elbow never falls on a box's line (B6), and a field's value sits in its middle (B7).**
+- **A sibling demo reads like its model (B8).** The Floating bar's strips and page match the Top navigation's: the same height at every tab, the bar alone in its strip.
+
+The B checks run in `release/behaviour.py`, called by the review sheet: the page opened from disk with every network request refused, at 1440, 800 and 390px, with a classic scrollbar where one matters.
+
 ### CSS
 
 - **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
 - **On the scale, always (ratified v4.3.1).** A value that falls between two steps of a closed scale snaps to the nearest token; at equal distance, to the smaller one. There is no raw-by-design list: a value kept off the scale is a value the contract cannot state.
 - Selectors: BEM-ish, but pragmatic. `.card`, `.card-meta`, `.card-meta .num` is fine. Avoid deep nesting.
 - File split: `tokens.css` (variables + reset) → `components.css` (everything else). One additional file only if a component owns >150 lines.
-- **A host's unlayered reset outranks the base layer.** The element rules of `tokens.css`, the `body` colour, font and background among them, live in `@layer base` so that Tailwind utilities win (check 32). The same cascade lets any unlayered stylesheet the page runs inside win too: a host that wraps the page in its own reset (a sandboxed preview, a CMS theme, a documentation shell) sets `body{color}` outside any layer, and every element that inherits its colour takes the host's. Headings go first, because no component colours them: measured on a landing page published inside such a host, `h1`–`h3` rendered in the host's dark text on `--obsidian-950`. Inside a host, the page restates the `body` declarations of the base layer, unlayered and by token: `body{color:var(--obsidian-100);background:var(--obsidian-950);font-family:var(--font-sans);font-size:var(--t-body);line-height:var(--lh-normal)}`. `tokens.css` stays layered: unlayering it would erase the Tailwind utilities again.
+- **No text the system draws takes the host's colour (v5.3.0).** The base layer says the body's text again on the body's children, `:where(body > *)`, at zero specificity: a host's unlayered `body{color;font}` keeps the body and stops there, because a declaration beats inheritance from any layer. A component that paints its own surface declares the colour of its text on that surface (Card, Table, Chart card joined in v5.3.0), so it reads the same inside a host container that sets a dark `color`. The review sheet renders every section inside such a host (`body{color:#000;font:14px serif}` unlayered) and inside a dark container around every Anatomy sample, and lists any text whose colour, font, size or line height moved, buttons with their padding, border and fill. Check 112 holds the base rule.
+- **A host's unlayered reset outranks the base layer.** The element rules of `tokens.css`, the `body` colour, font and background among them, live in `@layer base` so that Tailwind utilities win (check 32). The same cascade lets any unlayered stylesheet the page runs inside win too: a host that wraps the page in its own reset (a sandboxed preview, a CMS theme, a documentation shell) sets `body{color}` outside any layer, and every element that inherits its colour takes the host's. Headings go first, because no component colours them: measured on a landing page published inside such a host, `h1`–`h3` rendered in the host's dark text on `--obsidian-950`. Since v5.3.0 the base layer does this itself for the body's children; the restatement below stays as the second defence, for text placed straight in `body`. Inside a host, the page restates the `body` declarations of the base layer, unlayered and by token: `body{color:var(--obsidian-100);background:var(--obsidian-950);font-family:var(--font-sans);font-size:var(--t-body);line-height:var(--lh-normal)}`. `tokens.css` stays layered: unlayering it would erase the Tailwind utilities again.
 - Media queries: mobile-first where possible; otherwise scope inside the component block, not at file end.
 - `!important`: forbidden except in `prefers-reduced-motion` overrides and the ratified exceptions below (v4.3.2). The list is closed and check 50 holds it; each entry names what it has to outrank.
   - `.card-media > *` — `margin` — outranks a media child's own margin, inline or from an element rule, so nothing offsets the child inside the clip (§ Card).
@@ -4110,8 +4189,8 @@ Firefox reads no `::-webkit-scrollbar` rule: it draws its own bar, dark because 
 - **Collapse-to-zero (canonical):** when a transition animates a measured dimension, **both ends must live in the same place**. Pinning the start inline (`el.style.maxHeight = el.scrollHeight + 'px'`) and declaring the end in a class (`.is-collapsing{max-height:0}`) silently fails: the inline value outranks the class, so the box never collapses and only the properties the class *does* own — padding, border, margin — animate. The element then disappears in one frame when it is removed, which reads as a second beat. Set the start inline, flush, add the class for the transition and the sibling properties, then set the end **inline too** on the next frame. Measured symptom: a toast dismissal that glided 46px of the 101px it owed and jumped the rest.
 - **Replay pattern (canonical):** `classList.remove('is-in')` → force layout flush (`getComputedStyle(el).opacity`) → `setTimeout(50)` → `classList.add('is-in')`. `setTimeout(0)` and single `requestAnimationFrame` are **not reliable** when transforms are involved — the reset state doesn't always commit before the re-add and the animation visibly skips. The 50ms gap guarantees a paint cycle.
 - **SVG group transforms — prefer SVG attribute over CSS.** When animating an SVG `<g>`, set its position via the `transform` **attribute** (`<g transform="translate(70 80)">`) and animate that attribute, not CSS `transform`. CSS `transform` on SVG elements is fragile: it composes with any inherited CSS transform up the cascade (a generic `[data-fade]{transform: translateY(12px)}` rule will silently break group positioning), and `transform-box: fill-box` doesn't always apply consistently across browsers. The SVG attribute is the single source of truth — animate it directly via `el.setAttribute('transform', ...)` or via Motion's `transform` target with `css: false` semantics.
-- **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders (0 / 80 / 160 / 240ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
-- **Stepper choreography (§ 3.31):** dots scale in on the spring (520ms, +80ms per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 580ms (+80ms per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
+- **Staggered text reveals (`.cs-section`, `.page-header` patterns):** parent gets `.is-in` from `IntersectionObserver`; children (`.eyebrow`, `h3`, `p`) carry `opacity:0; transform:translateY(14px)` with `transition-delay` ladders in steps of `--d-instant` (0 / 100 / 200ms). One observer per block, `threshold: 0.15`, `rootMargin: '0px 0px -8% 0px'`, `unobserve` after fire.
+- **Stepper choreography (§ 3.31):** dots scale in on the spring (500ms, + `--d-instant` per step), text rises on decel (same ladder), each connector, done or dashed, draws on `--d-slow` from 600ms (+ `--d-instant` per step), so the choreography holds for any number of steps; CSS transitions on `.stepper[data-reveal].is-in`, the ladder from `--i`; replay follows the replay pattern above. The delays are literals by design (check 07).
 - **Anchor-link routing:** root URL (no hash) and invalid hashes always resolve to the first section (e.g. `#overview`). Use `history.replaceState` to rewrite the URL without polluting browser history. Listen on `hashchange` for back/forward; intercept `.nav-item` clicks to call the activator directly (a same-page hash that already matches won't fire `hashchange`).
 
 ### File naming
@@ -4237,6 +4316,60 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v5.3.0 — 2026.10.27 (MINOR)
+
+Containers become rules, every delay sits on the scale, and the system's text holds inside any host.
+
+**Added**
+- **Layout › Containers — layout rules, and the registry's fifth state, `rule`.** A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site's § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.
+- **Component, organism, template, rule (§ 3.0).** An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under *Applied*).
+- **Pie has its own page (§ 45).** A rail item opens one component, never a family page; the pages after it move up one number.
+- **Choice groups and States rows.** `fieldset.choice-group` names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.
+- **`.card-strip`, the row card's coloured edge.** A `--bw-2` left edge in `--card-strip`, `--primary-500` or a semantic colour: the declared exception to inline symmetry.
+- **`.chart-bars`.** Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from `--bp-sm` reads them at `--t-small`.
+- **`--slider-fill` and `--card-strip`, component tokens** in `tokens.css` and the DTCG file.
+- **Diagrams compose along their arrows,** a node, its edges, the nodes they reach, one `--d-instant` per step, with a Replay under each figure.
+- **The review sheet renders a hostile host and measures inline symmetry** before every release.
+- **Every `check_compliance` finding names its law** (`law`: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. `get_design_section` opens a path, a list of alternatives and a `(§ …)` suffix.
+- **Checks 110 to 114:** inline symmetry, every delay on the scale, the body's text restated, the States rows and the disabled cursor, the containers as rules.
+
+**Changed**
+- **Inline symmetry, strict.** The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast's dismiss, the List's kebab. The floating button takes `0 --s-4`.
+- **Every delay is 0 or a multiple of `--d-instant` (100ms)**, in the CSS and in the scripts: the Card's rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.
+- **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), a scale about the centre on `--ease-standard`: the spring overshot a 2px growth and flickered under the pointer. The Slider's glow ring on hover is gone.
+- **The Modal grows into place.** It opens from 0.96 about its centre instead of rising `--s-2`, and leaves the same way, faster: the Lightbox's entrance, which the Lightbox rows now state (they said *no scale-in* while its CSS scaled). The Lightbox's content leaves on `--d-quick`, the backdrop's clock.
+- **The Popover grows out of its trigger; the Tooltip only fades.** A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.
+- **Two kits on one page keep a gap.** The Navigation page's Sidebar and Top bar kits sat edge to edge; consecutive kits are now `--s-6` apart.
+- **The grid changes layout in three beats.** On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).
+- **The native Select centres its value.** Where the browser draws the customisable select (`appearance: base-select`) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.
+- **Every floating panel rides the top layer.** The Select's menu, Date picker, Date range, Time input and Tooltip are lifted into the browser's top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep `--s-2` from the viewport edge and follow their anchor while open. A rule in Stacking (*The floating layer*), guarded by check 115.
+- **Removable chips leave, close up and count.** A chip taken out leaves where it stands, the rest close the gap, and the first chip behind the `+N` steps into sight as the count drops; a click on the `+N` shows them all. A round `.chip-add` at the end adds from a Menu: a new value joins the end, behind the `+N` when there is one (`+3` becomes `+4`), and a value taken out goes back to the Menu. The dismiss draws the close glyph at `--icon-xs` instead of a text ×: its box ends on the padding edge, as the symmetry rule measures.
+- **The Modal no longer twitches on close.** With a classic scrollbar the scroll lock hid it, and on close it came back while the panel was still fading: the viewport narrowed and the panel slid 5px left. The panel is now centred on 50vw · 50vh, which the scrollbar does not move, and the page behind it stays where it is.
+- **The Modal's anatomy frames move.** They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.
+- **The menu drawer lives with Navigation.** Navigation gains Menu on a small screen (§ 30.5): the same live menu, where the sidebar has no room.
+- **The Pagination demos move in place.** A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.
+- **The Floating bar reads like the Top navigation.** Three device widths in tabs, then a page below that follows the tab, as tall as the top bar's; the Drawer page points to the menu where it lives, and the demo brand is invented. Both pages behind the bars are a grid of cards, which the bars read against.
+- **Charts draw when you reach them; an anatomy never moves.** Motion ships with the site (`assets/vendor`, MIT) instead of loading from a CDN, so a blocked CDN or a page opened from disk no longer leaves the line, its area and the bars undrawn. Each chart plays when a third of its subsection is in view, not when its section opens. Inside an Anatomy card nothing animates: no card rise, no chart draw, no diagram composition.
+- **Diagrams draw without a CDN.** Mermaid ships with the site (`assets/vendor`, MIT, pinned to 11.17.2 instead of the floating `@11`); the ELK import, which never registered, is gone. The diagram's Anatomy is two nodes and one edge.
+- **An elbow never falls on a box's line.** An edge segment that ran along the border of a node or a group moves `--s-4` outside it, so the bend reads as a bend.
+- **The case study's Back keeps the same air above and beside it.** It sticks one page gutter below the top bar, the gutter it already keeps from the column's edge: 40px at both on a desktop, the narrower gutter on smaller screens.
+- **The incidents of this release became rules and checks.** Every bug of the cycle (not a choice) now has a guard: four static checks (116 a section closes where it opens; 117 the site runs nothing from a CDN; 118 the owner's name is never demo content; 119 a breakpoint label reads the tokens, and the grid and navigation labels now say 900, not 1024) and a behaviour pass in the review sheet (`release/behaviour.py`) that opens the page from disk with the network refused, at three widths, and checks that charts and diagrams play on view, an anatomy never moves, every floating panel opens on top, a dialog moves nothing behind it, a demo link never moves the page, an elbow never meets a box's line, a field's value sits in its middle and the Floating bar's demo reads like the Top navigation's.
+- **Link and Avatar demos stay in place.** Found by the behaviour pass: their links pointed at their own section (`href="#link"`, `href="#avatar"`) and jumped to its top, as Pagination did. The demo-link handler now holds any link that points at its own section; check 91 reads it.
+- **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
+- **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
+- **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
+- **Card, Table and Chart card declare the colour of their text.**
+
+**Fixed**
+- **Dark text inside a host.** A host's unlayered `body{color;font}` beat the base layer, and every text that inherits took the host's: 6,786 of them in a render of the site. The base layer says the body's text again on the body's children, `:where(body > *)`, at zero specificity; the 5.2.0 restatement stays as a second defence.
+- **`check_compliance` flagged what the system prescribes:** the reduced-motion kill-switch's `0.01ms` and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill's `verify-output.py` reads the same way.
+- **Cites that opened nothing** ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.
+- **The bars' labels met the bars** under 330px of plot.
+- **The Toast's dismiss** was squeezed by the browser's button padding.
+
+**Unchanged**
+- No token changes its value.
 
 ### v5.2.0 — 2026.10.19 (MINOR)
 

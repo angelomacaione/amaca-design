@@ -23,7 +23,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.18 Progress",
       "site": "https://www.amaca.design/#progress",
       "usage": {
@@ -101,7 +101,7 @@
         "Two heights. 8px by default; .progress-sm, 4px, where the bar sits inside a row or a card. Nothing between: 6px is not on the scale.",
         "Named and valued. The track carries role=\"progressbar\", aria-valuenow, aria-valuemin, aria-valuemax and a name; the value is also written as text.",
         "Known end only. An unknown wait is a Loader; a bar that moves without a value is not a Progress.",
-        "Motion. On view the fill draws from zero on --d-scene · --ease-decel from 700ms and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value."
+        "Motion. On view the fill draws from zero on --d-scene · --ease-decel from 700ms (7 × --d-instant) and lands exactly on its value; a new value moves the fill on the same curve. Reduced motion: the fill is at its value."
       ],
       "classes": [
         "progress",

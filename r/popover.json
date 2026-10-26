@@ -14,7 +14,7 @@
       "path": "amaca/popover.css",
       "type": "registry:file",
       "target": "styles/amaca/popover.css",
-      "content": ".popover{\n  margin:0;\n  inset:auto;\n  position-area:bottom span-right;\n  position-try-fallbacks:flip-block, flip-inline;\n  margin-block:var(--s-1);\n  width:max-content;\n  min-width:var(--w-popover-min);\n  max-width:min(var(--w-popover), calc(100vw - var(--s-8)));\n  padding:var(--s-4);\n  background:var(--obsidian-900);\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  line-height:var(--lh-snug);\n  opacity:0;\n  transform:translateY(calc(-1 * var(--s-1)));\n  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete, display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.popover:popover-open{\n  opacity:1;\n  transform:none;\n  transition-timing-function:var(--ease-decel);\n}\n.popover-top{\n  position-area:top span-right;\n  transform:translateY(var(--s-1));\n}\n.popover-end{\n  position-area:right span-bottom;\n  margin-block:0;\n  margin-inline:var(--s-1);\n  transform:translateX(calc(-1 * var(--s-1)));\n}\n@media (max-width:480px){\n  .popover-end{\n    position-area:bottom span-right;\n    margin-block:var(--s-1);\n    margin-inline:0;\n    transform:translateY(calc(-1 * var(--s-1)));\n  }\n}\n.popover-head{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-3);\n}\n.popover-title{\n  margin:0;\n  font-size:var(--t-body);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.popover-body{\n  display:grid;\n  gap:var(--s-3);\n  color:var(--obsidian-200);\n}\n.popover-foot{\n  display:flex;\n  justify-content:flex-end;\n  gap:var(--s-2);\n  margin-top:var(--s-4);\n}\n@media (prefers-reduced-motion: reduce){\n  .popover, .popover-top, .popover-end{\n    transition:none;\n    transform:none;\n  }\n}\n.popover{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n.popover){\n  display:block;\n  position:static;\n  inset:auto;\n  margin:0;\n  opacity:1;\n  transform:none;\n}\n"
+      "content": ".popover{\n  margin:0;\n  inset:auto;\n  position-area:bottom span-right;\n  position-try-fallbacks:flip-block, flip-inline;\n  margin-block:var(--s-1);\n  width:max-content;\n  min-width:var(--w-popover-min);\n  max-width:min(var(--w-popover), calc(100vw - var(--s-8)));\n  padding:var(--s-4);\n  background:var(--obsidian-900);\n  color:var(--obsidian-100);\n  border:var(--bw-1) solid var(--obsidian-700);\n  border-radius:var(--r-lg);\n  box-shadow:var(--sh-3);\n  font-family:var(--font-sans);\n  font-size:var(--t-small);\n  line-height:var(--lh-snug);\n  opacity:0;\n  transform:scale(0.96);\n  transform-origin:top left;\n  transition:opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel), overlay var(--d-quick) var(--ease-accel) allow-discrete, display var(--d-quick) var(--ease-accel) allow-discrete;\n}\n.popover:popover-open{\n  opacity:1;\n  transform:none;\n  transition-timing-function:var(--ease-decel);\n}\n.popover-top{\n  position-area:top span-right;\n  transform-origin:bottom left;\n}\n.popover-end{\n  position-area:right span-bottom;\n  margin-block:0;\n  margin-inline:var(--s-1);\n}\n@media (max-width:480px){\n  .popover-end{\n    position-area:bottom span-right;\n    margin-block:var(--s-1);\n    margin-inline:0;\n  }\n}\n.popover-head{\n  display:flex;\n  align-items:center;\n  justify-content:space-between;\n  gap:var(--s-4);\n  margin-bottom:var(--s-3);\n}\n.popover-title{\n  margin:0;\n  font-size:var(--t-body);\n  font-weight:700;\n  line-height:var(--lh-snug);\n}\n.popover-body{\n  display:grid;\n  gap:var(--s-3);\n  color:var(--obsidian-200);\n}\n.popover-foot{\n  display:flex;\n  justify-content:flex-end;\n  gap:var(--s-2);\n  margin-top:var(--s-4);\n}\n@media (prefers-reduced-motion: reduce){\n  .popover, .popover-top, .popover-end{\n    transition:none;\n    transform:none;\n  }\n}\n.popover{\n  width:min(100%, calc(var(--s-32) * 2.5));\n}\n.popover){\n  display:block;\n  position:static;\n  inset:auto;\n  translate:none;\n  margin:0;\n  opacity:1;\n  transform:none;\n}\n"
     },
     {
       "path": "amaca/popover.html",
@@ -25,7 +25,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "5.2.0",
+      "version": "5.3.0",
       "source": "DESIGN.md § 3.23 Popover",
       "site": "https://www.amaca.design/#popover",
       "usage": {
@@ -113,8 +113,7 @@
           "name": "Motion",
           "tokens": [
             "--d-quick",
-            "--ease-accel",
-            "--s-1"
+            "--ease-accel"
           ],
           "value": "",
           "states": ""

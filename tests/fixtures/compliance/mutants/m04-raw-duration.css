@@ -1,0 +1,3 @@
+/* expect: error raw-duration */
+.a{transition: border-color 0.15s, box-shadow 0.15s;}
+@media (prefers-reduced-motion: reduce){.a{transition:none;animation:none}}

@@ -1,0 +1,2 @@
+/* expect: error raw-px */
+.a{font-size: 15px;}
