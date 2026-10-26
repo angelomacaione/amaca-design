@@ -1281,7 +1281,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .lightbox-content{
   position:relative;display:flex;flex-direction:column;align-items:center;gap:var(--s-3);max-width:1400px;
   transform:scale(0.96);
-  transition:transform var(--d-base) var(--ease-accel);
+  transition:transform var(--d-quick) var(--ease-accel);  /* leaves on the backdrop's clock, like the Modal */
 }
 .lightbox-img,.lightbox-svg{display:block;max-width:100%;max-height:calc(100vh - var(--s-20) - var(--s-8));width:auto;height:auto;border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);background:var(--obsidian-900);box-shadow:var(--sh-4)}
 .lightbox-svg svg{display:block;width:min(1000px, calc(100vw - 2 * var(--s-8)));height:auto}
@@ -3599,14 +3599,15 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .link-quiet[aria-disabled="true"]{color:var(--obsidian-400);text-decoration-color:transparent;cursor:not-allowed}
 
 /* § 3.21 — Modal (v5.0.0): a native <dialog> opened with showModal(). The panel is the card's surface and radius, the top
-   step of the shadow scale, over --scrim. Opens on opacity + a short rise; closes on opacity + the same travel, faster. */
+   step of the shadow scale, over --scrim. Opens on opacity + a scale from 0.96 about its centre; closes on opacity + the
+   same scale, faster: the Lightbox's entrance, so the two centred overlays arrive alike (v5.3.0). */
 .modal{
   width:calc(100% - var(--s-8));max-width:var(--w-modal);max-height:calc(100vh - var(--s-8));overflow:auto;
   margin:auto;padding:var(--s-6);
   background:var(--obsidian-800);color:var(--obsidian-100);
   border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-lg);box-shadow:var(--sh-4);
   font-family:var(--font-sans);
-  opacity:0;transform:translateY(var(--s-2));
+  opacity:0;transform:scale(0.96);
   transition:opacity var(--d-quick) var(--ease-accel),transform var(--d-quick) var(--ease-accel),
     overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;
 }
@@ -3616,7 +3617,7 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
   transition:opacity var(--d-quick) var(--ease-decel),transform var(--d-base) var(--ease-decel),
     overlay var(--d-quick) var(--ease-decel) allow-discrete,display var(--d-quick) var(--ease-decel) allow-discrete;
 }
-@starting-style{.modal[open]{opacity:0;transform:translateY(var(--s-2))}}
+@starting-style{.modal[open]{opacity:0;transform:scale(0.96)}}
 .modal::backdrop{
   background:transparent;
   transition:background var(--d-quick) var(--ease-accel),overlay var(--d-quick) var(--ease-accel) allow-discrete,display var(--d-quick) var(--ease-accel) allow-discrete;

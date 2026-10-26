@@ -2104,7 +2104,7 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 - **Actions: one primary, at the end.** A destructive action is `.btn-danger` and is never the default focus. A modal has at most two actions and no third "learn more" link; that goes in the body.
 - **Never stack.** A modal opened from a modal is a flow that wants a page.
 - **Small screens:** at ≤480px the panel keeps `--s-4` of margin on each side, the actions stack at full width, and the body scrolls inside the panel. A panel anchored to the bottom is a different component and is not this one.
-- **Motion.** In: the panel fades in and rises `--s-2`; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
+- **Motion.** In: the panel fades in and grows from 0.96 about its centre, the Lightbox's entrance; out: the same, faster. Reduced motion: instant. Rows in the § 06.4 index.
 - **No state matrix beyond `default`.** The panel is never focused or pressed itself (§ 3.0.1); the controls inside carry their own states.
 
 
@@ -2121,8 +2121,9 @@ A window that **interrupts the page to ask for a decision or to collect a piece 
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
-| open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
-| close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+| open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| open | content scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
+| close | backdrop + content opacity (effect) · content scale 1→0.96 (spatial) | `--d-quick` · `--ease-accel` | instant |
 
 **Do / Don't.** Do open a figure from a focusable trigger that names it; close on Esc or with the button at the top right. Don't use it for anything that is not an image: that is a Modal.
 
@@ -3966,12 +3967,13 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | enter viewport | opacity (effect) · translateY `--s-8`→0 (spatial), `--d-instant` apart in reading order | `--d-slow` · `--ease-soft` | none — shown at rest |
-| Lightbox | open | backdrop + content opacity (effect) — no scale-in | `--d-quick` · `--ease-decel` | instant |
-| Lightbox | close | backdrop + content opacity (effect) | `--d-quick` · `--ease-accel` | instant |
+| Lightbox | open | backdrop + content opacity (effect) | `--d-quick` · `--ease-decel` | instant |
+| Lightbox | open | content scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Lightbox | close | backdrop + content opacity (effect) · content scale 1→0.96 (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Modal | open | panel opacity (effect) | `--d-quick` · `--ease-decel` | instant |
-| Modal | open | panel translateY `--s-2`→0 (spatial) | `--d-base` · `--ease-decel` | instant |
+| Modal | open | panel scale 0.96→1 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Modal | open | scrim background (effect) | `--d-quick` · `--ease-decel` | instant |
-| Modal | close | panel opacity + translateY (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
+| Modal | close | panel opacity + scale 1→0.96 (effect · spatial) · scrim background (effect) | `--d-quick` · `--ease-accel` | instant |
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -4308,6 +4310,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **Inline symmetry, strict.** The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast's dismiss, the List's kebab. The floating button takes `0 --s-4`.
 - **Every delay is 0 or a multiple of `--d-instant` (100ms)**, in the CSS and in the scripts: the Card's rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.
 - **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), a scale about the centre on `--ease-standard`: the spring overshot a 2px growth and flickered under the pointer. The Slider's glow ring on hover is gone.
+- **The Modal grows into place.** It opens from 0.96 about its centre instead of rising `--s-2`, and leaves the same way, faster: the Lightbox's entrance, which the Lightbox rows now state (they said *no scale-in* while its CSS scaled). The Lightbox's content leaves on `--d-quick`, the backdrop's clock.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
