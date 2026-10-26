@@ -598,7 +598,8 @@
    is untouched; the closed control keeps its background chevron. */
 @supports (appearance: base-select){
   select.select,select.select::picker(select){appearance:base-select}
-  select.select{line-height:normal}   /* base-select sets its own; normal gives the 40px box of .input and the variant B trigger */
+  select.select{line-height:normal;align-items:center}   /* base-select sets its own; normal gives the 40px box of .input and the variant B trigger.
+     base-select makes the control a flex box that stretches its value to the top: centre it, as the trigger does (v5.3.0) */
   select.select::picker-icon{display:none}
   select.select::picker(select){
     position-try-order:normal;   /* the UA default picks the roomier side; the contract opens below unless it does not fit */

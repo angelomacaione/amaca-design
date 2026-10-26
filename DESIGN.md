@@ -4317,6 +4317,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The Popover grows out of its trigger; the Tooltip only fades.** A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.
 - **Two kits on one page keep a gap.** The Navigation page's Sidebar and Top bar kits sat edge to edge; consecutive kits are now `--s-6` apart.
 - **The grid changes layout in three beats.** On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).
+- **The native Select centres its value.** Where the browser draws the customisable select (`appearance: base-select`) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
