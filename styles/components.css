@@ -3085,6 +3085,13 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .navbar-demo-frame{display:block;width:100%;height:calc(var(--s-24) * 4);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md);background:var(--surface)}
 .navbar-demo-frame-phone{width:calc(var(--s-24) * 4);max-width:100%;height:calc(var(--s-24) * 6)}
 .navbar-demo-frames{display:grid;gap:var(--s-6);justify-items:start}
+/* § 30.5: the floating bar's frames sit in a device preview, as the Top navigation's strips do (v5.3.0): a strip that
+   shows the bar, and a page below that follows the tab. Each frame is its own viewport, so the phone layout is real. */
+.device-preview .navbar-demo-frame{width:100%;border:0;border-radius:0}
+.navbar-demo-frame-strip{height:var(--s-24)}
+.device-preview[data-device="mobile"] .navbar-demo-frame-strip{height:calc(var(--s-24) * 2)}
+.navbar-demo-frame-page{height:calc(var(--s-24) * 6)}
+.device-preview[data-device="mobile"] .navbar-demo-frame-page{height:calc(14 * var(--s-10))}
 .navbar-demo-stage .grid-demo-meta{margin-bottom:var(--s-3)}
 .navbar-demo{position:relative;overflow:hidden;overflow:clip;height:calc(9 * var(--s-10));background:var(--surface);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}
 .device-preview[data-device="mobile"] .navbar-demo{height:calc(14 * var(--s-10))}

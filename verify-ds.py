@@ -4318,6 +4318,11 @@ def c102():
         pid = page or name
         m = re.search(r'<section class="section" id="' + pid + r'">(.*?)(?=<section class="section"|$)', html, re.S)
         used = {c for g in re.findall(r'class="([^"]+)"', m.group(1) if m else "") for c in g.split()}
+        # a variant whose demo lives on another page counts when a subsection here links there in its text (Drawer -> Navigation's menu)
+        for other in set(re.findall(r'<p class="subsection-desc">[^\n]*?<a class="link" href="#([\w-]+)"', m.group(1) if m else "")) - {pid}:
+            o = re.search(r'<section class="section" id="' + re.escape(other) + r'">(.*?)(?=<section class="section"|$)', html, re.S)
+            if o:
+                used |= {c for g in re.findall(r'class="([^"]+)"', o.group(1)) for c in g.split()}
         used |= scripted
         for ax in reg.variants(reg.DESIGN_TITLE.get(name, row)):
             for val in ax["values"]:

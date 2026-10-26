@@ -4333,6 +4333,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The Modal's anatomy frames move.** They grow in from 0.96 over the scrim when they come into view, and Open and Close play the real entrance and exit.
 - **The menu drawer lives with Navigation.** Navigation gains Menu on a small screen (§ 30.4): the same live menu, where the sidebar has no room.
 - **The Pagination demos move in place.** A page, Previous or Next re-draws its own row instead of jumping to the top of the section; the ends go disabled and the compact status follows.
+- **The Floating bar reads like the Top navigation.** Three device widths in tabs, then a page that follows the tab; the Drawer page points to the menu where it lives, and the demo brand is invented.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
