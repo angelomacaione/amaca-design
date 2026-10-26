@@ -891,14 +891,15 @@
 .check input:checked::after{content:"";width:10px;height:6px;border:var(--bw-2) solid var(--obsidian-950);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .switch{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
 .switch input{appearance:none;width:var(--s-8);height:calc(var(--s-4) + var(--s-0-5));background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
-.switch input::after{content:"";position:absolute;top:var(--s-0-5);left:var(--s-0-5);width:14px;height:14px;background:var(--obsidian-200);border-radius:var(--r-full);transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard), width var(--d-quick) var(--ease-spring), height var(--d-quick) var(--ease-spring), top var(--d-quick) var(--ease-spring)}
+.switch input::after{content:"";position:absolute;top:var(--s-0-5);left:var(--s-0-5);width:14px;height:14px;background:var(--obsidian-200);border-radius:var(--r-full);transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
 .switch input:checked{background:var(--primary-500)}
 .switch input:checked::after{left:var(--s-4);background:var(--obsidian-950)}
-/* Hover grows the knob one step, 14px to --s-4, about its centre: the motion of a button, never a colour, which on
-   the --primary-500 track would vanish (v5.3.0). A fine pointer only; a disabled switch does not answer. */
+/* Hover grows the knob one step, 14px to --s-4, as a scale about its centre: never a colour, which on the
+   --primary-500 track would vanish (v5.3.0). The scale moves nothing else, so the knob's left keeps its own curve;
+   --ease-standard, not the spring: a 2px growth has no room for an overshoot, which under the pointer reads as a
+   flicker. A fine pointer only; a disabled switch does not answer. */
 @media (hover: hover){
-  .switch:hover input:not(:disabled)::after{width:var(--s-4);height:var(--s-4);top:calc(var(--s-0-5) - var(--s-px));left:calc(var(--s-0-5) - var(--s-px))}
-  .switch:hover input:not(:disabled):checked::after{left:calc(var(--s-4) - var(--s-px))}
+  .switch:hover input:not(:disabled)::after{transform:scale(calc(16 / 14))}
 }
 @media (prefers-reduced-motion: reduce){.switch input::after{transition:none}}
 
@@ -3714,12 +3715,13 @@ a.list-item:focus-visible,button.list-item:focus-visible{outline:var(--focus-wid
 .slider-input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:var(--s-8);margin:0;padding:0;background:transparent;cursor:pointer;outline:none}
 .slider-input::-webkit-slider-runnable-track{height:var(--s-1);border-radius:var(--r-full);background:linear-gradient(to right,var(--primary-500) var(--slider-fill),var(--obsidian-600) var(--slider-fill))}
 .slider-input::-moz-range-track{height:var(--s-1);border-radius:var(--r-full);background:linear-gradient(to right,var(--primary-500) var(--slider-fill),var(--obsidian-600) var(--slider-fill))}
-.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:var(--s-5);height:var(--s-5);margin-top:calc((var(--s-1) - var(--s-5)) / 2);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard), width var(--d-quick) var(--ease-spring), height var(--d-quick) var(--ease-spring), margin-top var(--d-quick) var(--ease-spring)}
-.slider-input::-moz-range-thumb{box-sizing:border-box;width:var(--s-5);height:var(--s-5);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard), width var(--d-quick) var(--ease-spring), height var(--d-quick) var(--ease-spring)}
-/* Hover grows the thumb one step, --s-5 to --s-6, on the button's spring: the same answer as the switch's knob (v5.3.0). */
+.slider-input::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:var(--s-5);height:var(--s-5);margin-top:calc((var(--s-1) - var(--s-5)) / 2);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
+.slider-input::-moz-range-thumb{box-sizing:border-box;width:var(--s-5);height:var(--s-5);border:var(--bw-2) solid var(--obsidian-950);border-radius:var(--r-full);background:var(--obsidian-100);box-shadow:var(--sh-1);transition:box-shadow var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
+/* Hover grows the thumb one step, --s-5 to --s-6, as a scale about its centre on --ease-standard: the same answer
+   as the switch's knob (v5.3.0). */
 @media (hover: hover){
-  .slider-input:not(:disabled):hover::-webkit-slider-thumb{width:var(--s-6);height:var(--s-6);margin-top:calc((var(--s-1) - var(--s-6)) / 2)}
-  .slider-input:not(:disabled):hover::-moz-range-thumb{width:var(--s-6);height:var(--s-6)}
+  .slider-input:not(:disabled):hover::-webkit-slider-thumb{transform:scale(calc(24 / 20))}
+  .slider-input:not(:disabled):hover::-moz-range-thumb{transform:scale(calc(24 / 20))}
 }
 .slider-input:focus-visible::-webkit-slider-thumb{box-shadow:var(--ring-halo)}
 .slider-input:focus-visible::-moz-range-thumb{box-shadow:var(--ring-halo)}

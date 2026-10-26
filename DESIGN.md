@@ -1219,7 +1219,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
 - **A group is a `fieldset.choice-group` (v5.3.0).** Its `legend` names it in the label register (`--t-micro` mono uppercase, `--obsidian-300`); the options stack `--s-3` apart. Radios always come in one; checkboxes and switches when there are two or more.
-- **Hover grows the switch's knob one step (v5.3.0)**, 14px to `--s-4` about its centre, on the button's spring; never a colour, which on the `--primary-500` track would vanish. A fine pointer only; a disabled switch does not answer.
+- **Hover grows the switch's knob one step (v5.3.0)**, 14px to `--s-4`, a scale about its centre on `--d-quick` · `--ease-standard` (a 2px growth has no room for a spring's overshoot, which under the pointer reads as a flicker); never a colour, which on the `--primary-500` track would vanish. A fine pointer only; a disabled switch does not answer.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
 
@@ -3975,7 +3975,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Avatar | hover · press (interactive) | border-color (effect) | `--d-quick` · `--ease-standard` | instant |
 | List | hover (interactive row) | background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Pagination | hover · focus (link) | background · color (effect) | `--d-quick` · `--ease-standard` | instant |
-| Slider | hover (thumb) | width · height (spatial) | `--d-quick` · `--ease-spring` | instant |
+| Slider | hover (thumb) | transform scale (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Slider | focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
@@ -4016,7 +4016,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Time input | close | popover opacity (effect) · translateY 0→−4px (spatial) | `--d-quick` · `--ease-accel` | instant |
 | Checkbox · Radio | check / uncheck | border-color · background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | knob `left` 2px↔16px (spatial) | `--d-base` · `--ease-standard` | instant |
-| Switch | hover (knob) | width · height (spatial) | `--d-quick` · `--ease-spring` | instant |
+| Switch | hover (knob) | transform scale (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Switch | toggle | track background · knob background (effect) | `--d-quick` · `--ease-standard` | instant |
 | Toast | enter | opacity (effect) · translateX 24px→0 (spatial) | `--d-base` · `--ease-decel` | instant |
 | Toast | dismiss (`.is-out`) | opacity (effect) · translateX 0→24px (spatial) — retraces the entry | `--d-quick` · `--ease-accel` | instant — still hides |
@@ -4307,7 +4307,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 **Changed**
 - **Inline symmetry, strict.** The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast's dismiss, the List's kebab. The floating button takes `0 --s-4`.
 - **Every delay is 0 or a multiple of `--d-instant` (100ms)**, in the CSS and in the scripts: the Card's rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.
-- **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), on the button's spring. The Slider's glow ring on hover is gone.
+- **Hover grows the knob one step** on the Switch (14px to `--s-4`) and the Slider (`--s-5` to `--s-6`), a scale about the centre on `--ease-standard`: the spring overshot a 2px growth and flickered under the pointer. The Slider's glow ring on hover is gone.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
