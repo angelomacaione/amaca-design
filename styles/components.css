@@ -1979,6 +1979,13 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .grid-demo-meta-sep{color:var(--obsidian-700)}
 .grid-demo-card .cols-tablet{grid-template-columns:repeat(8, 1fr)}
 .grid-demo-card .cols-mobile{grid-template-columns:repeat(4, 1fr)}
+/* The gutter the meta line states: 24 desktop, 20 tablet, 16 mobile (v5.3.0). */
+.grid-demo-card .cols-desktop{gap:var(--s-6)}
+.grid-demo-card .cols-tablet{gap:var(--s-5)}
+.grid-demo-card .cols-mobile{gap:var(--s-4)}
+/* Morph between breakpoints: the panel swaps at once, the columns carry the change (v5.3.0). */
+[data-grid-morph] .tab-panel{transition:none;opacity:1;transform:none}
+.grid-demo .col-ghost{position:absolute;margin:0;pointer-events:none}
 
 
 

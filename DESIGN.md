@@ -3990,6 +3990,9 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Loader | success | `.loader-anim` opacity → 0 (effect) · scale → 0.7 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Loader | skeleton handoff | full-page loader → `.skeleton-stack` swap | after a `--d-scene` wait | instant swap, shimmer disabled |
 | Diagrams | enter viewport · Replay | opacity (effect) | `--d-base` · `--ease-decel` · in the direction of the arrows: a node, the edges leaving it with their labels, the nodes they reach, one `--d-instant` per step; a cluster arrives with its first node | instant — straight to resolved |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 1 | the columns that leave: opacity (effect), where they stand | `--d-quick` · `--ease-accel` | instant |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 2 | the columns that stay: translateX · scaleX to the new track (spatial) | `--d-base` · `--ease-standard` | instant |
+| Grid (§ 08.1 demo) | breakpoint tab · beat 3 | the columns that arrive: opacity (effect), up to `--d-instant` apart, within one `--d-quick` | `--d-quick` · `--ease-decel` | instant |
 | Stat / KPI | enter viewport | text content count-up 0→target (effect) | `--d-draw` · `--ease-decel` | instant — jump to final value |
 | Loader | wait (loop) | brand mark SVG (spatial) | media clock (SVG SMIL, 4.5 s loop) · infinite | hidden — fallback ring shown |
 | Loader | wait (loop) | fallback ring rotate (spatial) | 1400ms · linear · infinite | ratified exception — keeps spinning |
@@ -4313,6 +4316,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The Modal grows into place.** It opens from 0.96 about its centre instead of rising `--s-2`, and leaves the same way, faster: the Lightbox's entrance, which the Lightbox rows now state (they said *no scale-in* while its CSS scaled). The Lightbox's content leaves on `--d-quick`, the backdrop's clock.
 - **The Popover grows out of its trigger; the Tooltip only fades.** A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.
 - **Two kits on one page keep a gap.** The Navigation page's Sidebar and Top bar kits sat edge to edge; consecutive kits are now `--s-6` apart.
+- **The grid changes layout in three beats.** On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
