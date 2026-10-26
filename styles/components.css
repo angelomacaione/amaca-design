@@ -3091,6 +3091,9 @@ body:has(.drawer:modal){overflow:hidden}  /* as the modal: only one opened with 
 .device-preview .navbar-demo-frame{width:100%;border:0;border-radius:0}
 .navbar-demo-frame-strip{height:calc(var(--s-12) + var(--s-px) * 2)}
 .device-preview[data-device="mobile"] .navbar-demo-frame-strip{height:calc(var(--s-24) + var(--s-6))}
+/* the page below: as tall as the Top navigation's, with its frame */
+.device-preview .navbar-demo-frame-page{height:calc(9 * var(--s-10));border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}
+.device-preview[data-device="mobile"] .navbar-demo-frame-page{height:calc(14 * var(--s-10))}
 .navbar-demo-stage .grid-demo-meta{margin-bottom:var(--s-3)}
 .navbar-demo{position:relative;overflow:hidden;overflow:clip;height:calc(9 * var(--s-10));background:var(--surface);border:var(--bw-1) solid var(--border-subtle);border-radius:var(--r-md)}
 .device-preview[data-device="mobile"] .navbar-demo{height:calc(14 * var(--s-10))}
