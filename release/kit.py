@@ -225,7 +225,7 @@ KITS = {
                         ("LIT", "Bars", "--primary-300 --primary-500 --primary-600 --primary-700", "the sequential palette, low to high · track --obsidian-800"),
                         ("Axis label", ".chart-label-axis", "TC", []), ("Value label", ".chart-label-value", "TC", [])]},
     "diagram": {"page": "diagrams", "classes": {"diagram", "diagram-canvas", "diagram-caption", "num"},
-                "html": '<figure class="diagram" data-anim="pending" style="width:min(100%, calc(var(--s-32) * 4))"><div class="diagram-canvas" role="img" aria-label="Flowchart: a request reaches a gate; if a token covers it, reference it and ship; if not, ask the owner."><template class="diagram-src">\nflowchart LR\n  P["Request"]:::focus --> R{"Token covers it?"}\n  R -->|yes| S["Reference and ship"]\n  R -->|no| A["Ask the owner"]\n</template></div><figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token gate</figcaption></figure>',
+                "html": '<figure class="diagram" data-anim="pending" style="width:min(100%, calc(var(--s-32) * 4))"><div class="diagram-canvas" role="img" aria-label="Flowchart: a token feeds a component."><template class="diagram-src">\nflowchart LR\n  T["Token"]:::focus --> C["Component"]\n</template></div><figcaption class="diagram-caption"><span class="num">FIG-01</span> · Token to component</figcaption></figure>',
                 "parts": [("Shell", ".diagram", "FESP", []), ("Canvas", ".diagram-canvas", "Z", []), ("Caption", ".diagram-caption", "T", []), ("Index", ".diagram-caption .num", "C", [])]},
     "icon": {"page": "icon", "card": False, "classes": {"icon", "icon-lg"},
              "html": svg("search", "icon icon-lg"),
