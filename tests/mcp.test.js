@@ -197,6 +197,23 @@ test('check_compliance finds no error in the registry\'s own code (the calibrati
   }
 });
 
+test('check_compliance accepts what the system prescribes: the reduced-motion kill-switch and the parked skip link', () => {
+  const r = scan(`.skip-link{position:absolute;left:var(--s-3);top:-100px}
+.skip-link:focus{top:var(--s-3)}
+.x{transition:opacity var(--d-quick) var(--ease-decel)}
+@media (prefers-reduced-motion: reduce){
+  *,*::before{animation-duration:0.01ms !important;transition-duration:0.01ms !important}
+  .x{transition:none}
+}`);
+  assert.deepEqual(r.findings, []);
+  const off = scan(`.hero{top:-100px}
+.x{transition-duration:0.01ms}
+@media (prefers-reduced-motion: reduce){.x{transition-duration:150ms}}`);
+  assert.ok(find(off, 'raw-px', 'top: 100px'), '-100px off the skip link is still off the scale');
+  assert.ok(find(off, 'raw-duration', '0.01ms'), '0.01ms outside the reduced-motion block is still a raw duration');
+  assert.ok(find(off, 'raw-duration', '150ms'), 'a real duration inside the block is still a raw duration');
+});
+
 test('check_compliance treats loops and delays as warnings, and wants code', () => {
   const r = scan('.l{animation:spin 1400ms linear infinite}\n.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}\n@media (prefers-reduced-motion: reduce){.l{animation:none}}');
   assert.equal(r.summary.errors, 0);

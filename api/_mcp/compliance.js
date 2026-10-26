@@ -83,8 +83,29 @@ function blankComments(code) {
   return code.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, blank).replace(/(^|[^:'"])\/\/[^\n]*/g, (m, p1) => p1 + blank(m.slice(p1.length)));
 }
 
+// the [start, end) spans of every @media (prefers-reduced-motion: reduce) block: its 0.01ms is the
+// kill-switch the system prescribes (Motion › CSS kill-switch), not a duration off the scale
+function reducedMotionSpans(code) {
+  const spans = [];
+  for (const m of code.matchAll(/@media[^{]*prefers-reduced-motion\s*:\s*reduce[^{]*\{/g)) {
+    let depth = 1, i = m.index + m[0].length;
+    for (; i < code.length && depth; i++) depth += code[i] === '{' ? 1 : code[i] === '}' ? -1 : 0;
+    spans.push([m.index, i]);
+  }
+  return spans;
+}
+
+// the selector of the rule a declaration sits in ('' for style="" and JSX)
+function selectorAt(code, idx) {
+  const open = code.lastIndexOf('{', idx);
+  if (open < 0 || code.lastIndexOf('}', idx) > open) return '';
+  return code.slice(Math.max(code.lastIndexOf('}', open), code.lastIndexOf('{', open - 1), code.lastIndexOf(';', open)) + 1, open).trim();
+}
+
 function check(repo, source) {
   const code = blankComments(String(source || ''));
+  const calm = reducedMotionSpans(code);
+  const inCalm = (idx) => calm.some(([a, b]) => idx >= a && idx < b);
   const T = repo._tok || (repo._tok = tokens(repo.tokensCss));
   const classes = repo._cls || (repo._cls = canonicalClasses(repo));
   const starts = [0];
@@ -131,7 +152,9 @@ function check(repo, source) {
     else if (RADIUS.test(d.prop)) { fam = 'radius'; unitScale = T.r; }
     else if (d.prop === 'font-size') { fam = 'type'; unitScale = T.t; }
     else if (BORDER.test(d.prop)) { fam = 'border width'; unitScale = T.bw; }
-    if (fam) {
+    // the skip link is parked above the viewport at top: -100px, a composition offset (Skip link)
+    const parked = d.prop === 'top' && /^\s*-100px\s*(!important)?\s*$/.test(v) && /\.skip-link\b/.test(selectorAt(code, d.idx));
+    if (fam && !parked) {
       for (const n of pxs) {
         if (n === 0) continue;
         if (fam === 'radius' && n >= 999) { add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, 'var(--r-full)', 'Radius'); continue; }
@@ -151,6 +174,7 @@ function check(repo, source) {
           if (!x[1]) return; // var(--d-*): on the scale
           const ms = x[2] === 's' ? Math.round(parseFloat(x[1]) * 1000) : +x[1];
           const delay = /delay$/.test(d.prop) || (i === 1 && /^(transition|animation)$/.test(d.prop));
+          if (ms < 1 && inCalm(d.idx)) return; // the kill-switch's 0.01ms (or 0s)
           if (loop) add(d.idx, 'warning', 'loop-clock', `${d.prop}: ${x[0]} … infinite`, 'a continuous loop runs on its own clock, legal only with its row in the motion index (§ 06.4); otherwise an --d-* token', 'Motion › Motion per component');
           else if (delay) add(d.idx, 'warning', 'raw-delay', `${d.prop}: ${x[0]} (delay)`, 'a delay literal is legal only where the motion index ratifies it; otherwise compose it from tokens, e.g. calc(var(--d-quick) * 2)', 'Motion › Motion per component');
           else add(d.idx, 'error', 'raw-duration', `${d.prop}: ${x[0]}`, snapFix(T.d, ms, 'ms'), 'Motion › Duration tokens');
