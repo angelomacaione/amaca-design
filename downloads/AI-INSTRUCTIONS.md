@@ -61,6 +61,7 @@ Color never alone (+ shape + label) · no text < 12px, no body < 14px · persist
 
 ## Conventions & voice
 Semantic HTML first — `<button>`/`<a>`, never `<div onclick>`; close every tag, double-quote attributes; `kebab-case` files. Imperative, terse copy; **no AI tells** ("delve", "leverage", "robust", "seamless", "effortlessly"). Never ship: gradient card backgrounds · emoji in UI · drop shadows for emphasis · radius > 16px on small components · filled/multi-color icons (stroke-only, `currentColor`, 1.5–2px) · carousels / auto-advance · centered body text > 80ch · placeholder-as-label · magenta > 5% of viewport · a `cubic-bezier` literal or `font-size:14px` in component CSS · a token value hand-copied into JS.
+**Conduct (v5.3.0):** libraries the page needs ship beside it, never from a CDN alone · floating panels ride the top layer (`popover` + `showPopover()`, CSS anchor positioning) · motion starts when its element is in view · a modal centres on `50vw · 50vh` · demo links act in place · breakpoints are `--bp-*` · demo content is invented.
 
 ## Self-check before returning code
 Every value is a `var(--token)` — no raw hex/px/`cubic-bezier`; 85/10/5 holds (one primary action per screen); a11y floor holds (labels, contrast, 44×44); every transition has a `prefers-reduced-motion` fallback.
