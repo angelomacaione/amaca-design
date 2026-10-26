@@ -135,7 +135,7 @@ def host_pass(b, ids):
 # distance from the left edge (inside the border) to the first mark, against the last mark to the right edge. A mark
 # is a text box, an svg's box (its grid square, not the ink), a field, or a box that paints at rest; a transparent
 # button is not a mark, its glyph is. Tolerance 0.5px. The row card's strip is its border, outside the measure.
-SYM_CASES = [("toast",".toast"),("drawer",".drawer-head"),("modal",".modal-head"),("accordion",".acc-trigger"),("select",".select-trigger"),("select","select.select"),("button",".btn"),("button",".btn-floating"),("list",".list-item"),("chip",".chip"),("tabs",".tab"),("navigation",".navbar-item"),("date-picker",".dp-wrap"),("time-input",".tp-wrap"),("input",".input-wrap"),("pagination",".pagination-link"),("badge",".badge")] + [("card", ".card-row")]
+SYM_CASES = [("toast",".toast"),("drawer",".drawer-head"),("modal",".modal-head"),("accordion",".acc-trigger"),("select",".select-trigger"),("select","select.select"),("button",".btn"),("button",".btn-floating"),("list",".list-item"),("chip",".chip"),("tabs",".tab"),("navigation",".navbar-item"),("date-picker",".dp-wrap"),("time-input",".tp-wrap"),("input",".input-wrap"),("pagination",".pagination-link"),("badge",".badge")] + [("card", ".card-row"), ("chip", ".chip:has(> .chip-dismiss)")]
 SYM_JS = r"""([sel])=>{
  const vis=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&c.display!=='none'&&+c.opacity>0};
  const paints=c=>(c.backgroundColor!=='rgba(0, 0, 0, 0)'&&c.backgroundColor!=='transparent')||(parseFloat(c.borderLeftWidth)>0&&c.borderLeftColor!=='rgba(0, 0, 0, 0)')||c.backgroundImage!=='none';
@@ -202,6 +202,13 @@ def main():
 
     shots, note, leaks, host_note, sym = [], "", None, "", None
     try:
+        sys.path.insert(0, os.path.join(ROOT, "release"))
+        import behaviour
+        behave = behaviour.run()
+    except Exception as e:
+        behave = None
+        note += f"<p class=err>Behaviour pass not run ({html.escape(type(e).__name__)}): run release/behaviour.py by hand.</p>"
+    try:
         from playwright.sync_api import sync_playwright
         exe = "/opt/pw-browsers/chromium" if os.path.exists("/opt/pw-browsers/chromium") else None
         with sync_playwright() as p:
@@ -252,6 +259,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
 <p>REVIEW CODE <span class=code>{tree[:7]}</span> — the tree shown here. <code>release.py tag</code> refuses any other.</p>
 <p>Harness: <b>{html.escape(verdict[-1] if verdict else 'NOT GREEN')}</b></p>
 <h2>Sections touched, rendered</h2><p>{', '.join('#' + s for s in sections) or '(none)'}</p>{note}
+<h2>Behaviour</h2>{'<p class=err>Not run.</p>' if behave is None else ('<p>Every behaviour holds, at 1440, 800 and 390px, offline.</p>' if not behave else '<p class=err>' + str(len(behave)) + ' failures.</p><pre>' + html.escape(chr(10).join(behave)) + '</pre>')}
 <h2>Hostile host</h2>{host_note}
 <h2>Inline symmetry</h2>{sym_html(sym)}
 <h2>Changelog entry</h2><pre>{html.escape(entry)}</pre>
@@ -263,6 +271,7 @@ img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospac
     with open(out, "w", encoding="utf-8") as f:
         f.write(page)
     print(f"inline symmetry: {'not rendered' if sym is None else sum(abs(r[3] - r[4]) > 0.5 for r in sym)} asymmetric of {0 if sym is None else len(sym)}")
+    print(f"behaviour: {'not run' if behave is None else len(behave)} failures")
     print(f"hostile host: {'not rendered' if leaks is None else len(leaks)} leaks")
     print(f"review sheet: {out}\nsections: {', '.join(sections) or '(none)'}\nREVIEW CODE {tree[:7]}")
 

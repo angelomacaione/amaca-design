@@ -1348,6 +1348,72 @@ def c115():
         fails.append("DESIGN.md Stacking: the floating-layer rule is missing")
     return fails
 
+@check("116", "A section closes where it opens",
+       "v5.3.0: a card grid that replaced a list of rows kept one </div> too many; it closed the Navigation section "
+       "early, and three subsections rendered outside the content column with no padding. No other check counts tags.")
+def c116():
+    html, fails = read(INDEX), []
+    if html.count("<section") != html.count("</section>"):
+        fails.append(f"index.html: {html.count('<section')} <section> open, {html.count('</section>')} close")
+    for m in re.finditer(r'<section class="section" id="([^"]+)">(.*?)</section>', html, re.S):
+        b = re.sub(r"<template\b.*?</template>|<script\b.*?</script>|<pre\b.*?</pre>|<!--.*?-->", "", m.group(2), flags=re.S)
+        o, c = len(re.findall(r"<div\b", b)), len(re.findall(r"</div>", b))
+        if o != c:
+            fails.append(f"§ {m.group(1)}: {o} <div> open, {c} close — what follows leaves the section")
+    return fails
+
+@check("117", "The site runs nothing from a CDN",
+       "v5.3.0: Motion and Mermaid loaded from cdn.jsdelivr.net. On the owner's machine the CDN never answered: the line "
+       "chart stood still with no area, the bars and the pie never drew, the progress bars stayed empty and every diagram "
+       "was a blank frame, while every check was green. A library the page needs to draw ships in assets/vendor.")
+def c117():
+    html, fails = read(INDEX), []
+    ALLOW = ("@vercel/analytics",)   # the page works without it
+    urls = re.findall(r'<script\b[^>]*\bsrc="([^"]+)"', html)
+    urls += re.findall(r'\bimport\b[^;"\']*?["\'](https?://[^"\']+)["\']', html)
+    urls += re.findall(r'\bimport\(\s*["\'](https?://[^"\']+)["\']', html)
+    for u in urls:
+        if u.startswith(("http:", "https:", "//")) and not any(a in u for a in ALLOW):
+            fails.append(f"index.html: runs {u[:90]} from the network — ship it in assets/vendor")
+        elif not u.startswith(("http:", "https:", "//")) and not (ROOT / u.split("?")[0]).exists():
+            fails.append(f"index.html: {u} does not exist")
+    return fails
+
+@check("118", "The owner's name is never demo content",
+       "v5.3.0: the Top navigation demo used the owner's name as its brand. Demo content is invented (DESIGN.md, the "
+       "site's own conduct); the name appears only where the site credits or installs itself.")
+def c118():
+    html, fails = read(INDEX), []
+    for m in re.finditer(r">([^<]*?(?:angelomacaione|Angelo Macaione)[^<]*)<", html):
+        t = m.group(1).strip()
+        if "angelomacaione/amaca-design" in t or t.startswith("Build "):
+            continue
+        sec = html.rfind('<section class="section" id="', 0, m.start())
+        sid = html[sec + 29:html.find('"', sec + 29)] if sec > 0 else "page chrome"
+        fails.append(f"§ {sid}: \"{t[:60]}\" — a demo uses the owner's name")
+    return fails
+
+@check("119", "A breakpoint label reads the tokens",
+       "v5.3.0: the grid and navigation demos said ≥ 1024px and 720 – 1023px while --bp-lg is 900px: a label wrote its own "
+       "number. A label in a demo's meta line quotes --bp-sm, --bp-md or --bp-lg.")
+def c119():
+    html, fails = read(INDEX), []
+    bp = {int(v) for v in re.findall(r"--bp-\w+:\s*(\d+)px", read(TOKENS))}
+    for m in re.finditer(r'<div class="grid-demo-meta">\s*<span>([^<]*)</span>', html):
+        t = m.group(1).replace("&lt;", "<").replace("&ge;", "≥")
+        nums = [int(n) for n in re.findall(r"\d+", t)]
+        if "≥" in t or "<" in t:
+            ok = nums and nums[0] in bp
+        elif len(nums) == 2:
+            ok = nums[0] in bp and nums[1] + 1 in bp
+        else:
+            continue
+        if not ok:
+            fails.append(f"index.html: \"{m.group(1)}\" is not a breakpoint of tokens.css ({', '.join(str(b) for b in sorted(bp))})")
+    if not re.search(r"### The site's own conduct", read(DESIGN)):
+        fails.append("DESIGN.md: Code conventions › The site's own conduct is missing")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
@@ -3661,8 +3727,9 @@ def c91():
     if not stack or not gap or stack.group(1).strip() != gap.group(1).strip():
         fails.append("components.css: .do-dont + .do-dont must keep the pair's own gap as margin-top")
     html = read(INDEX)
-    if not re.search(r"closest\('a\[href=\"#\"\]'\)[^\n]*\n\s*if\(a\) e\.preventDefault\(\)", html):
-        fails.append("index.html: no handler keeps a demo link (href=\"#\") in place")
+    # v5.3.0: the handler also holds a link that points at its own section (href="#link" inside #link); B5 renders it
+    if not re.search(r"closest\('a\[href\^=\"#\"\]'\).*?h === '#' \|\| \(sec && h === '#' \+ sec\.id\)\) e\.preventDefault\(\)", html, re.S):
+        fails.append("index.html: no handler keeps a demo link (href=\"#\" or its own section) in place")
     ids = set(re.findall(r'<section class="section[^"]*" id="([a-z-]+)"', html))
     for m in re.finditer(r'<a class="card[^"]*" href="#([a-z-]+)"', html):
         if m.group(1) in ids:

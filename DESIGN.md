@@ -4124,6 +4124,20 @@ The floor admits one documented exception pair, on three selectors. The state in
 
 ## Code conventions
 
+### The site's own conduct (v5.3.0)
+
+Each rule below answers a bug that shipped in the 5.3.0 cycle; the check named after it keeps it from coming back.
+
+- **The site runs nothing from a CDN (check 117).** A library the page needs to draw (Motion, Mermaid) ships in `assets/vendor`, pinned, as a classic script: a blocked CDN or a page opened from disk must not leave a chart or a diagram empty. Analytics is the one exception, because the page works without it.
+- **A section closes where it opens (check 116).** One stray `</div>` moved half a page out of its column; the divs of every section balance.
+- **The owner's name is never demo content (check 118).** A demo brand, person or project is invented; the name appears only where the site credits or installs itself.
+- **A breakpoint label reads the tokens (check 119).** A demo that says where a layout changes quotes `--bp-sm`, `--bp-md`, `--bp-lg`, never a number of its own.
+- **Motion plays when it can be seen (behaviour B1).** A chart, a progress bar, a stepper or a diagram starts when its part comes into view, at every width, and an Anatomy card never moves (B2).
+- **A floating panel opens on top (B3), a dialog moves nothing behind it (B4), a demo link never moves the page (B5).** The page under a modal or a drawer keeps its scroll and its width as the panel opens and closes; a link inside a demo acts in place.
+- **An elbow never falls on a box's line (B6), and a field's value sits in its middle (B7).**
+
+The B checks run in `release/behaviour.py`, called by the review sheet: the page opened from disk with every network request refused, at 1440, 800 and 390px, with a classic scrollbar where one matters.
+
 ### CSS
 
 - **Tokens only.** No hardcoded hex, no raw `px` for spacing/radius/font-size unless commenting why.
@@ -4339,6 +4353,8 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **Diagrams draw without a CDN.** Mermaid ships with the site (`assets/vendor`, MIT, pinned to 11.17.2 instead of the floating `@11`); the ELK import, which never registered, is gone. The diagram's Anatomy is two nodes and one edge.
 - **An elbow never falls on a box's line.** An edge segment that ran along the border of a node or a group moves `--s-4` outside it, so the bend reads as a bend.
 - **The case study's Back keeps the same air above and beside it.** It sticks one page gutter below the top bar, the gutter it already keeps from the column's edge: 40px at both on a desktop, the narrower gutter on smaller screens.
+- **The incidents of this release became rules and checks.** Every bug of the cycle (not a choice) now has a guard: four static checks (116 a section closes where it opens; 117 the site runs nothing from a CDN; 118 the owner's name is never demo content; 119 a breakpoint label reads the tokens, and the grid and navigation labels now say 900, not 1024) and a behaviour pass in the review sheet (`release/behaviour.py`) that opens the page from disk with the network refused, at three widths, and checks that charts and diagrams play on view, an anatomy never moves, every floating panel opens on top, a dialog moves nothing behind it, a demo link never moves the page, an elbow never meets a box's line and a field's value sits in its middle.
+- **Link and Avatar demos stay in place.** Found by the behaviour pass: their links pointed at their own section (`href="#link"`, `href="#avatar"`) and jumped to its top, as Pagination did. The demo-link handler now holds any link that points at its own section; check 91 reads it.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
