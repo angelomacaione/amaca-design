@@ -10460,6 +10460,16 @@ if ('IntersectionObserver' in window) {
     });
   }
 
+  // A CSS reveal (Progress, Stepper) starts when the element itself is half in view, not when its section is: a bar
+  // below the fold would otherwise fill out of sight and arrive already drawn (v5.3.0).
+  function revealInView(els){
+    if (typeof IntersectionObserver === 'undefined'){ els.forEach(el => el.classList.add('is-in')); return; }
+    const io = new IntersectionObserver((entries, o) => entries.forEach(en => {
+      if (en.isIntersecting){ en.target.classList.add('is-in'); o.unobserve(en.target); }
+    }), { threshold: 0.5 });
+    els.forEach(el => io.observe(el));
+  }
+
   function reset(root){
     root.querySelectorAll('[data-fade]').forEach(f => f.classList.remove('is-in'));
     root.querySelectorAll('[data-fade-chart]').forEach(c => c.classList.remove('is-in'));
@@ -10514,7 +10524,7 @@ if ('IntersectionObserver' in window) {
     const reveals = root.querySelectorAll('[data-reveal]');
     if (reveals.length){
       reveals.forEach(el => getComputedStyle(el).opacity);
-      setTimeout(() => reveals.forEach(el => el.classList.add('is-in')), 50);
+      setTimeout(() => revealInView(Array.from(reveals)), 50);
     }
 
     const charts = root.querySelectorAll('[data-fade-chart]');
@@ -10658,7 +10668,10 @@ if ('IntersectionObserver' in window) {
       const els = root.querySelectorAll('[data-reveal],[data-fade],[data-fade-chart]');
       els.forEach(e => e.classList.remove('is-in'));
       void root.offsetWidth;
-      setTimeout(() => els.forEach(e => e.classList.add('is-in')), 50);
+      setTimeout(() => {
+        revealInView(Array.from(els).filter(e => e.matches('[data-reveal]')));
+        els.forEach(e => { if (!e.matches('[data-reveal]')) e.classList.add('is-in'); });
+      }, 50);
     };
     VIZ.forEach(viz => {
       if (typeof IntersectionObserver === 'undefined') play(viz);
