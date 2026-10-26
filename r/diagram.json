@@ -98,7 +98,8 @@
         "Theme only from tokens read at runtime. A hex literal in themeVariables is a regression (§ 9).",
         "Exactly one magenta focus node per diagram (:::focus). More than one = decorating (§ 1.4).",
         "Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).",
-        "Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG &lt;g&gt; (§ 7.3)."
+        "Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG &lt;g&gt; (§ 7.3).",
+        "An elbow never falls on a box's line (v5.3.0). A segment of an edge keeps --s-4 of air from the border of every node and every group; the page's router moves a segment that runs along a border to --s-4 outside it."
       ],
       "classes": [
         "diagram",

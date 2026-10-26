@@ -114,11 +114,14 @@
 .sidebar-footer .status .dot{width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)}
 
 /* ─────────── MAIN ─────────── */
-.main{min-width:0;display:flex;flex-direction:column}
+.main{min-width:0;display:flex;flex-direction:column;--page-gutter:var(--s-10);--topbar-h:calc(var(--s-12) + var(--bw-1) * 2)}
+/* --page-gutter: the content's inline padding, which a floating control keeps from the top bar too (v5.3.0);
+   --topbar-h: the bar's height, so a sticky control can sit that gutter below it. */
 .topbar{
   position:sticky;top:0;z-index:var(--z-sticky);
   display:flex;align-items:center;justify-content:space-between;
-  padding:var(--s-4) var(--s-10);
+  min-height:var(--topbar-h);box-sizing:border-box;
+  padding:var(--s-4) var(--page-gutter);
   border-bottom:var(--bw-1) solid var(--obsidian-800);
   background:var(--surface-bar);
   backdrop-filter:blur(var(--blur-bar));
@@ -134,7 +137,7 @@
 .topbar-actions .kbd{font-family:var(--font-mono);font-size:var(--t-micro);padding:var(--s-0-5) var(--s-1);border:var(--bw-1) solid var(--obsidian-700);border-radius:var(--r-sm);color:var(--obsidian-300);background:var(--obsidian-850)}
 
 .content{
-  padding:var(--s-12) var(--s-10) var(--s-24);
+  padding:var(--s-12) var(--page-gutter) var(--s-24);
   max-width:var(--content-max);
   width:100%;
   margin-inline:auto;
@@ -1575,8 +1578,9 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
   }
   .topbar-actions{display:none}
 
+  .main{--page-gutter:var(--s-5);--topbar-h:calc(var(--s-16) + var(--bw-1))}   /* the bar wraps to two rows here */
   .content{
-    padding:var(--s-8) var(--s-5) var(--s-16);
+    padding:var(--s-8) var(--page-gutter) var(--s-16);
   }
 
   /* collapse grids */
@@ -1606,7 +1610,8 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
   .topbar .breadcrumb{font-size:var(--t-micro)}
   .topbar .breadcrumb span:not(.active):not(.sep){display:none}
   .topbar .breadcrumb .sep{display:none}
-  .content{padding:var(--s-6) var(--s-4) var(--s-12)}
+  .main{--page-gutter:var(--s-4)}
+  .content{padding:var(--s-6) var(--page-gutter) var(--s-12)}
   .card{padding:var(--s-5)}
 }
 

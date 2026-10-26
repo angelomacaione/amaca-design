@@ -3580,6 +3580,7 @@ flowchart TD
 - Exactly one magenta focus node per diagram (`:::focus`). More than one = decorating (§ 1.4).
 - Semantic state only when a node encodes a real state — color + shape + label + legend (§ 6 #1).
 - Orthogonal routing, soft elbows. Never diagonal. Never CSS transforms on SVG `<g>` (§ 7.3).
+- **An elbow never falls on a box's line (v5.3.0).** A segment of an edge keeps `--s-4` of air from the border of every node and every group; the page's router moves a segment that runs along a border to `--s-4` outside it.
 
 
 **Variants.**
@@ -4336,6 +4337,8 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **The Floating bar reads like the Top navigation.** Three device widths in tabs, then a page below that follows the tab, as tall as the top bar's; the Drawer page points to the menu where it lives, and the demo brand is invented. Both pages behind the bars are a grid of cards, which the bars read against.
 - **Charts draw when you reach them; an anatomy never moves.** Motion ships with the site (`assets/vendor`, MIT) instead of loading from a CDN, so a blocked CDN or a page opened from disk no longer leaves the line, its area and the bars undrawn. Each chart plays when a third of its subsection is in view, not when its section opens. Inside an Anatomy card nothing animates: no card rise, no chart draw, no diagram composition.
 - **Diagrams draw without a CDN.** Mermaid ships with the site (`assets/vendor`, MIT, pinned to 11.17.2 instead of the floating `@11`); the ELK import, which never registered, is gone. The diagram's Anatomy is two nodes and one edge.
+- **An elbow never falls on a box's line.** An edge segment that ran along the border of a node or a group moves `--s-4` outside it, so the bend reads as a bend.
+- **The case study's Back keeps the same air above and beside it.** It sticks one page gutter below the top bar, the gutter it already keeps from the column's edge: 40px at both on a desktop, the narrower gutter on smaller screens.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.
