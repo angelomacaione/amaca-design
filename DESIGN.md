@@ -356,6 +356,8 @@ A container arranges components and draws nothing: no surface, no border, no sta
 
 **Rule:** in-component stacking below `10` (`z-index: 1 / 2 / 5`) is composition, literal by design — the same vocabulary-vs-composition split § Code conventions draws for runtime token values. A raw `z-index` of 10 or more is a violation, greppable per line.
 
+**The floating layer (RIGID, v5.3.0).** Every panel that floats over the page — Popover, the Select's menu (listbox, slider, actions), Date picker, Date range, Time input, Tooltip — rides the browser's top layer: the Popover natively, the others lifted by the page's float helper (`popover="manual"` and `showPopover()`). Nothing on the page can cover it or cut it: no card, no `overflow`, no transformed ancestor. It opens on its side (below; the Tooltip above), flips when it does not fit and the other side has more room, keeps `--s-2` from the viewport edge, and follows its anchor while open. `--z-menu` and `--z-popover` remain for a browser without the Popover API, where the panel stays absolute in its wrap.
+
 **Grids.** The layout grid and its column presets are components, not conventions — spec in § 3.2.
 
 ## Elevation & Depth
@@ -4318,6 +4320,7 @@ Containers become rules, every delay sits on the scale, and the system's text ho
 - **Two kits on one page keep a gap.** The Navigation page's Sidebar and Top bar kits sat edge to edge; consecutive kits are now `--s-6` apart.
 - **The grid changes layout in three beats.** On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).
 - **The native Select centres its value.** Where the browser draws the customisable select (`appearance: base-select`) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.
+- **Every floating panel rides the top layer.** The Select's menu, Date picker, Date range, Time input and Tooltip are lifted into the browser's top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep `--s-2` from the viewport edge and follow their anchor while open. A rule in Stacking (*The floating layer*), guarded by check 115.
 - **The slider's fill reads `--slider-fill`.** Markup that set `--p` on the input sets `--slider-fill`.
 - **The rail: Containers is Content, Layout & templates is Applied;** Timeline to Accessibility are now § 46 to § 55.
 - **Disabled is attenuated once,** and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop `pointer-events: none`, and the page blocks a disabled link's click.

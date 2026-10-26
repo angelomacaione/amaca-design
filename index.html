@@ -12,7 +12,7 @@
 
 <script>window.dInstant=function(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--d-instant'))||100};document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
 <link rel="stylesheet" href="styles/tokens.css?v=573ac328">
-<link rel="stylesheet" href="styles/components.css?v=0189bce3">
+<link rel="stylesheet" href="styles/components.css?v=45312fb5">
 
 <style id="__animations_inline">
 @media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.has-risen){opacity:0}}
@@ -2290,6 +2290,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
 .select-menu[hidden]{
   display:none;
 }
+:is(.select-menu{
+  position:fixed;
+  inset:auto;
+  margin:0;
+}
 .select-option{
   display:flex;
   align-items:center;
@@ -2572,6 +2577,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
   outline:none;
   transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
   width:100%;
+}
+.tp-popover{
+  position:fixed;
+  inset:auto;
+  margin:0;
 }
 .input:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=&quot;true&quot;]){
   border-color:var(<b>--obsidian-300</b>);
@@ -2880,6 +2890,11 @@ the mark is an animated SVG, one vector file describing every rotation and every
   outline:none;
   transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
   width:100%;
+}
+.dp-popover{
+  position:fixed;
+  inset:auto;
+  margin:0;
 }
 .input:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=&quot;true&quot;]){
   border-color:var(<b>--obsidian-300</b>);
@@ -8830,7 +8845,7 @@ This section sets the rules for the editorial register. The DESIGN.md handles it
                 <div class="acc-panel-inner"><div class="acc-panel-body">
                   <p>MINOR. Containers become rules, every delay sits on the scale, and the system&rsquo;s text holds inside any host.</p>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Added</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Layout › Containers — layout rules, and the registry&rsquo;s fifth state, <code>rule</code>.</strong> A class that only arranges is a rule, not a component: the grid, the page shell, the stacks of skeleton, toast, avatar, swatch and chart, the scroll frames of table and timeline. One registry row lists them; Layout › Containers and the site&rsquo;s § 08.4 specify them. § 3.2 and § 3.3 stay as pointers, so no other number moves.</li><li><strong style="color:var(--obsidian-100)">Component, organism, template, rule (§ 3.0).</strong> An organism is a component made of components (the Navigation with its top bar, the Chat, the Date picker); a template is a composed page (Presentations, Case study, under <em>Applied</em>).</li><li><strong style="color:var(--obsidian-100)">Pie has its own page (§ 45).</strong> A rail item opens one component, never a family page; the pages after it move up one number.</li><li><strong style="color:var(--obsidian-100)">Choice groups and States rows.</strong> <code>fieldset.choice-group</code> names a group of choices. Checkbox, Radio, Switch and Link show their states in one captioned row like the button variants: default, focus, the value, disabled, disabled with its value. Never hover.</li><li><strong style="color:var(--obsidian-100)"><code>.card-strip</code>, the row card&rsquo;s coloured edge.</strong> A <code>--bw-2</code> left edge in <code>--card-strip</code>, <code>--primary-500</code> or a semantic colour: the declared exception to inline symmetry.</li><li><strong style="color:var(--obsidian-100)"><code>.chart-bars</code>.</strong> Horizontal bars keep their labels in a column of their own, so they never meet the bars on a narrow card; a card from <code>--bp-sm</code> reads them at <code>--t-small</code>.</li><li><strong style="color:var(--obsidian-100)"><code>--slider-fill</code> and <code>--card-strip</code>, component tokens</strong> in <code>tokens.css</code> and the DTCG file.</li><li><strong style="color:var(--obsidian-100)">Diagrams compose along their arrows,</strong> a node, its edges, the nodes they reach, one <code>--d-instant</code> per step, with a Replay under each figure.</li><li><strong style="color:var(--obsidian-100)">The review sheet renders a hostile host and measures inline symmetry</strong> before every release.</li><li><strong style="color:var(--obsidian-100)">Every <code>check_compliance</code> finding names its law</strong> (<code>law</code>: L3, L4, L7, L8, C2), and the Law and Conventions tables name the finding back in their Check column. <code>get_design_section</code> opens a path, a list of alternatives and a <code>(§ …)</code> suffix.</li><li><strong style="color:var(--obsidian-100)">Checks 110 to 114:</strong> inline symmetry, every delay on the scale, the body&rsquo;s text restated, the States rows and the disabled cursor, the containers as rules.</li></ul>
-                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
+                  <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Changed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Inline symmetry, strict.</strong> The first mark sits as far from the left edge as the last from the right, with no optical compensation. An icon button that ends a row puts its glyph on the content edge: the close of Modal and Drawer now sits on it (it sat inset as from the top), the Toast&rsquo;s dismiss, the List&rsquo;s kebab. The floating button takes <code>0 --s-4</code>.</li><li><strong style="color:var(--obsidian-100)">Every delay is 0 or a multiple of <code>--d-instant</code> (100ms)</strong>, in the CSS and in the scripts: the Card&rsquo;s rise steps 100ms (it stepped 80ms), and the Accordion, Chat, Case study, Stepper, Presentations, Law card, typing dots, Progress, Alert, Toast, charts, timeline and chat roll-off follow.</li><li><strong style="color:var(--obsidian-100)">Hover grows the knob one step</strong> on the Switch (14px to <code>--s-4</code>) and the Slider (<code>--s-5</code> to <code>--s-6</code>), a scale about the centre on <code>--ease-standard</code>: the spring overshot a 2px growth and flickered under the pointer. The Slider&rsquo;s glow ring on hover is gone.</li><li><strong style="color:var(--obsidian-100)">The Modal grows into place.</strong> It opens from 0.96 about its centre instead of rising <code>--s-2</code>, and leaves the same way, faster: the Lightbox&rsquo;s entrance, which the Lightbox rows now state (they said <em>no scale-in</em> while its CSS scaled). The Lightbox&rsquo;s content leaves on <code>--d-quick</code>, the backdrop&rsquo;s clock.</li><li><strong style="color:var(--obsidian-100)">The Popover grows out of its trigger; the Tooltip only fades.</strong> A popover scales from 0.96 out of the corner that touches the button that opened it, instead of sliding 4px; a tooltip fades where it stands, without its 2px travel. Times and curves are unchanged.</li><li><strong style="color:var(--obsidian-100)">Two kits on one page keep a gap.</strong> The Navigation page&rsquo;s Sidebar and Top bar kits sat edge to edge; consecutive kits are now <code>--s-6</code> apart.</li><li><strong style="color:var(--obsidian-100)">The grid changes layout in three beats.</strong> On § 08.1 the columns that leave fade out first, then the ones that stay move and resize to their new tracks, then the new ones fade in: never two columns on the same ground. The gutters now match the meta line (24, 20, 16).</li><li><strong style="color:var(--obsidian-100)">The native Select centres its value.</strong> Where the browser draws the customisable select (<code>appearance: base-select</code>) the control is a flex box and the value sat 2px high; it now centres, level with the variant B trigger.</li><li><strong style="color:var(--obsidian-100)">Every floating panel rides the top layer.</strong> The Select&rsquo;s menu, Date picker, Date range, Time input and Tooltip are lifted into the browser&rsquo;s top layer, as the Popover already was: a card, a section or a clip no longer covers or cuts them. They flip when they do not fit, keep <code>--s-2</code> from the viewport edge and follow their anchor while open. A rule in Stacking, guarded by check 115.</li><li><strong style="color:var(--obsidian-100)">The slider&rsquo;s fill reads <code>--slider-fill</code>.</strong> Markup that set <code>--p</code> on the input sets <code>--slider-fill</code>.</li><li><strong style="color:var(--obsidian-100)">The rail: Containers is Content, Layout &amp; templates is Applied;</strong> Timeline to Accessibility are now § 46 to § 55.</li><li><strong style="color:var(--obsidian-100)">Disabled is attenuated once,</strong> and keeps its cursor: the pressable Chip loses its second ink; List and Pagination drop <code>pointer-events: none</code>, and the page blocks a disabled link&rsquo;s click.</li><li><strong style="color:var(--obsidian-100)">Card, Table and Chart card declare the colour of their text.</strong></li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Fixed</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li><strong style="color:var(--obsidian-100)">Dark text inside a host.</strong> A host&rsquo;s unlayered <code>body{color;font}</code> beat the base layer, and every text that inherits took the host&rsquo;s: 6,786 of them in a render of the site. The base layer says the body&rsquo;s text again on the body&rsquo;s children, <code>:where(body &gt; *)</code>, at zero specificity; the 5.2.0 restatement stays as a second defence.</li><li><strong style="color:var(--obsidian-100)"><code>check_compliance</code> flagged what the system prescribes:</strong> the reduced-motion kill-switch&rsquo;s <code>0.01ms</code> and the parked skip link. Five clean outputs of the October benchmark and ten mutants now guard the scan, and the skill&rsquo;s <code>verify-output.py</code> reads the same way.</li><li><strong style="color:var(--obsidian-100)">Cites that opened nothing</strong> ("Motion › Easing tokens", "Button rules"): every cite names a section that exists, and the cites of 5.2.0 open as written.</li><li><strong style="color:var(--obsidian-100)">The bars&rsquo; labels met the bars</strong> under 330px of plot.</li><li><strong style="color:var(--obsidian-100)">The Toast&rsquo;s dismiss</strong> was squeezed by the browser&rsquo;s button padding.</li></ul>
                   <h4 style="font-size:var(--t-body);margin:var(--s-6) 0 var(--s-3);letter-spacing:var(--tr-snug)">Unchanged</h4><ul style="margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)"><li>No token changes its value.</li></ul>
                   <div style="display:flex;flex-wrap:wrap;gap:var(--s-4) var(--s-6);margin-top:var(--s-6);padding-top:var(--s-5);border-top:var(--bw-1) solid var(--obsidian-800);font-family:var(--font-mono);font-size:var(--t-caption);letter-spacing:var(--tr-mono);color:var(--obsidian-300)">
@@ -10622,6 +10637,61 @@ if ('IntersectionObserver' in window) {
 })();
 </script>
 <script>
+// --- the floating layer (v5.3.0, RIGID) — Stacking › The floating layer ---
+// Every panel that floats over the page (the Select's menu, Date picker, Date range, Time input, Tooltip) rides the
+// browser's top layer, as the Popover component does natively: lift() makes it a manual popover and shows it, so no
+// card, overflow or transformed ancestor can cover it or cut it. place() puts it on its side of the anchor (below;
+// above when asked), flips it when it does not fit and the other side has more room, and keeps --s-2 from the
+// viewport edge; follow() keeps it on its anchor while the page scrolls or the panel changes size. Gap and edge are
+// read off :root (runtime-token anti-drift). Without the Popover API lift() returns false and the panel stays
+// absolute in its wrap.
+window.amacaFloat = (function(){
+  const ok = typeof HTMLElement !== 'undefined' && Object.prototype.hasOwnProperty.call(HTMLElement.prototype, 'popover');
+  function tok(name){ return parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0; }
+  function lift(panel){
+    if(!ok) return false;
+    if(!panel.hasAttribute('popover')) panel.setAttribute('popover', 'manual');
+    panel.classList.add('is-floating');
+    if(!panel.matches(':popover-open')) panel.showPopover();
+    return true;
+  }
+  function drop(panel){
+    if(ok && panel.hasAttribute('popover') && panel.matches(':popover-open')) panel.hidePopover();
+    panel.classList.remove('is-floating');
+    panel.style.top = ''; panel.style.left = '';
+    delete panel.dataset.placement;
+  }
+  // o.side: 'below' (default) | 'above' · o.align: 'start' (default) | 'center' | 'end'
+  function place(anchor, panel, o){
+    o = o || {};
+    if(!panel.classList.contains('is-floating')) return;
+    const gap = tok('--s-1'), edge = tok('--s-2');
+    const r = anchor.getBoundingClientRect();
+    const vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    const w = panel.offsetWidth, ht = panel.offsetHeight;
+    const below = vh - r.bottom - gap - edge, above = r.top - gap - edge;
+    const side = o.side === 'above'
+      ? (ht > above && below > above ? 'below' : 'above')
+      : (ht > below && above > below ? 'above' : 'below');
+    let x = o.align === 'center' ? r.left + r.width / 2 - w / 2 : o.align === 'end' ? r.right - w : r.left;
+    x = Math.min(Math.max(x, edge), vw - edge - w);
+    panel.style.left = Math.round(x) + 'px';
+    panel.style.top = Math.round(side === 'above' ? r.top - gap - ht : r.bottom + gap) + 'px';
+    panel.dataset.placement = side;
+  }
+  function follow(anchor, panel, o){
+    let raf = 0;
+    const again = function(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(function(){ place(anchor, panel, o); }); };
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(again) : null;
+    if(ro) ro.observe(panel);
+    window.addEventListener('scroll', again, true);
+    window.addEventListener('resize', again);
+    return function(){ cancelAnimationFrame(raf); if(ro) ro.disconnect(); window.removeEventListener('scroll', again, true); window.removeEventListener('resize', again); };
+  }
+  return { ok: ok, tok: tok, lift: lift, drop: drop, place: place, follow: follow };
+})();
+</script>
+<script>
 // --- custom select dropdowns — § Dropdown / Select, variants B, C and D ---
 // One panel, one placement, three uses: a listbox (B), a Slider in a dialog (C),
 // a menu of actions (D). Placement is the contract's, measured at open: fixed to
@@ -10692,6 +10762,7 @@ if ('IntersectionObserver' in window) {
     function open(){
       closeOthers(wrap);
       menu.hidden = false;
+      if(window.amacaFloat) amacaFloat.lift(menu);   // the top layer (Stacking › The floating layer)
       trigger.setAttribute('aria-expanded', 'true');
       anchor = place(trigger, menu, fit);
       window.addEventListener('scroll', onScroll, true);
@@ -10701,6 +10772,7 @@ if ('IntersectionObserver' in window) {
       if(menu.hidden) return;
       if(onClose) onClose(how || 'commit');
       menu.hidden = true;
+      if(window.amacaFloat) amacaFloat.drop(menu);
       trigger.setAttribute('aria-expanded', 'false');
       menu.classList.remove('is-fixed');
       ['top','left','width','maxHeight','minWidth'].forEach(function(p){ menu.style[p] = ''; });
@@ -11035,6 +11107,11 @@ if ('IntersectionObserver' in window) {
       if(state.open) return;
       syncFromInput();
       pop.hidden = false;
+      if(window.amacaFloat && amacaFloat.lift(pop)){   // the top layer (Stacking › The floating layer)
+        if(pop._unfollow) pop._unfollow();
+        requestAnimationFrame(function(){ amacaFloat.place(wrap, pop); });
+        pop._unfollow = amacaFloat.follow(wrap, pop);
+      }
       requestAnimationFrame(function(){
         pop.classList.add('is-open');
         positionWheels(false);
@@ -11047,7 +11124,7 @@ if ('IntersectionObserver' in window) {
       if(!state.open) return;
       pop.classList.remove('is-open');
       state.open = false;
-      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      setTimeout(function(){ if(!state.open){ pop.hidden = true; if(pop._unfollow){ pop._unfollow(); pop._unfollow = null; } if(window.amacaFloat) amacaFloat.drop(pop); } }, 180);
       document.removeEventListener('mousedown', onDocDown, true);
       document.removeEventListener('keydown', onKey, true);
     }
@@ -11308,6 +11385,11 @@ if ('IntersectionObserver' in window) {
       }
       state.mode = 'days';
       pop.hidden = false;
+      if(window.amacaFloat && amacaFloat.lift(pop)){   // the top layer (Stacking › The floating layer)
+        if(pop._unfollow) pop._unfollow();
+        requestAnimationFrame(function(){ amacaFloat.place(wrap, pop); });
+        pop._unfollow = amacaFloat.follow(wrap, pop);
+      }
       requestAnimationFrame(function(){ pop.classList.add('is-open'); });
       state.open = true;
       render();
@@ -11318,7 +11400,7 @@ if ('IntersectionObserver' in window) {
       if(!state.open) return;
       pop.classList.remove('is-open');
       state.open = false;
-      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      setTimeout(function(){ if(!state.open){ pop.hidden = true; if(pop._unfollow){ pop._unfollow(); pop._unfollow = null; } if(window.amacaFloat) amacaFloat.drop(pop); } }, 180);
       document.removeEventListener('mousedown', onDocDown, true);
       document.removeEventListener('keydown', onKey, true);
     }
@@ -11585,6 +11667,11 @@ if ('IntersectionObserver' in window) {
       state.viewYear = ref.getFullYear();
       state.viewMonth = ref.getMonth();
       pop.hidden = false;
+      if(window.amacaFloat && amacaFloat.lift(pop)){   // the top layer (Stacking › The floating layer)
+        if(pop._unfollow) pop._unfollow();
+        requestAnimationFrame(function(){ amacaFloat.place(group, pop); });
+        pop._unfollow = amacaFloat.follow(group, pop);
+      }
       requestAnimationFrame(function(){ pop.classList.add('is-open'); });
       state.open = true;
       render();
@@ -11596,7 +11683,7 @@ if ('IntersectionObserver' in window) {
       pop.classList.remove('is-open');
       state.open = false;
       state.pending = null; state.hover = null;
-      setTimeout(function(){ if(!state.open) pop.hidden = true; }, 180);
+      setTimeout(function(){ if(!state.open){ pop.hidden = true; if(pop._unfollow){ pop._unfollow(); pop._unfollow = null; } if(window.amacaFloat) amacaFloat.drop(pop); } }, 180);
       document.removeEventListener('mousedown', onDocDown, true);
       document.removeEventListener('keydown', onKey, true);
     }
@@ -13274,8 +13361,23 @@ try {
   // ---- Tooltip: RIGID single-open (§ 3.25). Opening one closes every other. ----
   const wraps = Array.from(document.querySelectorAll('.tooltip-wrap'));
   let open = null;
-  function close(){ if (open){ open.classList.remove('is-open'); open = null; } }
-  function show(tip){ if (tip === open) return; close(); tip.classList.add('is-open'); open = tip; }
+  // The bubble rides the top layer (Stacking › The floating layer): lifted on open, placed on its side of the
+  // trigger, dropped once its fade is over.
+  function close(){
+    if (!open) return;
+    const t = open; t.classList.remove('is-open'); open = null;
+    if (window.amacaFloat) setTimeout(() => { if (open !== t) amacaFloat.drop(t); }, amacaFloat.tok('--d-quick'));
+  }
+  function show(tip){
+    if (tip === open) return;
+    close();
+    if (window.amacaFloat && amacaFloat.lift(tip)){
+      amacaFloat.place(tip.parentElement, tip, { side: tip.classList.contains('tooltip-bottom') ? 'below' : 'above',
+                                                 align: tip.classList.contains('tooltip-end') ? 'end' : 'center' });
+      getComputedStyle(tip).opacity;   // flush, so the fade starts from 0
+    }
+    tip.classList.add('is-open'); open = tip;
+  }
   wraps.forEach(w => {
     const tip = w.querySelector('.tooltip');
     if (!tip) return;

@@ -1322,6 +1322,32 @@ def c114():
             fails.append(f"index.html: .{c} has a page or an Anatomy card — a rule is shown in Layout, not as a component")
     return fails
 
+@check("115", "Every panel that floats over the page rides the top layer",
+       "v5.3.0: the Select's listbox opened under the next section's heading, and the Time input's wheel was cut by "
+       "its card: an absolute panel with a z-index is trapped by any ancestor that makes a stacking context or clips "
+       "(the cards' entrance transform, a card's overflow). The Popover rode the top layer from the start. Now every "
+       "floating panel does, through the page's float helper; this check keeps a new or rewritten panel from going "
+       "back to an absolute box.")
+def c115():
+    html, fails = read(INDEX), []
+    if not re.search(r"window\.amacaFloat\s*=", html) or "showPopover()" not in html:
+        fails.append("index.html: the float helper (window.amacaFloat with showPopover) is missing")
+    for head, var in [("custom select dropdowns", "menu"), ("time input (HH:MM", "pop"),
+                      ("date input (DD/MM/YYYY) — digit", "pop"), ("date range picker (DD/MM", "pop"),
+                      ("Tooltip: RIGID single-open", "tip")]:
+        i = html.find(head)
+        j = html.find("</script>", i)
+        if i < 0:
+            fails.append(f"index.html: no script for {head}")
+        elif f"amacaFloat.lift({var})" not in html[i:j]:
+            fails.append(f"index.html: the {head} script does not lift its panel into the top layer")
+    css = re.sub(r"/\*.*?\*/", "", read(ROOT / "styles" / "components.css"), flags=re.S)
+    if not re.search(r":is\([^)]*\)\.is-floating\s*\{[^}]*position\s*:\s*fixed", css):
+        fails.append("components.css: no .is-floating rule that drops the UA popover box")
+    if "**The floating layer (RIGID" not in read(DESIGN):
+        fails.append("DESIGN.md Stacking: the floating-layer rule is missing")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "

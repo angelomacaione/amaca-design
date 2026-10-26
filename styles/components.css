@@ -558,6 +558,12 @@
    open, corrected for a transformed ancestor. right:auto releases the absolute
    default. */
 .select-menu.is-fixed{position:fixed;right:auto}
+/* The floating layer (v5.3.0, RIGID): every panel that floats over the page rides the top layer, lifted there by the
+   page's float helper (a manual popover, showPopover). The panel drops the UA popover box and is placed by script in
+   viewport coordinates, so no card, overflow or transformed ancestor can cover it or cut it. Without the Popover API
+   the panel stays absolute in its wrap, on --z-menu or --z-popover. */
+:is(.select-menu,.dp-popover,.tp-popover,.tooltip).is-floating{position:fixed;inset:auto;margin:0}
+.tooltip.is-floating{transform:none}
 .select-option{
   display:flex;align-items:center;gap:var(--s-2);min-width:0;
   padding:var(--s-2);border-radius:calc(var(--r-md) - var(--r-xs));
