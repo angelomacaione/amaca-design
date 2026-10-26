@@ -1,0 +1,75 @@
+# The GitHub release of every tag, written from its own DESIGN.md changelog entry.
+#
+# A tag pushed by release.py publishes its release here, with no hand step: before this workflow the releases stopped
+# at v4.3.1 while the tags went on to v5.3.0 (2026-10-27). Run by hand ("Run workflow"), it fills every tag that has
+# no published release yet, a draft included, and leaves the newest tag as Latest.
+name: Release notes
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-notes
+  cancel-in-progress: false
+
+jobs:
+  notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish the missing releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ONLY: ${{ github.event_name == 'push' && github.ref_name || '' }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, subprocess
+
+          def sh(*a, check=True):
+              return subprocess.run(a, capture_output=True, text=True, check=check).stdout
+
+          def key(t):
+              return tuple(int(n) for n in re.findall(r"\d+", t))
+
+          tags = sorted((t for t in sh("git", "tag", "-l", "v*").split() if re.fullmatch(r"v\d+\.\d+\.\d+", t)), key=key)
+          newest = tags[-1]
+          rel = {r["tagName"]: r for r in json.loads(sh("gh", "release", "list", "--limit", "500", "--json", "tagName,isDraft"))}
+          only = os.environ.get("ONLY")
+
+          def entry(tag):
+              """The tag's own changelog entry: the lead line makes the title, the entry is the body."""
+              d = sh("git", "show", f"{tag}:DESIGN.md", check=False)
+              m = re.search(rf"(?m)^### {re.escape(tag)} [^\n]*\n(.*?)(?=^### v\d|^## |\Z)", d, re.S)
+              if not m:
+                  return None, None
+              body = m.group(1).strip()
+              lead = body.split("\n\n")[0].strip()
+              return f"{tag} — " + re.split(r"[:.;]", lead)[0].strip(), body + "\n"
+
+          for tag in tags:
+              if only and tag != only:
+                  continue
+              r = rel.get(tag)
+              if r and not r["isDraft"]:
+                  continue
+              title, body = entry(tag)
+              if not title:
+                  print(f"{tag}: no changelog entry in its DESIGN.md, left alone")
+                  continue
+              open("notes.md", "w", encoding="utf-8").write(body)
+              latest = "--latest" if tag == newest else "--latest=false"
+              if r:
+                  sh("gh", "release", "edit", tag, "--title", title, "--notes-file", "notes.md", "--draft=false", latest)
+                  print(f"{tag}: draft published as \"{title}\"")
+              else:
+                  sh("gh", "release", "create", tag, "--title", title, "--notes-file", "notes.md", "--verify-tag", latest)
+                  print(f"{tag}: released as \"{title}\"")
+          PY
