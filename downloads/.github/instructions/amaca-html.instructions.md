@@ -2,7 +2,7 @@
 applyTo: "**/*.css,**/*.scss,**/*.html,**/*.vue,**/*.svelte"
 ---
 
-<!-- Amaca HTML/CSS target · gold reference · amaca.design@3.1.0 · pairs with .github/copilot-instructions.md (repo-wide core). -->
+<!-- Amaca HTML/CSS target · gold reference · amaca.design · pairs with .github/copilot-instructions.md (repo-wide core). -->
 
 # Amaca — HTML / CSS instructions
 

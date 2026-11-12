@@ -897,11 +897,11 @@
 
 /* checkbox & switch */
 .check{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
-.check input{appearance:none;width:var(--s-4);height:var(--s-4);border:var(--bw-1) solid var(--border-input);border-radius:var(--r-xs);background:var(--surface-field);display:grid;place-items:center;transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
+.check input{appearance:none;margin:0;width:var(--s-4);height:var(--s-4);border:var(--bw-1) solid var(--border-input);border-radius:var(--r-xs);background:var(--surface-field);display:grid;place-items:center;transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard)}
 .check input:checked{background:var(--primary-500);border-color:var(--primary-500)}
 .check input:checked::after{content:"";width:10px;height:6px;border:var(--bw-2) solid var(--obsidian-950);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
 .switch{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
-.switch input{appearance:none;width:var(--s-8);height:calc(var(--s-4) + var(--s-0-5));background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
+.switch input{appearance:none;margin:0;width:var(--s-8);height:calc(var(--s-4) + var(--s-0-5));background:var(--obsidian-700);border-radius:var(--r-full);position:relative;transition:background var(--d-quick) var(--ease-standard)}
 .switch input::after{content:"";position:absolute;top:var(--s-0-5);left:var(--s-0-5);width:14px;height:14px;background:var(--obsidian-200);border-radius:var(--r-full);transition:left var(--d-base) var(--ease-standard), background var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)}
 .switch input:checked{background:var(--primary-500)}
 .switch input:checked::after{left:var(--s-4);background:var(--obsidian-950)}
@@ -918,7 +918,7 @@
    meaning is never carried by color alone). Circle + dot, never a tick. */
 .radio{display:inline-flex;align-items:center;gap:var(--s-2);cursor:pointer;font-size:var(--t-small);color:var(--obsidian-100)}
 .radio input{
-  appearance:none;width:var(--s-4);height:var(--s-4);
+  appearance:none;margin:0;width:var(--s-4);height:var(--s-4);
   border:var(--bw-1) solid var(--border-input);border-radius:var(--r-full);
   background:var(--surface-field);display:grid;place-items:center;
   transition:border-color var(--d-quick) var(--ease-standard), background var(--d-quick) var(--ease-standard);

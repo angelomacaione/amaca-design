@@ -1431,6 +1431,42 @@ def c119():
         fails.append("DESIGN.md: Code conventions › The site's own conduct is missing")
     return fails
 
+@check("120", "A rules file carries no version of its own: it reads with the DESIGN.md it ships beside",
+       "v6.0.0: the three .mdc rules and the two Copilot instructions said amaca.design@3.1.0 and DESIGN.md v3.0.0 "
+       "for five releases while DESIGN.md moved to 5.3.0. The refresh copied the files into the zips, nothing read "
+       "the stamp. The stamp is gone: a rules file ships with the DESIGN.md of its own release.")
+def c120():
+    fails = []
+    for p in sorted((ROOT / "downloads").glob("**/*")):
+        if p.suffix not in (".md", ".mdc") or not p.is_file():
+            continue
+        for n, line in enumerate(read(p).split("\n## Version history")[0].splitlines(), 1):
+            if re.search(r"amaca\.design@\d|DESIGN\.md v\d", line):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: a version stamp of its own")
+    return fails
+
+@check("121", "A checkbox, radio or switch resets the browser's margin: its label sits on the declared gap",
+       "v6.0.0: the label sat 11px from the control instead of the declared --s-2 (8px). The cause was not the space "
+       "before the text, which a flex container collapses, but the browser's default margin on the input "
+       "(3px 3px 3px 4px), which components.css never reset. The first diagnosis blamed the markup; the render "
+       "measured both and settled it.")
+def c121():
+    fails, css = [], read(COMPONENTS)
+    for sel in (".check input", ".radio input", ".switch input"):
+        m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
+        if not m or not re.search(r"(^|;|\s)margin:0(;|\s|$)", m.group(1)):
+            fails.append(f"components.css: {sel} does not reset margin to 0")
+    return fails
+
+@check("122", "A severity on the site is a label: it starts with a capital",
+       "v6.0.0: the Conventions and Laws tables wrote warn, error, info in lowercase. Lowercase letters "
+       "have no cap height, so the dot sat 0.56px above them; with Warn the offset is 0.1px.")
+def c122():
+    fails = []
+    for m in re.finditer(r'<span class="badge(?: badge-[a-z]+)?"><span class="dot"></span>(warn|error|info)\b', read(INDEX)):
+        fails.append(f"index.html: severity badge \"{m.group(1)}\" in lowercase")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
@@ -2491,7 +2527,8 @@ def _registry_site(html, sid):
     for tr in re.findall(r"<tr>(.*?)</tr>", t, re.S)[1:]:
         td = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)
         rule = re.sub(r'<div class="muted">.*?</div>', "", td[1], flags=re.S)
-        rows.append((_text(td[0]), _text(rule), _text(td[2])))
+        # the site writes a severity as a label (Warn); the contract as an identifier (warn), v6.0.0
+        rows.append((_text(td[0]), _text(rule), _text(td[2]).lower()))
     return rows
 
 

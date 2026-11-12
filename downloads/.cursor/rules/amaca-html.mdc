@@ -4,7 +4,7 @@ globs: ["**/*.css","**/*.scss","**/*.html","**/*.vue","**/*.svelte"]
 alwaysApply: false
 ---
 
-<!-- Amaca HTML/CSS target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Token tables live in tokens.css — not restated here. -->
+<!-- Amaca HTML/CSS target · gold reference · amaca.design · loads with amaca-core.mdc (always-on). Token tables live in tokens.css — not restated here. -->
 
 # Amaca — HTML / CSS target
 
