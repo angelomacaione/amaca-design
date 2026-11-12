@@ -8,7 +8,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 
 **Neutrals (Obsidian):** `--obsidian-950 #07090B` page · `-900 #0B0E12` surface · `-850 #10141A` elevated · `-800 #161B22` card · `-700 #1E242D` border-strong · `-600 #2A313B` border · `-500 #3A4451` muted · `-400 #5B6573` disabled text · `-300 #8A94A3` secondary text · `-200 #B8C0CB` tertiary text · `-100 #E3E7EC` primary text on dark · `-050 #F4F6F8` bone.
 
-**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/mono · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A` · `-950 #1D0519` data canvas.
+**Brand (Magenta):** `--primary-100 #FFE3F8` · `-300 #FF85DF` · `-400 #F868D8` links/labels · **`-500 #F051D5` PRIMARY — CTAs, focus rings** · `-600 #C93BB0` pressed · `-700 #9A2D87` · `-800 #66195A` · `-950 #1D0519` data canvas.
 
 **Supporting (rare):** `--secondary-400 #00FFF2` cyan (data-viz only) · `--tertiary-500 #0C6078` petrol · `--success #3AFFC7` · `--warning #F6C65B` · `--danger #FF5B5B` · `--info #5CC8FF`. Semantic colors are feedback-only.
 
@@ -25,7 +25,7 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
 - **Five principles:** clarity before cleverness · evidence over opinion · precision is a feeling (`padding:14px` ✗ → `var(--s-3) var(--s-4)` ✓) · quiet then loud · motion is a material (feedback, never decoration).
 
 ## Components — reuse, don't reinvent
-`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.link` · `.check` / `.radio` / `.switch` (square+tick / circle+dot / track+knob — shape before colour) · `.slider` · `.field` + `.label` (mono-uppercase, persistent) + `.input` · `.select` (viewport-aware) · time input · date picker · `.badge` · `.chip` · `.alert` (never on a timer, fill never tinted) · `.toast` · `.progress` · loader · skeleton · `.modal` · `.popover` · `.drawer` · `.tooltip` (opens on hover **and** focus) · navigation (sidebar, top bar) · tabs · `.segmented` · breadcrumb · pagination · stepper · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · accordion · divider · chat · swatch · `.avatar` · `.list` · `.table` (no zebra). Each component's section in the spec carries a **Variants.** block: build only the variants it declares. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
+`.btn-primary` (one per screen) · `.btn-secondary/ghost/outline/danger` · `.link` · `.check` / `.radio` / `.switch` (square+tick / circle+dot / track+knob — shape before colour) · `.slider` · `.field` + `.label` (label register, uppercase, persistent) + `.input` · `.select` (viewport-aware) · time input · date picker · `.badge` · `.chip` · `.alert` (never on a timer, fill never tinted) · `.toast` · `.progress` · loader · skeleton · `.modal` · `.popover` · `.drawer` · `.tooltip` (opens on hover **and** focus) · navigation (sidebar, top bar) · tabs · `.segmented` · breadcrumb · pagination · stepper · `.card` (obsidian-800 bg, obsidian-700 border, `--r-lg`) · accordion · divider · chat · swatch · `.avatar` · `.list` · `.table` (no zebra). Each component's section in the spec carries a **Variants.** block: build only the variants it declares. **The registry is closed** — a class name outside this set is `off-system`: stop and ask, don't ship a silent variant. Anything focusable carries a visible focus state; every form control carries an error state.
 
 ```html
 <button class="btn btn-primary">Save</button>
@@ -46,8 +46,8 @@ You build UI for the **Amaca Design System**: dark-first, single typeface (**Sat
   border-color:var(--primary-500); box-shadow:var(--sh-2); }
 .btn-primary:hover{ background:var(--primary-500); color:var(--obsidian-050);
   border-color:var(--primary-500); box-shadow:var(--sh-glow), var(--sh-3); }
-.label{ font-family:var(--font-mono); font-size:var(--t-micro);
-  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.label{ font-family:var(--font-sans); font-size:var(--t-micro);
+  letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--obsidian-300); }
 .input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
   border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;

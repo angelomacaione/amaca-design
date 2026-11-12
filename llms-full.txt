@@ -57,7 +57,7 @@ Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingl
 ## Components — reuse, don't reinvent
 Each maps to a class in `components.css` (`.btn-primary`, `.card`, `.field`, `.select`, …); full specs in `DESIGN.md → Components`. One `.btn-primary` per screen. Dropdown/Select placement is viewport-aware (opens below, flips above, never covers adjacent content). **A new `.classname` not in the canonical set is a gap** — surface it (workaround / extend / refactor), never ship a silent variant.
 
-**The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation. **`--font-mono` is a register, not a typeface** — it resolves to Satoshi, same as `--font-sans`; the mono reading comes from `--tr-mono`, uppercase and tabular figures. A hardcoded `ui-monospace, …` stack is off-system: Amaca is a single-typeface system.
+**The component registry is closed (`DESIGN.md` § 3.0).** Every component carries one of four states — `canonical` (spec written, build from it) · `css-only` (shipped in CSS, never extend it) · `off-system` (**stop and ask the owner**) · `site-only` (documentation chrome, not the contract). A component not in the registry is `off-system`: do not invent it. **States come from the state grammar (§ 3.0.1)**, a fixed six-column matrix per component — `focus-visible` is mandatory for anything focusable, `error` is mandatory for every form control. **`z-index` comes from the seven-layer scale** (`--z-sticky` … `--z-max`); a raw z-index of 10 or more is a violation. **Labels are a register, not a typeface** — the text typeface (`--font-sans`) with `--tr-label`, uppercase and tabular figures; there is no font token for labels. A hardcoded `ui-monospace, …` stack is off-system: Amaca is a single-typeface system.
 
 **Rules and Variants (v5.0.0).** Every component section in `DESIGN.md` carries a **Rules.** block, what the contract holds the component to, and a **Variants.** block: one axis per line (`type`, `size`, …), its values in order, the default marked. Build only the variants that block declares; the states stay in the State index. Every component is also a shadcn registry item, `npx shadcn add https://www.amaca.design/r/<name>.json` (its CSS, an example and the contract in `meta.amaca`), and the whole system is the npm package `amaca-design`.
 
@@ -91,8 +91,8 @@ Color never carries meaning alone (pair with shape + label) · no text < 12px, n
 </label>
 ```
 ```css
-.label{ font-family:var(--font-mono); font-size:var(--t-micro);
-  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.label{ font-family:var(--font-sans); font-size:var(--t-micro);
+  letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--obsidian-300); }
 .input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
   border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;
@@ -210,7 +210,6 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
 
   /* — TYPE — */
   --font-sans:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* type scale — perfect-fourth on small / modular on large */
   --t-micro:   10px;
@@ -235,7 +234,7 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --tr-snug:    -0.02em;
   --tr-normal:   0em;
   --tr-wide:    0.04em;
-  --tr-mono:    0.06em;
+  --tr-label:    0.06em;
 
   /* — SPACING (4px base) — */
   --s-0: 0;
@@ -334,9 +333,9 @@ button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit
 a{color:var(--primary-400);text-decoration:none;transition:color var(--d-quick) var(--ease-standard)}
 a:hover{color:var(--primary-300)}
 input,textarea{caret-color:var(--primary-500)}
-/* Single-typeface system: code, keys and samples ride the mono register
-   (Satoshi + --tr-mono), never the browser's monospaced default (§ 05). */
-code,kbd,samp,pre{font-family:var(--font-mono);letter-spacing:var(--tr-mono)}
+/* Single-typeface system: code, keys and samples ride the label register
+   (Satoshi + --tr-label), never the browser's monospaced default (§ 05). */
+code,kbd,samp,pre{font-family:var(--font-sans);letter-spacing:var(--tr-label)}
 ::selection{background:var(--primary-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 04.6) */
 
 /* scrollbar */

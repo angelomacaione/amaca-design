@@ -53,9 +53,9 @@
           "name": "Label",
           "tokens": [
             "--obsidian-300",
-            "--font-mono",
+            "--font-sans",
             "--t-micro",
-            "--tr-mono"
+            "--tr-label"
           ],
           "value": "",
           "states": ""

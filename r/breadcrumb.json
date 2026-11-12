@@ -12,7 +12,7 @@
       "path": "amaca/breadcrumb.css",
       "type": "registry:file",
       "target": "styles/amaca/breadcrumb.css",
-      "content": ".breadcrumb{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-family:var(--font-mono);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-mono);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.breadcrumb .sep{\n  color:var(--obsidian-500);\n}\n.breadcrumb .active{\n  color:var(--obsidian-100);\n}\n.breadcrumb a{\n  color:inherit;\n  text-decoration:none;\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.breadcrumb a:hover{\n  color:var(--obsidian-100);\n}\n.breadcrumb a:active{\n  color:var(--obsidian-400);\n}\n.breadcrumb a:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-0-5);\n  box-shadow:var(--ring-halo);\n}\n"
+      "content": ".breadcrumb{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-label);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.breadcrumb .sep{\n  color:var(--obsidian-500);\n}\n.breadcrumb .active{\n  color:var(--obsidian-100);\n}\n.breadcrumb a{\n  color:inherit;\n  text-decoration:none;\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.breadcrumb a:hover{\n  color:var(--obsidian-100);\n}\n.breadcrumb a:active{\n  color:var(--obsidian-400);\n}\n.breadcrumb a:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-0-5);\n  box-shadow:var(--ring-halo);\n}\n"
     },
     {
       "path": "amaca/breadcrumb.html",
@@ -64,9 +64,9 @@
           "name": "Trail",
           "tokens": [
             "--obsidian-300",
-            "--font-mono",
+            "--font-sans",
             "--t-caption",
-            "--tr-mono",
+            "--tr-label",
             "--s-2"
           ],
           "value": "",
@@ -85,7 +85,7 @@
         }
       ],
       "rules": [
-        "Mono uppercase --t-caption · --tr-mono, gap --s-2. Crumbs --obsidian-300, .sep --obsidian-500, .active --obsidian-100.",
+        "Label register, uppercase --t-caption · --tr-label, gap --s-2. Crumbs --obsidian-300, .sep --obsidian-500, .active --obsidian-100.",
         "In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in &lt;nav aria-label=\"Breadcrumb\"&gt; and marks the current page with aria-current=\"page\".",
         "A crumb that is a link hovers --obsidian-100, presses --obsidian-400 and takes the pressable ring; the current page stays a span.",
         "≤480px: only .active survives — crumbs and separators hide, and the register drops to --t-micro."

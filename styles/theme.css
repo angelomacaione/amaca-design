@@ -114,7 +114,7 @@
   --tracking-snug: var(--tr-snug);
   --tracking-normal: var(--tr-normal);
   --tracking-wide: var(--tr-wide);
-  --tracking-mono: var(--tr-mono);
+  --tracking-label: var(--tr-label);
 
   /* — SPACING (4px base, § 2 scale numbers preserved) — */
   --spacing-0: var(--s-0);
@@ -174,7 +174,7 @@
 @theme inline {
   /* — TYPE · family — */
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+  --font-mono: var(--font-sans);  /* Tailwind's font-mono utility stays on the text typeface: single-typeface system (v6.0.0) */
 
   /* — MOTION · easing — */
   --ease-standard: var(--ease-standard);

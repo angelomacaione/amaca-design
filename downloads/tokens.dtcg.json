@@ -690,18 +690,6 @@
     ],
     "$type": "fontFamily"
   },
-  "font-mono": {
-    "$value": [
-      "Satoshi",
-      "ui-sans-serif",
-      "system-ui",
-      "-apple-system",
-      "Segoe UI",
-      "sans-serif"
-    ],
-    "$type": "fontFamily",
-    "$description": "Register, not a typeface. Resolves to Satoshi, same as font-sans; the mono reading comes from tr-mono letter-spacing, uppercase and tabular figures. A real monospaced stack is off-system (single-typeface system)."
-  },
   "t-micro": {
     "$value": {
       "value": 10,
@@ -857,10 +845,10 @@
     "$type": "other",
     "$description": "Letter-spacing for small caps."
   },
-  "tr-mono": {
+  "tr-label": {
     "$value": "0.06em",
     "$type": "other",
-    "$description": "Letter-spacing for all-caps mono labels."
+    "$description": "Letter-spacing for labels (the label register)."
   },
   "s-0": {
     "$value": {

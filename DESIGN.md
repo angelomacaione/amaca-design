@@ -39,7 +39,6 @@ colors:
   primary-950: "#1D0519"
 typography:
   font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
-  font-mono: "Satoshi, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif"
   t-display: "112px"
   t-h1: "76px"
   t-h2: "52px"
@@ -132,7 +131,7 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 | `--obsidian-600` | `#2A313B` | Border strong |
 | `--obsidian-500` | `#3A4451` | Muted edge |
 | `--obsidian-400` | `#5B6573` | Disabled text · control outline · never active text (3.38 : 1 at best) |
-| `--obsidian-300` | `#8A94A3` | Secondary text · neutral mono labels · placeholders |
+| `--obsidian-300` | `#8A94A3` | Secondary text · neutral labels · placeholders |
 | `--obsidian-200` | `#B8C0CB` | Tertiary text |
 | `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
@@ -159,7 +158,7 @@ Role aliases on the obsidian ramp: no new values, a name for what each step does
 | `--primary-100` | `#FFE3F8` | Tints, soft highlights |
 | `--primary-200` | `#FFB5EC` | |
 | `--primary-300` | `#FF85DF` | Hover state on magenta links |
-| `--primary-400` | `#F868D8` | Links on dark, mono accents |
+| `--primary-400` | `#F868D8` | Links on dark, label accents |
 | `--primary-500` | `#F051D5` | **Primary brand · CTAs · focus rings** |
 | `--primary-600` | `#C93BB0` | Pressed state |
 | `--primary-700` | `#9A2D87` | Deep brand accents |
@@ -192,9 +191,9 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 - Body text centred or wider than 80 characters → left-align it and cap the measure.
 
 
-**`--font-mono` is a register, not a typeface.** The name is historical and is kept for compatibility; the value is Satoshi, same as `--font-sans`. What makes the mono register read as mono is the *treatment*, not the family: `--tr-mono` letter-spacing (`0.06em`), uppercase, small sizes (`--t-micro` / `--t-caption`), and `font-variant-numeric: tabular-nums` where figures must align. Labels, badges, timestamps, token names, breadcrumbs and table headers all ride it.
+**The label register (v6.0.0).** Labels are set in the text typeface: there is no font token of their own. What makes a label read as a label is the *treatment*, not the family: `--tr-label` letter-spacing (`0.06em`), uppercase, small sizes (`--t-micro` / `--t-caption`), and `font-variant-numeric: tabular-nums` where figures must align. Labels, badges, timestamps, token names, breadcrumbs and table headers all ride it.
 
-**`code`, `kbd`, `samp`, `pre` ride the register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-mono); letter-spacing: var(--tr-mono)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same card.
+**`code`, `kbd`, `samp`, `pre` ride the label register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-sans); letter-spacing: var(--tr-label)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same card.
 
 **A real monospaced stack is off-system.** `ui-monospace, SFMono-Regular, Menlo, monospace` hardcoded anywhere is a violation — it introduces a second typeface into a single-typeface system, and it does so invisibly, because at 10–12px uppercase the two read almost alike until you put them side by side.
 
@@ -211,7 +210,7 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--t-body` | `15px` | **Default body text** |
 | `--t-small` | `13px` | Captions, table cells |
 | `--t-caption` | `12px` | Smallest readable text |
-| `--t-micro` | `10px` | Mono labels, eyebrows, kbd keys |
+| `--t-micro` | `10px` | Label register, labels, eyebrows, kbd keys |
 
 **Fluid headings (v5.0.0).** Below the 860px breakpoint the headings ride a fluid clamp; the px live in these tokens and nowhere else. Above it the fixed scale applies.
 
@@ -238,11 +237,11 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--tr-snug` | `-0.02em` | Headings |
 | `--tr-normal` | `0` | Body |
 | `--tr-wide` | `0.04em` | Small caps |
-| `--tr-mono` | `0.06em` | All-caps mono labels |
+| `--tr-label` | `0.06em` | Labels (the label register) |
 
 **Rules:**
 - One H1 per page. Always.
-- Mono labels: 10px, uppercase, `--tr-mono`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
+- Labels: 10px, uppercase, `--tr-label`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
 
 ## Layout
@@ -722,7 +721,7 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.segmented-item` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
 | `.segmented-item` | selected | — | — | `--obsidian-100` | — | `aria-selected="true"` · the one `.segmented-thumb` under it: fill `--obsidian-700`, edge `--bw-1` solid `--border-input` (3.27 : 1 on the track), `--sh-1` | — |
 | `.segmented-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, mono `--t-caption` · a static shell crumb is a `span`, with no other state | — |
+| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, label `--t-caption` · a static shell crumb is a `span`, with no other state | — |
 | `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
 | `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held | — |
 | `.breadcrumb` crumb | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · `--r-sm` | — |
@@ -843,7 +842,7 @@ Seven layers, named in § 2 · Layout. A floating component takes its `z-index` 
 | **Demo caption** | The replay affordance | Only where a demo has a choreography with a beginning | Fixed form: *"Click [Replay] to re-trigger animations."* Nothing else goes here |
 | **Anatomy card** | The parts of one example and the tokens that draw each, with its code | One per component page, after Usage | Written by `release/kit.py` from `components.css` (check 99); the six rules under Code conventions |
 | **Rules** | What the contract holds the component to | One per component page, after the Anatomy card | The rule lists of the component's section here, word for word, written by `release/rules.py` (check 100). A rule is written once, in this file |
-| **Contract card** | Discrete values a generator must not guess — input grids, digit rules, allowed keys | Where the rule is a table, not a sentence | Mono register (`--font-mono` + `--tr-mono` + uppercase label). Never a hardcoded font stack |
+| **Contract card** | Discrete values a generator must not guess — input grids, digit rules, allowed keys | Where the rule is a table, not a sentence | Label register (`--tr-label` + uppercase, in the text typeface). Never a hardcoded font stack |
 
 **Rules of the grammar:**
 - **A rule never lives in a demo caption.** The caption carries the replay affordance and nothing else. A rule in prose under a demo is invisible to a reader scanning for rules and invisible to a machine parsing them — it is the documentation equivalent of a hardcoded value.
@@ -1047,7 +1046,7 @@ A small drawing that **names an action or a state** beside a label, or in place 
 
 - One per shell, at the head of the rail; hairline `--obsidian-800` below, padding-bottom `--s-6`, gap `--s-3`.
 - `.brand-mark` — a 36px tile (geometry): `--obsidian-850` on `--obsidian-700`, `--r-md`, 26px logo inside. The glow is `--secondary-500` at 0.40 — the one place the secondary colour speaks in the chrome.
-- `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` mono `--t-micro` uppercase `--obsidian-300`.
+- `.brand-text` — `.name` `--t-body` 700 `--tr-snug`; `.meta` label `--t-micro` uppercase `--obsidian-300`.
 - **In a pill, the glyph alone.** Inside the floating navigation bar (§ 3.26) the mark drops its tile — no fill, no edge — and keeps the logo and its glow: a square tile in a pill reads as a stranger.
 - Static. The animated brand-mark loop belongs to the Loader (§ 3.19) and its ratified motion row — this one does not move.
 
@@ -1220,7 +1219,7 @@ Three controls, one family, one rule: **shape carries the meaning before colour 
 - The whole `<label>` is the hit target; on mobile it must reach 44×44 (§ 6 floor #7) — pad the label, don't grow the box.
 - The focus ring lives on the `input`, not the label, so the halo traces the control.
 - A radio group has exactly one checked member at all times. A group with none is a defect, not a state.
-- **A group is a `fieldset.choice-group` (v5.3.0).** Its `legend` names it in the label register (`--t-micro` mono uppercase, `--obsidian-300`); the options stack `--s-3` apart. Radios always come in one; checkboxes and switches when there are two or more.
+- **A group is a `fieldset.choice-group` (v5.3.0).** Its `legend` names it in the label register (`--t-micro` label uppercase, `--obsidian-300`); the options stack `--s-3` apart. Radios always come in one; checkboxes and switches when there are two or more.
 - **Hover grows the switch's knob one step (v5.3.0)**, 14px to `--s-4`, a scale about its centre on `--d-quick` · `--ease-standard` (a 2px growth has no room for a spring's overshoot, which under the pointer reads as a flicker); never a colour, which on the `--primary-500` track would vanish. A fine pointer only; a disabled switch does not answer.
 - State matrix: § 3.0.1. Motion: § 06.4.
 
@@ -1349,7 +1348,7 @@ A number, or a range of two, chosen by position on a scale. Native range inputs 
 ```
 
 **Rules.**
-- Labels are mono-uppercase, `--t-micro`, `--obsidian-300` — the neutral mono register (§ Typography); they took it first, for legibility over dark fields, and v5.2.0 gave it to every neutral label. Always persistent — placeholder is **not** a label.
+- Labels are uppercase label, `--t-micro`, `--obsidian-300` — the neutral label register (§ Typography); they took it first, for legibility over dark fields, and v5.2.0 gave it to every neutral label. Always persistent — placeholder is **not** a label.
 - **Height `--s-10`, declared.** `min-height: var(--s-10)`, block padding `--s-2`, type `--t-small`: a single-line field is 40px, the height of the default button beside it (§ 3.6). The height is the token, not a sum of paddings.
 - Helper text is `.help`; the error variant is `.help.error`.
 - Error is marked with `aria-invalid="true"` — the border and the helper text both follow from it. Colour alone never says "error" (§ 6 floor #1).
@@ -1504,7 +1503,7 @@ Actions on an item, behind one button. The panel and the row are variant B's; th
 | Trigger | `.btn.btn-secondary` or `.btn.btn-ghost.btn-icon` | A labelled button with the *chevron-down* icon, or an icon-only button with the *kebab* icon and an `aria-label` that names the item. The chevron does not turn |
 | Panel | `.select-menu.select-menu-actions` | At least the trigger and at least `--s-32`; grows to the longest item; stops at the drawer menu's measure (30ch + padding) and truncates |
 | Row | `.select-option` | Leading icon (14px, `--obsidian-300`), label (`.select-option-label`, one line, ellipsis), shortcut after it (`.select-kbd`) |
-| Group heading | `.select-group` | The `.label` grammar: mono, micro, uppercase, `--obsidian-300` |
+| Group heading | `.select-group` | The `.label` grammar: label, micro, uppercase, `--obsidian-300` |
 | Divider | `.select-divider` | `--bw-1` of `--obsidian-700`, full bleed (the panel's inset taken back), `--s-1` above and below |
 | Danger | `.select-option-danger` | Text and icon `--danger` (6.1:1 on the panel); the hover stays neutral. Always last, after a divider |
 | Disabled | `[aria-disabled="true"]` | Opacity 0.4, skipped by the arrow keys and by typeahead |
@@ -1617,10 +1616,10 @@ document.getElementById("time-input").addEventListener("input", function () {
 | Anchor | `.dp-wrap` | `position: relative` — the popover is anchored, never portalled |
 | Panel | `.dp-popover` | 280px single month · `--obsidian-900` · `--r-lg` · `--sh-3` · `--z-popover` |
 | Header | `.dp-header` `.dp-nav` `.dp-title` | Title is a **button** — it opens the year grid, `[data-mode="years"]` rotates its chevron |
-| Weekday row | `.dp-dow` | Mono, `--obsidian-500`, `aria-hidden` — the day buttons carry the accessible date |
+| Weekday row | `.dp-dow` | Label register,, `--obsidian-500`, `aria-hidden` — the day buttons carry the accessible date |
 | Day grid | `.dp-grid` `.dp-day` | 7 columns, 2px gap, 32px cells, tabular numerals |
 | Range | `.dp-range` `.dp-months` `.dp-month-title` | 580px, two months side by side; collapses to one month under 600px |
-| Presets | `.dp-presets` `.dp-preset` | 4 columns of mono-uppercase shortcuts; 2 columns under 600px |
+| Presets | `.dp-presets` `.dp-preset` | 4 columns of uppercase label shortcuts; 2 columns under 600px |
 | Year jump | `.dp-year-grid` `.dp-year` | 3 columns, 36px cells |
 | Footer | `.dp-footer` `.dp-today-btn` | Single "Today" affordance, right-aligned |
 
@@ -1845,7 +1844,7 @@ Transient, stacked, bottom-right. A toast is what an alert becomes when the mess
 | Region | `.toast-region` | One per document, `position: fixed`, `--z-toast`, `pointer-events: none` so it never blocks the page |
 | Toast | `.toast` | `--w-toast`, capped at the viewport minus `--s-8`; full width under 600px |
 | Variants | `.toast-success` `.toast-warn` `.toast-danger` | Left rule + icon, same discipline as § 3.16 |
-| Action | `.toast-action` | At most one. Mono-uppercase, `--primary-400` |
+| Action | `.toast-action` | At most one. Label register,-uppercase, `--primary-400` |
 
 **Rules.**
 - **Auto-dismiss is opt-in and bounded** (§ 6 floor #6). `data-autohide` is permitted only when the toast carries no action and is not `.toast-danger`; anything with an Undo or an error stays until dismissed. Hover and focus pause any countdown.
@@ -1894,7 +1893,7 @@ How far a task with a known end has come: a track, a fill and the value written 
 | Part | Class | Note |
 |---|---|---|
 | Progress | `.progress` | A row: label, track, value, gap `--s-4`. `.progress-sm` for the 4px bar |
-| Label | `.progress-label` | Mono `--t-micro` uppercase `--obsidian-300`; it names the bar |
+| Label | `.progress-label` | Label register, `--t-micro` uppercase `--obsidian-300`; it names the bar |
 | Track | `.progress-track` | `role="progressbar"`, 8px (`--s-2`) or 4px, `--obsidian-700`, `--r-full` |
 | Fill | `.progress-fill` | Width from `--value`, `--grad-progress`, `--sh-glow-soft` |
 | Value | `.progress-value` | `--t-small` `--obsidian-100`, tabular figures; the number is always written |
@@ -2249,7 +2248,7 @@ A modal anchored to a side of the screen: a menu or a piece of text, flush with 
 | Side | `.drawer-start` | On the start side; the default is the end |
 | Wide | `.drawer-wide` | 60ch plus the padding, for text with longer lines |
 | Head | `.drawer-head` `.drawer-title` | Title at `--t-h6`, weight 700, and the close: a small ghost icon button, its glyph on the content edge as in the Modal (§ Size › Inline symmetry) |
-| Body | `.drawer-body` `.drawer-label` | Scrolls on its own; the label names a group in mono, micro, uppercase |
+| Body | `.drawer-body` `.drawer-label` | Scrolls on its own; the label names a group in label, micro, uppercase |
 | Foot | `.drawer-foot` | Actions at the end over a hairline; absent in a menu |
 
 **Rules.**
@@ -2412,11 +2411,11 @@ The same bar lifted off the page, after the floating toolbar of Material 3 Expre
 - **States.** The item's, as on the flush bar: hover lightens the label, pressed dims it, the current page is `--primary-400` at 600, the ring is drawn inside the item.
 
 **Do / Don't.** Do keep the floating bar to five destinations with their labels, and leave the page room at its foot for the pill. Don't move the `nav` in the markup to place the pill, hide the pill on scroll, or put the action in the pill on a phone.
-- **Breadcrumb** in mono, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.29.
+- **Breadcrumb** in label, `--t-caption`, separators in `--obsidian-500`. Full spec: § 3.29.
 
 **Page top bar (v5.3.0, from the Page shell).** An organism of the Navigation: it paints, so it is not a rule.
 - `.topbar` — sticky chrome at `--z-sticky`; the scale's own row names pinned headers, so a literal here is a violation, not composition. The Bar material: `--surface-bar` under `--blur-bar`; hairline `--obsidian-800` below; padding `--s-4 --s-10`. It carries the breadcrumb (§ 3.29) on the left and `.topbar-actions` on the right.
-- `.topbar-actions` — mono `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
+- `.topbar-actions` — label `--t-micro` uppercase `--obsidian-300`. The `.kbd` chip: `--obsidian-850` on `--obsidian-700`, `--r-sm`, 3px × 6px padding (sub-`--s-1` composition, declared).
 
 ### Tabs
 
@@ -2555,7 +2554,7 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 ```
 
 **Rules.**
-- Mono uppercase `--t-caption` · `--tr-mono`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
+- Label register, uppercase `--t-caption` · `--tr-label`, gap `--s-2`. Crumbs `--obsidian-300`, `.sep` `--obsidian-500`, `.active` `--obsidian-100`.
 - In the shell topbar the crumbs are static labels — plain spans, no links. A breadcrumb that navigates wraps anchors in `<nav aria-label="Breadcrumb">` and marks the current page with `aria-current="page"`.
 - **A crumb that is a link** hovers `--obsidian-100`, presses `--obsidian-400` and takes the pressable ring; the current page stays a `span`.
 - ≤480px: only `.active` survives — crumbs and separators hide, and the register drops to `--t-micro`.
@@ -2667,7 +2666,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 | List | `.stepper-list` | An `ol`: the order is the meaning |
 | Step | `.stepper-step` | Upcoming by default; `.is-done`; the current one carries `aria-current="step"`. `--i` is its index, for the reveal |
 | Dot | `.stepper-dot` | 24px (`--s-6`), the current one 32px (`--s-8`), a circle. Done: the `check` icon; otherwise the number |
-| Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta mono `--t-micro` uppercase |
+| Text | `.stepper-text` `.stepper-label` `.stepper-meta` | Label `--t-small`; meta label `--t-micro` uppercase |
 | Hidden word | `.stepper-sr-only` | "Completed: " and "Current: " for the screen reader; colour never carries the state alone |
 
 **Rules.**
@@ -2714,7 +2713,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 
 **Rules.**
 - Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
-- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Mono, `--t-micro`, `--obsidian-300`.
+- Every card carries a micro-header (`.card-meta`) with project code, date, or index. Label register,, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
 - **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, `--d-instant` apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
@@ -2733,7 +2732,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 </a>
 ```
 
-- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-050` (2.83 : 1, the ratified light label on primary, L9), mono `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
+- **Feature — `.card-feature`.** The one item a page leads with. Two columns, `--s-10` apart: `.card-feature-side` holds the media and its tags (`.card-feature-tags`, link Chips: each opens the list of its tag, and hovers); `.card-feature-body` holds micro-header and title (`h3`, `--t-h4`) on top, text, `.card-feature-time` and the one action in `.card-feature-foot` at the bottom. Surface `--obsidian-900`, border `--obsidian-800`, radius `--r-xl`, padding `--s-8`. Its **light**: a disc of `--primary-500` at 15%, blurred by `--blur-light`, behind the content from the top right corner, clipped by the card. An optional **tab** (`.card-feature-tab`) sits in the top left corner — `--primary-500`, label `--obsidian-050` (2.83 : 1, the ratified light label on primary, L9), label `--t-micro` uppercase, radius `--r-xl` on its free corner, the card's own, `--sh-glow`. Its action may be `.btn-primary`: the feature card is the page's primary act. Under `--bp-md` it is one column, padding `--s-5`.
 
 ```html
 <article class="card card-feature">
@@ -2913,7 +2912,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - `.chat-msg` — message row. Mod: `.chat-msg-bot` (left-aligned) or `.chat-msg-own` (right-aligned, `flex-direction: row-reverse`). Max-width 84% of stage.
 - `.chat-bubble` — the visible bubble. Uniform `--r-lg` (12) on all corners, **no tail**. Mod: `.chat-bubble-bot` (`--obsidian-800` fill, `--obsidian-100` text) or `.chat-bubble-own` (`--primary-700` fill, `--obsidian-050` text — 6.26:1).
 - `.chat-bubble-content` — the inner span that fades up `--d-instant` behind the container. Required for the two-stage entry.
-- `.chat-avatar` — 32 × 32, mono initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
+- `.chat-avatar` — 32 × 32, label initials. Only on the first bubble of a bot streak; subsequent bot bubbles get `.chat-avatar-spacer` (invisible 32px reservation) to keep the column aligned.
 - `.chat-meta` — sender + time row, only on the first bubble of a streak.
 - `.chat-stack` — column wrapper holding `.chat-meta` + `.chat-bubble`. On own bubbles `align-items: flex-end`.
 - `.chat-sr-only` — visually-hidden sender prefix inside every bubble (`"Amaca said: "` / `"You said: "` / `"Amaca sent a file: "`). The avatar streak-suppression rule means screen readers would otherwise lose sender identity on bot follow-ups.
@@ -2952,7 +2951,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 - Composer textareas need a persistent `aria-label` (e.g. "Message Amaca") — the placeholder is not a label (§ 6 floor #3).
 
 **Day separator:**
-- `.chat-day` — inserted between bubbles when the date changes. Mono label centered between two hairline rules. Use "Today", "Yesterday", or `DD MMM` for older.
+- `.chat-day` — inserted between bubbles when the date changes. Label centered between two hairline rules. Use "Today", "Yesterday", or `DD MMM` for older.
 
 **Accessibility:**
 - `.chat-stage-scroll` carries `role="log" aria-live="polite" aria-relevant="additions"`. New bubbles announce; the demo wrapper does not.
@@ -3023,13 +3022,13 @@ A token shown, not pressed. Eight forms: the inline marker beside the word that 
 | Inline hex | `.swatch` `.swatch-hex` | the inline Swatch as a regular pointy-top hexagon, `--s-3` high and 0.866 of that wide, no edge: the legend of a map, whose cells are hexes |
 | Tile | `.swatch-tile` | `--obsidian-900` with a 1px `--obsidian-800` edge, `--r-md` |
 | Fill | `.swatch-tile-fill` | `--s-24` high, fill from `--sw`, inset bottom edge of `--border-input` |
-| Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · mono `--t-caption` `--obsidian-200` · mono `--t-micro` uppercase `--obsidian-300` |
+| Name · hex · role | `.swatch-tile-name` `.swatch-tile-hex` `.swatch-tile-role` | `--t-small` 600 `--obsidian-100` · label `--t-caption` `--obsidian-200` · label `--t-micro` uppercase `--obsidian-300` |
 | Type tile | `.swatch-tile-type` `.swatch-list` `.swatch-type-sample` | horizontal: the sample in its `.ty-*` class at full size on `--obsidian-950`, one line, cropped at the end; a 1px `--border-input` divider; then name, token, size / leading / tracking and role · weight. Under `--bp-md` the specs drop below the sample |
 | Space tile | `.swatch-tile-space` `.swatch-space-bar` | horizontal, in a `.swatch-list`: a `--primary-500` bar `--s-4` high and `--sw-s` long (`var()` of a spacing token), 1:1, on a 4px grid of `--obsidian-800` hairlines; a divider; name, token, px on one line |
 | Radius tile | `.swatch-tile-radius` `.swatch-tile-shape` | the same tile; a `--obsidian-800` shape with a 1px `--obsidian-400` edge at the radius of `--sw-r` (`var()` of a radius token), 1:1 |
 | Shadow tile | `.swatch-tile-shadow` `.swatch-tile-surface` | the same tile; a `--obsidian-850` surface, `--r-md`, on a `--obsidian-900` section ground, with the shadow or ring of `--sw-sh` (`var()` of a `--sh-*` or `--ring-*` token). On the page ground (`--obsidian-950`) levels 1 to 4 read alike: elevation here is tonal |
 | Motion tile | `.swatch-tile-motion` | the same tile; the fill is `--obsidian-950` and holds the plot. `--e` and `--d` are `var()` of an easing and a duration |
-| Plot | `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` | square, time across and position up (CSS Easing L1); curve 2px `--primary-300`, axes `--obsidian-400`, guides dashed `--obsidian-700`, ticks mono `--t-micro` `--obsidian-300` |
+| Plot | `.swatch-tile-plot` `.swatch-tile-curve` `.swatch-tile-axis` `.swatch-tile-guide` `.swatch-tile-tick` | square, time across and position up (CSS Easing L1); curve 2px `--primary-300`, axes `--obsidian-400`, guides dashed `--obsidian-700`, ticks label `--t-micro` `--obsidian-300` |
 | Movers | `.swatch-tile-time` `.swatch-tile-pos` `.swatch-tile-level` `.swatch-tile-rail` `.swatch-tile-rise` `.swatch-tile-ball` | the dot (`--s-2`) on the curve, a dashed `--obsidian-400` level, the ball (`--s-3`, `--primary-500`) on a `--obsidian-900` rail at the right |
 | Icon tile | `.swatch-tile-icon` `.swatch-tile-zoom` `.swatch-tile-glyph` `.swatch-tile-sizes` | the same tile; the album drawing 4× (`--s-16`) in `--primary-300` on its 16 grid (`--obsidian-700`), the 14 live area dashed `--obsidian-400`; then the drawing at 16 and 24 |
 
@@ -3186,7 +3185,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Body | `.list-body` `.list-title` `.list-meta` | The text: a title and an optional meta line (`--t-caption`, `--obsidian-300`) |
 | End | `.list-end` | Badge, action or chevron, pushed to the right edge, gap `--s-2` |
 | Summary | `.list-summary` | A `dl` of rows, each a `div` of `dt` and `dd`; three columns that line up from one row to the next (key · value · `--s-20` of actions). Stacks under 720px (`--bp-md`) |
-| Key | `.list-key` | The label, in the mono register of `.label` (`--t-micro`, uppercase, `--obsidian-300`) |
+| Key | `.list-key` | The label, in the label register of `.label` (`--t-micro`, uppercase, `--obsidian-300`) |
 | Value | `.list-value` | The fact, `--t-small`, `--obsidian-100` |
 | Actions | `.list-actions` | One short action at the right edge, or the empty `dd` so the columns hold |
 
@@ -3244,10 +3243,10 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Part | Treatment |
 |---|---|
 | Frame | `1px solid --obsidian-800`, `--r-md`, `overflow: hidden` so the radius clips the first and last rows |
-| Header (`th`) | Mono, 10px, `--tr-mono`, uppercase, `--obsidian-300` on `--obsidian-850`, weight 500 |
+| Header (`th`) | Label register,, 10px, `--tr-label`, uppercase, `--obsidian-300` on `--obsidian-850`, weight 500 |
 | Cell (`td`) | 13px, `--obsidian-100` (the table says it, the page around it does not), left-aligned, padding `--s-3 --s-4` |
 | Row rule | `1px solid --obsidian-800`; the last row drops it |
-| Inline code | `.table code` — mono 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
+| Inline code | `.table code` — label 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
 | Secondary cell | `.muted` — `--obsidian-300` |
 | Sort button | `.table-sort` — a `<button>` that fills its header cell, label then icon at 14 (`.icon-xs`), gap `--s-2`; it carries both drawings, `.table-sort-asc` and `.table-sort-desc`, and the header shows one |
 | Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--obsidian-200`; one per table |
@@ -3256,7 +3255,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 **Rules.**
 - No zebra striping. The row rule carries the scan; a second device would double the noise.
 - Left-align everything, including numbers, unless the column is a pure quantity — then use `font-variant-numeric: tabular-nums` and align right.
-- The header is a label, not a heading: mono-uppercase, same register as `.label` (§ 3.10).
+- The header is a label, not a heading: uppercase label, same register as `.label` (§ 3.10).
 - A table wider than its container scrolls in a wrapper, `.table-scroll` (`overflow-x: auto`) — never shrink the type to fit.
 - Tables are content, not chrome: a row has no state. **A row that is a link** holds one `.table-row-link`, the anchor in its first cell, whose hit area covers the row: the row then hovers `--obsidian-850`, presses `--obsidian-800` and takes the pressable ring. One link per row and nothing else pressable in it: a second target would sit under the first.
 - **Sorting: one driver (RIGID).** A column that sorts holds a `.table-sort` button in its header. One header drives the order and carries `aria-sort`; it sits a step lighter and shows its direction. Every other sortable header shows `sort-ascending`, the order its first click gives.
@@ -3296,9 +3295,9 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 ```
 
 - The card ramp (§ 3.32): `--obsidian-800` on `--obsidian-700`, `--r-lg`, padding `--s-6`. Not interactive — no hover row, no shadow.
-- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` mono `--t-caption` uppercase `--obsidian-300`.
+- `.chart-head` — a baseline-aligned pair, gap `--s-4`, `margin-bottom: --s-5`; the title side wraps, a badge on the other side does not: title `.t` at `--t-body` 600, source tag `.s` label `--t-caption` uppercase `--obsidian-300`.
 - `.chart-big` — `--t-h2`, 700, `--lh-tight`, `--tr-tight`, tabular figures so a count-up does not shift its width. `.accent` clips `--grad-signal` into the digits: the one accent surface a stat card may spend (85/10/5).
-- `.chart-delta` — mono `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
+- `.chart-delta` — label `--t-caption`; `--success`, or `--danger` with `.neg`. The sign carries the direction — colour never carries it alone (§ 6 floor #1).
 - `.chart-legend` — under the plot of any chart with two or more series: one item per series, a Swatch (§ 3.36) before the name, `--t-small` `--obsidian-200`, gap `--s-4` between items and `--s-2` inside one. A single series has no legend: the title names it. A highlighted value is written on the mark, never given a colour of its own.
 - **Data palettes.** Two, closed, every colour a token, never a hex. *Sequential* (magnitude): `--primary-700` `--primary-600` `--primary-500` `--primary-300` `--primary-200`, low to high, one step per band; a bar coloured by its value takes the step of its band. *Categorical* (identity), in this order and never cycled: `--primary-500` `--success` `--info` `--warning` `--danger` `--obsidian-200`. Measured on `--obsidian-800`: every pair of neighbours at ΔE ≥ 15 under simulated protanopia and deuteranopia and ≥ 19 with full colour vision (OKLab ×100); moving `--info` after `--danger` drops a pair to 11. The categorical set borrows the semantic hues: in a chart they name series, so no colour in the same view may also stand for a state (L1).
 - **Stat count-up is RIGID**: a numeric stat composes from zero to its target riding `--d-draw` · `--ease-decel` and lands exactly on the final value; under reduced motion it jumps straight to it. The duration is read off `:root` at run time, never re-typed (§ Code conventions).
@@ -3314,13 +3313,13 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 |---|---|---|
 | Canvas | `svg[data-fade-chart]` · `.chart-plot-lg` / `.chart-plot-sm` | `--primary-950` wash, larger than what it draws by the same margin on all four sides (24 on the wide drawing, 16 on the small one, measured on the bounding box of labels, lines and points), so no label sits on its edge; enters with the card, opacity and 16px rise on `--d-scene` · `--ease-decel` |
 | Grid | a `<g>` of lines | `--border-subtle`; no hook, it does not move |
-| Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` mono, `--tr-mono`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
+| Axis labels | `.chart-label` `.chart-label-axis` | HTML over the drawing, placed in % of the viewBox: `--t-caption` label, `--tr-label`, `--obsidian-200` (10.52 : 1 on the canvas); the drawing scales, the label does not; no hook |
 | Baseline | `[data-line-baseline]` inside a clip `[data-baseline-clip]` | `--obsidian-400`, dashed 3 3; the clip's width opens left to right |
 | Line | `path[data-line-draw]` | 2.5, `--primary-200` → `--primary-500` → `--primary-600`; drawn by `stroke-dashoffset` |
 | Area | `path[data-area-fade]` | `--primary-500` → `--primary-950`, fading to 0; opacity |
 | Points | `[data-line-dots]` · `[data-dot]` with `data-r` | `--primary-500`; the radius grows to `data-r`, 6 on the 700 viewBox: 18px on a desktop card, halfway between the line's weight and the 24px done step of the Stepper |
 | Bars | `[data-bar-h]` · `[data-bar-v]` · `[data-bar-label]` | grow from the origin; a horizontal bar's value is a `.chart-label-value` (`--obsidian-100`) whose `left` rides the bar's end and counts up; a column's peak value is a `.chart-label-center` |
-| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` mono uppercase `--obsidian-300` |
+| Donut | `[data-pie-slice]` · `[data-pct-count]` · `[data-pie-total]` | slices sweep in order; legend and total count up with them; the centre is HTML over the ring: `.pie-total` `--t-h4` 700 `--tr-tight`, `.pie-caption` `--t-micro` label uppercase `--obsidian-300` |
 
 **Rules.**
 - **Text is HTML, never inside the svg (RIGID).** Every label of a plot (axes, values, a donut's centre) is an element over the drawing, positioned in % of its viewBox and sized by a token, so it reads the same at every width. A `<text>` inside a plot scales with the drawing and is never a token: 10 units were 14px on a desktop card and 4px on a phone.
@@ -3376,7 +3375,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 - `.pie-wrap` — two equal columns, gap `--s-6`, chart beside its legend; one column and `--s-5` at ≤720px.
 - `.pie` — fluid to 220px (geometry), centered. `role="img"` with one accessible name. Slice and track colours come from the palette as `var()` styles — pasted hex drifts the moment a token moves, in data exactly as in chrome (§ 3.44).
 - `.pie-legend` — the labelling. Rows: `--obsidian-850` on `--obsidian-800`, `--r-md`, padding `--s-2 --s-3`, gap `--s-3`. Hover lifts border and surface one ramp step — a scan affordance; the rows are not interactive and take no focus.
-- `.swatch` — the Swatch (§ 3.36), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` mono `--t-caption` `--obsidian-300`.
+- `.swatch` — the Swatch (§ 3.36), inline, the label names it · `.lbl` `--t-small` `--obsidian-100` · `.pct` label `--t-caption` `--obsidian-300`.
 - Colour never carries a slice alone: every slice has its legend row, and the percentages are text that counts up in lockstep with the slices on `--d-slow` (the Plot motion, § 3.40) (§ 6 floor #1).
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -3420,11 +3419,11 @@ A gantt: workstreams on one shared time axis, so overlap and sequence read at a 
 | Scroll | `.timeline-scroll` | scrolls sideways under the width the lanes need; nothing shrinks |
 | Plot | `.chart-plot` `.timeline-plot` | at least `--s-32` × 5 (640px); canvas `--primary-950`, the same margin left and right, and top and bottom |
 | Grid | a `<g>` of lines | `--border-subtle`, one line every two weeks; it does not move |
-| Axes | `.chart-label-axis` `.chart-label-center` · `.chart-label-end` | weeks above, dates below, `--t-caption` mono `--obsidian-200`; the last date ends on the last gridline |
-| Lane label | `.timeline-lane` · `.timeline-meta` | `--t-small` 500 `--obsidian-100`; the meta `--t-micro` mono uppercase `--obsidian-200` |
+| Axes | `.chart-label-axis` `.chart-label-center` · `.chart-label-end` | weeks above, dates below, `--t-caption` label `--obsidian-200`; the last date ends on the last gridline |
+| Lane label | `.timeline-lane` · `.timeline-meta` | `--t-small` 500 `--obsidian-100`; the meta `--t-micro` label uppercase `--obsidian-200` |
 | Bar | `rect[data-bar-h]` | a gradient of the sequential palette (`gantt-bar-1` `-2` `-3`), radius 4 on the 700 viewBox; grows from its start |
 | Bar label | `.timeline-bar-label` · `.timeline-bar-label-dark` | `--t-micro` 700: `--primary-950` on the light bars, `--primary-100` on the dark ones |
-| Today | a dashed line · `.timeline-today` | `--primary-200` dashed 3 3; the pill is HTML, `--t-micro` mono uppercase on `--primary-200`, `--r-xs` |
+| Today | a dashed line · `.timeline-today` | `--primary-200` dashed 3 3; the pill is HTML, `--t-micro` label uppercase on `--primary-200`, `--r-xs` |
 
 - **Text is HTML, never inside the svg (RIGID)**: the § 3.40 rule, unchanged. Labels centre with the `translate` property, so the entrance reveal's `transform` adds to it instead of replacing it.
 - **Scroll, don't shrink.** Under 640px the plot keeps its size and the reader scrolls it sideways. A lane label smaller than its token is a defect.
@@ -3534,7 +3533,7 @@ flowchart TD
 **Required classes:**
 - `.diagram` — figure shell: `--obsidian-900` surface, `1px --obsidian-700` border, `--r-lg`, `--s-6` padding. Carries `data-anim` for the entrance state.
 - `.diagram-canvas` — render target. Owns the single accessible name: `role="img"` + a descriptive `aria-label`; the library injects the SVG here and the rendered `<svg>` is set `aria-hidden` so the figure is announced once. The source lives in a `<template class="diagram-src">` until render — raw text never paints.
-- `.diagram-caption` — mono micro, `--t-micro`, `--obsidian-300`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
+- `.diagram-caption` — label micro, `--t-micro`, `--obsidian-300`, `FIG-NN · title`, echoes `.card-meta`. The index `.num` tints `--primary-400`.
 - `.diagram-legend` — optional, only on semantic-state diagrams. Each row pairs a shape swatch + a written label — color never carries meaning alone (§ 6 #1).
 
 **Theming — no hardcoded hex:**
@@ -3603,7 +3602,7 @@ Slide decks on the system. A fixed **1920×1080** canvas authored at full size a
 - Auto-advance → never (accessibility floor #6).
 
 
-**Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = mono + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
+**Anatomy.** `.slide-frame` (the 16:9 viewport) wraps a `.slide` (the canvas). Shared chrome: `.slide-brand` (logo mark + wordmark, top-left), `.slide-foot` (section label + page number — the `pg b` is the magenta moment), `.slide-body` (centered content). The slide carries its own oversized projection type (`.slide-title`, `.slide-eyebrow` = label + magenta rule, `.slide-copy`); still token-spaced, never hardcoded outside the slide scale.
 
 **Eight layouts** — a single `.slide` + a modifier:
 - `.slide--cover` — opening; big title (one `.accent` word on the signal gradient) + `.slide-lead`.
@@ -3697,15 +3696,15 @@ The starting frame for a project told as a story. It composes the system's compo
 | Part | Class | Treatment |
 |---|---|---|
 | Back | `.btn.btn-floating` | § 3.6 floating button, first in the page, so it floats over the hero and stays at hand while the story scrolls |
-| Hero | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (mono, `--primary-400`), title `--t-h2` 500, lede `--t-h6` `--obsidian-200`. The animated mark on the right scales with the hero: a placeholder for the project's own object (a render, a 3D scene) |
-| Hero meta | `.cs-meta` | Reading time and tags under the lede; label mono `--t-micro` `--obsidian-300`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
+| Hero | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` | `--obsidian-900` under a magenta fog, `1px` `--obsidian-800`, `--r-xl`; eyebrow (label, `--primary-400`), title `--t-h2` 500, lede `--t-h6` `--obsidian-200`. The animated mark on the right scales with the hero: a placeholder for the project's own object (a render, a 3D scene) |
+| Hero meta | `.cs-meta` | Reading time and tags under the lede; label `--t-micro` `--obsidian-300`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
 | Dossier | `.cs-dossier` | A `<dl>` of the project's facts in four columns (two under 900px): role, team, platform, outcome; a missing fact is left out |
 | Section | `.cs-section` `.cs-section-title` `.cs-section-body` | One centred column of 36em at the `--t-h6` body (about 65 characters a line) for eyebrow, title, text and figures. Numbered eyebrow with a magenta rule, title `--t-h3` 400, text `--t-h6` at `--lh-loose` in `--obsidian-100`; under 720px title `--t-h4`, text `--t-lead` |
 | Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
-| Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in mono, centred |
+| Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in label, centred |
 | Points | `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` | A dot on the title's line, title `--t-h6` 700, the text under it, a Divider (§ 3.34) between points |
 | Outcome | `.cs-stats` + Chart card stats | The stat of § Chart card, before the text: each `<li>` is a `.chart-card` with `.chart-head` `.t`, `.chart-big` counting up on entry and `.chart-delta`. One `.accent` at most, on the headline result; the rest stay `--obsidian-100`. Inside the reading column the card restates `--t-body` / `--lh-normal`, so it reads as it does in § 44. Three share a row; two or four go two by two; one column under 480px |
-| Note | `.cs-note` `.cs-note-label` | The closing note of the Reflection (confidentiality, a source): a `--obsidian-700` rule, a mono label, `--t-small` `--obsidian-300` |
+| Note | `.cs-note` `.cs-note-label` | The closing note of the Reflection (confidentiality, a source): a `--obsidian-700` rule, a label, `--t-small` `--obsidian-300` |
 | More cases | `.cs-more` `.cs-more-grid` `.cs-card*` | `--s-16` above; three project Cards as wide as the hero, each one link: period, picture, title, lede, tags as Chips |
 
 | Trigger | Property (type) | Motion | Reduced motion |
@@ -4114,7 +4113,7 @@ The floor admits one documented exception pair, on three selectors. The state in
 
 **`.badge-solid` — the same pair, the same grounds (ratified v4.3.0).** The solid badge has always drawn `--obsidian-050` on `--primary-500`; the contract now says so. Bounds: one solid badge per viewport (§ 3.14), a text label that carries the meaning on its own, weight 500, fill bounded to `--primary-500`. The APCA evidence and the compliance mode below apply to it as they do to the button.
 
-**`.card-feature-tab` — the same pair, the same grounds (ratified v5.0.0).** The tab of the feature card names what the card is ("Latest project"): a label, not an action, read with the card's title beside it. Bounds: one feature card per page, so one tab; mono `--t-micro` 700 uppercase, the weight the solid badge's bounds ask for; the fill bounded to `--primary-500`.
+**`.card-feature-tab` — the same pair, the same grounds (ratified v5.0.0).** The tab of the feature card names what the card is ("Latest project"): a label, not an action, read with the card's title beside it. Bounds: one feature card per page, so one tab; label `--t-micro` 700 uppercase, the weight the solid badge's bounds ask for; the fill bounded to `--primary-500`.
 
 **APCA evidence (measured 2026-06-12).** Under APCA — the WCAG 3 candidate contrast method — the ranking inverts: `--obsidian-050` on `--primary-500` scores **Lc 55.8**, while `--obsidian-950` scores **Lc 47.4**. The perceptual model rates the light label *more* readable than the dark one on this fill. WCAG 2.x's luminance ratio is a known under-estimator for light text on saturated mid-tone fills (the "orange button" failure mode); this exception encodes what the future standard already measures. Weight is part of the same evidence: APCA rewards heavier strokes, and a 700 label would clear a lower bar still — evaluated 2026-06-12 and declined on voice grounds (§ 3.6). Medium 500 is the ratified weight.
 

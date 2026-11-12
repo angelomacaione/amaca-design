@@ -220,10 +220,12 @@ def c03():
     return sorted(set(fails))
 
 
-@check("04", "The mono register is the token, never a real monospaced stack",
+@check("04", "Labels are a register of the text typeface: no font token of their own, no monospaced stack",
        "v3.4.0: --font-mono was a byte-for-byte copy of --font-sans while the "
        "spec and the DTCG file declared ui-monospace. Two typographic "
-       "identities ran side by side for three releases.")
+       "identities ran side by side for three releases. v6.0.0: the name itself "
+       "promised a monospaced typeface the system never had, so --font-mono goes "
+       "and --tr-mono becomes --tr-label. Changelogs keep the old names.")
 def c04():
     fails = []
     if "ui-monospace" in read(COMPONENTS):
@@ -231,21 +233,36 @@ def c04():
     for style in inline_styles(read(INDEX)):
         if "ui-monospace" in style:
             fails.append("index.html inline: hardcoded monospaced stack")
-    m = re.search(r"--font-mono:\s*(.+?);", read(TOKENS))
-    fm = m.group(1).strip() if m else ""
-    fr = re.search(r"^\s*font-mono:\s*(.+)$", read(DESIGN), re.M)
-    if fr and fm:
-        want = [w.strip().strip('"') for w in fr.group(1).strip().strip('"').split(",")]
-        got = [w.strip().strip('"') for w in fm.split(",")]
-        if want != got:
-            fails.append(f"tokens.css --font-mono != DESIGN.md frontmatter\n"
-                         f"    css:  {', '.join(got)}\n    spec: {', '.join(want)}")
+    old = re.compile(r"--font-mono|--tr-mono\b|--tracking-mono\b|\bty-mono\b|\blaw-pct-mono\b|^\s*font-mono:", re.M)
+    def live(p):
+        t = read(p)
+        if p == DESIGN:
+            i = t.find("\n## Changelog")
+            t = t[:i] if i >= 0 else t
+        if p == INDEX:
+            i = t.find('<section class="section" id="changelog">')
+            if i >= 0:
+                t = t[:i] + t[t.find("</section>", i):]
+        return t
+    # Tailwind's own font-mono utility is pointed at the text typeface in theme.css,
+    # so a utility class cannot bring a monospaced stack back: the one allowed line.
+    allowed = "  --font-mono: var(--font-sans);"
+    files = [DESIGN, TOKENS, COMPONENTS, THEME, INDEX, LLMS_FULL] + sorted((ROOT / "downloads").glob("**/*.md")) + sorted((ROOT / "downloads").glob("**/*.mdc"))
+    for p in files:
+        if not p.exists():
+            continue
+        for n, line in enumerate(live(p).splitlines(), 1):
+            if old.search(line) and not (p == THEME and line.startswith(allowed)):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: old mono name")
+    if not re.search(r"--tr-label:\s*0\.06em;", read(TOKENS)):
+        fails.append("tokens.css: --tr-label is not declared at 0.06em")
     if DTCG.exists():
         d = json.loads(read(DTCG))
-        got = d.get("font-mono", {}).get("$value")
-        if got and fm and [g.strip() for g in got] != [w.strip().strip('"') for w in fm.split(",")]:
-            fails.append("tokens.dtcg.json font-mono != tokens.css --font-mono")
-    return sorted(set(fails))
+        if "font-mono" in d or "tr-mono" in d:
+            fails.append("tokens.dtcg.json still carries font-mono or tr-mono")
+        if d.get("tr-label", {}).get("$value") != "0.06em":
+            fails.append("tokens.dtcg.json: tr-label is not 0.06em")
+    return sorted(set(fails))[:40]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -2895,7 +2912,7 @@ def c66():
         if re.search(r'url\(#|opacity="', body):
             fails.append(f"#charts '{title}': a gradient or an opacity on a mark, use a step of the ramp")
     cat = cards.get("Categorical", "")
-    got = re.findall(r'background:var\(--([a-z0-9-]+)\);[^"]*"></div><div class="ty-mono"[^>]*>([^<]+)</div>', cat)
+    got = re.findall(r'background:var\(--([a-z0-9-]+)\);[^"]*"></div><div class="ty-label"[^>]*>([^<]+)</div>', cat)
     want = [(tok, name) for name, tok in CATEGORICAL]
     if got != want:
         fails.append(f"#charts Categorical: {got} ≠ {want}")
