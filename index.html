@@ -2020,9 +2020,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
   .slider-input::-webkit-slider-thumb, .slider-input::-moz-range-thumb{
     transition:none;
   }
-}
-.slider{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2));
 }</pre></div></div></div><!-- /kit:slider -->
         </div>
 
@@ -2302,11 +2299,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
 }
 .select-menu[hidden]{
   display:none;
-}
-:is(.select-menu{
-  position:fixed;
-  inset:auto;
-  margin:0;
 }
 .select-option{
   display:flex;
@@ -2594,11 +2586,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
   transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
   width:100%;
 }
-.tp-popover{
-  position:fixed;
-  inset:auto;
-  margin:0;
-}
 .input:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=&quot;true&quot;]){
   border-color:var(<b>--obsidian-300</b>);
 }
@@ -2783,17 +2770,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
   outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
   outline-offset:var(<b>--focus-offset</b>);
   box-shadow:var(<b>--ring-halo</b>);
-}
-.tp-popover{
-  display:block;
-}
-.tp-popover{
-  position:static;
-  margin-top:var(<b>--s-6</b>);
-  max-height:none;
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
 }</pre></div></div></div><!-- /kit:time-input -->
         </div>
 
@@ -2906,11 +2882,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
   outline:none;
   transition:all var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
   width:100%;
-}
-.dp-popover{
-  position:fixed;
-  inset:auto;
-  margin:0;
 }
 .input:hover:not(:focus):not(:disabled):not([readonly]):not([aria-invalid=&quot;true&quot;]){
   border-color:var(<b>--obsidian-300</b>);
@@ -3119,17 +3090,6 @@ the mark is an animated SVG, one vector file describing every rotation and every
   .dp-popover, .dp-day, .dp-nav, .dp-title, .input-action{
     transition:none;
   }
-}
-.dp-popover)[hidden]{
-  display:block;
-}
-.dp-popover){
-  position:static;
-  margin-top:var(<b>--s-6</b>);
-  max-height:none;
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
 }</pre></div></div></div><!-- /kit:date-picker -->
         </div>
 
@@ -3777,9 +3737,6 @@ button.chip:disabled{
 }
 .toast-success .toast-icon{
   color:var(<b>--success</b>);
-}
-.toast{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:toast -->
         </div>
 
@@ -3893,9 +3850,6 @@ button.chip:disabled{
     transform:none;
     transition:none;
   }
-}
-.progress{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2));
 }</pre></div></div></div><!-- /kit:progress -->
         </div>
 
@@ -4399,21 +4353,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 26.1</span></div>
           <p class="subsection-desc">The modal, open in place without its backdrop, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:modal --><div class="kit" data-kit="modal" data-kit-file="amaca-modal.html"><div class="kit-stage" inert><dialog class="modal" aria-labelledby="kit-modal-title"><div class="modal-head"><h2 class="modal-title" id="kit-modal-title">Publish the project?</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><p class="modal-body">The project and its 14 versions go live for every reader.</p><div class="modal-foot"><button class="btn btn-secondary btn-sm" type="button">Cancel</button><button class="btn btn-primary btn-sm" type="button">Publish</button></div></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-modal-anatomy-tab" aria-selected="true" aria-controls="kit-modal-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-modal-code-tab" aria-selected="false" aria-controls="kit-modal-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-modal-anatomy" aria-labelledby="kit-modal-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --bw-1 --obsidian-700 --r-lg --sh-4 --s-32 --s-6</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-body</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Foot</span><span class="kit-main">--s-2</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-quick --ease-accel<span class="kit-sub">open --ease-decel --d-base</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-modal-code" aria-labelledby="kit-modal-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;modal&quot; aria-labelledby=&quot;kit-modal-title&quot;&gt;&lt;div class=&quot;modal-head&quot;&gt;&lt;h2 class=&quot;modal-title&quot; id=&quot;kit-modal-title&quot;&gt;Publish the project?&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;p class=&quot;modal-body&quot;&gt;The project and its 14 versions go live for every reader.&lt;/p&gt;&lt;div class=&quot;modal-foot&quot;&gt;&lt;button class=&quot;btn btn-secondary btn-sm&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn-primary btn-sm&quot; type=&quot;button&quot;&gt;Publish&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">:is(.modal-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-10</b>)) / 2);
-}
-:is(.modal-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-8</b>)) / 2);
-}
-:is(.modal-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-12</b>)) / 2);
-}
-@media (pointer:coarse){
-  :is(.modal-head{
-    margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--target-touch</b>)) / 2);
-  }
-}
-.modal{
+          <!-- kit:modal --><div class="kit" data-kit="modal" data-kit-file="amaca-modal.html"><div class="kit-stage" inert><dialog class="modal" aria-labelledby="kit-modal-title"><div class="modal-head"><h2 class="modal-title" id="kit-modal-title">Publish the project?</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><p class="modal-body">The project and its 14 versions go live for every reader.</p><div class="modal-foot"><button class="btn btn-secondary btn-sm" type="button">Cancel</button><button class="btn btn-primary btn-sm" type="button">Publish</button></div></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-modal-anatomy-tab" aria-selected="true" aria-controls="kit-modal-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-modal-code-tab" aria-selected="false" aria-controls="kit-modal-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-modal-anatomy" aria-labelledby="kit-modal-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --bw-1 --obsidian-700 --r-lg --sh-4 --s-32 --s-6</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-body</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Foot</span><span class="kit-main">--s-2</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-quick --ease-accel<span class="kit-sub">open --ease-decel --d-base</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-modal-code" aria-labelledby="kit-modal-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;modal&quot; aria-labelledby=&quot;kit-modal-title&quot;&gt;&lt;div class=&quot;modal-head&quot;&gt;&lt;h2 class=&quot;modal-title&quot; id=&quot;kit-modal-title&quot;&gt;Publish the project?&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;p class=&quot;modal-body&quot;&gt;The project and its 14 versions go live for every reader.&lt;/p&gt;&lt;div class=&quot;modal-foot&quot;&gt;&lt;button class=&quot;btn btn-secondary btn-sm&quot; type=&quot;button&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn btn-primary btn-sm&quot; type=&quot;button&quot;&gt;Publish&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">.modal{
   width:calc(100% - var(<b>--s-8</b>));
   max-width:var(<b>--w-modal</b>);
   max-height:calc(100vh - var(<b>--s-8</b>));
@@ -4481,9 +4421,6 @@ button.chip:disabled{
   .modal::backdrop, .modal[open]::backdrop{
     transition:none;
   }
-}
-.modal{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:modal -->
         </div>
 
@@ -4625,18 +4562,6 @@ button.chip:disabled{
     transition:none;
     transform:none;
   }
-}
-.popover{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
-}
-.popover){
-  display:block;
-  position:static;
-  inset:auto;
-  translate:none;
-  margin:0;
-  opacity:1;
-  transform:none;
 }</pre></div></div></div><!-- /kit:popover -->
         </div>
 
@@ -4696,21 +4621,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 28.1</span></div>
           <p class="subsection-desc">The drawer, leaning on the right edge as it does on the page, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:drawer --><div class="kit" data-kit="drawer" data-kit-file="amaca-drawer.html"><div class="kit-stage kit-stage-right" inert><dialog class="drawer" aria-labelledby="kit-drawer-title"><div class="drawer-head"><h2 class="drawer-title" id="kit-drawer-title">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>Two new tokens, one renamed. The full list is below.</p></div><div class="drawer-foot"><button class="btn btn-secondary btn-sm" type="button">Close</button></div></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-drawer-anatomy-tab" aria-selected="true" aria-controls="kit-drawer-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-drawer-code-tab" aria-selected="false" aria-controls="kit-drawer-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-drawer-anatomy" aria-labelledby="kit-drawer-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --sh-3 --pad</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--pad --s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-body --pad --s-4</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Foot</span><span class="kit-main">--bw-1 --obsidian-700 --s-4 --pad --s-2</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-accel</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-drawer-code" aria-labelledby="kit-drawer-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;drawer&quot; aria-labelledby=&quot;kit-drawer-title&quot;&gt;&lt;div class=&quot;drawer-head&quot;&gt;&lt;h2 class=&quot;drawer-title&quot; id=&quot;kit-drawer-title&quot;&gt;Release notes&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;drawer-body&quot;&gt;&lt;p&gt;Two new tokens, one renamed. The full list is below.&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;drawer-foot&quot;&gt;&lt;button class=&quot;btn btn-secondary btn-sm&quot; type=&quot;button&quot;&gt;Close&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">.drawer-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-10</b>)) / 2);
-}
-.drawer-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-8</b>)) / 2);
-}
-.drawer-head{
-  margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--s-12</b>)) / 2);
-}
-@media (pointer:coarse){
-  .drawer-head{
-    margin-inline-end:calc((var(<b>--icon-sm</b>) - var(<b>--target-touch</b>)) / 2);
-  }
-}
-.drawer{
+          <!-- kit:drawer --><div class="kit" data-kit="drawer" data-kit-file="amaca-drawer.html"><div class="kit-stage kit-stage-right" inert><dialog class="drawer" aria-labelledby="kit-drawer-title"><div class="drawer-head"><h2 class="drawer-title" id="kit-drawer-title">Release notes</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button></div><div class="drawer-body"><p>Two new tokens, one renamed. The full list is below.</p></div><div class="drawer-foot"><button class="btn btn-secondary btn-sm" type="button">Close</button></div></dialog></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-drawer-anatomy-tab" aria-selected="true" aria-controls="kit-drawer-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-drawer-code-tab" aria-selected="false" aria-controls="kit-drawer-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-drawer-anatomy" aria-labelledby="kit-drawer-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Surface</span><span class="kit-main">--obsidian-800 --sh-3 --pad</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Head</span><span class="kit-main">--pad --s-4</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--t-h6 --lh-snug</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-body --pad --s-4</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Foot</span><span class="kit-main">--bw-1 --obsidian-700 --s-4 --pad --s-2</span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Backdrop</span><span class="kit-main">--scrim --blur-veil</span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-accel</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-drawer-code" aria-labelledby="kit-drawer-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;dialog class=&quot;drawer&quot; aria-labelledby=&quot;kit-drawer-title&quot;&gt;&lt;div class=&quot;drawer-head&quot;&gt;&lt;h2 class=&quot;drawer-title&quot; id=&quot;kit-drawer-title&quot;&gt;Release notes&lt;/h2&gt;&lt;button class=&quot;btn btn-ghost btn-sm btn-icon&quot; type=&quot;button&quot; aria-label=&quot;Close&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;drawer-body&quot;&gt;&lt;p&gt;Two new tokens, one renamed. The full list is below.&lt;/p&gt;&lt;/div&gt;&lt;div class=&quot;drawer-foot&quot;&gt;&lt;button class=&quot;btn btn-secondary btn-sm&quot; type=&quot;button&quot;&gt;Close&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</pre><pre class="kit-code" data-kit-part="css">.drawer{
   --pad:var(<b>--s-6</b>);
   position:fixed;
   inset:0 0 0 auto;
@@ -5321,9 +5232,6 @@ button.chip:disabled{
   .tab{
     white-space:nowrap;
   }
-}
-.tabs){
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:tabs -->
         </div>
 
@@ -6039,9 +5947,6 @@ button.chip:disabled{
   .card{
     padding:var(<b>--s-5</b>);
   }
-}
-.card{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:card -->
         </div>
 
@@ -6284,9 +6189,6 @@ button.chip:disabled{
   .acc-trigger, .acc-chevron, .acc-panel, .acc-panel-body, .acc-item{
     transition:none;
   }
-}
-.accordion{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:accordion -->
         </div>
 
@@ -6453,9 +6355,6 @@ button.chip:disabled{
   content:&quot;&quot;;
   flex:1;
   border-top:var(<b>--bw-1</b>) solid var(<b>--obsidian-700</b>);
-}
-.divider-label){
-  width:min(100%, calc(var(<b>--s-32</b>) * 2));
 }</pre></div></div></div><!-- /kit:divider -->
         </div>
 
@@ -7090,9 +6989,6 @@ a.list-item:focus-visible, button.list-item:focus-visible{
   a.list-item, button.list-item{
     transition:none;
   }
-}
-.list{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:list -->
         </div>
 
@@ -7200,9 +7096,6 @@ a.list-item:focus-visible, button.list-item:focus-visible{
   .table th, .table td{
     padding:var(<b>--s-2</b>) var(<b>--s-3</b>);
   }
-}
-.table{
-  width:min(100%, calc(var(<b>--s-32</b>) * 2.5));
 }</pre></div></div></div><!-- /kit:table -->
         </div>
 

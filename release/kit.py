@@ -279,10 +279,30 @@ def css_rules(text):
     return out
 
 
+def split_selectors(sel):
+    """The selectors of a list, split at its top-level commas only: a comma inside :is(), :where(),
+    :not() or :has() belongs to one selector. v6.0.0: a plain split(",") cut
+    `.kit-stage > :is(.alert, .card, …)` into pieces, and `.card` alone shipped the stage's width
+    to every card, `:is(.select-menu` and `.popover)` shipped as broken CSS."""
+    out, depth, cur = [], 0, ""
+    for ch in sel:
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        if ch == "," and depth == 0:
+            out.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    out.append(cur.strip())
+    return [s for s in out if s]
+
+
 def selected(sel, classes):
     """The selectors of a rule that draw only the kit's classes (descendants included)."""
     keep = []
-    for s in (x.strip() for x in sel.split(",")):
+    for s in split_selectors(sel):
         used = set(re.findall(r"\.([a-z0-9-]+)", s))
         if used and used <= classes and not s.startswith(("body", "html", ":root")) and not re.match(r"\[", s):
             keep.append(s)

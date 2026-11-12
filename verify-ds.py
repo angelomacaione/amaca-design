@@ -1467,6 +1467,57 @@ def c122():
         fails.append(f"index.html: severity badge \"{m.group(1)}\" in lowercase")
     return fails
 
+@check("123", "Every stylesheet the MCP server and the registry serve parses, and every selector in it is a whole selector of components.css",
+       "v6.0.0: the extractor split a selector list at every comma, parentheses included. "
+       "`.kit-stage > :is(.alert, .card, …)` came apart: `.card` alone shipped the site stage's width to every card "
+       "that copied it, `:is(.select-menu` and `.popover)` shipped as CSS a browser drops with everything after it. "
+       "get_component served them for five releases, and the site's own Code panels showed the same pieces.")
+def c123():
+    def split(sel):
+        out, depth, cur = [], 0, ""
+        for ch in sel:
+            depth += ch in "([" ; depth -= ch in ")]"
+            if ch == "," and depth == 0:
+                out.append(cur.strip()); cur = ""
+            else:
+                cur += ch
+        return [s for s in out + [cur.strip()] if s]
+    def rules(text):
+        text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        out, i = [], 0
+        while True:
+            j = text.find("{", i)
+            if j < 0:
+                break
+            head = " ".join(text[i:j].split())
+            depth, k = 1, j + 1
+            while depth and k < len(text):
+                depth += {"{": 1, "}": -1}.get(text[k], 0); k += 1
+            inner = text[j + 1:k - 1]
+            if head.startswith("@"):
+                if "{" in inner:
+                    out += [(head + " " + m, h, d) for m, h, d in rules(inner)]
+            else:
+                out.append(("", head, tuple(" ".join(x.split()) for x in inner.split(";") if x.strip())))
+            i = k
+        return out
+    whole = {(" ".join(m.split()), s, d) for m, h, d in rules(read(COMPONENTS)) for s in split(h)}
+    fails = []
+    for p in sorted((ROOT / "r").glob("*.json")):
+        for f in json.loads(read(p)).get("files", []):
+            if not f.get("path", "").endswith(".css") or p.name == "amaca-tokens.json":
+                continue
+            c = f.get("content", "")
+            if c.count("{") != c.count("}"):
+                fails.append(f"r/{p.name}: braces do not close")
+            for m, head, d in rules(c):
+                for s in split(head):
+                    if s.count("(") != s.count(")") or s.count("[") != s.count("]"):
+                        fails.append(f"r/{p.name}: broken selector {s[:60]}")
+                    elif (" ".join(m.split()), s, d) not in whole:
+                        fails.append(f"r/{p.name}: {s[:50]} {{{'; '.join(d)[:50]}}} is not a rule of components.css")
+    return sorted(set(fails))[:40]
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
