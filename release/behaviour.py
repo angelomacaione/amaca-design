@@ -15,6 +15,8 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
   B7  a field's value sits in its middle (the native select's value sat 2px high)
   B8  the Floating bar's strips and pages read like the Top navigation's: same height at every tab, the bar alone in
       its strip (the strip showed the page's cards under a pill, at another height)
+  B10 a download card holds still and whole: its two tabs keep one height, and no segment of its control overflows, at
+      1440, 800 and 390 (v6.0.0: two cards per row overflowed all thirteen controls by up to 28px)
   B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
       its size, also when a meta line wraps (v6.0.0: 1.7px off on the kit, 8.9px with a wrapped meta, the current dot
       shrunk from 32px to 26px)
@@ -295,12 +297,34 @@ def b9_stepper(b, fails):
         ctx.close()
 
 
+
+def b10_downloads(b, fails):
+    for w, h, tag in WIDTHS:
+        ctx, pg, _ = open_at(b, w, h, "documentation")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        pg.wait_for_timeout(300)
+        r = pg.evaluate("""() => { const cards = [...document.querySelectorAll('.dl-card')];
+          const hs = () => cards.map(c => Math.round(c.getBoundingClientRect().height));
+          const a = hs();
+          const over = cards.map(c => { const s = c.querySelector('.segmented'); return Math.max(s.scrollWidth - s.clientWidth, ...[...s.querySelectorAll('.segmented-item')].map(i => i.scrollWidth - i.clientWidth)); });
+          cards.forEach(c => c.querySelector('[aria-controls$="-in"]').click());
+          return { a, over, ids: cards.map(c => c.id) }; }""")
+        pg.wait_for_timeout(200)
+        after = pg.evaluate("() => [...document.querySelectorAll('.dl-card')].map(c => Math.round(c.getBoundingClientRect().height))")
+        for i, cid in enumerate(r["ids"]):
+            if r["over"][i] > 0:
+                fails.append(f"B10 {tag} #{cid}: the control overflows by {r['over'][i]}px")
+            if abs(r["a"][i] - after[i]) > 1:
+                fails.append(f"B10 {tag} #{cid}: {r['a'][i]}px on How to install, {after[i]}px on What's inside")
+        ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads)):
             if not only or name in only:
                 fn(b, fails)
         b.close()

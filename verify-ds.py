@@ -709,7 +709,7 @@ def c24():
         "theme.css": THEME,
         "tokens.dtcg.json": DTCG,
         "AGENTS.md": ROOT / "downloads" / "AGENTS.md",
-        "CLAUDE.md": ROOT / "downloads" / "CLAUDE.md",
+        "amaca.md": ROOT / "downloads" / "amaca.md",
         "AI-INSTRUCTIONS.md": ROOT / "downloads" / "AI-INSTRUCTIONS.md",
         "amaca-figma.md": ROOT / "downloads" / "amaca-figma.md",
         "amaca-frontend.skill": ROOT / "downloads" / "amaca-frontend.skill",
@@ -1073,7 +1073,7 @@ def c29():
 SNIPPET_FILES = [
     LLMS_FULL,
     ROOT / "downloads" / "AGENTS.md",
-    ROOT / "downloads" / "CLAUDE.md",
+    ROOT / "downloads" / "amaca.md",
     ROOT / "downloads" / "AI-INSTRUCTIONS.md",
     ROOT / "downloads" / ".cursor" / "rules" / "amaca-core.mdc",
     ROOT / "downloads" / ".cursor" / "rules" / "amaca-html.mdc",
@@ -1616,6 +1616,37 @@ def c127():
     r = subprocess.run([sys.executable, str(ROOT / "release" / "parts.py"), "--check"], capture_output=True, text=True)
     return [l for l in r.stdout.splitlines() if l.strip()] or ([] if r.returncode == 0 else [r.stderr.strip()[:200]])
 
+@check("128", "Every download card is its bundle: what it lists is in the zip, and every file its steps name is there or in the user's own repo",
+       "v6.0.0: § 03.1 told Windsurf, Aider and Continue users to drop files the IDE zip never carried, the Claude README "
+       "sent CLAUDE.md over the user's own and imported DESIGN.md whole, and the skill upload path had moved. The cards, "
+       "the zips and their READMEs are now written from one manifest (release/downloads.py); this check holds them to it "
+       "and reads every file name in an install step against the bundle.")
+def c128():
+    import importlib.util, io, zipfile
+    spec = importlib.util.spec_from_file_location("downloads", ROOT / "release" / "downloads.py")
+    dl = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(dl)
+    fails = []
+    import contextlib
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        rc = dl.main(["--check"])
+    if rc:
+        fails += [l for l in out.getvalue().splitlines() if l.strip()]
+    for b in dl.BUNDLES:
+        z = zipfile.ZipFile(ROOT / "downloads" / "zips" / b["zip"])
+        names = set(z.namelist())
+        bases = {n.rstrip("/").split("/")[-1] for n in names} | {n.split("/")[0] + "/" for n in names if "/" in n}
+        for step in b["steps"]:
+            for c in re.findall(r"<code>([^<]+)</code>", step):
+                c = c.strip()
+                if not re.search(r"\.(md|mdc|zip|css|json|skill)$|/$", c) or " " in c or c.startswith(("@", "http")):
+                    continue
+                if c in names or c in bases or c == b["zip"] or c in dl.USER_SIDE:
+                    continue
+                fails.append(f"{b['zip']}: a step names {c}, which the bundle does not carry")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
@@ -1828,7 +1859,7 @@ def c38():
             near.append((re.compile(core.replace(" ", "_")), name))
     files = [COMPONENTS, INDEX, LLMS_FULL]
     dl = ROOT / "downloads"
-    files += [dl / f for f in ("AGENTS.md", "CLAUDE.md", "AI-INSTRUCTIONS.md")]
+    files += [dl / f for f in ("AGENTS.md", "amaca.md", "AI-INSTRUCTIONS.md")]
     files += sorted((dl / ".cursor").rglob("*.mdc")) + sorted((dl / ".github").rglob("*.md"))
     skill = dl / "amaca-frontend.skill"
     texts = [((p.relative_to(ROOT).as_posix() if ROOT in p.parents else p.name), read(p))
@@ -3251,7 +3282,7 @@ def c69():
         if not e.startswith("--ease-") or not du.startswith("--d-"):
             fails.append(f"index.html § 06.1: a demo row types its curve or duration ({e}, {du}) instead of naming the token")
     texts = {"index.html": site, "DESIGN.md": d_body}
-    for name in ("README.md", "llms-full.txt", "llms.txt", "downloads/AGENTS.md", "downloads/CLAUDE.md",
+    for name in ("README.md", "llms-full.txt", "llms.txt", "downloads/AGENTS.md", "downloads/amaca.md",
                  "downloads/AI-INSTRUCTIONS.md", "downloads/.cursor/rules/amaca-core.mdc",
                  "downloads/.github/copilot-instructions.md"):
         pth = ROOT / name
@@ -4265,7 +4296,7 @@ def c104():
             fails.append(f"tool guide links {p}, which the repo does not hold")
     html = read(INDEX)
     a = html.find("<!-- 03.0 · Pick your tool")
-    b = html.find("§ 03.1", a)
+    b = html.find("<!-- 03.1 · Find your tool", a)
     zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
     # v5.2.0: the shadcn MCP route is no longer presented (one MCP, the remote one at /mcp,
     # decision of 2026-10-19: "2 mcp confondono"). The guide must not bring it back, and its
@@ -4280,20 +4311,6 @@ def c104():
     rows = [l for l in guide.splitlines() if l.startswith("- **")]
     if not rows or tg.MCP_SERVER not in rows[0]:
         fails.append("the tool guide's first row is not the remote MCP server")
-    a1 = html.find("§ 03.1")
-    b1 = html.find("§ 03.2", a1)
-    steps = {}
-    for li in re.findall(r'<li class="card doc-row".*?</li>', html[a1:b1], re.S):
-        m = re.search(r">(\d\d) ·", li)
-        if m:
-            steps[m.group(1)] = re.sub(r"<[^>]+>", "", li)
-    guide = tg.render()
-    for num, needs in tg.STEPS.items():
-        for need in needs:
-            if need not in steps.get(num, ""):
-                fails.append(f"index.html § 03.1 step {num} does not name {need}")
-            if need.endswith((".md", ".zip", ".skill", ".css")) and need not in guide:
-                fails.append(f"§ 03.1 step {num} recommends {need}; the tool guide never does")
     named = {Path(p).name for p in tg.paths()}
     for z in sorted(zips - named):
         fails.append(f"index.html § 03.0 offers {z}; the tool guide never recommends it")
@@ -4468,6 +4485,7 @@ def c110():
     flat = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
     # Slots and indents: one-sided inline padding that the rule allows, each with its reason.
     SLOT = [
+        (r"^\.dl-steps$", "an ordered list's marker gutter (site chrome, v6.0.0)"),
         (r"^\.select$", "the Select's chevron slot"),
         (r"^\.input-wrap:has\(> \.(icon|input-action)\) \.input$", "an Input's icon or action slot"),
         (r"(^|\s)(ul|ol|li)$|^\.page-rules$|^\.ai-rules$", "a list's bullet indent"),

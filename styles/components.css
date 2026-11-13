@@ -2840,6 +2840,35 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
   z-index:var(--z-sticky);
 }
 
+/* ─── Site chrome · Downloads (§ 03.0, v6.0.0) — one card per bundle, written by release/downloads.py ───
+   One card per row (two per row broke every segmented at 1440, by up to 28px). The card is wide: what the bundle is and its download on the left, a segmented How to install | What's inside on the
+   right. Both panels sit in one grid cell and the taller sets the height, as on the Anatomy | Code card, so switching
+   moves nothing. Under 860px the right column goes under the left. */
+.dl-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5)}
+.card.dl-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:var(--s-6);padding:var(--s-6)}
+.dl-main{display:flex;flex-direction:column;gap:var(--s-3);min-width:0}
+.dl-main > .btn{margin-top:auto;align-self:flex-start}
+.dl-eyebrow{font-size:var(--t-micro);letter-spacing:var(--tr-label);text-transform:uppercase;color:var(--primary-400)}
+.dl-title{font-size:var(--t-h6);margin:0;letter-spacing:var(--tr-snug);line-height:var(--lh-snug)}
+.dl-desc{color:var(--obsidian-300);line-height:var(--lh-loose);margin:0;font-size:var(--t-small)}
+.dl-side{position:relative;display:flex;flex-direction:column;gap:var(--s-4);min-width:0}
+.dl-side::before{content:"";position:absolute;inset-block:0;left:calc(-1 * var(--s-3));border-left:var(--bw-1) solid var(--obsidian-700)}
+.dl-panels{display:grid}
+.dl-panels > .segmented-panel{grid-area:1 / 1;min-width:0}
+.dl-panels > .segmented-panel[hidden]{display:block;visibility:hidden}
+.dl-steps{margin:0;padding-left:var(--s-5);display:flex;flex-direction:column;gap:var(--s-2);font-size:var(--t-small);color:var(--obsidian-300);line-height:var(--lh-normal)}
+.dl-steps b{color:var(--obsidian-100);font-weight:600}
+.dl-files{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s-1) var(--s-4);font-size:var(--t-caption);font-variant-numeric:tabular-nums}
+.dl-file{color:var(--obsidian-100);overflow-wrap:anywhere}
+.dl-size{color:var(--obsidian-300);text-align:right}
+.dl-tools{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(calc(var(--s-32) * 2),1fr));gap:var(--s-2) var(--s-6);font-size:var(--t-small)}
+.dl-tools li{display:flex;justify-content:space-between;gap:var(--s-3);padding:var(--s-2) 0;border-bottom:var(--bw-1) solid var(--obsidian-800)}
+.dl-tool{color:var(--obsidian-100)}
+@media (max-width: 720px){
+  .card.dl-card{grid-template-columns:minmax(0,1fr)}
+  .dl-side::before{inset-block:auto;top:calc(-1 * var(--s-3));left:0;right:0;border-left:0;border-top:var(--bw-1) solid var(--obsidian-700)}
+}
+
 /* ─── § 3.20 Skeleton — the shape of content that has not arrived ─── */
 .skeleton-stack{
   display:grid;

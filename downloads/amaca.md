@@ -1,7 +1,12 @@
-# CLAUDE.md — Amaca Design System
+---
+paths:
+  - "**/*.{css,scss,html,jsx,tsx,vue,svelte,astro}"
+---
 
-> Project memory for **Claude Code**. This repo uses the Amaca Design System. Follow these rules on every UI change.
-> **Full spec:** `@DESIGN.md` (import it for the complete tables + component specs) · **tokens:** `tokens.css` / `tokens.dtcg.json` · **home:** [amaca.design](https://amaca.design). On conflict, `DESIGN.md` wins.
+# amaca.md — Amaca Design System
+
+> Rules for **Claude Code**, loaded when Claude works on a UI file. Put this file in `.claude/rules/`, or add `@amaca.md` to your own CLAUDE.md: never replace your CLAUDE.md with it.
+> **Full spec:** `DESIGN.md`, in the repo. Do not import it (459 KB at every launch): read the section you need, or ask the Amaca MCP server (`get_component`, `get_design_section`). **Tokens:** `tokens.css` / `tokens.dtcg.json`. **Home:** [amaca.design](https://amaca.design). On conflict, `DESIGN.md` wins.
 
 Dark-first, single typeface (Satoshi), one brand accent (magenta) spent sparingly. **Reference every value as a token by name (`var(--token)`) — never hardcode a hex, px, or `cubic-bezier`.** Full token tables live in `tokens.css`; read them, don't restate them. If a value isn't on a scale, **stop and ask** — never extend the system silently.
 

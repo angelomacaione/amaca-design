@@ -82,7 +82,7 @@ rounded:
 > **Version** 5.3.0 — 2026.10.27
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
-> **Purpose** Single-file context. Paste the whole document into the model's system prompt, project rules file (`.cursor/rules`, `CLAUDE.md`, `.continuerules`, `.windsurfrules`), or repo root. Every output the model produces against this system should sound, look, and behave like the rest of the work.
+> **Purpose** The contract, read a section at a time: by an agent through the MCP server (`get_design_section`), by a rules file that points here, or by a person. Do not paste it whole into a rules file or import it into one: it is 459 KB, and a file a tool loads at every launch must stay short (§ IDE integration). Every output the model produces against this system should sound, look, and behave like the rest of the work.
 
 ---
 
@@ -615,7 +615,7 @@ Every component below maps 1:1 to a class in `styles/components.css`. **Reuse cl
 | Presentations | `.slide-*` `.deck-*` | canonical | § 3.45 — a template (Applied) |
 | Case study | `.cs-hero` `.cs-hero-title` `.cs-hero-lede` `.cs-meta` `.cs-dossier` `.cs-section` `.cs-section-title` `.cs-section-body` `.cs-pull` `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` `.cs-stats` `.cs-note` `.cs-note-label` `.cs-more` `.cs-more-grid` `.cs-card` `.cs-card-meta` `.cs-card-media` `.cs-card-title` `.cs-card-text` `.cs-card-tags` | canonical | § 3.46 — a page template: it composes Button, Chip, Lightbox, Divider and Card — a template (Applied) |
 | Empty state · File upload | — | off-system | Stop and ask |
-| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.states-row` `.state` `.state-cap` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
+| *Documentation-site chrome* | `.ty-*` `.law-*` `.subsection*` `.page-*` `.kit*` `.dl-*` `.navbar-demo*` `.do` `.dont` `.do-dont` `.usage*` `.states-row` `.state` `.state-cap` `.device-preview` `.device-preview-inner` `.ai-card` `.ai-card-lede` `.ai-rules` `.modal-demo*` `.drawer-demo*` `.grid-demo*` `.replay-btn` `.ruler-row` `.motion-row` `.focus-cap` `.focus-demo` `.focus-row` `.input-focus-demo` `.a11y-*` `.help` `.type-specimen` `.ai-card*` `.*-anatomy-*` `.chat-demo*` `.loader-comp*` `.loader-device*` `.loader-scale*` `.loader-variant*` `.edgeLabel` `.nodeLabel` | site-only | Not the contract. The doc-site colour swatch that held `.chip` until v4.1.0 is renamed `.swatch-chip` and falls under `.swatch*`; `.chip` is the § 3.15 component |
 
 **Reading the `css-only` rows.** They are a debt register, not a category. Each one names the release that clears it. A `css-only` row that outlives its milestone is a defect, not a state.
 
@@ -4274,7 +4274,7 @@ Push § 2 tokens to Figma Variables under the slash-namespace above. Bind every 
 ### Cursor / `.cursor/rules/` + `.agents/skills/`
 Three ways to wire Amaca into Cursor, and they compose.
 
-**Single-file** — drop `DESIGN.md` into `.cursor/rules/`; Cursor surfaces it on every request inside the project.
+**Not the whole spec** — dropping `DESIGN.md` into `.cursor/rules/` puts 459 KB in front of every request. The rules below point to it instead (v6.0.0).
 
 **Core + per-target** (the layout shipped in the IDE download since v3.1.0) — `amaca-core.mdc` (`alwaysApply: true`, always-in-scope token discipline + a11y floor) alongside the glob-scoped `amaca-html.mdc` (CSS/HTML) and `amaca-react.mdc` (JSX/TSX, Tailwind v4 `@theme`), so the heavy target rules attach only to the files they govern while the core stays loaded everywhere.
 
@@ -4284,20 +4284,23 @@ Three ways to wire Amaca into Cursor, and they compose.
 
 The three are additive, not alternatives. Note that Cursor's `/migrate-to-skills` converts only *dynamic* rules — `alwaysApply: false` with no `globs` — so neither shipped `.mdc` shape is affected: the core is `alwaysApply: true`, the target files carry `globs`. `.cursorrules` (single legacy file) is deprecated and no longer documented by Cursor; it is not shipped.
 
-### Claude Code / `CLAUDE.md`
-Either paste the contents into `CLAUDE.md` at repo root, or add a header that imports it: `@DESIGN.md`.
+### Claude Code / `.claude/rules/`
+Copy `amaca.md` (Claude bundle, `claude-code/`) into `.claude/rules/`: its `paths` frontmatter loads it when Claude works on a UI file. Or add `@amaca.md` to your own `CLAUDE.md`. Never replace your `CLAUDE.md` with it, and never `@DESIGN.md`: an import is loaded whole at every launch. Claude Code does not read `AGENTS.md`; `@AGENTS.md` in a `CLAUDE.md` brings it in. The plugin is the other route: `/plugin marketplace add angelomacaione/amaca-design`, then `/plugin install amaca-design@amaca` (v6.0.0, verified against code.claude.com/docs).
 
-### GitHub Copilot / `.github/copilot-instructions.md`
-Paste the contents directly. Copilot reads it as ambient guidance.
+### GitHub Copilot / `.github/`
+`.github/copilot-instructions.md` applies to the whole repository; `.github/instructions/*.instructions.md` apply to the files their `applyTo` globs match, and both are used together. Copilot also reads the nearest `AGENTS.md` (v6.0.0, verified against docs.github.com).
 
-### Continue / `.continuerules`
-Reference this file with `@DESIGN.md` in your `.continuerules` template.
+### `AGENTS.md`
+At the repository root, read by Codex, Copilot, Cursor and Devin. The nearest `AGENTS.md` to a file wins, so a copy in a subfolder governs only that folder: with an `AGENTS.md` of your own, paste Amaca's under its own `## Amaca` heading (v6.0.0, verified against agents.md).
 
-### Windsurf / `.windsurfrules`
-Same pattern: paste contents or reference via `@DESIGN.md`.
+### Continue / `.continue/rules/`
+Copy `amaca-core.mdc` into `.continue/rules/amaca.md`: Continue reads Markdown rules with `globs` and `alwaysApply` frontmatter from that folder (v6.0.0, verified against docs.continue.dev). `.continuerules` is not documented any more.
 
-### Aider / `CONVENTIONS.md`
-Aider reads `CONVENTIONS.md` automatically. Symlink or copy.
+### Devin · Windsurf
+Devin Local, which took Windsurf's place, reads `AGENTS.md` as an always-on rule, and still imports `.windsurf/rules/` as legacy. `AGENTS.md` is the route (v6.0.0, verified against docs.devin.ai).
+
+### Aider / `.aider.conf.yml`
+Aider reads a conventions file only when told to: `read: AGENTS.md` in `.aider.conf.yml`, `aider --read AGENTS.md`, or `/read AGENTS.md` in a chat (v6.0.0, verified against aider.chat).
 
 ### General prompt fragment
 
