@@ -15,6 +15,9 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
   B7  a field's value sits in its middle (the native select's value sat 2px high)
   B8  the Floating bar's strips and pages read like the Top navigation's: same height at every tab, the bar alone in
       its strip (the strip showed the page's cards under a pill, at another height)
+  B11 no text breaks out of its control or its card: a label clipped by its own box with no ellipsis, or a control that
+      runs past the panel it sits in, at 1440, 800 and 390 (v6.0.0: the download cards' segmented controls overflowed by
+      28px and nothing saw it)
   B10 a download card holds still and whole: its two tabs keep one height, and no segment of its control overflows, at
       1440, 800 and 390 (v6.0.0: two cards per row overflowed all thirteen controls by up to 28px)
   B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
@@ -319,12 +322,53 @@ def b10_downloads(b, fails):
         ctx.close()
 
 
+
+OVERFLOW = r"""(sid) => {
+  const out = [];
+  const sec = document.getElementById(sid);
+  if (!sec) return out;
+  const CONTROLS = '.btn,.segmented-item,.segmented,.tab,.chip,.badge,.select-trigger,.nav-item,.kit-label,.swatch-tile-name,.acc-label,.dl-title,.pagination a,.pagination button,.breadcrumb a,.stepper-label';
+  const name = e => (e.id ? '#' + e.id : '') + '.' + [...e.classList].slice(0, 2).join('.') + ' "' + (e.textContent || '').trim().slice(0, 30) + '"';
+  sec.querySelectorAll(CONTROLS).forEach(e => {
+    if (e.closest('.kit-stage,[hidden],.device-preview') || !e.offsetParent) return;
+    const cs = getComputedStyle(e);
+    // clipped by its own box: the text is wider than the box and the box hides it, with no ellipsis to say so
+    if (cs.overflowX !== 'visible' && cs.textOverflow !== 'ellipsis' && e.scrollWidth > e.clientWidth + 1)
+      out.push('clipped ' + (e.scrollWidth - e.clientWidth) + 'px: ' + name(e));
+    // spills past the panel it sits in
+    const host = e.matches('.segmented') ? e.closest('.card,.kit-panel') : (e.closest('.segmented') || e.closest('.card,.kit-panel'));
+    // inside a scroll container (a tablist on a phone) running past the edge is the design: the user scrolls to it
+    let scroller = false;
+    for (let p = e.parentElement; p && p !== host; p = p.parentElement) { const o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll') { scroller = true; break; } }
+    if (host && host !== e && !scroller) {
+      const r = e.getBoundingClientRect(), h = host.getBoundingClientRect();
+      const over = Math.max(r.right - h.right, h.left - r.left);
+      if (over > 1) out.push('spills ' + Math.round(over) + 'px past ' + host.className.split(' ')[0] + ': ' + name(e));
+    }
+  });
+  return [...new Set(out)];
+}"""
+
+
+def b11_overflow(b, fails):
+    for w, h, tag in WIDTHS:
+        ctx, pg, _ = open_at(b, w, h, "documentation")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        ids = pg.evaluate("() => [...document.querySelectorAll('.section')].map(s => s.id).filter(Boolean)")
+        for sid in ids:
+            pg.evaluate("(sid) => { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(sid).classList.add('active'); }", sid)
+            pg.wait_for_timeout(120)
+            for f in pg.evaluate(OVERFLOW, sid):
+                fails.append(f"B11 {tag} {sid}: {f}")
+        ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow)):
             if not only or name in only:
                 fn(b, fails)
         b.close()

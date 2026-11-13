@@ -4326,7 +4326,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
 4. `llms-full.txt` version line (`Version: X.Y.Z · Released: YYYY-MM-DD`).
 5. **Every edited stylesheet gets a new cache key.** After the last edit to `styles/*.css`, run `python3 release/release.py bust`: it writes each file's content hash as its `?v` in the site's HTML, and check 40 refuses a stale one. v4.2.0 shipped both stylesheets under the v4.1.0 keys and erased the focus rings for returning visitors.
-6. Re-bake every download bundle that embeds a changed file (`DESIGN.md` copies live in the amaca-frontend zip/skill and the agents, claude, ide, stitch zips; CSS copies in react-css, tailwind, ide, agents; `tokens.dtcg.json` lives in the dtcg zip and moves with `tokens.css` — regenerated, never hand-edited).
+6. Re-bake the skill and the plugin first (`amaca-frontend.skill`, then `downloads/build-plugin-bundle.sh`), then run `python3 release/downloads.py`: it writes every other bundle, its README, the site's download cards and `SHA256SUMS` from one manifest (v6.0.0). Never edit a zip by hand; `tokens.dtcg.json` moves with `tokens.css`.
 7. Ship relevant DS changes into the skills in the same release (amaca-frontend targets, /amaca-figma).
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 

@@ -765,7 +765,7 @@ def c24():
     # file is a promise like any other stamp, and stamps drift.
     sums = ROOT / "downloads" / "zips" / "SHA256SUMS"
     if not sums.exists():
-        fails.append("downloads/zips/SHA256SUMS: missing — run downloads/refresh-bundles.sh")
+        fails.append("downloads/zips/SHA256SUMS: missing — run python3 release/downloads.py")
     else:
         listed = {}
         for line in read(sums).splitlines():

@@ -258,9 +258,31 @@ def replace(text, start, end, new):
     return text[:i] + new + text[j:]
 
 
+def folder_readme():
+    """downloads/README.md: the same cards, for someone browsing the folder on GitHub."""
+    lines = ["# Amaca — downloads", "",
+             "Amaca, packaged as rules your AI tools follow. One bundle per tool in `zips/`, each with the file, the tokens or "
+             "the spec it needs, and a README. Every bundle is token-only: it makes an AI reference the tokens by name instead "
+             "of inventing values. On conflict, [`DESIGN.md`](../DESIGN.md) wins. MIT.", "",
+             "This file, the zips and the cards on [amaca.design](https://amaca.design/#documentation) are written by "
+             "`release/downloads.py` from one manifest: edit the manifest, never a zip.", ""]
+    for b in BUNDLES + LINKS:
+        where = f" · `zips/{b['zip']}`" if "zip" in b else f" · [{b['label']}]({b['href']})"
+        lines += ["---", "", f"## {b['title']}{where}", "", b["desc"], "", "**How to install**", ""]
+        lines += [f"{i}. {text_of(s)}" for i, s in enumerate(b["steps"], 1)]
+        lines += ["", "**What's inside**", ""] + [f"- `{p}`" + (f" · {size(n)}" if n else "") for p, n in inside(b)] + [""]
+    return "\n".join(lines)
+
+
 def main(argv):
     check = "--check" in argv
     fails = []
+    # amaca-frontend.zip is the .skill under the name Claude's upload accepts: the same bytes, always
+    twin = ROOT / "downloads" / "amaca-frontend.zip"
+    if twin.read_bytes() != read(SKILL):
+        fails.append("downloads/amaca-frontend.zip is not the bytes of amaca-frontend.skill")
+        if not check:
+            twin.write_bytes(read(SKILL))
     for b in BUNDLES:
         if "files" not in b:
             continue
@@ -275,6 +297,11 @@ def main(argv):
         for z in sorted((ROOT / "downloads" / "zips").glob("*.zip")):
             sums.append(f"{hashlib.sha256(z.read_bytes()).hexdigest()}  {z.name}")
         (ROOT / "downloads" / "zips" / "SHA256SUMS").write_text("\n".join(sums) + "\n")
+    fr = ROOT / "downloads" / "README.md"
+    if fr.read_text() != folder_readme():
+        fails.append("downloads/README.md differs from the manifest")
+        if not check:
+            fr.write_text(folder_readme())
     idx = (ROOT / "index.html").read_text()
     new = replace(replace(idx, START, END, site_block()), TSTART, TEND, tools_block())
     if new != idx:
