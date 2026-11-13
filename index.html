@@ -12,7 +12,7 @@
 
 <script>window.dInstant=function(){return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--d-instant'))||100};document.documentElement.classList.add('cards-rise');setTimeout(function(){if(!window.__cardsRise)document.documentElement.classList.remove('cards-rise')},4000)</script>
 <link rel="stylesheet" href="styles/tokens.css?v=658f52d2">
-<link rel="stylesheet" href="styles/components.css?v=043ebddc">
+<link rel="stylesheet" href="styles/components.css?v=5fe03c18">
 
 <style id="__animations_inline">
 @media screen and (prefers-reduced-motion: no-preference){.cards-rise :is(.card,.chart-card,.cs-card):not(:is(.card,.chart-card,.cs-card) *):not(.kit-stage *):not(.has-risen){opacity:0}}
@@ -1019,10 +1019,10 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Accordion</td><td>open</td><td class="muted">panel body opacity (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>Accordion</td><td>hover / open state</td><td class="muted">trigger + chevron color (effect)</td><td><code>--d-quick</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Tabs</td><td>select</td><td class="muted">indicator transform + width (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
-              <tr><td>Tabs</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 6px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Tabs</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 4px→0 (<code>--s-1</code>) (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Segmented control</td><td>select</td><td class="muted">thumb transform + width (spatial)</td><td><code>--d-base</code> · <code>--ease-decel</code></td><td class="muted">instant</td></tr>
               <tr><td>Segmented control</td><td>hover · select</td><td class="muted">segment label color (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Segmented control</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 6px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
+              <tr><td>Segmented control</td><td>panel switch</td><td class="muted">panel opacity (effect) · translateY 4px→0 (<code>--s-1</code>) (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Card</td><td>hover</td><td class="muted">border-color · box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Card</td><td>hover · focus-within</td><td class="muted">media child scale 1→1.05 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
               <tr><td>Card</td><td>hover ends · focus leaves</td><td class="muted">media child scale 1.05→1 (spatial)</td><td><code>--d-slow</code> · <code>--ease-decel</code></td><td class="muted">none — no zoom</td></tr>
@@ -1041,7 +1041,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
               <tr><td>Slider</td><td>focus (thumb)</td><td class="muted">box-shadow (effect)</td><td><code>--d-quick</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container (<code>.chat-bubble</code>, <code>.chat-status</code>, <code>.chat-avatar</code>, <code>.chat-meta</code>)</td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
+              <tr><td>Chat</td><td>message enter · content (<code>.chat-bubble-content</code>)</td><td class="muted">opacity (effect) · translateY 2px→0 (<code>--s-0-5</code>) (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Chat</td><td>roll-off (<code>.is-out</code>)</td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>Chat</td><td>typing dots (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 200 / 400ms (0, 2 and 4 × <code>--d-instant</code>)</td><td class="muted">none — the dots hold still at full opacity</td></tr>
@@ -1629,7 +1629,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
   border:var(<b>--bw-2</b>) solid var(<b>--obsidian-950</b>);
   border-top:0;
   border-right:0;
-  transform:rotate(-45deg) translate(1px,-1px);
+  transform:rotate(-45deg) translate(var(<b>--s-px</b>),calc(-1 * var(<b>--s-px</b>)));
 }
 .check input:focus-visible{
   outline:var(<b>--focus-width</b>) solid var(<b>--obsidian-100</b>);
@@ -2667,7 +2667,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
   z-index:var(<b>--z-popover</b>);
   font-family:var(<b>--font-sans</b>);
   opacity:0;
-  transform:translateY(-4px);
+  transform:translateY(calc(-1 * var(<b>--s-1</b>)));
   pointer-events:none;
   transition:opacity var(<b>--d-quick</b>) var(<b>--ease-accel</b>), transform var(<b>--d-quick</b>) var(<b>--ease-accel</b>);
 }
@@ -2964,7 +2964,7 @@ the mark is an animated SVG, one vector file describing every rotation and every
   z-index:var(<b>--z-popover</b>);
   font-family:var(<b>--font-sans</b>);
   opacity:0;
-  transform:translateY(-4px);
+  transform:translateY(calc(-1 * var(<b>--s-1</b>)));
   pointer-events:none;
   transition:opacity var(<b>--d-quick</b>) var(<b>--ease-accel</b>), transform var(<b>--d-quick</b>) var(<b>--ease-accel</b>);
 }
@@ -3635,7 +3635,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 22.1</span></div>
           <p class="subsection-desc">The toast, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:toast --><div class="kit" data-kit="toast" data-kit-file="amaca-toast.html"><div class="kit-stage" inert><div class="toast toast-success is-in" role="status"><svg class="icon toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg><div class="toast-title">Draft published</div><button class="toast-dismiss" type="button" aria-label="Dismiss"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button><div class="toast-body">Live on the blog. <button class="toast-action" type="button">Undo</button></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-toast-anatomy-tab" aria-selected="true" aria-controls="kit-toast-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-toast-code-tab" aria-selected="false" aria-controls="kit-toast-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-toast-anatomy" aria-labelledby="kit-toast-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Box</span><span class="kit-main">--obsidian-850 --bw-1 --obsidian-700 --bw-2 --primary-500 --r-md --sh-3 --s-4</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Icon</span><span class="kit-main">--success --icon-sm</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--obsidian-100</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-small</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Action</span><span class="kit-main">--primary-400 --font-sans --t-micro --tr-label<span class="kit-sub">hover --primary-300</span></span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Dismiss</span><span class="kit-main">--obsidian-400 --r-sm --s-5<span class="kit-sub">hover --obsidian-100</span></span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-decel</span></div><div class="kit-part"><span class="kit-num">8</span><span class="kit-label">Position</span><span class="kit-main">fixed · bottom right<span class="kit-sub">--s-6 from the bottom and the right edge, in .toast-region</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-toast-code" aria-labelledby="kit-toast-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;toast toast-success is-in&quot; role=&quot;status&quot;&gt;&lt;svg class=&quot;icon toast-icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 8.5l3 3 7-7.5&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;toast-title&quot;&gt;Draft published&lt;/div&gt;&lt;button class=&quot;toast-dismiss&quot; type=&quot;button&quot; aria-label=&quot;Dismiss&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;div class=&quot;toast-body&quot;&gt;Live on the blog. &lt;button class=&quot;toast-action&quot; type=&quot;button&quot;&gt;Undo&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.toast{
+          <!-- kit:toast --><div class="kit" data-kit="toast" data-kit-file="amaca-toast.html"><div class="kit-stage" inert><div class="toast toast-success is-in" role="status"><svg class="icon toast-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8.5l3 3 7-7.5"/></svg><div class="toast-title">Draft published</div><button class="toast-dismiss" type="button" aria-label="Dismiss"><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg></button><div class="toast-body">Live on the blog. <button class="toast-action" type="button">Undo</button></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-toast-anatomy-tab" aria-selected="true" aria-controls="kit-toast-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-toast-code-tab" aria-selected="false" aria-controls="kit-toast-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-toast-anatomy" aria-labelledby="kit-toast-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Box</span><span class="kit-main">--obsidian-850 --bw-1 --obsidian-700 --bw-2 --primary-500 --r-md --sh-3 --s-4</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Icon</span><span class="kit-main">--success --icon-sm</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Title</span><span class="kit-main">--obsidian-100</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Body</span><span class="kit-main">--obsidian-200 --t-small</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Action</span><span class="kit-main">--primary-400 --font-sans --t-micro --tr-label<span class="kit-sub">hover --primary-300</span></span></div><div class="kit-part"><span class="kit-num">6</span><span class="kit-label">Dismiss</span><span class="kit-main">--obsidian-400 --r-sm --s-5<span class="kit-sub">hover --obsidian-100</span></span></div><div class="kit-part"><span class="kit-num">7</span><span class="kit-label">Motion</span><span class="kit-main">--d-base --ease-decel --s-6</span></div><div class="kit-part"><span class="kit-num">8</span><span class="kit-label">Position</span><span class="kit-main">fixed · bottom right<span class="kit-sub">--s-6 from the bottom and the right edge, in .toast-region</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-toast-code" aria-labelledby="kit-toast-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;toast toast-success is-in&quot; role=&quot;status&quot;&gt;&lt;svg class=&quot;icon toast-icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 8.5l3 3 7-7.5&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;toast-title&quot;&gt;Draft published&lt;/div&gt;&lt;button class=&quot;toast-dismiss&quot; type=&quot;button&quot; aria-label=&quot;Dismiss&quot;&gt;&lt;svg class=&quot;icon&quot; viewBox=&quot;0 0 16 16&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3.5 3.5l9 9M12.5 3.5l-9 9&quot;/&gt;&lt;/svg&gt;&lt;/button&gt;&lt;div class=&quot;toast-body&quot;&gt;Live on the blog. &lt;button class=&quot;toast-action&quot; type=&quot;button&quot;&gt;Undo&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.toast{
   pointer-events:auto;
   display:grid;
   grid-template-columns:auto minmax(0,1fr) auto;
@@ -3651,7 +3651,7 @@ button.chip:disabled{
   font-size:var(<b>--t-small</b>);
   color:var(<b>--obsidian-200</b>);
   opacity:0;
-  transform:translateX(24px);
+  transform:translateX(var(<b>--s-6</b>));
   transition:opacity var(<b>--d-base</b>) var(<b>--ease-decel</b>), transform var(<b>--d-base</b>) var(<b>--ease-decel</b>);
 }
 .toast.is-in{
@@ -4261,7 +4261,7 @@ button.chip:disabled{
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Anatomy and code</h2><span class="subsection-num">§ 25.1</span></div>
           <p class="subsection-desc">The skeleton, part by part, with the tokens that draw each part. Switch to Code for its HTML and the rules of components.css that draw it, ready to copy or download.</p>
-          <!-- kit:skeleton --><div class="kit" data-kit="skeleton" data-kit-file="amaca-skeleton.html"><div class="kit-stage kit-stage-row" inert><div class="skeleton-circle" aria-hidden="true"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:70%" aria-hidden="true"></div><div class="skeleton-line" style="width:45%" aria-hidden="true"></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-skeleton-anatomy-tab" aria-selected="true" aria-controls="kit-skeleton-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-skeleton-code-tab" aria-selected="false" aria-controls="kit-skeleton-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-skeleton-anatomy" aria-labelledby="kit-skeleton-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Line</span><span class="kit-main">--obsidian-700 --r-sm --s-3</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Circle</span><span class="kit-main">--obsidian-700 --r-full --size</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Shimmer</span><span class="kit-main">--primary-500 --tint-fill</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Stack</span><span class="kit-main">--s-3</span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-skeleton-code" aria-labelledby="kit-skeleton-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div class=&quot;skeleton-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;skeleton-stack&quot;&gt;&lt;div class=&quot;skeleton-line&quot; style=&quot;width:70%&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;skeleton-line&quot; style=&quot;width:45%&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.skeleton-stack{
+          <!-- kit:skeleton --><div class="kit" data-kit="skeleton" data-kit-file="amaca-skeleton.html"><div class="kit-stage kit-stage-row" inert><div style="display:flex;gap:var(--s-3);align-items:center"><div class="skeleton-circle" aria-hidden="true"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:70%" aria-hidden="true"></div><div class="skeleton-line" style="width:45%" aria-hidden="true"></div></div></div></div><div class="kit-panel"><div class="kit-head"><div class="segmented" role="tablist" aria-label="Anatomy or code" data-segmented><button type="button" class="segmented-item" role="tab" id="kit-skeleton-anatomy-tab" aria-selected="true" aria-controls="kit-skeleton-anatomy"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.75 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M10.08 8l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 3.83l2.08 2.08l2.08-2.08l-2.08-2.08z"/><path d="M5.92 12.17l2.08 2.08l2.08-2.08l-2.08-2.08z"/></svg>Anatomy</button><button type="button" class="segmented-item" role="tab" id="kit-skeleton-code-tab" aria-selected="false" aria-controls="kit-skeleton-code" tabindex="-1"><svg class="icon icon-md" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M4.75 5.25L2 8l2.75 2.75M11.25 5.25L14 8l-2.75 2.75M9 3l-2 10"/></svg>Code</button><span class="segmented-thumb" aria-hidden="true"></span></div></div><div class="segmented-panel kit-body is-in" role="tabpanel" id="kit-skeleton-anatomy" aria-labelledby="kit-skeleton-anatomy-tab"><div class="kit-part"><span class="kit-num">1</span><span class="kit-label">Line</span><span class="kit-main">--obsidian-700 --r-sm --s-3</span></div><div class="kit-part"><span class="kit-num">2</span><span class="kit-label">Circle</span><span class="kit-main">--obsidian-700 --r-full --size</span></div><div class="kit-part"><span class="kit-num">3</span><span class="kit-label">Shimmer</span><span class="kit-main">--primary-500 --tint-fill</span></div><div class="kit-part"><span class="kit-num">4</span><span class="kit-label">Stack</span><span class="kit-main">--s-3</span></div><div class="kit-part"><span class="kit-num">5</span><span class="kit-label">Motion</span><span class="kit-main">1600ms · linear · infinite<span class="kit-sub">a ratified loop · reduced motion: still</span></span></div></div><div class="segmented-panel kit-body" role="tabpanel" id="kit-skeleton-code" aria-labelledby="kit-skeleton-code-tab" hidden><div class="kit-code-bar"><span class="kit-group">HTML · CSS</span><span class="kit-tools"><button type="button" class="btn btn-ghost btn-sm" data-kit-copy>Copy</button><button type="button" class="btn btn-ghost btn-sm" data-kit-download><svg class="icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M2.5 10v2.5a1 1 0 0 0 1 1h9a1 1 0 0 0 1-1V10M8 2.5v7M4.75 6.75L8 10l3.25-3.25"/></svg> Download</button></span></div><pre class="kit-code" data-kit-part="html">&lt;div style=&quot;display:flex;gap:var(<b>--s-3</b>);align-items:center&quot;&gt;&lt;div class=&quot;skeleton-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;skeleton-stack&quot;&gt;&lt;div class=&quot;skeleton-line&quot; style=&quot;width:70%&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;div class=&quot;skeleton-line&quot; style=&quot;width:45%&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</pre><pre class="kit-code" data-kit-part="css">.skeleton-stack{
   display:grid;
   gap:var(<b>--s-3</b>);
   width:100%;
@@ -4294,6 +4294,10 @@ button.chip:disabled{
     animation:none;
     opacity:0;
   }
+}
+@keyframes skeleton-shimmer{
+  from{ transform:translateX(-100%) }
+  to{ transform:translateX(100%) }
 }</pre></div></div></div><!-- /kit:skeleton -->
         </div>
 
@@ -5347,7 +5351,7 @@ button.chip:disabled{
 }
 .segmented-panel{
   opacity:0;
-  transform:translateY(6px);
+  transform:translateY(var(<b>--s-1</b>));
   transition:opacity var(<b>--d-quick</b>) var(<b>--ease-standard</b>), transform var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
 }
 @media (prefers-reduced-motion: reduce){
@@ -5657,6 +5661,7 @@ button.chip:disabled{
 .stepper-dot{
   position:relative;
   z-index:1;
+  flex-shrink:0;
   width:var(<b>--stp-dot</b>);
   height:var(<b>--stp-dot</b>);
   margin:calc((var(<b>--stp-cur</b>) - var(<b>--stp-dot</b>)) / 2) 0;
@@ -5750,15 +5755,16 @@ button.chip:disabled{
 }
 .stepper-vertical .stepper-step{
   flex-direction:row;
-  align-items:center;
+  align-items:flex-start;
   text-align:left;
   gap:var(<b>--s-3</b>);
 }
 .stepper-vertical .stepper-text{
   align-items:flex-start;
+  min-height:var(<b>--stp-cur</b>);
 }
 .stepper-vertical .stepper-dot{
-  margin:0 calc((var(<b>--stp-cur</b>) - var(<b>--stp-dot</b>)) / 2);
+  margin:calc((var(<b>--stp-cur</b>) - var(<b>--stp-dot</b>)) / 2);
 }
 .stepper-vertical .stepper-step::after{
   top:calc(var(<b>--stp-cur</b>) / 2);
@@ -5784,15 +5790,16 @@ button.chip:disabled{
   }
   .stepper-step{
     flex-direction:row;
-    align-items:center;
+    align-items:flex-start;
     text-align:left;
     gap:var(<b>--s-3</b>);
   }
   .stepper-text{
     align-items:flex-start;
+    min-height:var(<b>--stp-cur</b>);
   }
   .stepper-dot{
-    margin:0 calc((var(<b>--stp-cur</b>) - var(<b>--stp-dot</b>)) / 2);
+    margin:calc((var(<b>--stp-cur</b>) - var(<b>--stp-dot</b>)) / 2);
   }
   .stepper-step::after{
     top:calc(var(<b>--stp-cur</b>) / 2);
@@ -5833,13 +5840,17 @@ button.chip:disabled{
     transform:none;
     opacity:var(<b>--opacity-disabled</b>);
   }
+}
+@keyframes stepper-pulse{
+  0%,100%{ transform:scale(1);opacity:0.6 }
+  50%{ transform:scale(1.33);opacity:0 }
 }</pre></div></div></div><!-- /kit:stepper -->
         </div>
 
         <div class="subsection">
           <div class="subsection-head"><h2 class="subsection-title">Rules</h2><span class="subsection-num">§ 35.2</span></div>
           <p class="subsection-desc">What the contract holds the stepper to, word for word from its section of DESIGN.md.</p>
-          <!-- rules:stepper --><ul class="page-rules"><li><strong>Horizontal while the labels fit.</strong> Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); <code>.stepper-vertical</code> forces the column for long labels or more steps.</li><li><strong>One current step.</strong> Exactly one <code>aria-current="step"</code>; done steps before it, upcoming steps after.</li><li><strong>Done is drawn, upcoming is dashed.</strong> The connector after a done step is <code>--grad-progress</code> at <code>--bw-2</code>; the one after the current and upcoming steps is a dashed <code>--obsidian-300</code> line, 4px dashes and 4px gaps (<code>--s-1</code>) (5.6 : 1 on a card).</li><li><strong>Contrast.</strong> Upcoming labels and every meta line are <code>--obsidian-300</code> (5.6 : 1 on <code>--obsidian-800</code>); the number and the check on a filled dot are <code>--obsidian-950</code> (6.5 : 1 on <code>--primary-500</code>).</li><li><strong>Not a control.</strong> The steps are not links: going back is the flow's own Back button.</li><li><strong>Motion.</strong> On view, every dot scales in on <code>--d-slow</code> · <code>--ease-spring</code> (opacity on <code>--ease-decel</code>) and its text rises 8px, from 500ms plus <code>--d-instant</code> per step; each connector draws to the next dot on <code>--d-slow</code> · <code>--ease-decel</code> from 600ms plus <code>--d-instant</code> per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.</li></ul><!-- /rules:stepper -->
+          <!-- rules:stepper --><ul class="page-rules"><li><strong>Horizontal while the labels fit.</strong> Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); <code>.stepper-vertical</code> forces the column for long labels or more steps.</li><li><strong>One current step.</strong> Exactly one <code>aria-current="step"</code>; done steps before it, upcoming steps after.</li><li><strong>Vertical, on one axis.</strong> In the column every dot sits at the top of its step, on a <code>--stp-cur</code> box, and never shrinks; the connector runs from the centre of one dot to the centre of the next however tall the text grows (v6.0.0).</li><li><strong>Done is drawn, upcoming is dashed.</strong> The connector after a done step is <code>--grad-progress</code> at <code>--bw-2</code>; the one after the current and upcoming steps is a dashed <code>--obsidian-300</code> line, 4px dashes and 4px gaps (<code>--s-1</code>) (5.6 : 1 on a card).</li><li><strong>Contrast.</strong> Upcoming labels and every meta line are <code>--obsidian-300</code> (5.6 : 1 on <code>--obsidian-800</code>); the number and the check on a filled dot are <code>--obsidian-950</code> (6.5 : 1 on <code>--primary-500</code>).</li><li><strong>Not a control.</strong> The steps are not links: going back is the flow's own Back button.</li><li><strong>Motion.</strong> On view, every dot scales in on <code>--d-slow</code> · <code>--ease-spring</code> (opacity on <code>--ease-decel</code>) and its text rises 8px, from 500ms plus <code>--d-instant</code> per step; each connector draws to the next dot on <code>--d-slow</code> · <code>--ease-decel</code> from 600ms plus <code>--d-instant</code> per step, done or dashed alike, so the choreography holds for any number of steps. The current dot breathes: a 1px ring scales to 1.33 and fades, 2400ms, in a loop. Reduced motion: everything in place, the ring still.</li></ul><!-- /rules:stepper -->
         </div>
 
         <div class="subsection">
@@ -6489,7 +6500,7 @@ button.chip:disabled{
   transform-origin:bottom left;
 }
 .chat-msg .chat-avatar, .chat-msg .chat-meta{
-  transform:translateY(4px) scale(1);
+  transform:translateY(var(<b>--s-1</b>)) scale(1);
 }
 .chat-msg.is-in .chat-bubble, .chat-msg.is-in .chat-avatar, .chat-msg.is-in .chat-meta{
   opacity:1;
@@ -6497,7 +6508,7 @@ button.chip:disabled{
 }
 .chat-bubble-content{
   opacity:0;
-  transform:translateY(3px);
+  transform:translateY(var(<b>--s-0-5</b>));
   transition:opacity var(<b>--d-quick</b>) var(<b>--ease-standard</b>), transform var(<b>--d-quick</b>) var(<b>--ease-standard</b>);
 }
 .chat-msg.is-in .chat-bubble-content{
@@ -6530,7 +6541,7 @@ button.chip:disabled{
             <tbody>
               <tr><td>message enter · container <code>.chat-bubble</code></td><td class="muted">scale 0.92→1 (spatial)</td><td><code>--d-base</code> · <code>--ease-spring</code></td><td class="muted">instant</td></tr>
               <tr><td>message enter · container</td><td class="muted">opacity (effect)</td><td><code>--d-base</code> · <code>--ease-standard</code></td><td class="muted">instant</td></tr>
-              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 3px→0 (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
+              <tr><td>message enter · content <code>.chat-bubble-content</code></td><td class="muted">opacity (effect) · translateY 2px→0 (<code>--s-0-5</code>) (spatial)</td><td><code>--d-quick</code> · <code>--ease-standard</code> · delay <code>--d-instant</code></td><td class="muted">instant</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">opacity (effect) · translateY −8px (spatial)</td><td><code>--d-quick</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>roll-off <code>.chat-msg.is-out</code></td><td class="muted">max-height + margin collapse (spatial)</td><td><code>--d-base</code> · <code>--ease-accel</code></td><td class="muted">instant — still hides</td></tr>
               <tr><td>typing dots <code>.chat-dot</code> (loop)</td><td class="muted">translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect)</td><td><code>--d-slow</code> · <code>--ease-standard</code> · stagger 0 / 200 / 400ms (0, 2 and 4 × <code>--d-instant</code>)</td><td class="muted">none — the dots hold still at full opacity</td></tr>
@@ -12357,7 +12368,7 @@ window.amacaFloat = (function(){
       // Start the inner content hidden so it fades up
       const content = fresh.querySelector('.chat-bubble-content');
       content.style.opacity = '0';
-      content.style.transform = 'translateY(3px)';
+      content.style.transform = 'translateY(var(--s-0-5))';
       content.style.transition = 'opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)';
       stack.replaceChild(fresh, old);
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -12379,7 +12390,7 @@ window.amacaFloat = (function(){
         '</div>';
       const content = fresh.querySelector('.chat-bubble-content');
       content.style.opacity = '0';
-      content.style.transform = 'translateY(3px)';
+      content.style.transform = 'translateY(var(--s-0-5))';
       content.style.transition = 'opacity var(--d-quick) var(--ease-standard), transform var(--d-quick) var(--ease-standard)';
       stack.replaceChild(fresh, old);
       requestAnimationFrame(() => requestAnimationFrame(() => {

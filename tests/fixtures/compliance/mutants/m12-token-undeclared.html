@@ -1,0 +1,4 @@
+/* expect: error token-undeclared */
+<style>:root{--d-quick:200ms;--ease-decel:cubic-bezier(0.16, 1, 0.3, 1)}
+.dk-big{opacity:0;transition:opacity var(--d-slow) var(--ease-decel)}
+@media (prefers-reduced-motion: reduce){.dk-big{transition:none;opacity:1}}</style>

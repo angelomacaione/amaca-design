@@ -1518,6 +1518,29 @@ def c123():
                         fails.append(f"r/{p.name}: {s[:50]} {{{'; '.join(d)[:50]}}} is not a rule of components.css")
     return sorted(set(fails))[:40]
 
+@check("124", "A card's Code and a served component carry the @keyframes they animate with",
+       "v6.0.0: the Skeleton and Stepper cards named skeleton-shimmer and stepper-pulse in their Code and left the "
+       "@keyframes in components.css: copied alone, the card drew its parts and never moved. The extractor skipped "
+       "every at-rule but @media, @supports and @container.")
+def c124():
+    fails = []
+    def check(where, css):
+        names = set()
+        for m in re.finditer(r"animation(?:-name)?\s*:\s*([^;}]+)", css):
+            names |= {w for w in re.findall(r"[a-z][a-z0-9-]*", re.sub(r"var\([^)]*\)", "", m.group(1))) if "-" in w}
+        for n in sorted(names):
+            if not re.search(r"@keyframes\s+" + re.escape(n) + r"\s*\{", css):
+                fails.append(f"{where}: animates with {n} and does not carry its @keyframes")
+    for p in sorted((ROOT / "r").glob("*.json")):
+        for f in json.loads(read(p)).get("files", []):
+            if f.get("path", "").endswith(".css"):
+                check(f"r/{p.name}", f.get("content", ""))
+    for m in re.finditer(r'<pre class="kit-code" data-kit-part="css">(.*?)</pre>', read(INDEX), re.S):
+        css = __import__("html").unescape(re.sub(r"</?b>", "", m.group(1)))
+        kit = re.findall(r'data-kit="([a-z-]+)"', read(INDEX)[:m.start()])
+        check(f"index.html kit {kit[-1] if kit else '?'}", css)
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "

@@ -23,14 +23,18 @@ const KEYWORD_EASE = { 'ease': '--ease-standard', 'ease-in-out': '--ease-standar
 // the law (or convention) each finding enforces: the Law and Conventions tables of DESIGN.md name the rule back in
 // their Check column, so the link reads from both ends (v5.3.0)
 const LAW = { 'colour-literal': 'L4', 'raw-px': 'L4', 'raw-duration': 'L8', 'raw-easing': 'L8', 'spring-on-effect': 'L8',
-  'loop-clock': 'L8', 'raw-delay': 'L8', 'one-primary': 'L3', 'reduced-motion': 'L7', 'class-off-registry': 'C2' };
+  'loop-clock': 'L8', 'raw-delay': 'L8', 'one-primary': 'L3', 'reduced-motion': 'L7', 'class-off-registry': 'C2',
+  'token-undeclared': 'L4', 'token-unknown': 'L4' };
+// a length written inside a transform is a distance like a margin: it rides the spacing scale (v6.0.0)
+const TRANSFORM = /^(transform|translate)$/;
 const ROOTS = ['btn', 'card', 'chip', 'badge', 'acc', 'accordion', 'alert', 'avatar', 'breadcrumb', 'chart', 'chat', 'diagram', 'divider', 'dp', 'drawer', 'loader', 'modal', 'navbar', 'pagination', 'popover', 'progress', 'radio', 'segmented', 'select', 'skeleton', 'slider', 'stepper', 'swatch', 'switch', 'toast', 'tooltip', 'tp'];
 
 function tokens(css) {
-  const t = { color: {}, s: [], r: [], t: [], bw: [], d: [], ease: {} };
+  const t = { color: {}, s: [], r: [], t: [], bw: [], d: [], ease: {}, all: new Map() };
   for (const m of css.matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) {
     const name = '--' + m[1];
     const v = m[2].trim();
+    t.all.set(name, v);
     if (/^#[0-9a-f]{3,8}$/i.test(v)) (t.color[v.toUpperCase()] = t.color[v.toUpperCase()] || []).push(name);
     const px = v.match(/^(\d+(?:\.\d+)?)px$/);
     const fam = m[1].split('-')[0];
@@ -103,6 +107,18 @@ function reducedMotionSpans(code) {
   return spans;
 }
 
+// the [start, end) spans of every @keyframes block: a keyframe cannot read a var() (check 71), so its
+// lengths are written as literals on purpose (v6.0.0)
+function keyframeSpans(code) {
+  const spans = [];
+  for (const m of code.matchAll(/@keyframes[^{]*\{/g)) {
+    let depth = 1, i = m.index + m[0].length;
+    for (; i < code.length && depth; i++) depth += code[i] === '{' ? 1 : code[i] === '}' ? -1 : 0;
+    spans.push([m.index, i]);
+  }
+  return spans;
+}
+
 // the selector of the rule a declaration sits in ('' for style="" and JSX)
 function selectorAt(code, idx) {
   const open = code.lastIndexOf('{', idx);
@@ -114,6 +130,8 @@ function check(repo, source) {
   const code = blankComments(String(source || ''));
   const calm = reducedMotionSpans(code);
   const inCalm = (idx) => calm.some(([a, b]) => idx >= a && idx < b);
+  const frames = keyframeSpans(code);
+  const inFrames = (idx) => frames.some(([a, b]) => idx >= a && idx < b);
   const T = repo._tok || (repo._tok = tokens(repo.tokensCss));
   const classes = repo._cls || (repo._cls = canonicalClasses(repo));
   const starts = [0];
@@ -160,6 +178,7 @@ function check(repo, source) {
     else if (RADIUS.test(d.prop)) { fam = 'radius'; unitScale = T.r; }
     else if (d.prop === 'font-size') { fam = 'type'; unitScale = T.t; }
     else if (BORDER.test(d.prop)) { fam = 'border width'; unitScale = T.bw; }
+    else if (TRANSFORM.test(d.prop) && !inFrames(d.idx)) { fam = 'spacing'; unitScale = T.s; }
     // the skip link is parked above the viewport at top: -100px, a composition offset (Skip link)
     const parked = d.prop === 'top' && /^\s*-100px\s*(!important)?\s*$/.test(v) && /\.skip-link\b/.test(selectorAt(code, d.idx));
     if (fam && !parked) {
@@ -183,6 +202,8 @@ function check(repo, source) {
           const ms = x[2] === 's' ? Math.round(parseFloat(x[1]) * 1000) : +x[1];
           const delay = /delay$/.test(d.prop) || (i === 1 && /^(transition|animation)$/.test(d.prop));
           if (ms < 1 && inCalm(d.idx)) return; // the kill-switch's 0.01ms (or 0s)
+          // visibility is discrete: `visibility 0s` with a token delay hides a drawer after its slide (v6.0.0)
+          if (ms === 0 && i === 0 && /^\s*visibility\b/.test(item)) return;
           if (loop) add(d.idx, 'warning', 'loop-clock', `${d.prop}: ${x[0]} … infinite`, 'a continuous loop runs on its own clock, legal only with its row in the motion index (§ 06.4); otherwise an --d-* token', 'Motion › Continuous loops');
           else if (delay) add(d.idx, 'warning', 'raw-delay', `${d.prop}: ${x[0]} (delay)`, 'a delay literal is legal only where the motion index ratifies it; otherwise compose it from tokens, e.g. calc(var(--d-instant) * 2)', 'Motion › Motion index');
           else add(d.idx, 'error', 'raw-duration', `${d.prop}: ${x[0]}`, snapFix(T.d, ms, 'ms'), 'Motion › Six durations, five easings');
@@ -206,6 +227,30 @@ function check(repo, source) {
       }
     }
   }
+
+  // 2b — tokens (v6.0.0, found on a talk deck): a var() of an Amaca name that does not exist, and a page that
+  // declares the tokens it uses but forgets one. An undefined var() drops the whole declaration in silence:
+  // the deck's numbers appeared at once because --d-slow was missing from its :root.
+  const families = new Set([...T.all.keys()].map((n) => n.slice(2).split('-')[0]));
+  const declared = new Set([...code.matchAll(/(^|[\s{;"'])(--[a-z0-9-]+)\s*:/gm)].map((m) => m[2]));
+  const ownsTokens = [...declared].some((n) => T.all.has(n));
+  const page = /<!doctype|<html[\s>]/i.test(code);
+  const linked = /tokens\.css|amaca-design|@amaca|amaca\.design/.test(code);
+  let firstMissing = null;
+  for (const m of code.matchAll(/var\(\s*(--[a-z0-9-]+)/g)) {
+    const name = m[1];
+    if (declared.has(name) || !name.slice(2).includes('-')) continue; // --d, --e: a component's own variable
+    if (!T.all.has(name)) {
+      if (!families.has(name.slice(2).split('-')[0])) continue; // a project's own variable
+      const fam = name.slice(2).split('-')[0];
+      const near = [...T.all.keys()].filter((n) => n.slice(2).split('-')[0] === fam);
+      add(m.index, 'error', 'token-unknown', name, `not an Amaca token; the ${fam} family has ${near.slice(0, 12).join(', ')}${near.length > 12 ? '…' : ''}`, 'Code conventions');
+      continue;
+    }
+    if (ownsTokens) add(m.index, 'error', 'token-undeclared', name, `declare it with the others: ${name}: ${T.all.get(name)}; (an undefined var() drops the whole declaration)`, 'Code conventions');
+    else if (page && !linked && firstMissing === null) firstMissing = m.index;
+  }
+  if (firstMissing !== null) add(firstMissing, 'warning', 'token-undeclared', 'a page that uses Amaca tokens and neither loads tokens.css nor declares them', 'link tokens.css (get_install) or declare the tokens it uses in :root (get_tokens)', 'Code conventions');
 
   // 3 — classes: Tailwind arbitrary values, Amaca-looking classes off the registry, the one primary
   let primaries = 0, firstPrimary = -1, twMotion = null;

@@ -12,13 +12,13 @@
       "path": "amaca/skeleton.css",
       "type": "registry:file",
       "target": "styles/amaca/skeleton.css",
-      "content": ".skeleton-stack{\n  display:grid;\n  gap:var(--s-3);\n  width:100%;\n}\n.skeleton-line, .skeleton-circle, .skeleton-block{\n  position:relative;\n  overflow:hidden;\n  background:var(--obsidian-700);\n}\n.skeleton-line{\n  height:var(--s-3);\n  border-radius:var(--r-sm);\n}\n.skeleton-circle{\n  --size:var(--s-8);\n  flex:none;\n  width:var(--size);\n  height:var(--size);\n  border-radius:var(--r-full);\n}\n.skeleton-block{\n  width:100%;\n  height:var(--s-24);\n  border-radius:var(--r-md);\n}\n.skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n  content:\"\";\n  position:absolute;\n  inset:0;\n  background:linear-gradient( 90deg, transparent 0, color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent) 50%, transparent 100% );\n  animation:skeleton-shimmer 1600ms linear infinite;\n}\n@media (prefers-reduced-motion: reduce){\n  .skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n    animation:none;\n    opacity:0;\n  }\n}\n"
+      "content": ".skeleton-stack{\n  display:grid;\n  gap:var(--s-3);\n  width:100%;\n}\n.skeleton-line, .skeleton-circle, .skeleton-block{\n  position:relative;\n  overflow:hidden;\n  background:var(--obsidian-700);\n}\n.skeleton-line{\n  height:var(--s-3);\n  border-radius:var(--r-sm);\n}\n.skeleton-circle{\n  --size:var(--s-8);\n  flex:none;\n  width:var(--size);\n  height:var(--size);\n  border-radius:var(--r-full);\n}\n.skeleton-block{\n  width:100%;\n  height:var(--s-24);\n  border-radius:var(--r-md);\n}\n.skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n  content:\"\";\n  position:absolute;\n  inset:0;\n  background:linear-gradient( 90deg, transparent 0, color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent) 50%, transparent 100% );\n  animation:skeleton-shimmer 1600ms linear infinite;\n}\n@media (prefers-reduced-motion: reduce){\n  .skeleton-line::after, .skeleton-circle::after, .skeleton-block::after{\n    animation:none;\n    opacity:0;\n  }\n}\n@keyframes skeleton-shimmer{\n  from{ transform:translateX(-100%) }\n  to{ transform:translateX(100%) }\n}\n"
     },
     {
       "path": "amaca/skeleton.html",
       "type": "registry:file",
       "target": "components/amaca/skeleton.html",
-      "content": "<div class=\"skeleton-circle\" aria-hidden=\"true\"></div><div class=\"skeleton-stack\"><div class=\"skeleton-line\" style=\"width:70%\" aria-hidden=\"true\"></div><div class=\"skeleton-line\" style=\"width:45%\" aria-hidden=\"true\"></div></div>\n"
+      "content": "<div style=\"display:flex;gap:var(--s-3);align-items:center\"><div class=\"skeleton-circle\" aria-hidden=\"true\"></div><div class=\"skeleton-stack\"><div class=\"skeleton-line\" style=\"width:70%\" aria-hidden=\"true\"></div><div class=\"skeleton-line\" style=\"width:45%\" aria-hidden=\"true\"></div></div></div>\n"
     }
   ],
   "meta": {
@@ -86,6 +86,12 @@
           ],
           "value": "",
           "states": ""
+        },
+        {
+          "name": "Motion",
+          "tokens": [],
+          "value": "1600ms · linear · infinite",
+          "states": "a ratified loop · reduced motion: still"
         }
       ],
       "rules": [

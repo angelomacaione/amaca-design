@@ -31,7 +31,15 @@ const INSTRUCTIONS =
   'Reference every value by name, var(--token); never hardcode a hex, a px or an easing. ' +
   'Use get_design_section for a rule the contract only cites, get_tokens for the scales, and ' +
   'get_install when the user asks how to use Amaca in their own tool. Before handing code over, run ' +
-  'check_compliance on it and fix every error with the token it names. On conflict, DESIGN.md wins.';
+  'check_compliance on it and fix every error with the token it names. A component that list_components does not ' +
+  'name is off-system: tell the user and ask before building it; never compose it from other components. ' +
+  'On conflict, DESIGN.md wins.';
+
+// v6.0.0: one client in four never received the instructions above, only the tool descriptions. The two rules a
+// model breaks most (it invents an off-registry component; it hands code over without the scan) ride on the
+// descriptions too, and get_component repeats the second in its answer.
+const OFF_SYSTEM = 'A component not in this list is off-system: tell the user and ask before building it; never compose it from these.';
+const SELF_CHECK = 'Write it with tokens only, then run check_compliance on your code before handing it over.';
 
 // ---------------------------------------------------------------- the files
 
@@ -87,7 +95,8 @@ function getComponent(repo, args) {
     throw new ToolError(
       `No component named "${raw}".` +
         (near.length ? ` Did you mean: ${near.join(', ')}?` : '') +
-        ` Components: ${Object.keys(repo.items).join(', ')}.`
+        ` Components: ${Object.keys(repo.items).join(', ')}.` +
+        ` If none of them is what the user needs, it is off-system (DESIGN.md § 3.0): tell the user and ask before building it; do not compose it from these.`
     );
   }
   const want = new Set((args && args.include) || ['contract', 'css', 'html']);
@@ -103,6 +112,7 @@ function getComponent(repo, args) {
     (want.has('css') && /\.css$/.test(f.path)) || (want.has('html') && /\.html$/.test(f.path))
   );
   if (files.length) out.files = files.map((f) => ({ path: f.target || f.path, content: f.content || '' }));
+  out.next = SELF_CHECK;
   return json(out);
 }
 
@@ -244,7 +254,7 @@ const TOOLS = [
   {
     name: 'list_components',
     title: 'List Amaca components',
-    description: 'Every component of the Amaca design system: name, title, when to use it, the components it builds on, and its page on amaca.design.',
+    description: 'Every component of the Amaca design system: name, title, when to use it, the components it builds on, and its page on amaca.design. ' + OFF_SYSTEM,
     inputSchema: { type: 'object', properties: {}, additionalProperties: false },
     annotations: READ_ONLY,
     run: (repo) => json({ version: repo.version, components: listComponents(repo) }),
@@ -252,7 +262,7 @@ const TOOLS = [
   {
     name: 'get_component',
     title: 'Get an Amaca component',
-    description: 'One component with its contract (usage, parts and the tokens that draw them, rules, variants), its CSS and one HTML example. Read it before writing the component.',
+    description: 'One component with its contract (usage, parts and the tokens that draw them, rules, variants), its CSS and one HTML example. Read it before writing the component. ' + SELF_CHECK,
     inputSchema: {
       type: 'object',
       properties: {
@@ -299,7 +309,7 @@ const TOOLS = [
   {
     name: 'check_compliance',
     title: 'Check code against Amaca',
-    description: 'The 30-second scan of the spec, run on code you wrote: HTML with <style> and style="", CSS, React with className and style={{}}, Tailwind arbitrary values. Returns, line by line, colour literals, px off the spacing / radius / type / border scales, raw durations and easings, spring on effect properties, Amaca-looking classes that are not in the registry, more than one .btn-primary, and motion without a reduced-motion override, each with the token that fixes it. Reports, never rewrites; a clean scan is not a design review.',
+    description: 'The 30-second scan of the spec, run on code you wrote: HTML with <style> and style="", CSS, React with className and style={{}}, Tailwind arbitrary values. Returns, line by line, colour literals, px off the spacing / radius / type / border scales, raw durations and easings, spring on effect properties, px inside a transform, a var() of a token that does not exist or that a page using its own :root forgot to declare, Amaca-looking classes that are not in the registry, more than one .btn-primary, and motion without a reduced-motion override, each with the token that fixes it. Reports, never rewrites; a clean scan is not a design review.',
     inputSchema: {
       type: 'object',
       properties: { code: { type: 'string', description: 'The code to check, as written. Up to 200,000 characters.' } },

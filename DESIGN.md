@@ -2463,12 +2463,12 @@ Use `will-change: transform, width` on the indicator.
 
 **Initial position:** double `requestAnimationFrame` so layout is measured after first paint. Re-measure on `window.resize`, and also when the parent section becomes visible (the tablist may live inside a hidden `.section` on first paint and `getBoundingClientRect` returns zeros). An `IntersectionObserver` at threshold 0.01 covers that case.
 
-**Panel transitions:** default `opacity:0; transform:translateY(6px)` → `.is-in` adds `opacity:1; transform:translateY(0)`.
+**Panel transitions:** default `opacity:0; transform:translateY(var(--s-1))` → `.is-in` adds `opacity:1; transform:translateY(0)`.
 
 | Trigger | Property (type) | Motion | Reduced motion |
 |---|---|---|---|
 | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
-| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| panel switch | panel opacity (effect) · translateY 4px→0 (`--s-1`) (spatial) | `--d-quick` · `--ease-standard` | instant |
 
 **Rules:**
 - Panel swap is **fade only**: never crossfade, never slide both. The leaving panel is removed (`display:none`) before the new one fades in.
@@ -2525,7 +2525,7 @@ Two or three views of one thing, side by side on a pill, with **one thumb that t
 |---|---|---|---|
 | select | thumb transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | hover · select | segment label color (effect) | `--d-quick` · `--ease-standard` | instant |
-| panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| panel switch | panel opacity (effect) · translateY 4px→0 (`--s-1`) (spatial) | `--d-quick` · `--ease-standard` | instant |
 
 
 **Variants.**
@@ -2672,6 +2672,7 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 **Rules.**
 - **Horizontal while the labels fit.** Three to five steps with short labels, from 480px of the stepper's own width. Below 480px it turns vertical by itself (a container query); `.stepper-vertical` forces the column for long labels or more steps.
 - **One current step.** Exactly one `aria-current="step"`; done steps before it, upcoming steps after.
+- **Vertical, on one axis.** In the column every dot sits at the top of its step, on a `--stp-cur` box, and never shrinks; the connector runs from the centre of one dot to the centre of the next however tall the text grows (v6.0.0).
 - **Done is drawn, upcoming is dashed.** The connector after a done step is `--grad-progress` at `--bw-2`; the one after the current and upcoming steps is a dashed `--obsidian-300` line, 4px dashes and 4px gaps (`--s-1`) (5.6 : 1 on a card).
 - **Contrast.** Upcoming labels and every meta line are `--obsidian-300` (5.6 : 1 on `--obsidian-800`); the number and the check on a filled dot are `--obsidian-950` (6.5 : 1 on `--primary-500`).
 - **Not a control.** The steps are not links: going back is the flow's own Back button.
@@ -2928,7 +2929,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 |---|---|---|---|
 | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
+| message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 2px→0 (`--s-0-5`) (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | send idle → ready | background + color (effect) | `--d-quick` · `--ease-standard` | instant |
@@ -3847,7 +3848,7 @@ A principle guides a judgement; a law is measured and enforced. Where `check_com
 | L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
 | L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
 | L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier · check_compliance `one-primary` | § Principles · Quiet, then loud |
-| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` | § For the AI agent #1–2 · § Code conventions |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` `token-undeclared` `token-unknown` | § For the AI agent #1–2 · § Code conventions |
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 · check_compliance `reduced-motion` | § For the AI agent #7 · § Motion |
@@ -3964,10 +3965,10 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Accordion | open | panel body opacity (effect) | `--d-quick` · `--ease-decel` · delay `--d-instant` | instant |
 | Accordion | hover / open state | trigger + chevron color (effect) | `--d-quick` · `--ease-decel` | instant |
 | Tabs | select | indicator transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
-| Tabs | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Tabs | panel switch | panel opacity (effect) · translateY 4px→0 (`--s-1`) (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Segmented control | select | thumb transform + width (spatial) | `--d-base` · `--ease-decel` | instant |
 | Segmented control | hover · select | segment label color (effect) | `--d-quick` · `--ease-standard` | instant |
-| Segmented control | panel switch | panel opacity (effect) · translateY 6px→0 (spatial) | `--d-quick` · `--ease-standard` | instant |
+| Segmented control | panel switch | panel opacity (effect) · translateY 4px→0 (`--s-1`) (spatial) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover | border-color · box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Card | hover · focus-within | media child scale 1→1.05 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
 | Card | hover ends · focus leaves | media child scale 1.05→1 (spatial) | `--d-slow` · `--ease-decel` | none — no zoom |
@@ -3986,7 +3987,7 @@ Rules of the grammar: the *Motion* column accepts token pairs only (`--d-*` · `
 | Slider | focus (thumb) | box-shadow (effect) | `--d-quick` · `--ease-standard` | instant |
 | Chat | message enter · container (`.chat-bubble`, `.chat-status`, `.chat-avatar`, `.chat-meta`) | scale 0.92→1 (spatial) | `--d-base` · `--ease-spring` | instant |
 | Chat | message enter · container | opacity (effect) | `--d-base` · `--ease-standard` | instant |
-| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 3px→0 (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
+| Chat | message enter · content (`.chat-bubble-content`) | opacity (effect) · translateY 2px→0 (`--s-0-5`) (spatial) | `--d-quick` · `--ease-standard` · delay `--d-instant` | instant |
 | Chat | roll-off (`.is-out`) | opacity (effect) · translateY −8px (spatial) | `--d-quick` · `--ease-accel` | instant — still hides |
 | Chat | roll-off (`.is-out`) | max-height + margin collapse (spatial) | `--d-base` · `--ease-accel` | instant — still hides |
 | Chat | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |

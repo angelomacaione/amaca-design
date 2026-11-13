@@ -15,6 +15,9 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
   B7  a field's value sits in its middle (the native select's value sat 2px high)
   B8  the Floating bar's strips and pages read like the Top navigation's: same height at every tab, the bar alone in
       its strip (the strip showed the page's cards under a pill, at another height)
+  B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
+      its size, also when a meta line wraps (v6.0.0: 1.7px off on the kit, 8.9px with a wrapped meta, the current dot
+      shrunk from 32px to 26px)
 
 The page is opened from disk with every network request refused, as the owner opens it, and with a classic
 scrollbar where a scrollbar can matter. Run it alone (exit 1 on a failure) or through review-sheet.py.
@@ -253,12 +256,51 @@ def b8_bar_strips(b, fails):
     ctx.close()
 
 
+STEPPER = r"""() => {
+  const out = [];
+  const probe = (st, tag) => {
+    const steps = [...st.querySelectorAll('.stepper-step')];
+    steps.forEach((s, i) => {
+      const d = s.querySelector('.stepper-dot').getBoundingClientRect();
+      if (s.matches('[aria-current="step"]')) {
+        const want = parseFloat(getComputedStyle(st).getPropertyValue('--stp-cur')) || 32;
+        const dw = s.querySelector('.stepper-dot').offsetWidth; if (Math.abs(dw - want) > 0.6) out.push(tag + ': the current dot is ' + dw.toFixed(1) + 'px, not ' + want);
+      }
+      if (i === steps.length - 1) return;
+      const a = getComputedStyle(s, '::after'), r = s.getBoundingClientRect();
+      const top = r.top + parseFloat(a.top), end = top + parseFloat(a.height);
+      const nd = steps[i + 1].querySelector('.stepper-dot').getBoundingClientRect();
+      const s1 = Math.abs(top - (d.top + d.height / 2)), s2 = Math.abs(end - (nd.top + nd.height / 2));
+      if (s1 > 0.6 || s2 > 0.6) out.push(tag + ' step ' + (i + 1) + ': the connector is ' + Math.max(s1, s2).toFixed(1) + 'px off the dots');
+    });
+  };
+  document.querySelectorAll('.stepper').forEach((st, k) => {
+    if (getComputedStyle(st.querySelector('.stepper-list')).flexDirection !== 'column') return;
+    probe(st, 'stepper ' + (k + 1));
+    const c = st.cloneNode(true); st.after(c);
+    c.querySelectorAll('.stepper-meta').forEach(m => m.textContent += ' · a longer line that wraps');
+    probe(c, 'stepper ' + (k + 1) + ' (wrapped meta)'); c.remove();
+  });
+  return [...new Set(out)];
+}"""
+
+
+def b9_stepper(b, fails):
+    for w, h, tag in ((1440, 1000, "desktop"), (390, 844, "phone")):
+        ctx, pg, _ = open_at(b, w, h, "stepper")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        pg.wait_for_timeout(300)
+        for f in pg.evaluate(STEPPER):
+            fails.append(f"B9 {tag} {f}")
+        ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper)):
             if not only or name in only:
                 fn(b, fails)
         b.close()
