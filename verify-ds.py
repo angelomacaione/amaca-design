@@ -244,9 +244,12 @@ def c04():
             if i >= 0:
                 t = t[:i] + t[t.find("</section>", i):]
         return t
-    # Tailwind's own font-mono utility is pointed at the text typeface in theme.css,
-    # so a utility class cannot bring a monospaced stack back: the one allowed line.
-    allowed = "  --font-mono: var(--font-sans);"
+    # Tailwind's default theme ships its own font-mono (ui-monospace). theme.css sets it
+    # to initial so the utility is not generated at all: the one allowed line, and a
+    # required one (deleting it silently brings the monospaced stack back).
+    allowed = "  --font-mono: initial;"
+    if not re.search(r"^@theme \{\n(?:.*\n)*?  --font-mono: initial;", read(THEME), re.M):
+        fails.append("theme.css: --font-mono is not reset to initial in @theme, so Tailwind's font-mono utility renders a monospaced stack")
     files = [DESIGN, TOKENS, COMPONENTS, THEME, INDEX, LLMS_FULL] + sorted((ROOT / "downloads").glob("**/*.md")) + sorted((ROOT / "downloads").glob("**/*.mdc"))
     for p in files:
         if not p.exists():

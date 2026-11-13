@@ -21,6 +21,11 @@
 @import "./tokens.css";
 
 @theme {
+  /* — TYPE · no monospaced face — Tailwind's default theme ships font-mono
+     (ui-monospace). Amaca is a single-typeface system, so the utility is
+     removed rather than pointed elsewhere (v6.0.0). */
+  --font-mono: initial;
+
   /* — COLOR · neutrals (obsidian) — */
   --color-obsidian-950: var(--obsidian-950);
   --color-obsidian-900: var(--obsidian-900);
@@ -174,7 +179,6 @@
 @theme inline {
   /* — TYPE · family — */
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-sans);  /* Tailwind's font-mono utility stays on the text typeface: single-typeface system (v6.0.0) */
 
   /* — MOTION · easing — */
   --ease-standard: var(--ease-standard);
