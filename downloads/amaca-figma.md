@@ -4,7 +4,7 @@ description: "Apply and audit the Amaca Design System (amaca.design) inside Figm
 license: MIT
 metadata:
   author: angelomacaione
-  version: "1.7"
+  version: "1.8"
   canonical: https://amaca.design
 ---
 
@@ -65,7 +65,7 @@ Run automatically after every generate pass; also the standalone entry point on 
 
 7. **Reduced motion** — every CSS/JS transition or animation has a `prefers-reduced-motion: reduce` fallback (JS-driven animation gated via `matchMedia`). Missing = finding.
 8. **Raw values in code — every tier, not just hex.** Scan JSX styles AND JavaScript object literals, maps, and arrays: hex, px, easing curves, duration values, and layout constants (content-max, gutter) hardcoded where a token exists = finding. Matching the spec value does NOT make a literal a token — a hand-copied `cubic-bezier(...)` or a hand-copied content-max width is exactly the drift the spec prohibits; read tokens off `:root` at runtime or reference `var()` in style props. Status-color maps are the classic escape route: check them. SVG presentation attributes that cannot take `var()` must read tokens off `:root` at runtime (`getComputedStyle`) — hand-copied token values in SVG attrs are a finding with a known fix, NOT a composition exception. True composition values (one-off negative margins, non-token max-widths, 1px hairlines, choreography delays) may stay literal by design — do not flag those. **Spatial vs Effects (spec § Motion RIGID):** `--ease-spring` — or any overshoot curve — applied to an *effect* property (color, background, opacity, shadow) is a finding; spring easing rides spatial properties only (transform, size, position). Per-component token pairs are ratified in the spec's motion index (§ Motion): a pair that contradicts its component's row is a finding.
-9. **Font stack fidelity** — the rendered font-family chains match the spec verbatim (sans AND mono); foreign families or bare generic stacks in fallbacks = finding.
+9. **Font stack fidelity** — the rendered font-family chain matches `--font-sans` verbatim; Amaca is a single-typeface system, so a monospaced family anywhere, foreign families or bare generic stacks in fallbacks = finding. Labels are a register of the same face (`--tr-label`, uppercase, tabular figures), never a font of their own. Italic belongs to quoted text only (`--font-style-quote`): a pull quote, a model's verbatim output, a line from a source; italic as emphasis = finding.
 10. **Stat count-up** — where numeric stats/KPIs are displayed, they animate composing upward on entrance riding the spec curve (site-canonical RIGID pattern); static stat numbers = warning finding. The reduced-motion variant shows final values instantly.
 
 **Exception classes come from the spec ONLY.** The audit never invents a new exception category to reclassify a finding (e.g. calling a hand-copied token value a "composition exception"). If a value seems to deserve an exemption the spec does not name, report it as a finding or surface it as a gap — never self-grant absolution.
@@ -109,6 +109,7 @@ Keep it terse. Findings reference the node name/id so the user can jump to them.
 
 ## Version history
 
+- **v1.8 — 2026-11-13**: spec sync (DESIGN.md v6.0.0). Check 9 reads one typeface: the mono register is now the label register (`--tr-label`, Figma `typography/tracking/label`), and there is no monospaced stack to match. Italic is the quote register's (`--font-style-quote`). No workflow changes.
 - **v1.7 — 2026-10-27**: spec sync (DESIGN.md v5.3.0). Check 5 knows the registry's fifth state, `rule`: a container is an auto-layout frame, never a component. A component's States are one row (default, focus, the value, disabled, disabled with its value), never a hover variant: hover lives in the state index. New component tokens `--card-strip` and `--slider-fill` map to variables like any other. No workflow changes.
 - **v1.6 — 2026-10-18**: spec sync (DESIGN.md v5.0.0). Check 5 reads the **Variants.** block every component section now carries: Figma variant properties and their values come only from it. No workflow changes.
 - **v1.5 — 2026-08-05**: spec sync (component registry + state grammar, DESIGN.md v3.4.0). Check 5 rewritten against the **closed** registry — the four states now decide what the audit permits, and an off-system name is a critical finding that blocks publication rather than a naming suggestion. New check 5b: Variant property values come from the closed state vocabulary, and a focusable component with no `focus-visible` Variant (or a form control with no `error` Variant) is critical. Severity table updated. No workflow changes.

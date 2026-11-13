@@ -19,9 +19,9 @@ The rules as a Claude skill, tokens bundled, and amaca.md for Claude Code.
 **What's inside**
 
 - `README.md` · 795 B
-- `amaca-frontend.zip` · 203 KB
+- `amaca-frontend.zip` · 207 KB
 - `claude-code/amaca.md` · 17 KB
-- `claude-code/DESIGN.md` · 461 KB
+- `claude-code/DESIGN.md` · 468 KB
 - `claude-code/tokens.css` · 15 KB
 
 ---
@@ -40,7 +40,7 @@ One package, two manifests, one skill: Agent Plugins for Cursor, Codex, Copilot,
 
 - `amaca-design/README.md` · 2 KB
 - `amaca-design/plugin.json` · 545 B
-- `amaca-design/skills/amaca-frontend/ · 9 files` · 586 KB
+- `amaca-design/skills/amaca-frontend/ · 9 files` · 597 KB
 - `amaca-design/.claude-plugin/plugin.json` · 642 B
 - `amaca-design/LICENSE` · 1 KB
 
@@ -75,7 +75,7 @@ The spec in the Google Labs design.md standard, for Stitch and any agent that re
 **What's inside**
 
 - `README.md` · 454 B
-- `DESIGN.md` · 461 KB
+- `DESIGN.md` · 468 KB
 
 ---
 
@@ -93,7 +93,7 @@ The open agent-rules file: Codex, Copilot, Cursor and Devin read it at the repo 
 
 - `README.md` · 693 B
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 461 KB
+- `DESIGN.md` · 468 KB
 - `tokens.css` · 15 KB
 
 ---
@@ -118,9 +118,9 @@ Scoped rules: amaca-core always on, amaca-html and amaca-react on the files they
 - `.github/copilot-instructions.md` · 5 KB
 - `.github/instructions/amaca-html.instructions.md` · 2 KB
 - `.github/instructions/amaca-react.instructions.md` · 2 KB
-- `.agents/skills/amaca-frontend/ · 9 files` · 586 KB
+- `.agents/skills/amaca-frontend/ · 9 files` · 597 KB
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 461 KB
+- `DESIGN.md` · 468 KB
 - `tokens.css` · 15 KB
 
 ---
@@ -208,7 +208,7 @@ Every token as W3C DTCG JSON, with what each one is for, for Style Dictionary, T
 **What's inside**
 
 - `README.md` · 496 B
-- `tokens.dtcg.json` · 42 KB
+- `tokens.dtcg.json` · 43 KB
 
 ---
 
@@ -224,13 +224,13 @@ The package: tokens, components, the Tailwind theme, the DTCG file and the spec.
 
 **What's inside**
 
-- `DESIGN.md` · 461 KB
+- `DESIGN.md` · 468 KB
 - `LICENSE` · 1 KB
 - `THIRD-PARTY-NOTICES.md` · 5 KB
 - `components.css` · 208 KB
 - `theme.css` · 7 KB
 - `tokens.css` · 15 KB
-- `tokens.dtcg.json` · 42 KB
+- `tokens.dtcg.json` · 43 KB
 - `package.json`
 - `README.md`
 

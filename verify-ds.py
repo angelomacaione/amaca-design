@@ -1650,6 +1650,58 @@ def c128():
                 fails.append(f"{b['zip']}: a step names {c}, which the bundle does not carry")
     return fails
 
+
+@check("129", "Quoted text has its register: --font-style-quote, used by every quote, and no italic written by hand",
+       "v6.0.0: the system did not tell quoted text from the author's. The pull quote "
+       "was upright at 500 and italic appeared only as emphasis. A source's words, a "
+       "model's verbatim output and a line from a talk read like the text around them.")
+def c129():
+    fails = []
+    tok = read(TOKENS)
+    if not re.search(r"--font-style-quote:\s*italic;", tok):
+        fails.append("tokens.css: --font-style-quote is not declared as italic")
+    css = read(COMPONENTS)
+    m = re.search(r"\.cs-pull\{([^}]*)\}", css)
+    if not m or "font-style:var(--font-style-quote)" not in m.group(1).replace(" ", ""):
+        fails.append("components.css: .cs-pull does not read var(--font-style-quote)")
+    elif not re.search(r"font-weight:\s*400", m.group(1)):
+        fails.append("components.css: .cs-pull is not 400 (the quote register is italic 400)")
+    if not re.search(r"(^|[,}\s])q(,[^{]*)?\{[^}]*font-style:\s*var\(--font-style-quote\)", tok, re.M):
+        fails.append("tokens.css: the q element does not read var(--font-style-quote)")
+    # italic by hand: only the declared emphasis exceptions and @font-face
+    allowed = (".ai-rules em", ".do em, .dont em")
+    for p in (TOKENS, COMPONENTS):
+        for n, line in enumerate(read(p).splitlines(), 1):
+            if re.search(r"font-style:\s*italic", line) and "@font-face" not in line and not line.startswith(allowed):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: font-style:italic by hand")
+    # the typeface specimen shows the italic cuts by name: the one declared exception
+    for m2 in re.finditer(r"font-style:\s*italic", read(INDEX)):
+        tail = read(INDEX)[m2.end():m2.end() + 300]
+        if not re.search(r">Satoshi-\w*Italic<", tail):
+            fails.append("index.html: font-style:italic by hand outside the typeface specimen")
+    if "The quote register" not in read(DESIGN):
+        fails.append("DESIGN.md: no 'The quote register' rule in Typography")
+    if DTCG.exists():
+        d = json.loads(read(DTCG))
+        if d.get("font-style-quote", {}).get("$value") != "italic":
+            fails.append("tokens.dtcg.json: font-style-quote missing or not italic")
+    return sorted(set(fails))[:40]
+
+@check("130", "llms-full.txt carries tokens.css as it is, byte for byte",
+       "v6.0.0: the copy of tokens.css at the end of llms-full.txt had stood still since "
+       "before v5.0.0. No semantic tokens, and the old roles (Obsidian 600 as a plain "
+       "border): an agent reading the one-file spec got a palette the site no longer had. "
+       "release/parts.py writes it now.")
+def c130():
+    t = read(LLMS_FULL)
+    k = t.find("# Tokens (tokens.css")
+    if k < 0:
+        return ["llms-full.txt: no '# Tokens (tokens.css' section"]
+    body = t[t.index("\n", t.index("====", k + 10)) + 1:]
+    if body.lstrip("\n") != read(TOKENS):
+        return ["llms-full.txt: the tokens.css copy differs from styles/tokens.css - run `python3 release/parts.py`"]
+    return []
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "

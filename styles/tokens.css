@@ -104,6 +104,7 @@
 
   /* — TYPE — */
   --font-sans:   "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-style-quote: italic;   /* v6.0.0: the quote register — words quoted verbatim or from a source, never emphasis (§ 02 Typography) */
 
   /* type scale — perfect-fourth on small / modular on large */
   --t-micro:   10px;
@@ -295,6 +296,8 @@ input,textarea{caret-color:var(--primary-500)}
 /* Single-typeface system: code, keys and samples ride the label register
    (Satoshi + --tr-label), never the browser's monospaced default (§ 02 Typography). */
 code,kbd,samp,pre{font-family:var(--font-sans);letter-spacing:var(--tr-label)}
+/* The quote register: an inline quotation is set in italic, the same register as the pull quote (§ 02 Typography). */
+q{font-style:var(--font-style-quote)}
 ::selection{background:var(--primary-500);color:var(--obsidian-050)}  /* near-white token — #FFF is banned (§ 01.2) */
 
 /* scrollbar */

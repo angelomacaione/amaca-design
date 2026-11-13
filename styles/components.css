@@ -1162,7 +1162,7 @@ button.chip:disabled{opacity:var(--opacity-disabled);cursor:not-allowed}
 .cs-section-body strong{font-weight:700}
 .cs-pull{
   border-left:var(--bw-2) solid var(--primary-500);padding:var(--s-3) var(--s-6);
-  font-size:var(--t-h5);font-weight:500;line-height:var(--lh-snug);letter-spacing:var(--tr-snug);
+  font-size:var(--t-h5);font-weight:400;font-style:var(--font-style-quote);line-height:var(--lh-snug);letter-spacing:var(--tr-snug);
   color:var(--obsidian-100);max-width:calc(var(--t-h6) * 36);margin:var(--s-8) auto;
 }
 /* Key points: the dot on the title's line, the text under the title, a Divider (§ 3.34) between points. */

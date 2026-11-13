@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 5.3.0
-updated: 2026-10-27
+version: 6.0.0
+updated: 2026-11-13
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-10-27
+last_synced: 2026-11-13
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -39,6 +39,7 @@ colors:
   primary-950: "#1D0519"
 typography:
   font-sans: "Satoshi, ui-sans-serif, system-ui, sans-serif"
+  font-style-quote: "italic"
   t-display: "112px"
   t-h1: "76px"
   t-h2: "52px"
@@ -79,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 5.3.0 — 2026.10.27
+> **Version** 6.0.0 — 2026.11.13
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** The contract, read a section at a time: by an agent through the MCP server (`get_design_section`), by a rules file that points here, or by a person. Do not paste it whole into a rules file or import it into one: it is 459 KB, and a file a tool loads at every launch must stay short (§ IDE integration). Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -208,6 +209,8 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 **`code`, `kbd`, `samp`, `pre` ride the label register too.** The browser's default for those elements is a real monospaced typeface, so the reset overrides it: `font-family: var(--font-sans); letter-spacing: var(--tr-label)`. Without that line the system quietly runs two typefaces on every inline code fragment — 704 of them on the site before v3.4.0, and the two sat two lines apart inside the same card.
 
 **A real monospaced stack is off-system.** `ui-monospace, SFMono-Regular, Menlo, monospace` hardcoded anywhere is a violation — it introduces a second typeface into a single-typeface system, and it does so invisibly, because at 10–12px uppercase the two read almost alike until you put them side by side.
+
+**The quote register (v6.0.0).** Text quoted from someone else is set in italic, through `--font-style-quote`: a pull quote (`.cs-pull`, italic at 400), an inline quotation (`q`), a model's verbatim output, a line taken from a source. Italic never emphasises the author's own text: that is what weight is for. The quotation marks stay those of the text's language. `font-style: italic` written by hand is drift; the two declared exceptions are emphasis inside the rule cards (`.ai-rules em`, `.do em`, `.dont em`) and the typeface specimen, which shows the italic cuts by name.
 
 | Token | Size | Typical use |
 |---|---|---|
@@ -3713,7 +3716,7 @@ The starting frame for a project told as a story. It composes the system's compo
 | Hero meta | `.cs-meta` | Reading time and tags under the lede; label `--t-micro` `--obsidian-300`, value `--t-small` 500; the tags are Chips (§ 3.15), links to the site's filter where it has one |
 | Dossier | `.cs-dossier` | A `<dl>` of the project's facts in four columns (two under 900px): role, team, platform, outcome; a missing fact is left out |
 | Section | `.cs-section` `.cs-section-title` `.cs-section-body` | One centred column of 36em at the `--t-h6` body (about 65 characters a line) for eyebrow, title, text and figures. Numbered eyebrow with a magenta rule, title `--t-h3` 400, text `--t-h6` at `--lh-loose` in `--obsidian-100`; under 720px title `--t-h4`, text `--t-lead` |
-| Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 500, in the section column |
+| Pull quote | `.cs-pull` | `--bw-2` `--primary-500` rule on the left, `--t-h5` 400 in the quote register (`--font-style-quote`), in the section column |
 | Figure | `.cs-figure` `.cs-img` `.cs-img-hint` `.cs-figure-caption` | A real image (or an inline diagram) never shown larger than its file, inside a button that opens the Lightbox (§ 3.22) with that image; the hint *Expand* on hover; the caption under it, "Fig. NN" in label, centred |
 | Points | `.cs-points` `.cs-point` `.cs-point-title` `.cs-point-body` | A dot on the title's line, title `--t-h6` 700, the text under it, a Divider (§ 3.34) between points |
 | Outcome | `.cs-stats` + Chart card stats | The stat of § Chart card, before the text: each `<li>` is a `.chart-card` with `.chart-head` `.t`, `.chart-big` counting up on entry and `.chart-delta`. One `.accent` at most, on the headline result; the rest stay `--obsidian-100`. Inside the reading column the card restates `--t-body` / `--lh-normal`, so it reads as it does in § 44. Three share a row; two or four go two by two; one column under 480px |
@@ -4331,6 +4334,45 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v6.0.0 — 2026.11.13 (MAJOR)
+
+Labels become a register, quotes get one, and every download carries its own instructions: what the system says, what it serves and what it ships now agree.
+
+**Breaking**
+- **The mono register is the label register, no alias.** `--font-mono` is removed; `--tr-mono` is renamed `--tr-label`, Tailwind's `--tracking-mono` `--tracking-label`, `.ty-mono` `.ty-label`, `.law-pct-mono` `.law-pct-num`. The name promised a monospaced typeface the system never had. A computed-style diff of 23,399 elements on the site found no change.
+- **Tailwind's `font-mono` utility is gone.** `theme.css` sets `--font-mono` to `initial`, so the class is not generated and cannot bring Tailwind's monospaced stack back. Use `font-sans` with `tracking-label`.
+- **`downloads/CLAUDE.md` is now `downloads/amaca.md`.** It goes in `.claude/rules/` (its `paths` frontmatter loads it for interface files) or is imported with `@amaca.md` from the project's own CLAUDE.md, never over it. The Claude bundle carries the skill as `amaca-frontend.zip`, the form Claude's upload asks for.
+- **Three motion offsets snap to the spacing scale:** the Tab and Segmented panels enter from 4px (they did from 6px), the chat bubble's content from 2px (3px), the Law card's rule from 8px (10px).
+- **The pull quote is italic at 400** (it was upright at 500): the quote register, below.
+- **`tokens.dtcg.json`: three gradients change `$type`** from `other` to `gradient` (`grad-cube`, `grad-signal`, `grad-progress`), with their angle and CSS in `$extensions.amaca`.
+- **The two bundle scripts are gone:** `build-paste-in-bundles.sh` and `refresh-bundles.sh` give way to `release/downloads.py`.
+
+**Added**
+- **The quote register.** `--font-style-quote: italic` sets text quoted from someone else: a pull quote, an inline `q`, a model's verbatim output, a line taken from a source. Italic never emphasises the author's own text; weight does that (Typography › The quote register).
+- **Every download is one card:** what the bundle is and its button on the left, a segmented *How to install* | *What's inside* on the right. The eleven zips, their READMEs, the cards and `SHA256SUMS` are written from one manifest, `release/downloads.py`; § 03.1 becomes *Find your tool*. Every install step was checked against the tool's own documentation: the skill upload path, Gemini skills (Gems retire on 17 November 2026), Devin (formerly Windsurf) reading `AGENTS.md`, Aider's `read:`, Continue's `.continue/rules/`. No step imports `DESIGN.md` whole.
+- **Every colour the system uses has its tile.** Primary 800 (Reserved) and 950 (Data canvas); Secondary and Tertiary show the same six steps, 100 to 700. The four ramps sit on six columns, two on a phone.
+- **`tokens.dtcg.json` says what every token is for:** a `$description` on all 180, the colours in the words of § 2, and each `other` token says why DTCG cannot hold it.
+- **Parts and variants in the short files.** `AGENTS.md`, `amaca.md`, `AI-INSTRUCTIONS.md` and `llms-full.txt` give each component's root class, parts and variants, written from the registry.
+- **The MCP server names what is off-system.** A component that `list_components` does not name gets the off-system answer (§ 3.0): tell the user and ask, never compose it. `get_component` answers with `next`: run `check_compliance` before handing the code over.
+- **`check_compliance` finds three more things:** a px in a transform off the spacing scale, an Amaca token the code declares itself instead of loading (`token-undeclared`), and an Amaca-looking token that does not exist (`token-unknown`).
+- **Checks 120 to 130, and B9 to B11 in the behaviour pass:** the vertical Stepper measured, the download cards one height across their tabs, and no text clipped by or spilling out of its control, at three widths.
+
+**Changed**
+- **The vertical Stepper holds one axis.** The dot sits at the top of its step on a `--stp-cur` box and never shrinks; the connector runs centre to centre however tall the text is (it drifted almost 9px under a two-line meta). New rule: *Vertical, on one axis*.
+- **Colour roles in the words of the tiles.** DESIGN.md § 2 opens every colour with its tile's role; Supporting lists the six steps of Secondary and Tertiary and the four semantic colours. The Obsidian 600 tile reads Border strong, as the contract does (it read Divider).
+- **Severity badges read Warn, Error, Info** in Law and Conventions; the identifiers stay lowercase.
+- **A card's Code and the served CSS carry the `@keyframes`** its component animates with (Chat, Loader, Skeleton, Stepper, Swatch). The Skeleton example carries its own row, and its Anatomy a Motion row.
+- **The Breadcrumb's title:** *Where you are, and the way back.*
+
+**Fixed**
+- **The registry served broken CSS.** Selector lists were split at every comma, so `:is()` lists came apart: 23 rules in 15 components were wrong, among them the site stage's width on Card, Modal and Table, and broken selectors in Date picker, Divider, Modal, Popover, Select and Tabs.
+- **A label sat 11px from its checkbox, radio or switch**, not `--s-2`: the browser's default margin on the input. It is reset.
+- **The rule files carried stale version stamps of their own** (`amaca.design@3.1.0`, `DESIGN.md v3.0.0`); they carry none now.
+- **`llms-full.txt` carried a copy of `tokens.css` from before v5.0.0:** no semantic tokens, and the old roles. `release/parts.py` writes it, and check 130 compares it byte for byte.
+
+**Unchanged**
+- No colour, spacing, radius, type size or duration changes its value.
 
 ### v5.3.0 — 2026.10.27 (MINOR)
 

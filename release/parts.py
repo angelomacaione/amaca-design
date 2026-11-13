@@ -6,7 +6,8 @@ so an agent reading only them invented .card-body and .card-head, and wrote no B
 in the 2026-10 benchmark). One line per component: its root class, its parts, its variants by axis.
 
     python3 release/parts.py           rewrite the block in every file
-    python3 release/parts.py --check   exit 1 if a block differs from r/
+    python3 release/parts.py --check   exit 1 if a block differs from r/,
+                                       or llms-full.txt's tokens.css copy from the file
 """
 import json, re, sys
 from pathlib import Path
@@ -50,19 +51,31 @@ def apply(text, b):
     return text[:m.end()] + "\n" + b + "\n" + text[m.end():]
 
 
+def tokens_tail(text):
+    """llms-full.txt ends with tokens.css, byte for byte (v6.0.0: it had stood
+    still since before v5.0.0). Everything after the Tokens banner is rewritten."""
+    k = text.find("# Tokens (tokens.css")
+    if k < 0:
+        return text
+    head = text[: text.index("\n", text.index("====", k + 10)) + 1]
+    return head + "\n" + (ROOT / "styles" / "tokens.css").read_text()
+
+
 def main(argv):
     b, stale = block(), []
     for f in FILES:
         p = ROOT / f
         old = p.read_text()
         new = apply(old, b)
+        if f == "llms-full.txt":
+            new = tokens_tail(new)
         if new != old:
             stale.append(f)
             if "--check" not in argv:
                 p.write_text(new)
     if "--check" in argv:
         for f in stale:
-            print(f"{f}: the parts block differs from r/")
+            print(f"{f}: the parts block or the tokens copy differs from the repo")
         return 1 if stale else 0
     print(f"wrote the parts block to {len(stale)} file(s)")
     return 0
