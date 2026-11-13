@@ -179,6 +179,19 @@ def build_zip(b):
     return buf.getvalue()
 
 
+def same_zip(a, b):
+    """Two zips hold the same thing: names, order, bytes, dates and modes. Not their compressed bytes:
+    zlib and zlib-ng deflate the same input differently, so a byte compare fails on any machine but
+    the one that baked the zip (found running the review sheet on Linux, v6.0.0)."""
+    def entries(data):
+        z = zipfile.ZipFile(io.BytesIO(data))
+        return [(i.filename, i.date_time, i.external_attr, z.read(i)) for i in z.infolist()]
+    try:
+        return entries(a) == entries(b)
+    except zipfile.BadZipFile:
+        return False
+
+
 def inside(b):
     """[(path, bytes)] as the card lists it: README first, then the files."""
     if b.get("inside") == "npm":
@@ -288,7 +301,7 @@ def main(argv):
             continue
         data = build_zip(b)
         path = ROOT / "downloads" / "zips" / b["zip"]
-        if path.read_bytes() != data:
+        if not path.exists() or not same_zip(path.read_bytes(), data):
             fails.append(f"downloads/zips/{b['zip']} differs from the manifest")
             if not check:
                 path.write_bytes(data)
