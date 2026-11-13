@@ -1574,7 +1574,7 @@ def c125():
                 fails.append(f"index.html: components.css reads --{fam}-{n}, which has no tile")
     return fails
 
-@check("126", "Every DTCG token says what it is for, and a colour says it in the words of § 2",
+@check("126", "Every DTCG token says what it is for, and a colour says it in the words of § 2 and of its tile",
        "v6.0.0: 113 of 179 tokens in tokens.dtcg.json carried no $description, primary-500 alone among the "
        "colours. The role a colour plays lived in DESIGN.md § 2 and on the site's tiles, in two vocabularies, "
        "and reached neither the DTCG file nor anyone importing it.")
@@ -1597,7 +1597,15 @@ def c126():
             fails.append(f"tokens.dtcg.json: {k} has no $description")
         elif t.get("$type") == "color" and k in rows and t["$description"] != rows[k]:
             fails.append(f"tokens.dtcg.json: {k} says {t['$description']!r}, DESIGN.md says {rows[k]!r}")
-    return fails[:40]
+    # the site's tile says the same role in fewer words: the contract's row starts with it (v6.0.0: the tile of
+    # --obsidian-600 said Divider while the contract said Border strong, and the dividers are --obsidian-800)
+    html = read(INDEX)
+    html = html[:html.find('<section class="section" id="changelog">')]
+    for m in re.finditer(r'--sw:var\(--([a-z0-9-]+)\)">.*?swatch-tile-role">([^<]*)<', html, re.S):
+        name, role = m.group(1), m.group(2).strip()
+        if name in rows and not rows[name].lower().startswith(role.lower()):
+            fails.append(f"index.html: the tile of --{name} says {role!r}, DESIGN.md § 2 says {rows[name]!r}")
+    return sorted(set(fails))[:40]
 
 @check("127", "The short rules files name every component's parts and variants, as the registry ships them",
        "v6.0.0, from the 2026-10 benchmark: AGENTS.md, AI-INSTRUCTIONS.md and llms-full.txt named the components "
