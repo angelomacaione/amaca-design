@@ -1541,6 +1541,31 @@ def c124():
         check(f"index.html kit {kit[-1] if kit else '?'}", css)
     return fails
 
+@check("125", "Every colour the system uses has its tile: the brand and neutral ramps whole, the supporting ramps the same steps",
+       "v6.0.0: § 01.1 drew seven steps of primary while tokens.css declared nine; --primary-950 entered in 5.0.0 "
+       "and its tile never came. Secondary and tertiary showed four steps each, not the same four, and not the ones "
+       "the stylesheet uses: --tertiary-200 coloured an avatar with no tile. Primary and obsidian show every step; "
+       "secondary and tertiary show the same steps, and every step components.css reads is among them.")
+def c125():
+    fails, tok, css = [], read(TOKENS), read(COMPONENTS)
+    html = read(INDEX)
+    a = html.find('<section class="section" id="changelog">')
+    site = html[:a] if a >= 0 else html
+    tiles = set(re.findall(r'class="swatch-tile[^"]*" style="--sw:var\(--([a-z0-9-]+)\)', site))
+    steps = lambda fam: re.findall(r"--" + fam + r"-(\d+)\s*:\s*#", tok)   # kept as written: 050
+    for fam in ("primary", "obsidian"):
+        for n in steps(fam):
+            if f"{fam}-{n}" not in tiles:
+                fails.append(f"index.html: --{fam}-{n} has no tile")
+    shown = {fam: sorted(int(t.split("-")[1]) for t in tiles if t.startswith(fam + "-")) for fam in ("secondary", "tertiary")}
+    if shown["secondary"] != shown["tertiary"]:
+        fails.append(f"index.html: secondary shows {shown['secondary']}, tertiary {shown['tertiary']}: the same steps")
+    for fam in ("secondary", "tertiary"):
+        for n in sorted({int(x) for x in re.findall(r"var\(--" + fam + r"-(\d+)\)", css)}):
+            if n not in shown[fam]:
+                fails.append(f"index.html: components.css reads --{fam}-{n}, which has no tile")
+    return fails
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
