@@ -123,17 +123,17 @@ All tokens live in `styles/tokens.css` and are exposed as CSS custom properties.
 
 | Token | Hex | Use |
 |---|---|---|
-| `--obsidian-950` | `#07090B` | Page background |
+| `--obsidian-950` | `#07090B` | Page |
 | `--obsidian-900` | `#0B0E12` | Surface |
-| `--obsidian-850` | `#10141A` | Elevated surface |
+| `--obsidian-850` | `#10141A` | Elevated |
 | `--obsidian-800` | `#161B22` | Card · subtle border |
 | `--obsidian-700` | `#1E242D` | Border |
 | `--obsidian-600` | `#2A313B` | Border strong |
-| `--obsidian-500` | `#3A4451` | Muted edge |
-| `--obsidian-400` | `#5B6573` | Disabled text · control outline · never active text (3.38 : 1 at best) |
-| `--obsidian-300` | `#8A94A3` | Secondary text · neutral labels · placeholders |
-| `--obsidian-200` | `#B8C0CB` | Tertiary text |
-| `--obsidian-100` | `#E3E7EC` | **Primary text on dark** |
+| `--obsidian-500` | `#3A4451` | Edge |
+| `--obsidian-400` | `#5B6573` | Disabled · control outline · never active text (3.38 : 1 at best) |
+| `--obsidian-300` | `#8A94A3` | Secondary · neutral labels · placeholders |
+| `--obsidian-200` | `#B8C0CB` | Tertiary |
+| `--obsidian-100` | `#E3E7EC` | **Body text** on dark |
 | `--obsidian-050` | `#F4F6F8` | Bone (max contrast) |
 
 ### Color · semantic (v5.0.0)
@@ -155,26 +155,38 @@ Role aliases on the obsidian ramp: no new values, a name for what each step does
 
 | Token | Hex | Use |
 |---|---|---|
-| `--primary-100` | `#FFE3F8` | Tints, soft highlights |
-| `--primary-200` | `#FFB5EC` | |
-| `--primary-300` | `#FF85DF` | Hover state on magenta links |
-| `--primary-400` | `#F868D8` | Links on dark, label accents |
-| `--primary-500` | `#F051D5` | **Primary brand · CTAs · focus rings** |
-| `--primary-600` | `#C93BB0` | Pressed state |
-| `--primary-700` | `#9A2D87` | Deep brand accents |
+| `--primary-100` | `#FFE3F8` | Surface · tint |
+| `--primary-200` | `#FFB5EC` | Soft · hover bg |
+| `--primary-300` | `#FF85DF` | Link hover |
+| `--primary-400` | `#F868D8` | Accent · eyebrow · links on dark |
+| `--primary-500` | `#F051D5` | **Brand · actions** · CTAs · focus rings |
+| `--primary-600` | `#C93BB0` | Pressed |
+| `--primary-700` | `#9A2D87` | Deep · shade |
 | `--primary-800` | `#66195A` | Reserved |
 | `--primary-950` | `#1D0519` | Data canvas: the ground of a chart or a timeline, its lanes, and text on a light primary fill |
 
 ### Color · supporting
 
+Secondary and tertiary show the same six steps on the site (§ 01.3, § 01.4); every step the stylesheet reads is among them (v6.0.0).
+
 | Token | Hex | Role |
 |---|---|---|
-| `--secondary-500` | `#00FFF2` | Electric cyan (rare; data viz only). The ramp's `--secondary-400` was a copy of this value until v5.0.0; it is now `#19FFF3`, one step between 300 and 500 |
-| `--tertiary-500` | `#0C6078` | Petrol teal (deep dive accents) |
-| `--success` | `#3AFFC7` | Confirmation only |
-| `--warning` | `#F6C65B` | Caution only |
-| `--danger` | `#FF5B5B` | Error / destructive only |
-| `--info` | `#5CC8FF` | Inline info, links in long-form |
+| `--secondary-100` | `#CCFFFC` | Tint |
+| `--secondary-200` | `#80FFF8` | Ramp |
+| `--secondary-300` | `#33FFF5` | Hover |
+| `--secondary-500` | `#00FFF2` | **Accent** · electric cyan, rare; data viz only. The ramp's `--secondary-400` was a copy of this value until v5.0.0; it is now `#19FFF3`, one step between 300 and 500 |
+| `--secondary-600` | `#00CCC2` | Ramp |
+| `--secondary-700` | `#009992` | Deep |
+| `--tertiary-100` | `#CEEAF1` | Tint |
+| `--tertiary-200` | `#8FCFDE` | Avatar hue |
+| `--tertiary-300` | `#4FA9BF` | Text on dark |
+| `--tertiary-500` | `#0C6078` | **Badge stroke** · petrol teal, deep dive accents |
+| `--tertiary-600` | `#084C61` | Deep |
+| `--tertiary-700` | `#06384A` | Ramp |
+| `--success` | `#3AFFC7` | Confirm · saved; confirmation only |
+| `--warning` | `#F6C65B` | Caution · pending; caution only |
+| `--danger` | `#FF5B5B` | Error · destructive only |
+| `--info` | `#5CC8FF` | Info · neutral state; inline info, links in long-form |
 
 **The 85/10/5 law (§ Law, L1):** ≥ 85% of any surface uses `--obsidian-*`. ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together. ≤ 5% is semantic. Violations are visible at a glance.
 

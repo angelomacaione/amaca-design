@@ -891,6 +891,14 @@ def c25():
             fams = [x.strip().strip("\'\"") for x in split_top(cssv)]
             if fams != list(val):
                 bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "gradient":
+            # v6.0.0: a linear gradient is a DTCG gradient; the angle DTCG cannot hold rides $extensions
+            m = re.fullmatch(r"linear-gradient\((\d+)deg,\s*(.*)\)", cssv.strip())
+            ext = (tok.get("$extensions") or {}).get("amaca", {})
+            want = [(s.split()[0].upper(), float(s.split()[1].rstrip("%")) / 100) for s in re.split(r",\s*(?=#)", m.group(2))] if m else None
+            got = [(str(x.get("color", "")).upper(), float(x.get("position", -1))) for x in val] if isinstance(val, list) else None
+            if not m or want != got or ext.get("angle") != m.group(1) + "deg":
+                bad(name, f"gradient {cssv!r} vs stops {val!r} and angle {ext.get('angle')!r}")
         elif typ == "shadow":
             # DTCG allows a single shadow as an object, multiples as an array
             if isinstance(val, dict):
@@ -1565,6 +1573,40 @@ def c125():
             if n not in shown[fam]:
                 fails.append(f"index.html: components.css reads --{fam}-{n}, which has no tile")
     return fails
+
+@check("126", "Every DTCG token says what it is for, and a colour says it in the words of § 2",
+       "v6.0.0: 113 of 179 tokens in tokens.dtcg.json carried no $description, primary-500 alone among the "
+       "colours. The role a colour plays lived in DESIGN.md § 2 and on the site's tiles, in two vocabularies, "
+       "and reached neither the DTCG file nor anyone importing it.")
+def c126():
+    fails = []
+    doc = json.loads(read(DTCG))
+    design = read(DESIGN)
+    design = design[:design.find("\n## Changelog")]
+    rows = {}
+    for line in design.split("\n"):
+        m = re.match(r"\|\s*`--([a-z0-9-]+)`\s*\|(.*)\|\s*$", line)
+        if m and m.group(1) not in rows:
+            last = [c.strip() for c in m.group(2).split("|")][-1]
+            if last and last != "—":
+                rows[m.group(1)] = re.sub(r"\*\*|`", "", last)
+    for k, t in doc.items():
+        if k.startswith("$"):
+            continue
+        if not str(t.get("$description", "")).strip():
+            fails.append(f"tokens.dtcg.json: {k} has no $description")
+        elif t.get("$type") == "color" and k in rows and t["$description"] != rows[k]:
+            fails.append(f"tokens.dtcg.json: {k} says {t['$description']!r}, DESIGN.md says {rows[k]!r}")
+    return fails[:40]
+
+@check("127", "The short rules files name every component's parts and variants, as the registry ships them",
+       "v6.0.0, from the 2026-10 benchmark: AGENTS.md, AI-INSTRUCTIONS.md and llms-full.txt named the components "
+       "and never their parts. An agent reading only them invented .card-body and .card-head and wrote no Badge "
+       "variant in 12 runs. release/parts.py writes one line per component from r/; this check holds the block to it.")
+def c127():
+    import subprocess
+    r = subprocess.run([sys.executable, str(ROOT / "release" / "parts.py"), "--check"], capture_output=True, text=True)
+    return [l for l in r.stdout.splitlines() if l.strip()] or ([] if r.returncode == 0 else [r.stderr.strip()[:200]])
 
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "

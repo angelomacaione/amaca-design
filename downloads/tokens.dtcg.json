@@ -19,7 +19,7 @@
       "hex": "#07090B"
     },
     "$type": "color",
-    "$description": "page"
+    "$description": "Page"
   },
   "obsidian-900": {
     "$value": {
@@ -33,7 +33,7 @@
       "hex": "#0B0E12"
     },
     "$type": "color",
-    "$description": "surface"
+    "$description": "Surface"
   },
   "obsidian-850": {
     "$value": {
@@ -47,7 +47,7 @@
       "hex": "#10141A"
     },
     "$type": "color",
-    "$description": "elevated"
+    "$description": "Elevated"
   },
   "obsidian-800": {
     "$value": {
@@ -61,7 +61,7 @@
       "hex": "#161B22"
     },
     "$type": "color",
-    "$description": "card"
+    "$description": "Card · subtle border"
   },
   "obsidian-700": {
     "$value": {
@@ -75,7 +75,7 @@
       "hex": "#1E242D"
     },
     "$type": "color",
-    "$description": "border strong"
+    "$description": "Border"
   },
   "obsidian-600": {
     "$value": {
@@ -89,7 +89,7 @@
       "hex": "#2A313B"
     },
     "$type": "color",
-    "$description": "border"
+    "$description": "Border strong"
   },
   "obsidian-500": {
     "$value": {
@@ -103,7 +103,7 @@
       "hex": "#3A4451"
     },
     "$type": "color",
-    "$description": "muted edge"
+    "$description": "Edge"
   },
   "obsidian-400": {
     "$value": {
@@ -117,7 +117,7 @@
       "hex": "#5B6573"
     },
     "$type": "color",
-    "$description": "disabled text"
+    "$description": "Disabled · control outline · never active text (3.38 : 1 at best)"
   },
   "obsidian-300": {
     "$value": {
@@ -131,7 +131,7 @@
       "hex": "#8A94A3"
     },
     "$type": "color",
-    "$description": "secondary text"
+    "$description": "Secondary · neutral labels · placeholders"
   },
   "obsidian-200": {
     "$value": {
@@ -145,7 +145,7 @@
       "hex": "#B8C0CB"
     },
     "$type": "color",
-    "$description": "tertiary text"
+    "$description": "Tertiary"
   },
   "obsidian-100": {
     "$value": {
@@ -159,7 +159,7 @@
       "hex": "#E3E7EC"
     },
     "$type": "color",
-    "$description": "primary text on dark"
+    "$description": "Body text on dark"
   },
   "obsidian-050": {
     "$value": {
@@ -173,47 +173,47 @@
       "hex": "#F4F6F8"
     },
     "$type": "color",
-    "$description": "bone"
+    "$description": "Bone (max contrast)"
   },
   "surface": {
     "$value": "{obsidian-950}",
     "$type": "color",
-    "$description": "the page"
+    "$description": "The page"
   },
   "surface-sunken": {
     "$value": "{obsidian-900}",
     "$type": "color",
-    "$description": "sidebar, wells"
+    "$description": "Sidebar, wells"
   },
   "surface-field": {
     "$value": "{obsidian-850}",
     "$type": "color",
-    "$description": "inputs and controls at rest"
+    "$description": "Inputs and choice controls at rest"
   },
   "surface-raised": {
     "$value": "{obsidian-800}",
     "$type": "color",
-    "$description": "card, menu, modal"
+    "$description": "Card, menu, modal"
   },
   "border-subtle": {
     "$value": "{obsidian-800}",
     "$type": "color",
-    "$description": "dividers, table rows"
+    "$description": "Dividers, table rows"
   },
   "border": {
     "$value": "{obsidian-700}",
     "$type": "color",
-    "$description": "card, chip, panel"
+    "$description": "Card, chip, panel"
   },
   "border-strong": {
     "$value": "{obsidian-600}",
     "$type": "color",
-    "$description": "hover, emphasis"
+    "$description": "Hover, emphasis"
   },
   "border-input": {
     "$value": "{obsidian-400}",
     "$type": "color",
-    "$description": "a control's outline: 3:1 on its fill (WCAG 1.4.11)"
+    "$description": "A control's outline — 3.13 : 1 on --surface-field, the WCAG 1.4.11 floor (§ 6)"
   },
   "primary-100": {
     "$value": {
@@ -226,7 +226,8 @@
       "alpha": 1,
       "hex": "#FFE3F8"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Surface · tint"
   },
   "primary-200": {
     "$value": {
@@ -239,7 +240,8 @@
       "alpha": 1,
       "hex": "#FFB5EC"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Soft · hover bg"
   },
   "primary-300": {
     "$value": {
@@ -252,7 +254,8 @@
       "alpha": 1,
       "hex": "#FF85DF"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Link hover"
   },
   "primary-400": {
     "$value": {
@@ -265,7 +268,8 @@
       "alpha": 1,
       "hex": "#F868D8"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Accent · eyebrow · links on dark"
   },
   "primary-500": {
     "$value": {
@@ -279,7 +283,7 @@
       "hex": "#F051D5"
     },
     "$type": "color",
-    "$description": "primary brand"
+    "$description": "Brand · actions · CTAs · focus rings"
   },
   "primary-600": {
     "$value": {
@@ -292,7 +296,8 @@
       "alpha": 1,
       "hex": "#C93BB0"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Pressed"
   },
   "primary-700": {
     "$value": {
@@ -305,7 +310,8 @@
       "alpha": 1,
       "hex": "#9A2D87"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Deep · shade"
   },
   "primary-800": {
     "$value": {
@@ -318,7 +324,8 @@
       "alpha": 1,
       "hex": "#66195A"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Reserved"
   },
   "primary-950": {
     "$value": {
@@ -331,7 +338,8 @@
       "alpha": 1,
       "hex": "#1D0519"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Data canvas: the ground of a chart or a timeline, its lanes, and text on a light primary fill"
   },
   "secondary-100": {
     "$value": {
@@ -344,7 +352,8 @@
       "alpha": 1,
       "hex": "#CCFFFC"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Tint"
   },
   "secondary-200": {
     "$value": {
@@ -357,7 +366,8 @@
       "alpha": 1,
       "hex": "#80FFF8"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Ramp"
   },
   "secondary-300": {
     "$value": {
@@ -370,7 +380,8 @@
       "alpha": 1,
       "hex": "#33FFF5"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Hover"
   },
   "secondary-400": {
     "$value": {
@@ -383,7 +394,8 @@
       "alpha": 1,
       "hex": "#19FFF3"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Ramp step: not shown on the site and not read by the stylesheet."
   },
   "secondary-500": {
     "$value": {
@@ -396,7 +408,8 @@
       "alpha": 1,
       "hex": "#00FFF2"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Accent · electric cyan, rare; data viz only. The ramp's --secondary-400 was a copy of this value until v5.0.0; it is now #19FFF3, one step between 300 and 500"
   },
   "secondary-600": {
     "$value": {
@@ -409,7 +422,8 @@
       "alpha": 1,
       "hex": "#00CCC2"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Ramp"
   },
   "secondary-700": {
     "$value": {
@@ -422,7 +436,8 @@
       "alpha": 1,
       "hex": "#009992"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Deep"
   },
   "tertiary-100": {
     "$value": {
@@ -435,7 +450,8 @@
       "alpha": 1,
       "hex": "#CEEAF1"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Tint"
   },
   "tertiary-200": {
     "$value": {
@@ -448,7 +464,8 @@
       "alpha": 1,
       "hex": "#8FCFDE"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Avatar hue"
   },
   "tertiary-300": {
     "$value": {
@@ -461,7 +478,8 @@
       "alpha": 1,
       "hex": "#4FA9BF"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Text on dark"
   },
   "tertiary-400": {
     "$value": {
@@ -474,7 +492,8 @@
       "alpha": 1,
       "hex": "#1F85A0"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Ramp step: not shown on the site and not read by the stylesheet."
   },
   "tertiary-500": {
     "$value": {
@@ -487,7 +506,8 @@
       "alpha": 1,
       "hex": "#0C6078"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Badge stroke · petrol teal, deep dive accents"
   },
   "tertiary-600": {
     "$value": {
@@ -500,7 +520,8 @@
       "alpha": 1,
       "hex": "#084C61"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Deep"
   },
   "tertiary-700": {
     "$value": {
@@ -513,7 +534,8 @@
       "alpha": 1,
       "hex": "#06384A"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Ramp"
   },
   "cube-cyan": {
     "$value": {
@@ -526,7 +548,8 @@
       "alpha": 1,
       "hex": "#2CE3D0"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Brand cube."
   },
   "cube-mint": {
     "$value": {
@@ -539,7 +562,8 @@
       "alpha": 1,
       "hex": "#3AFFC7"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Brand cube."
   },
   "cube-aqua": {
     "$value": {
@@ -552,7 +576,8 @@
       "alpha": 1,
       "hex": "#1FD6F2"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Brand cube."
   },
   "success": {
     "$value": {
@@ -565,7 +590,8 @@
       "alpha": 1,
       "hex": "#3AFFC7"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Confirm · saved; confirmation only"
   },
   "warning": {
     "$value": {
@@ -578,7 +604,8 @@
       "alpha": 1,
       "hex": "#F6C65B"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Caution · pending; caution only"
   },
   "danger": {
     "$value": {
@@ -591,7 +618,8 @@
       "alpha": 1,
       "hex": "#FF5B5B"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Error · destructive only"
   },
   "info": {
     "$value": {
@@ -604,23 +632,28 @@
       "alpha": 1,
       "hex": "#5CC8FF"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "Info · neutral state; inline info, links in long-form"
   },
   "tint-fill": {
     "$value": 0.08,
-    "$type": "number"
+    "$type": "number",
+    "$description": "A tinted label's fill (Badge, Chip), a selected row"
   },
   "tint-edge": {
     "$value": 0.3,
-    "$type": "number"
+    "$type": "number",
+    "$description": "A tinted label's edge; the typing dots at rest (a keyframe cannot read var(): it writes the value)"
   },
   "tint-fill-deep": {
     "$value": 0.12,
-    "$type": "number"
+    "$type": "number",
+    "$description": "The deep hue's fill; the feature card's light"
   },
   "tint-edge-deep": {
     "$value": 0.4,
-    "$type": "number"
+    "$type": "number",
+    "$description": "The deep hue's edge"
   },
   "tint-faint": {
     "$value": 0.04,
@@ -656,28 +689,78 @@
     "$description": "component token: how far a single slider is filled; the script sets it on the input"
   },
   "grad-cube": {
-    "$value": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
-    "$type": "other",
-    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+    "$value": [
+      {
+        "color": "#F051D5",
+        "position": 0.0
+      },
+      {
+        "color": "#F868D8",
+        "position": 0.5
+      },
+      {
+        "color": "#FF85DF",
+        "position": 1.0
+      }
+    ],
+    "$type": "gradient",
+    "$description": "Linear gradient; DTCG has no angle, so it rides $extensions.amaca.angle and the CSS string in $extensions.amaca.css.",
+    "$extensions": {
+      "amaca": {
+        "css": "linear-gradient(135deg, #F051D5 0%, #F868D8 50%, #FF85DF 100%)",
+        "angle": "135deg"
+      }
+    }
   },
   "grad-signal": {
-    "$value": "linear-gradient(90deg, #F051D5 0%, #FF85DF 100%)",
-    "$type": "other",
-    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+    "$value": [
+      {
+        "color": "#F051D5",
+        "position": 0.0
+      },
+      {
+        "color": "#FF85DF",
+        "position": 1.0
+      }
+    ],
+    "$type": "gradient",
+    "$description": "Linear gradient; DTCG has no angle, so it rides $extensions.amaca.angle and the CSS string in $extensions.amaca.css.",
+    "$extensions": {
+      "amaca": {
+        "css": "linear-gradient(90deg, #F051D5 0%, #FF85DF 100%)",
+        "angle": "90deg"
+      }
+    }
   },
   "grad-progress": {
-    "$value": "linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%)",
-    "$type": "other",
-    "$description": "CSS gradient — no lossless DTCG gradient mapping (angle not representable); kept as CSS string."
+    "$value": [
+      {
+        "color": "#FFB5EC",
+        "position": 0.0
+      },
+      {
+        "color": "#F051D5",
+        "position": 1.0
+      }
+    ],
+    "$type": "gradient",
+    "$description": "Linear gradient; DTCG has no angle, so it rides $extensions.amaca.angle and the CSS string in $extensions.amaca.css.",
+    "$extensions": {
+      "amaca": {
+        "css": "linear-gradient(90deg, #FFB5EC 0%, #F051D5 100%)",
+        "angle": "90deg"
+      }
+    }
   },
   "grad-fog": {
     "$value": "radial-gradient(1200px 600px at 10% -10%, rgba(240,81,213,0.08), transparent 60%),\n                 radial-gradient(900px 500px at 90% 110%, rgba(248,104,216,0.05), transparent 60%)",
-    "$type": "other"
+    "$type": "other",
+    "$description": "Two radial gradients: DTCG gradients carry colour stops only, not a radial size or position. Kept as the CSS string."
   },
   "light-hero": {
     "$value": "radial-gradient(600px 400px at 80% 20%, rgba(240,81,213,0.08), transparent 60%)",
     "$type": "other",
-    "$description": "the light of the case study hero"
+    "$description": "The light of the case study hero, a radial gradient: DTCG gradients carry colour stops only. Kept as the CSS string."
   },
   "font-sans": {
     "$value": [
@@ -688,405 +771,456 @@
       "Segoe UI",
       "sans-serif"
     ],
-    "$type": "fontFamily"
+    "$type": "fontFamily",
+    "$description": "String"
   },
   "t-micro": {
     "$value": {
       "value": 10,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Label register, labels, eyebrows, kbd keys"
   },
   "t-caption": {
     "$value": {
       "value": 12,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Smallest readable text"
   },
   "t-small": {
     "$value": {
       "value": 13,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Captions, table cells"
   },
   "t-body": {
     "$value": {
       "value": 15,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Default body text"
   },
   "t-lead": {
     "$value": {
       "value": 18,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Page lede / intro paragraph"
   },
   "t-h6": {
     "$value": {
       "value": 20,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Eyebrow heading"
   },
   "t-h5": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Small heading"
   },
   "t-h4": {
     "$value": {
       "value": 30,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Card title"
   },
   "t-h3": {
     "$value": {
       "value": 38,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Subsection title"
   },
   "t-h2": {
     "$value": {
       "value": 52,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Section title"
   },
   "t-h1": {
     "$value": {
       "value": 76,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Page title (one per page)"
   },
   "t-display": {
     "$value": {
       "value": 112,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Marketing hero only"
   },
   "t-display-fluid": {
     "$value": "clamp(48px, 14vw, 80px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-h1-fluid": {
     "$value": "clamp(40px, 9vw, 64px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-h2-fluid": {
     "$value": "clamp(32px, 9vw, 48px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-h3-fluid": {
     "$value": "clamp(26px, 7vw, 36px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-h4-fluid": {
     "$value": "clamp(22px, 6vw, 28px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-h5-fluid": {
     "$value": "clamp(var(--t-lead), 5vw, 22px)",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "t-lead-fluid": {
     "$value": "clamp(16px, 3.6vw, var(--t-h6))",
     "$type": "other",
-    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp()."
+    "$description": "Fluid heading below the 860px breakpoint, as a CSS clamp(). A CSS clamp(): DTCG dimension takes a fixed px or rem."
   },
   "lh-tight": {
     "$value": 1.05,
-    "$type": "number"
+    "$type": "number",
+    "$description": "Display text"
   },
   "lh-snug": {
     "$value": 1.2,
-    "$type": "number"
+    "$type": "number",
+    "$description": "Headings"
   },
   "lh-normal": {
     "$value": 1.45,
-    "$type": "number"
+    "$type": "number",
+    "$description": "UI text"
   },
   "lh-loose": {
     "$value": 1.65,
-    "$type": "number"
+    "$type": "number",
+    "$description": "Running body copy"
   },
   "tr-tight": {
     "$value": "-0.04em",
     "$type": "other",
-    "$description": "Letter-spacing for display text."
+    "$description": "Letter-spacing for display text. In em: DTCG dimension takes px or rem only."
   },
   "tr-snug": {
     "$value": "-0.02em",
     "$type": "other",
-    "$description": "Letter-spacing for headings."
+    "$description": "Letter-spacing for headings. In em: DTCG dimension takes px or rem only."
   },
   "tr-normal": {
     "$value": "0em",
     "$type": "other",
-    "$description": "Letter-spacing for body text."
+    "$description": "Letter-spacing for body text. In em: DTCG dimension takes px or rem only."
   },
   "tr-wide": {
     "$value": "0.04em",
     "$type": "other",
-    "$description": "Letter-spacing for small caps."
+    "$description": "Letter-spacing for small caps. In em: DTCG dimension takes px or rem only."
   },
   "tr-label": {
     "$value": "0.06em",
     "$type": "other",
-    "$description": "Letter-spacing for labels (the label register)."
+    "$description": "Letter-spacing for labels (the label register). In em: DTCG dimension takes px or rem only."
   },
   "s-0": {
     "$value": {
       "value": 0,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Space, on the 4px grid."
   },
   "s-px": {
     "$value": {
       "value": 1,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hairline offsets, visually-hidden clip (v5.0.0)"
   },
   "s-0-5": {
     "$value": {
       "value": 2,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Micro gaps, knob inset, label-to-meta (v5.0.0)"
   },
   "s-1": {
     "$value": {
       "value": 4,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hairline gap (icon ↔ text)"
   },
   "s-2": {
     "$value": {
       "value": 8,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Tight pair"
   },
   "s-3": {
     "$value": {
       "value": 12,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Inline gap"
   },
   "s-4": {
     "$value": {
       "value": 16,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Default content gap"
   },
   "s-5": {
     "$value": {
       "value": 20,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Compact section gap"
   },
   "s-6": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Card padding · subsection rhythm"
   },
   "s-8": {
     "$value": {
       "value": 32,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Card padding (generous)"
   },
   "s-10": {
     "$value": {
       "value": 40,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Block separator"
   },
   "s-12": {
     "$value": {
       "value": 48,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Section margin"
   },
   "s-16": {
     "$value": {
       "value": 64,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Major section break"
   },
   "s-20": {
     "$value": {
       "value": 80,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Page-level rhythm"
   },
   "s-24": {
     "$value": {
       "value": 96,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hero spacing"
   },
   "s-32": {
     "$value": {
       "value": 128,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Long-form vertical breathing"
   },
   "r-none": {
     "$value": {
       "value": 0,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Tables, dense data"
   },
   "r-xs": {
     "$value": {
       "value": 2,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Code chips"
   },
   "r-sm": {
     "$value": {
       "value": 4,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Tags, kbd keys"
   },
   "r-md": {
     "$value": {
       "value": 8,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Default — buttons, inputs, small cards"
   },
   "r-lg": {
     "$value": {
       "value": 12,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Large cards, panels"
   },
   "r-xl": {
     "$value": {
       "value": 16,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Case study hero"
   },
   "r-2xl": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hero block"
   },
   "r-full": {
     "$value": {
       "value": 999,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Pills, status dots"
   },
   "bw-1": {
     "$value": {
       "value": 1,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Every hairline: card, field, divider, control outline"
   },
   "bw-2": {
     "$value": {
       "value": 2,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Emphasis lines: the tab indicator, the checkbox tick"
   },
   "focus-width": {
     "$value": {
       "value": 2,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "The pressable ring's outline width (§ 6.2)"
   },
   "focus-offset": {
     "$value": {
       "value": 3,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "The pressable ring's offset (§ 6.2)"
   },
   "icon-xs": {
     "$value": {
       "value": 14,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Icon beside a label in a button (§ 3.6) and in small controls · .icon-xs"
   },
   "icon-sm": {
     "$value": {
       "value": 16,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Inline icon, control glyph"
   },
   "icon-md": {
     "$value": {
       "value": 20,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Standalone icon"
   },
   "icon-lg": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Icon in a large control or an empty state"
   },
   "target-dense": {
     "$value": {
       "value": 32,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hit area on dense desktop (§ 6, floor #7)"
   },
   "target-touch": {
     "$value": {
       "value": 44,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Hit area on touch (§ 6, floor #7)"
   },
   "w-tooltip": {
     "$value": {
@@ -1130,7 +1264,8 @@
   },
   "sh-0": {
     "$value": "none",
-    "$type": "other"
+    "$type": "other",
+    "$description": "No shadow: DTCG shadow has no \"none\". Kept as the CSS keyword."
   },
   "sh-1": {
     "$value": [
@@ -1190,7 +1325,8 @@
         }
       }
     ],
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Resting card"
   },
   "sh-2": {
     "$value": [
@@ -1250,7 +1386,8 @@
         }
       }
     ],
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Hover lift"
   },
   "sh-3": {
     "$value": [
@@ -1310,7 +1447,8 @@
         }
       }
     ],
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Floating panel, drawer"
   },
   "sh-4": {
     "$value": [
@@ -1370,7 +1508,8 @@
         }
       }
     ],
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Modal"
   },
   "sh-glow": {
     "$value": [
@@ -1429,7 +1568,8 @@
         }
       }
     ],
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Brand bloom — the .btn-primary hover, listed before --sh-3 so the bloom paints over the drop"
   },
   "sh-glow-soft": {
     "$value": {
@@ -1459,7 +1599,8 @@
         "unit": "px"
       }
     },
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Ambient brand glow (rare)"
   },
   "sh-menu": {
     "$value": {
@@ -1489,7 +1630,8 @@
         "unit": "px"
       }
     },
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Select menu and native picker — a floating list over content"
   },
   "scrim": {
     "$value": {
@@ -1502,7 +1644,8 @@
       "alpha": 0.6,
       "hex": "#07090B99"
     },
-    "$type": "color"
+    "$type": "color",
+    "$description": "The page behind a modal, dimmed — --obsidian-950 at 60%, #07090B99. A translucent colour: a veil, never a surface"
   },
   "surface-glass": {
     "$value": {
@@ -1516,7 +1659,7 @@
       "hex": "#07090BB3"
     },
     "$type": "color",
-    "$description": "a control floating over content, read through a blur: obsidian-950 at 70%"
+    "$description": "A control floating over content, read through --blur-glass — --obsidian-950 at 70%, #07090BB3. The floating button, the lightbox close, the figure hint"
   },
   "surface-bar": {
     "$value": {
@@ -1530,7 +1673,7 @@
       "hex": "#07090BCC"
     },
     "$type": "color",
-    "$description": "a bar that stays on top while the page scrolls: obsidian-950 at 80%"
+    "$description": "A bar that stays on top while the page scrolls, read through --blur-bar — --obsidian-950 at 80%, #07090BCC. The top bar, the sidebar, the lightbox"
   },
   "blur-veil": {
     "$value": {
@@ -1592,7 +1735,8 @@
         "unit": "px"
       }
     },
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Focus ring on pressables — the § 6.2 pressable halo"
   },
   "ring-field": {
     "$value": {
@@ -1622,7 +1766,8 @@
         "unit": "px"
       }
     },
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "Focus ring on text fields — the § 6.2 field glow"
   },
   "ring-field-danger": {
     "$value": {
@@ -1652,7 +1797,8 @@
         "unit": "px"
       }
     },
-    "$type": "shadow"
+    "$type": "shadow",
+    "$description": "The field glow's error twin, on a focused aria-invalid field"
   },
   "ease-standard": {
     "$value": [
@@ -1671,7 +1817,8 @@
       0.84,
       0.0
     ],
-    "$type": "cubicBezier"
+    "$type": "cubicBezier",
+    "$description": "Exits, dismissals"
   },
   "ease-decel": {
     "$value": [
@@ -1708,35 +1855,40 @@
       "value": 100,
       "unit": "ms"
     },
-    "$type": "duration"
+    "$type": "duration",
+    "$description": "Hover state, tap feedback"
   },
   "d-quick": {
     "$value": {
       "value": 200,
       "unit": "ms"
     },
-    "$type": "duration"
+    "$type": "duration",
+    "$description": "Button states, focus rings"
   },
   "d-base": {
     "$value": {
       "value": 350,
       "unit": "ms"
     },
-    "$type": "duration"
+    "$type": "duration",
+    "$description": "Default — most UI transitions"
   },
   "d-slow": {
     "$value": {
       "value": 600,
       "unit": "ms"
     },
-    "$type": "duration"
+    "$type": "duration",
+    "$description": "Page enters, panel slides"
   },
   "d-scene": {
     "$value": {
       "value": 900,
       "unit": "ms"
     },
-    "$type": "duration"
+    "$type": "duration",
+    "$description": "Hero reveals, orchestrated sequences"
   },
   "d-draw": {
     "$value": {
@@ -1751,70 +1903,80 @@
       "value": 16,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Inline with text, inside buttons"
   },
   "loader-sm": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Beside an input, chat hints"
   },
   "loader-md": {
     "$value": {
       "value": 48,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Inside a card / section overlay"
   },
   "loader-lg": {
     "$value": {
       "value": 96,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Full-page / modal / hero wait"
   },
   "sidebar-w": {
     "$value": {
       "value": 260,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Sidebar nav width"
   },
   "content-max": {
     "$value": {
       "value": 1180,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Max content width"
   },
   "gutter": {
     "$value": {
       "value": 24,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Column gutter"
   },
   "bp-sm": {
     "$value": {
       "value": 480,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Breakpoint: phone"
   },
   "bp-md": {
     "$value": {
       "value": 720,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Breakpoint: small tablet"
   },
   "bp-lg": {
     "$value": {
       "value": 900,
       "unit": "px"
     },
-    "$type": "dimension"
+    "$type": "dimension",
+    "$description": "Breakpoint: tablet; the fluid headings start below it"
   },
   "z-sticky": {
     "$value": 10,
