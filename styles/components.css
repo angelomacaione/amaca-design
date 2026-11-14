@@ -175,6 +175,10 @@
   max-width:14ch;
 }
 .page-title .accent{background:var(--grad-signal);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* A text-clipped gradient paints only the span's box, and tight tracking ends the box before the last glyph does:
+   the right edge of the final letter came out transparent. The padding gives the gradient back the tracking the box
+   loses, the margin takes it back from the line, so nothing moves (v6.0.0, the 'e' of future). */
+.page-title .accent,.chart-big.accent{padding-inline-end:calc(-1 * var(--tr-tight));margin-inline-end:var(--tr-tight)}
 .page-lede{
   font-size:var(--t-lead);
   line-height:var(--lh-loose);

@@ -4366,6 +4366,8 @@ Labels become a register, quotes get one, and every download carries its own ins
 - **The Breadcrumb's title:** *Where you are, and the way back.*
 
 **Fixed**
+- **The parts line named a component by the wrong class.** With no class matching its name, `release/parts.py` took the shortest: the Chart card read `.s`, the source label in its head, Navigation `.num`, Tabs `.tab`, Chat `.chat-day`. The root is now the class the component is called by, its title as a class, its `-wrap`, or the outermost element of its example; check 131 holds every line to it.
+- **A gradient title lost the edge of its last letter.** A gradient clipped to text paints only its box, and the titles' tight tracking (`--tr-tight`) ends the box before the last glyph: the right edge of the *e* of *the future.* rendered transparent, as did the end of every accent title, the big chart numbers and the Presentations' titles and stat. The accent gives the tracking back as end padding and takes it back as margin, so the line keeps its length. The Overview's full stop joins its accent, magenta, as on every other title. Behaviour pass B12 measures it (4 failures before).
 - **The registry served broken CSS.** Selector lists were split at every comma, so `:is()` lists came apart: 23 rules in 15 components were wrong, among them the site stage's width on Card, Modal and Table, and broken selectors in Date picker, Divider, Modal, Popover, Select and Tabs.
 - **A label sat 11px from its checkbox, radio or switch**, not `--s-2`: the browser's default margin on the input. It is reset.
 - **The rule files carried stale version stamps of their own** (`amaca.design@3.1.0`, `DESIGN.md v3.0.0`); they carry none now.

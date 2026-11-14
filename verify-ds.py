@@ -1619,6 +1619,30 @@ def c127():
     r = subprocess.run([sys.executable, str(ROOT / "release" / "parts.py"), "--check"], capture_output=True, text=True)
     return [l for l in r.stdout.splitlines() if l.strip()] or ([] if r.returncode == 0 else [r.stderr.strip()[:200]])
 
+@check("131", "The parts line names each component by its root: the class it is called by, or the outermost element of its example",
+       "v6.0.0, found by a parallel session building a case study: the parts line gave the Chart card as `.s`, the "
+       "source label inside its head, because parts.py fell back to the shortest class name. Navigation read `.num`, "
+       "Tabs `.tab`, Chat `.chat-day`. An agent reading AGENTS.md wrapped its chart in the wrong class.")
+def c131():
+    fails = []
+    m = re.search(r"<!-- parts:start.*?-->(.*?)<!-- parts:end -->", read(ROOT / "downloads" / "AGENTS.md"), re.S)
+    if not m:
+        return ["downloads/AGENTS.md: no parts block"]
+    reg = {it["title"]: it["name"] for it in json.loads(read(ROOT / "r" / "registry.json"))["items"]}
+    for title, root in re.findall(r"^- \*\*(.+?)\*\* `\.([a-z0-9-]+)`", m.group(1), re.M):
+        name = reg.get(title)
+        if not name:
+            continue
+        item = json.loads(read(ROOT / "r" / f"{name}.json"))
+        html = next((f["content"] for f in item.get("files", []) if f["path"].endswith(".html")), "")
+        first = re.search(r'<\w+[^>]*\bclass="([^"]+)"', html)
+        outer = first.group(1).split() if first else []
+        slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+        wrap = root.endswith("-wrap") and root in re.findall(r"[a-z0-9-]+", " ".join(re.findall(r'class="([^"]+)"', html)))
+        if root not in (name, slug) and root not in outer and not wrap:
+            fails.append(f"{title}: root `.{root}` is neither its name nor the outermost class of its example ({' '.join(outer) or 'none'})")
+    return fails
+
 @check("128", "Every download card is its bundle: what it lists is in the zip, and every file its steps name is there or in the user's own repo",
        "v6.0.0: § 03.1 told Windsurf, Aider and Continue users to drop files the IDE zip never carried, the Claude README "
        "sent CLAUDE.md over the user's own and imported DESIGN.md whole, and the skill upload path had moved. The cards, "
@@ -4541,6 +4565,7 @@ def c110():
     # Slots and indents: one-sided inline padding that the rule allows, each with its reason.
     SLOT = [
         (r"^\.dl-steps$", "an ordered list's marker gutter (site chrome, v6.0.0)"),
+        (r"^(\.page-title \.accent|\.chart-big\.accent)$", "a text-clipped gradient gives its tracking back at the end, and the margin takes it from the line (v6.0.0, behaviour B12)"),
         (r"^\.select$", "the Select's chevron slot"),
         (r"^\.input-wrap:has\(> \.(icon|input-action)\) \.input$", "an Input's icon or action slot"),
         (r"(^|\s)(ul|ol|li)$|^\.page-rules$|^\.ai-rules$", "a list's bullet indent"),

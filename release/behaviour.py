@@ -20,6 +20,8 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
       28px and nothing saw it)
   B10 a download card holds still and whole: its two tabs keep one height, and no segment of its control overflows, at
       1440, 800 and 390 (v6.0.0: two cards per row overflowed all thirteen controls by up to 28px)
+  B12 a gradient clipped to text reaches its last glyph: with negative tracking the box ends before the letter does, so
+      the end padding gives the tracking back (v6.0.0: the right edge of the 'e' of "the future." rendered transparent)
   B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
       its size, also when a meta line wraps (v6.0.0: 1.7px off on the kit, 8.9px with a wrapped meta, the current dot
       shrunk from 32px to 26px)
@@ -363,12 +365,42 @@ def b11_overflow(b, fails):
         ctx.close()
 
 
+CLIP_TEXT = r"""() => {
+  const out = new Set();
+  document.querySelectorAll('.section *').forEach(e => {
+    const cs = getComputedStyle(e);
+    if (cs.backgroundClip !== 'text' && cs.webkitBackgroundClip !== 'text') return;
+    const ls = parseFloat(cs.letterSpacing) || 0;
+    if (ls >= 0 || !(e.textContent || '').trim()) return;
+    if (parseFloat(cs.paddingRight) + 0.5 < -ls)
+      out.add('.' + [...e.classList].join('.') + ' in .' + [...e.parentElement.classList].join('.') + ': ' + ls + 'px tracking, ' + cs.paddingRight + ' padding at the end');
+  });
+  return [...out];
+}"""
+
+
+def b12_clip_text(b, fails):
+    """A gradient clipped to text paints only the element's box. With negative tracking the box ends
+    before the last glyph does, and the right edge of the final letter renders transparent: the 'e'
+    of "reshape the future." (v6.0.0). The end padding must give the tracking back."""
+    ctx, pg, _ = open_at(b, 1440, 1000, "overview")
+    ids = pg.evaluate("() => [...document.querySelectorAll('.section')].map(s => s.id).filter(Boolean)")
+    seen = set()
+    for sid in ids:
+        pg.evaluate("(sid) => { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(sid).classList.add('active'); }", sid)
+        for f in pg.evaluate(CLIP_TEXT):
+            if f not in seen:
+                seen.add(f)
+                fails.append(f"B12 {sid}: {f}")
+    ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow), ("B12", b12_clip_text)):
             if not only or name in only:
                 fn(b, fails)
         b.close()

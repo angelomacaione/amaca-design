@@ -27,8 +27,18 @@ def block():
         meta = json.loads((ROOT / "r" / f"{it['name']}.json").read_text())["meta"]["amaca"]
         named = {v.lstrip(".") for ax in meta.get("variants", []) for v in ax["values"]}
         classes = [c for c in meta.get("classes", []) if not c.startswith(("is-", "has-"))]   # states are not parts
-        root = (next((c for c in classes if c == it["name"] or it["name"].startswith(c)), None)
-                or next((c for c in classes if c.endswith("-wrap")), None)
+        # the root: the class the component is called by, its title as a class (chart-card), the outermost
+        # element of its example, its -wrap; only then a prefix of its name. The shortest class used to be the
+        # last resort and named the Chart card by `.s`, the source label in its head (v6.0.0, check 131).
+        slug = re.sub(r"[^a-z0-9]+", "-", it["title"].lower()).strip("-")
+        item = json.loads((ROOT / "r" / f"{it['name']}.json").read_text())
+        html = next((f["content"] for f in item.get("files", []) if f["path"].endswith(".html")), "")
+        first = re.search(r'<\w+[^>]*\bclass="([^"]+)"', html)
+        outer = [c for c in (first.group(1).split() if first else []) if c in classes]
+        root = (next((c for c in classes if c in (it["name"], slug)), None)
+                or next((c for c in classes if c.endswith("-wrap") and f"{c}" in html), None)
+                or (outer[0] if outer else None)
+                or next((c for c in classes if it["name"].startswith(c)), None)
                 or min(classes, key=len, default=""))
         parts = [c for c in classes if c != root and c not in named]
         axes = "; ".join(f"{ax['axis']}: " + " | ".join(ax["values"]) for ax in meta.get("variants", []))
