@@ -2,7 +2,7 @@
 """
 Amaca release review sheet — what is about to ship, rendered, on one page.
 
-    python3 release/review-sheet.py [--base origin/main] [--out .release/review-sheet.html]
+    python3 release/review-sheet.py [--base origin/main] [--out .release/review-sheet.html] [--no-before]
 
 The preflight proves the release is mechanically sound; it cannot show what
 the release looks like. On 2026-09-23 v4.1.0 was tagged three times because
@@ -201,6 +201,14 @@ def main():
     sections = touched_sections(base)
 
     shots, note, leaks, host_note, sym = [], "", None, "", None
+    before_root = None
+    if "--no-before" not in sys.argv:
+        before_root = os.path.join(ROOT, ".release", "review-before")
+        subprocess.run(["git", "worktree", "remove", "--force", before_root], cwd=ROOT, capture_output=True)
+        r = subprocess.run(["git", "worktree", "add", "--detach", before_root, base], cwd=ROOT, capture_output=True, text=True)
+        if r.returncode:
+            note += f"<p class=err>No before column: git worktree add {html.escape(base)} failed.</p>"
+            before_root = None
     try:
         sys.path.insert(0, os.path.join(ROOT, "release"))
         import behaviour
@@ -215,26 +223,37 @@ def main():
             b = p.chromium.launch(executable_path=exe) if exe else p.chromium.launch()
             sym = symmetry_pass(b)
             leaks = host_pass(b, [sid for sid, _, _ in section_ranges(open(os.path.join(ROOT, "index.html"), encoding="utf-8").read())])
-            for label, vp in (("desktop 1440", (1440, 1000)), ("phone 390", (390, 844))):
-                pg = b.new_page(viewport={"width": vp[0], "height": vp[1]}, device_scale_factor=1)
-                errs = []
-                pg.on("pageerror", lambda e: errs.append(str(e)))
-                pg.goto("file://" + os.path.join(ROOT, "index.html"))
-                pg.wait_for_timeout(1200)
-                if label.startswith("desktop"):
-                    nav = pg.query_selector(".sidebar") or pg.query_selector("nav")
-                    if nav:
-                        shots.append(("nav", label, base64.b64encode(nav.screenshot()).decode()))
-                for sid in sections:
-                    pg.evaluate(f"document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));"
-                                f"document.getElementById('{sid}').classList.add('active')")
-                    pg.wait_for_timeout(500)
-                    el = pg.query_selector(f"#{sid}")
-                    if el:
-                        shots.append((sid, label, base64.b64encode(el.screenshot()).decode()))
-                if errs:
-                    note += f"<p class=err>JS errors at {label}: {html.escape('; '.join(errs))}</p>"
-                pg.close()
+            # JPEG at 72: 117 PNG pairs made a 103 MB page (v6.0.0).
+            # Before and after, side by side (v6.0.0): the base is checked out in a throwaway worktree
+            # and every touched section is rendered there too, so a visible change is seen against what it replaces.
+            roots = [("after", ROOT)]
+            if before_root:
+                roots.insert(0, ("before", before_root))
+            for side, root in roots:
+                for label, vp in (("desktop 1440", (1440, 1000)), ("phone 390", (390, 844))):
+                    # reduced motion: the cards rise in on scroll, and a whole-section shot never scrolls, so
+                    # without it every kit below the fold rendered empty (v6.0.0)
+                    pg = b.new_page(viewport={"width": vp[0], "height": vp[1]}, device_scale_factor=1, reduced_motion="reduce")
+                    errs = []
+                    pg.on("pageerror", lambda e: errs.append(str(e)))
+                    pg.goto("file://" + os.path.join(root, "index.html"))
+                    pg.wait_for_timeout(1200)
+                    if label.startswith("desktop"):
+                        nav = pg.query_selector(".sidebar") or pg.query_selector("nav")
+                        if nav:
+                            shots.append(("nav", label, side, base64.b64encode(nav.screenshot(type="jpeg", quality=72)).decode()))
+                    for sid in sections:
+                        if not pg.query_selector(f"#{sid}"):
+                            continue
+                        pg.evaluate(f"document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));"
+                                    f"document.getElementById('{sid}').classList.add('active')")
+                        pg.wait_for_timeout(500)
+                        el = pg.query_selector(f"#{sid}")
+                        if el:
+                            shots.append((sid, label, side, base64.b64encode(el.screenshot(type="jpeg", quality=72)).decode()))
+                    if errs and side == "after":
+                        note += f"<p class=err>JS errors at {label}: {html.escape('; '.join(errs))}</p>"
+                    pg.close()
             b.close()
     except Exception as e:
         note += (f"<p class=err>No render ({html.escape(type(e).__name__)}). Open these sections by hand: "
@@ -247,14 +266,24 @@ def main():
     else:
         host_note = (f"<p class=err>{len(leaks)} leaks.</p><pre>" + html.escape("\n".join(
             f"{h:9} #{s:14} {e} — {w}" for h, s, e, w in leaks[:200])) + "</pre>")
+    if before_root:
+        subprocess.run(["git", "worktree", "remove", "--force", before_root], cwd=ROOT, capture_output=True)
+    pairs = {}
+    for s, l, side, d in shots:
+        pairs.setdefault((s, l), {})[side] = d
+    def cell(side, d):
+        return (f"<div><div class=side>{side}</div><img src='data:image/jpeg;base64,{d}'></div>" if d
+                else f"<div><div class=side>{side}</div><p class=err>not in {side}</p></div>")
     imgs = "".join(
-        f"<figure><figcaption>#{html.escape(s)} · {l}</figcaption><img src='data:image/png;base64,{d}'></figure>"
-        for s, l, d in shots)
+        f"<figure><figcaption>#{html.escape(s)} · {l}</figcaption><div class=pair>"
+        + (cell(f"before · {html.escape(base)}", v.get("before")) if before_root else "")
+        + cell("after", v.get("after")) + "</div></figure>"
+        for (s, l), v in pairs.items())
     page = f"""<!doctype html><html><head><meta charset=utf-8><title>Review v{version}</title>
 <style>body{{font:14px/1.5 -apple-system,system-ui,sans-serif;margin:32px;background:#f4f6f8;color:#07090b}}
 pre{{background:#fff;border:1px solid #d0d5db;padding:12px;white-space:pre-wrap}}figure{{margin:24px 0}}
 img{{max-width:100%;border:1px solid #d0d5db}}figcaption{{font:600 12px monospace;margin-bottom:6px}}
-.code{{font:700 28px monospace}}.err{{color:#b00020;font-weight:600}}</style></head><body>
+.pair{{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:16px;align-items:start}}.side{{font:600 11px monospace;color:#5b6573;margin-bottom:4px}}.code{{font:700 28px monospace}}.err{{color:#b00020;font-weight:600}}</style></head><body>
 <h1>Review sheet — v{version}</h1>
 <p>REVIEW CODE <span class=code>{tree[:7]}</span> — the tree shown here. <code>release.py tag</code> refuses any other.</p>
 <p>Harness: <b>{html.escape(verdict[-1] if verdict else 'NOT GREEN')}</b></p>

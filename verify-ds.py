@@ -220,10 +220,12 @@ def c03():
     return sorted(set(fails))
 
 
-@check("04", "The mono register is the token, never a real monospaced stack",
+@check("04", "Labels are a register of the text typeface: no font token of their own, no monospaced stack",
        "v3.4.0: --font-mono was a byte-for-byte copy of --font-sans while the "
        "spec and the DTCG file declared ui-monospace. Two typographic "
-       "identities ran side by side for three releases.")
+       "identities ran side by side for three releases. v6.0.0: the name itself "
+       "promised a monospaced typeface the system never had, so --font-mono goes "
+       "and --tr-mono becomes --tr-label. Changelogs keep the old names.")
 def c04():
     fails = []
     if "ui-monospace" in read(COMPONENTS):
@@ -231,21 +233,39 @@ def c04():
     for style in inline_styles(read(INDEX)):
         if "ui-monospace" in style:
             fails.append("index.html inline: hardcoded monospaced stack")
-    m = re.search(r"--font-mono:\s*(.+?);", read(TOKENS))
-    fm = m.group(1).strip() if m else ""
-    fr = re.search(r"^\s*font-mono:\s*(.+)$", read(DESIGN), re.M)
-    if fr and fm:
-        want = [w.strip().strip('"') for w in fr.group(1).strip().strip('"').split(",")]
-        got = [w.strip().strip('"') for w in fm.split(",")]
-        if want != got:
-            fails.append(f"tokens.css --font-mono != DESIGN.md frontmatter\n"
-                         f"    css:  {', '.join(got)}\n    spec: {', '.join(want)}")
+    old = re.compile(r"--font-mono|--tr-mono\b|--tracking-mono\b|\bty-mono\b|\blaw-pct-mono\b|^\s*font-mono:", re.M)
+    def live(p):
+        t = read(p)
+        if p == DESIGN:
+            i = t.find("\n## Changelog")
+            t = t[:i] if i >= 0 else t
+        if p == INDEX:
+            i = t.find('<section class="section" id="changelog">')
+            if i >= 0:
+                t = t[:i] + t[t.find("</section>", i):]
+        return t
+    # Tailwind's default theme ships its own font-mono (ui-monospace). theme.css sets it
+    # to initial so the utility is not generated at all: the one allowed line, and a
+    # required one (deleting it silently brings the monospaced stack back).
+    allowed = "  --font-mono: initial;"
+    if not re.search(r"^@theme \{\n(?:.*\n)*?  --font-mono: initial;", read(THEME), re.M):
+        fails.append("theme.css: --font-mono is not reset to initial in @theme, so Tailwind's font-mono utility renders a monospaced stack")
+    files = [DESIGN, TOKENS, COMPONENTS, THEME, INDEX, LLMS_FULL] + sorted((ROOT / "downloads").glob("**/*.md")) + sorted((ROOT / "downloads").glob("**/*.mdc"))
+    for p in files:
+        if not p.exists():
+            continue
+        for n, line in enumerate(live(p).splitlines(), 1):
+            if old.search(line) and not (p == THEME and line.startswith(allowed)):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: old mono name")
+    if not re.search(r"--tr-label:\s*0\.06em;", read(TOKENS)):
+        fails.append("tokens.css: --tr-label is not declared at 0.06em")
     if DTCG.exists():
         d = json.loads(read(DTCG))
-        got = d.get("font-mono", {}).get("$value")
-        if got and fm and [g.strip() for g in got] != [w.strip().strip('"') for w in fm.split(",")]:
-            fails.append("tokens.dtcg.json font-mono != tokens.css --font-mono")
-    return sorted(set(fails))
+        if "font-mono" in d or "tr-mono" in d:
+            fails.append("tokens.dtcg.json still carries font-mono or tr-mono")
+        if d.get("tr-label", {}).get("$value") != "0.06em":
+            fails.append("tokens.dtcg.json: tr-label is not 0.06em")
+    return sorted(set(fails))[:40]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -692,7 +712,7 @@ def c24():
         "theme.css": THEME,
         "tokens.dtcg.json": DTCG,
         "AGENTS.md": ROOT / "downloads" / "AGENTS.md",
-        "CLAUDE.md": ROOT / "downloads" / "CLAUDE.md",
+        "amaca.md": ROOT / "downloads" / "amaca.md",
         "AI-INSTRUCTIONS.md": ROOT / "downloads" / "AI-INSTRUCTIONS.md",
         "amaca-figma.md": ROOT / "downloads" / "amaca-figma.md",
         "amaca-frontend.skill": ROOT / "downloads" / "amaca-frontend.skill",
@@ -748,7 +768,7 @@ def c24():
     # file is a promise like any other stamp, and stamps drift.
     sums = ROOT / "downloads" / "zips" / "SHA256SUMS"
     if not sums.exists():
-        fails.append("downloads/zips/SHA256SUMS: missing — run downloads/refresh-bundles.sh")
+        fails.append("downloads/zips/SHA256SUMS: missing — run python3 release/downloads.py")
     else:
         listed = {}
         for line in read(sums).splitlines():
@@ -874,6 +894,14 @@ def c25():
             fams = [x.strip().strip("\'\"") for x in split_top(cssv)]
             if fams != list(val):
                 bad(name, f"{val} vs CSS {cssv}")
+        elif typ == "gradient":
+            # v6.0.0: a linear gradient is a DTCG gradient; the angle DTCG cannot hold rides $extensions
+            m = re.fullmatch(r"linear-gradient\((\d+)deg,\s*(.*)\)", cssv.strip())
+            ext = (tok.get("$extensions") or {}).get("amaca", {})
+            want = [(s.split()[0].upper(), float(s.split()[1].rstrip("%")) / 100) for s in re.split(r",\s*(?=#)", m.group(2))] if m else None
+            got = [(str(x.get("color", "")).upper(), float(x.get("position", -1))) for x in val] if isinstance(val, list) else None
+            if not m or want != got or ext.get("angle") != m.group(1) + "deg":
+                bad(name, f"gradient {cssv!r} vs stops {val!r} and angle {ext.get('angle')!r}")
         elif typ == "shadow":
             # DTCG allows a single shadow as an object, multiples as an array
             if isinstance(val, dict):
@@ -1048,7 +1076,7 @@ def c29():
 SNIPPET_FILES = [
     LLMS_FULL,
     ROOT / "downloads" / "AGENTS.md",
-    ROOT / "downloads" / "CLAUDE.md",
+    ROOT / "downloads" / "amaca.md",
     ROOT / "downloads" / "AI-INSTRUCTIONS.md",
     ROOT / "downloads" / ".cursor" / "rules" / "amaca-core.mdc",
     ROOT / "downloads" / ".cursor" / "rules" / "amaca-html.mdc",
@@ -1414,6 +1442,290 @@ def c119():
         fails.append("DESIGN.md: Code conventions › The site's own conduct is missing")
     return fails
 
+@check("120", "A rules file carries no version of its own: it reads with the DESIGN.md it ships beside",
+       "v6.0.0: the three .mdc rules and the two Copilot instructions said amaca.design@3.1.0 and DESIGN.md v3.0.0 "
+       "for five releases while DESIGN.md moved to 5.3.0. The refresh copied the files into the zips, nothing read "
+       "the stamp. The stamp is gone: a rules file ships with the DESIGN.md of its own release.")
+def c120():
+    fails = []
+    for p in sorted((ROOT / "downloads").glob("**/*")):
+        if p.suffix not in (".md", ".mdc") or not p.is_file():
+            continue
+        for n, line in enumerate(read(p).split("\n## Version history")[0].splitlines(), 1):
+            if re.search(r"amaca\.design@\d|DESIGN\.md v\d", line):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: a version stamp of its own")
+    return fails
+
+@check("121", "A checkbox, radio or switch resets the browser's margin: its label sits on the declared gap",
+       "v6.0.0: the label sat 11px from the control instead of the declared --s-2 (8px). The cause was not the space "
+       "before the text, which a flex container collapses, but the browser's default margin on the input "
+       "(3px 3px 3px 4px), which components.css never reset. The first diagnosis blamed the markup; the render "
+       "measured both and settled it.")
+def c121():
+    fails, css = [], read(COMPONENTS)
+    for sel in (".check input", ".radio input", ".switch input"):
+        m = re.search(re.escape(sel) + r"\{([^}]*)\}", css)
+        if not m or not re.search(r"(^|;|\s)margin:0(;|\s|$)", m.group(1)):
+            fails.append(f"components.css: {sel} does not reset margin to 0")
+    return fails
+
+@check("122", "A severity on the site is a label: it starts with a capital",
+       "v6.0.0: the Conventions and Laws tables wrote warn, error, info in lowercase. Lowercase letters "
+       "have no cap height, so the dot sat 0.56px above them; with Warn the offset is 0.1px.")
+def c122():
+    fails = []
+    for m in re.finditer(r'<span class="badge(?: badge-[a-z]+)?"><span class="dot"></span>(warn|error|info)\b', read(INDEX)):
+        fails.append(f"index.html: severity badge \"{m.group(1)}\" in lowercase")
+    return fails
+
+@check("123", "Every stylesheet the MCP server and the registry serve parses, and every selector in it is a whole selector of components.css",
+       "v6.0.0: the extractor split a selector list at every comma, parentheses included. "
+       "`.kit-stage > :is(.alert, .card, …)` came apart: `.card` alone shipped the site stage's width to every card "
+       "that copied it, `:is(.select-menu` and `.popover)` shipped as CSS a browser drops with everything after it. "
+       "get_component served them for five releases, and the site's own Code panels showed the same pieces.")
+def c123():
+    def split(sel):
+        out, depth, cur = [], 0, ""
+        for ch in sel:
+            depth += ch in "([" ; depth -= ch in ")]"
+            if ch == "," and depth == 0:
+                out.append(cur.strip()); cur = ""
+            else:
+                cur += ch
+        return [s for s in out + [cur.strip()] if s]
+    def rules(text):
+        text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+        out, i = [], 0
+        while True:
+            j = text.find("{", i)
+            if j < 0:
+                break
+            head = " ".join(text[i:j].split())
+            depth, k = 1, j + 1
+            while depth and k < len(text):
+                depth += {"{": 1, "}": -1}.get(text[k], 0); k += 1
+            inner = text[j + 1:k - 1]
+            if head.startswith("@"):
+                if "{" in inner:
+                    out += [(head + " " + m, h, d) for m, h, d in rules(inner)]
+            else:
+                out.append(("", head, tuple(" ".join(x.split()) for x in inner.split(";") if x.strip())))
+            i = k
+        return out
+    whole = {(" ".join(m.split()), s, d) for m, h, d in rules(read(COMPONENTS)) for s in split(h)}
+    fails = []
+    for p in sorted((ROOT / "r").glob("*.json")):
+        for f in json.loads(read(p)).get("files", []):
+            if not f.get("path", "").endswith(".css") or p.name == "amaca-tokens.json":
+                continue
+            c = f.get("content", "")
+            if c.count("{") != c.count("}"):
+                fails.append(f"r/{p.name}: braces do not close")
+            for m, head, d in rules(c):
+                for s in split(head):
+                    if s.count("(") != s.count(")") or s.count("[") != s.count("]"):
+                        fails.append(f"r/{p.name}: broken selector {s[:60]}")
+                    elif (" ".join(m.split()), s, d) not in whole:
+                        fails.append(f"r/{p.name}: {s[:50]} {{{'; '.join(d)[:50]}}} is not a rule of components.css")
+    return sorted(set(fails))[:40]
+
+@check("124", "A card's Code and a served component carry the @keyframes they animate with",
+       "v6.0.0: the Skeleton and Stepper cards named skeleton-shimmer and stepper-pulse in their Code and left the "
+       "@keyframes in components.css: copied alone, the card drew its parts and never moved. The extractor skipped "
+       "every at-rule but @media, @supports and @container.")
+def c124():
+    fails = []
+    def check(where, css):
+        names = set()
+        for m in re.finditer(r"animation(?:-name)?\s*:\s*([^;}]+)", css):
+            names |= {w for w in re.findall(r"[a-z][a-z0-9-]*", re.sub(r"var\([^)]*\)", "", m.group(1))) if "-" in w}
+        for n in sorted(names):
+            if not re.search(r"@keyframes\s+" + re.escape(n) + r"\s*\{", css):
+                fails.append(f"{where}: animates with {n} and does not carry its @keyframes")
+    for p in sorted((ROOT / "r").glob("*.json")):
+        for f in json.loads(read(p)).get("files", []):
+            if f.get("path", "").endswith(".css"):
+                check(f"r/{p.name}", f.get("content", ""))
+    for m in re.finditer(r'<pre class="kit-code" data-kit-part="css">(.*?)</pre>', read(INDEX), re.S):
+        css = __import__("html").unescape(re.sub(r"</?b>", "", m.group(1)))
+        kit = re.findall(r'data-kit="([a-z-]+)"', read(INDEX)[:m.start()])
+        check(f"index.html kit {kit[-1] if kit else '?'}", css)
+    return fails
+
+@check("125", "Every colour the system uses has its tile: the brand and neutral ramps whole, the supporting ramps the same steps",
+       "v6.0.0: § 01.1 drew seven steps of primary while tokens.css declared nine; --primary-950 entered in 5.0.0 "
+       "and its tile never came. Secondary and tertiary showed four steps each, not the same four, and not the ones "
+       "the stylesheet uses: --tertiary-200 coloured an avatar with no tile. Primary and obsidian show every step; "
+       "secondary and tertiary show the same steps, and every step components.css reads is among them.")
+def c125():
+    fails, tok, css = [], read(TOKENS), read(COMPONENTS)
+    html = read(INDEX)
+    a = html.find('<section class="section" id="changelog">')
+    site = html[:a] if a >= 0 else html
+    tiles = set(re.findall(r'class="swatch-tile[^"]*" style="--sw:var\(--([a-z0-9-]+)\)', site))
+    steps = lambda fam: re.findall(r"--" + fam + r"-(\d+)\s*:\s*#", tok)   # kept as written: 050
+    for fam in ("primary", "obsidian"):
+        for n in steps(fam):
+            if f"{fam}-{n}" not in tiles:
+                fails.append(f"index.html: --{fam}-{n} has no tile")
+    shown = {fam: sorted(int(t.split("-")[1]) for t in tiles if t.startswith(fam + "-")) for fam in ("secondary", "tertiary")}
+    if shown["secondary"] != shown["tertiary"]:
+        fails.append(f"index.html: secondary shows {shown['secondary']}, tertiary {shown['tertiary']}: the same steps")
+    for fam in ("secondary", "tertiary"):
+        for n in sorted({int(x) for x in re.findall(r"var\(--" + fam + r"-(\d+)\)", css)}):
+            if n not in shown[fam]:
+                fails.append(f"index.html: components.css reads --{fam}-{n}, which has no tile")
+    return fails
+
+@check("126", "Every DTCG token says what it is for, and a colour says it in the words of § 2 and of its tile",
+       "v6.0.0: 113 of 179 tokens in tokens.dtcg.json carried no $description, primary-500 alone among the "
+       "colours. The role a colour plays lived in DESIGN.md § 2 and on the site's tiles, in two vocabularies, "
+       "and reached neither the DTCG file nor anyone importing it.")
+def c126():
+    fails = []
+    doc = json.loads(read(DTCG))
+    design = read(DESIGN)
+    design = design[:design.find("\n## Changelog")]
+    rows = {}
+    for line in design.split("\n"):
+        m = re.match(r"\|\s*`--([a-z0-9-]+)`\s*\|(.*)\|\s*$", line)
+        if m and m.group(1) not in rows:
+            last = [c.strip() for c in m.group(2).split("|")][-1]
+            if last and last != "—":
+                rows[m.group(1)] = re.sub(r"\*\*|`", "", last)
+    for k, t in doc.items():
+        if k.startswith("$"):
+            continue
+        if not str(t.get("$description", "")).strip():
+            fails.append(f"tokens.dtcg.json: {k} has no $description")
+        elif t.get("$type") == "color" and k in rows and t["$description"] != rows[k]:
+            fails.append(f"tokens.dtcg.json: {k} says {t['$description']!r}, DESIGN.md says {rows[k]!r}")
+    # the site's tile says the same role in fewer words: the contract's row starts with it (v6.0.0: the tile of
+    # --obsidian-600 said Divider while the contract said Border strong, and the dividers are --obsidian-800)
+    html = read(INDEX)
+    html = html[:html.find('<section class="section" id="changelog">')]
+    for m in re.finditer(r'--sw:var\(--([a-z0-9-]+)\)">.*?swatch-tile-role">([^<]*)<', html, re.S):
+        name, role = m.group(1), m.group(2).strip()
+        if name in rows and not rows[name].lower().startswith(role.lower()):
+            fails.append(f"index.html: the tile of --{name} says {role!r}, DESIGN.md § 2 says {rows[name]!r}")
+    return sorted(set(fails))[:40]
+
+@check("127", "The short rules files name every component's parts and variants, as the registry ships them",
+       "v6.0.0, from the 2026-10 benchmark: AGENTS.md, AI-INSTRUCTIONS.md and llms-full.txt named the components "
+       "and never their parts. An agent reading only them invented .card-body and .card-head and wrote no Badge "
+       "variant in 12 runs. release/parts.py writes one line per component from r/; this check holds the block to it.")
+def c127():
+    import subprocess
+    r = subprocess.run([sys.executable, str(ROOT / "release" / "parts.py"), "--check"], capture_output=True, text=True)
+    return [l for l in r.stdout.splitlines() if l.strip()] or ([] if r.returncode == 0 else [r.stderr.strip()[:200]])
+
+@check("131", "The parts line names each component by its root: the class it is called by, or the outermost element of its example",
+       "v6.0.0, found by a parallel session building a case study: the parts line gave the Chart card as `.s`, the "
+       "source label inside its head, because parts.py fell back to the shortest class name. Navigation read `.num`, "
+       "Tabs `.tab`, Chat `.chat-day`. An agent reading AGENTS.md wrapped its chart in the wrong class.")
+def c131():
+    fails = []
+    m = re.search(r"<!-- parts:start.*?-->(.*?)<!-- parts:end -->", read(ROOT / "downloads" / "AGENTS.md"), re.S)
+    if not m:
+        return ["downloads/AGENTS.md: no parts block"]
+    reg = {it["title"]: it["name"] for it in json.loads(read(ROOT / "r" / "registry.json"))["items"]}
+    for title, root in re.findall(r"^- \*\*(.+?)\*\* `\.([a-z0-9-]+)`", m.group(1), re.M):
+        name = reg.get(title)
+        if not name:
+            continue
+        item = json.loads(read(ROOT / "r" / f"{name}.json"))
+        html = next((f["content"] for f in item.get("files", []) if f["path"].endswith(".html")), "")
+        first = re.search(r'<\w+[^>]*\bclass="([^"]+)"', html)
+        outer = first.group(1).split() if first else []
+        slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+        wrap = root.endswith("-wrap") and root in re.findall(r"[a-z0-9-]+", " ".join(re.findall(r'class="([^"]+)"', html)))
+        if root not in (name, slug) and root not in outer and not wrap:
+            fails.append(f"{title}: root `.{root}` is neither its name nor the outermost class of its example ({' '.join(outer) or 'none'})")
+    return fails
+
+@check("128", "Every download card is its bundle: what it lists is in the zip, and every file its steps name is there or in the user's own repo",
+       "v6.0.0: § 03.1 told Windsurf, Aider and Continue users to drop files the IDE zip never carried, the Claude README "
+       "sent CLAUDE.md over the user's own and imported DESIGN.md whole, and the skill upload path had moved. The cards, "
+       "the zips and their READMEs are now written from one manifest (release/downloads.py); this check holds them to it "
+       "and reads every file name in an install step against the bundle.")
+def c128():
+    import importlib.util, io, zipfile
+    spec = importlib.util.spec_from_file_location("downloads", ROOT / "release" / "downloads.py")
+    dl = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(dl)
+    fails = []
+    import contextlib
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        rc = dl.main(["--check"])
+    if rc:
+        fails += [l for l in out.getvalue().splitlines() if l.strip()]
+    for b in dl.BUNDLES:
+        z = zipfile.ZipFile(ROOT / "downloads" / "zips" / b["zip"])
+        names = set(z.namelist())
+        bases = {n.rstrip("/").split("/")[-1] for n in names} | {n.split("/")[0] + "/" for n in names if "/" in n}
+        for step in b["steps"]:
+            for c in re.findall(r"<code>([^<]+)</code>", step):
+                c = c.strip()
+                if not re.search(r"\.(md|mdc|zip|css|json|skill)$|/$", c) or " " in c or c.startswith(("@", "http")):
+                    continue
+                if c in names or c in bases or c == b["zip"] or c in dl.USER_SIDE:
+                    continue
+                fails.append(f"{b['zip']}: a step names {c}, which the bundle does not carry")
+    return fails
+
+
+@check("129", "Quoted text has its register: --font-style-quote, used by every quote, and no italic written by hand",
+       "v6.0.0: the system did not tell quoted text from the author's. The pull quote "
+       "was upright at 500 and italic appeared only as emphasis. A source's words, a "
+       "model's verbatim output and a line from a talk read like the text around them.")
+def c129():
+    fails = []
+    tok = read(TOKENS)
+    if not re.search(r"--font-style-quote:\s*italic;", tok):
+        fails.append("tokens.css: --font-style-quote is not declared as italic")
+    css = read(COMPONENTS)
+    m = re.search(r"\.cs-pull\{([^}]*)\}", css)
+    if not m or "font-style:var(--font-style-quote)" not in m.group(1).replace(" ", ""):
+        fails.append("components.css: .cs-pull does not read var(--font-style-quote)")
+    elif not re.search(r"font-weight:\s*400", m.group(1)):
+        fails.append("components.css: .cs-pull is not 400 (the quote register is italic 400)")
+    if not re.search(r"(^|[,}\s])q(,[^{]*)?\{[^}]*font-style:\s*var\(--font-style-quote\)", tok, re.M):
+        fails.append("tokens.css: the q element does not read var(--font-style-quote)")
+    # italic by hand: only the declared emphasis exceptions and @font-face
+    allowed = (".ai-rules em", ".do em, .dont em")
+    for p in (TOKENS, COMPONENTS):
+        for n, line in enumerate(read(p).splitlines(), 1):
+            if re.search(r"font-style:\s*italic", line) and "@font-face" not in line and not line.startswith(allowed):
+                fails.append(f"{p.relative_to(ROOT)}:{n}: font-style:italic by hand")
+    # the typeface specimen shows the italic cuts by name: the one declared exception
+    for m2 in re.finditer(r"font-style:\s*italic", read(INDEX)):
+        tail = read(INDEX)[m2.end():m2.end() + 300]
+        if not re.search(r">Satoshi-\w*Italic<", tail):
+            fails.append("index.html: font-style:italic by hand outside the typeface specimen")
+    if "The quote register" not in read(DESIGN):
+        fails.append("DESIGN.md: no 'The quote register' rule in Typography")
+    if DTCG.exists():
+        d = json.loads(read(DTCG))
+        if d.get("font-style-quote", {}).get("$value") != "italic":
+            fails.append("tokens.dtcg.json: font-style-quote missing or not italic")
+    return sorted(set(fails))[:40]
+
+@check("130", "llms-full.txt carries tokens.css as it is, byte for byte",
+       "v6.0.0: the copy of tokens.css at the end of llms-full.txt had stood still since "
+       "before v5.0.0. No semantic tokens, and the old roles (Obsidian 600 as a plain "
+       "border): an agent reading the one-file spec got a palette the site no longer had. "
+       "release/parts.py writes it now.")
+def c130():
+    t = read(LLMS_FULL)
+    k = t.find("# Tokens (tokens.css")
+    if k < 0:
+        return ["llms-full.txt: no '# Tokens (tokens.css' section"]
+    body = t[t.index("\n", t.index("====", k + 10)) + 1:]
+    if body.lstrip("\n") != read(TOKENS):
+        return ["llms-full.txt: the tokens.css copy differs from styles/tokens.css - run `python3 release/parts.py`"]
+    return []
+
 @check("33", "Every canonical component has a demo on the site",
        "v4.1.0: the Chip entered the contract as § 3.15 — registry row "
        "canonical, state rows, motion rows, CSS — and shipped with no demo on "
@@ -1626,7 +1938,7 @@ def c38():
             near.append((re.compile(core.replace(" ", "_")), name))
     files = [COMPONENTS, INDEX, LLMS_FULL]
     dl = ROOT / "downloads"
-    files += [dl / f for f in ("AGENTS.md", "CLAUDE.md", "AI-INSTRUCTIONS.md")]
+    files += [dl / f for f in ("AGENTS.md", "amaca.md", "AI-INSTRUCTIONS.md")]
     files += sorted((dl / ".cursor").rglob("*.mdc")) + sorted((dl / ".github").rglob("*.md"))
     skill = dl / "amaca-frontend.skill"
     texts = [((p.relative_to(ROOT).as_posix() if ROOT in p.parents else p.name), read(p))
@@ -2474,7 +2786,8 @@ def _registry_site(html, sid):
     for tr in re.findall(r"<tr>(.*?)</tr>", t, re.S)[1:]:
         td = re.findall(r"<td[^>]*>(.*?)</td>", tr, re.S)
         rule = re.sub(r'<div class="muted">.*?</div>', "", td[1], flags=re.S)
-        rows.append((_text(td[0]), _text(rule), _text(td[2])))
+        # the site writes a severity as a label (Warn); the contract as an identifier (warn), v6.0.0
+        rows.append((_text(td[0]), _text(rule), _text(td[2]).lower()))
     return rows
 
 
@@ -2895,7 +3208,7 @@ def c66():
         if re.search(r'url\(#|opacity="', body):
             fails.append(f"#charts '{title}': a gradient or an opacity on a mark, use a step of the ramp")
     cat = cards.get("Categorical", "")
-    got = re.findall(r'background:var\(--([a-z0-9-]+)\);[^"]*"></div><div class="ty-mono"[^>]*>([^<]+)</div>', cat)
+    got = re.findall(r'background:var\(--([a-z0-9-]+)\);[^"]*"></div><div class="ty-label"[^>]*>([^<]+)</div>', cat)
     want = [(tok, name) for name, tok in CATEGORICAL]
     if got != want:
         fails.append(f"#charts Categorical: {got} ≠ {want}")
@@ -3048,7 +3361,7 @@ def c69():
         if not e.startswith("--ease-") or not du.startswith("--d-"):
             fails.append(f"index.html § 06.1: a demo row types its curve or duration ({e}, {du}) instead of naming the token")
     texts = {"index.html": site, "DESIGN.md": d_body}
-    for name in ("README.md", "llms-full.txt", "llms.txt", "downloads/AGENTS.md", "downloads/CLAUDE.md",
+    for name in ("README.md", "llms-full.txt", "llms.txt", "downloads/AGENTS.md", "downloads/amaca.md",
                  "downloads/AI-INSTRUCTIONS.md", "downloads/.cursor/rules/amaca-core.mdc",
                  "downloads/.github/copilot-instructions.md"):
         pth = ROOT / name
@@ -4062,7 +4375,7 @@ def c104():
             fails.append(f"tool guide links {p}, which the repo does not hold")
     html = read(INDEX)
     a = html.find("<!-- 03.0 · Pick your tool")
-    b = html.find("§ 03.1", a)
+    b = html.find("<!-- 03.1 · Find your tool", a)
     zips = set(re.findall(r"downloads/zips/(amaca-[a-z-]+\.zip)", html[a:b])) if a >= 0 else set()
     # v5.2.0: the shadcn MCP route is no longer presented (one MCP, the remote one at /mcp,
     # decision of 2026-10-19: "2 mcp confondono"). The guide must not bring it back, and its
@@ -4077,20 +4390,6 @@ def c104():
     rows = [l for l in guide.splitlines() if l.startswith("- **")]
     if not rows or tg.MCP_SERVER not in rows[0]:
         fails.append("the tool guide's first row is not the remote MCP server")
-    a1 = html.find("§ 03.1")
-    b1 = html.find("§ 03.2", a1)
-    steps = {}
-    for li in re.findall(r'<li class="card doc-row".*?</li>', html[a1:b1], re.S):
-        m = re.search(r">(\d\d) ·", li)
-        if m:
-            steps[m.group(1)] = re.sub(r"<[^>]+>", "", li)
-    guide = tg.render()
-    for num, needs in tg.STEPS.items():
-        for need in needs:
-            if need not in steps.get(num, ""):
-                fails.append(f"index.html § 03.1 step {num} does not name {need}")
-            if need.endswith((".md", ".zip", ".skill", ".css")) and need not in guide:
-                fails.append(f"§ 03.1 step {num} recommends {need}; the tool guide never does")
     named = {Path(p).name for p in tg.paths()}
     for z in sorted(zips - named):
         fails.append(f"index.html § 03.0 offers {z}; the tool guide never recommends it")
@@ -4265,6 +4564,8 @@ def c110():
     flat = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
     # Slots and indents: one-sided inline padding that the rule allows, each with its reason.
     SLOT = [
+        (r"^\.dl-steps$", "an ordered list's marker gutter (site chrome, v6.0.0)"),
+        (r"^(\.page-title \.accent|\.chart-big\.accent)$", "a text-clipped gradient gives its tracking back at the end, and the margin takes it from the line (v6.0.0, behaviour B12)"),
         (r"^\.select$", "the Select's chevron slot"),
         (r"^\.input-wrap:has\(> \.(icon|input-action)\) \.input$", "an Input's icon or action slot"),
         (r"(^|\s)(ul|ol|li)$|^\.page-rules$|^\.ai-rules$", "a list's bullet indent"),

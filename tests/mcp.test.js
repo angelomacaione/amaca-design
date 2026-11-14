@@ -233,6 +233,19 @@ test('check_compliance treats loops and delays as warnings, and wants code', () 
   assert.equal(call('check_compliance', { code: '  ' }).isError, true);
 });
 
+// ---------------------------------------------------------------- the two rules a client without instructions needs (v6.0.0)
+
+test('the tool descriptions carry the off-system rule and the self-check, for clients that never read the instructions', () => {
+  const tools = Object.fromEntries(JSON.parse(JSON.stringify(rpc('tools/list').result.tools)).map((t) => [t.name, t]));
+  assert.match(tools.list_components.description, /off-system/);
+  assert.match(tools.get_component.description, /check_compliance/);
+  const got = JSON.parse(text(call('get_component', { name: 'button' })));
+  assert.match(got.next, /check_compliance/);
+  const miss = call('get_component', { name: 'kanban-board' });
+  assert.equal(miss.isError, true);
+  assert.match(text(miss), /off-system/);
+});
+
 // ---------------------------------------------------------------- the law behind every finding (v5.3.0)
 
 const LAWS = (() => {

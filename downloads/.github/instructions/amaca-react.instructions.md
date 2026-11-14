@@ -2,7 +2,7 @@
 applyTo: "**/*.tsx,**/*.jsx"
 ---
 
-<!-- Amaca React/Tailwind v4 target · gold reference · amaca.design@3.1.0 · pairs with .github/copilot-instructions.md (repo-wide core). Requires DESIGN.md › Multi-deploy compatibility + theme.css @theme. -->
+<!-- Amaca React/Tailwind v4 target · gold reference · amaca.design · pairs with .github/copilot-instructions.md (repo-wide core). Requires DESIGN.md › Multi-deploy compatibility + theme.css @theme. -->
 
 # Amaca — React / Tailwind v4 instructions
 

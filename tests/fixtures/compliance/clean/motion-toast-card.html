@@ -35,7 +35,7 @@
       --lh-normal: 1.45;
       --lh-loose: 1.65;
       --tr-snug: -0.02em;
-      --tr-mono: 0.06em;
+      --tr-label: 0.06em;
       --s-px: 1px;
       --s-1: 4px;
       --s-2: 8px;
@@ -137,8 +137,8 @@
     .card p { color: var(--obsidian-200); line-height: var(--lh-loose); }
     .card-meta {
       display: flex; justify-content: space-between; align-items: center; gap: var(--s-3);
-      font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase;
-      letter-spacing: var(--tr-mono); color: var(--obsidian-300);
+      font-family: var(--font-sans); font-size: var(--t-micro); text-transform: uppercase;
+      letter-spacing: var(--tr-label); color: var(--obsidian-300);
     }
     .card-actions { display: flex; gap: var(--s-3); margin-top: var(--s-2); }
 
@@ -188,8 +188,8 @@
     .toast-dismiss svg { width: var(--icon-sm); height: var(--icon-sm); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .toast-body { grid-column: 1 / -1; line-height: var(--lh-normal); }
     .toast-action {
-      font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase;
-      letter-spacing: var(--tr-mono); color: var(--primary-400); font-weight: 500;
+      font-family: var(--font-sans); font-size: var(--t-micro); text-transform: uppercase;
+      letter-spacing: var(--tr-label); color: var(--primary-400); font-weight: 500;
       padding: 0 var(--s-1); margin-left: var(--s-1); border-radius: var(--r-md);
     }
     .toast-action:focus-visible, .toast-dismiss:focus-visible {

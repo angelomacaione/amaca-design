@@ -138,8 +138,8 @@ KITS = {
                "html": '<span class="loader loader-lg" role="status" aria-label="Loading"><img class="loader-anim" src="assets/logo-loader-fast.svg" alt="" aria-hidden="true"></span>',
                "parts": [("Size", [".loader", ".loader-lg"], "Z", []), ("LIT", "Mark", "logo-loader-fast.svg", "the Amaca logo, drawn and animated in the file"), ("Motion", ".loader-anim", "M", [])]},
     "skeleton": {"page": "skeleton", "classes": {"skeleton-circle", "skeleton-stack", "skeleton-line"}, "stack": "row",
-                 "html": '<div class="skeleton-circle" aria-hidden="true"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:70%" aria-hidden="true"></div><div class="skeleton-line" style="width:45%" aria-hidden="true"></div></div>',
-                 "parts": [("Line", ".skeleton-line", "FSZ", []), ("Circle", ".skeleton-circle", "FSZ", []), ("Shimmer", ".skeleton-line::after", "FM", []), ("Stack", ".skeleton-stack", "P", [])]},
+                 "html": '<div style="display:flex;gap:var(--s-3);align-items:center"><div class="skeleton-circle" aria-hidden="true"></div><div class="skeleton-stack"><div class="skeleton-line" style="width:70%" aria-hidden="true"></div><div class="skeleton-line" style="width:45%" aria-hidden="true"></div></div></div>',
+                 "parts": [("Line", ".skeleton-line", "FSZ", []), ("Circle", ".skeleton-circle", "FSZ", []), ("Shimmer", ".skeleton-line::after", "FM", []), ("Stack", ".skeleton-stack", "P", []), ("LIT", "Motion", "1600ms · linear · infinite", "a ratified loop · reduced motion: still")]},
     "modal": {"page": "modal", "classes": {"modal", "modal-head", "modal-title", "modal-body", "modal-foot"},
               "html": f'<dialog class="modal" aria-labelledby="kit-modal-title"><div class="modal-head"><h2 class="modal-title" id="kit-modal-title">Publish the project?</h2><button class="btn btn-ghost btn-sm btn-icon" type="button" aria-label="Close">{_i("x")}</button></div><p class="modal-body">The project and its 14 versions go live for every reader.</p><div class="modal-foot"><button class="btn btn-secondary btn-sm" type="button">Cancel</button><button class="btn btn-primary btn-sm" type="button">Publish</button></div></dialog>',
               "parts": [("Surface", ".modal", "FESHZP", []), ("Head", ".modal-head", "P", []), ("Title", ".modal-title", "T", []), ("Body", ".modal-body", "TP", []),
@@ -279,10 +279,30 @@ def css_rules(text):
     return out
 
 
+def split_selectors(sel):
+    """The selectors of a list, split at its top-level commas only: a comma inside :is(), :where(),
+    :not() or :has() belongs to one selector. v6.0.0: a plain split(",") cut
+    `.kit-stage > :is(.alert, .card, …)` into pieces, and `.card` alone shipped the stage's width
+    to every card, `:is(.select-menu` and `.popover)` shipped as broken CSS."""
+    out, depth, cur = [], 0, ""
+    for ch in sel:
+        if ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        if ch == "," and depth == 0:
+            out.append(cur.strip())
+            cur = ""
+        else:
+            cur += ch
+    out.append(cur.strip())
+    return [s for s in out if s]
+
+
 def selected(sel, classes):
     """The selectors of a rule that draw only the kit's classes (descendants included)."""
     keep = []
-    for s in (x.strip() for x in sel.split(",")):
+    for s in split_selectors(sel):
         used = set(re.findall(r"\.([a-z0-9-]+)", s))
         if used and used <= classes and not s.startswith(("body", "html", ":root")) and not re.match(r"\[", s):
             keep.append(s)
@@ -295,6 +315,36 @@ def rules_for(kit):
         keep = selected(sel, kit["classes"])
         if keep:
             out.append((media, ", ".join(keep), decls))
+    return out
+
+
+def keyframes_for(rules):
+    """The @keyframes a set of rules animates with, as written in components.css. v6.0.0: the Skeleton and
+    Stepper cards named skeleton-shimmer and stepper-pulse in their Code and left the @keyframes behind, so a
+    copied card drew its parts and never moved."""
+    names = []
+    for media, sel, decls in rules:
+        for d in decls:
+            prop, _, val = d.partition(":")
+            if prop.strip() in ("animation", "animation-name"):
+                for w in re.findall(r"[a-z][a-z0-9-]*", val):
+                    if w not in names:
+                        names.append(w)
+    src = re.sub(r"/\*.*?\*/", "", read("styles/components.css"), flags=re.S)
+    out = []
+    for n in names:
+        m = re.search(r"@keyframes\s+" + re.escape(n) + r"\s*\{", src)
+        if not m:
+            continue
+        depth, k = 1, m.end()
+        while depth and k < len(src):
+            depth += {"{": 1, "}": -1}.get(src[k], 0)
+            k += 1
+        body = " ".join(src[m.end():k - 1].split())
+        frames = re.findall(r"([^{}]+)\{([^{}]*)\}", body)
+        out.append(f"@keyframes {n}{{")
+        out += [f"  {f.strip()}{{ {d.strip()} }}" for f, d in frames]
+        out.append("}")
     return out
 
 
@@ -313,7 +363,7 @@ def css_text(rules):
         lines.append(f"{pad}}}")
     if open_media:
         lines.append("}")
-    return "\n".join(lines)
+    return "\n".join(lines + keyframes_for(rules))
 
 
 def _t(val, sep=" "):

@@ -4,7 +4,7 @@ globs: ["**/*.css","**/*.scss","**/*.html","**/*.vue","**/*.svelte"]
 alwaysApply: false
 ---
 
-<!-- Amaca HTML/CSS target · gold reference · amaca.design@3.1.0 · loads with amaca-core.mdc (always-on). Token tables live in tokens.css — not restated here. -->
+<!-- Amaca HTML/CSS target · gold reference · amaca.design · loads with amaca-core.mdc (always-on). Token tables live in tokens.css — not restated here. -->
 
 # Amaca — HTML / CSS target
 
@@ -42,8 +42,8 @@ Reference snippets (token-only, reuse verbatim):
 ```
 
 ```css
-.label{ font-family:var(--font-mono); font-size:var(--t-micro);
-  letter-spacing:var(--tr-mono); text-transform:uppercase; color:var(--obsidian-300); }
+.label{ font-family:var(--font-sans); font-size:var(--t-micro);
+  letter-spacing:var(--tr-label); text-transform:uppercase; color:var(--obsidian-300); }
 .input{ background:var(--surface-field); border:var(--bw-1) solid var(--border-input);
   border-radius:var(--r-md); color:var(--obsidian-100); min-height:var(--s-10); padding:var(--s-2) var(--s-3);
   font-family:var(--font-sans); font-size:var(--t-small); outline:none;

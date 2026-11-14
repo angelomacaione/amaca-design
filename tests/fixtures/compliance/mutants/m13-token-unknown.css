@@ -1,0 +1,2 @@
+/* expect: error token-unknown */
+.x{color:var(--primary-550)}

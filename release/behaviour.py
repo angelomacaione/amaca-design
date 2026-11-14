@@ -15,6 +15,18 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
   B7  a field's value sits in its middle (the native select's value sat 2px high)
   B8  the Floating bar's strips and pages read like the Top navigation's: same height at every tab, the bar alone in
       its strip (the strip showed the page's cards under a pill, at another height)
+  B11 no text breaks out of its control or its card: a label clipped by its own box with no ellipsis, or a control that
+      runs past the panel it sits in, at 1440, 800 and 390 (v6.0.0: the download cards' segmented controls overflowed by
+      28px and nothing saw it)
+  B10 a download card holds still and whole: its two tabs keep one height, and no segment of its control overflows, at
+      1440, 800 and 390 (v6.0.0: two cards per row overflowed all thirteen controls by up to 28px)
+  B13 a link to something inside a section opens that section and lands the element below the bar (v6.0.0: the
+      § 03.1 index switched every section off and left the page empty)
+  B12 a gradient clipped to text reaches its last glyph: with negative tracking the box ends before the letter does, so
+      the end padding gives the tracking back (v6.0.0: the right edge of the 'e' of "the future." rendered transparent)
+  B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
+      its size, also when a meta line wraps (v6.0.0: 1.7px off on the kit, 8.9px with a wrapped meta, the current dot
+      shrunk from 32px to 26px)
 
 The page is opened from disk with every network request refused, as the owner opens it, and with a classic
 scrollbar where a scrollbar can matter. Run it alone (exit 1 on a failure) or through review-sheet.py.
@@ -253,12 +265,168 @@ def b8_bar_strips(b, fails):
     ctx.close()
 
 
+STEPPER = r"""() => {
+  const out = [];
+  const probe = (st, tag) => {
+    const steps = [...st.querySelectorAll('.stepper-step')];
+    steps.forEach((s, i) => {
+      const d = s.querySelector('.stepper-dot').getBoundingClientRect();
+      if (s.matches('[aria-current="step"]')) {
+        const want = parseFloat(getComputedStyle(st).getPropertyValue('--stp-cur')) || 32;
+        const dw = s.querySelector('.stepper-dot').offsetWidth; if (Math.abs(dw - want) > 0.6) out.push(tag + ': the current dot is ' + dw.toFixed(1) + 'px, not ' + want);
+      }
+      if (i === steps.length - 1) return;
+      const a = getComputedStyle(s, '::after'), r = s.getBoundingClientRect();
+      const top = r.top + parseFloat(a.top), end = top + parseFloat(a.height);
+      const nd = steps[i + 1].querySelector('.stepper-dot').getBoundingClientRect();
+      const s1 = Math.abs(top - (d.top + d.height / 2)), s2 = Math.abs(end - (nd.top + nd.height / 2));
+      if (s1 > 0.6 || s2 > 0.6) out.push(tag + ' step ' + (i + 1) + ': the connector is ' + Math.max(s1, s2).toFixed(1) + 'px off the dots');
+    });
+  };
+  document.querySelectorAll('.stepper').forEach((st, k) => {
+    if (getComputedStyle(st.querySelector('.stepper-list')).flexDirection !== 'column') return;
+    probe(st, 'stepper ' + (k + 1));
+    const c = st.cloneNode(true); st.after(c);
+    c.querySelectorAll('.stepper-meta').forEach(m => m.textContent += ' · a longer line that wraps');
+    probe(c, 'stepper ' + (k + 1) + ' (wrapped meta)'); c.remove();
+  });
+  return [...new Set(out)];
+}"""
+
+
+def b9_stepper(b, fails):
+    for w, h, tag in ((1440, 1000, "desktop"), (390, 844, "phone")):
+        ctx, pg, _ = open_at(b, w, h, "stepper")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        pg.wait_for_timeout(300)
+        for f in pg.evaluate(STEPPER):
+            fails.append(f"B9 {tag} {f}")
+        ctx.close()
+
+
+
+def b10_downloads(b, fails):
+    for w, h, tag in WIDTHS:
+        ctx, pg, _ = open_at(b, w, h, "documentation")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        pg.wait_for_timeout(300)
+        r = pg.evaluate("""() => { const cards = [...document.querySelectorAll('.dl-card')];
+          const hs = () => cards.map(c => Math.round(c.getBoundingClientRect().height));
+          const a = hs();
+          const over = cards.map(c => { const s = c.querySelector('.segmented'); return Math.max(s.scrollWidth - s.clientWidth, ...[...s.querySelectorAll('.segmented-item')].map(i => i.scrollWidth - i.clientWidth)); });
+          cards.forEach(c => c.querySelector('[aria-controls$="-in"]').click());
+          return { a, over, ids: cards.map(c => c.id) }; }""")
+        pg.wait_for_timeout(200)
+        after = pg.evaluate("() => [...document.querySelectorAll('.dl-card')].map(c => Math.round(c.getBoundingClientRect().height))")
+        for i, cid in enumerate(r["ids"]):
+            if r["over"][i] > 0:
+                fails.append(f"B10 {tag} #{cid}: the control overflows by {r['over'][i]}px")
+            if abs(r["a"][i] - after[i]) > 1:
+                fails.append(f"B10 {tag} #{cid}: {r['a'][i]}px on How to install, {after[i]}px on What's inside")
+        ctx.close()
+
+
+
+OVERFLOW = r"""(sid) => {
+  const out = [];
+  const sec = document.getElementById(sid);
+  if (!sec) return out;
+  const CONTROLS = '.btn,.segmented-item,.segmented,.tab,.chip,.badge,.select-trigger,.nav-item,.kit-label,.swatch-tile-name,.acc-label,.dl-title,.pagination a,.pagination button,.breadcrumb a,.stepper-label';
+  const name = e => (e.id ? '#' + e.id : '') + '.' + [...e.classList].slice(0, 2).join('.') + ' "' + (e.textContent || '').trim().slice(0, 30) + '"';
+  sec.querySelectorAll(CONTROLS).forEach(e => {
+    if (e.closest('.kit-stage,[hidden],.device-preview') || !e.offsetParent) return;
+    const cs = getComputedStyle(e);
+    // clipped by its own box: the text is wider than the box and the box hides it, with no ellipsis to say so
+    if (cs.overflowX !== 'visible' && cs.textOverflow !== 'ellipsis' && e.scrollWidth > e.clientWidth + 1)
+      out.push('clipped ' + (e.scrollWidth - e.clientWidth) + 'px: ' + name(e));
+    // spills past the panel it sits in
+    const host = e.matches('.segmented') ? e.closest('.card,.kit-panel') : (e.closest('.segmented') || e.closest('.card,.kit-panel'));
+    // inside a scroll container (a tablist on a phone) running past the edge is the design: the user scrolls to it
+    let scroller = false;
+    for (let p = e.parentElement; p && p !== host; p = p.parentElement) { const o = getComputedStyle(p).overflowX; if (o === 'auto' || o === 'scroll') { scroller = true; break; } }
+    if (host && host !== e && !scroller) {
+      const r = e.getBoundingClientRect(), h = host.getBoundingClientRect();
+      const over = Math.max(r.right - h.right, h.left - r.left);
+      if (over > 1) out.push('spills ' + Math.round(over) + 'px past ' + host.className.split(' ')[0] + ': ' + name(e));
+    }
+  });
+  return [...new Set(out)];
+}"""
+
+
+def b11_overflow(b, fails):
+    for w, h, tag in WIDTHS:
+        ctx, pg, _ = open_at(b, w, h, "documentation")
+        pg.add_style_tag(content="*{transition:none!important;animation:none!important}")
+        ids = pg.evaluate("() => [...document.querySelectorAll('.section')].map(s => s.id).filter(Boolean)")
+        for sid in ids:
+            pg.evaluate("(sid) => { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(sid).classList.add('active'); }", sid)
+            pg.wait_for_timeout(120)
+            for f in pg.evaluate(OVERFLOW, sid):
+                fails.append(f"B11 {tag} {sid}: {f}")
+        ctx.close()
+
+
+CLIP_TEXT = r"""() => {
+  const out = new Set();
+  document.querySelectorAll('.section *').forEach(e => {
+    const cs = getComputedStyle(e);
+    if (cs.backgroundClip !== 'text' && cs.webkitBackgroundClip !== 'text') return;
+    const ls = parseFloat(cs.letterSpacing) || 0;
+    if (ls >= 0 || !(e.textContent || '').trim()) return;
+    if (parseFloat(cs.paddingRight) + 0.5 < -ls)
+      out.add('.' + [...e.classList].join('.') + ' in .' + [...e.parentElement.classList].join('.') + ': ' + ls + 'px tracking, ' + cs.paddingRight + ' padding at the end');
+  });
+  return [...out];
+}"""
+
+
+def b12_clip_text(b, fails):
+    """A gradient clipped to text paints only the element's box. With negative tracking the box ends
+    before the last glyph does, and the right edge of the final letter renders transparent: the 'e'
+    of "reshape the future." (v6.0.0). The end padding must give the tracking back."""
+    ctx, pg, _ = open_at(b, 1440, 1000, "overview")
+    ids = pg.evaluate("() => [...document.querySelectorAll('.section')].map(s => s.id).filter(Boolean)")
+    seen = set()
+    for sid in ids:
+        pg.evaluate("(sid) => { document.querySelectorAll('.section').forEach(s => s.classList.remove('active')); document.getElementById(sid).classList.add('active'); }", sid)
+        for f in pg.evaluate(CLIP_TEXT):
+            if f not in seen:
+                seen.add(f)
+                fails.append(f"B12 {sid}: {f}")
+    ctx.close()
+
+
+
+def b13_inner_links(b, fails):
+    """A link to something inside a section (the § 03.1 index points at download cards) opens that section and
+    brings the element into view below the bar. Until v6.0.0 the router treated #dl-agents as a section id,
+    switched every section off and left the page empty."""
+    for w, h in ((1440, 900), (390, 844)):
+        ctx, pg, _ = open_at(b, w, h, "overview")
+        targets = pg.evaluate("""() => [...new Set([...document.querySelectorAll('.section a[href^="#"]')]
+            .map(a => a.getAttribute('href').slice(1))
+            .filter(id => { const el = id && document.getElementById(id); return el && !el.classList.contains('section') && el.closest('.section'); }))]""")
+        for t in targets:
+            pg.evaluate("(id) => { location.hash = ''; }", t)
+            pg.evaluate("(id) => { const a = document.querySelector('.section a[href=\"#' + id + '\"]'); const s = a.closest('.section'); document.querySelectorAll('.section').forEach(x => x.classList.remove('active')); s.classList.add('active'); a.click(); }", t)
+            pg.wait_for_timeout(500)
+            r = pg.evaluate("""(id) => { const el = document.getElementById(id), top = el.getBoundingClientRect().top;
+                const bar = parseFloat(getComputedStyle(document.querySelector('.main')).getPropertyValue('--topbar-h')) || 0;
+                return {active: document.querySelectorAll('.section.active').length, top, bar, h: innerHeight}; }""", t)
+            if not r["active"]:
+                fails.append(f"B13 {w}: #{t} switched every section off")
+            elif not (r["bar"] - 1 <= r["top"] <= r["h"] - 40):
+                fails.append(f"B13 {w}: #{t} lands at {r['top']:.0f}px (bar {r['bar']:.0f}px, viewport {r['h']}px)")
+        ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow), ("B12", b12_clip_text), ("B13", b13_inner_links)):
             if not only or name in only:
                 fn(b, fails)
         b.close()

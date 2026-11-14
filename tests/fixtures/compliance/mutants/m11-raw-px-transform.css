@@ -1,0 +1,3 @@
+/* expect: error raw-px */
+.dk-big{opacity:0;transform:translateY(10px);transition:opacity var(--d-slow) var(--ease-decel),transform var(--d-slow) var(--ease-decel)}
+@media (prefers-reduced-motion: reduce){.dk-big{transition:none;transform:none;opacity:1}}
