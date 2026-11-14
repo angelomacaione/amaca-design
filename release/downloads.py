@@ -24,7 +24,7 @@ SKILL = "downloads/amaca-frontend.skill"      # the skill, a zip with amaca-fron
 USER_SIDE = {".claude/rules/", "CLAUDE.md", ".aider.conf.yml", ".continue/rules/amaca.md", ".cursor/rules/", ".github/",
              ".agents/skills/", "amaca-design/theme.css", "amaca-design/tokens.css", "amaca-design/components.css",
              "/r/registry.json", "cdn.jsdelivr.net/npm/amaca-design@6/", "AGENTS.md", "theme.css"}
-FRONTIER = "Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions (§ 03.3)."
+FRONTIER = "Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions."
 
 # Each bundle: the site card, the install steps (they are the README too), and the files: archive path -> source.
 # A source "skill:<path>" is a member of the .skill, so the IDE zip carries the skill unpacked and current.

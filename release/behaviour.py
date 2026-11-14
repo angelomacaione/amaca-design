@@ -20,6 +20,8 @@ Every check here answers an incident of the 5.3.0 cycle that shipped as a bug, n
       28px and nothing saw it)
   B10 a download card holds still and whole: its two tabs keep one height, and no segment of its control overflows, at
       1440, 800 and 390 (v6.0.0: two cards per row overflowed all thirteen controls by up to 28px)
+  B13 a link to something inside a section opens that section and lands the element below the bar (v6.0.0: the
+      § 03.1 index switched every section off and left the page empty)
   B12 a gradient clipped to text reaches its last glyph: with negative tracking the box ends before the letter does, so
       the end padding gives the tracking back (v6.0.0: the right edge of the 'e' of "the future." rendered transparent)
   B9  a vertical stepper's connector runs from the centre of one dot to the centre of the next, and the current dot keeps
@@ -395,12 +397,36 @@ def b12_clip_text(b, fails):
     ctx.close()
 
 
+
+def b13_inner_links(b, fails):
+    """A link to something inside a section (the § 03.1 index points at download cards) opens that section and
+    brings the element into view below the bar. Until v6.0.0 the router treated #dl-agents as a section id,
+    switched every section off and left the page empty."""
+    for w, h in ((1440, 900), (390, 844)):
+        ctx, pg, _ = open_at(b, w, h, "overview")
+        targets = pg.evaluate("""() => [...new Set([...document.querySelectorAll('.section a[href^="#"]')]
+            .map(a => a.getAttribute('href').slice(1))
+            .filter(id => { const el = id && document.getElementById(id); return el && !el.classList.contains('section') && el.closest('.section'); }))]""")
+        for t in targets:
+            pg.evaluate("(id) => { location.hash = ''; }", t)
+            pg.evaluate("(id) => { const a = document.querySelector('.section a[href=\"#' + id + '\"]'); const s = a.closest('.section'); document.querySelectorAll('.section').forEach(x => x.classList.remove('active')); s.classList.add('active'); a.click(); }", t)
+            pg.wait_for_timeout(500)
+            r = pg.evaluate("""(id) => { const el = document.getElementById(id), top = el.getBoundingClientRect().top;
+                const bar = parseFloat(getComputedStyle(document.querySelector('.main')).getPropertyValue('--topbar-h')) || 0;
+                return {active: document.querySelectorAll('.section.active').length, top, bar, h: innerHeight}; }""", t)
+            if not r["active"]:
+                fails.append(f"B13 {w}: #{t} switched every section off")
+            elif not (r["bar"] - 1 <= r["top"] <= r["h"] - 40):
+                fails.append(f"B13 {w}: #{t} lands at {r['top']:.0f}px (bar {r['bar']:.0f}px, viewport {r['h']}px)")
+        ctx.close()
+
+
 def run(only=None):
     from playwright.sync_api import sync_playwright
     fails = []
     with sync_playwright() as p:
         b = p.chromium.launch()
-        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow), ("B12", b12_clip_text)):
+        for name, fn in (("B1", b1_animations), ("B2", b2_anatomy), ("B3", b3_overlays), ("B5", b5_demo_links), ("B6", b6_elbows), ("B7", b7_centred), ("B8", b8_bar_strips), ("B9", b9_stepper), ("B10", b10_downloads), ("B11", b11_overflow), ("B12", b12_clip_text), ("B13", b13_inner_links)):
             if not only or name in only:
                 fn(b, fails)
         b.close()

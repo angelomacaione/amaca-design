@@ -20,7 +20,7 @@ The system is built to be dropped into an AI coding stack. Same spec inside, two
 
 **The spec — raw context.** [`DESIGN.md`](https://raw.githubusercontent.com/angelomacaione/amaca-design/main/DESIGN.md) (~40 KB). Tokens, components, principles, motion specs, accessibility rules — flat Markdown with YAML frontmatter. Paste into any system prompt: ChatGPT Custom GPT, Gemini Gems, any chat model with file upload.
 
-Per-runtime install instructions, model capability tiers, and a 30-second compliance scan live at [amaca.design → § 03 Documentation](https://amaca.design/#documentation).
+Every download with its install steps and what is inside, an index of tools, and the MCP server live at [amaca.design → § 03 Documentation](https://amaca.design/#documentation).
 
 ## React — native
 

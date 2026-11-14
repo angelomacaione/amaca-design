@@ -19,7 +19,7 @@ The rules as a Claude skill, tokens bundled, and amaca.md for Claude Code.
 **What's inside**
 
 - `README.md` · 795 B
-- `amaca-frontend.zip` · 207 KB
+- `amaca-frontend.zip` · 208 KB
 - `claude-code/amaca.md` · 17 KB
 - `claude-code/DESIGN.md` · 469 KB
 - `claude-code/tokens.css` · 15 KB
@@ -38,7 +38,7 @@ One package, two manifests, one skill: Agent Plugins for Cursor, Codex, Copilot,
 
 **What's inside**
 
-- `amaca-design/skills/amaca-frontend/ · 9 files` · 598 KB
+- `amaca-design/skills/amaca-frontend/ · 9 files` · 599 KB
 - `amaca-design/.claude-plugin/plugin.json` · 642 B
 - `amaca-design/README.md` · 2 KB
 - `amaca-design/LICENSE` · 1 KB
@@ -70,11 +70,11 @@ The spec in the Google Labs design.md standard, for Stitch and any agent that re
 **How to install**
 
 1. In your Stitch project, import `DESIGN.md` as the project's design rules.
-2. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions (§ 03.3).
+2. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions.
 
 **What's inside**
 
-- `README.md` · 454 B
+- `README.md` · 444 B
 - `DESIGN.md` · 469 KB
 
 ---
@@ -107,7 +107,7 @@ Scoped rules: amaca-core always on, amaca-html and amaca-react on the files they
 1. Unzip at the repo root: `.cursor/rules/` for Cursor, `.github/` for Copilot, `.agents/skills/` for Codex.
 2. AGENTS.md goes at the root only if you have none; otherwise paste it under `## Amaca` in yours.
 3. **Continue**: copy `.cursor/rules/amaca-core.mdc` into `.continue/rules/amaca.md`; it keeps its frontmatter.
-4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions (§ 03.3).
+4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions.
 
 **What's inside**
 
@@ -118,7 +118,7 @@ Scoped rules: amaca-core always on, amaca-html and amaca-react on the files they
 - `.github/copilot-instructions.md` · 5 KB
 - `.github/instructions/amaca-html.instructions.md` · 2 KB
 - `.github/instructions/amaca-react.instructions.md` · 2 KB
-- `.agents/skills/amaca-frontend/ · 9 files` · 598 KB
+- `.agents/skills/amaca-frontend/ · 9 files` · 599 KB
 - `AGENTS.md` · 18 KB
 - `DESIGN.md` · 469 KB
 - `tokens.css` · 15 KB
@@ -134,11 +134,11 @@ A self-contained paste-in, every token value and every component part inlined, n
 1. **ChatGPT**: a Project or a custom GPT, with `AI-INSTRUCTIONS.md` as its instructions.
 2. **Gemini**: Customize → Skills → Create → Create manually, and paste `AI-INSTRUCTIONS.md` as the instructions. Gems retire on 17 November 2026.
 3. **Any other chat**: attach the file and start with **Use this as the canonical reference for tokens, components and voice.**
-4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions (§ 03.3).
+4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions.
 
 **What's inside**
 
-- `README.md` · 781 B
+- `README.md` · 771 B
 - `AI-INSTRUCTIONS.md` · 16 KB
 
 ---
@@ -152,11 +152,11 @@ The same paste-in, for builders with no filesystem of yours.
 1. Paste `AI-INSTRUCTIONS.md` into the builder's instructions or knowledge.
 2. Where it takes files, add `theme.css` from the Tailwind bundle as the project's foundation.
 3. Describe the screen, not a mood: the tokens carry the look.
-4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions (§ 03.3).
+4. Needs a frontier-tier model: on a lighter one the spec is read as context, not as instructions.
 
 **What's inside**
 
-- `README.md` · 608 B
+- `README.md` · 598 B
 - `AI-INSTRUCTIONS.md` · 16 KB
 
 ---
