@@ -1,11 +1,11 @@
 ---
 name: Amaca
 version: 6.0.0
-updated: 2026-11-13
+updated: 2026-11-14
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-11-13
+last_synced: 2026-11-14
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 6.0.0 — 2026.11.13
+> **Version** 6.0.0 — 2026.11.14
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** The contract, read a section at a time: by an agent through the MCP server (`get_design_section`), by a rules file that points here, or by a person. Do not paste it whole into a rules file or import it into one: it is 459 KB, and a file a tool loads at every launch must stay short (§ IDE integration). Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4335,7 +4335,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 
 ## Changelog
 
-### v6.0.0 — 2026.11.13 (MAJOR)
+### v6.0.0 — 2026.11.14 (MAJOR)
 
 Labels become a register, quotes get one, and every download carries its own instructions: what the system says, what it serves and what it ships now agree.
 
