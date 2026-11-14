@@ -3835,7 +3835,7 @@ When generating copy:
 1. **Match the register.** Editorial for marketing pages, Spec for docs, terse for code comments.
 2. **Never use AI tells.** Avoid: "delve," "leverage," "robust," "seamless," "effortlessly," "in today's fast-paced world."
 3. **Don't decorate sentences.** "We crafted this with care" → cut.
-4. **Italics are rare.** Reserved for genuine emphasis, never for vibes.
+4. **Italics are for quotes.** Words quoted from someone else ride the quote register (`--font-style-quote`); emphasis takes weight, never italics.
 
 ### Conventions
 
@@ -4367,6 +4367,7 @@ Labels become a register, quotes get one, and every download carries its own ins
 - **The Breadcrumb's title:** *Where you are, and the way back.*
 
 **Fixed**
+- **Typography shows the quote register, and no rule still asks for italic emphasis.** § 02.2 gains a Quote tile (`--font-style-quote`); Pairing rule 03 and the copy rule for agents said italic was for emphasis, the opposite of the register, and now say it is for quotes.
 - **A link to a download card emptied the page.** The router read `#dl-agents` as a section, switched every section off and opened none: every link of the tool index and every shared link to a card. A hash inside a section now opens that section and brings the element in, one gutter below the bar. Behaviour B13 clicks every such link at two widths (26 failures before).
 - **The parts line named a component by the wrong class.** With no class matching its name, `release/parts.py` took the shortest: the Chart card read `.s`, the source label in its head, Navigation `.num`, Tabs `.tab`, Chat `.chat-day`. The root is now the class the component is called by, its title as a class, its `-wrap`, or the outermost element of its example; check 131 holds every line to it.
 - **A gradient title lost the edge of its last letter.** A gradient clipped to text paints only its box, and the titles' tight tracking (`--tr-tight`) ends the box before the last glyph: the right edge of the *e* of *the future.* rendered transparent, as did the end of every accent title, the big chart numbers and the Presentations' titles and stat. The accent gives the tracking back as end padding and takes it back as margin, so the line keeps its length. The Overview's full stop joins its accent, magenta, as on every other title. Behaviour pass B12 measures it (4 failures before).

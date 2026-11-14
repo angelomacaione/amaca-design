@@ -21,7 +21,7 @@ The rules as a Claude skill, tokens bundled, and amaca.md for Claude Code.
 - `README.md` · 795 B
 - `amaca-frontend.zip` · 208 KB
 - `claude-code/amaca.md` · 17 KB
-- `claude-code/DESIGN.md` · 469 KB
+- `claude-code/DESIGN.md` · 470 KB
 - `claude-code/tokens.css` · 15 KB
 
 ---
@@ -75,7 +75,7 @@ The spec in the Google Labs design.md standard, for Stitch and any agent that re
 **What's inside**
 
 - `README.md` · 444 B
-- `DESIGN.md` · 469 KB
+- `DESIGN.md` · 470 KB
 
 ---
 
@@ -93,7 +93,7 @@ The open agent-rules file: Codex, Copilot, Cursor and Devin read it at the repo 
 
 - `README.md` · 693 B
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 469 KB
+- `DESIGN.md` · 470 KB
 - `tokens.css` · 15 KB
 
 ---
@@ -120,7 +120,7 @@ Scoped rules: amaca-core always on, amaca-html and amaca-react on the files they
 - `.github/instructions/amaca-react.instructions.md` · 2 KB
 - `.agents/skills/amaca-frontend/ · 9 files` · 599 KB
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 469 KB
+- `DESIGN.md` · 470 KB
 - `tokens.css` · 15 KB
 
 ---
@@ -224,7 +224,7 @@ The package: tokens, components, the Tailwind theme, the DTCG file and the spec.
 
 **What's inside**
 
-- `DESIGN.md` · 469 KB
+- `DESIGN.md` · 470 KB
 - `LICENSE` · 1 KB
 - `THIRD-PARTY-NOTICES.md` · 5 KB
 - `components.css` · 209 KB
