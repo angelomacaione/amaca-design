@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "description": "The visual regression pass of the site's demos (v6.1.0). Runs in CI only: fonts draw differently between systems.",
+  "devDependencies": {
+    "@playwright/test": "1.63.0"
+  }
+}

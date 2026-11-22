@@ -12,7 +12,7 @@
       "path": "amaca/icon.css",
       "type": "registry:file",
       "target": "styles/amaca/icon.css",
-      "content": ".icon{\n  width:var(--icon-sm);\n  height:var(--icon-sm);\n  flex:none;\n  fill:none;\n  stroke:currentColor;\n  stroke-width:1.5;\n  stroke-linecap:round;\n  stroke-linejoin:round;\n  vertical-align:middle;\n}\n.icon-xs{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n}\n.icon-md{\n  width:var(--icon-md);\n  height:var(--icon-md);\n}\n.icon-lg{\n  width:var(--icon-lg);\n  height:var(--icon-lg);\n}\n.icon-muted{\n  color:var(--obsidian-300);\n}\n.icon-fill{\n  fill:currentColor;\n  stroke-width:var(--bw-1);\n}\n"
+      "content": ".icon{\n  width:var(--icon-sm);\n  height:var(--icon-sm);\n  flex:none;\n  fill:none;\n  stroke:currentColor;\n  stroke-width:1.5;\n  stroke-linecap:round;\n  stroke-linejoin:round;\n  vertical-align:middle;\n}\n.icon-xs{\n  width:var(--icon-xs);\n  height:var(--icon-xs);\n}\n.icon-md{\n  width:var(--icon-md);\n  height:var(--icon-md);\n}\n.icon-lg{\n  width:var(--icon-lg);\n  height:var(--icon-lg);\n}\n.icon-muted{\n  color:var(--text-muted);\n}\n.icon-fill{\n  fill:currentColor;\n  stroke-width:var(--bw-1);\n}\n"
     },
     {
       "path": "amaca/icon.html",

@@ -49,6 +49,9 @@
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-border-input: var(--border-input);
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
 
   /* — BREAKPOINT (v5.0.0) — */
   --breakpoint-sm: var(--bp-sm);

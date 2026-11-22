@@ -24,7 +24,11 @@ const KEYWORD_EASE = { 'ease': '--ease-standard', 'ease-in-out': '--ease-standar
 // their Check column, so the link reads from both ends (v5.3.0)
 const LAW = { 'colour-literal': 'L4', 'raw-px': 'L4', 'raw-duration': 'L8', 'raw-easing': 'L8', 'spring-on-effect': 'L8',
   'loop-clock': 'L8', 'raw-delay': 'L8', 'one-primary': 'L3', 'reduced-motion': 'L7', 'class-off-registry': 'C2',
-  'token-undeclared': 'L4', 'token-unknown': 'L4', 'raw-weight': 'L4' };
+  'token-undeclared': 'L4', 'token-unknown': 'L4', 'raw-weight': 'L4', 'raw-ramp-in-component': 'C11' };
+// a step of the obsidian ramp whose role has the same value and the same kind: a component reaches for the role (v6.1.0).
+// A warning in 6.1.0, an error from the next release. Fills stay out: a hover or a part is a step, not a surface.
+const ROLE_TEXT = { '100': '--text', '200': '--text-secondary', '300': '--text-muted' };
+const ROLE_BORDER = { '600': '--border-strong', '700': '--border', '800': '--border-subtle' };
 // a weight is a --fw-* token, one per Satoshi face; 600 and 800 have no face and render one step up (v6.1.0)
 const NOFACE = ' (it has no Satoshi face: the browser already draws it one step up)';
 const WEIGHT_FIX = { '100': 'var(--fw-light)' + NOFACE.replace('up', 'down'), '200': 'var(--fw-light)' + NOFACE.replace('up', 'down'),
@@ -101,6 +105,14 @@ function blankComments(code) {
   return code.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, blank).replace(/(^|[^:'"])\/\/[^\n]*/g, (m, p1) => p1 + blank(m.slice(p1.length)));
 }
 
+// code shown to a reader is not the page's style: the text inside <pre> and <code> is blanked like a comment, same
+// length, line numbers unchanged; the opening tag stays, so a style="" on it is still read (v6.1.0: a case study page
+// scanned with 84 errors, every one inside a <pre> example)
+function blankShown(code) {
+  const blank = (s) => s.replace(/[^\n]/g, ' ');
+  return code.replace(/(<(pre|code)\b[^>]*>)([\s\S]*?)(<\/\2>)/gi, (m, open, tag, body, close) => open + blank(body) + close);
+}
+
 // the [start, end) spans of every @media (prefers-reduced-motion: reduce) block: its 0.01ms is the
 // kill-switch the system prescribes (Motion › CSS kill-switch), not a duration off the scale
 function reducedMotionSpans(code) {
@@ -133,7 +145,7 @@ function selectorAt(code, idx) {
 }
 
 function check(repo, source) {
-  const code = blankComments(String(source || ''));
+  const code = blankShown(blankComments(String(source || '')));
   const calm = reducedMotionSpans(code);
   const inCalm = (idx) => calm.some(([a, b]) => idx >= a && idx < b);
   const frames = keyframeSpans(code);
@@ -194,6 +206,12 @@ function check(repo, source) {
         if (fam === 'border width' && n > 2) continue; // a 3px+ border is not on the border-width scale; leave it to review
         if (fam === 'radius' && n < 2) { add(d.idx, 'warning', 'raw-px', `${d.prop}: ${n}px`, 'a sub-2px radius is legal only on the closed hairline list (Shapes); otherwise var(--r-xs)', 'Shapes › Radius'); continue; }
         add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, snapFix(unitScale, n, 'px'), fam === 'type' ? 'Typography' : fam === 'radius' ? 'Shapes › Radius' : fam === 'spacing' ? 'Layout › Spacing' : 'Shapes › Border width');
+      }
+    }
+    {
+      const roles = /^(color|caret-color)$/.test(d.prop) ? ROLE_TEXT : /^(border|outline)(-(top|right|bottom|left|inline|block))?(-color)?$/.test(d.prop) ? ROLE_BORDER : null;
+      if (roles) for (const x of v.matchAll(/var\(--obsidian-(\d+)\)/g)) {
+        if (roles[x[1]]) add(d.idx, 'warning', 'raw-ramp-in-component', `${d.prop}: ${x[0]}`, `var(${roles[x[1]]}): same value, named for what it does`, 'Colors › Color · semantic (v5.0.0)');
       }
     }
     if (d.prop === 'font-weight' && !/^@font-face/.test(selectorAt(code, d.idx))) {

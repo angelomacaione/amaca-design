@@ -1,0 +1,3 @@
+/* Applied only while a snapshot is taken (playwright.config.mjs, stylePath). The site's own sticky top bar sits over
+   whichever subsection is under it, at a scroll position that changes from run to run: it is chrome, not a demo. */
+.topbar:not(section .topbar) { visibility: hidden; }

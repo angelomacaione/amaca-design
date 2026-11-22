@@ -215,6 +215,21 @@
     "$type": "color",
     "$description": "A control's outline — 3.13 : 1 on --surface-field, the WCAG 1.4.11 floor (§ 6)"
   },
+  "text": {
+    "$value": "{obsidian-100}",
+    "$type": "color",
+    "$description": "Text: body copy, titles, values"
+  },
+  "text-secondary": {
+    "$value": "{obsidian-200}",
+    "$type": "color",
+    "$description": "Secondary text: descriptions, supporting copy"
+  },
+  "text-muted": {
+    "$value": "{obsidian-300}",
+    "$type": "color",
+    "$description": "Muted text: labels, captions, metadata — 5.64 : 1 on --obsidian-800, the floor for small text (Typography)"
+  },
   "primary-100": {
     "$value": {
       "colorSpace": "srgb",
@@ -1927,6 +1942,14 @@
     },
     "$type": "duration",
     "$description": "data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19)"
+  },
+  "d-wait": {
+    "$value": {
+      "value": 5000,
+      "unit": "ms"
+    },
+    "$type": "duration",
+    "$description": "A wait, not a transition: after it a loop that signals waiting gives way to words (WCAG 2.2.2, Chat)"
   },
   "loader-xs": {
     "$value": {

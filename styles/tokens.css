@@ -39,6 +39,9 @@
   --border:         var(--obsidian-700);   /* card, chip, panel */
   --border-strong:  var(--obsidian-600);   /* hover, emphasis */
   --border-input:   var(--obsidian-400);   /* a control's outline: 3:1 on its fill (WCAG 1.4.11) */
+  --text:           var(--obsidian-100);   /* v6.1.0: body copy, titles, values */
+  --text-secondary: var(--obsidian-200);   /* v6.1.0: descriptions, supporting copy */
+  --text-muted:     var(--obsidian-300);   /* v6.1.0: labels, captions, metadata */
 
   /* — BRAND (primary accent: magenta F051D5) — */
   --primary-100: #FFE3F8;
@@ -230,6 +233,7 @@
   --d-slow:    600ms;
   --d-scene:   900ms;
   --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 43 Charts) */
+  --d-wait:    5000ms;   /* v6.1.0: a wait, not a transition — after it a loop that signals waiting gives way to words (WCAG 2.2.2) */
 
   /* — LOADER (component-specific size scale, § 24 Loader) — */
   --loader-xs: 16px;

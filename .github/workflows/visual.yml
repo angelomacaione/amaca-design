@@ -1,0 +1,52 @@
+# The visual regression pass of the site's demos (v6.1.0): one snapshot per component page, in two passes (motion
+# and reduced motion), compared at 0.1% of the pixels. It runs here and never on a Mac: the Playwright image below
+# pins the browser and the fonts, so the same commit draws the same pixels.
+#
+# A difference that is not expected blocks the pull request. A snapshot changes only on purpose: Actions > Visual
+# regression > Run workflow, on the branch, with update = true. That run writes the new snapshots and commits them
+# to the branch; the review sheet then shows what changed.
+name: Visual regression
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      update:
+        description: "Write new snapshots and commit them to this branch (on purpose only)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  demos:
+    runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install the pinned Playwright
+        run: npm install --prefix tests/visual --no-audit --no-fund
+      - name: Compare with the snapshots
+        if: ${{ !inputs.update }}
+        run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs
+      - name: Write new snapshots
+        if: ${{ inputs.update }}
+        run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs --update-snapshots
+      - name: Commit the new snapshots to the branch
+        if: ${{ inputs.update }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/__snapshots__
+          git diff --cached --quiet && echo "no snapshot changed" && exit 0
+          git commit -m "test(visual): update the demo snapshots on purpose"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Keep the differences
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-differences
+          path: tests/visual/test-results
+          retention-days: 14

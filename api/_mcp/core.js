@@ -309,7 +309,7 @@ const TOOLS = [
   {
     name: 'check_compliance',
     title: 'Check code against Amaca',
-    description: 'The 30-second scan of the spec, run on code you wrote: HTML with <style> and style="", CSS, React with className and style={{}}, Tailwind arbitrary values. Returns, line by line, colour literals, px off the spacing / radius / type / border scales, raw durations and easings, spring on effect properties, px inside a transform, a var() of a token that does not exist or that a page using its own :root forgot to declare, Amaca-looking classes that are not in the registry, more than one .btn-primary, and motion without a reduced-motion override, each with the token that fixes it. Reports, never rewrites; a clean scan is not a design review.',
+    description: 'The 30-second scan of the spec, run on code you wrote: HTML with <style> and style="", CSS, React with className and style={{}}, Tailwind arbitrary values. Returns, line by line, colour literals, px off the spacing / radius / type / border scales, raw durations and easings, spring on effect properties, px inside a transform, a var() of a token that does not exist or that a page using its own :root forgot to declare, Amaca-looking classes that are not in the registry, more than one .btn-primary, motion without a reduced-motion override, a font-weight written by hand, and a text or border colour on an obsidian step its role names, each with the token that fixes it. Code shown to a reader, inside <pre> or <code>, is not read. Reports, never rewrites; a clean scan is not a design review.',
     inputSchema: {
       type: 'object',
       properties: { code: { type: 'string', description: 'The code to check, as written. Up to 200,000 characters.' } },

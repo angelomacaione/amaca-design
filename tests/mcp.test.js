@@ -233,6 +233,27 @@ test('check_compliance treats loops and delays as warnings, and wants code', () 
   assert.equal(call('check_compliance', { code: '  ' }).isError, true);
 });
 
+test('check_compliance names the role where a component writes its step: text and borders, a warning (v6.1.0)', () => {
+  const r = scan('.a{color:var(--obsidian-300);border:var(--bw-1) solid var(--obsidian-700)}\n.b{background:var(--obsidian-800);color:var(--obsidian-400)}\n.c{color:var(--text-muted)}');
+  const w = r.findings.filter((f) => f.rule === 'raw-ramp-in-component');
+  assert.equal(w.length, 2, 'a text and a border; a fill and a step with no role are left alone');
+  assert.ok(w.every((f) => f.severity === 'warning'));
+  assert.ok(find(r, 'raw-ramp-in-component', 'color: var(--obsidian-300)').fix.startsWith('var(--text-muted)'));
+  assert.ok(find(r, 'raw-ramp-in-component', 'border: var(--obsidian-700)').fix.startsWith('var(--border)'));
+});
+
+test('check_compliance reads the page, not the code it shows: <pre> and <code> are examples (v6.1.0)', () => {
+  const css = '.btn { color: #F051D5; padding: 13px; }';
+  const shown = scan('<pre><code>' + css + '</code></pre>\n<p>The brand is <code>#F051D5</code>.</p>');
+  assert.equal(shown.findings.length, 0, 'an example and a mention are not the page\'s style');
+  const real = scan('<style>' + css + '</style>');
+  assert.ok(find(real, 'colour-literal') && find(real, 'raw-px'), 'the same code as the page\'s own style keeps its two errors');
+  const attr = scan('<code style="color:#F051D5">brand</code>');
+  assert.ok(find(attr, 'colour-literal'), 'a style on the <code> tag itself is still read');
+  const lines = scan('<pre>\n.a{}\n</pre>\n<div style="padding:13px"></div>');
+  assert.equal(find(lines, 'raw-px').line, 4, 'line numbers survive the blanking');
+});
+
 test('check_compliance holds every font-weight to the --fw-* scale, and leaves @font-face alone (v6.1.0)', () => {
   const r = scan('.a{font-weight:600}\n.b{font-weight:bold}\n.c{font-weight:var(--fw-bold)}\n@font-face{font-family:"X";font-weight:600}');
   const w = r.findings.filter((f) => f.rule === 'raw-weight');
@@ -269,11 +290,11 @@ const LAWS = (() => {
 
 test('every finding cites a section that opens and a law whose Check column names it back', () => {
   const FX = path.join(ROOT, 'tests/fixtures/compliance/mutants');
-  const all = [BAD, '.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}', '.w{font-weight:600}', ...fs.readdirSync(FX).map((f) => fs.readFileSync(path.join(FX, f), 'utf8'))];
+  const all = [BAD, '.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}', '.w{font-weight:600}', '.r{color:var(--obsidian-300)}', ...fs.readdirSync(FX).map((f) => fs.readFileSync(path.join(FX, f), 'utf8'))];
   const seen = new Map();
   for (const src of all) for (const f of scan(src).findings) seen.set(`${f.rule}|${f.cite}|${f.law}`, f);
   const rules = new Set([...seen.values()].map((f) => f.rule));
-  for (const r of ['colour-literal', 'raw-px', 'raw-duration', 'raw-easing', 'spring-on-effect', 'loop-clock', 'raw-delay', 'one-primary', 'reduced-motion', 'class-off-registry', 'raw-weight']) {
+  for (const r of ['colour-literal', 'raw-px', 'raw-duration', 'raw-easing', 'spring-on-effect', 'loop-clock', 'raw-delay', 'one-primary', 'reduced-motion', 'class-off-registry', 'raw-weight', 'raw-ramp-in-component']) {
     assert.ok(rules.has(r), `no sample produces ${r}`);
   }
   for (const f of seen.values()) {

@@ -8,6 +8,9 @@
 /* Stand-in for styles/tokens.css (not read for this task). Replace with the real link.
    Values marked "assumed" are not stated in DESIGN.md and must come from tokens.css. */
 :root {
+  --text: var(--obsidian-100);
+  --text-secondary: var(--obsidian-200);
+  --text-muted: var(--obsidian-300);
   --fw-medium: 500;
   --fw-bold: 700;
   color-scheme: dark;
@@ -32,7 +35,7 @@
 
 body {
   margin: 0; min-height: 100vh;
-  color: var(--obsidian-100); background: var(--surface);
+  color: var(--text); background: var(--surface);
   font-family: var(--font-sans); font-size: var(--t-body); line-height: var(--lh-normal);
 }
 main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
@@ -50,10 +53,10 @@ main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
 .card:hover { border-color: var(--border-strong); box-shadow: var(--sh-2); }
 .card-meta {
   font-size: var(--t-micro); text-transform: uppercase; letter-spacing: var(--tr-label);
-  color: var(--obsidian-300); margin-bottom: var(--s-2);
+  color: var(--text-muted); margin-bottom: var(--s-2);
 }
 .card h3 { margin: 0 0 var(--s-2); font-size: var(--t-h6); font-weight: var(--fw-medium); }
-.card p { margin: 0; color: var(--obsidian-200); }
+.card p { margin: 0; color: var(--text-secondary); }
 
 /* Toast (§ 3.17) */
 .toast-region {
@@ -70,7 +73,7 @@ main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
   border-left: var(--bw-2) solid var(--success);
   border-radius: var(--r-md);
   box-shadow: var(--sh-3);
-  color: var(--obsidian-200); font-size: var(--t-small);
+  color: var(--text-secondary); font-size: var(--t-small);
   /* entrance: from the side it lives on, 24px from the right, with opacity */
   opacity: 0; transform: translateX(var(--s-6));
 }
@@ -83,13 +86,13 @@ main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
   transition: opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
 .toast-icon { grid-column: 1; width: var(--icon-sm); height: var(--icon-sm); color: var(--success); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; align-self: center; }
-.toast-title { grid-column: 2; color: var(--obsidian-100); font-weight: var(--fw-bold); }
+.toast-title { grid-column: 2; color: var(--text); font-weight: var(--fw-bold); }
 .toast-dismiss {
   grid-column: 3; display: inline-grid; place-items: center; width: var(--s-6); height: var(--s-6);
-  background: transparent; border: 0; border-radius: var(--r-md); color: var(--obsidian-300); cursor: pointer;
+  background: transparent; border: 0; border-radius: var(--r-md); color: var(--text-muted); cursor: pointer;
   transition: color var(--d-quick) var(--ease-standard);
 }
-.toast-dismiss:hover { color: var(--obsidian-100); }
+.toast-dismiss:hover { color: var(--text); }
 .toast-dismiss:focus-visible { outline: var(--bw-2) solid var(--obsidian-100); outline-offset: var(--s-0-5); }
 .toast-dismiss svg { width: var(--icon-sm); height: var(--icon-sm); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
 .toast-body { grid-column: 1 / -1; }
