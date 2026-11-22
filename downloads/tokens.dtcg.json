@@ -955,6 +955,31 @@
     "$type": "other",
     "$description": "Letter-spacing for labels (the label register). In em: DTCG dimension takes px or rem only."
   },
+  "fw-light": {
+    "$value": 300,
+    "$type": "fontWeight",
+    "$description": "Satoshi Light"
+  },
+  "fw-regular": {
+    "$value": 400,
+    "$type": "fontWeight",
+    "$description": "Satoshi Regular"
+  },
+  "fw-medium": {
+    "$value": 500,
+    "$type": "fontWeight",
+    "$description": "Satoshi Medium"
+  },
+  "fw-bold": {
+    "$value": 700,
+    "$type": "fontWeight",
+    "$description": "Satoshi Bold"
+  },
+  "fw-black": {
+    "$value": 900,
+    "$type": "fontWeight",
+    "$description": "Satoshi Black"
+  },
   "s-0": {
     "$value": {
       "value": 0,

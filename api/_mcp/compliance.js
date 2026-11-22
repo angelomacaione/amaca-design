@@ -24,7 +24,13 @@ const KEYWORD_EASE = { 'ease': '--ease-standard', 'ease-in-out': '--ease-standar
 // their Check column, so the link reads from both ends (v5.3.0)
 const LAW = { 'colour-literal': 'L4', 'raw-px': 'L4', 'raw-duration': 'L8', 'raw-easing': 'L8', 'spring-on-effect': 'L8',
   'loop-clock': 'L8', 'raw-delay': 'L8', 'one-primary': 'L3', 'reduced-motion': 'L7', 'class-off-registry': 'C2',
-  'token-undeclared': 'L4', 'token-unknown': 'L4' };
+  'token-undeclared': 'L4', 'token-unknown': 'L4', 'raw-weight': 'L4' };
+// a weight is a --fw-* token, one per Satoshi face; 600 and 800 have no face and render one step up (v6.1.0)
+const NOFACE = ' (it has no Satoshi face: the browser already draws it one step up)';
+const WEIGHT_FIX = { '100': 'var(--fw-light)' + NOFACE.replace('up', 'down'), '200': 'var(--fw-light)' + NOFACE.replace('up', 'down'),
+  '300': 'var(--fw-light)', '400': 'var(--fw-regular)', 'normal': 'var(--fw-regular)', '500': 'var(--fw-medium)',
+  '600': 'var(--fw-bold)' + NOFACE, '700': 'var(--fw-bold)', 'bold': 'var(--fw-bold)', '800': 'var(--fw-black)' + NOFACE,
+  '900': 'var(--fw-black)', 'bolder': 'a --fw-* token: a relative weight depends on the parent', 'lighter': 'a --fw-* token: a relative weight depends on the parent' };
 // a length written inside a transform is a distance like a margin: it rides the spacing scale (v6.0.0)
 const TRANSFORM = /^(transform|translate)$/;
 const ROOTS = ['btn', 'card', 'chip', 'badge', 'acc', 'accordion', 'alert', 'avatar', 'breadcrumb', 'chart', 'chat', 'diagram', 'divider', 'dp', 'drawer', 'loader', 'modal', 'navbar', 'pagination', 'popover', 'progress', 'radio', 'segmented', 'select', 'skeleton', 'slider', 'stepper', 'swatch', 'switch', 'toast', 'tooltip', 'tp'];
@@ -189,6 +195,10 @@ function check(repo, source) {
         if (fam === 'radius' && n < 2) { add(d.idx, 'warning', 'raw-px', `${d.prop}: ${n}px`, 'a sub-2px radius is legal only on the closed hairline list (Shapes); otherwise var(--r-xs)', 'Shapes › Radius'); continue; }
         add(d.idx, 'error', 'raw-px', `${d.prop}: ${n}px`, snapFix(unitScale, n, 'px'), fam === 'type' ? 'Typography' : fam === 'radius' ? 'Shapes › Radius' : fam === 'spacing' ? 'Layout › Spacing' : 'Shapes › Border width');
       }
+    }
+    if (d.prop === 'font-weight' && !/^@font-face/.test(selectorAt(code, d.idx))) {
+      const w = v.trim().replace(/\s*!important$/, '').replace(/px$/, '');
+      if (WEIGHT_FIX[w]) add(d.idx, 'error', 'raw-weight', `font-weight: ${w}`, WEIGHT_FIX[w], 'Typography');
     }
     if (MOTION.test(d.prop) && !/^\s*none\s*$/.test(v)) {
       motion = motion || d;

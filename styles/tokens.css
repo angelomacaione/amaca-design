@@ -139,6 +139,14 @@
   --tr-wide:    0.04em;
   --tr-label:    0.06em;
 
+  /* weight — one step per Satoshi face loaded above, no step without a face (v6.1.0).
+     600 and 800 have no file: the browser draws them in the next face up (§ 02 Typography). */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-bold:     700;
+  --fw-black:    900;
+
   /* — SPACING (4px base) — */
   --s-0: 0;
   --s-px: 1px;      /* v5.0.0, under the 4px step: hairline offsets, sr-only (Polaris space-025, Tailwind px) */

@@ -33,7 +33,7 @@ Reuse the canonical classes (`.btn-primary`, `.card`, `.field`, `.select`…); f
 
 ```css
 .btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
-  font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+  font-family:var(--font-sans); font-size:var(--t-body); font-weight:var(--fw-medium);
   letter-spacing:var(--tr-snug); line-height:1;
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);

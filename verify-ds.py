@@ -1643,6 +1643,20 @@ def c131():
             fails.append(f"{title}: root `.{root}` is neither its name nor the outermost class of its example ({' '.join(outer) or 'none'})")
     return fails
 
+@check("132", "Every font-weight is a --fw-* token: no number, no bold or normal, outside @font-face",
+       "v6.1.0: the system had a scale for size, leading and tracking and none for weight. components.css wrote 600 "
+       "in 32 places and the site in 22, and Satoshi has no 600 face: every one of them rendered at 700, and the type "
+       "tiles of Heading 5 and 6 said Semibold 600 over a sample drawn in Bold.")
+def c132():
+    fails = []
+    pat = re.compile(r"font-weight\s*:\s*(\d+|bold|normal|bolder|lighter)\b")
+    for f in (COMPONENTS, TOKENS, ROOT / "styles" / "theme.css", INDEX):
+        text = re.sub(r"@font-face\s*\{[^}]*\}", "", read(f))
+        for m in pat.finditer(text):
+            line = text.count("\n", 0, m.start()) + 1
+            fails.append(f"{f.name}: font-weight: {m.group(1)} written by hand (line {line} without @font-face) - use a --fw-* token")
+    return fails
+
 @check("128", "Every download card is its bundle: what it lists is in the zip, and every file its steps name is there or in the user's own repo",
        "v6.0.0: § 03.1 told Windsurf, Aider and Continue users to drop files the IDE zip never carried, the Claude README "
        "sent CLAUDE.md over the user's own and imported DESIGN.md whole, and the skill upload path had moved. The cards, "
@@ -1688,7 +1702,7 @@ def c129():
     m = re.search(r"\.cs-pull\{([^}]*)\}", css)
     if not m or "font-style:var(--font-style-quote)" not in m.group(1).replace(" ", ""):
         fails.append("components.css: .cs-pull does not read var(--font-style-quote)")
-    elif not re.search(r"font-weight:\s*400", m.group(1)):
+    elif not re.search(r"font-weight:\s*(400|var\(--fw-regular\))", m.group(1)):
         fails.append("components.css: .cs-pull is not 400 (the quote register is italic 400)")
     if not re.search(r"(^|[,}\s])q(,[^{]*)?\{[^}]*font-style:\s*var\(--font-style-quote\)", tok, re.M):
         fails.append("tokens.css: the q element does not read var(--font-style-quote)")
@@ -3629,7 +3643,10 @@ def c75():
             continue
         m = re.search(r"line-height:var\(--lh-([a-z]+)\)", rule)
         trm = re.search(r"letter-spacing:var\(--tr-([a-z]+)\)", rule)
-        wm = re.search(r"font-weight:(\d+)", rule)
+        wm = re.search(r"font-weight:(\d+)", rule) or re.search(r"font-weight:(var\(--fw-[a-z]+\))", rule)
+        if wm and wm.group(1).startswith("var("):  # v6.1.0: weights are --fw-* tokens; print the number the token holds
+            fw = re.search(re.escape(wm.group(1)[4:-1]) + r"\s*:\s*(\d+)", read(TOKENS))
+            wm = fw
         want = (T[k], float(LH[m.group(1)]) if m else None, f"{round(TR[trm.group(1)] * 100):+d}%" if trm and TR[trm.group(1)] else "0", wm.group(1) if wm else "400")
         got = (int(size), float(lh), tr, w)
         if got != want:

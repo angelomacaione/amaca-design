@@ -114,7 +114,7 @@ Color never carries meaning alone (pair with shape + label) · no text < 12px, n
 ```
 ```css
 .btn{ display:inline-flex; align-items:center; justify-content:center; gap:var(--s-2);
-  font-family:var(--font-sans); font-size:var(--t-body); font-weight:500;
+  font-family:var(--font-sans); font-size:var(--t-body); font-weight:var(--fw-medium);
   letter-spacing:var(--tr-snug); line-height:1;
   min-height:var(--s-10); padding:0 var(--s-6); border-radius:var(--r-full);
   transition:all var(--d-quick) var(--ease-standard);
@@ -306,6 +306,14 @@ Tokens and this spec are public (MIT) — safe to commit. Treat any externally-s
   --tr-normal:   0em;
   --tr-wide:    0.04em;
   --tr-label:    0.06em;
+
+  /* weight — one step per Satoshi face loaded above, no step without a face (v6.1.0).
+     600 and 800 have no file: the browser draws them in the next face up (§ 02 Typography). */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-bold:     700;
+  --fw-black:    900;
 
   /* — SPACING (4px base) — */
   --s-0: 0;

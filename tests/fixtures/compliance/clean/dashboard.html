@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&amp;display=swap">
 <style>
-/* Tokens - verbatim :root of Amaca tokens.css v5.2.0 (the one place values live). */
+/* Tokens - verbatim :root of Amaca tokens.css v5.2.0, plus the two weights of v6.1.0 it uses (the one place values live). */
 :root{
   --obsidian-950: #07090B;
   --obsidian-900: #0B0E12;
@@ -99,6 +99,9 @@
   --tr-snug:    -0.02em;
   --tr-normal:   0em;
   --tr-label:    0.06em;
+
+  --fw-medium:   500;
+  --fw-bold:     700;
 
   --s-0: 0;
   --s-px: 1px;
@@ -212,7 +215,7 @@ a{color:var(--primary-400);text-decoration:none}
 }
 .content > header h1{
   font-size: var(--t-h3);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   line-height: var(--lh-snug);
   letter-spacing: var(--tr-snug);
 }
@@ -243,7 +246,7 @@ a{color:var(--primary-400);text-decoration:none}
 .brand-text{display: grid}
 .brand-text .name{
   font-size: var(--t-body);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   letter-spacing: var(--tr-snug);
 }
 .brand-text .meta{
@@ -291,7 +294,7 @@ a{color:var(--primary-400);text-decoration:none}
 .nav-item:active{color: var(--obsidian-300)}
 .nav-item.active{
   color: var(--obsidian-100);
-  font-weight: 600;
+  font-weight: var(--fw-bold);
   background: linear-gradient(90deg,
     color-mix(in srgb, var(--primary-500) calc(var(--tint-fill) * 100%), transparent),
     color-mix(in srgb, var(--secondary-500) calc(var(--tint-faint) * 100%), transparent));
@@ -324,7 +327,7 @@ a{color:var(--primary-400);text-decoration:none}
   border: var(--bw-1) solid transparent;
   border-radius: var(--r-full);
   font-size: var(--t-body);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   white-space: nowrap;
 }
 .btn-primary{
@@ -381,7 +384,7 @@ a{color:var(--primary-400);text-decoration:none}
 .alert-warn .alert-icon{color: var(--warning)}
 .alert-title{
   font-size: var(--t-body);
-  font-weight: 600;
+  font-weight: var(--fw-bold);
   color: var(--obsidian-100);
 }
 .alert-body{grid-column: 1 / -1}
@@ -404,7 +407,7 @@ a{color:var(--primary-400);text-decoration:none}
   gap: var(--s-4);
   margin-bottom: var(--s-5);
 }
-.chart-head .t{font-size: var(--t-body); font-weight: 600}
+.chart-head .t{font-size: var(--t-body); font-weight: var(--fw-bold)}
 .chart-head .s{
   font-family: var(--font-sans);
   font-size: var(--t-caption);
@@ -414,7 +417,7 @@ a{color:var(--primary-400);text-decoration:none}
 }
 .chart-big{
   font-size: var(--t-h2);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   line-height: var(--lh-tight);
   letter-spacing: var(--tr-tight);
   font-variant-numeric: tabular-nums;
@@ -438,7 +441,7 @@ a{color:var(--primary-400);text-decoration:none}
 .content > section{display: grid; gap: var(--s-4)}
 .content > section > h2{
   font-size: var(--t-h6);
-  font-weight: 700;
+  font-weight: var(--fw-bold);
   line-height: var(--lh-snug);
   letter-spacing: var(--tr-snug);
 }
@@ -460,7 +463,7 @@ a{color:var(--primary-400);text-decoration:none}
   background: var(--obsidian-850);
   font-family: var(--font-sans);
   font-size: var(--t-micro);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   letter-spacing: var(--tr-label);
   text-transform: uppercase;
   color: var(--obsidian-300);
@@ -472,7 +475,7 @@ a{color:var(--primary-400);text-decoration:none}
   vertical-align: middle;
 }
 .table td.muted{color: var(--obsidian-300)}
-.table td:first-child{font-weight: 500; color: var(--obsidian-100)}
+.table td:first-child{font-weight: var(--fw-medium); color: var(--obsidian-100)}
 /* Pure quantities (Bikes, Free docks): tabular figures, right-aligned */
 .table th:nth-child(3), .table th:nth-child(4),
 .table td:nth-child(3), .table td:nth-child(4){
@@ -493,7 +496,7 @@ a{color:var(--primary-400);text-decoration:none}
   background: color-mix(in srgb, var(--hue) calc(var(--tint-fill) * 100%), transparent);
   color: var(--hue);
   font-size: var(--t-small);
-  font-weight: 500;
+  font-weight: var(--fw-medium);
   letter-spacing: var(--tr-snug);
   white-space: nowrap;
 }

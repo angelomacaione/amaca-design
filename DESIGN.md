@@ -254,10 +254,21 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--tr-wide` | `0.04em` | Small caps |
 | `--tr-label` | `0.06em` | Labels (the label register) |
 
+| Weight | Value | Face |
+|---|---|---|
+| `--fw-light` | `300` | Satoshi Light |
+| `--fw-regular` | `400` | Satoshi Regular |
+| `--fw-medium` | `500` | Satoshi Medium |
+| `--fw-bold` | `700` | Satoshi Bold |
+| `--fw-black` | `900` | Satoshi Black |
+
+**Weight (v6.1.0).** One step per Satoshi face the system loads, and no step without a face. A weight with no face of its own (600, 800) is drawn by the browser in the next face up: the page says semibold and shows bold. Until v6.1.0 the stylesheet wrote 600 in 32 places and the site in 22, all of them rendered at 700; they now read `--fw-bold`, which is what they always showed.
+
 **Rules:**
 - One H1 per page. Always.
 - Labels: 10px, uppercase, `--tr-label`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
+- Never write a font-weight by hand: no number, no `bold` or `normal`. Every weight is a `--fw-*` token; a weight between two steps is a step the typeface does not have.
 
 ## Layout
 
@@ -3863,7 +3874,7 @@ A principle guides a judgement; a law is measured and enforced. Where `check_com
 | L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
 | L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
 | L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier · check_compliance `one-primary` | § Principles · Quiet, then loud |
-| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` `token-undeclared` `token-unknown` | § For the AI agent #1–2 · § Code conventions |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier`, duration or font-weight literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51, 132 · check_compliance `colour-literal` `raw-px` `raw-weight` `token-undeclared` `token-unknown` | § For the AI agent #1–2 · § Code conventions |
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 · check_compliance `reduced-motion` | § For the AI agent #7 · § Motion |

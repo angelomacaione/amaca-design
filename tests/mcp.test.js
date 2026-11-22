@@ -233,6 +233,16 @@ test('check_compliance treats loops and delays as warnings, and wants code', () 
   assert.equal(call('check_compliance', { code: '  ' }).isError, true);
 });
 
+test('check_compliance holds every font-weight to the --fw-* scale, and leaves @font-face alone (v6.1.0)', () => {
+  const r = scan('.a{font-weight:600}\n.b{font-weight:bold}\n.c{font-weight:var(--fw-bold)}\n@font-face{font-family:"X";font-weight:600}');
+  const w = r.findings.filter((f) => f.rule === 'raw-weight');
+  assert.equal(w.length, 2, 'two weights by hand, one token, one @font-face');
+  assert.ok(find(r, 'raw-weight', 'font-weight: 600').fix.startsWith('var(--fw-bold)'));
+  assert.ok(find(r, 'raw-weight', 'font-weight: bold').fix === 'var(--fw-bold)');
+  const jsx = scan('<p style={{ fontWeight: 500 }}>x</p>');
+  assert.ok(find(jsx, 'raw-weight', 'font-weight: 500'), 'a JSX number is a weight, not a px');
+});
+
 // ---------------------------------------------------------------- the two rules a client without instructions needs (v6.0.0)
 
 test('the tool descriptions carry the off-system rule and the self-check, for clients that never read the instructions', () => {
@@ -259,11 +269,11 @@ const LAWS = (() => {
 
 test('every finding cites a section that opens and a law whose Check column names it back', () => {
   const FX = path.join(ROOT, 'tests/fixtures/compliance/mutants');
-  const all = [BAD, '.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}', ...fs.readdirSync(FX).map((f) => fs.readFileSync(path.join(FX, f), 'utf8'))];
+  const all = [BAD, '.a{transition:opacity var(--d-quick) var(--ease-decel) 80ms}', '.w{font-weight:600}', ...fs.readdirSync(FX).map((f) => fs.readFileSync(path.join(FX, f), 'utf8'))];
   const seen = new Map();
   for (const src of all) for (const f of scan(src).findings) seen.set(`${f.rule}|${f.cite}|${f.law}`, f);
   const rules = new Set([...seen.values()].map((f) => f.rule));
-  for (const r of ['colour-literal', 'raw-px', 'raw-duration', 'raw-easing', 'spring-on-effect', 'loop-clock', 'raw-delay', 'one-primary', 'reduced-motion', 'class-off-registry']) {
+  for (const r of ['colour-literal', 'raw-px', 'raw-duration', 'raw-easing', 'spring-on-effect', 'loop-clock', 'raw-delay', 'one-primary', 'reduced-motion', 'class-off-registry', 'raw-weight']) {
     assert.ok(rules.has(r), `no sample produces ${r}`);
   }
   for (const f of seen.values()) {

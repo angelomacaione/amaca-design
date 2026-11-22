@@ -8,6 +8,8 @@
 /* Stand-in for styles/tokens.css (not read for this task). Replace with the real link.
    Values marked "assumed" are not stated in DESIGN.md and must come from tokens.css. */
 :root {
+  --fw-medium: 500;
+  --fw-bold: 700;
   color-scheme: dark;
   --obsidian-950: #07090B; --obsidian-850: #10141A; --obsidian-800: #161B22;
   --obsidian-700: #1E242D; --obsidian-600: #2A313B; --obsidian-300: #8A94A3;
@@ -50,7 +52,7 @@ main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
   font-size: var(--t-micro); text-transform: uppercase; letter-spacing: var(--tr-label);
   color: var(--obsidian-300); margin-bottom: var(--s-2);
 }
-.card h3 { margin: 0 0 var(--s-2); font-size: var(--t-h6); font-weight: 500; }
+.card h3 { margin: 0 0 var(--s-2); font-size: var(--t-h6); font-weight: var(--fw-medium); }
 .card p { margin: 0; color: var(--obsidian-200); }
 
 /* Toast (§ 3.17) */
@@ -81,7 +83,7 @@ main { max-width: 480px; margin: 0 auto; padding: var(--s-8) var(--s-6); }
   transition: opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
 }
 .toast-icon { grid-column: 1; width: var(--icon-sm); height: var(--icon-sm); color: var(--success); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; align-self: center; }
-.toast-title { grid-column: 2; color: var(--obsidian-100); font-weight: 600; }
+.toast-title { grid-column: 2; color: var(--obsidian-100); font-weight: var(--fw-bold); }
 .toast-dismiss {
   grid-column: 3; display: inline-grid; place-items: center; width: var(--s-6); height: var(--s-6);
   background: transparent; border: 0; border-radius: var(--r-md); color: var(--obsidian-300); cursor: pointer;
