@@ -3,7 +3,7 @@
   "$description": "Amaca design tokens - DTCG projection of styles/tokens.css. Generated from the CSS, never edited by hand; the round-trip is guarded by verify-ds.py check 25.",
   "$extensions": {
     "amaca": {
-      "version": "6.0.0",
+      "version": "6.1.0",
       "source": "styles/tokens.css"
     }
   },
@@ -214,6 +214,21 @@
     "$value": "{obsidian-400}",
     "$type": "color",
     "$description": "A control's outline — 3.13 : 1 on --surface-field, the WCAG 1.4.11 floor (§ 6)"
+  },
+  "text": {
+    "$value": "{obsidian-100}",
+    "$type": "color",
+    "$description": "Text: body copy, titles, values"
+  },
+  "text-secondary": {
+    "$value": "{obsidian-200}",
+    "$type": "color",
+    "$description": "Secondary text: descriptions, supporting copy"
+  },
+  "text-muted": {
+    "$value": "{obsidian-300}",
+    "$type": "color",
+    "$description": "Muted text: labels, captions, metadata — 5.64 : 1 on --obsidian-800, the floor for small text (Typography)"
   },
   "primary-100": {
     "$value": {
@@ -954,6 +969,31 @@
     "$value": "0.06em",
     "$type": "other",
     "$description": "Letter-spacing for labels (the label register). In em: DTCG dimension takes px or rem only."
+  },
+  "fw-light": {
+    "$value": 300,
+    "$type": "fontWeight",
+    "$description": "Satoshi Light"
+  },
+  "fw-regular": {
+    "$value": 400,
+    "$type": "fontWeight",
+    "$description": "Satoshi Regular"
+  },
+  "fw-medium": {
+    "$value": 500,
+    "$type": "fontWeight",
+    "$description": "Satoshi Medium"
+  },
+  "fw-bold": {
+    "$value": 700,
+    "$type": "fontWeight",
+    "$description": "Satoshi Bold"
+  },
+  "fw-black": {
+    "$value": 900,
+    "$type": "fontWeight",
+    "$description": "Satoshi Black"
   },
   "s-0": {
     "$value": {
@@ -1902,6 +1942,14 @@
     },
     "$type": "duration",
     "$description": "data draw-on: chart tracing, count-up, progressive data reveals (§ 12.2, § 19)"
+  },
+  "d-wait": {
+    "$value": {
+      "value": 5000,
+      "unit": "ms"
+    },
+    "$type": "duration",
+    "$description": "A wait, not a transition: after it a loop that signals waiting gives way to words (WCAG 2.2.2, Chat)"
   },
   "loader-xs": {
     "$value": {

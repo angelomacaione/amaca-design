@@ -19,10 +19,10 @@ The rules as a Claude skill, tokens bundled, and amaca.md for Claude Code.
 **What's inside**
 
 - `README.md` · 795 B
-- `amaca-frontend.zip` · 208 KB
+- `amaca-frontend.zip` · 212 KB
 - `claude-code/amaca.md` · 17 KB
-- `claude-code/DESIGN.md` · 470 KB
-- `claude-code/tokens.css` · 15 KB
+- `claude-code/DESIGN.md` · 479 KB
+- `claude-code/tokens.css` · 16 KB
 
 ---
 
@@ -38,11 +38,11 @@ One package, two manifests, one skill: Agent Plugins for Cursor, Codex, Copilot,
 
 **What's inside**
 
-- `amaca-design/skills/amaca-frontend/ · 9 files` · 599 KB
-- `amaca-design/.claude-plugin/plugin.json` · 642 B
 - `amaca-design/README.md` · 2 KB
-- `amaca-design/LICENSE` · 1 KB
 - `amaca-design/plugin.json` · 545 B
+- `amaca-design/skills/amaca-frontend/ · 9 files` · 611 KB
+- `amaca-design/.claude-plugin/plugin.json` · 642 B
+- `amaca-design/LICENSE` · 1 KB
 
 ---
 
@@ -59,7 +59,7 @@ In-canvas custom skill: builds with Amaca Variables, audits what landed on canva
 **What's inside**
 
 - `README.md` · 616 B
-- `amaca-figma.md` · 18 KB
+- `amaca-figma.md` · 19 KB
 
 ---
 
@@ -75,7 +75,7 @@ The spec in the Google Labs design.md standard, for Stitch and any agent that re
 **What's inside**
 
 - `README.md` · 444 B
-- `DESIGN.md` · 470 KB
+- `DESIGN.md` · 479 KB
 
 ---
 
@@ -93,8 +93,8 @@ The open agent-rules file: Codex, Copilot, Cursor and Devin read it at the repo 
 
 - `README.md` · 693 B
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 470 KB
-- `tokens.css` · 15 KB
+- `DESIGN.md` · 479 KB
+- `tokens.css` · 16 KB
 
 ---
 
@@ -118,10 +118,10 @@ Scoped rules: amaca-core always on, amaca-html and amaca-react on the files they
 - `.github/copilot-instructions.md` · 5 KB
 - `.github/instructions/amaca-html.instructions.md` · 2 KB
 - `.github/instructions/amaca-react.instructions.md` · 2 KB
-- `.agents/skills/amaca-frontend/ · 9 files` · 599 KB
+- `.agents/skills/amaca-frontend/ · 9 files` · 611 KB
 - `AGENTS.md` · 18 KB
-- `DESIGN.md` · 470 KB
-- `tokens.css` · 15 KB
+- `DESIGN.md` · 479 KB
+- `tokens.css` · 16 KB
 
 ---
 
@@ -175,7 +175,7 @@ Every token as a @theme block: bg-primary-500, p-4, rounded-lg.
 
 - `README.md` · 517 B
 - `theme.css` · 7 KB
-- `tokens.css` · 15 KB
+- `tokens.css` · 16 KB
 
 ---
 
@@ -191,7 +191,7 @@ tokens.css (variables and reset) and components.css: var(--token) everywhere, no
 **What's inside**
 
 - `README.md` · 448 B
-- `tokens.css` · 15 KB
+- `tokens.css` · 16 KB
 - `components.css` · 209 KB
 
 ---
@@ -208,7 +208,7 @@ Every token as W3C DTCG JSON, with what each one is for, for Style Dictionary, T
 **What's inside**
 
 - `README.md` · 496 B
-- `tokens.dtcg.json` · 43 KB
+- `tokens.dtcg.json` · 44 KB
 
 ---
 
@@ -224,13 +224,13 @@ The package: tokens, components, the Tailwind theme, the DTCG file and the spec.
 
 **What's inside**
 
-- `DESIGN.md` · 470 KB
+- `DESIGN.md` · 479 KB
 - `LICENSE` · 1 KB
 - `THIRD-PARTY-NOTICES.md` · 5 KB
 - `components.css` · 209 KB
 - `theme.css` · 7 KB
-- `tokens.css` · 15 KB
-- `tokens.dtcg.json` · 43 KB
+- `tokens.css` · 16 KB
+- `tokens.dtcg.json` · 44 KB
 - `package.json`
 - `README.md`
 

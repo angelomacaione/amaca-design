@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 6.0.0
-updated: 2026-11-14
+version: 6.1.0
+updated: 2026-11-23
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-11-14
+last_synced: 2026-11-23
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 6.0.0 — 2026.11.14
+> **Version** 6.1.0 — 2026.11.23
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** The contract, read a section at a time: by an agent through the MCP server (`get_design_section`), by a rules file that points here, or by a person. Do not paste it whole into a rules file or import it into one: it is 459 KB, and a file a tool loads at every launch must stay short (§ IDE integration). Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -151,6 +151,18 @@ Role aliases on the obsidian ramp: no new values, a name for what each step does
 | `--border` | `--obsidian-700` | Card, chip, panel |
 | `--border-strong` | `--obsidian-600` | Hover, emphasis |
 | `--border-input` | `--obsidian-400` | A control's outline — 3.13 : 1 on `--surface-field`, the WCAG 1.4.11 floor (§ 6) |
+| `--text` | `--obsidian-100` | Text: body copy, titles, values |
+| `--text-secondary` | `--obsidian-200` | Secondary text: descriptions, supporting copy |
+| `--text-muted` | `--obsidian-300` | Muted text: labels, captions, metadata — 5.64 : 1 on --obsidian-800, the floor for small text (Typography) |
+
+**A component reaches for the role by meaning, not by value (v6.1.0).** A text colour reads `--text`, `--text-secondary` or `--text-muted`; a border reads `--border-subtle`, `--border` or `--border-strong`; the resting fill of a page, a well, a field or a raised panel reads its `--surface-*`. Two names can share a value and mean different things: `--obsidian-800` is the fill of a card and the line of a divider, `--obsidian-850` the rest of a field and the head of a table. The ramp stays where no role holds the meaning, and that is not drift:
+
+- **A state fill**: hover, active, selected and current steps (`.btn-ghost:hover`, `.pagination-link[aria-current="page"]`). A state is one step along the ramp, not a surface.
+- **A part that is not a surface**: avatars, dots, swatches, media placeholders, skeleton bars, a line drawn as a fill.
+- **A panel with a fill of its own**: toast, alert, popover, the head of a table, the demo stages of the site.
+- **A border on `--obsidian-100`, `--obsidian-400` or `--obsidian-500`**, which no border role names.
+
+`check_compliance` flags `raw-ramp-in-component` where code writes a step whose role has the same value and the same kind (a `color` on 100, 200 or 300; a border on 600, 700 or 800). It is a warning in v6.1.0 and an error from the next release.
 
 ### Color · brand (Magenta primary)
 
@@ -254,10 +266,21 @@ Single typeface — **Satoshi** — across the whole system. Both family tokens 
 | `--tr-wide` | `0.04em` | Small caps |
 | `--tr-label` | `0.06em` | Labels (the label register) |
 
+| Weight | Value | Face |
+|---|---|---|
+| `--fw-light` | `300` | Satoshi Light |
+| `--fw-regular` | `400` | Satoshi Regular |
+| `--fw-medium` | `500` | Satoshi Medium |
+| `--fw-bold` | `700` | Satoshi Bold |
+| `--fw-black` | `900` | Satoshi Black |
+
+**Weight (v6.1.0).** One step per Satoshi face the system loads, and no step without a face. A weight with no face of its own (600, 800) is drawn by the browser in the next face up: the page says semibold and shows bold. Until v6.1.0 the stylesheet wrote 600 in 32 places and the site in 22, all of them rendered at 700; they now read `--fw-bold`, which is what they always showed.
+
 **Rules:**
 - One H1 per page. Always.
 - Labels: 10px, uppercase, `--tr-label`, `--primary-400` for brand context or `--obsidian-300` for neutral. Never `--obsidian-400`: at 10px a label is small text, its floor is 4.5 : 1, and `--obsidian-400` reaches 3.38 : 1 at best (on `--obsidian-950`) and 2.93 : 1 on a card; `--obsidian-300` holds 5.64 : 1 on `--obsidian-800` and above. `--obsidian-400` stays the colour of disabled text and control outlines (v5.2.0).
 - Never use a font-size outside this scale. If the eye demands an in-between value, the issue is the surrounding hierarchy — fix that.
+- Never write a font-weight by hand: no number, no `bold` or `normal`. Every weight is a `--fw-*` token; a weight between two steps is a step the typeface does not have.
 
 ## Layout
 
@@ -652,26 +675,26 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.btn-primary` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-2` | — | § 6.3 · light label on primary, 2.83 : 1 |
 | `.btn-primary` | hover | `--primary-500` | `--primary-500` | `--obsidian-050` | `--sh-glow` + `--sh-3` | fill is bounded, no lighten — § 6.3 | § 6.3 · light label on primary, 2.83 : 1 |
 | `.btn-primary` | active | `--primary-600` | `--primary-600` | — | `--sh-1` | `transform: scale(.97)` on `--d-quick` · `--ease-spring` (L8) · no scale under reduced motion · label 4.09 : 1 | — |
-| `.btn-secondary` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | — | | — |
-| `.btn-secondary` | hover | `--obsidian-700` | `--obsidian-600` | — | — | | — |
+| `.btn-secondary` | default | `--surface-raised` | `--border` | `--text` | — | | — |
+| `.btn-secondary` | hover | `--obsidian-700` | `--border-strong` | — | — | | — |
 | `.btn-secondary` | active | `--obsidian-600` | `--obsidian-500` | — | — | one step past hover | — |
-| `.btn-ghost` | default | transparent | transparent | `--obsidian-100` | — | sits inside cards | — |
+| `.btn-ghost` | default | transparent | transparent | `--text` | — | sits inside cards | — |
 | `.btn-ghost` | hover | `--obsidian-800` | — | — | — | | — |
 | `.btn-ghost` | active | `--obsidian-700` | — | — | — | one step past hover | — |
-| `.btn-outline` | default | transparent | `--obsidian-600` | `--obsidian-100` | — | | — |
+| `.btn-outline` | default | transparent | `--border-strong` | `--text` | — | | — |
 | `.btn-outline` | hover | — | `--primary-500` | `--primary-400` | — | | — |
 | `.btn-outline` | active | — | `--primary-600` | `--primary-500` | — | the link's pressed magenta | — |
-| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--obsidian-100` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `--blur-glass` · takes no height | — |
+| `.btn-floating` | default | `--surface-glass` | `1px solid --border` | `--text` | — | sticky on `--z-sticky` at `--float-top` (default `--s-4`) · `--blur-glass` · takes no height | — |
 | `.btn-floating` | hover | — | `--border-strong` | — | — | the fill stays translucent | — |
 | `.btn-floating` | active | — | `--obsidian-500` | — | — | the fill stays translucent | — |
 | `.btn-danger` | default | `--danger` | — | `--obsidian-950` | — | destructive only · the border stays the base's transparent | — |
 | `.btn-danger` | hover | — | — | — | — | `filter: brightness(1.05)` | — |
 | `.btn-danger` | active | `--danger` · `--obsidian-950` | — | — | — | `color-mix(in srgb, --danger 85%, --obsidian-950)` · label 4.95 : 1 · the hover filter is dropped | — |
-| `.card` | default | `--obsidian-800` | `1px solid --obsidian-700` | — | — | `--r-lg` · static unless hovered | — |
-| `.card` | hover | — | `--obsidian-600` | — | `--sh-2` | transition — see the motion index | — |
+| `.card` | default | `--surface-raised` | `1px solid --border` | — | — | `--r-lg` · static unless hovered | — |
+| `.card` | hover | — | `--border-strong` | — | `--sh-2` | transition — see the motion index | — |
 | `.card-row` | default | — | — | — | — | a `.card`: its surface and its hover · padding `--s-3` · the whole card is the link | — |
 | `.card-row` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.card-feature` | default | `--obsidian-900` | `1px solid --obsidian-800` | — | — | `--r-xl` · the light: `--primary-500` at `--tint-fill-deep` under `--blur-light` · hovers as a `.card` | — |
+| `.card-feature` | default | `--obsidian-900` | `1px solid --border-subtle` | — | — | `--r-xl` · the light: `--primary-500` at `--tint-fill-deep` under `--blur-light` · hovers as a `.card` | — |
 | `.card-feature-tab` | default | `--primary-500` | — | `--obsidian-050` | `--sh-glow` | not interactive | § 6.3 · light label on primary, 2.83 : 1 |
 | `.badge` | default | `--tertiary-500` × `--tint-fill-deep` | `--tertiary-500` × `--tint-edge-deep` | `--tertiary-300` | — | `--r-md` · padding `--s-2` `--s-4` · gap `--s-1` · dot `--s-1` · default, archive · static: a badge has no hover or focus | — |
 | `.badge-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | live · the accent — § 1 budget | — |
@@ -680,121 +703,121 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.badge-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | blocker | — |
 | `.badge-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | a neutral fact | — |
 | `.badge-solid` | default | `--primary-500` | `--primary-500` | `--obsidian-050` | — | featured | § 6.3 · light label on primary, 2.83 : 1 |
-| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--obsidian-100` | — | placeholder `--obsidian-300` | — |
+| `.input` `.textarea` `.select` | default | `--surface-field` | `--border-input` | `--text` | — | placeholder `--text-muted` | — |
 | `.input` `.textarea` `.select` | hover | — | `--obsidian-300` | — | — | the outline lightens one step; the fill stays · not on a focused, disabled, readonly or invalid field | — |
 | `.input` `.textarea` `.select` | focus-visible | — | `--primary-500` | — | `--ring-field` | `outline: none` is replaced, never removed | — |
 | `.input` `.textarea` `.select` | error | — | `--danger` | — | `--ring-field-danger` (on focus) | `aria-invalid="true"` + `.help.error` | — |
 | `.input` `.textarea` `.select` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
-| `.input` `.textarea` | readonly | `--obsidian-900` | — | `--obsidian-300` | — | still focusable, still copyable | — |
-| `.input-action` | default | transparent | none | `--obsidian-300` | — | 32px target in the 40px field · `--r-sm` | — |
-| `.input-action` | hover | `--obsidian-800` | — | `--obsidian-100` | — | transition — see the motion index | — |
-| `.input-action` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
-| `.list-item` (`a`, `button`) | default | transparent | none | `--obsidian-100` | — | min-height `--s-12` · a hairline `--obsidian-700` under each row | — |
+| `.input` `.textarea` | readonly | `--surface-sunken` | — | `--text-muted` | — | still focusable, still copyable | — |
+| `.input-action` | default | transparent | none | `--text-muted` | — | 32px target in the 40px field · `--r-sm` | — |
+| `.input-action` | hover | `--obsidian-800` | — | `--text` | — | transition — see the motion index | — |
+| `.input-action` | focus-visible | — | — | `--text` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
+| `.list-item` (`a`, `button`) | default | transparent | none | `--text` | — | min-height `--s-12` · a hairline `--obsidian-700` under each row | — |
 | `.list-item` (`a`, `button`) | hover | `--obsidian-850` | — | — | — | transition — see the motion index | — |
-| `.list-item` (`a`, `button`) | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row | — |
+| `.list-item` (`a`, `button`) | focus-visible | — | — | `--text` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the row | — |
 | `.list-item` (`a`, `button`) | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
-| `.pagination-link` | default | transparent | none | `--obsidian-300` | — | 32px target · `--r-md` · tabular numerals | — |
-| `.pagination-link` | hover | `--obsidian-700` | — | `--obsidian-100` | — | transition — see the motion index | — |
-| `.pagination-link` | focus-visible | — | — | `--obsidian-100` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
-| `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
+| `.pagination-link` | default | transparent | none | `--text-muted` | — | 32px target · `--r-md` · tabular numerals | — |
+| `.pagination-link` | hover | `--obsidian-700` | — | `--text` | — | transition — see the motion index | — |
+| `.pagination-link` | focus-visible | — | — | `--text` | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · offset `--s-px` | — |
+| `.pagination-link` | current | `--obsidian-700` | `--obsidian-500` | `--text` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
 | `.pagination-link` | disabled | — | — | — | none | `aria-disabled="true"` · `opacity 0.4` · `cursor: not-allowed` | — |
-| `.slider-input` | default | `--obsidian-600` | none | `--obsidian-100` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` | — |
+| `.slider-input` | default | `--obsidian-600` | none | `--text` | `--sh-1` | the track is `--obsidian-600` with a `--primary-500` fill; the thumb is `--obsidian-100` · thumb `--s-5` · track `--s-1` · row `--s-8` | — |
 | `.slider-input` | hover | — | — | — | — | the thumb grows `--s-5` → `--s-6`; a fine pointer only | — |
 | `.slider-input` | focus-visible | — | — | — | `--ring-halo` | on the thumb | — |
 | `.slider-input` | active | — | — | — | — | `cursor: grabbing` | — |
 | `.slider-input` | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` | — |
-| `.divider` | default | — | `1px solid --obsidian-700` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own | — |
-| `.divider-vertical` | default | — | `1px solid --obsidian-700` | — | — | the left edge · stretches to the height of its row | — |
-| `.divider-label` | default | — | `1px solid --obsidian-700` | `--obsidian-300` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable | — |
+| `.divider` | default | — | `1px solid --border` | — | — | the top edge · static: a divider has no hover or focus · no margin of its own | — |
+| `.divider-vertical` | default | — | `1px solid --border` | — | — | the left edge · stretches to the height of its row | — |
+| `.divider-label` | default | — | `1px solid --border` | `--text-muted` | — | the two lines around the word · `--t-caption` · gap `--s-3` · not a separator: the word stays readable | — |
 | `.skeleton-line` | default | `--obsidian-700` | none | — | — | height `--s-3` · `--r-sm` · the width is set inline, as a percentage · static fill under reduced motion | — |
 | `.skeleton-circle` | default | `--obsidian-700` | none | — | — | `--size` default `--s-8` · `--r-full` | — |
 | `.skeleton-block` | default | `--obsidian-700` | none | — | — | full width · height `--s-24` · `--r-md` | — |
-| `.drawer` | default | `--obsidian-800` | none | `--obsidian-100` | `--sh-3` | no radius · padding `--s-6` · width 45ch plus the padding · the page behind it is `--scrim` · never focusable | — |
+| `.drawer` | default | `--surface-raised` | none | `--text` | `--sh-3` | no radius · padding `--s-6` · width 45ch plus the padding · the page behind it is `--scrim` · never focusable | — |
 | `.drawer-wide` | default | — | — | — | — | width 60ch plus the padding | — |
 | `.drawer-nav` | default | — | — | — | — | the side menu · padding `--s-4` · width 30ch plus the padding · rows 48px, text `--t-lead` | — |
-| `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--obsidian-100` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
+| `.drawer-nav` `.list-item` | current | `--obsidian-700` | — | `--text` | — | `aria-current="page"` · weight 600 · `cursor: default` | — |
 | `.swatch` | default | — | — | — | — | fill from `--sw`, set to `var()` of a token · inset 1px `--border-input` · 12px (`--s-3`) · `--r-xs` · static: a swatch has no hover or focus | — |
-| `.stepper-step` | default | — | — | `--obsidian-300` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector `--bw-2` `--obsidian-300` dashes and gaps `--s-1` | — |
+| `.stepper-step` | default | — | — | `--text-muted` | — | upcoming · dot `--obsidian-800` with an inset 1px `--obsidian-300`, number `--t-caption` 600 · connector `--bw-2` `--obsidian-300` dashes and gaps `--s-1` | — |
 | `.stepper-step` `.is-done` | default | `--primary-500` | none | `--obsidian-950` | — | done · dot with the `check` icon · label `--obsidian-100` 600 · connector `--grad-progress`, `--bw-2`, `--sh-glow-soft` | — |
 | `.stepper-step` | current | `--grad-progress` | none | `--obsidian-950` | `--sh-glow` | `aria-current="step"` · dot `--s-8` instead of `--s-6` · label and meta `--primary-200`, label 700 · pulse ring 1px `--primary-500` | — |
 | `.progress-track` | default | `--obsidian-700` | none | — | — | 8px (`--s-2`), `.progress-sm` 4px (`--s-1`) · `--r-full` | — |
 | `.progress-fill` | default | `--grad-progress` | none | — | `--sh-glow-soft` | width from `--value` · value text `--t-small` `--obsidian-100` beside the bar | — |
-| `.swatch-tile` | default | `--obsidian-900` | `1px solid --obsidian-800` | `--obsidian-100` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static | — |
-| `.navbar` | default | transparent | none | `--obsidian-100` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` | — |
-| `.nav-item` | default | transparent | none | `--obsidian-200` | — | `--r-md` · padding `--s-2` `--s-3` · `--t-small` | — |
+| `.swatch-tile` | default | `--obsidian-900` | `1px solid --border-subtle` | `--text` | — | `--r-md` · fill `--s-24` high from `--sw`, inset bottom edge `--border-input` · hex `--obsidian-200`, role `--obsidian-300` · static | — |
+| `.navbar` | default | transparent | none | `--text` | — | the Bar material with a fading edge, on `::before`: `--surface-bar` to transparent under `--blur-bar`, `--s-6` past the bottom edge · no radius · min-height `--s-12` · sticky on `--z-sticky` · inset `--s-6` | — |
+| `.nav-item` | default | transparent | none | `--text-secondary` | — | `--r-md` · padding `--s-2` `--s-3` · `--t-small` | — |
 | `.nav-item` | hover | — | — | `--obsidian-050` | — | no fill: the sidebar wears the Bar material | — |
-| `.nav-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
-| `.nav-item` | current | — | — | `--obsidian-100` | — | `.active`: a box tinted magenta to cyan, edge magenta at 20% · its number `--primary-400` · the group's one `.nav-indicator` | — |
+| `.nav-item` | active | — | — | `--text-muted` | — | pressed: the label dims while it is held | — |
+| `.nav-item` | current | — | — | `--text` | — | `.active`: a box tinted magenta to cyan, edge magenta at 20% · its number `--primary-400` · the group's one `.nav-indicator` | — |
 | `.nav-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.tab` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · padding `--s-3` `--s-4` | — |
-| `.tab` | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
-| `.tab` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
-| `.tab` | selected | — | — | `--obsidian-100` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it | — |
+| `.tab` | default | transparent | none | `--text-muted` | — | `--t-small` 500 · padding `--s-3` `--s-4` | — |
+| `.tab` | hover | — | — | `--text` | — | transition — see the motion index | — |
+| `.tab` | active | — | — | `--text-muted` | — | pressed: the label falls back while it is held | — |
+| `.tab` | selected | — | — | `--text` | — | `.active` with `aria-selected="true"` · weight 600 · the one `.tab-indicator`, `--primary-500`, 2px under it | — |
 | `.tab` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.segmented-item` | default | transparent | none | `--obsidian-300` | — | `--t-small` 500 · height `--s-10` · padding `0` `--s-4` · icon `--icon-md` beside the label | — |
-| `.segmented-item` | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
-| `.segmented-item` | active | — | — | `--obsidian-300` | — | pressed: the label falls back while it is held | — |
-| `.segmented-item` | selected | — | — | `--obsidian-100` | — | `aria-selected="true"` · the one `.segmented-thumb` under it: fill `--obsidian-700`, edge `--bw-1` solid `--border-input` (3.27 : 1 on the track), `--sh-1` | — |
+| `.segmented-item` | default | transparent | none | `--text-muted` | — | `--t-small` 500 · height `--s-10` · padding `0` `--s-4` · icon `--icon-md` beside the label | — |
+| `.segmented-item` | hover | — | — | `--text` | — | transition — see the motion index | — |
+| `.segmented-item` | active | — | — | `--text-muted` | — | pressed: the label falls back while it is held | — |
+| `.segmented-item` | selected | — | — | `--text` | — | `aria-selected="true"` · the one `.segmented-thumb` under it: fill `--obsidian-700`, edge `--bw-1` solid `--border-input` (3.27 : 1 on the track), `--sh-1` | — |
 | `.segmented-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` | — |
-| `.breadcrumb` crumb | default | transparent | none | `--obsidian-300` | — | an `a`, label `--t-caption` · a static shell crumb is a `span`, with no other state | — |
-| `.breadcrumb` crumb | hover | — | — | `--obsidian-100` | — | transition — see the motion index | — |
+| `.breadcrumb` crumb | default | transparent | none | `--text-muted` | — | an `a`, label `--t-caption` · a static shell crumb is a `span`, with no other state | — |
+| `.breadcrumb` crumb | hover | — | — | `--text` | — | transition — see the motion index | — |
 | `.breadcrumb` crumb | active | — | — | `--obsidian-400` | — | pressed, while it is held | — |
 | `.breadcrumb` crumb | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · `--r-sm` | — |
-| `.breadcrumb` crumb | current | — | — | `--obsidian-100` | — | `.active` with `aria-current="page"` · a `span`, not a link | — |
-| `.acc-trigger` | default | transparent | none | `--obsidian-100` | — | the whole header row · `--t-body` | — |
+| `.breadcrumb` crumb | current | — | — | `--text` | — | `.active` with `aria-current="page"` · a `span`, not a link | — |
+| `.acc-trigger` | default | transparent | none | `--text` | — | the whole header row · `--t-body` | — |
 | `.acc-trigger` | hover | — | — | `--obsidian-050` | — | transition — see the motion index | — |
-| `.acc-trigger` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
+| `.acc-trigger` | active | — | — | `--text-muted` | — | pressed: the label dims while it is held | — |
 | `.acc-trigger` | expanded | — | — | — | — | `aria-expanded="true"` · the item tinted magenta at 4% · chevron at 90° and `--primary-400` · its number `--primary-400` | — |
 | `.acc-trigger` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100`, inside the row | — |
-| `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--obsidian-100` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area | — |
-| `.navbar-item` | default | transparent | none | `--obsidian-200` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 | — |
+| `.navbar-floating` | default | `--surface-bar` | `1px solid --border-subtle` | `--text` | `--sh-3` | `--r-full` · `--blur-bar` · sticky `--s-4` from the top · at `--bp-md` or less a plain row, and `.navbar-nav` takes the material as a pill fixed `--s-4` above the safe area | — |
+| `.navbar-item` | default | transparent | none | `--text-secondary` | — | as tall as the bar · padding-inline `--s-4` · `--t-small` 500 | — |
 | `.navbar-item` | hover | — | — | `--obsidian-050` | — | the label lightens, no fill: the bar is translucent · transition — see the motion index | — |
-| `.navbar-item` | active | — | — | `--obsidian-300` | — | pressed: the label dims while it is held | — |
+| `.navbar-item` | active | — | — | `--text-muted` | — | pressed: the label dims while it is held | — |
 | `.navbar-item` | current | — | — | `--primary-400` | — | `aria-current="page"` · weight 600, width reserved · no underline, no fill | — |
 | `.navbar-item` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the item | — |
-| `.popover` | default | `--obsidian-900` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · `--w-popover-min` to `--w-popover` · no arrow · in the top layer, so `--z-popover` does not apply | — |
+| `.popover` | default | `--obsidian-900` | `1px solid --border` | `--text` | `--sh-3` | on screen while `:popover-open` · `--r-lg` · padding `--s-4` · `--w-popover-min` to `--w-popover` · no arrow · in the top layer, so `--z-popover` does not apply | — |
 | `.select-trigger` | expanded | — | `--primary-500` | — | `--ring-field` | `aria-expanded="true"` | — |
 | `.select-trigger` | focus-visible | — | `--primary-500` | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the pressable ring: a trigger is pressed, not typed into | — |
-| `.select-menu` | default | `--obsidian-850` | `--obsidian-700` | — | `--sh-menu` | `--r-md` · padding `--s-1` | — |
+| `.select-menu` | default | `--obsidian-850` | `--border` | — | `--sh-menu` | `--r-md` · padding `--s-1` | — |
 | `.select-option` | hover · focus-visible | `--obsidian-800` | — | — | none | one treatment for pointer and keyboard | — |
 | `.select-option` | selected | — | — | `--primary-400` | — | `aria-selected="true"` · check after the label, in the text colour | — |
 | `.select-option` | disabled | — | — | — | none | `aria-disabled="true"` · opacity 0.4 · skipped by the arrow keys and typeahead | — |
 | `.select-option-danger` | default | — | — | `--danger` | — | text and icon · last, after a `.select-divider` · hover stays the row's neutral one | — |
 | `.select-divider` | default | `--obsidian-700` | — | — | — | `--bw-1` · full bleed · `--s-1` above and below | — |
-| `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--obsidian-100` (label) | — | | — |
-| `.switch` | default | `--obsidian-700` (track) | none | `--obsidian-100` (label) | — | knob `--obsidian-200` | — |
+| `.check` `.radio` | default | `--surface-field` | `--bw-1 --border-input` | `--text` (label) | — | | — |
+| `.switch` | default | `--obsidian-700` (track) | none | `--text` (label) | — | knob `--obsidian-200` | — |
 | `.switch` | hover | — | — | — | — | knob grows 14px → `--s-4` about its centre; a fine pointer only | — |
 | `.check` `.radio` | checked | `--primary-500` (check) · dot `--primary-500` (radio) | `--primary-500` | `--obsidian-950` (tick) | — | radio is a dot, never a tick | — |
 | `.switch` | checked | `--primary-500` (track) | — | `--obsidian-950` (knob) | — | knob travels — see motion index | — |
 | `.check` `.switch` `.radio` | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · ring is on the `input`, not the label | — |
 | `.check` `.switch` `.radio` | disabled | — | — | `--obsidian-400` (label) | none | `opacity 0.4` · `cursor: not-allowed` | — |
-| `.dp-day` | default | transparent | none | `--obsidian-100` | — | tabular numerals | — |
+| `.dp-day` | default | transparent | none | `--text` | — | tabular numerals | — |
 | `.dp-day` | hover | `--obsidian-800` | — | — | — | suppressed while selected or in range | — |
 | `.dp-day` | focus-visible | — | — | — | `--ring-halo` | outline offset `-2px` (inside the 32px cell) | — |
 | `.dp-day` | selected | `--primary-500` | — | `--obsidian-950` | — | weight 600 | — |
 | `.dp-day` | disabled | transparent | — | `--obsidian-600` | none | `cursor: not-allowed` | — |
-| `.alert` | default | `--obsidian-850` | `--obsidian-800` · left rule per variant | `--obsidian-200` | — | semantics on the rule + icon, never the fill | — |
+| `.alert` | default | `--obsidian-850` | `--border-subtle` · left rule per variant | `--text-secondary` | — | semantics on the rule + icon, never the fill | — |
 | `.alert-info` | default | — | left rule `--info` | — | — | icon `--info` | — |
 | `.alert-success` | default | — | left rule `--success` | — | — | icon `--success` | — |
 | `.alert-warn` | default | — | left rule `--warning` | — | — | icon `--warning` | — |
 | `.alert-danger` | default | — | left rule `--danger` | — | — | icon `--danger` | — |
-| `.toast` | default | `--obsidian-850` | `--obsidian-700` · left rule per variant | `--obsidian-200` | `--sh-3` | | — |
-| `.tooltip` | default | `--obsidian-800` | `--obsidian-700` | `--obsidian-100` | `--sh-2` | opens on hover **and** focus-within | — |
+| `.toast` | default | `--obsidian-850` | `--border` · left rule per variant | `--text-secondary` | `--sh-3` | | — |
+| `.tooltip` | default | `--surface-raised` | `--border` | `--text` | `--sh-2` | opens on hover **and** focus-within | — |
 | `.skip-link` | default | `--primary-500` | — | `--obsidian-950` | — | parked above the viewport (`top: -100px`, composition) | — |
 | `.skip-link` | focus | — | — | — | — | revealed at `top: --s-3` — plain `:focus`, per the vocabulary note | — |
-| `.chip` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | — | `--r-full` · static unless the element is a `<button>` | — |
+| `.chip` | default | `--surface-raised` | `1px solid --border` | `--text` | — | `--r-full` · static unless the element is a `<button>` | — |
 | `.chip-brand` | default | `--primary-500` × `--tint-fill` | `--primary-500` × `--tint-edge` | `--primary-400` | — | | — |
 | `.chip-success` | default | `--success` × `--tint-fill` | `--success` × `--tint-edge` | `--success` | — | | — |
 | `.chip-warn` | default | `--warning` × `--tint-fill` | `--warning` × `--tint-edge` | `--warning` | — | | — |
 | `.chip-danger` | default | `--danger` × `--tint-fill` | `--danger` × `--tint-edge` | `--danger` | — | | — |
 | `.chip-info` | default | `--info` × `--tint-fill` | `--info` × `--tint-edge` | `--info` | — | | — |
-| `.chip` (pressable) | hover | — | `--obsidian-600` | — | — | pressable variants only — a static chip has no hover | — |
+| `.chip` (pressable) | hover | — | `--border-strong` | — | — | pressable variants only — a static chip has no hover | — |
 | `.chip` (pressable) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
 | `.chip` (pressable) | active | `--obsidian-700` | — | — | — | lasts as long as the press | — |
 | `.chip` (pressable) | selected | — | `--primary-500` | `--primary-400` | — | `aria-pressed="true"` · the fill stays neutral — see § 3.15 | — |
 | `.chip` (pressable) | disabled | — | — | — | none | `opacity 0.4` · `cursor: not-allowed` · attenuated once: the opacity, not a second ink | — |
-| `.chip-dismiss` | default | transparent | none | `--obsidian-300` | — | its own target, inside a static chip | — |
-| `.chip-dismiss` | hover | — | — | `--obsidian-100` | — | | — |
+| `.chip-dismiss` | default | transparent | none | `--text-muted` | — | its own target, inside a static chip | — |
+| `.chip-dismiss` | hover | — | — | `--text` | — | | — |
 | `.chip-dismiss` | focus-visible | — | — | — | `--ring-halo` | outline offset `-1px`, inside the chip's own box | — |
 | `.link` | default | — | — | `--primary-400` | — | `text-decoration: underline` · `--bw-1` · offset `--s-1` · `--r-sm` | — |
 | `.link` | hover | — | — | `--primary-300` | — | underline thickens to `--bw-2` | — |
@@ -806,16 +829,16 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.link-quiet` | focus-visible | — | — | `--primary-300` | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` · the underline appears | — |
 | `.link-quiet` | active | — | — | `--primary-500` | — | lasts as long as the press · the underline stays | — |
 | `.link-quiet` | disabled | — | — | `--obsidian-400` | none | `cursor: not-allowed` · opacity unchanged · no `href` | — |
-| `.modal` | default | `--obsidian-800` | `1px solid --obsidian-700` | `--obsidian-100` | `--sh-4` | `--r-lg` · padding `--s-6` · width `--w-modal` · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside | — |
+| `.modal` | default | `--surface-raised` | `1px solid --border` | `--text` | `--sh-4` | `--r-lg` · padding `--s-6` · width `--w-modal` · the page behind it is `--scrim` · never focusable itself: focus lands on a control inside | — |
 | `.modal-wide` | default | — | — | — | — | width 720px, for a form of several fields or a table | — |
-| `.avatar` | default | `--obsidian-700` | `1px solid --obsidian-600` | `--obsidian-100` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` | — |
+| `.avatar` | default | `--obsidian-700` | `1px solid --border-strong` | `--text` | — | `--r-full` · 24 / 32 / 40 / 48 / 64px · initials at weight 700, `--t-micro` · `--t-caption` · `--t-body` · `--t-lead` · `--t-h5` | — |
 | `.avatar-mark` | default | `--obsidian-850` | — | — | — | the brand mark, contained, at 56% of the side | — |
 | `.avatar-hue-1` | default | `--primary-300` × `--tint-fill-deep` | `--primary-300` × `--tint-edge` | `--primary-300` | — | over `--obsidian-800` | — |
 | `.avatar-hue-2` | default | `--info` × `--tint-fill-deep` | `--info` × `--tint-edge` | `--info` | — | over `--obsidian-800` | — |
 | `.avatar-hue-3` | default | `--success` × `--tint-fill-deep` | `--success` × `--tint-edge` | `--success` | — | over `--obsidian-800` | — |
 | `.avatar-hue-4` | default | `--warning` × `--tint-fill-deep` | `--warning` × `--tint-edge` | `--warning` | — | over `--obsidian-800` | — |
 | `.avatar-hue-5` | default | `--tertiary-200` × `--tint-fill-deep` | `--tertiary-200` × `--tint-edge` | `--tertiary-200` | — | over `--obsidian-800` | — |
-| `.avatar-more` | default | `--obsidian-800` | — | `--obsidian-200` | — | the "+N" of a group, weight 500 | — |
+| `.avatar-more` | default | `--obsidian-800` | — | `--text-secondary` | — | the "+N" of a group, weight 500 | — |
 | `.avatar-dot[data-status="online"]` | default | `--success` | `2px solid --obsidian-950` | — | — | on a card the ring follows the surface: `--avatar-ring` set to `--obsidian-800` · 8 / 12 / 16px by size | — |
 | `.avatar-dot[data-status="away"]` | default | `--warning` | `2px solid --obsidian-950` | — | — | — | — |
 | `.avatar-dot[data-status="busy"]` | default | `--danger` | `2px solid --obsidian-950` | — | — | — | — |
@@ -823,9 +846,9 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.avatar` (an `<a>` or a `<button>`) | hover | — | `--primary-400` | — | — | only an interactive avatar reacts | — |
 | `.avatar` (an `<a>` or a `<button>`) | focus-visible | — | — | — | `--ring-halo` | outline `2px var(--obsidian-100)`, offset `3px` | — |
 | `.avatar` (an `<a>` or a `<button>`) | active | — | `--primary-500` | — | — | lasts as long as the press | — |
-| `.icon` | default | — | — | `--obsidian-100` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour | — |
-| `.icon-muted` | default | — | — | `--obsidian-300` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` | — |
-| `.icon-fill` | default | — | — | `--obsidian-100` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` | — |
+| `.icon` | default | — | — | `--text` | — | the colour of the container's text, inherited (`currentColor`) · 16px (`--icon-sm`) · stroke 1.5 on a 16 grid, so 1.3px at 14, 1.5 at 16, 1.9 at 20, 2.3 at 24 · outline only · no state of its own: the container sets the colour | — |
+| `.icon-muted` | default | — | — | `--text-muted` | — | decorative icons inside a field · 6.5:1 on `--obsidian-950`, 5.6:1 on `--obsidian-800` | — |
+| `.icon-fill` | default | — | — | `--text` | — | solid: fill `currentColor`, stroke 1px of the same colour · only the drawings the album marks `solid` | — |
 | `.chart-card` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.40) | — |
 | `.timeline` plot | default | `--primary-950` | — | — | — | not interactive: no hover, no focus, no other state (§ 3.42) | — |
 | `.hexmap-area` | default | none | none | — | — | its cluster in the colour of its state; grey land `--obsidian-500`, the sea not drawn (§ 3.43) | — |
@@ -836,10 +859,10 @@ The aggregate of every ratified state row. A generator reads this table and neve
 | `.table-row-link` | hover | `--obsidian-850` | — | — | — | on the row · transition — see the motion index | — |
 | `.table-row-link` | active | `--obsidian-800` | — | — | — | on the row, while it is held | — |
 | `.table-row-link` | focus-visible | — | — | — | `--ring-halo` | on the row: outline `--focus-width` solid `--obsidian-100`, inside it | — |
-| `.table-sort` | default | transparent | none | `--obsidian-300` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
-| `.table-sort` | hover | — | — | `--obsidian-200` | — | no transition: the sort is a state | — |
+| `.table-sort` | default | transparent | none | `--text-muted` | — | the header's button, fills the cell · label and icon inherit the header's colour · `sort-ascending` until it drives | — |
+| `.table-sort` | hover | — | — | `--text-secondary` | — | no transition: the sort is a state | — |
 | `.table-sort` | focus-visible | — | — | — | `--ring-halo` | outline `--focus-width` solid `--obsidian-100` · inside the cell | — |
-| `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--obsidian-200` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon | — |
+| `.table th[aria-sort]` | selected | `--obsidian-800` | — | `--text-secondary` | — | the driver: one per table, `aria-sort` ascending or descending picks the icon | — |
 
 ### § 3.0.2 Stacking
 
@@ -2728,12 +2751,12 @@ The steps of a linear journey, in order: done, current, upcoming. It shows where
 ```
 
 **Rules.**
-- Background: `--obsidian-800`. Border: `1px solid --obsidian-700`. Radius: `--r-lg`.
+- Background: `--surface-raised`. Border: `1px solid --border`. Radius: `--r-lg`.
 - Every card carries a micro-header (`.card-meta`) with project code, date, or index. Label register,, `--t-micro`, `--obsidian-300`.
 - **With media** (optional): `.card-media` sits between the micro-header and the title. Margin `--s-2` above, `--s-5` below, none inline. Radius `--r-md`, `overflow: hidden`: the media is clipped to that radius. It holds one child — an `<img>` with its `alt`, a `<video>`, or a placeholder block — which takes the full width of the card body; the height is the child's own (an image keeps its aspect ratio, a placeholder declares one). The child's own margin is zeroed (`margin: 0 !important`, a ratified exception, § Code conventions) so nothing offsets it inside the clip.
 - **Card rise**: a card fades up as it comes into view: opacity 0→1 over `--s-8` of rise, `--d-slow` · `--ease-soft`, the page's own entrance (§ Page shell). A card already in view when the page opens rides with its page block. Cards that show later, together, go in reading order, `--d-instant` apart (capped at eight steps), and the content rides with its card, it does not enter on its own. A stat's count-up starts on the same frame as its card or block. A card inside a card moves with its parent. Under reduced motion the cards are at rest and every number shows its value.
 - **Media zoom**: on hover of the card, and on `:focus-within` when focus lands inside it, the media child scales to `1.05`. The zoom stays inside the clip: the card's border, radius and size do not change, and neither does the media box. Focus-within is the same effect, so the zoom works from the keyboard — on a card that holds something focusable, which in this anatomy is the action. Under `prefers-reduced-motion: reduce` there is no zoom on either trigger.
-- Hover: border shifts to `--obsidian-600`, shadow `--sh-2`.
+- Hover: border shifts to `--border-strong`, shadow `--sh-2`.
 - **At most one action per card**, on its own row at the end; it is `.btn-primary` only when the card is the screen's single primary act.
 - **With an action**: the CTA is the last child, on its own row — `.card-actions`, flex, `margin-top: --s-6` from the body, `gap: --s-3`. **At most one action per card**, and it is never `.btn-primary` unless the card is the screen’s single primary act (the one-primary rule, § Do’s and Don’ts). A card whose spacing is not in this anatomy is a gap: stop and ask, never invent.
 
@@ -2958,6 +2981,7 @@ For chatbot interfaces. Conversation surface with bot and own bubbles, typing in
 |---|---|---|---|
 | typing dots (loop) | translateY 0→−4px→0 (spatial) · opacity 0.3→1→0.3 (effect) | `--d-slow` · `--ease-standard` · stagger 0 / 200 / 400ms (0, 2 and 4 × `--d-instant`) | none — the dots hold still at full opacity |
 - The bubble carries `aria-label="Amaca is typing"`; the dots are `aria-hidden`.
+- **A long wait turns into words (v6.1.0).** Past `--d-wait` (5 s) the dots give way, in the same bubble, to `.chat-typing-wait`: *Still working…* in `--t-small` and `--text-muted`. The bubble keeps its height, so nothing moves. The swap is the next message of the log, so the live region reads it once. A loop that runs on beside content the reader can use has to stop: five seconds is the limit of WCAG 2.2.2, and the page reads the token at run time, never the number.
 
 **Composer:**
 - `.chat-composer` — textarea (`min-height: 36px`, `max-height: 132px`, no resize handle), attach button (ghost, ⌀ 36 desktop / 44 mobile), send disc (⌀ 36 / 44).
@@ -3265,7 +3289,7 @@ Rows in a column. Either **many things of one kind**, one row each (the items), 
 | Inline code | `.table code` — label 12px, `--primary-400` on `--obsidian-850`, `--r-sm` |
 | Secondary cell | `.muted` — `--obsidian-300` |
 | Sort button | `.table-sort` — a `<button>` that fills its header cell, label then icon at 14 (`.icon-xs`), gap `--s-2`; it carries both drawings, `.table-sort-asc` and `.table-sort-desc`, and the header shows one |
-| Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--obsidian-200`; one per table |
+| Driver header | `th[aria-sort]` — `--obsidian-800`, label and icon `--text-secondary`; one per table |
 | Sort value | `data-sort` on a cell whose text does not sort as written (a date, a size); otherwise the text, compared with numbers in order |
 
 **Rules.**
@@ -3749,21 +3773,21 @@ The starting frame for a project told as a story. It composes the system's compo
 
 When you generate UI code, you must:
 
-1. **Use only the tokens in § 2.** Never invent a hex value, never use a raw `px` for spacing if a token covers it, never write a `cubic-bezier(...)` letterally if one of the four named easings already matches. If the value you need isn't in the scale, **stop and ask** — don't extend the system silently.
-2. **Reference tokens by CSS variable name** (`var(--primary-500)`, `var(--s-6)`, `var(--ease-decel)`). Hardcoded literals in component code are a regression.
+1. **Stay on the scale (L4).** If the value you need is not in § 2, **stop and ask**: never extend the system silently.
+2. **Name the token (L4):** `var(--primary-500)`, `var(--s-6)`, `var(--ease-decel)`.
 3. **Match the five principles (§ Principles), in their order of precedence.** If the user asks for something that violates a principle, surface the conflict and propose a compliant alternative before writing code.
 4. **Write canonical HTML.** Close every non-void element explicitly. Double-quote every attribute. No implied closes (write `<p>…</p>`).
 5. **Don't add filler.** No placeholder copy, no decorative icons, no unrequested sections. One thousand no's for every yes.
 6. **Don't decorate with motion.** Motion is feedback (§ 1.5, § 8). If an animation doesn't communicate state change, it doesn't ship. When it does ship, spec it in the § Motion grammar — token pair, property type (spatial/effect), reduced-motion behavior — and remember `--ease-spring` rides spatial properties only.
-7. **Always honor `prefers-reduced-motion: reduce`.** Every transition you add needs a media-query fallback.
+7. **Honor reduced motion (L7).**
 8. **Show your work.** When you make a non-obvious choice (which token, which variant, why), say it in a one-line comment above the affected line. Brevity over prose.
-9. **Reproduce a composite value verbatim.** A gradient, a shadow, a font stack is a value with *parts* — stops, layers, families. Copying its shape instead of its content invents a value, it does not simplify one: a shadow that drops its inset layer, a gradient with two stops where the token declares three, a font stack two families short. When you materialize the token layer, **count the parts** and compare each against § 2. Rule 1 forbids inventing a value where a token exists; this one forbids misquoting the token you did use — and it is the harder failure to see, because the layer still reads as token-only.
+9. **Reproduce a composite value verbatim (L5).** When you materialize the token layer, count the parts of a gradient, a shadow or a font stack, and compare each against § 2.
 
 ### Principles · five rules, exceptions earn their keep
 
 Every output is graded against these. Cite the number when explaining a tradeoff.
 
-**Precedence.** When two principles pull in opposite directions, the higher one wins: Clarity, Evidence, Motion, Precision, Quiet. Laws are not weighed against principles: a law is not negotiated (§ Law).
+**P0 · Precedence.** When two principles pull in opposite directions, the higher one wins: Clarity, Evidence, Motion, Precision, Quiet. Laws are not weighed against principles: a law is not negotiated (§ Law).
 
 #### Clarity before cleverness
 The obvious answer, on purpose. If the user has to decode an icon or guess at a label, we failed. Metaphors earn their keep or get cut.
@@ -3810,14 +3834,14 @@ Restraint is what makes accents land. Most of the surface stays neutral. Color, 
 The system speaks in two registers.
 
 #### Editorial (live site, marketing, docs intro)
-- First-person, paragraphed, contextual.
-- Sentence-case headings.
-- Short sentences. Precise verbs. No marketing fluff.
+- **V1** First-person, paragraphed, contextual.
+- **V2** Sentence-case headings.
+- **V3** Short sentences. Precise verbs. No marketing fluff.
 
 #### Spec (this file, component docs, code comments)
-- Imperative. Numbered. Declarative.
-- "Use X." "Never do Y." "Default is Z."
-- No first person. No metaphors. No softening.
+- **V4** Imperative. Numbered. Declarative.
+- **V5** "Use X." "Never do Y." "Default is Z."
+- **V6** No first person. No metaphors. No softening.
 
 #### Vocabulary
 
@@ -3829,13 +3853,34 @@ The system speaks in two registers.
 | "Affordance" | "Feature" (when describing what a control offers) |
 | "Ship" | "Launch", "release" |
 
+The same list, and the AI tells of V8, as a machine reads them (v6.1.0): each avoided term with the term to write instead, `null` where the answer is to cut.
+
+```yaml
+# voice-terms
+vocabulary:
+  background: surface      # when it means a component fill
+  variable: token
+  constant: token
+  style: variant           # in a component context
+  feature: affordance      # what a control offers
+  launch: ship
+  release: ship
+ai-tells:
+  delve: null
+  leverage: null
+  robust: null
+  seamless: null
+  effortlessly: null
+  "in today's fast-paced world": null
+```
+
 #### For AI agents
 
 When generating copy:
-1. **Match the register.** Editorial for marketing pages, Spec for docs, terse for code comments.
-2. **Never use AI tells.** Avoid: "delve," "leverage," "robust," "seamless," "effortlessly," "in today's fast-paced world."
-3. **Don't decorate sentences.** "We crafted this with care" → cut.
-4. **Italics are for quotes.** Words quoted from someone else ride the quote register (`--font-style-quote`); emphasis takes weight, never italics.
+1. **V7 · Match the register.** Editorial for marketing pages, Spec for docs, terse for code comments.
+2. **V8 · Never use AI tells.** Avoid: "delve," "leverage," "robust," "seamless," "effortlessly," "in today's fast-paced world."
+3. **V9 · Don't decorate sentences.** "We crafted this with care" → cut.
+4. **V10 · Italics are for quotes.** Words quoted from someone else ride the quote register (`--font-style-quote`); emphasis takes weight, never italics.
 
 ### Conventions
 
@@ -3853,6 +3898,42 @@ How the system is written: naming, structure, units, files. Each convention carr
 | C8 | Browser chrome: four surfaces styled, everything else native | `error` | `count` | § Code conventions · Browser chrome |
 | C9 | Code patterns by name: replay, staggered reveal, anchor-link routing, SVG attribute transforms, runtime-token anti-drift, collapse-to-zero | `info` | `none` | § Code conventions · JavaScript |
 | C10 | One number: a site section and its DESIGN.md § 3 entry share it | `info` | `parity` | § Components |
+| C11 | A component reaches for the role by meaning: text on `--text-*`, a border on `--border-*`; the ramp only where no role holds the meaning | `warn` | `lint` (check_compliance `raw-ramp-in-component`, check 133) | § Colors · semantic |
+
+Each convention's check in a form a machine runs (v6.1.0), the same shape as the law's. `implemented: false` marks a kind declared and not yet run: the convention holds, the machine does not hold it yet.
+
+```yaml
+# convention-checks
+C1: none
+C2:
+  kind: lint
+  checks: [10]
+  findings: [class-off-registry]
+C3: none
+C4:
+  kind: lint
+  implemented: false
+C5: none
+C6:
+  kind: lint
+  widths: [--bp-sm, --bp-md, --bp-lg]
+  checks: [53]
+C7:
+  kind: count
+  list: § Code conventions › !important
+  checks: [50]
+C8:
+  kind: count
+  implemented: false
+C9: none
+C10:
+  kind: parity
+  checks: [87]
+C11:
+  kind: lint
+  checks: [133]
+  findings: [raw-ramp-in-component]
+```
 
 ### Law
 
@@ -3863,12 +3944,52 @@ A principle guides a judgement; a law is measured and enforced. Where `check_com
 | L1 | 85 / 10 / 5: ≥ 85% of any surface is `--obsidian-*`; ≤ 10% is `--primary-*` and `--secondary-*` (cyan) together; ≤ 5% is semantic | `warn` | Quiet, then loud | amaca-frontend verifier (budget) | § Colors · § Principles |
 | L2 | The accessibility floor, all seven items: a component that can't meet all seven doesn't ship | `error` | Clarity before cleverness | amaca-frontend verifier · review | § Accessibility |
 | L3 | One primary action per screen; a landing may carry one per section | `warn` | Quiet, then loud | amaca-frontend verifier · check_compliance `one-primary` | § Principles · Quiet, then loud |
-| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier` or duration literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51 · check_compliance `colour-literal` `raw-px` `token-undeclared` `token-unknown` | § For the AI agent #1–2 · § Code conventions |
+| L4 | Tokens only, on the scale: no hex, px, `cubic-bezier`, duration or font-weight literal in component code | `error` | Precision is a feeling | checks 01, 02, 03, 07, 51, 132 · check_compliance `colour-literal` `raw-px` `raw-weight` `token-undeclared` `token-unknown` | § For the AI agent #1–2 · § Code conventions |
 | L5 | A composite value is reproduced verbatim: every stop, layer and family | `error` | Precision is a feeling | check 38 | § For the AI agent #9 |
 | L6 | No emoji in the interface | `error` | Clarity before cleverness | check 16 | § Iconography · § Voice & tone |
 | L7 | `prefers-reduced-motion: reduce` is honoured by every transition | `error` | Motion is a material | check 49 · check_compliance `reduced-motion` | § For the AI agent #7 · § Motion |
-| L8 | Motion grammar: six durations and five easings, no others. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08 · check_compliance `raw-duration` `raw-easing` `spring-on-effect` `loop-clock` `raw-delay` | § Motion |
+| L8 | Motion grammar: six durations and five easings, no others; `--d-wait` times a wait, never a motion. `--ease-decel` for entrances, `--ease-soft` for reading entrances (a page's blocks, cards coming into view), `--ease-accel` for exits, `--ease-standard` for state transitions, `--ease-spring` for emphasis and relevant interactions such as pressing a primary, on spatial properties only | `error` | Motion is a material | checks 05, 06, 07, 08, 134 · check_compliance `raw-duration` `raw-easing` `spring-on-effect` `loop-clock` `raw-delay` | § Motion |
 | L9 | Light text on primary only on the closed list of ratified exceptions | `error` | Clarity before cleverness | review | § Accessibility · Ratified exceptions |
+
+Each law's check in a form a machine runs (v6.1.0). `kind` is from the closed catalogue; `checks` are the harness numbers, `findings` the `check_compliance` rules; `none` is a review by a person, said as such.
+
+```yaml
+# law-checks
+L1:
+  kind: count
+  measure: share of a surface's colour, by family
+  limits: { obsidian: ">= 0.85", primary+secondary: "<= 0.10", semantic: "<= 0.05" }
+  by: amaca-frontend verifier
+L2: none        # the seven items of § Accessibility, reviewed by a person
+L3:
+  kind: count
+  selector: .btn-primary
+  max: 1        # per screen; one per section on a landing
+  findings: [one-primary]
+L4:
+  kind: lint
+  checks: [1, 2, 3, 7, 51, 132]
+  findings: [colour-literal, raw-px, raw-weight, token-undeclared, token-unknown]
+L5:
+  kind: parity
+  checks: [38]
+L6:
+  kind: pattern
+  pattern: "[\\u{1F300}-\\u{1FAFF}\\u{2705}\\u{274C}\\u{26A0}\\u{2764}]"
+  in: [DESIGN.md, index.html, tokens.css, components.css, theme.css, llms-full.txt]
+  checks: [16]
+L7:
+  kind: lint
+  checks: [49]
+  findings: [reduced-motion]
+L8:
+  kind: lint
+  durations: [--d-instant, --d-quick, --d-base, --d-slow, --d-scene, --d-draw]
+  easings: [--ease-standard, --ease-accel, --ease-decel, --ease-spring, --ease-soft]
+  checks: [5, 6, 7, 8, 134]
+  findings: [raw-duration, raw-easing, spring-on-effect, loop-clock, raw-delay]
+L9: none        # the closed list of § Accessibility, reviewed by a person
+```
 
 #### L1 · The 85 / 10 / 5 law, in detail
 
@@ -3915,6 +4036,12 @@ The Anti-patterns table is retired in v5.0.0. Every row is now a law or a line i
 | `--d-slow` | `600` | Page enters, panel slides |
 | `--d-scene` | `900` | Hero reveals, orchestrated sequences |
 | `--d-draw` | `1200` | Data draw-on: chart tracing, count-up, progressive data reveals |
+
+**One wait, not a seventh duration (v6.1.0).** `--d-wait` (`5000ms`) is how long a loop that signals waiting may run before it gives way to words (Chat › Typing indicator; WCAG 2.2.2). It times a wait, never a motion: no `transition` or `animation` reads it, and the page reads it at run time.
+
+| Wait | ms | Use |
+|---|---|---|
+| `--d-wait` | `5000` | A wait, not a transition: after it a loop that signals waiting gives way to words |
 
 | Easing | Curve | Use |
 |---|---|---|
@@ -4315,7 +4442,7 @@ When working without a rules file, prepend this to your request:
 
 This file follows strict SemVer.
 
-- **MAJOR** — token rename, removal, or value change that breaks existing consumers.
+- **MAJOR** — token rename, removal, or value change that breaks existing consumers; and a change of what a role, a state or a variant means, even with no value changed, because readers and agents have learned it (v6.1.0). A yellow badge that moves from *pending* to *blocker* changes no value and is still MAJOR.
 - **MINOR** — new tokens, new components, new principles.
 - **PATCH** — wording, typo, clarification, contrast recalculation.
 
@@ -4324,6 +4451,7 @@ The version line at the top of this document is the source of truth. The CSS fil
 **Release checklist (RIGID — every release, no exceptions):**
 
 0. **`python3 verify-ds.py` exits clean.** This step does not say how many checks there are: the harness prints its own count, and a number written here is a frozen count that goes stale the next time a check is added — it did, twice, in consecutive releases. The families: token resolution, raw values, motion pairs, registry coverage, state grammar, version and date parity wherever they are stated, package integrity, bundle freshness, teaching grammar, snippet fidelity, skill version parity, base-rule layering, a demo for every canonical component, sidebar labels on one line, Do / Don't pairs kept together, section numbers without gaps, state-index cells that hold values, ring and glow tokens never re-typed, state lists that agree with the index and the CSS, stylesheets loaded under their own content hash, a demo for every lettered variant, every state in the closed vocabulary, a fill-only switch track, a state index that matches the stylesheet, reduced-motion overrides that cover every trigger of a transform, `!important` only where ratified. Every check exists because a real drift shipped; a new class of drift earns a new check in the same commit that fixes it. Findings inside a *declared* debt (a gap the spec names and dates) are reported but don't block; anything undeclared does — **and the date expires**: at or past the release a debt names, it stops suppressing and blocks like anything else. Deferring stays allowed; it has to be done on purpose, by moving the date.
+   **And the visual pass is green (v6.1.0).** `verify-ds.py` reads text, and the demos are the visual source of truth: the workflow *Visual regression* (`.github/workflows/visual.yml`, `tests/visual/`) shoots every subsection of every component page, in two passes (the motion the reader gets, settled, and reduced motion), and compares each with its snapshot at **0.1% of the pixels**, colour compared exactly (a border one step lighter is 0.20%, a title one weight lighter 0.25%). It runs in CI only, in the pinned Playwright image: a Mac draws other pixels. A difference that is not expected blocks; a snapshot changes only on purpose (Run workflow, `update`), and the review sheet shows what changed. Masked, because they change on every run and are not the system: the live chat demo, numbers that count up, the loader's mark and its cycling label; the date is fixed.
 1. Bump `version`, `updated`, `last_synced` in this file's frontmatter — **and the `> **Version**` line under the title**, which this section calls the source of truth. It sat two minors behind for two releases because check 14 counted five places and this was the sixth; check 21 now covers it.
 2. Changelog entry in both places: here (`## Changelog`) and the site's changelog panel — both must open on the same release, and exactly one entry ships open (check 15).
 3. Site version stamps — **three places, all of them**: the hero SVG (`DESIGN SYSTEM · VX.Y.Z`), the header meta (`VX.Y.Z · DESIGN SYSTEM`), and the **§ Overview page-meta stamp (Version + Updated date)**. The Overview stamp is the one that historically drifts — v1.1.0 and v3.3.0 both shipped fixes for it; check it explicitly.
@@ -4334,6 +4462,30 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v6.1.0 — 2026.11.23 (MINOR)
+
+Weights get a scale, text gets roles, a long wait turns into words, and the contract says its checks in a form a machine runs.
+
+**Added**
+- **The weight scale.** `--fw-light` 300, `--fw-regular` 400, `--fw-medium` 500, `--fw-bold` 700, `--fw-black` 900: one step per Satoshi face, no step without a face. A weight written by hand is drift (Typography); `check_compliance` flags it as `raw-weight` (L4).
+- **Text roles.** `--text`, `--text-secondary` and `--text-muted`, on obsidian 100, 200 and 300. A component reaches for a role by meaning, not by value (Colors › semantic, convention C11); `check_compliance` warns with `raw-ramp-in-component`, an error from the next release.
+- **A long wait turns into words.** Past `--d-wait` (5 s) the chat's typing dots give way to *Still working…* in the same bubble (`.chat-typing-wait`), read once by the log: a loop beside content the reader can use has to stop (WCAG 2.2.2). `--d-wait` times a wait, never a motion: the durations stay six (L8).
+- **The contract in a form a machine reads.** Law and Conventions carry a `law-checks` and a `convention-checks` block: each rule's kind, parameters, harness checks and `check_compliance` findings, or `none` where a person reviews it. The voice rules have ids (V1 to V10) and the vocabulary is a `voice-terms` list; Precedence is P0. For the AI agent cites the law instead of restating it.
+- **Does it work.** The MCP section shows the October benchmark: 599 runs scored, 93.8 for the MCP alone, 42.3k tokens read per run against 118.5k for the skill, where it loses, and the full report.
+- **A visual regression pass.** Every subsection of every component page, with motion and with reduced motion, compared at 0.1% of the pixels in CI against snapshots that change only on purpose (Versioning, step 0).
+- **Checks 132 to 136:** no weight by hand, text and borders on their roles, `--d-wait` never a motion, every law and convention declaring its check, and the visual pass on its threshold.
+
+**Changed**
+- **Every font-weight is a token:** 85 in `components.css` and 51 on the site. The 54 written as 600 read `--fw-bold`, the face they always rendered in, since Satoshi has no 600; the Heading 5 and 6 tiles say Bold 700.
+- **Components and the site write text and borders through their roles**, and the resting fills of the card, modal, drawer, tooltip, chip, secondary button, composer, read-only field and page through their surface role. No computed colour changes; the Anatomy cards name the roles and the weights that draw each part.
+- **Versioning: a change of meaning is MAJOR**, even with no value changed: what a role, a state or a variant means is something readers and agents have learned.
+- **`check_compliance` does not read the content of `<pre>` and `<code>`:** an example shown to a reader is not the page's style. A case study page had scanned with 84 false errors, every one inside a `<pre>`.
+- **The chat demo's third reply takes longer than `--d-wait`**, so its dots give way to words; the overview links the current case study.
+- **The clean benchmark fixtures of the compliance tests write weights, text and borders as tokens.** Four of the five wrote them by hand, legal before this release.
+
+**Unchanged**
+- No colour, spacing, radius, type size or duration changes its value. Tailwind's own `font-semibold` stays: removing it would break.
 
 ### v6.0.0 — 2026.11.14 (MAJOR)
 

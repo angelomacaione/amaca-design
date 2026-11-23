@@ -49,6 +49,9 @@
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-border-input: var(--border-input);
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
 
   /* — BREAKPOINT (v5.0.0) — */
   --breakpoint-sm: var(--bp-sm);
@@ -120,6 +123,13 @@
   --tracking-normal: var(--tr-normal);
   --tracking-wide: var(--tr-wide);
   --tracking-label: var(--tr-label);
+
+  /* — TYPE · weight (v6.1.0) — */
+  --font-weight-light: var(--fw-light);
+  --font-weight-regular: var(--fw-regular);
+  --font-weight-medium: var(--fw-medium);
+  --font-weight-bold: var(--fw-bold);
+  --font-weight-black: var(--fw-black);
 
   /* — SPACING (4px base, § 2 scale numbers preserved) — */
   --spacing-0: var(--s-0);

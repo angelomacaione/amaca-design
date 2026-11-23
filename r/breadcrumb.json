@@ -12,7 +12,7 @@
       "path": "amaca/breadcrumb.css",
       "type": "registry:file",
       "target": "styles/amaca/breadcrumb.css",
-      "content": ".breadcrumb{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-label);\n  text-transform:uppercase;\n  color:var(--obsidian-300);\n}\n.breadcrumb .sep{\n  color:var(--obsidian-500);\n}\n.breadcrumb .active{\n  color:var(--obsidian-100);\n}\n.breadcrumb a{\n  color:inherit;\n  text-decoration:none;\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.breadcrumb a:hover{\n  color:var(--obsidian-100);\n}\n.breadcrumb a:active{\n  color:var(--obsidian-400);\n}\n.breadcrumb a:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-0-5);\n  box-shadow:var(--ring-halo);\n}\n"
+      "content": ".breadcrumb{\n  display:flex;\n  align-items:center;\n  gap:var(--s-2);\n  font-family:var(--font-sans);\n  font-size:var(--t-caption);\n  letter-spacing:var(--tr-label);\n  text-transform:uppercase;\n  color:var(--text-muted);\n}\n.breadcrumb .sep{\n  color:var(--obsidian-500);\n}\n.breadcrumb .active{\n  color:var(--text);\n}\n.breadcrumb a{\n  color:inherit;\n  text-decoration:none;\n  border-radius:var(--r-sm);\n  transition:color var(--d-quick) var(--ease-standard);\n}\n.breadcrumb a:hover{\n  color:var(--text);\n}\n.breadcrumb a:active{\n  color:var(--obsidian-400);\n}\n.breadcrumb a:focus-visible{\n  outline:var(--focus-width) solid var(--obsidian-100);\n  outline-offset:var(--s-0-5);\n  box-shadow:var(--ring-halo);\n}\n"
     },
     {
       "path": "amaca/breadcrumb.html",
@@ -23,7 +23,7 @@
   ],
   "meta": {
     "amaca": {
-      "version": "6.0.0",
+      "version": "6.1.0",
       "source": "DESIGN.md § 3.29 Breadcrumb",
       "site": "https://www.amaca.design/#breadcrumb",
       "usage": {
@@ -42,7 +42,7 @@
           "name": "Link",
           "tokens": [],
           "value": "same as the trail",
-          "states": "hover --obsidian-100 · pressed --obsidian-400"
+          "states": "hover --text · pressed --obsidian-400"
         },
         {
           "name": "Separator",
@@ -55,7 +55,7 @@
         {
           "name": "Current",
           "tokens": [
-            "--obsidian-100"
+            "--text"
           ],
           "value": "",
           "states": ""
@@ -63,7 +63,7 @@
         {
           "name": "Trail",
           "tokens": [
-            "--obsidian-300",
+            "--text-muted",
             "--font-sans",
             "--t-caption",
             "--tr-label",

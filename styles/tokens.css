@@ -39,6 +39,9 @@
   --border:         var(--obsidian-700);   /* card, chip, panel */
   --border-strong:  var(--obsidian-600);   /* hover, emphasis */
   --border-input:   var(--obsidian-400);   /* a control's outline: 3:1 on its fill (WCAG 1.4.11) */
+  --text:           var(--obsidian-100);   /* v6.1.0: body copy, titles, values */
+  --text-secondary: var(--obsidian-200);   /* v6.1.0: descriptions, supporting copy */
+  --text-muted:     var(--obsidian-300);   /* v6.1.0: labels, captions, metadata */
 
   /* — BRAND (primary accent: magenta F051D5) — */
   --primary-100: #FFE3F8;
@@ -139,6 +142,14 @@
   --tr-wide:    0.04em;
   --tr-label:    0.06em;
 
+  /* weight — one step per Satoshi face loaded above, no step without a face (v6.1.0).
+     600 and 800 have no file: the browser draws them in the next face up (§ 02 Typography). */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-bold:     700;
+  --fw-black:    900;
+
   /* — SPACING (4px base) — */
   --s-0: 0;
   --s-px: 1px;      /* v5.0.0, under the 4px step: hairline offsets, sr-only (Polaris space-025, Tailwind px) */
@@ -222,6 +233,7 @@
   --d-slow:    600ms;
   --d-scene:   900ms;
   --d-draw:    1200ms;   /* data draw-on: chart tracing, count-up, progressive data reveals (§ 43 Charts) */
+  --d-wait:    5000ms;   /* v6.1.0: a wait, not a transition — after it a loop that signals waiting gives way to words (WCAG 2.2.2) */
 
   /* — LOADER (component-specific size scale, § 24 Loader) — */
   --loader-xs: 16px;
@@ -267,8 +279,8 @@ body{
   font-family:var(--font-sans);
   font-size:var(--t-body);
   line-height:var(--lh-normal);
-  color:var(--obsidian-100);
-  background:var(--obsidian-950);
+  color:var(--text);
+  background:var(--surface);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   font-feature-settings:"ss01","ss02","cv11";
@@ -280,7 +292,7 @@ body{
    host keeps its body and loses nothing it styled itself. :where() keeps the rule at zero specificity: every
    element rule below and every component wins over it, and outside a host it says what the body says. */
 :where(body > *){
-  color:var(--obsidian-100);
+  color:var(--text);
   font-family:var(--font-sans);
   font-size:var(--t-body);
   line-height:var(--lh-normal);

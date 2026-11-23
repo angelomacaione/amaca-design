@@ -1,0 +1,64 @@
+# The visual regression pass of the site's demos (v6.1.0): one snapshot per component page, in two passes (motion
+# and reduced motion), compared at 0.1% of the pixels. It runs here and never on a Mac: the Playwright image below
+# pins the browser and the fonts, so the same commit draws the same pixels.
+#
+# A difference that is not expected blocks the pull request. A snapshot changes only on purpose: Actions > Visual
+# regression > Run workflow, on the branch, with update = true. That run writes the new snapshots and commits them
+# to the branch; the review sheet then shows what changed.
+#
+# The first time, there is nothing to compare with: a push to a release branch with no snapshots in the repo writes
+# them and commits them (v6.1.0, when this workflow did not exist on main yet and Run workflow could not reach it).
+# From then on a push compares, like a pull request, unless its commit message says [visual update]: that push
+# rewrites the snapshots on purpose, the way Run workflow does once this file is on main.
+name: Visual regression
+
+on:
+  pull_request:
+  push:
+    branches: ["release/**"]
+  workflow_dispatch:
+    inputs:
+      update:
+        description: "Write new snapshots and commit them to this branch (on purpose only)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  demos:
+    runs-on: ubuntu-24.04
+    container: mcr.microsoft.com/playwright:v1.63.0-noble
+    steps:
+      - uses: actions/checkout@v7
+      - name: Update on purpose, or write the first snapshots
+        id: mode
+        run: |
+          if [ "${{ inputs.update }}" = "true" ] || { [ "${{ github.event_name }}" = "push" ] && { [ ! -d tests/visual/__snapshots__ ] || [ "${{ contains(github.event.head_commit.message, '[visual update]') }}" = "true" ]; }; }; then echo "update=true" >> "$GITHUB_OUTPUT"; else echo "update=false" >> "$GITHUB_OUTPUT"; fi
+      - name: Install the pinned Playwright
+        run: npm install --prefix tests/visual --no-audit --no-fund
+      - name: Compare with the snapshots
+        if: steps.mode.outputs.update != 'true'
+        run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs
+      - name: Write new snapshots
+        if: steps.mode.outputs.update == 'true'
+        run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs --update-snapshots
+      - name: Commit the new snapshots to the branch
+        if: steps.mode.outputs.update == 'true'
+        run: |
+          command -v git >/dev/null || (apt-get update -qq && apt-get install -y -qq git)
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/__snapshots__
+          git diff --cached --quiet && echo "no snapshot changed" && exit 0
+          git commit -m "test(visual): update the demo snapshots on purpose"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Keep the differences
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-differences
+          path: tests/visual/test-results
+          retention-days: 14

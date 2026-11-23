@@ -2,3 +2,6 @@
 .release/
 Claude outputs/
 __pycache__/
+tests/visual/node_modules/
+tests/visual/test-results/
+tests/visual/package-lock.json

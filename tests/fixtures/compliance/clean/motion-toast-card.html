@@ -10,6 +10,13 @@
   <style>
     /* Token subset, mirror of tokens.css (Amaca DS v5.2.0). Values live here and nowhere else. */
     :root {
+      --text: var(--obsidian-100);
+      --text-secondary: var(--obsidian-200);
+      --text-muted: var(--obsidian-300);
+      --border: var(--obsidian-700);
+      --border-strong: var(--obsidian-600);
+      --fw-medium: 500;
+      --fw-bold: 700;
       --obsidian-950: #07090B;
       --obsidian-850: #10141A;
       --obsidian-800: #161B22;
@@ -74,7 +81,7 @@
       font-family: var(--font-sans);
       font-size: var(--t-body);
       line-height: var(--lh-normal);
-      color: var(--obsidian-100);
+      color: var(--text);
       background: var(--obsidian-950);
       -webkit-font-smoothing: antialiased;
     }
@@ -86,7 +93,7 @@
     /* Page shell: Components > Page shell (.content, .section) */
     .content { max-width: var(--content-max); margin: 0 auto; padding: var(--s-12) var(--s-6); }
     .section { display: flex; flex-direction: column; gap: var(--s-6); }
-    .section > h1 { font-size: var(--t-h4); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: 700; }
+    .section > h1 { font-size: var(--t-h4); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: var(--fw-bold); }
 
     /* Grid: Components > Grid system */
     .grid { display: grid; gap: var(--s-6); }
@@ -97,12 +104,12 @@
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
       min-height: var(--s-10); padding: 0 var(--s-6);
-      font-size: var(--t-body); font-weight: 500;
+      font-size: var(--t-body); font-weight: var(--fw-medium);
       border: var(--bw-1) solid transparent; border-radius: var(--r-full);
       transition: background var(--d-quick) var(--ease-standard), border-color var(--d-quick) var(--ease-standard);
     }
-    .btn-secondary { background: var(--obsidian-800); border-color: var(--obsidian-700); color: var(--obsidian-100); }
-    .btn-secondary:hover { background: var(--obsidian-700); border-color: var(--obsidian-600); }
+    .btn-secondary { background: var(--obsidian-800); border-color: var(--border); color: var(--text); }
+    .btn-secondary:hover { background: var(--obsidian-700); border-color: var(--border-strong); }
     .btn:focus-visible {
       outline: var(--focus-width) solid var(--obsidian-100);
       outline-offset: var(--focus-offset);
@@ -113,7 +120,7 @@
     .badge {
       display: inline-flex; align-items: center; gap: var(--s-1);
       padding: var(--s-2) var(--s-4); border-radius: var(--r-md);
-      font-size: var(--t-small); font-weight: 500; letter-spacing: var(--tr-snug);
+      font-size: var(--t-small); font-weight: var(--fw-medium); letter-spacing: var(--tr-snug);
       white-space: nowrap; flex: none;
     }
     .badge .dot { width: var(--s-1); height: var(--s-1); border-radius: var(--r-full); background: currentColor; }
@@ -128,17 +135,17 @@
       display: flex; flex-direction: column; gap: var(--s-4);
       padding: var(--s-6);
       background: var(--obsidian-800);
-      border: var(--bw-1) solid var(--obsidian-700);
+      border: var(--bw-1) solid var(--border);
       border-radius: var(--r-lg);
       transition: border-color var(--d-quick) var(--ease-standard), box-shadow var(--d-quick) var(--ease-standard);
     }
-    .card:hover { border-color: var(--obsidian-600); box-shadow: var(--sh-2); }
-    .card h3 { font-size: var(--t-h6); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: 700; }
-    .card p { color: var(--obsidian-200); line-height: var(--lh-loose); }
+    .card:hover { border-color: var(--border-strong); box-shadow: var(--sh-2); }
+    .card h3 { font-size: var(--t-h6); line-height: var(--lh-snug); letter-spacing: var(--tr-snug); font-weight: var(--fw-bold); }
+    .card p { color: var(--text-secondary); line-height: var(--lh-loose); }
     .card-meta {
       display: flex; justify-content: space-between; align-items: center; gap: var(--s-3);
       font-family: var(--font-sans); font-size: var(--t-micro); text-transform: uppercase;
-      letter-spacing: var(--tr-label); color: var(--obsidian-300);
+      letter-spacing: var(--tr-label); color: var(--text-muted);
     }
     .card-actions { display: flex; gap: var(--s-3); margin-top: var(--s-2); }
 
@@ -159,11 +166,11 @@
       align-items: center;
       padding: var(--s-4);
       background: var(--obsidian-850);
-      border: var(--bw-1) solid var(--obsidian-700);
+      border: var(--bw-1) solid var(--border);
       border-left: var(--bw-2) solid var(--success);
       border-radius: var(--r-md);
       box-shadow: var(--sh-3);
-      color: var(--obsidian-200);
+      color: var(--text-secondary);
       font-size: var(--t-small);
       /* Entrance start: --s-6 off the right edge, transparent. System-triggered: --d-base + --ease-decel. */
       opacity: 0;
@@ -177,19 +184,19 @@
       transition: opacity var(--d-quick) var(--ease-accel), transform var(--d-quick) var(--ease-accel);
     }
     .toast-icon { width: var(--icon-sm); height: var(--icon-sm); color: var(--success); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-    .toast-title { color: var(--obsidian-100); font-weight: 500; }
+    .toast-title { color: var(--text); font-weight: var(--fw-medium); }
     .toast-dismiss {
       display: inline-flex; align-items: center; justify-content: center;
       width: var(--s-8); height: var(--s-8); margin: calc(var(--s-2) * -1);
-      border-radius: var(--r-md); color: var(--obsidian-300);
+      border-radius: var(--r-md); color: var(--text-muted);
       transition: background var(--d-quick) var(--ease-standard), color var(--d-quick) var(--ease-standard);
     }
-    .toast-dismiss:hover { background: var(--obsidian-800); color: var(--obsidian-100); }
+    .toast-dismiss:hover { background: var(--obsidian-800); color: var(--text); }
     .toast-dismiss svg { width: var(--icon-sm); height: var(--icon-sm); fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
     .toast-body { grid-column: 1 / -1; line-height: var(--lh-normal); }
     .toast-action {
       font-family: var(--font-sans); font-size: var(--t-micro); text-transform: uppercase;
-      letter-spacing: var(--tr-label); color: var(--primary-400); font-weight: 500;
+      letter-spacing: var(--tr-label); color: var(--primary-400); font-weight: var(--fw-medium);
       padding: 0 var(--s-1); margin-left: var(--s-1); border-radius: var(--r-md);
     }
     .toast-action:focus-visible, .toast-dismiss:focus-visible {

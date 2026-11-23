@@ -1643,6 +1643,124 @@ def c131():
             fails.append(f"{title}: root `.{root}` is neither its name nor the outermost class of its example ({' '.join(outer) or 'none'})")
     return fails
 
+@check("132", "Every font-weight is a --fw-* token: no number, no bold or normal, outside @font-face",
+       "v6.1.0: the system had a scale for size, leading and tracking and none for weight. components.css wrote 600 "
+       "in 32 places and the site in 22, and Satoshi has no 600 face: every one of them rendered at 700, and the type "
+       "tiles of Heading 5 and 6 said Semibold 600 over a sample drawn in Bold.")
+def c132():
+    fails = []
+    pat = re.compile(r"font-weight\s*:\s*(\d+|bold|normal|bolder|lighter)\b")
+    for f in (COMPONENTS, TOKENS, ROOT / "styles" / "theme.css", INDEX):
+        text = re.sub(r"@font-face\s*\{[^}]*\}", "", read(f))
+        for m in pat.finditer(text):
+            line = text.count("\n", 0, m.start()) + 1
+            fails.append(f"{f.name}: font-weight: {m.group(1)} written by hand (line {line} without @font-face) - use a --fw-* token")
+    return fails
+
+@check("133", "A component writes text and borders through their roles: --text-*, --border-*, never the obsidian step they resolve to",
+       "v6.1.0: since v5.0.0 the roles existed and the state index still wrote the ramp where a role had the same value, "
+       "so two grammars named one meaning (.input on --surface-field, .card on --obsidian-800). Text and borders convert "
+       "whole; fills convert by meaning only, so this check reads the two kinds where the role is never wrong.")
+def c133():
+    fails = []
+    css = re.sub(r"/\*[\s\S]*?\*/", "", read(COMPONENTS))
+    for m in re.finditer(r"(?<![\w-])(color|caret-color|(?:border|outline)(?:-(?:top|right|bottom|left|inline|block))?(?:-color)?)\s*:\s*([^;{}]*)", css):
+        prop, val = m.group(1), m.group(2)
+        bad = {"100", "200", "300"} if "color" == prop or prop == "caret-color" else {"600", "700", "800"}
+        for n in re.findall(r"var\(--obsidian-(\d+)\)", val):
+            if n in bad:
+                fails.append(f"components.css: {prop}: var(--obsidian-{n}) has a role with the same value (Colors › semantic)")
+    return fails
+
+@check("134", "--d-wait times a wait: no transition or animation reads it, and the chat demo reads it at run time",
+       "v6.1.0: the wait after which the typing dots give way to words became a token in the --d-* family. It is not "
+       "the duration of a motion, and a 5s transition is never what the scale means; the six durations stay six.")
+def c134():
+    fails = []
+    for f in (COMPONENTS, INDEX):
+        for m in re.finditer(r"(transition|animation)[a-z-]*\s*:[^;{}\"]*var\(--d-wait\)", read(f)):
+            fails.append(f"{f.name}: {m.group(0)[:80]} - --d-wait is a wait, not the duration of a motion")
+    if "getPropertyValue('--d-wait')" not in read(INDEX):
+        fails.append("index.html: the chat demo does not read --d-wait at run time")
+    if not re.search(r"\.chat-typing-wait\s*\{", read(COMPONENTS)):
+        fails.append("components.css: no .chat-typing-wait, the words a long wait turns into")
+    return fails
+
+@check("135", "Every law and convention declares its check in the machine block, and every check and finding it names exists",
+       "v6.1.0: the Law and Conventions tables named the kind of each check (lint, count, check 16) but never its "
+       "parameters, and a reader of DESIGN.md could not run them: the mapping lived only in verify-ds.py and the MCP. "
+       "A generator reading the contract received 46 rules as prose. The law-checks and convention-checks blocks "
+       "carry the check; this holds them to the tables, to the harness and to check_compliance.")
+def c135():
+    fails = []
+    design = read(DESIGN)
+    design = design[:design.find("\n## Changelog")]
+    known = {int(c["id"]) for c in CHECKS if str(c["id"]).isdigit()}
+    js = read(ROOT / "api" / "_mcp" / "compliance.js")
+    lawmap = dict(re.findall(r"'([a-z-]+)':\s*'([LC]\d+)'", js[js.find("const LAW"):js.find("};", js.find("const LAW"))]))
+    for head, block, prefix in (("### Law", "law-checks", "L"), ("### Conventions", "convention-checks", "C")):
+        sec = design[design.find(head + "\n"):]
+        sec = sec[:sec.find("\n### ", 5)]
+        ids = re.findall(r"^\| (" + prefix + r"\d+) \|", sec, re.M)
+        m = re.search(r"```yaml\n# " + block + r"\n(.*?)```", sec, re.S)
+        if not m:
+            fails.append(f"DESIGN.md {head}: no `# {block}` block")
+            continue
+        body = m.group(1)
+        entries = {}
+        for e in re.finditer(r"^(" + prefix + r"\d+):(.*?)(?=^" + prefix + r"\d+:|\Z)", body, re.M | re.S):
+            entries[e.group(1)] = e.group(2)
+        for i in ids:
+            if i not in entries:
+                fails.append(f"{block}: {i} is in the table and declares no check (write `{i}: none` if a person reviews it)")
+        for i in entries:
+            if i not in ids:
+                fails.append(f"{block}: {i} is not a row of the table")
+        for i, e in entries.items():
+            if e.strip().split("#")[0].strip() == "none":
+                continue
+            if "kind:" not in e:
+                fails.append(f"{block}: {i} has neither a kind nor none")
+            cm = re.search(r"checks:\s*\[([^\]]*)\]", e)
+            for n in (cm.group(1).split(",") if cm else []):
+                if n.strip() and int(n) not in known:
+                    fails.append(f"{block}: {i} names check {n.strip()}, which the harness does not have")
+            fm = re.search(r"findings:\s*\[([^\]]*)\]", e)
+            for f in ([x.strip() for x in fm.group(1).split(",") if x.strip()] if fm else []):
+                if lawmap.get(f) != i:
+                    fails.append(f"{block}: {i} names finding {f}, which check_compliance files under {lawmap.get(f)}")
+    for f, i in lawmap.items():
+        if not re.search(r"^" + i + r":(?:(?!^[LC]\d+:).)*?findings:\s*\[[^\]]*\b" + re.escape(f) + r"\b", design, re.M | re.S):
+            fails.append(f"check_compliance files {f} under {i}, and the block of {i} does not name it")
+    if not re.search(r"```yaml\n# voice-terms\n", design):
+        fails.append("DESIGN.md § Voice & tone: no `# voice-terms` block")
+    return fails
+
+@check("136", "The visual pass exists, runs in CI on the pinned image, and compares at the 0.1% DESIGN.md states",
+       "v6.1.0: the harness reads text and is blind to rendering; the behaviour pass and the review sheet look, but "
+       "nothing compared a demo from one release to the next. The visual pass does; this keeps its threshold, its "
+       "image and its two passes the ones the contract names.")
+def c136():
+    fails = []
+    wf = read(ROOT / ".github" / "workflows" / "visual.yml")
+    cfg = read(ROOT / "tests" / "visual" / "playwright.config.mjs")
+    pkg = read(ROOT / "tests" / "visual" / "package.json")
+    if not wf or not cfg or not read(ROOT / "tests" / "visual" / "demos.spec.mjs"):
+        return ["the visual pass is missing: .github/workflows/visual.yml, tests/visual/playwright.config.mjs, tests/visual/demos.spec.mjs"]
+    img = re.search(r"mcr\.microsoft\.com/playwright:v([\d.]+)-", wf)
+    dep = re.search(r'"@playwright/test":\s*"([\d.]+)"', pkg)
+    if not img or not dep or img.group(1) != dep.group(1):
+        fails.append(f"visual.yml image {img and img.group(1)} and tests/visual/package.json {dep and dep.group(1)} must pin the same Playwright")
+    if not re.search(r"maxDiffPixelRatio:\s*0\.001\b", cfg):
+        fails.append("playwright.config.mjs: maxDiffPixelRatio is not 0.001, the 0.1% of DESIGN.md › Versioning")
+    if not re.search(r"\bthreshold:\s*0\b", cfg):
+        fails.append("playwright.config.mjs: the per-pixel threshold is not 0; the default 0.2 lets a ramp step through")
+    if "reducedMotion: 'reduce'" not in cfg or "reducedMotion: 'no-preference'" not in cfg:
+        fails.append("playwright.config.mjs: the two passes, motion and reduced motion, are not both there")
+    if "0.1% of the pixels" not in read(DESIGN):
+        fails.append("DESIGN.md › Versioning does not state the visual pass and its 0.1%")
+    return fails
+
 @check("128", "Every download card is its bundle: what it lists is in the zip, and every file its steps name is there or in the user's own repo",
        "v6.0.0: § 03.1 told Windsurf, Aider and Continue users to drop files the IDE zip never carried, the Claude README "
        "sent CLAUDE.md over the user's own and imported DESIGN.md whole, and the skill upload path had moved. The cards, "
@@ -1688,7 +1806,7 @@ def c129():
     m = re.search(r"\.cs-pull\{([^}]*)\}", css)
     if not m or "font-style:var(--font-style-quote)" not in m.group(1).replace(" ", ""):
         fails.append("components.css: .cs-pull does not read var(--font-style-quote)")
-    elif not re.search(r"font-weight:\s*400", m.group(1)):
+    elif not re.search(r"font-weight:\s*(400|var\(--fw-regular\))", m.group(1)):
         fails.append("components.css: .cs-pull is not 400 (the quote register is italic 400)")
     if not re.search(r"(^|[,}\s])q(,[^{]*)?\{[^}]*font-style:\s*var\(--font-style-quote\)", tok, re.M):
         fails.append("tokens.css: the q element does not read var(--font-style-quote)")
@@ -3340,7 +3458,8 @@ def c69():
     words = {"four": 4, "five": 5, "six": 6, "seven": 7}
     tok = read(TOKENS)
     eases = re.findall(r"--(ease-[a-z]+)\s*:", tok)
-    durs = re.findall(r"--(d-[a-z]+)\s*:", tok)
+    # --d-wait is a wait, not the duration of a motion: the six durations stay six (v6.1.0)
+    durs = [d for d in re.findall(r"--(d-[a-z]+)\s*:", tok) if d != "d-wait"]
     d = read(DESIGN)
     d_body = d.split("\n## Changelog", 1)[0]
     m = re.search(r"\| Easing \| Curve \| Use \|\n\|[-|]+\|\n((?:\|.*\n)+)", d_body)
@@ -3629,7 +3748,10 @@ def c75():
             continue
         m = re.search(r"line-height:var\(--lh-([a-z]+)\)", rule)
         trm = re.search(r"letter-spacing:var\(--tr-([a-z]+)\)", rule)
-        wm = re.search(r"font-weight:(\d+)", rule)
+        wm = re.search(r"font-weight:(\d+)", rule) or re.search(r"font-weight:(var\(--fw-[a-z]+\))", rule)
+        if wm and wm.group(1).startswith("var("):  # v6.1.0: weights are --fw-* tokens; print the number the token holds
+            fw = re.search(re.escape(wm.group(1)[4:-1]) + r"\s*:\s*(\d+)", read(TOKENS))
+            wm = fw
         want = (T[k], float(LH[m.group(1)]) if m else None, f"{round(TR[trm.group(1)] * 100):+d}%" if trm and TR[trm.group(1)] else "0", wm.group(1) if wm else "400")
         got = (int(size), float(lh), tr, w)
         if got != want:
@@ -4095,13 +4217,13 @@ def c93():
     css = read(COMPONENTS)
     d = read(DESIGN)
     need_css = {
-        ".tab:active": "color:var(--obsidian-300)",
+        ".tab:active": "color:var(--text-muted)",
         ".nav-item:hover": "color:var(--obsidian-050)",
-        ".nav-item:active": "color:var(--obsidian-300)",
-        ".breadcrumb a:hover": "color:var(--obsidian-100)",
+        ".nav-item:active": "color:var(--text-muted)",
+        ".breadcrumb a:hover": "color:var(--text)",
         ".breadcrumb a:active": "color:var(--obsidian-400)",
         ".breadcrumb a:focus-visible": "var(--ring-halo)",
-        ".acc-trigger:active": "color:var(--obsidian-300)",
+        ".acc-trigger:active": "color:var(--text-muted)",
         ".acc-trigger:focus-visible": "var(--ring-halo)",
         ".table tbody tr:has(.table-row-link):hover": "background:var(--obsidian-850)",
         ".table tbody tr:has(.table-row-link):active": "background:var(--obsidian-800)",
@@ -5037,8 +5159,8 @@ def c83():
         fails.append("index.html: no sortable table; § 42.2 shows one")
     css = read(COMPONENTS)
     m = re.search(r"\.table th\[aria-sort\]\{([^}]*)\}", css)
-    if not m or "var(--obsidian-800)" not in m.group(1) or "var(--obsidian-200)" not in m.group(1):
-        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --obsidian-200, as § 3.39 says")
+    if not m or "var(--obsidian-800)" not in m.group(1) or "var(--text-secondary)" not in m.group(1):
+        fails.append("components.css: .table th[aria-sort] is not --obsidian-800 with --text-secondary, as § 3.39 says")
     for sel, decl in re.findall(r"(\.table-sort[^{]*)\{([^}]*)\}", css):
         if "transition" in decl:
             fails.append(f"components.css: {sel.strip()} has a transition; the sort is a state")

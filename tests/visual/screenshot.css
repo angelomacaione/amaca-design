@@ -1,0 +1,5 @@
+/* Applied only while a snapshot is taken (playwright.config.mjs, stylePath). The site's own sticky top bar sits over
+   whichever subsection is under it, at a scroll position that changes from run to run: it is chrome, not a demo. */
+.topbar:not(section .topbar) { visibility: hidden; }
+/* The loader's label cycles its words; a mask would take each word's width, so it is hidden instead. */
+.loader-label { visibility: hidden; }
