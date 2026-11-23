@@ -4,7 +4,7 @@ description: "Apply and audit the Amaca Design System (amaca.design) inside Figm
 license: MIT
 metadata:
   author: angelomacaione
-  version: "1.8"
+  version: "1.9"
   canonical: https://amaca.design
 ---
 
@@ -59,7 +59,7 @@ Run automatically after every generate pass; also the standalone entry point on 
 4. **Contrast** — text-on-surface pairs against the spec's accessibility floor (WCAG AA pairs listed in the spec). Honor the one ratified exception: light-on-magenta is expected ONLY on the primary button and the solid badge.
 5. **Component registry (closed inventory — spec § 3.0)** — every component or frame name resolves to a row in the spec's registry, and the row's state decides what is allowed: `canonical` = build from the spec; `css-only` = reproduce as-is, **never** add a Variant or a variant property the spec doesn't declare; the component's **Variants.** block in the spec lists its axes and their values, default marked, and a Figma variant property comes only from there; `off-system` = **critical finding, stop** — it must not be published to the library; `site-only` = documentation chrome, never published; `rule` = a layout rule (grid, page shell, a stack of one component, a scroll frame): build it as an auto-layout frame, **never** as a library component. A name with no row is `off-system`, not a naming suggestion. Visual similarity to an existing component is not coverage.
 5b. **State coverage (spec § 3.0.1)** — Variant property values come from the closed state vocabulary (`default` `hover` `focus-visible` `active` `disabled` `error` `readonly` `loading`). A **missing `focus-visible` Variant on a focusable component**, or a **missing `error` Variant on a form control**, is a critical finding, not a warning.
-6. **Type and spacing scale** — off-scale font sizes or spacing steps = finding.
+6. **Type and spacing scale** — off-scale font sizes, font weights off the `--fw-*` scale (one step per Satoshi face; 600 and 800 have none) or spacing steps = finding. Text fills bind to the text roles (`--text`, `--text-secondary`, `--text-muted`) where the role holds the meaning.
 
 **Code checks (Figma Make runtime only — the output is code, so the audit covers it):**
 
@@ -109,6 +109,7 @@ Keep it terse. Findings reference the node name/id so the user can jump to them.
 
 ## Version history
 
+- **v1.9 — 2026-11-23**: spec sync (DESIGN.md v6.1.0). Check 6 reads the weight scale (`--fw-*`) and the text roles. No workflow changes.
 - **v1.8 — 2026-11-14**: spec sync (DESIGN.md v6.0.0). Check 9 reads one typeface: the mono register is now the label register (`--tr-label`, Figma `typography/tracking/label`), and there is no monospaced stack to match. Italic is the quote register's (`--font-style-quote`). No workflow changes.
 - **v1.7 — 2026-10-27**: spec sync (DESIGN.md v5.3.0). Check 5 knows the registry's fifth state, `rule`: a container is an auto-layout frame, never a component. A component's States are one row (default, focus, the value, disabled, disabled with its value), never a hover variant: hover lives in the state index. New component tokens `--card-strip` and `--slider-fill` map to variables like any other. No workflow changes.
 - **v1.6 — 2026-10-18**: spec sync (DESIGN.md v5.0.0). Check 5 reads the **Variants.** block every component section now carries: Figma variant properties and their values come only from it. No workflow changes.

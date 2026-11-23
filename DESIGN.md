@@ -1,11 +1,11 @@
 ---
 name: Amaca
-version: 6.0.0
-updated: 2026-11-14
+version: 6.1.0
+updated: 2026-11-23
 author: Angelo Macaione
 license: MIT
 canonical: https://github.com/angelomacaione/amaca-design
-last_synced: 2026-11-14
+last_synced: 2026-11-23
 deploy_targets: [html, react, figma, dtcg]
 colors:
   primary: "#F051D5"
@@ -80,7 +80,7 @@ rounded:
 
 # AMACA DESIGN SYSTEM — `design.md`
 
-> **Version** 6.0.0 — 2026.11.14
+> **Version** 6.1.0 — 2026.11.23
 > **Author** Angelo Macaione
 > **Audience** AI coding assistants (Cursor, Copilot, Claude Code, Cline, Aider, Continue) and humans pairing with them inside an IDE.
 > **Purpose** The contract, read a section at a time: by an agent through the MCP server (`get_design_section`), by a rules file that points here, or by a person. Do not paste it whole into a rules file or import it into one: it is 459 KB, and a file a tool loads at every launch must stay short (§ IDE integration). Every output the model produces against this system should sound, look, and behave like the rest of the work.
@@ -4462,6 +4462,30 @@ The version line at the top of this document is the source of truth. The CSS fil
 8. Tag `vX.Y.Z` on the release commit — the changelog COMPARE links point at tags.
 
 ## Changelog
+
+### v6.1.0 — 2026.11.23 (MINOR)
+
+Weights get a scale, text gets roles, a long wait turns into words, and the contract says its checks in a form a machine runs.
+
+**Added**
+- **The weight scale.** `--fw-light` 300, `--fw-regular` 400, `--fw-medium` 500, `--fw-bold` 700, `--fw-black` 900: one step per Satoshi face, no step without a face. A weight written by hand is drift (Typography); `check_compliance` flags it as `raw-weight` (L4).
+- **Text roles.** `--text`, `--text-secondary` and `--text-muted`, on obsidian 100, 200 and 300. A component reaches for a role by meaning, not by value (Colors › semantic, convention C11); `check_compliance` warns with `raw-ramp-in-component`, an error from the next release.
+- **A long wait turns into words.** Past `--d-wait` (5 s) the chat's typing dots give way to *Still working…* in the same bubble (`.chat-typing-wait`), read once by the log: a loop beside content the reader can use has to stop (WCAG 2.2.2). `--d-wait` times a wait, never a motion: the durations stay six (L8).
+- **The contract in a form a machine reads.** Law and Conventions carry a `law-checks` and a `convention-checks` block: each rule's kind, parameters, harness checks and `check_compliance` findings, or `none` where a person reviews it. The voice rules have ids (V1 to V10) and the vocabulary is a `voice-terms` list; Precedence is P0. For the AI agent cites the law instead of restating it.
+- **Does it work.** The MCP section shows the October benchmark: 599 runs scored, 93.8 for the MCP alone, 42.3k tokens read per run against 118.5k for the skill, where it loses, and the full report.
+- **A visual regression pass.** Every subsection of every component page, with motion and with reduced motion, compared at 0.1% of the pixels in CI against snapshots that change only on purpose (Versioning, step 0).
+- **Checks 132 to 136:** no weight by hand, text and borders on their roles, `--d-wait` never a motion, every law and convention declaring its check, and the visual pass on its threshold.
+
+**Changed**
+- **Every font-weight is a token:** 85 in `components.css` and 51 on the site. The 54 written as 600 read `--fw-bold`, the face they always rendered in, since Satoshi has no 600; the Heading 5 and 6 tiles say Bold 700.
+- **Components and the site write text and borders through their roles**, and the resting fills of the card, modal, drawer, tooltip, chip, secondary button, composer, read-only field and page through their surface role. No computed colour changes.
+- **Versioning: a change of meaning is MAJOR**, even with no value changed: what a role, a state or a variant means is something readers and agents have learned.
+- **`check_compliance` does not read the content of `<pre>` and `<code>`:** an example shown to a reader is not the page's style. A case study page had scanned with 84 false errors, every one inside a `<pre>`.
+- **The chat demo's third reply takes longer than `--d-wait`**, so its dots give way to words; the overview links the current case study.
+- **The clean benchmark fixtures of the compliance tests write weights, text and borders as tokens.** Four of the five wrote them by hand, legal before this release.
+
+**Unchanged**
+- No colour, spacing, radius, type size or duration changes its value. Tailwind's own `font-semibold` stays: removing it would break.
 
 ### v6.0.0 — 2026.11.14 (MAJOR)
 

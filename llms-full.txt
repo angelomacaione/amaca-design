@@ -6,7 +6,7 @@
 > table so a tool can load Amaca in a single fetch. For the complete prose spec (components,
 > motion, accessibility, examples) see https://amaca.design/DESIGN.md.
 
-Version: 6.0.0 · Released: 2026-11-14 · Matches the DESIGN.md frontmatter version
+Version: 6.1.0 · Released: 2026-11-23 · Matches the DESIGN.md frontmatter version
 Source: https://amaca.design/llms.txt · Spec: https://amaca.design/DESIGN.md
 
 <!-- toolguide -->
@@ -447,8 +447,8 @@ body{
   font-family:var(--font-sans);
   font-size:var(--t-body);
   line-height:var(--lh-normal);
-  color:var(--obsidian-100);
-  background:var(--obsidian-950);
+  color:var(--text);
+  background:var(--surface);
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   font-feature-settings:"ss01","ss02","cv11";
@@ -460,7 +460,7 @@ body{
    host keeps its body and loses nothing it styled itself. :where() keeps the rule at zero specificity: every
    element rule below and every component wins over it, and outside a host it says what the body says. */
 :where(body > *){
-  color:var(--obsidian-100);
+  color:var(--text);
   font-family:var(--font-sans);
   font-size:var(--t-body);
   line-height:var(--lh-normal);
