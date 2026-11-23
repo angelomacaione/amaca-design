@@ -8,7 +8,8 @@
 #
 # The first time, there is nothing to compare with: a push to a release branch with no snapshots in the repo writes
 # them and commits them (v6.1.0, when this workflow did not exist on main yet and Run workflow could not reach it).
-# From then on a push compares, like a pull request.
+# From then on a push compares, like a pull request, unless its commit message says [visual update]: that push
+# rewrites the snapshots on purpose, the way Run workflow does once this file is on main.
 name: Visual regression
 
 on:
@@ -34,7 +35,7 @@ jobs:
       - name: Update on purpose, or write the first snapshots
         id: mode
         run: |
-          if [ "${{ inputs.update }}" = "true" ] || { [ "${{ github.event_name }}" = "push" ] && [ ! -d tests/visual/__snapshots__ ]; }; then echo "update=true" >> "$GITHUB_OUTPUT"; else echo "update=false" >> "$GITHUB_OUTPUT"; fi
+          if [ "${{ inputs.update }}" = "true" ] || { [ "${{ github.event_name }}" = "push" ] && { [ ! -d tests/visual/__snapshots__ ] || [ "${{ contains(github.event.head_commit.message, '[visual update]') }}" = "true" ]; }; }; then echo "update=true" >> "$GITHUB_OUTPUT"; else echo "update=false" >> "$GITHUB_OUTPUT"; fi
       - name: Install the pinned Playwright
         run: npm install --prefix tests/visual --no-audit --no-fund
       - name: Compare with the snapshots
