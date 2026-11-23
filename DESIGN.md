@@ -4478,7 +4478,7 @@ Weights get a scale, text gets roles, a long wait turns into words, and the cont
 
 **Changed**
 - **Every font-weight is a token:** 85 in `components.css` and 51 on the site. The 54 written as 600 read `--fw-bold`, the face they always rendered in, since Satoshi has no 600; the Heading 5 and 6 tiles say Bold 700.
-- **Components and the site write text and borders through their roles**, and the resting fills of the card, modal, drawer, tooltip, chip, secondary button, composer, read-only field and page through their surface role. No computed colour changes.
+- **Components and the site write text and borders through their roles**, and the resting fills of the card, modal, drawer, tooltip, chip, secondary button, composer, read-only field and page through their surface role. No computed colour changes; the Anatomy cards name the roles and the weights that draw each part.
 - **Versioning: a change of meaning is MAJOR**, even with no value changed: what a role, a state or a variant means is something readers and agents have learned.
 - **`check_compliance` does not read the content of `<pre>` and `<code>`:** an example shown to a reader is not the page's style. A case study page had scanned with 84 false errors, every one inside a `<pre>`.
 - **The chat demo's third reply takes longer than `--d-wait`**, so its dots give way to words; the overview links the current case study.
