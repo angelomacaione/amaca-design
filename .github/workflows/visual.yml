@@ -5,10 +5,16 @@
 # A difference that is not expected blocks the pull request. A snapshot changes only on purpose: Actions > Visual
 # regression > Run workflow, on the branch, with update = true. That run writes the new snapshots and commits them
 # to the branch; the review sheet then shows what changed.
+#
+# The first time, there is nothing to compare with: a push to a release branch with no snapshots in the repo writes
+# them and commits them (v6.1.0, when this workflow did not exist on main yet and Run workflow could not reach it).
+# From then on a push compares, like a pull request.
 name: Visual regression
 
 on:
   pull_request:
+  push:
+    branches: ["release/**"]
   workflow_dispatch:
     inputs:
       update:
@@ -25,17 +31,22 @@ jobs:
     container: mcr.microsoft.com/playwright:v1.63.0-noble
     steps:
       - uses: actions/checkout@v7
+      - name: Update on purpose, or write the first snapshots
+        id: mode
+        run: |
+          if [ "${{ inputs.update }}" = "true" ] || { [ "${{ github.event_name }}" = "push" ] && [ ! -d tests/visual/__snapshots__ ]; }; then echo "update=true" >> "$GITHUB_OUTPUT"; else echo "update=false" >> "$GITHUB_OUTPUT"; fi
       - name: Install the pinned Playwright
         run: npm install --prefix tests/visual --no-audit --no-fund
       - name: Compare with the snapshots
-        if: ${{ !inputs.update }}
+        if: steps.mode.outputs.update != 'true'
         run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs
       - name: Write new snapshots
-        if: ${{ inputs.update }}
+        if: steps.mode.outputs.update == 'true'
         run: npx --prefix tests/visual playwright test -c tests/visual/playwright.config.mjs --update-snapshots
       - name: Commit the new snapshots to the branch
-        if: ${{ inputs.update }}
+        if: steps.mode.outputs.update == 'true'
         run: |
+          command -v git >/dev/null || (apt-get update -qq && apt-get install -y -qq git)
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
